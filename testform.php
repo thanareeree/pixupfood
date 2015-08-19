@@ -101,7 +101,7 @@ and open the template in the editor.
                 <div class="col-xs-12">
                     <h3 class="text-center">กดบนแผนที่เพื่อค้นหาตรงนั้น</h3>
                     <h3 class="text-center">ค้นหาใน: 
-                        <input type="number" id="map-radius" onchange="setCircle(this.value);" value="0.5" style="width: 100px"> 
+                        <input type="number" id="map-radius" onchange="setCircle(this.value);" value="1.5" style="width: 100px"> 
                         กิโลเมตร
                     </h3>
 
