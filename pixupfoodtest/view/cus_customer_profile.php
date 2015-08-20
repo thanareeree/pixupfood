@@ -1,5 +1,7 @@
 <?php
 include '../api/islogin.php';
+include '../view/navbar.php';
+include '../api/function.php';
 ?>
 
 
@@ -21,105 +23,16 @@ include '../api/islogin.php';
         <meta name="keywords" content="">
         <meta name="description" content="">
 
-        <!-- animate css -->
-        <link rel="stylesheet" href="../assets/css/animate.min.css">
-        <!-- bootstrap css -->
-        <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
-        <!-- font-awesome -->
-        <!--<link rel="stylesheet" href="../assets/css/font-awesome.min.css"> -->
-
-
-        <!-- custom css -->
-        <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
-        <link rel="stylesheet" href="../assets/css/style.css">
-        <link rel="stylesheet" href="../assets/css/search.css">
-        <link rel="stylesheet" type="text/css" href="../assets/css/simple-sidebar.css" />
-        <script>
-            $(document).ready(function () {
-                $("#navshoplist").click(function () {
-                    $("#shoplist").fadeIn(5000);
-                    $("#favlist").hide();
-                    $("#history").hide();
-                    $("#shipadd").hide();
-                })
-
-                $("#navfavlist").click(function () {
-                    $("#shoplist").hide();
-                    $("#favlist").fadeIn(5000);
-                    $("#history").hide();
-                    $("#shipadd").hide();
-                })
-
-                $("#navhistory").click(function () {
-                    $("#shoplist").hide();
-                    $("#favlist").hide();
-                    $("#history").fadeIn(5000);
-                    $("#shipadd").hide();
-                })
-
-                $("#navshipadd").click(function () {
-                    $("#shoplist").hide();
-                    $("#favlist").hide();
-                    $("#history").hide();
-                    $("#shipadd").fadeIn(5000);
-                })
-            })
-        </script> 
+        <?php
+        addlink();
+        iconscript();
+        ?>
 
     </head>
     <body>
-        <!-- start preloader -->
-        <div class="preloader">
-            <div class="loader"></div>
-        </div>
-        <!-- end preloader -->
-        <!-- start navigation -->
-        <nav class="navbar navbar-default navbar-fixed-top templatemo-nav" role="navigation">
-            <div class="navbar-header" style="padding-left:10px;" >
-                <a href="#menu-toggle" id="menu-toggle">
-                    <img src="../assets/images/bar/menu.png" width="50" height="50" style="margin-top:8px;"/>
-                </a>
-            </div>
-            <div id="wrapper" class="toggled menubox">
-                <div id="sidebar-wrapper">
-                    <ul style="padding-left:0;font-weight:bold;">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#feature">Features</a></li>
-                        <li><a href="#pricing">Pricing</a></li>
-                        <li><a href="#download">Download</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="container" style="margin-left:100px;margin-right:40px;height:70px;width:auto;">
-                <div class="navbar-header">
-                    <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon icon-bar"></span>
-                    </button>
-                    <a href="index.php" class="navbar-brand">Pixup</a>
-                    <a href="index.php" class="navbar-brand" style="color:rgba(0,0,32,1);padding-left: 0px;">Food</a>
-                    <div class="col-md-4" style="margin:7px 0 0 15%;">
-                        <div id="custom-search-input">
-                            <div class="input-group col-md-12">
-                                <input type="text" class="form-control input-lg" placeholder="Search.." />
-                                <span class="input-group-btn">
-                                    <button class="btn btn-info btn-lg" type="button">
-                                        <i class="glyphicon glyphicon-search"></i>
-                                    </button>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <ul class="nav navbar-nav navbar-right text-uppercase">
-                        <li><a href="#home">Home</a></li>
-                        <li>
-                            <img src="../assets/images/bar/user.png" style="width:40px; height:40px; margin-top:15px;margin-left:30px;">
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <!-- end navigation -->
+
+        <?php cusnavbar(); ?>
+
 
         <!-- start profile -->
         <section id="profile" >
@@ -141,10 +54,10 @@ include '../api/islogin.php';
                     </div>
                     <div class="col-lg-8 fadeInRight wow">
                         <p>
-                            <span> <?=$_SESSION["userdata"]["firstName"]?>  <?=$_SESSION["userdata"]["lastName"]?> </span><br>
-                            <img src="../assets/images/profile/3/phone_w.png" width="30" height="30"> &nbsp; <span> <?=$_SESSION["userdata"]["tel"]?> </span><br>
-                            <img src="../assets/images/profile/3/email_w.png" width="30" height="30"> &nbsp; <span> <?=$_SESSION["userdata"]["email"]?></span> <br>
-                            <img src="../assets/images/profile/3/map_w.png" width="30" height="30"> &nbsp;  <span><?=$_SESSION["userdata"]["email"]?></span>
+                            <span> <?= $_SESSION["userdata"]["firstName"] ?>  <?= $_SESSION["userdata"]["lastName"] ?> </span><br>
+                            <img src="../assets/images/profile/3/phone_w.png" width="30" height="30"> &nbsp; <span> <?= $_SESSION["userdata"]["tel"] ?> </span><br>
+                            <img src="../assets/images/profile/3/email_w.png" width="30" height="30"> &nbsp; <span> <?= $_SESSION["userdata"]["email"] ?></span> <br>
+                            <img src="../assets/images/profile/3/map_w.png" width="30" height="30"> &nbsp;  <span><?= $_SESSION["userdata"]["email"] ?></span>
                         </p>
                     </div>
                 </div>
@@ -160,8 +73,8 @@ include '../api/islogin.php';
                 </div>
             </div>
         </section>
-        
-        <!-- Modal customer -->
+
+        <!-- Modal show data customer -->
         <div class="modal fade" id="editprofile" tabindex="-1" role="dialog" aria-labelledby="ModalCusLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -171,7 +84,7 @@ include '../api/islogin.php';
                     </div>
                     <div class="modal-body">
                         <form action="#" id="cuseditform" name="cuseditform" method="post">
-                        <div class="form-group">
+                            <div class="form-group">
                                 <input type="file" name="imgpro" id="imgpro">
                             </div>
                             <div class="row">
@@ -190,26 +103,14 @@ include '../api/islogin.php';
                                 <input name="cusephone" type="text" class="form-control input-lg" id="cusphone" placeholder="Phone Number" tabindex="3" onKeyPress="return chkNumber(this)" maxlength="10" value="<?= $_SESSION["userdata"]["tel"] ?>">
                             </div>
                             <div class="form-group">
-                                <input type="email" name="cuseemail" id="cuseemail" class="form-control input-lg" placeholder="Email Address" tabindex="4" value="<?= $_SESSION["userdata"]["email"]?>">
+                                <input type="email" name="cuseemail" id="cuseemail" class="form-control input-lg" placeholder="Email Address" tabindex="4" value="<?= $_SESSION["userdata"]["email"] ?>">
                             </div>
                             <div class="form-group">
                                 <input name="address" type="text" class="form-control input-lg" id="address" placeholder="Address" tabindex="7">
                             </div>
-                            <div class="row">
-                                <div class="col-xs-12 col-sm-6 col-md-6">
-                                    <div class="form-group">
-                                        <input type="password" name="oldecuspwd" id="oldecuspwd" class="form-control input-lg" placeholder="Old Password" tabindex="5">
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-6 col-md-6">
-                                    <div class="form-group">
-                                        <input type="password" name="newecuspwd" id="newecuspwd" class="form-control input-lg" placeholder="New Password" tabindex="6">
-                                        <input type="hidden" value="0" id="available" name="available">
-                                    </div>
-                                </div>
-                            </div>
                             <div class="modal-footer form-group">
-                                <input type="submit" class="btn btn-primary" name="nextbutton" id="nextbutton" value="Update" >
+                                <input type="submit" class="btn btn-primary" name="updateprofilebtn" id="updateprofilebtn" value="Update" >
+                                <input type="hidden" id="cusid" value="<?= $_SESSION["userdata"]["id"] ?>">
                             </div>
                         </form>
                     </div>
@@ -217,8 +118,8 @@ include '../api/islogin.php';
             </div>
         </div>
         <!-- end profile-->
-        <!-- 4 element -->
 
+        <!-- 4 element -->
         <div class="container">
             <div class="row">
                 <div class="col-md-2"></div>
@@ -248,6 +149,7 @@ include '../api/islogin.php';
                 </div>
                 <div class="col-md-2"></div>
             </div>
+
             <!-- end 4 element -->
             <div class="tab-content">
                 <!-- shop list -->
@@ -563,120 +465,111 @@ include '../api/islogin.php';
                 <div class="tab-pane fade" id="shipadd">
                     <div class="content2">
                         <table class="table table-hover" id="task-table">
-                                        <thead>
-                                            <tr>
-                                                <th>No.</th>
-                                                <th>Address</th>
-                                                <th>Edit</th>
-                                                <th>Delete</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>123 ม.4 ต.ยยยยยยยย</td>
-                                                <td><p><button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#edit" disabled="disabled"><span class="glyphicon glyphicon-pencil"></span></button></p></td>
-                                                <td><p><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>3848 ม.บางมด</td>
-                                                <td><p><button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
-                                                <td><p><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
-                                            </tr>
-                                            </tbody>
-                                            </table>
-                                            	<div class="row">
-		        <div id="inbox">
-          <div class="fab btn-group show-on-hover dropup" id="add_sa" data-toggle="modal" data-target="#add_address">
-          <button type="button" class="btn btn-danger btn-io">
-          <span class="fa-stack fa-2x">
-                <i class="fa fa-circle fa-stack-2x fab-backdrop"></i>
-                <i class="fa fa-plus fa-stack-1x fa-inverse fab-primary"></i>
-                <i class="fa fa-pencil fa-stack-1x fa-inverse fab-secondary"></i>
-            </span>
-          </button>
-        </div>
-        </div>
-	</div>
-    
-    <!-- Add Shipping address Modal -->
-        <div class="modal fade" id="add_address" tabindex="-1" role="dialog" aria-labelledby="shipping_address">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="mdrecl" name="mdrecl"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="shipping_address">Add Other Address</h4>
-                    </div>
-                        <div class="modal-body">
-                        <form action="#" id="addressform" name="addressform" method="post">
-                            
-                            <div class="form-group">
-                                <input name="address" type="text" required class="form-control input-lg" id="address" placeholder="Address">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Address</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>123 ม.4 ต.ยยยยยยยย</td>
+                                    <td><p><button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#edit" disabled="disabled"><span class="glyphicon glyphicon-pencil"></span></button></p></td>
+                                    <td><p><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>3848 ม.บางมด</td>
+                                    <td><p><button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
+                                    <td><p><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="row">
+                            <div id="inbox">
+                                <div class="fab btn-group show-on-hover dropup" id="add_sa" data-toggle="modal" data-target="#add_address">
+                                    <button type="button" class="btn btn-danger btn-io">
+                                        <span class="fa-stack fa-2x">
+                                            <i class="fa fa-circle fa-stack-2x fab-backdrop"></i>
+                                            <i class="fa fa-plus fa-stack-1x fa-inverse fab-primary"></i>
+                                            <i class="fa fa-pencil fa-stack-1x fa-inverse fab-secondary"></i>
+                                        </span>
+                                    </button>
+                                </div>
                             </div>
-                           
-                            <div class="modal-footer form-group">
-                                <input type="submit" class="btn btn-primary" name="nextbutton" id="nextbutton" value="Update" >
+                        </div>
+
+                        <!-- Add Shipping address Modal -->
+                        <div class="modal fade" id="add_address" tabindex="-1" role="dialog" aria-labelledby="shipping_address">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="mdrecl" name="mdrecl"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="shipping_address">Add Other Address</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="#" id="addressform" name="addressform" method="post">
+                                            <div class="form-group">
+                                                <label for="addressinput">Address:</label>
+                                                <textarea class="form-control" rows="3" id="addressinput"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="sel1">Select list:</label>
+                                                <select class="form-control prolist" id="sel1">
+                                                    <option value="1">กระบี่</option>
+                                                    <option value="2">กทม</option>
+
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <input name="address" type="text" required class="form-control input-lg" id="addressnaming" placeholder="Address Naming">
+                                            </div>
+
+                                            <div class="modal-footer form-group">
+                                                <button type="button" id="saveaddbtn" class="btn btn-success">Save</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
-                        </form>
+                        </div>
+
+
                     </div>
                 </div>
-            </div>
-        </div>
-    
-    
-                    </div>
-                </div>
-                
+
                 <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
-      <div class="modal-dialog">
-    <div class="modal-content">
-          <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-        <h4 class="modal-title custom_align" id="Heading">Edit Your Shipping Address</h4>
-      </div>
-          <div class="modal-body">
-        <div class="form-group">
-        <textarea rows="2" class="form-control" placeholder="Address เก่า"></textarea>
-        
-        </div>
-      </div>
-          <div class="modal-footer ">
-        <button type="button" class="btn btn-warning btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Update</button>
-      </div>
-        </div>
-    <!-- /.modal-content --> 
-  </div>
-      <!-- /.modal-dialog --> 
-    </div>
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                                <h4 class="modal-title custom_align" id="Heading">Edit Your Shipping Address</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <textarea rows="2" class="form-control" placeholder="Address เก่า"></textarea>
+
+                                </div>
+                            </div>
+                            <div class="modal-footer ">
+                                <button type="button" class="btn btn-warning btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Update</button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content --> 
+                    </div>
+                    <!-- /.modal-dialog --> 
+                </div>
                 <!-- end shipping address -->
             </div>
         </div>
-        <!-- start footer -->
-        <footer>
-            <div class="container" style="margin-top:90px">
-                <div class="row">
-                    <p>Copyright © 2015 PixupFood</p>
-                    <p>School of Information Technology</p>
-                    <p>King Mongkut’s University of Technology Thonburi</p>
-                </div>
-            </div>
-        </footer>
-        <!-- end footer -->
-        <!-- script references -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-        <script src="js/scripts.js"></script>
-        <script>
-            $("#menu-toggle").click(function (e) {
-                e.preventDefault();
-                $("#wrapper").toggleClass("toggled");
-            });
-        </script>
-        <script src="../assets/js/jquery.js"></script>
-        <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
-        <script src="../assets/js/wow.min.js"></script>
-        <script src="../assets/js/jquery.singlePageNav.min.js"></script>
-        <script src="../assets/js/custom.js"></script>
+
+        <?php
+        show_footer();
+        ?>
+
         <script>
             (function () {
                 'use strict';
@@ -726,15 +619,49 @@ include '../api/islogin.php';
                     }
                 });
                 $('[data-toggle="tooltip"]').tooltip();
-            })
+            });
         </script>
-		<script>
-        $('.fab').hover(function () {
-    $(this).toggleClass('active');
-});
-$(function () {
-  $('[data-toggle="tooltip"]').tooltip()
-})
+        <script>
+            $('.fab').hover(function () {
+                $(this).toggleClass('active');
+            });
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
         </script>
+        <script>
+            $("#savebtn").on("click", function (e) {
+                $.ajax({
+                    url: "../customer/ajaxsave-address.php",
+                    type: "POST",
+                    data: {"address": $("#adressinput").val(),
+                        "proid": $("#prolist").val(),
+                        "addnaming": $("#addressnaming").val()},
+                    dataType: "html",
+                    success: function (returndata) {
+                        $("#textinput").val("");
+                        if (returndata == "ok") {
+                            fetchdata();
+                        } else {
+                            alert("error");
+                        }
+                    }
+                });
+                
+                function fetchdata() {
+                $.ajax({
+                    url: "../customer/shipaddresslist.php",
+                    type: "POST",
+                    dataType: "html",
+                    success: function (returndata) {
+                        $("#shipadd").html(returndata);
+                    }
+                });
+            }
+            fetchdata();
+
+            });
+        </script>
+
     </body>
 </html>

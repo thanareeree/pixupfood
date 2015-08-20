@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+<?php 
+include './navbar.php';
+?>
+
+
 <html>
     <head>
         <meta charset="UTF-8">
@@ -32,16 +31,8 @@ and open the template in the editor.
     </head>
     <body>
 
-
-        <!-- start preloader -->
-        <div class="preloader">
-            <div class="loader"></div>
-        </div>
-        <!-- end preloader -->
-        <?php
-        include './navbar.php';
-        show_navbar();
-        ?>
+        <?php show_navbar(); ?>
+        
         <!-- start contact -->
         <section id="loreg">
             <div class="overlay">
@@ -294,20 +285,7 @@ and open the template in the editor.
 
 
         <?php show_footer(); ?>
-        <!-- script references -->
-        <script src="../assets/js/jquery-2.1.4.min.js"></script>
-        <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
-        <script src="../assets/js/jquery.js"></script>
-        <script>
-                                    $("#menu-toggle").click(function (e) {
-                                        e.preventDefault();
-                                        $("#wrapper").toggleClass("toggled");
-                                    });
-        </script>
-        <script src="../assets/js/jquery.js"></script>
-        <script src="../assets/js/wow.min.js"></script>
-        <script src="../assets/js/jquery.singlePageNav.min.js"></script>
-        <script src="../assets/js/custom.js"></script>
+        
         <script>
                                     $(function () {
                                         $('.button-checkbox').each(function () {
