@@ -8,22 +8,25 @@ $email = $_POST["loginemail"];
 $password = $_POST["password"];
 
 $res = $con->query("select * from customer where email='$email' and password='$password'");
-$data = $res->fetch_assoc(); 
+//$data = $res->fetch_assoc(); 
 
 if ($res->num_rows == 0) {
     echo "username password Invalid";
-} else
-    if ($data["available"]==0){
-?>
-
- <script>
-        document.location = "../view/search.php";
-    </script>
-        
-<?php
-}else {
+} else {
     $_SESSION["islogin"] = true;
     $_SESSION["userdata"] = $res->fetch_assoc();
+
+    if ($_SESSION["userdata"]["available"] == 0) {
+        ?>
+
+        <script>
+            document.location = "../view/search.php";
+        </script>
+
+
+        <?php
+
+    }
     ?>
 
     <script>
@@ -34,5 +37,4 @@ if ($res->num_rows == 0) {
 
 }
 ?>
-
 

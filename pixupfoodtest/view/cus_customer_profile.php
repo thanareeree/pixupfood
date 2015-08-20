@@ -177,20 +177,20 @@ include '../api/islogin.php';
                             <div class="row">
                                 <div class="col-xs-12 col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        <input type="text" name="cusefname" id="cusefname" class="form-control input-lg" placeholder="First Name" tabindex="1">
+                                        <input type="text" name="cusefname" id="cusefname" class="form-control input-lg" placeholder="First Name" tabindex="1" value="<?= $_SESSION["userdata"]["firstName"] ?>">
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        <input type="text" name="cuselname" id="cuselname" class="form-control input-lg" placeholder="Last Name" tabindex="2">
+                                        <input type="text" name="cuselname" id="cuselname" class="form-control input-lg" placeholder="Last Name" tabindex="2" value="<?= $_SESSION["userdata"]["lastName"] ?>">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input name="cusephone" type="text" class="form-control input-lg" id="cusphone" placeholder="Phone Number" tabindex="3" onKeyPress="return chkNumber(this)" maxlength="10">
+                                <input name="cusephone" type="text" class="form-control input-lg" id="cusphone" placeholder="Phone Number" tabindex="3" onKeyPress="return chkNumber(this)" maxlength="10" value="<?= $_SESSION["userdata"]["tel"] ?>">
                             </div>
                             <div class="form-group">
-                                <input type="email" name="cuseemail" id="cuseemail" class="form-control input-lg" placeholder="Email Address" tabindex="4">
+                                <input type="email" name="cuseemail" id="cuseemail" class="form-control input-lg" placeholder="Email Address" tabindex="4" value="<?= $_SESSION["userdata"]["email"]?>">
                             </div>
                             <div class="form-group">
                                 <input name="address" type="text" class="form-control input-lg" id="address" placeholder="Address" tabindex="7">
