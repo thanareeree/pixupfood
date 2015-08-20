@@ -2,6 +2,7 @@
 include '../api/islogin.php';
 include '../view/navbar.php';
 include '../api/function.php';
+include '../dbconn.php';
 ?>
 
 
@@ -50,7 +51,7 @@ include '../api/function.php';
                 </div>
                 <div class="row">
                     <div class="col-lg-3 fadeInLeft wow" align="center">
-                        <img class="img-circle img-responsive" src="../assets/images/profile/1.jpg">
+                        <img class="img-circle img-responsive"  src="../assets/images/profile/1.jpg">
                     </div>
                     <div class="col-lg-8 fadeInRight wow">
                         <p>
@@ -474,24 +475,14 @@ include '../api/function.php';
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>123 ม.4 ต.ยยยยยยยย</td>
-                                    <td><p><button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#edit" disabled="disabled"><span class="glyphicon glyphicon-pencil"></span></button></p></td>
-                                    <td><p><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>3848 ม.บางมด</td>
-                                    <td><p><button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
-                                    <td><p><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
-                                </tr>
+                               
                             </tbody>
                         </table>
+
                         <div class="row">
                             <div id="inbox">
-                                <div class="fab btn-group show-on-hover dropup" id="add_sa" data-toggle="modal" data-target="#add_address">
-                                    <button type="button" class="btn btn-danger btn-io">
+                                <div class="fab btn-group show-on-hover dropup" id="shipmodal" data-toggle="modal" data-target="#add_address">
+                                    <button type="button" class="btn btn-danger btn-io" id="addshipbtn">
                                         <span class="fa-stack fa-2x">
                                             <i class="fa fa-circle fa-stack-2x fab-backdrop"></i>
                                             <i class="fa fa-plus fa-stack-1x fa-inverse fab-primary"></i>
@@ -503,8 +494,8 @@ include '../api/function.php';
                         </div>
 
                         <!-- Add Shipping address Modal -->
-                        <div class="modal fade" id="add_address" tabindex="-1" role="dialog" aria-labelledby="shipping_address">
-                            <div class="modal-dialog" role="document">
+                        <div class="modal fade addshipmodal" id="add_address" data-backdrop="static" data-keyboard="false" >
+                            <div class="modal-dialog" >
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="mdrecl" name="mdrecl"><span aria-hidden="true">&times;</span></button>
@@ -519,13 +510,20 @@ include '../api/function.php';
                                             <div class="form-group">
                                                 <label for="sel1">Select list:</label>
                                                 <select class="form-control prolist" id="sel1">
-                                                    <option value="1">กระบี่</option>
-                                                    <option value="2">กทม</option>
+                                                    <?php
+                                                    
+                                                    $res = $con->query("SELECT `id`, `name` FROM `province`");
+                                                    while ($data = $res->fetch_assoc()) {
+                                                        ?>
 
+                                                        <option value="<?= $data['id'] ?>"> <?= $data['name'] ?> </option>
+
+                                                    <?php } ?>
                                                 </select>
                                             </div>
                                             <div class="form-group">
                                                 <input name="address" type="text" required class="form-control input-lg" id="addressnaming" placeholder="Address Naming">
+                                                <input type="hidden" id="shipcusid" value="<?= $_SESSION["userdata"]["id"] ?>">
                                             </div>
 
                                             <div class="modal-footer form-group">
@@ -565,6 +563,28 @@ include '../api/function.php';
                 <!-- end shipping address -->
             </div>
         </div>
+
+        <div class="modal fade" data-backdrop="static" 
+             data-keyboard="false"  id="deletemodal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Are you sure to delete ???????!!!!</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>You are going to delete<br><br>
+                            <b>ID : </b><span id="showid"></span><br>
+                            <b>Text : </b><span id="showtext"></span><br>
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="cancelbtn" class="btn btn-success" data-dismiss="modal">Cancel</button>
+                        <button type="button" id="deleteyes" class="btn btn-danger">Go Away !</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
 
         <?php
         show_footer();
@@ -630,37 +650,45 @@ include '../api/function.php';
             });
         </script>
         <script>
-            $("#savebtn").on("click", function (e) {
+            $("#").on("click", function (e) {
+                //alert("มาล่ะ แต่ modal ไม่มา");
+                $("#deletemodal").modal('show');
+            });
+
+            $("#saveaddbtn").on("click", function (e) {
                 $.ajax({
                     url: "../customer/ajaxsave-address.php",
                     type: "POST",
-                    data: {"address": $("#adressinput").val(),
-                        "proid": $("#prolist").val(),
-                        "addnaming": $("#addressnaming").val()},
+                    data: {"address": $("#addressinput").val(),
+                        "proid": $(".prolist").val(),
+                        "addnaming": $("#addressnaming").val(),
+                        "cusid": $("#shipcusid").val()},
                     dataType: "html",
                     success: function (returndata) {
-                        $("#textinput").val("");
+                        //$("#textinput").val("");
                         if (returndata == "ok") {
-                            fetchdata();
+                            $("#add_address").modal('hide');
+                            // fetchdata();
                         } else {
-                            alert("error");
+                            alert("start" + returndata + "พัง");
                         }
                     }
+                    //
                 });
-                
-                function fetchdata() {
+            });
+            function fetchdata() {
                 $.ajax({
                     url: "../customer/shipaddresslist.php",
                     type: "POST",
                     dataType: "html",
                     success: function (returndata) {
-                        $("#shipadd").html(returndata);
+                        $(".shiplist").html(returndata);
                     }
                 });
             }
             fetchdata();
 
-            });
+
         </script>
 
     </body>

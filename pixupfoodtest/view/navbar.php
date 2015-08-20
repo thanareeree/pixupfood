@@ -29,7 +29,7 @@ function show_navbar() { ?>
                 <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon icon-bar"></span>
                 </button>
-                <a href="#" class="navbar-brand">Pixup</a>
+                <a href="index.php" class="navbar-brand">Pixup</a>
                 <a href="#" class="navbar-brand" style="color:rgba(0,0,32,1);padding-left: 0px;">Food</a>
                 <div class="col-md-4" style="margin:7px 0 0 15%;">
                     <div id="custom-search-input">
