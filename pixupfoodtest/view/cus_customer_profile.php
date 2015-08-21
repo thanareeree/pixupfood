@@ -511,7 +511,7 @@ include '../dbconn.php';
                                                 <label for="sel1">Select list:</label>
                                                 <select class="form-control prolist" id="sel1">
                                                     <?php
-                                                    
+        
                                                     $res = $con->query("SELECT `id`, `name` FROM `province`");
                                                     while ($data = $res->fetch_assoc()) {
                                                         ?>

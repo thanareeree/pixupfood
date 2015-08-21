@@ -20,7 +20,7 @@ if ($res->num_rows == 0) {
         ?>
 
         <script>
-            document.location = "../view/search.php";
+            document.location = "../view/customer-otpform.php";
         </script>
 
 
