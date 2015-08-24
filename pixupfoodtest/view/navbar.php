@@ -84,9 +84,8 @@ function show_footer() { ?>
             $("#wrapper").toggleClass("toggled");
         });
     </script>
-    <script src="../assets/js/jquery.js"></script>
+    
     <script src="../assets/js/wow.min.js"></script>
-    <script src="../assets/js/jquery.singlePageNav.min.js"></script>
     <script src="../assets/js/custom.js"></script>
 
 <?php } ?>
@@ -123,7 +122,7 @@ function cusnavbar() { ?>
                     </div>
                 </div>
                 <ul class="nav navbar-nav navbar-right text-uppercase">
-                    <li><a href="index.php" class="nav-link"><?= $_SESSION["userdata"]["firstName"] ?> &nbsp; <?= $_SESSION["userdata"]["lastName"] ?> </a></li>
+                    <li><a href="../api/logout.php" class="nav-link"><?= $_SESSION["userdata"]["firstName"] ?> &nbsp; <?= $_SESSION["userdata"]["lastName"] ?> </a></li>
                     <li>
                         <img src="../assets/images/bar/user.png" style="width:40px; height:40px; margin-top:15px;margin-left:30px;">
                     </li>
@@ -135,6 +134,7 @@ function cusnavbar() { ?>
 
 
 <?php } ?>
+
 
     
     

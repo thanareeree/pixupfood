@@ -11,22 +11,22 @@ include '../dbconn.php';
 <html>
     <head>
         <meta charset="UTF-8">
-        <title></title>
+        
 
         <!-- 
         Boxer Template
         http://www.templatemo.com/preview/templatemo_446_boxer
         -->
         <!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> -->
-        <title>PixupFood - Login and Register Page</title>
+        
         <meta http-equiv="X-UA-Compatible" content="IE=Edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="keywords" content="">
         <meta name="description" content="">
 
         <?php
-        addlink();
-        iconscript();
+        addlink("Test Title");
+        
         ?>
 
     </head>
@@ -475,13 +475,13 @@ include '../dbconn.php';
                                 </tr>
                             </thead>
                             <tbody>
-                               
+
                             </tbody>
                         </table>
 
                         <div class="row">
                             <div id="inbox">
-                                <div class="fab btn-group show-on-hover dropup" id="shipmodal" data-toggle="modal" data-target="#add_address">
+                                <div class="fab btn-group show-on-hover dropup" id="shipmodal" data-toggle="modal" >
                                     <button type="button" class="btn btn-danger btn-io" id="addshipbtn">
                                         <span class="fa-stack fa-2x">
                                             <i class="fa fa-circle fa-stack-2x fab-backdrop"></i>
@@ -511,7 +511,6 @@ include '../dbconn.php';
                                                 <label for="sel1">Select list:</label>
                                                 <select class="form-control prolist" id="sel1">
                                                     <?php
-        
                                                     $res = $con->query("SELECT `id`, `name` FROM `province`");
                                                     while ($data = $res->fetch_assoc()) {
                                                         ?>
@@ -588,12 +587,12 @@ include '../dbconn.php';
 
         <?php
         show_footer();
+        iconscript();
         ?>
 
         <script>
             (function () {
                 'use strict';
-                var $ = jQuery;
                 $.fn.extend({
                     filterTable: function () {
                         return this.each(function () {
@@ -650,7 +649,7 @@ include '../dbconn.php';
             });
         </script>
         <script>
-            $("#").on("click", function (e) {
+            $("#addshipbtn").click(function (evt)  {
                 //alert("มาล่ะ แต่ modal ไม่มา");
                 $("#deletemodal").modal('show');
             });

@@ -1,12 +1,11 @@
 <?php
 
-
 function iconscript() {
     ?>
     <script>
         $(document).ready(function () {
             $("#navshoplist").click(function () {
-                $("#shoplist").fadeIn(5000);
+                $("#shoplist").fadeIn(500);
                 $("#favlist").hide();
                 $("#history").hide();
                 $("#shipadd").hide();
@@ -14,7 +13,7 @@ function iconscript() {
 
             $("#navfavlist").click(function () {
                 $("#shoplist").hide();
-                $("#favlist").fadeIn(5000);
+                $("#favlist").fadeIn(500);
                 $("#history").hide();
                 $("#shipadd").hide();
             })
@@ -22,7 +21,7 @@ function iconscript() {
             $("#navhistory").click(function () {
                 $("#shoplist").hide();
                 $("#favlist").hide();
-                $("#history").fadeIn(5000);
+                $("#history").fadeIn(500);
                 $("#shipadd").hide();
             })
 
@@ -30,9 +29,9 @@ function iconscript() {
                 $("#shoplist").hide();
                 $("#favlist").hide();
                 $("#history").hide();
-                $("#shipadd").fadeIn(5000);
+                $("#shipadd").fadeIn(500);
             })
-        })
+        });
     </script> 
 
 <?php } ?>
@@ -40,8 +39,8 @@ function iconscript() {
 
 <?php
 
-function addlink() { ?>
-
+function addlink($title) { ?>
+    <title><?= $title ?></title>
     <link rel="stylesheet" href="../assets/css/animate.min.css">
     <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
     <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
@@ -49,16 +48,6 @@ function addlink() { ?>
     <link rel="stylesheet" href="../assets/css/search.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/simple-sidebar.css" />
     <link rel="stylesheet" href="../assets/Supermarket/stylesheet.css">
-
-<?php } ?>
-
-
-
-
-
-
-
-<?php function () { ?>
 
 <?php } ?>
 

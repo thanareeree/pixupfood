@@ -5,9 +5,9 @@ $(window).load(function(){
 
 $(function() {
     new WOW().init();
-    $('.templatemo-nav').singlePageNav({
-    	offset: 70
-    });
+    //$('.templatemo-nav').singlePageNav({
+    //	offset: 70
+    //});
 
     /* Hide mobile menu after clicking on a link
     -----------------------------------------------*/

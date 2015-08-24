@@ -18,7 +18,7 @@ if (isset($_POST["cusemail"]) && $_POST["cusemail"] != "") {
             . "`img_path`, `password`)  "
             . "VALUES "
             . "('null','$fname','$lname','$email',"
-            . "'$phone','$available',now(),null,'$password')");
+            . "'$phone','$available',now(),null,md5('$password'))");
 
     if ($con->error == "") {
         $digits = 4;
