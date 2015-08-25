@@ -1,5 +1,4 @@
 <?php
-
 include '../admin/islogin.php';
 include '../template/navbar-admin.php';
 include '../dbconn.php';
@@ -13,72 +12,145 @@ include '../dbconn.php';
         <?php addlink("Admin Management"); ?>
     </head>
     <body>
-        <nav class="navbar navbar-default" >
-            <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a href="#" class="navbar-brand" style="margin-left: 20px; ">Pixup</a>
-                    <a href="#" class="navbar-brand" style="color:rgba(0,0,32,1);padding-left: 0px;">Food</a>
+        <?php navAdminAfterLogin(); ?>
+        <div class="container">
+
+            <div class="toolbar">
+                <h3>New Restaurant</h3>
+            </div>
+            <div class="row">
+                <div class="col-md-12" style="margin: 20px">
+
+                    <div class="fresh-table">
+                        <table id="fresh-table" class="table">
+                            <thead style="background-color: #FF9F00">
+                            <th data-field="id" data-sortable="true">ID</th>
+                            <th data-field="resname"  data-sortable="true">Restaurant Name</th>
+                            <th data-field="plantype" data-sortable="true">Service Plan Type</th>
+                            <th data-field="approve">Approve</th>
+                            <th data-field="block">Block</th>
+                            <th data-field="actions" >Actions</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Dakota Rice</td>
+                                    <td>$36,738</td>
+                                    <td>Niger</td>
+                                    <td>Oud-Turnhout</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Minerva Hooper</td>
+                                    <td>$23,789</td>
+                                    <td>Curaçao</td>
+                                    <td>Sinaai-Waas</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Sage Rodriguez</td>
+                                    <td>$56,142</td>
+                                    <td>Netherlands</td>
+                                    <td>Baileux</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>Philip Chaney</td>
+                                    <td>$38,735</td>
+                                    <td>Korea, South</td>
+                                    <td>Overland Park</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>Doris Greene</td>
+                                    <td>$63,542</td>
+                                    <td>Malawi</td>
+                                    <td>Feldkirchen in Kärnten</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>Mason Porter</td>
+                                    <td>$78,615</td>
+                                    <td>Chile</td>
+                                    <td>Gloucester</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>7</td>
+                                    <td>Alden Chen</td>
+                                    <td>$63,929</td>
+                                    <td>Finland</td>
+                                    <td>Gary</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>8</td>
+                                    <td>Colton Hodges</td>
+                                    <td>$93,961</td>
+                                    <td>Nicaragua</td>
+                                    <td>Delft</td>
+                                    <td></td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+            </div>
+        </div>
 
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"> 
-                    <ul class="nav navbar-nav" id="nav-after-login" >
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Customer Management <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Restaurant Management <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Back Office<span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    
-                    <ul class="nav navbar-nav navbar-right" id="navright-after"  > 
-                        <li><a href="../admin/logout.php"><span class="glyphicon glyphicon-user" style="margin: 8px -5px;"></span></a></li>
-                        <li><a href="../admin/logout.php"><span style="font-weight: bold;"><?= $_SESSION["userdata"]["username"] ?></span></a></li>
-                    </ul>
-
-                </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
-        </nav>
 
         <script src="../assets/js/jquery-2.1.4.min.js"></script>
         <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
-        
-        <script>
-            $(document).ready(function (e) {
+        <script src="../assets/js/bootstrap-table.js"></script>
+        <script type="text/javascript">
+            var $table = $('#fresh-table'),
+                    full_screen = false;
+
+            $().ready(function () {
+                $table.bootstrapTable({
+                    toolbar: ".toolbar",
+                    showRefresh: false,
+                    search: true,
+                    showToggle: true,
+                    showColumns: true,
+                    pagination: true,
+                    striped: true,
+                    pageSize: 12,
+                    pageList: [12, 25, 50, 100],
+                    formatShowingRows: function (pageFrom, pageTo, totalRows) {
+                        //do nothing here, we don't want to show the text "showing x of y from..." 
+                    },
+                    formatRecordsPerPage: function (pageNumber) {
+                        return pageNumber + " rows visible";
+                    },
+                    icons: {
+                        refresh: 'fa fa-refresh',
+                        toggle: 'fa fa-th-list',
+                        columns: 'fa fa-columns',
+                        detailOpen: 'fa fa-plus-circle',
+                        detailClose: 'fa fa-minus-circle'
+                    }
+                });
+
+
+
+                $(window).resize(function () {
+                    $table.bootstrapTable('resetView');
+                });
                 
-                
+
             });
+
+
+           
+
         </script>
+
     </body>
 </html>
