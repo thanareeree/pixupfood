@@ -26,88 +26,86 @@ include '../dbconn.php';
                             <thead style="background-color: #FF9F00">
                             <th data-field="id" data-sortable="true">ID</th>
                             <th data-field="resname"  data-sortable="true">Restaurant Name</th>
-                            <th data-field="plantype" data-sortable="true">Service Plan Type</th>
+                            <th data-field="plantype" data-sortable="true" data-toggle="tooltip" data-placement="top" title="1 = ทดลองใช้ 1 ปี">Service Plan Type</th>
                             <th data-field="approve">Approve</th>
                             <th data-field="block">Block</th>
                             <th data-field="actions" >Actions</th>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Dakota Rice</td>
-                                    <td>$36,738</td>
-                                    <td>Niger</td>
-                                    <td>Oud-Turnhout</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Minerva Hooper</td>
-                                    <td>$23,789</td>
-                                    <td>Curaçao</td>
-                                    <td>Sinaai-Waas</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Sage Rodriguez</td>
-                                    <td>$56,142</td>
-                                    <td>Netherlands</td>
-                                    <td>Baileux</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>Philip Chaney</td>
-                                    <td>$38,735</td>
-                                    <td>Korea, South</td>
-                                    <td>Overland Park</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>Doris Greene</td>
-                                    <td>$63,542</td>
-                                    <td>Malawi</td>
-                                    <td>Feldkirchen in Kärnten</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>6</td>
-                                    <td>Mason Porter</td>
-                                    <td>$78,615</td>
-                                    <td>Chile</td>
-                                    <td>Gloucester</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>7</td>
-                                    <td>Alden Chen</td>
-                                    <td>$63,929</td>
-                                    <td>Finland</td>
-                                    <td>Gary</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>8</td>
-                                    <td>Colton Hodges</td>
-                                    <td>$93,961</td>
-                                    <td>Nicaragua</td>
-                                    <td>Delft</td>
-                                    <td></td>
-                                </tr>
-                                
+
+                                <?php
+                                $res1 = $con->query("SELECT * FROM `restaurant`");
+                                while ($data1 = $res1->fetch_assoc()) {
+                                    ?>
+                                    <tr>
+                                        <td><?= $data1["id"] ?></td>
+                                        <td><?= $data1["name"] ?></td>
+                                        <td><?= $data1["serviceplan_id"] ?></td>
+                                        <td>
+                                            <button class="btn  btn-xs" id="openconfirmbtn" >
+                                                <span class="glyphicon glyphicon-eye-open"></span>
+                                            </button>
+                                        </td>                                       
+                                        <td class="">
+                                            <button class="btn btn-xs" id="blockbtn" >
+                                                <span class="glyphicon glyphicon-ok"></span>
+                                            </button>
+                                        </td> 
+                                        <td>
+                                            <a href="#">
+                                                <button class="btn btn-primary managebtn" id="manage<?= $data1["id"] ?>">
+                                                    <span class="glyphicon glyphicon-edit"></span>
+                                                </button>
+                                            </a>
+                                            <button class="btn btn-success viewbtn" id="view<?= $data1["id"] ?>">
+                                                <span class="glyphicon glyphicon-eye-open"></span>
+                                            </button>
+                                            <button class="btn btn-danger deletebtn"  id="delete<?= $data1["id"] ?>">
+                                                <span class="glyphicon glyphicon-trash"></span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                }
+                                ?>
+
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
+            
+            <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                                <h4 class="modal-title custom_align" id="Heading">Delete this entry</h4>
+                            </div>
+                            <div class="modal-body">
+
+                                <div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> Are you sure you want to delete this restaurant?</div>
+
+                            </div>
+                            <div class="modal-footer ">
+                                <button type="button" class="btn btn-success" id="yesbtn" ><span class="glyphicon glyphicon-ok-sign"></span> Yes</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> No</button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content --> 
+                    </div>
+                    <!-- /.modal-dialog --> 
+                </div>
+
+            
+            
+            
         </div>
 
 
         <script src="../assets/js/jquery-2.1.4.min.js"></script>
         <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
-        <script src="../assets/js/bootstrap-table.js"></script>
+       <script src="../assets/js/bootstrap-table.js"></script>
         <script type="text/javascript">
             var $table = $('#fresh-table'),
                     full_screen = false;
@@ -118,7 +116,7 @@ include '../dbconn.php';
                     showRefresh: false,
                     search: true,
                     showToggle: true,
-                    showColumns: true,
+                    showColumns: false,
                     pagination: true,
                     striped: true,
                     pageSize: 12,
@@ -143,14 +141,16 @@ include '../dbconn.php';
                 $(window).resize(function () {
                     $table.bootstrapTable('resetView');
                 });
-                
+
 
             });
-
-
-           
-
-        </script>
-
+      </script>
+      <script>
+      $(".deletebtn").on("click", function (e){
+               $("#deletemodal").modal('show'); 
+                
+            });
+      </script>
+         
     </body>
 </html>
