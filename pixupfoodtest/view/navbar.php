@@ -85,8 +85,8 @@ function show_footer() { ?>
         });
     </script>
     
-    <script src="../assets/js/wow.min.js"></script>
-    <script src="../assets/js/custom.js"></script>
+    <!--<script src="../assets/js/wow.min.js"></script>-->
+    <script src="../assets/js/custom.js"></script> 
 
 <?php } ?>
 

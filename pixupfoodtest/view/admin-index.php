@@ -31,8 +31,7 @@ include '../dbconn.php';
                             <th data-field="block">Block</th>
                             <th data-field="actions" >Actions</th>
                             </thead>
-                            <tbody>
-
+                            <tbody id="showdata">
                                 <?php
                                 $res1 = $con->query("SELECT * FROM `restaurant`");
                                 while ($data1 = $res1->fetch_assoc()) {
@@ -68,50 +67,46 @@ include '../dbconn.php';
                                     <?php
                                 }
                                 ?>
-
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-            
+
             <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-                                <h4 class="modal-title custom_align" id="Heading">Delete this entry</h4>
-                            </div>
-                            <div class="modal-body">
-
-                                <div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> Are you sure you want to delete this restaurant?</div>
-
-                            </div>
-                            <div class="modal-footer ">
-                                <button type="button" class="btn btn-success" id="yesbtn" ><span class="glyphicon glyphicon-ok-sign"></span> Yes</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> No</button>
-                            </div>
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                            <h4 class="modal-title custom_align" id="Heading">Delete this entry</h4>
                         </div>
-                        <!-- /.modal-content --> 
-                    </div>
-                    <!-- /.modal-dialog --> 
-                </div>
+                        <div class="modal-body">
 
-            
-            
-            
+                            <div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> Are you sure you want to delete this restaurant ID: <span id="showid"></span>?</div>
+
+                        </div>
+                        <div class="modal-footer ">
+                            <button type="button" class="btn btn-success" id="deleteyes" ><span class="glyphicon glyphicon-ok-sign"></span> Yes</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> No</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content --> 
+                </div>
+                <!-- /.modal-dialog --> 
+            </div>
+
+
+
+
         </div>
 
 
         <script src="../assets/js/jquery-2.1.4.min.js"></script>
         <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
-       <script src="../assets/js/bootstrap-table.js"></script>
+        <script src="../assets/js/bootstrap-table.js"></script>
         <script type="text/javascript">
-            var $table = $('#fresh-table'),
-                    full_screen = false;
-
-            $().ready(function () {
-                $table.bootstrapTable({
+            $(document).ready(function () {
+                $('#fresh-table').bootstrapTable({
                     toolbar: ".toolbar",
                     showRefresh: false,
                     search: true,
@@ -136,21 +131,56 @@ include '../dbconn.php';
                     }
                 });
 
+                function fetchdata() {
+                    $.ajax({
+                        url: "../admin/allnewrestaurant.php",
+                        type: "POST",
+                        dataType: "html",
+                        success: function (returndata) {
+                            $("#showdata").html(returndata);
+                        }
+                    });
+                }
+               
 
+                $("#showdata").on("click", ".deletebtn", function (e) {
+                    var editid = $(this).attr("id");
+                    var id = editid.replace("delete", "");
+                    $("#showid").html(id);
+                    $("#deletemodal").modal("show");
 
-                $(window).resize(function () {
-                    $table.bootstrapTable('resetView');
+                });
+
+                $(".viewbtn").on("click", function (e) {
+
+                    alert(id);
+
+                });
+
+                $("#deleteyes").on("click", function (e) {
+                    $("#deleteyes").attr("disabled", "disabled");
+                    $.ajax({
+                        url: "../admin/deletereataurant.php",
+                        type: "POST",
+                        data: {"id": $("#showid").html()},
+                        dataType: "html",
+                        success: function (returndata) {
+                            if (returndata == "ok") {
+                                $("#deletemodal").modal("hide");
+                                fetchdata();
+                            } else {
+                                alert("error");
+                            }
+                        }
+                    });
                 });
 
 
+
+
             });
-      </script>
-      <script>
-      $(".deletebtn").on("click", function (e){
-               $("#deletemodal").modal('show'); 
-                
-            });
-      </script>
-         
+        </script>
+
+
     </body>
 </html>

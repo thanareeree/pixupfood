@@ -11,14 +11,14 @@ include '../dbconn.php';
 <html>
     <head>
         <meta charset="UTF-8">
-        
+
 
         <!-- 
         Boxer Template
         http://www.templatemo.com/preview/templatemo_446_boxer
         -->
         <!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> -->
-        
+
         <meta http-equiv="X-UA-Compatible" content="IE=Edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="keywords" content="">
@@ -26,7 +26,6 @@ include '../dbconn.php';
 
         <?php
         addlink("Test Title");
-        
         ?>
 
     </head>
@@ -38,7 +37,7 @@ include '../dbconn.php';
         <!-- start profile -->
         <section id="profile" >
             <div class="container">
-                <div class="row fadeInUp wow">
+                <div class="row ">
                     <div class="col-lg-3 col-md-3" style="padding-top:4%;">
                         <hr style="size:10px;">
                     </div>
@@ -49,11 +48,11 @@ include '../dbconn.php';
                         <hr>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-3 fadeInLeft wow" align="center">
+                <div class="row" id="changeprofile">
+                    <div class="col-lg-3 " align="center">
                         <img class="img-circle img-responsive"  src="../assets/images/profile/1.jpg">
                     </div>
-                    <div class="col-lg-8 fadeInRight wow">
+                    <div class="col-lg-8">
                         <p>
                             <span> <?= $_SESSION["userdata"]["firstName"] ?>  <?= $_SESSION["userdata"]["lastName"] ?> </span><br>
                             <img src="../assets/images/profile/3/phone_w.png" width="30" height="30"> &nbsp; <span> <?= $_SESSION["userdata"]["tel"] ?> </span><br>
@@ -61,22 +60,17 @@ include '../dbconn.php';
                             <img src="../assets/images/profile/3/map_w.png" width="30" height="30"> &nbsp;  <span><?= $_SESSION["userdata"]["email"] ?></span>
                         </p>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12 fadeInRight wow" style="text-align:right">
-                        <a href="#" data-toggle="modal" data-target="#editprofile" class="text-uppercase" style="padding-top:90%">edit</a>
+                    <div  style="text-align:right">
+                        <button type="button" id="editprofilebtn">edit</button>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-12 fadeInUp wow">
-                        <hr>
-                    </div>
-                </div>
+
+
             </div>
         </section>
 
         <!-- Modal show data customer -->
-        <div class="modal fade" id="editprofile" tabindex="-1" role="dialog" aria-labelledby="ModalCusLabel">
+        <div class="modal fade" id="editprofilemodal" tabindex="-1" role="dialog" aria-labelledby="ModalCusLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -84,10 +78,11 @@ include '../dbconn.php';
                         <h4 class="modal-title" id="ModalCusLabel">Edit Profile</h4>
                     </div>
                     <div class="modal-body">
-                        <form action="#" id="cuseditform" name="cuseditform" method="post">
+                        <form action="#" id="cuseditform" name="cuseditform" method="post" enctype="multipart/form-data">
                             <div class="form-group">
-                                <input type="file" name="imgpro" id="imgpro">
+                                <input type="file" name="imgpro" id="imgpro"><div id="output" style="color: red"></div>
                             </div>
+                            
                             <div class="row">
                                 <div class="col-xs-12 col-sm-6 col-md-6">
                                     <div class="form-group">
@@ -106,12 +101,10 @@ include '../dbconn.php';
                             <div class="form-group">
                                 <input type="email" name="cuseemail" id="cuseemail" class="form-control input-lg" placeholder="Email Address" tabindex="4" value="<?= $_SESSION["userdata"]["email"] ?>">
                             </div>
-                            <div class="form-group">
-                                <input name="address" type="text" class="form-control input-lg" id="address" placeholder="Address" tabindex="7">
-                            </div>
+
                             <div class="modal-footer form-group">
-                                <input type="submit" class="btn btn-primary" name="updateprofilebtn" id="updateprofilebtn" value="Update" >
-                                <input type="hidden" id="cusid" value="<?= $_SESSION["userdata"]["id"] ?>">
+                                <button type="button" class="btn btn-primary" name="updateprofilebtn" id="updateprofilebtn" >Update</button>
+                                <input type="hidden" id="cusidupdate" value="<?= $_SESSION["userdata"]["id"] ?>">
                             </div>
                         </form>
                     </div>
@@ -649,9 +642,9 @@ include '../dbconn.php';
             });
         </script>
         <script>
-            $("#addshipbtn").click(function (evt)  {
+            $("#addshipbtn").click(function (evt) {
                 //alert("มาล่ะ แต่ modal ไม่มา");
-                $("#deletemodal").modal('show');
+                $("#add_address").modal('show');
             });
 
             $("#saveaddbtn").on("click", function (e) {
@@ -667,7 +660,7 @@ include '../dbconn.php';
                         //$("#textinput").val("");
                         if (returndata == "ok") {
                             $("#add_address").modal('hide');
-                            // fetchdata();
+                            fetchdata();
                         } else {
                             alert("start" + returndata + "พัง");
                         }
@@ -687,6 +680,45 @@ include '../dbconn.php';
             }
             fetchdata();
 
+            $("#changeprofile").on("click", "#editprofilebtn", function (e) {
+                $("#editprofilemodal").modal('show');
+
+            });
+
+            $("#imgpro").on("change", function (e) {
+                var imgsize = $("#imgpro")[0].files[0].size;
+                var imgtype = $("#imgpro")[0].files[0].type;
+                switch (imgtype) {
+                    case 'image/png':
+                    case 'image/pjpeg':
+                    case 'image/jpeg':  break;
+                        default : $("#output").html("<b>"+imgtype+"</b>  Unsupport file type!! <br>");
+                }
+                if(imgsize>1048576){
+                    $("#output").html("Size: <b>"+imgsize+"</b> too big file!!");
+                }else{
+                    $("#output").html(" ");
+                }
+            });
+
+            $("#updateprofilebtn").on("click", function (e) {
+                $("#updateprofilebtn").attr("disabled","disabled");
+                $("#updateprofilebtn").html("<img src='../assets/images/loader.gif' style='width:25px; margin:0 auto;'>");
+               $.ajax({
+                 url: "../customer/update-profile.php",
+                 type: "POST",
+                 data: new FormData(this),
+                 dataType: "html",
+                 success: function (returndata) {
+                 if (returndata !== "ok") {
+                 $("#editprofilemodal").modal('hide');
+                 alert(returndata);
+                 } else if(returndata == "ok"){
+                 alert("start" + returndata + "พัง");
+                 }
+                 }
+                 });
+            });
 
         </script>
 
