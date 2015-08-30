@@ -9,14 +9,14 @@ include '../dbconn.php';
     <head>
         <meta charset="UTF-8">
 
-        <?php addlink("Admin Management"); ?>
+        <?php addlink("Restaurant Management"); ?>
     </head>
     <body>
         <?php navAdminAfterLogin(); ?>
         <div class="container">
 
             <div class="toolbar">
-                <h3>New Restaurant</h3>
+                <h3>All Restaurant</h3>
             </div>
             <div class="row">
                 <div class="col-md-12" style="margin: 20px">
@@ -33,7 +33,7 @@ include '../dbconn.php';
                             </thead>
                             <tbody id="showdata">
                                 <?php
-                                $res1 = $con->query("SELECT * FROM `restaurant` where available=0");
+                                $res1 = $con->query("SELECT * FROM `restaurant`");
                                 while ($data1 = $res1->fetch_assoc()) {
                                     ?>
                                     <tr>
@@ -41,12 +41,15 @@ include '../dbconn.php';
                                         <td><?= $data1["name"] ?></td>
                                         <td><?= $data1["serviceplan_id"] ?></td>
                                         <td>
-                                            <button class="btn  btn-xs" id="openconfirmbtn" >
+                                            <button class="btn openconfirmbtn" id="openconfirm<?= $data1["id"] ?>" style="<?= ($data1["available"]==0)?'':'display: none' ?>">
                                                 <span class="glyphicon glyphicon-eye-open"></span>
+                                            </button>
+                                            <button class="btn btn-success approvebtn" id="approvebtn" style="<?= ($data1["available"]==1)?'':'display: none' ?>">
+                                                <span class="glyphicon glyphicon-ok"></span>
                                             </button>
                                         </td>                                       
                                         <td class="">
-                                            <button class="btn btn-xs" id="blockbtn" >
+                                            <button class="btn blockbtn" id="block<?= $data1["id"] ?>" >
                                                 <span class="glyphicon glyphicon-ok"></span>
                                             </button>
                                         </td> 
@@ -73,6 +76,7 @@ include '../dbconn.php';
                 </div>
             </div>
 
+            <!-- Modal Delete-->
             <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -86,8 +90,8 @@ include '../dbconn.php';
 
                         </div>
                         <div class="modal-footer ">
-                            <button type="button" class="btn btn-success" id="deleteyes" ><span class="glyphicon glyphicon-ok-sign"></span> Yes</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> No</button>
+                            <button type="button" class="btn btn-success" id="deleteyes" ><span class="glyphicon glyphicon-ok-sign"></span> Yes</button>
                         </div>
                     </div>
                     <!-- /.modal-content --> 
@@ -95,11 +99,26 @@ include '../dbconn.php';
                 <!-- /.modal-dialog --> 
             </div>
 
-
-
+            <!-- Modal open Confirm-->
+            <div class="modal fade" id="openconfirmmodal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Preview</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Image Preview:</p>
+                        </div>
+                        <div class="modal-footer">
+                             <button type="button" class="btn btn-default" data-dismiss="modal"></span>cancel</button>
+                            <button type="button" class="btn btn-success" id="approveyes" ></span>Approve</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
 
         </div>
-
 
         <script src="../assets/js/jquery-2.1.4.min.js"></script>
         <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
@@ -131,9 +150,9 @@ include '../dbconn.php';
                     }
                 });
 
-                function fetchdata() {
+                function fetchdataShowall() {
                     $.ajax({
-                        url: "../admin/allnewrestaurant.php",
+                        url: "../admin/allrestaurant.php",
                         type: "POST",
                         dataType: "html",
                         success: function (returndata) {
@@ -141,7 +160,7 @@ include '../dbconn.php';
                         }
                     });
                 }
-               
+
 
                 $("#showdata").on("click", ".deletebtn", function (e) {
                     var editid = $(this).attr("id");
@@ -167,7 +186,29 @@ include '../dbconn.php';
                         success: function (returndata) {
                             if (returndata == "ok") {
                                 $("#deletemodal").modal("hide");
-                                fetchdata();
+                                fetchdataShowall();
+                            } else {
+                                alert("error");
+                            }
+                        }
+                    });
+                });
+
+                $(".openconfirmbtn").on("click", function (e) {
+                    $("#openconfirmmodal").modal('show');
+                });
+                $("#approveyes").on("click", function (e){
+                    var approveid = $(".openconfirmbtn").attr("id");
+                    var id = approveid.replace("openconfirm", "");
+                    $.ajax({
+                        url: "../admin/approverestaurant.php",
+                        type: "POST",
+                        data: {"id": id},
+                        dataType: "html",
+                        success: function (returndata) {
+                            if (returndata == "ok") {
+                                $("#openconfirmmodal").modal("hide");
+                                fetchdataShowall();
                             } else {
                                 alert("error");
                             }
@@ -177,9 +218,10 @@ include '../dbconn.php';
 
 
 
-
             });
         </script>
+
+
 
 
     </body>
