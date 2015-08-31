@@ -44,9 +44,65 @@ function show_navbar() { ?>
                     </div>
                 </div>
                 <ul class="nav navbar-nav navbar-right text-uppercase">
-                    <li><a href="index.php">Home</a></li>
-                    <li>
-                        <img src="../assets/images/bar/user.png" style="width:40px; height:40px; margin-top:15px;margin-left:30px;">
+                    <li><a href="../api/logout.php" class="nav-link"><?= (!isset($_SESSION["islogin"])) ? 'No Session' : $_SESSION["userdata"]["firstName"] ?></a></li>
+                    <li class="dropdown">
+                        <a href="login.php" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="../assets/images/bar/user.png" style="width:40px;height:40px;"/>
+                        </a>
+                        <ul class="dropdown-menu" style="padding: 0px">
+                            <li>
+                                <div class="middlePage">
+                                    <div class="panel panel-info">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">Already Account? >> Sign In or Sign Up here</h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-5" >
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <p class="text-uppercase" style="text-align: center;font-size: 20pt;">sign up here</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-5" style="margin-left: 20px">
+                                                            <a href="cus_register.php">
+                                                                <img src="../assets/images/bar/userl.png" style="width:60px; height:60px;margin-top: 10px;">
+                                                            </a>
+                                                            <a href="cus_register.php">
+                                                                <p style="font-weight:bold"> CUSTOMERS </p>
+                                                            </a>
+                                                        </div>
+                                                        <div class="col-md-5">
+                                                            <a href="res_register.php">
+                                                                <img src="../assets/images/bar/restaurant.png" style="width:60px; height:60px;margin-top: 10px;">
+                                                            </a>
+                                                            <a href="res_register.php">
+                                                                <p style="font-weight:bold"> RESTAURANTS </p>
+                                                            </a>
+                                                        </div>
+                                                        <div class="col-md-1"></div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-7" style="border-left:1px solid #ccc;height:160px">
+                                                    <form class="form-horizontal">
+                                                        <fieldset>
+                                                            <input id="textinput" name="textinput" type="text" placeholder="Enter User Name" class="form-control input-md">                                                                
+                                                            <input id="textinput" name="textinput" type="text" placeholder="Enter Password" class="form-control input-md" style="margin: 10px 0 5px 0">
+                                                            <div class="spacing"><input type="checkbox" name="checkboxes" id="checkboxes-0" value="1"><small> Remember me</small></div>
+                                                            <div class="spacing spacing-height"><a href="#"><p style="font-size: 14px">Forgot Password?</p></a><br/></div>
+                                                            <button id="signinbutton" name="siginbutton" class="btn btn-info btn-sm pull-right">Sign In</button>
+                                                        </fieldset>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </div>
@@ -65,7 +121,7 @@ function show_footer() { ?>
 
     <!-- start footer -->
     <footer>
-        <div class="container" style="margin-top:90px">
+        <div class="container">
             <div class="row">
                 <p>Copyright © 2015 PixupFood</p>
                 <p>School of Information Technology</p>
@@ -84,13 +140,13 @@ function show_footer() { ?>
             $("#wrapper").toggleClass("toggled");
         });
     </script>
-    
+
     <script src="../assets/js/wow.min.js"></script>
     <script src="../assets/js/custom.js"></script>
 
 <?php } ?>
 
-    
+
 <?php
 
 function cusnavbar() { ?>
@@ -106,7 +162,7 @@ function cusnavbar() { ?>
                 <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon icon-bar"></span>
                 </button>
-                
+
                 <a href="index.php" class="navbar-brand">Pixup</a>
                 <a href="#" class="navbar-brand" style="color:rgba(0,0,32,1);padding-left: 0px;">Food</a>
                 <div class="col-md-4" style="margin:7px 0 0 15%;">
@@ -122,9 +178,46 @@ function cusnavbar() { ?>
                     </div>
                 </div>
                 <ul class="nav navbar-nav navbar-right text-uppercase">
-                    <li><a href="../api/logout.php" class="nav-link"><?= $_SESSION["userdata"]["firstName"] ?> &nbsp; <?= $_SESSION["userdata"]["lastName"] ?> </a></li>
-                    <li>
-                        <img src="../assets/images/bar/user.png" style="width:40px; height:40px; margin-top:15px;margin-left:30px;">
+                    <li><a href="../api/logout.php" class="nav-link"><?= (!isset($_SESSION["islogin"])) ? 'No Session' : $_SESSION["userdata"]["firstName"] ?></a></li>
+                    <li class="dropdown">
+                        <a href="login.php" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="../assets/images/bar/user.png" style="width:40px;height:40px;"/>
+                        </a>
+                        <ul class="dropdown-menu" style="padding: 0px">
+                            <li>
+                                <div class="middlePage1">
+                                    <div class="panel panel-info">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-4" style="border-right:1px solid #ccc;height:auto;">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <a href="cus_customer_profile.php">
+                                                                <img src="../assets/images/profile/1.jpg" width="160px" height="160px">
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <form class="form-horizontal">
+                                                        <fieldset>
+                                                            <input id="textinput" name="textinput" type="text" placeholder="Enter User Name" class="form-control input-md"><br>
+                                                            <a href="../api/logout.php">
+                                                                <button id="logoutbutton" class="btn btn-danger btn-sm pull-right" style="margin-left: 15px;">Logout</button>
+                                                            </a>
+                                                            <a href="cus_customer_profile.php">
+                                                                <button id="profilebutton" class="btn btn-info btn-sm pull-right">Profile</button>
+                                                            </a>
+                                                        </fieldset>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </div>
@@ -136,5 +229,4 @@ function cusnavbar() { ?>
 <?php } ?>
 
 
-    
-    
+

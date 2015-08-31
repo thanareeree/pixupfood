@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 include '../dbconn.php';
 ?>
@@ -32,6 +31,7 @@ include '../dbconn.php';
         <link rel="stylesheet" href="../assets/css/search.css">
         <link rel="stylesheet" href="../assets/css/slide2.css">
         <link rel="stylesheet" type="text/css" href="../assets/css/simple-sidebar.css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
     </head>
     <body>
@@ -63,8 +63,8 @@ include '../dbconn.php';
                     <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                         <span class="icon icon-bar"></span>
                     </button>
-                    <a href="login.php" style="color:rgba(255,127,0,1)" class="navbar-brand">Pixup</a>
-                    <a href="#" class="navbar-brand" style="color:black;padding-left: 0px;">Food</a>
+                    <a href="index.php" style="color:rgba(255,127,0,1)" class="navbar-brand">Pixup</a>
+                    <a href="index.php" class="navbar-brand" style="color:black;padding-left: 0px;">Food</a>
                     <div class="col-md-4" style="margin:7px 0 0 15%;">
                         <div id="custom-search-input">
                             <div class="input-group col-md-12">
@@ -78,11 +78,65 @@ include '../dbconn.php';
                         </div>
                     </div>
                     <ul class="nav navbar-nav navbar-right text-uppercase">
-                        <li><a href="#contact"><?= (!isset($_SESSION["islogin"]))?  'No Session': $_SESSION["userdata"]["firstName"]  ?></a></li>
-                        <li>
-                            <a href="login.php">
+                        <li><a href="../api/logout.php" class="nav-link"><?= (!isset($_SESSION["islogin"])) ? 'No Session' : $_SESSION["userdata"]["firstName"] ?></a></li>
+                        <li class="dropdown">
+                            <a href="login.php" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img src="../assets/images/bar/user.png" style="width:40px;height:40px;"/>
                             </a>
+                            <ul class="dropdown-menu" style="padding: 0px">
+                                <li>
+                                    <div class="middlePage">
+                                        <div class="panel panel-info">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">Already Account? >> Sign In or Sign Up here</h3>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-md-5" >
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <p class="text-uppercase" style="text-align: center;font-size: 20pt;">sign up here</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-5" style="margin-left: 20px">
+                                                                <a href="cus_register.php">
+                                                                    <img src="../assets/images/bar/userl.png" style="width:60px; height:60px;margin-top: 10px;">
+                                                                </a>
+                                                                <a href="cus_register.php">
+                                                                    <p style="font-weight:bold"> CUSTOMERS </p>
+                                                                </a>
+                                                            </div>
+                                                            <div class="col-md-5">
+                                                                <a href="res_register.php">
+                                                                    <img src="../assets/images/bar/restaurant.png" style="width:60px; height:60px;margin-top: 10px;">
+                                                                </a>
+                                                                <a href="res_register.php">
+                                                                    <p style="font-weight:bold"> RESTAURANTS </p>
+                                                                </a>
+                                                            </div>
+                                                            <div class="col-md-1"></div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-7" style="border-left:1px solid #ccc;height:160px">
+                                                        <form class="form-horizontal">
+                                                            <fieldset>
+                                                                <input id="textinput" name="textinput" type="text" placeholder="Enter User Name" class="form-control input-md">                                                                
+                                                                <input id="textinput" name="textinput" type="text" placeholder="Enter Password" class="form-control input-md" style="margin: 10px 0 5px 0">
+                                                                <div class="spacing"><input type="checkbox" name="checkboxes" id="checkboxes-0" value="1"><small> Remember me</small></div>
+                                                                <div class="spacing spacing-height"><a href="#"><p style="font-size: 14px">Forgot Password?</p></a><br/></div>
+                                                                <button id="signinbutton" name="siginbutton" class="btn btn-info btn-sm pull-right">Sign In</button>
+                                                            </fieldset>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
@@ -140,9 +194,47 @@ include '../dbconn.php';
             <!-- /.carousel -->
         </section>
         <!-- end home -->
+        <!-- start 5 step -->
+        <section id="step">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 wow fadeInUp templatemo-box" data-wow-delay="0.3s" style="text-align:left">
+                        <h2>สั่งง่ายๆเพียง 5 ขั้นตอน</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-1">
+                    </div>
+                    <div class="col-md-2 wow fadeInUp templatemo-box" data-wow-delay="0.3s">
+                        <img src="../assets/images/sixStep/step2.png" width="80" height="80">
+                        <h3>ค้นหาร้านอาหาร</h3>
+                    </div>
+                    <div class="col-md-2 wow fadeInUp templatemo-box" data-wow-delay="0.3s">
+                        <img src="../assets/images/sixStep/step3.png" width="80" height="80">
+                        <h3>เลือกรายการอาหาร</h3>
+                    </div>
+                    <div class="col-md-2 wow fadeInUp templatemo-box" data-wow-delay="0.3s">
+                        <img src="../assets/images/sixStep/step4.png" width="80" height="80">
+                        <h3>สั่งตามขั้นตอน</h3>
+                    </div>
+                    <div class="col-md-2 wow fadeInUp templatemo-box" data-wow-delay="0.3s">
+                        <img src="../assets/images/sixStep/step5.png" width="80" height="80">
+                        <h3>จัดส่งสินค้า</h3>
+                    </div>
+                    <div class="col-md-2 wow fadeInUp templatemo-box" data-wow-delay="0.3s">
+                        <img src="../assets/images/sixStep/step6.png" width="80" height="80">
+                        <h3>รับของและชำระเงิน</h3>
+                    </div>
+                    <div class="col-md-1">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- end 6 step -->
         <!-- start nearby -->
         <section id="nearby" style="padding-bottom:5px">
-            <div class="container">
+            <div class="container wow fadeInUp">
+                <h2 style="text-align:left">ร้านไหนใกล้ๆคุณ</h2>
                 <div class="row">
                     <div class="carousel slide" id="rescarousel">
                         <div class="carousel-inner">
@@ -318,44 +410,6 @@ include '../dbconn.php';
             </div>
         </section>
         <!-- end nearby -->
-        <!-- start 6 step -->
-        <section id="step">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 wow fadeInUp templatemo-box" data-wow-delay="0.3s" style="text-align:left">
-                        <h2>สั่งง่ายๆเพียง 6 ขั้นตอน</h2>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2 wow fadeInUp templatemo-box" data-wow-delay="0.3s">
-                        <img src="../assets/images/sixStep/step1.png">
-                        <h3>เข้าสู่ระบบ</h3>
-                    </div>
-                    <div class="col-md-2 wow fadeInUp templatemo-box" data-wow-delay="0.3s">
-                        <img src="../assets/images/sixStep/step2.png">
-                        <h3>ค้นหา</h3>
-                    </div>
-                    <div class="col-md-2 wow fadeInUp templatemo-box" data-wow-delay="0.3s">
-                        <img src="../assets/images/sixStep/step3.png">
-                        <h3>เลือกรายการอาหาร</h3>
-                    </div>
-                    <div class="col-md-2 wow fadeInUp templatemo-box" data-wow-delay="0.3s">
-                        <img src="../assets/images/sixStep/step4.png">
-                        <h3>สั่งตามขั้นตอน</h3>
-                    </div>
-                    <div class="col-md-2 wow fadeInUp templatemo-box" data-wow-delay="0.3s">
-                        <img src="../assets/images/sixStep/step5.png">
-                        <h3>ติดตามสินค้า</h3>
-                    </div>
-                    <div class="col-md-2 wow fadeInUp templatemo-box" data-wow-delay="0.3s">
-                        <img src="../assets/images/sixStep/step6.png">
-                        <h3>มาอร่อยได้เลย!</h3>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- end 6 step -->
-
         <!-- news update head -->
         <section id="nupdateh">
             <img src="../assets/images/newsupdatehead.png">
@@ -367,7 +421,9 @@ include '../dbconn.php';
             <div class="container">
                 <div class="row">
                     <div class="col-md-5 col-lg-5 wow fadeInLeft" data-wow-delay="0.6s">
-                        <h2 class="text-uppercase">News update</h2>
+                        <a href="#" style="color:rgba(111,0,114,1)">
+                            <h2 class="text-uppercase">ข่าวสาร<<</h2>
+                        </a>
                         <div class="featured-article">
                             <a href="#">
                                 <img src="http://placehold.it/482x350" alt="" class="thumb">
@@ -419,6 +475,9 @@ include '../dbconn.php';
             <div class="container">
                 <div class="row">
                     <div class="col-md-5 col-lg-5 wow fadeInLeft" data-wow-delay="0.6s">
+                        <a href="#" style="color:rgba(111,0,114,1)">
+                            <h2 class="text-uppercase">โปรโมชั่น<<</h2>
+                        </a>
                         <div class="featured-article">
                             <a href="#">
                                 <img src="http://placehold.it/482x350" alt="" class="thumb">
@@ -429,7 +488,7 @@ include '../dbconn.php';
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-7 col-lg-7 wow fadeInRight" data-wow-delay="0.6s" style="padding:0 15px 0 100px">
+                    <div class="col-md-7 col-lg-7 wow fadeInRight" data-wow-delay="0.6s" style="padding:60px 15px 0 100px">
                         <ul class="media-list main-list">
                             <li class="media">
                                 <a class="pull-left" href="#">
@@ -586,8 +645,16 @@ include '../dbconn.php';
                 $("#wrapper").toggleClass("toggled");
             });
         </script>
-        <!--<script src="../assets/js/jquery.js"></script>-->
-        
+        <script>
+            $(document).ready(function () {
+                //Handles menu drop down
+                $('.dropdown-menu').find('form').click(function (e) {
+                    e.stopPropagation();
+                });
+            });
+        </script>
+<!--<script src="../assets/js/jquery.js"></script>-->
+
         <script src="../assets/js/wow.min.js"></script>   
         <script src="../assets/js/jquery.singlePageNav.min.js"></script>
         <script src="../assets/js/custom.js"></script>
