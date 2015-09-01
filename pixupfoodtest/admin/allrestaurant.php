@@ -8,7 +8,7 @@ while ($data1 = $res1->fetch_assoc()) {
         <td><?= $data1["name"] ?></td>
         <td><?= $data1["serviceplan_id"] ?></td>
         <td>
-            <button class="btn openconfirmbtn" id="openconfirm<?= $data1["id"] ?>" style="<?= ($data1["available"] == 0) ? '' : 'display: none' ?>">
+            <button class="btn openconfirmbtn" id="openconfirm<?= $data1["name"] ?>" style="<?= ($data1["available"] == 0) ? '' : 'display: none' ?>">
                 <span class="glyphicon glyphicon-eye-open"></span>
             </button>
             <button class="btn btn-success approvebtn" id="approvebtn" style="<?= ($data1["available"] == 1) ? '' : 'display: none' ?>">
@@ -16,7 +16,10 @@ while ($data1 = $res1->fetch_assoc()) {
             </button>
         </td>                                       
         <td class="">
-            <button class="btn" id="blockbtn" >
+            <button class="btn blockbtn" id="block<?= $data1["id"] ?>" style="<?= ($data1["block"] == 0) ? '' : 'display: none' ?>" >
+                <span class="glyphicon glyphicon-ok"></span>
+            </button>
+            <button class="btn btn-success blockedbtn" id="blocked<?= $data1["id"] ?>" style="<?= ($data1["block"] == 1) ? '' : 'display: none' ?>">
                 <span class="glyphicon glyphicon-ok"></span>
             </button>
         </td> 
