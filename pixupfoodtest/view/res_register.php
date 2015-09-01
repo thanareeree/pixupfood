@@ -260,6 +260,8 @@ include '../dbconn.php';
                                 <p>จังหวัด </p>
                                 <h3 class="text-uppercase">Phone :</h3>
                                 <p>โทรศัพท์ </p>
+                                <h3 class="text-uppercase">Plan :</h3>
+                                <p>แผนการใช้งาน</p>
                             </div>
                             <div class="col-md-5 wow fadeInUp" data-wow-delay="0.6s" style="margin-top: 10px;">
                                 <div>
@@ -287,6 +289,13 @@ include '../dbconn.php';
                                         </div>
                                         <div class="col-md-12">
                                             <input type="tel" class="form-control" placeholder="Phone" required id="rrphone">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <select class="form-control prolist" id="plan">
+                                                <option value="Free">Free</option>
+                                                <option value="OneMonth">1 Month / 100฿</option>
+                                                <option value="ThreeMonth">3 Months / 250฿</option>
+                                            </select>
                                         </div><br>
                                         <div class="col-md-6">
                                             <a href="#firststep" data-toggle="tab" id="backstep">
