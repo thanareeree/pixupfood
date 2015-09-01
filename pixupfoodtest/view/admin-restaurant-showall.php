@@ -8,7 +8,6 @@ include '../dbconn.php';
 <html>
     <head>
         <meta charset="UTF-8">
-
         <?php addlink("Restaurant Management"); ?>
     </head>
     <body>
@@ -199,7 +198,7 @@ include '../dbconn.php';
                     showColumns: false,
                     pagination: true,
                     striped: true,
-                    pageSize: 12,
+                    pageSize: 10,
                     pageList: [12, 25, 50, 100],
                     formatShowingRows: function (pageFrom, pageTo, totalRows) {
                         //do nothing here, we don't want to show the text "showing x of y from..." 

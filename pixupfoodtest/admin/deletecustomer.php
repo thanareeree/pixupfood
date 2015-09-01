@@ -1,12 +1,10 @@
 <?php
-
 include '../dbconn.php';
 
 $id = $_POST["id"];
-$con->query("DELETE FROM restaurant WHERE id = '$id'");
+$con->query("DELETE FROM customer WHERE id = '$id'");
 if($con->error==""){
     echo "ok";
 }else{
     echo "error";
 }
-
