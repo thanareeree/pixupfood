@@ -38,7 +38,6 @@ function navAdminAfterLogin() { ?>
                         <ul class="dropdown-menu">
                             <li><a href="../view/admin-index.php">New Restaurant</a></li>
                             <li><a href="../view/admin-restaurant-showall.php">All Restaurant</a></li>
-                            <li><a href="../view/admin-restaurant-promotion.php">All Promotion</a></li>
                             <li><a href="../view/admin-restaurant-editmenu.php">Edit Menu</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="../view/admin-restaurant-serviceplan.php">Service Plan</a></li>

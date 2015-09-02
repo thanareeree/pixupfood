@@ -15,7 +15,7 @@ include '../dbconn.php';
         <div class="container">
 
             <div class="toolbar">
-                <h3>All Restaurant</h3>
+                <h3>All Customer</h3>
             </div>
             <div class="row">
                 <div class="col-md-12" style="margin: 20px">
@@ -183,7 +183,7 @@ include '../dbconn.php';
                     }
                 });
 
-                function fetchdataShowall() {
+                /*function fetchdataShowall() {
                     $.ajax({
                         url: "../admin/allcustomer.php",
                         type: "POST",
@@ -192,7 +192,7 @@ include '../dbconn.php';
                             $("#showdata").html(returndata);
                         }
                     });
-                }
+                }*/
 
                 $("#showdata").on("click", ".viewbtn", function (e) {
                     var viewid = $(this).attr("id");
@@ -227,7 +227,8 @@ include '../dbconn.php';
                         success: function (returndata) {
                             if (returndata == "ok") {
                                 $("#deletemodal").modal("hide");
-                                fetchdataShowall();
+                                //fetchdataShowall();
+                                document.location.reload();
                             } else {
                                 alert("error");
                             }
@@ -251,8 +252,10 @@ include '../dbconn.php';
                         dataType: "html",
                         success: function (returndata) {
                             if (returndata == "ok") {
+                                document.location.reload();
                                 $("#blockmodal").modal("hide");
-                                fetchdataShowall();
+                                //fetchdataShowall();
+                                
                             } else {
                                 alert("error");
                             }
@@ -276,7 +279,8 @@ include '../dbconn.php';
                         success: function (returndata) {
                             if (returndata == "ok") {
                                 $("#blockedmodal").modal("hide");
-                                fetchdataShowall();
+                                //fetchdataShowall();
+                                document.location.reload();
                             } else {
                                 alert("error");
                             }
