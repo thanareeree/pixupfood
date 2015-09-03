@@ -177,14 +177,14 @@ include '../dbconn.php';
                                 <a href="#history" data-toggle="tab" id="navhistory">
                                     <img class="img-responsive imgsize" src="../assets/images/profile/menu_list/orderhis_b_c.png" title="ประวัติการสั่งซื้อ" onmouseover="this.src = '../assets/images/profile/menu_list/orderhis_a_c.png';"
                                          onmouseout="this.src = '../assets/images/profile/menu_list/orderhis_b_c.png';" style="margin: 0 0 0 20px">
-                                    <p class="elt">ประวัติการสั่งซ้อ</p>
+                                    <p class="elt" style="margin:0">ประวัติการสั่งซ้อ</p>
                                 </a>
                             </div>
                             <div class="col-md-2 templatemo-box fadeInUp">
                                 <a href="#shipadd" data-toggle="tab" id="navshipadd">
                                     <img class="img-responsive imgsize" src="../assets/images/profile/menu_list/shipadd_b_c.png" title="ที่อยู่การจัดส่ง" onmouseover="this.src = '../assets/images/profile/menu_list/shipadd_a_c.png';"
                                          onmouseout="this.src = '../assets/images/profile/menu_list/shipadd_b_c.png';" style="margin: 0 0 0 15px">
-                                    <p class="elt">ที่อยู่การจัดส่ง</p>
+                                    <p class="elt" style="margin:0">ที่อยู่การจัดส่ง</p>
                                 </a>
                             </div>
                         </div>
