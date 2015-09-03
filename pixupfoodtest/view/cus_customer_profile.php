@@ -37,35 +37,6 @@ include '../dbconn.php';
 
 
         <!-- start profile -->
-<<<<<<< HEAD
-        <section id="profile" >
-            <div class="container">
-                <div class="row ">
-                    <div class="col-lg-3 col-md-3" style="padding-top:4%;">
-                        <hr style="size:10px;">
-                    </div>
-                    <div class="col-lg-6 col-md-6">
-                        <h3 class="text-uppercase" style="color:white;">p r o f i l e</h3>
-                    </div>
-                    <div class="col-lg-3 col-md-3" style="padding-top:4%;">
-                        <hr>
-                    </div>
-                </div>
-                <div class="row" id="changeprofile">
-                    <div class="col-lg-3 " align="center">
-                        <img class="img-circle img-responsive"  src="../assets/images/profile/1.jpg">
-                    </div>
-                    <div class="col-lg-8">
-                        <p>
-                            <span> <?= $_SESSION["userdata"]["firstName"] ?>  <?= $_SESSION["userdata"]["lastName"] ?> </span><br>
-                            <img src="../assets/images/profile/3/phone_w.png" width="30" height="30"> &nbsp; <span> <?= $_SESSION["userdata"]["tel"] ?> </span><br>
-                            <img src="../assets/images/profile/3/email_w.png" width="30" height="30"> &nbsp; <span> <?= $_SESSION["userdata"]["email"] ?></span> <br>
-                            <img src="../assets/images/profile/3/map_w.png" width="30" height="30"> &nbsp;  <span><?= $_SESSION["userdata"]["email"] ?></span>
-                        </p>
-                    </div>
-                    <div  style="text-align:right">
-                        <button type="button" id="editprofilebtn">edit</button>
-=======
         <section id="profile">
             <div class="profilecontainer">
                 <div class="headprofile">
@@ -135,34 +106,9 @@ include '../dbconn.php';
                                 </div>
                             </form>
                         </div>
->>>>>>> origin/DEV-james
                     </div>
                 </div>
-
-
             </div>
-<<<<<<< HEAD
-        </section>
-
-        <!-- Modal show data customer -->
-        <div class="modal fade" id="editprofilemodal" tabindex="-1" role="dialog" aria-labelledby="ModalCusLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="mdrecl" name="mdrecl"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="ModalCusLabel">Edit Profile</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form action="#" id="cuseditform" name="cuseditform" method="post" enctype="multipart/form-data">
-                            <div class="form-group">
-                                <input type="file" name="imgpro" id="imgpro"><div id="output" style="color: red"></div>
-                            </div>
-                            
-                            <div class="row">
-                                <div class="col-xs-12 col-sm-6 col-md-6">
-                                    <div class="form-group">
-                                        <input type="text" name="cusefname" id="cusefname" class="form-control input-lg" placeholder="First Name" tabindex="1" value="<?= $_SESSION["userdata"]["firstName"] ?>">
-=======
             <!-- end edit profile-->
             <!-- ch pass form -->
             <div class="modal fade" id="chpassform" tabindex="-1" role="dialog" aria-labelledby="chpassform">
@@ -177,7 +123,6 @@ include '../dbconn.php';
                                 <div class="row">
                                     <div class="col-md-12 form-group">
                                         <input type="email" class="form-control" placeholder="Email" id="ecemail">
->>>>>>> origin/DEV-james
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <input required type="password" class="form-control" placeholder="Old Password" id="crpass">
@@ -228,26 +173,19 @@ include '../dbconn.php';
                                     <p class="elt" style="margin: 0 0 0 20px">ชื่นชอบ</p>
                                 </a>       
                             </div>
-<<<<<<< HEAD
-
-                            <div class="modal-footer form-group">
-                                <button type="button" class="btn btn-primary" name="updateprofilebtn" id="updateprofilebtn" >Update</button>
-                                <input type="hidden" id="cusidupdate" value="<?= $_SESSION["userdata"]["id"] ?>">
-=======
                             <div class="col-md-2 templatemo-box fadeInUp">
                                 <a href="#history" data-toggle="tab" id="navhistory">
                                     <img class="img-responsive imgsize" src="../assets/images/profile/menu_list/orderhis_b_c.png" title="ประวัติการสั่งซื้อ" onmouseover="this.src = '../assets/images/profile/menu_list/orderhis_a_c.png';"
                                          onmouseout="this.src = '../assets/images/profile/menu_list/orderhis_b_c.png';" style="margin: 0 0 0 20px">
-                                    <p class="elt">ประวัติการสั่งซ้อ</p>
+                                    <p class="elt" style="margin:0">ประวัติการสั่งซ้อ</p>
                                 </a>
                             </div>
                             <div class="col-md-2 templatemo-box fadeInUp">
                                 <a href="#shipadd" data-toggle="tab" id="navshipadd">
                                     <img class="img-responsive imgsize" src="../assets/images/profile/menu_list/shipadd_b_c.png" title="ที่อยู่การจัดส่ง" onmouseover="this.src = '../assets/images/profile/menu_list/shipadd_a_c.png';"
                                          onmouseout="this.src = '../assets/images/profile/menu_list/shipadd_b_c.png';" style="margin: 0 0 0 15px">
-                                    <p class="elt">ที่อยู่การจัดส่ง</p>
+                                    <p class="elt" style="margin:0">ที่อยู่การจัดส่ง</p>
                                 </a>
->>>>>>> origin/DEV-james
                             </div>
                         </div>
                     </div>
@@ -743,7 +681,7 @@ include '../dbconn.php';
                         //$("#textinput").val("");
                         if (returndata == "ok") {
                             $("#add_address").modal('hide');
-                            fetchdata();
+                            // fetchdata();
                         } else {
                             alert("start" + returndata + "พัง");
                         }
