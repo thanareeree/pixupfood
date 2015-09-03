@@ -15,7 +15,7 @@ and open the template in the editor.
     background-size: cover;
     background-attachment: fixed;
     color: #fff;
-    font-style: 'supermarketregular';
+    font-family: 'supermarketregular';
     margin-top: 70px
 }
 #cus_register h1
