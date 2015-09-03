@@ -140,15 +140,9 @@ function show_footer() { ?>
             $("#wrapper").toggleClass("toggled");
         });
     </script>
-<<<<<<< HEAD
-    
-    <!--<script src="../assets/js/wow.min.js"></script>-->
-    <script src="../assets/js/custom.js"></script> 
-=======
 
     <script src="../assets/js/wow.min.js"></script>
     <script src="../assets/js/custom.js"></script>
->>>>>>> origin/DEV-james
 
 <?php } ?>
 
