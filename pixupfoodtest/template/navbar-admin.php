@@ -52,7 +52,7 @@ function navAdminAfterLogin() { ?>
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right" id="navright-after"  > 
-                    <li><a href="../admin/logout.php"><span class="glyphicon glyphicon-user" style="margin: 8px -5px;"></span></a></li>
+                    <li><a href="../admin/logout.php"><span class="glyphicon glyphicon-user" ></span></a></li>
                     <li><a href="../admin/logout.php"><span style="font-weight: bold;"><?= $_SESSION["userdata"]["username"] ?></span></a></li>
                 </ul>
 

@@ -206,8 +206,8 @@ img
 .navbar-default .nav li a
 {
     color: #666;
-    font-size: 13px;
-    font-weight: bold;
+    font-size: 18px;
+    font-weight: normal;
     height: 70px;
     line-height: 40px;
 }
