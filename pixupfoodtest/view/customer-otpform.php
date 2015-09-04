@@ -15,7 +15,7 @@ include '../dbconn.php';
     </head>
     <body>
         <?php
-        show_navbar();
+        cusnavbar();
         ?>
         <div class="container">
             <div class="col-lg-6" style="margin: 150px" >

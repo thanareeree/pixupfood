@@ -40,7 +40,7 @@ and open the template in the editor.
 
         <?php
         include './navbar.php';
-        show_navbar();
+        cusnavbar();
         ?>
 
         <!-- start contact -->
