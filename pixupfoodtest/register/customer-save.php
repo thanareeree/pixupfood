@@ -10,18 +10,19 @@ if (isset($_POST["cusemail"]) && $_POST["cusemail"] != "") {
     $lname = $con->real_escape_string($_POST["cuslname"]);
     $phone = $con->real_escape_string($_POST["cusphone"]);
     $email = $con->real_escape_string($_POST["cusemail"]);
+    $address = $con->real_escape_string($_POST["cusaddress"]);
     $password = $con->real_escape_string($_POST["cuspwd"]);
     $en_password = md5($password);
     $available = 0;
     //$address = $con->real_escape_string($_POST["cusaddress"]);
 
 
-    $con->query("INSERT INTO `customer`(`id`, `firstName`, "
-            . "`lastName`, `email`, `tel`, `available`, `created_time`, "
+    $con->query("INSERT INTO `customer`(`id`, `firstName`, `lastName`,"
+            . " `email`, `tel`, `address`, `available`, `created_time`, "
             . "`img_path`, `password`)  "
             . "VALUES "
             . "('null','$fname','$lname','$email',"
-            . "'$phone','$available',now(),null,'$en_password')");
+            . "'$phone','$address','$available',now(),null,'$en_password')");
 
     if ($con->error == "") {
         $digits = 4;
