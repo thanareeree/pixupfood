@@ -1,7 +1,6 @@
 <?php
 include '../api/islogin.php';
 include '../view/navbar.php';
-include '../api/function.php';
 include '../dbconn.php';
 ?>
 
@@ -25,7 +24,7 @@ include '../dbconn.php';
         <meta name="description" content="">
 
         <?php
-        addlink("Test Title");
+        addlink("Customer Profile");
         ?>
         <!-- custom css -->
         <link rel="stylesheet" href="../assets/css/profile.css">

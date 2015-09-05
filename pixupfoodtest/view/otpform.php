@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+<?php 
+    include '../api/function.php';
+?>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -14,20 +11,7 @@ and open the template in the editor.
         http://www.templatemo.com/preview/templatemo_446_boxer
         -->
         <meta charset="UTF-8">
-        <title>PixupFood - Login and Register Page</title>
-        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="keywords" content="">
-        <meta name="description" content="">
-
-
-        <link rel="stylesheet" href="../assets/css/animate.min.css">
-        <link rel="stylesheet" href="../assets/Supermarket/stylesheet.css">
-        <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
-
-        <link rel="stylesheet" href="../assets/css/style.css">
-        <link rel="stylesheet" href="../assets/css/search.css">
-        <link rel="stylesheet" type="text/css" href="../assets/css/simple-sidebar.css" />
+       <?php addlink("otp form") ?>
 
     </head>
     <body >
@@ -36,7 +20,6 @@ and open the template in the editor.
             <div class="loader"></div>
         </div>
         <!-- end preloader -->
-
 
         <?php
         include './navbar.php';

@@ -22,7 +22,7 @@ if ($res->num_rows == 0 && $res2->num_rows == 0) {
     if ($_SESSION["userdata"]["type"] == 2 && $_SESSION["userdata"]["available"] == 0) {
         ?>
         <script>
-            document.location = "../view/customer-otpform.php";
+            document.location = "../view/cus_otpform.php?id=<?= $_SESSION["userdata"]["id"]?>";
         </script>
         <?php
 
