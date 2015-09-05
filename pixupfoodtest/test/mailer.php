@@ -11,7 +11,7 @@ $mail->SMTPSecure = 'tls';
 $mail->SMTPAuth = true;
 $mail->Username = "system@chakree.me";
 $mail->Password = "IT5510IT5510";
-$mail->setFrom('peepolike@gmail.com', 'Pixupfood');
+$mail->setFrom('peepo_like@gmail.com', 'Pixupfood');
 $mail->addAddress("peepolike@gmail.com");
 $mail->Subject = 'Test Send OTP Password';
 $mail->Body = 'Your one time password is : ' . $row["password"];

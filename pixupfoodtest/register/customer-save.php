@@ -13,8 +13,7 @@ if (isset($_POST["cusemail"]) && $_POST["cusemail"] != "") {
     $address = $con->real_escape_string($_POST["cusaddress"]);
     $password = $con->real_escape_string($_POST["cuspwd"]);
     $en_password = md5($password);
-    $available = 0;
-    //$address = $con->real_escape_string($_POST["cusaddress"]);
+
 
 
     $con->query("INSERT INTO `customer`(`id`, `firstName`, `lastName`,"
@@ -22,7 +21,7 @@ if (isset($_POST["cusemail"]) && $_POST["cusemail"] != "") {
             . "`img_path`, `password`)  "
             . "VALUES "
             . "('null','$fname','$lname','$email',"
-            . "'$phone','$address','$available',now(),null,'$en_password')");
+            . "'$phone','$address','0',now(),null,'$en_password')");
 
     if ($con->error == "") {
         $digits = 4;
@@ -34,22 +33,33 @@ if (isset($_POST["cusemail"]) && $_POST["cusemail"] != "") {
 
         $con->query("INSERT INTO `otp_password`(`id`, `password`, `tel`, `cusid`, `status`) "
                 . "VALUES ('null','$otppwd','$phone','$id','0')");
-        ?>
 
-        <script>
-            document.location = "../view/index.php";
-        </script>
+        $res2 = $con->query("SELECT * FROM `otp_password` WHERE cusid= '$id'");
 
-        <?php
+        if ($res2->num_rows == 1) {
+            $data2 = $res2->fetch_assoc();
+            include './thsms.php';
+            $sms = new thsms();
+            $sms->username = 'thanaree';
+            $sms->password = '58c60d';
 
+            $b = $sms->send('0000', $data2["tel"], "Your Pixupfood OTP password is: " . $data2["password"] . "\n" . "รหัสนี้ใช้ได้ภายใน 7 วัน");
+            //var_dump( $b);
+            ?>
+            <script>
+                document.location = "../view/index.php";
+            </script>
+
+            <?php
+
+        } else {
+            echo $con->error . "หาข้อมูล otp ไม่เจอ";
+        }
     } else {
-       
-        echo $con->error;
+
+        echo $con->error . "testtttttt";
     }
 } else {
-    echo json_encode(array(
-        "result" => 0,
-        "error" => "No Data Submited !"
-    ));
+    echo "No Data Submited !";
 }
 ?>
