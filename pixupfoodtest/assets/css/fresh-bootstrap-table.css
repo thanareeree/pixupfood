@@ -8,6 +8,7 @@
   border-bottom: 1px solid #dddddd;
   border-collapse: collapse !important;
   border-radius: 1px;
+  font-family: 'supermarketregular';
 }
 
 .bootstrap-table .table,
@@ -380,6 +381,7 @@ div.fixed-table-scroll-outer {
   border-color: transparent;
   opacity: 0.7;
   filter: alpha(opacity=70);
+  font-family: 'supermarketregular';
 }
 .fresh-table .pagination > li > a:hover,
 .fresh-table .pagination > li > span:hover,

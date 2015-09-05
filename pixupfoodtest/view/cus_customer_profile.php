@@ -712,33 +712,35 @@ include '../dbconn.php';
                 switch (imgtype) {
                     case 'image/png':
                     case 'image/pjpeg':
-                    case 'image/jpeg':  break;
-                        default : $("#output").html("<b>"+imgtype+"</b>  Unsupport file type!! <br>");
+                    case 'image/jpeg':
+                        break;
+                    default :
+                        $("#output").html("<b>" + imgtype + "</b>  Unsupport file type!! <br>");
                 }
-                if(imgsize>1048576){
-                    $("#output").html("Size: <b>"+imgsize+"</b> too big file!!");
-                }else{
+                if (imgsize > 1048576) {
+                    $("#output").html("Size: <b>" + imgsize + "</b> too big file!!");
+                } else {
                     $("#output").html(" ");
                 }
             });
 
             $("#updateprofilebtn").on("click", function (e) {
-                $("#updateprofilebtn").attr("disabled","disabled");
+                $("#updateprofilebtn").attr("disabled", "disabled");
                 $("#updateprofilebtn").html("<img src='../assets/images/loader.gif' style='width:25px; margin:0 auto;'>");
-               $.ajax({
-                 url: "../customer/update-profile.php",
-                 type: "POST",
-                 data: new FormData(this),
-                 dataType: "html",
-                 success: function (returndata) {
-                 if (returndata !== "ok") {
-                 $("#editprofilemodal").modal('hide');
-                 alert(returndata);
-                 } else if(returndata == "ok"){
-                 alert("start" + returndata + "พัง");
-                 }
-                 }
-                 });
+                $.ajax({
+                    url: "../customer/update-profile.php",
+                    type: "POST",
+                    data: new FormData(this),
+                    dataType: "html",
+                    success: function (returndata) {
+                        if (returndata !== "ok") {
+                            $("#editprofilemodal").modal('hide');
+                            alert(returndata);
+                        } else if (returndata == "ok") {
+                            alert("start" + returndata + "พัง");
+                        }
+                    }
+                });
             });
 
         </script>
