@@ -1,6 +1,7 @@
 <?php
 
 include "../dbconn.php";
+//include './thsms.php';
 
 
 if (isset($_POST["cusemail"]) && $_POST["cusemail"] != "") {
@@ -10,7 +11,9 @@ if (isset($_POST["cusemail"]) && $_POST["cusemail"] != "") {
     $phone = $con->real_escape_string($_POST["cusphone"]);
     $email = $con->real_escape_string($_POST["cusemail"]);
     $password = $con->real_escape_string($_POST["cuspwd"]);
-    $available = $con->real_escape_string($_POST["available"]);
+    $en_password = md5($password);
+    $available = 0;
+    //$address = $con->real_escape_string($_POST["cusaddress"]);
 
 
     $con->query("INSERT INTO `customer`(`id`, `firstName`, "
@@ -18,7 +21,7 @@ if (isset($_POST["cusemail"]) && $_POST["cusemail"] != "") {
             . "`img_path`, `password`)  "
             . "VALUES "
             . "('null','$fname','$lname','$email',"
-            . "'$phone','$available',now(),null,md5('$password'))");
+            . "'$phone','$available',now(),null,'$en_password')");
 
     if ($con->error == "") {
         $digits = 4;

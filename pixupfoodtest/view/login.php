@@ -144,7 +144,7 @@ include './navbar.php';
                                 <div class="col-xs-12 col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <input required type="password" name="cuspwdconfirm" id="cuspwdconfirm" class="form-control input-lg" placeholder="Confirm Password" tabindex="6">
-                                        <input type="hidden" value="0" id="available" name="available">
+                                        
                                     </div>
                                 </div>
                             </div>

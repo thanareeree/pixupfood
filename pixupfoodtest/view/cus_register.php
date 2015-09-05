@@ -166,10 +166,6 @@ include '../dbconn.php';
                             <p>ชื่อ - สกุล </p>
                             <h3 class="text-uppercase">Address :</h3>
                             <p>ที่อยู่ปัจจุบัน </p><br>
-                            <h3 class="text-uppercase">Zip Code :</h3>
-                            <p>รหัสไปรษณีย์ </p>
-                            <h3 class="text-uppercase">Province :</h3>
-                            <p>จังหวัด </p>
                             <h3 class="text-uppercase">Phone :</h3>
                             <p>โทรศัพท์ </p>
                         </div>
@@ -177,40 +173,25 @@ include '../dbconn.php';
                             <div>
                                 <form action="#" method="post">
                                     <div class="col-md-12 form-group">
-                                        <input required type="email" class="form-control" placeholder="Email" id="cremail">
+                                        <input required type="email" class="form-control" placeholder="Email" id="cusemail" name="cusemail">
                                     </div>
                                     <div class="col-md-12">
-                                        <input required type="password" class="form-control" placeholder="Password" id="crpass">
+                                        <input required type="password" class="form-control" placeholder="Password" id="cuspwd" name="cuspwd">
                                     </div>
                                     <div class="col-md-12">
-                                        <input required type="password" class="form-control" placeholder="Confirm Password" id="crcpass">
+                                        <input required type="password" class="form-control" placeholder="Confirm Password" id="cuspwdconfirm" name="cuspwdconfirm">
                                     </div>
                                     <div class="col-md-6">
-                                        <input required type="text" class="form-control" placeholder="FirstName" id="crfname">
+                                        <input required type="text" class="form-control" placeholder="FirstName" id="cusfname" name="cusfname">
                                     </div>
                                     <div class="col-md-6">
-                                        <input required type="text" class="form-control" placeholder="LastName" id="crlname">
+                                        <input required type="text" class="form-control" placeholder="LastName" id="cuslname" name="cuslname">
                                     </div>
                                     <div class="col-md-12">
-                                        <textarea required class="form-control" placeholder="Address" rows="3" id="cradd"></textarea>
+                                        <textarea required class="form-control" placeholder="Address" rows="3" id="cusaddress" name="cusaddress"></textarea>
                                     </div>
                                     <div class="col-md-12">
-                                        <input required type="text" class="form-control" placeholder="Zip Code" id="crzip">
-                                    </div>
-                                    <div class="col-md-12">
-                                        <select class="form-control prolist" id="sel1">
-                                            <?php
-                                            $res = $con->query("SELECT `id`, `name` FROM `province`");
-                                            while ($data = $res->fetch_assoc()) {
-                                                ?>
-
-                                                <option value="<?= $data['id'] ?>"> <?= $data['name'] ?> </option>
-
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <input required type="tel" class="form-control" placeholder="Phone" id="crphone">
+                                        <input required type="tel" class="form-control" placeholder="Phone" id="cusphone" name="cusphone">
                                     </div><br>
                                     <div class="col-md-6 pull-right">
                                         <input type="submit" class="form-control text-uppercase" value="Registered">

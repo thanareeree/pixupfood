@@ -6,8 +6,9 @@ include '../dbconn.php';
 
 $email = $_POST["loginemail"];
 $password = $_POST["password"];
+$de_password = md5($password);
 
-$res = $con->query("select * from customer where email='$email' and password='$password'");
+$res = $con->query("select * from customer where email='$email' and password='$de_password'");
 $res2 = $con->query("select * from restaurant where email='$email' and password='$password'");
 
 

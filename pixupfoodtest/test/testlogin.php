@@ -4,14 +4,20 @@ session_start();
 
 include '../dbconn.php';
 
-$email = $_POST["email"];
-$password = $_POST["password"];
+$email = 'peepo@gmail.com';
+$pwd = '1234';
+$password = substr(md5($pwd),0,20);
+//echo $password;
 
-$res = $con->query("select * from test where email='$email' and password='$password'");
+$sql ="select * from test where email='$email' and password = '$password'";
+
+$res = $con->query($sql);
 
 
-if ($res->num_rows == 0) {
-    echo "username password Invalid";
+if ($res->num_rows==0) {
+    echo gettype($res);
+    echo $password;
+    echo $res->num_rows;
 } else {
     $_SESSION["islogin"] = true;
     $_SESSION["userdata"] = $res->fetch_assoc();

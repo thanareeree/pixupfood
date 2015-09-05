@@ -1,15 +1,13 @@
 <?php
 
-$digits = 4;
-$otppwd = rand(pow(10, $digits - 1), pow(10, $digits) - 1);
-$sms = new thsms();
+
 
 $sms->username   = 'thanaree';
 $sms->password   = '58c60d';
  
-$b = $sms->send( '0000', '0909923252', "Your Pixupfood OTP password is: $otppwd");
+/*$b = $sms->send( '0000', '0909923252', "Your Pixupfood OTP password is: $otppwd");
 var_dump( $b);
-
+*/
 
 
 
