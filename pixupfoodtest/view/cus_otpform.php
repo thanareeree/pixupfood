@@ -2,7 +2,6 @@
 session_start();
 include '../dbconn.php';
 include './navbar.php';
-
 ?>
 
 
@@ -34,7 +33,7 @@ include './navbar.php';
         <link rel="stylesheet" href="../assets/css/search.css">
         <link rel="stylesheet" href="../assets/css/slide2.css">
         <link rel="stylesheet" type="text/css" href="../assets/css/simple-sidebar.css" />
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
 
     </head>
     <body>
@@ -62,7 +61,7 @@ include './navbar.php';
                             <div>
                                 <form action="../register/customer-save.php" method="post" id="otpform">
                                     <div class="col-md-12 form-group">
-                                        <input type="hidden" id="cusid" name="cusid" value="<?= $_SESSION["userdata"]["id"]?>">
+                                        <input type="hidden" id="cusid" name="cusid" value="<?= $_SESSION["userdata"]["id"] ?>">
                                         <input required type="text" class="form-control" placeholder="OTP password" id="otpinput" name="otpinput">
                                         <p style="color: red" id="errortext"></p>
                                     </div>
@@ -88,9 +87,6 @@ include './navbar.php';
                 $('.dropdown-menu').find('form').click(function (e) {
                     e.stopPropagation();
                 });
-                
-                
-
                 $("#otpform").on("submit", function (e) {
                     $.ajax({
                         type: "POST",
@@ -99,7 +95,9 @@ include './navbar.php';
                         dataType: "json",
                         success: function (data) {
                             if (data.result == "1") {
-                                 document.location = "../view/cus_customer_profile.php?id="+data.id;
+                                document.location = "../view/cus_customer_profile.php?id=" + data.id;
+                                //checkOTPTime(data.created_otp);
+                                // function checkOTPTime(data.created_otp) เพื่อไปเซ็คว่ามันหมดเวลาล่ะยัง
                             } else {
                                 alert("ไม่สามารถบันทึกข้อมูลได้\nError : " + data.error);
                                 $("#loader").fadeOut(300);
@@ -109,6 +107,21 @@ include './navbar.php';
                     e.preventDefault();
                     return false;
                 });
+                function checkOTPTime(created_otp) {
+                    var date = new Date();
+                    var hours = date.getHours();
+                    var days = date.getDay();
+                    var minutes = date.getMinutes();
+                    alert(date+"-------------"+created_otp)
+
+                   /* if (){
+                    document.location = "../view/cus_customer_profile.php?id=" + data.id;
+                    }
+                    else{
+                    //เเสดงเมื่อ นะย หมดอายุ
+                    }*/
+                };
+
             });
         </script>
 

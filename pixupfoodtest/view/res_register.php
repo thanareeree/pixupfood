@@ -33,11 +33,16 @@ include './navbar.php';
         <link rel="stylesheet" href="../assets/css/search.css">
         <link rel="stylesheet" href="../assets/css/slide2.css">
         <link rel="stylesheet" type="text/css" href="../assets/css/simple-sidebar.css" />
-        <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">-->
+        <style>
+            #map {
+                height: 250px;
+                width: 50%;
+            }
+        </style>
 
 
     </head>
-    <body>
+    <body onload="startMap()">
         <?php show_navbar(); ?>
         <!-- start register -->
         <section id="res_register">
@@ -64,12 +69,6 @@ include './navbar.php';
                                 <p>ยืนยันรหัสผ่าน </p>
                                 <h3 class="text-uppercase">Name :</h3>
                                 <p>ชื่อ - สกุล </p>
-                                <h3 class="text-uppercase">Address :</h3>
-                                <p>ที่อยู่ปัจจุบัน </p><br>     
-                                <h3 class="text-uppercase">Province :</h3>
-                                <p>จังหวัด </p>
-                                <h3 class="text-uppercase">Zone :</h3>
-                                <p>เขต </p>
                                 <h3 class="text-uppercase">Phone :</h3>
                                 <p>โทรศัพท์ </p>
                             </div>
@@ -77,44 +76,32 @@ include './navbar.php';
                                 <div>
                                     <form action="#" method="post">
                                         <div class="col-md-12">
-                                            <input type="email" class="form-control" placeholder="Email" required id="roremail">
+                                            <input type="email" class="form-control" placeholder="Email" required id="resemail" name="resemail">
                                         </div>
                                         <div class="col-md-12">
-                                            <input type="password" class="form-control" placeholder="Password" required id="rorpass">
+                                            <input type="password" class="form-control" placeholder="Password" required id="respassword" name="respassword">
                                         </div>
                                         <div class="col-md-12">
-                                            <input type="password" class="form-control" placeholder="Confirm Password" required id="rorcpass">
+                                            <input type="password" class="form-control" placeholder="Confirm Password" required id="resconfirmpwd" name="resconfirmpwd">
                                         </div>
                                         <div class="col-md-6">
-                                            <input type="text" class="form-control" placeholder="FirstName" required id="rorfname">
+                                            <input type="text" class="form-control" placeholder="FirstName" required id="resfname" name="resfname">
                                         </div>
                                         <div class="col-md-6">
-                                            <input type="text" class="form-control" placeholder="LastName" required id="rorlname">
+                                            <input type="text" class="form-control" placeholder="LastName" required id="reslname" name="reslname">
                                         </div>
                                         <div class="col-md-12">
-                                            <textarea class="form-control" placeholder="Address" rows="3" required id="roradd"></textarea>
+                                            <input type="hidden" class="form-control"  required id="latinput" name="latinput" >
                                         </div>
                                         <div class="col-md-12">
-                                            <input type="text" class="form-control" placeholder="Zip Code" required id="rorzip">
+                                            <input type="hidden" class="form-control"  required id="longinput" name="longinput">
                                         </div>
                                         <div class="col-md-12">
-                                            <select class="form-control prolist" id="sel1">
-                                                <?php
-                                                $res = $con->query("SELECT `id`, `name` FROM `province`");
-                                                while ($data = $res->fetch_assoc()) {
-                                                    ?>
-
-                                                    <option value="<?= $data['id'] ?>"> <?= $data['name'] ?> </option>
-
-                                                <?php } ?>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <input type="tel" class="form-control" placeholder="Phone" required id="rorphone">
+                                            <input type="tel" class="form-control" placeholder="Phone" required id="resphone" name="resphone">
                                         </div><br>
                                         <div class="col-md-6 pull-right">
                                             <a href="#secondstep" data-toggle="tab" id="nextstep">
-                                                <input type="submit" class="form-control text-uppercase" value="Next">
+                                                <input type="button" class="form-control text-uppercase btn-primary" value="Next">
                                             </a>
                                         </div>
                                     </form>
@@ -133,14 +120,14 @@ include './navbar.php';
                             <div class="col-md-3 wow fadeInUp" data-wow-delay="0.6s">
                                 <h3 class="text-uppercase">Restaurant Name :</h3>
                                 <p>ชื่อร้านอาหาร </p>
+                                <h3 class="text-uppercase">Detail :</h3>
+                                <p>รายละเอียดร้าน </p><br>
                                 <h3 class="text-uppercase">Address :</h3>
                                 <p>ที่อยู่ร้านอาหาร </p><br>
-                                <h3 class="text-uppercase">Zip Code :</h3>
-                                <p>รหัสไปรษณีย์ </p>
                                 <h3 class="text-uppercase">Province :</h3>
                                 <p>จังหวัด </p>
-                                <h3 class="text-uppercase">Phone :</h3>
-                                <p>โทรศัพท์ </p>
+                                <h3 class="text-uppercase">Zone :</h3>
+                                <p>เขต </p>
                                 <h3 class="text-uppercase">Plan :</h3>
                                 <p>แผนการใช้งาน</p>
                             </div>
@@ -148,16 +135,17 @@ include './navbar.php';
                                 <div>
                                     <form action="#" method="post">
                                         <div class="col-md-12">
-                                            <input type="text" class="form-control" placeholder="RestaurantName" required id="rrname">
+                                            <input type="text" class="form-control" placeholder="RestaurantName" required id="restaurantname" name="restaurantname">
                                         </div>
                                         <div class="col-md-12">
-                                            <textarea class="form-control" placeholder="Address" rows="3" required id="rradd"></textarea>
+                                            <textarea class="form-control" placeholder="Detail" rows="3" required id="detail" name="detail"></textarea>
                                         </div>
                                         <div class="col-md-12">
-                                            <input type="text" class="form-control" placeholder="Zip Code" required id="rrzip">
+                                            <textarea class="form-control" placeholder="Address" rows="3" required id="resaddress" name="resaddress"></textarea>
                                         </div>
+
                                         <div class="col-md-12">
-                                            <select class="form-control prolist" id="sel1">
+                                            <select class="form-control prolist" id="provincelist">
                                                 <?php
                                                 $res = $con->query("SELECT `id`, `name` FROM `province`");
                                                 while ($data = $res->fetch_assoc()) {
@@ -169,7 +157,16 @@ include './navbar.php';
                                             </select>
                                         </div>
                                         <div class="col-md-12">
-                                            <input type="tel" class="form-control" placeholder="Phone" required id="rrphone">
+                                            <select class="form-control prolist" id="zonelist">
+                                                <?php
+                                                $res = $con->query("SELECT `id`, `name` FROM `zone`");
+                                                while ($data = $res->fetch_assoc()) {
+                                                    ?>
+
+                                                    <option value="<?= $data['id'] ?>"> <?= $data['name'] ?> </option>
+
+                                                <?php } ?>
+                                            </select>
                                         </div>
                                         <div class="col-md-12">
                                             <select class="form-control prolist" id="plan">
@@ -194,29 +191,53 @@ include './navbar.php';
                     </div>
                 </div>
             </div>
+            <div id="map" style="display: none"></div>
         </section>
         <!-- end register -->
 
-    
-      
-            <?php show_footer(); ?>
-            <script>
-                $(document).ready(function () {
-                    //Handles menu drop down
-                    $('.dropdown-menu').find('form').click(function (e) {
-                        e.stopPropagation();
-                    });
-                    $("#backstep").click(function () {
-                        $("#firststep").fadeIn(500);
-                        $("#secondstep").hide();
-                    });
 
-                    $("#nextstep").click(function () {
-                        $("#firststep").hide();
-                        $("#secondstep").fadeIn(500);
-                    });
 
+        <?php show_footer(); ?>
+        <script>
+            $(document).ready(function () {
+                function startMap() {
+
+                    map = new google.maps.Map(document.getElementById("map"));
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(getPosition);
+                        //navigator.geolocation.watchPosition(updatePosition);
+                    } else {
+                        alert("ไม่รองรับ HTML5 Geolocation");
+                    }
+                }
+                ;
+                startMap();
+
+
+                function getPosition(pos) {
+                    globalPosition = pos;
+                    document.getElementById("latinput").value = pos.coords.latitude;
+                    document.getElementById("longinput").value = pos.coords.longitude;
+                    console.log(pos);
+
+                }
+                ;
+
+                //Handles menu drop down
+                $('.dropdown-menu').find('form').click(function (e) {
+                    e.stopPropagation();
                 });
-            </script>
+                $("#backstep").click(function () {
+                    $("#firststep").fadeIn(500);
+                    $("#secondstep").hide();
+                });
+
+                $("#nextstep").click(function () {
+                    $("#firststep").hide();
+                    $("#secondstep").fadeIn(500);
+                });
+
+            });
+        </script>
     </body>
 </html>

@@ -31,8 +31,8 @@ if (isset($_POST["cusemail"]) && $_POST["cusemail"] != "") {
         $data = $res->fetch_assoc();
         $id = $data['id'];
 
-        $con->query("INSERT INTO `otp_password`(`id`, `password`, `tel`, `cusid`, `status`) "
-                . "VALUES ('null','$otppwd','$phone','$id','0')");
+        $con->query("INSERT INTO `otp_password`(`id`, `password`, `tel`, `cusid`, `status`, `created_time`) "
+                . "VALUES ('null','$otppwd','$phone','$id','0', now())");
 
         $res2 = $con->query("SELECT * FROM `otp_password` WHERE cusid= '$id'");
 
@@ -47,7 +47,7 @@ if (isset($_POST["cusemail"]) && $_POST["cusemail"] != "") {
             //var_dump( $b);
             ?>
             <script>
-                document.location = "../view/index.php";
+                document.location = "../index.php";
             </script>
 
             <?php

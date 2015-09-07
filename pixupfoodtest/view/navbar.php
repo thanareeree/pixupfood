@@ -157,6 +157,7 @@ function show_footer() { ?>
 
     <script src="../assets/js/wow.min.js"></script>
     <script src="../assets/js/custom.js"></script>
+     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
 
 <?php } ?>
 
@@ -177,7 +178,7 @@ function cusnavbar() { ?>
                     <span class="icon icon-bar"></span>
                 </button>
 
-                <a href="index.php" class="navbar-brand">Pixup</a>
+                <a href="../index.php" class="navbar-brand">Pixup</a>
                 <a href="#" class="navbar-brand" style="color:rgba(0,0,32,1);padding-left: 0px;">Food</a>
                 <div class="col-md-4" style="margin:7px 0 0 15%;">
                     <div id="custom-search-input">

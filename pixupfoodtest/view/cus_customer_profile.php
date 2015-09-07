@@ -2,6 +2,7 @@
 include '../api/islogin.php';
 include '../view/navbar.php';
 include '../dbconn.php';
+
 ?>
 
 
@@ -145,10 +146,10 @@ include '../dbconn.php';
             <div class="container">
                 <div class="row" style="margin-top:50px">
                     <div class="col-md-3">
-                        <div class="container">
+                        <div class="showbio">
                             <p style="font-weight:bold">Biography</p>
                             <p> My name's <?= $_SESSION["userdata"]["firstName"] ?>  <?= $_SESSION["userdata"]["lastName"] ?></p>
-                            <p> address: <?= $_SESSION["userdata"]["email"] ?></p>
+                            <p> address: <?= $_SESSION["userdata"]["address"] ?></p>
                             <p> Tel: <?= $_SESSION["userdata"]["tel"] ?></p>
                             <p> Email: <?= $_SESSION["userdata"]["email"] ?></p>
                         </div>
@@ -530,7 +531,7 @@ include '../dbconn.php';
                                     <div class="row">
                                         <div id="inbox" style="margin:15% 0 0 0;">
                                             <div class="fab btn-group show-on-hover dropup" id="add_sa" data-toggle="modal" data-target="#add_address">
-                                                <button type="button" class="btn btn-danger btn-io">
+                                                <button type="button" class="btn btn-danger glyphicon glyphicon-plus btn-io">
                                                     <span class="fa-stack fa-2x">
                                                         <i class="fa fa-circle fa-stack-2x fab-backdrop"></i>
                                                         <i class="fa fa-plus fa-stack-1x fa-inverse fab-primary"></i>
@@ -600,7 +601,7 @@ include '../dbconn.php';
 
         <?php
         show_footer();
-        iconscript();
+        
         ?>
 
         <script>
