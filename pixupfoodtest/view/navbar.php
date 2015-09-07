@@ -5,7 +5,7 @@ function addlink($title) { ?>
     <title><?= $title ?></title>
     <link rel="stylesheet" href="../assets/css/animate.min.css">
     <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
-    <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
+    
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/search.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/simple-sidebar.css" />
@@ -217,10 +217,10 @@ function cusnavbar() { ?>
                                                         <fieldset>
                                                             <input id="textinput" name="textinput" type="text" placeholder="Enter User Name" class="form-control input-md"><br>
                                                             <a href="../api/logout.php">
-                                                                <button id="logoutbutton" class="btn btn-danger btn-sm pull-right" style="margin-left: 15px;">Logout</button>
+                                                                <button id="logoutbutton" type="button" class="btn btn-danger btn-sm pull-right" style="margin-left: 15px;">Logout</button>
                                                             </a>
                                                             <a href="cus_customer_profile.php">
-                                                                <button id="profilebutton" class="btn btn-info btn-sm pull-right">Profile</button>
+                                                                <button id="profilebutton" class="btn btn-info btn-sm pull-right" type="button">Profile</button>
                                                             </a>
                                                         </fieldset>
                                                     </form>
