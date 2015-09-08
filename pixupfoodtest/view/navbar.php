@@ -43,8 +43,8 @@ function show_navbar() { ?>
                 <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon icon-bar"></span>
                 </button>
-                <a href="index.php" style="color:rgba(255,127,0,1)" class="navbar-brand">Pixup</a>
-                <a href="index.php" class="navbar-brand" style="color:black;padding-left: 0px;">Food</a>
+                <a href="../index.php" style="color:rgba(255,127,0,1)" class="navbar-brand">Pixup</a>
+                <a href="../index.php" class="navbar-brand" style="color:black;padding-left: 0px;">Food</a>
                 <div class="col-md-4" style="margin:7px 0 0 15%;">
                     <div id="custom-search-input">
                         <div class="input-group col-md-12">
@@ -60,7 +60,7 @@ function show_navbar() { ?>
                 <ul class="nav navbar-nav navbar-right text-uppercase">
                     <li><a  <?= (!isset($_SESSION["islogin"])) ? 'href="#"' : 'href="../api/logout.php" class="nav-link"' ?> ><?= (!isset($_SESSION["islogin"])) ? 'สมัครสมาชิก | เข้าสู่ระบบ >>' : $_SESSION["userdata"]["firstName"] . " " . $_SESSION["userdata"]["lastName"] ?></a></li>
                     <li class="dropdown">
-                        <a href="login.php" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
                             <img src="../assets/images/bar/user.png" style="width:40px;height:40px;"/>
                         </a>
                         <ul class="dropdown-menu" style="padding: 0px">
@@ -179,7 +179,7 @@ function cusnavbar() { ?>
                 </button>
 
                 <a href="../index.php" class="navbar-brand">Pixup</a>
-                <a href="#" class="navbar-brand" style="color:rgba(0,0,32,1);padding-left: 0px;">Food</a>
+                <a href="../index.php" class="navbar-brand" style="color:rgba(0,0,32,1);padding-left: 0px;">Food</a>
                 <div class="col-md-4" style="margin:7px 0 0 15%;">
                     <div id="custom-search-input">
                         <div class="input-group col-md-12">
@@ -195,7 +195,7 @@ function cusnavbar() { ?>
                 <ul class="nav navbar-nav navbar-right text-uppercase">
                     <li><a href="../api/logout.php" class="nav-link"><?= (!isset($_SESSION["islogin"])) ? 'No Session' : "สวัสดีคุณ " . $_SESSION["userdata"]["firstName"] . " " . $_SESSION["userdata"]["lastName"] ?></a></li>
                     <li class="dropdown">
-                        <a href="login.php" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <img src="../assets/images/bar/user.png" style="width:40px;height:40px;"/>
                         </a>
                         <ul class="dropdown-menu" style="padding: 0px">

@@ -39,17 +39,52 @@ include '../dbconn.php';
                             <br><br><br><br><br><br>
                             <div class="form-group">
                                 <div class="col-sm-12 text-right">
-                                    <button type="submit" class="btn btn-primary addbtn">
-                                        <span class="glyphicon glyphicon-plus"></span> Add
-                                    </button>
+                                    <button type="button" class="btn btn-danger canceladd">Cancel</button> &nbsp;&nbsp;
+                                    <button type="submit" class="btn btn-primary addbtn">Add</button>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
+                <div class="col-sm-7 editbox" style="display: none">
+                    <h4 style="margin-top: 30px">Create New Service Plan:</h4>
+                    <div class="content2">
+                        <?php
+                        $res2 = $con->query("SELECT * FROM `serviceplan`");
+                        while ($data2 = $res2->fetch_assoc()) {
+                            ?>
+                            <form action="../admin/editserviceplan.php" method="post">
+                                <div class="form-group">
+                                    <label for="servicename" class="col-sm-3 control-label" style="text-align: right">Service Name</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="servicename" name="servicename" placeholder="Service Name" required>
+                                    </div>
+                                </div>
+                                <br><br><br>
+                                <div class="form-group">
+                                    <label for="description" class="col-sm-3 control-label" style="text-align: right">Description</label>
+                                    <div class="col-sm-9">
+                                        <textarea class="form-control" id="description" name="description" rows="5" placeholder="Enter Detail of Service Plan"required></textarea>
+                                    </div>
+                                </div>          
+                                <br><br><br><br><br><br>
+                                <div class="form-group">
+                                    <div class="col-sm-12 text-right">
+                                        <button type="button" class="btn btn-danger canceledit">
+                                            <span class="glyphicon glyphicon-plus"></span> Cancel
+                                        </button> &nbsp;&nbsp;
+                                        <button type="submit" class="btn btn-primary savebtn">
+                                            <span class="glyphicon glyphicon-plus"></span> Save
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        <?php } ?>
+                    </div>
+                </div>
             </div><br><br>
 
-            <div class="col-sm-12">
+            <div class="col-sm-10">
                 <div class="panel panel-success" style="margin:10px 0 10px 0;">
                     <div class="panel-heading">
                         <h3 class="panel-title">All Service Plan</h3>
@@ -70,7 +105,7 @@ include '../dbconn.php';
                                     $res1 = $con->query("SELECT * FROM `serviceplan`");
                                     while ($data1 = $res1->fetch_assoc()) {
                                         ?>
-                                    <tr class="trow"id="tr<?= $data1["id"] ?>">
+                                        <tr class="trow"id="tr<?= $data1["id"] ?>">
                                             <td >
                                                 <?= $data1["id"] ?>
                                             </td>
@@ -79,9 +114,9 @@ include '../dbconn.php';
                                             </td>
 
                                             <td>
-                                                <button class="btn btn-primary editbtn" id="edit<?= $data1["id"] ?>">
+                                                <!--<button class="btn btn-primary editbtn" id="edit<?= $data1["id"] ?>">
                                                     <span class="glyphicon glyphicon-edit"></span>
-                                                </button>
+                                                </button>-->
                                                 <button class="btn btn-success viewbtn" id="view<?= $data1["id"] ?>">
                                                     <span class="glyphicon glyphicon-eye-open"></span>
                                                 </button>
@@ -122,7 +157,7 @@ include '../dbconn.php';
                 </div>
                 <!-- /.modal-dialog --> 
             </div>
-            
+
             <!-- Modal View Modal-->
             <div class="modal fade" id="viewmodal">
                 <div class="modal-dialog">
@@ -171,7 +206,7 @@ include '../dbconn.php';
                         }
                     });
                 });
-                 $("#showalldata").on("click", ".viewbtn", function (e) {
+                $("#showalldata").on("click", ".viewbtn", function (e) {
                     var viewid = $(this).attr("id");
                     var id = viewid.replace("view", "");
                     $("#showrestid").html(id);
@@ -187,7 +222,24 @@ include '../dbconn.php';
                         }
                     });
                 });
-                
+
+                $("#showalldata").on("click", ".viewbtn", function (e) {
+                    var viewid = $(this).attr("id");
+                    var id = viewid.replace("view", "");
+                    $("#showrestid").html(id);
+
+                    $.ajax({
+                        url: "../admin/view-serviceplan.php",
+                        type: "POST",
+                        data: {"id": id},
+                        dataType: "html",
+                        success: function (returndata) {
+                            $("#viewbody").html(returndata);
+                            $("#viewmodal").modal("show");
+                        }
+                    });
+                });
+
             });
         </script>
 
