@@ -1,0 +1,81 @@
+@import url("../Supermarket/stylesheet.css");
+
+
+/*
+Boxer Template
+http://www.templatemo.com/preview/templatemo_446_boxer
+*/
+.headprofile img.fb-image-lg{
+    z-index: 0;
+    width: 100%;  
+    margin-bottom: 10px;
+}
+
+.fb-image-profile
+{
+    margin: -90px 10px 0px 80px;
+    z-index: 9;
+    width: 13%;
+	border-radius:50%;  
+}
+
+@media (max-width:768px)
+{
+    
+.fb-profile-text>h1{
+    font-weight: 700;
+    font-size:14px;
+}
+
+.fb-image-profile
+{
+    margin: -45px 10px 0px 25px;
+    z-index: 9;
+    width: 13%;
+	border-radius:50%; 
+}
+}
+
+/* modal edit profile*/
+#profile address
+{
+    padding-top: 20px;
+}
+#profile address .fa
+{
+    background: #28a7e9;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    margin-top: 6px;
+    margin-right: 10px;
+}
+#profile .contact-form
+{
+    padding-top: 40px;
+}
+#profile .form-control
+{
+    border-radius: 0px;
+    box-shadow: none;
+}
+#profile input
+{
+    height: 45px;
+}
+#profile select
+{
+    height: 45px;
+}
+#profile input[type="submit"]
+{
+    background: #28a7e9;
+    color: #fff;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+#profile input[type="submit"]:hover {
+    background: #107DB6;
+}
