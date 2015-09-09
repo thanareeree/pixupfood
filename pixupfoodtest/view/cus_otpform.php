@@ -1,7 +1,6 @@
 <?php
 session_start();
 include '../dbconn.php';
-include './navbar.php';
 ?>
 
 
@@ -37,7 +36,46 @@ include './navbar.php';
 
     </head>
     <body>
-        <?php show_navbar(); ?>
+        <!-- start preloader -->
+        <div class="preloader">
+            <div class="loader"></div>
+        </div>
+        <!-- end preloader -->
+        <!-- start navigation -->
+        <nav class="navbar navbar-default navbar-fixed-top templatemo-nav" role="navigation">
+            <div class="container" style="margin-left:100px;margin-right:40px;height:70px;width:auto;">
+                <div class="navbar-header">
+                    <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon icon-bar"></span>
+                    </button>
+
+                    <a href="../index.php" class="navbar-brand">Pixup</a>
+                    <a href="../index.php" class="navbar-brand" style="color:rgba(0,0,32,1);padding-left: 0px;">Food</a>
+                    <div class="col-md-4" style="margin:7px 0 0 15%;">
+                        <div id="custom-search-input">
+                            <div class="input-group col-md-12">
+                                <input type="text" class="form-control input-lg" placeholder="Search.." />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-info btn-lg" type="button">
+                                        <i class="glyphicon glyphicon-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="nav navbar-nav navbar-right text-uppercase">
+                        <li><a href="../api/logout.php" class="nav-link"><?= (!isset($_SESSION["islogin"])) ? 'No Session' : "สวัสดีคุณ " . $_SESSION["userdata"]["firstName"] . " " . $_SESSION["userdata"]["lastName"] ?></a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="../assets/images/bar/user.png" style="width:40px;height:40px;"/>
+                            </a>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- end navigation -->
         <!-- start register -->
         <section id="cus_register">
             <div class="overlay">
@@ -80,7 +118,31 @@ include './navbar.php';
             </div>
         </section>
         <!-- end register -->
-        <?php show_footer(); ?>
+        <!-- start footer -->
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <p>Copyright © 2015 PixupFood</p>
+                    <p>School of Information Technology</p>
+                    <p>King Mongkut’s University of Technology Thonburi</p>
+                </div>
+            </div>
+        </footer>
+        <!-- end footer -->
+
+        <!-- script references -->
+        <script src="../assets/js/jquery-2.1.4.min.js"></script>
+        <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+        <script>
+            $("#menu-toggle").click(function (e) {
+                e.preventDefault();
+                $("#wrapper").toggleClass("toggled");
+            });
+        </script>
+
+        <script src="../assets/js/wow.min.js"></script>
+        <script src="../assets/js/custom.js"></script>
+
         <script>
             $(document).ready(function () {
                 //Handles menu drop down
@@ -112,15 +174,16 @@ include './navbar.php';
                     var hours = date.getHours();
                     var days = date.getDay();
                     var minutes = date.getMinutes();
-                    alert(date+"-------------"+created_otp)
+                    alert(date + "-------------" + created_otp)
 
-                   /* if (){
-                    document.location = "../view/cus_customer_profile.php?id=" + data.id;
-                    }
-                    else{
-                    //เเสดงเมื่อ นะย หมดอายุ
-                    }*/
-                };
+                    /* if (){
+                     document.location = "../view/cus_customer_profile.php?id=" + data.id;
+                     }
+                     else{
+                     //เเสดงเมื่อ นะย หมดอายุ
+                     }*/
+                }
+                ;
 
             });
         </script>

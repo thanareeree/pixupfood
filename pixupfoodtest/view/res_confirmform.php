@@ -1,7 +1,7 @@
 <?php
 session_start();
 include '../dbconn.php';
-include './navbar.php';
+include './res_navbar.php';
 ?>
 
 
@@ -149,7 +149,7 @@ include './navbar.php';
                 $(".okbutton").on("click", function (e) {
                     $(".okbutton").attr("disabled", "disabled");
                     $("#modalcancel").modal("hide");
-                    document.location = "../index.php";
+                    document.location = "../api/logout.php";
                 });
                 
                 $.urlParam = function (name) {

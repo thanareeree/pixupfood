@@ -121,10 +121,10 @@ include './view/navbar.php';
                                                     </div>
 
                                                     <div class="col-md-7" style="border-left:1px solid #ccc;height:160px">
-                                                        <form class="form-horizontal" action="api/loginsession.php" method="post">
+                                                        <form class="form-horizontal" action="api/loginsession.php" method="post" id="loginbox">
                                                             <fieldset>
-                                                                <input id="textinput" name="loginemail" type="text" placeholder="Enter User Name" class="form-control input-md">                                                                
-                                                                <input id="textinput" name="password" type="password" placeholder="Enter Password" class="form-control input-md" style="margin: 10px 0 5px 0">
+                                                                <input id="loginemail"  name="loginemail" type="text" placeholder="Enter User Name" class="form-control input-md">                                                                
+                                                                <input  id="password" name="password" type="password" placeholder="Enter Password" class="form-control input-md" style="margin: 10px 0 5px 0">
                                                                 <div class="spacing"><input type="checkbox" name="checkboxes" id="checkboxes-0" value="1"><small> Remember me</small></div>
                                                                 <div class="spacing spacing-height"><a href="#"><p style="font-size: 14px">Forgot Password?</p></a><br/></div>
                                                                 <button type="submit"  class="btn btn-info btn-sm pull-right">Sign In</button>
@@ -700,6 +700,9 @@ include './view/navbar.php';
                 $('.dropdown-menu').find('form').click(function (e) {
                     e.stopPropagation();
                 });
+
+               
+
             });
         </script>
 

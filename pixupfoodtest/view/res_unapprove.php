@@ -12,7 +12,7 @@ include './res_navbar.php';
         http://www.templatemo.com/preview/templatemo_446_boxer
         -->
         <meta  charset="utf-8" />
-        <title>Restaurant Register Form</title>
+        <title>Restaurant</title>
         <meta http-equiv="X-UA-Compatible" content="IE=Edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="keywords" content="">
@@ -64,13 +64,12 @@ include './res_navbar.php';
                 <div class="tab-content">
                     <div class="container " >
                         <div class="row"  >
-                            <div class="col-md-12 wow fadeInUp" style="margin-top: 50px;margin-left: 200px; margin-bottom: 50px"  data-wow-delay="0.6s">
+                            <div class="col-md-12 wow fadeInUp" style="margin-top: 50px;margin-left: 100px; margin-bottom: 60px"  data-wow-delay="0.6s">
                                 <div class="col-md-4"></div>
-                                <div class="col-md-8 content2 center-block">
+                                <div class="col-md-9 content2 center-block">
                                     <div class="col-md-12" >
-                                        <h4>ขั้นตอนการสมัครสมาชิกเพื่อเข้าเปิดร้านอาหารบนเว็บไซต์ pixupfood.com ของท่านสำเร็จเรียบร้อย</h4><br>
-                                        <h4>ท่านจะเข้ามาเปิดร้านอาหารได้สมบูรณ์ ก็ต่อเมื่อ Admin ของระบบ อนุญาตให้ท่านเข้าใช้งานเว็บไซต์แล้วเท่านั้น</h4><br>
-                                        <h4>ระบบจะเข้ามาตรวจสอบข้อมูลทุกชั่วโมง โปรดตรวจสอบสถานะได้โดยการเข้าสู่ระบบ</h4>
+                                        <h3 style="text-align: center">ท่านยังไม่สามารถเข้าใช้เว็บไซต์ในขณะนี้ได้</h3><br>
+                                        <h3 style="text-align: center">   กรุณารอ Admin ของระบบทำการตรวจสอบข้อมูลก่อน</h3>
                                     </div>
                                 </div>
                             </div>
