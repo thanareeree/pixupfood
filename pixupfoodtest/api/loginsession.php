@@ -33,10 +33,10 @@ if ($res->num_rows == 0 && $res2->num_rows == 0) {
         </script>
         <?php
 
-    } else if ($_SESSION["restdata"]["type"] == 1 && $_SESSION["restdata"]["available"] == 0) {  //กรณีแอดมินยังไม่ได้ verify ให้เปิดร้าน
+    } else if ($_SESSION["restdata"]["type"] == 1 && $_SESSION["restdata"]["img_path"] == "") {  //กรณีแอดมินยังไม่ได้ verify ให้เปิดร้าน
         ?>
         <script>
-            document.location = "###";
+            document.location = "../view/re_confirm.php?id=<?= $_SESSION["restdata"]["id"] ?>";
         </script>
         <?php
     } else if ($_SESSION["restdata"]["available"] != 0) { //แอดมิน อนุมัติแล้ว ร้านอาหารสามารถเข้าไป manage ร้านได้ปกติ
