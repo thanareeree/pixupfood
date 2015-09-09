@@ -27,7 +27,7 @@ and open the template in the editor.
 {
     padding-bottom: 10px;
 }
-#cus_register h3
+#cus_register h3,h4,h5
 {
     margin-bottom: 0px;
 }
@@ -110,7 +110,7 @@ and open the template in the editor.
 {
     padding-bottom: 10px;
 }
-#res_register h3
+#res_register h3,h4,h5
 {
     margin-bottom: 0px;
 }
