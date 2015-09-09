@@ -26,7 +26,7 @@ include './navbar.php';
 
 
         <!-- custom css -->
-        <link rel="stylesheet" href="../assets/css/register.css">
+        <!--<link rel="stylesheet" href="../assets/css/register.css">-->
         <link rel="stylesheet" href="../assets/css/style.css">
         <link rel="stylesheet" href="../assets/css/search.css">
         <link rel="stylesheet" href="../assets/css/slide2.css">
@@ -78,7 +78,6 @@ include './navbar.php';
                                             $id = $_GET["id"];
                                             echo $id;
                                             ?>">
-
                                         </div>
                                         <br>
                                         <div class="col-md-3">
