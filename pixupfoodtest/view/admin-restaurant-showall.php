@@ -284,11 +284,6 @@ include '../dbconn.php';
                         success: function (returndata) {
                             $("#showimage").html(returndata);
                             $("#openconfirmmodal").modal("show");
-                            if(){   //เช้คว่า span #imgnull มีค่ามั้ย
-                                $("#approveyes").attr("disabled", "disabled");
-                            }else{
-                                 $("#approveyes").removeAttr("disabled");
-                            }
                         }
                     });
                 });
