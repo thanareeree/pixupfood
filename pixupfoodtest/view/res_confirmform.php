@@ -144,13 +144,14 @@ include './navbar.php';
             $(document).ready(function () {
                 $("#cancelbtn").on("click", function (e) {
                     $("#modalcancel").modal("show");
-                    //alert($("#imgfile")[0].files[0].size);
+                    //alert($.urlParam("success"));
                 });
                 $(".okbutton").on("click", function (e) {
                     $(".okbutton").attr("disabled", "disabled");
                     $("#modalcancel").modal("hide");
                     document.location = "../index.php";
                 });
+                
                 $.urlParam = function (name) {
                     var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
                     if (results == null) {
@@ -160,6 +161,13 @@ include './navbar.php';
                         return results[1] || 0;
                     }
                 };
+                function checksuccess(){
+                     if($.urlParam("success")== 0){
+                        $("#modalcancel").fadeIn(1000);
+                        $("#modalcancel").modal("show");
+                    }
+                } checksuccess();
+                
                 $("#imgfile").on("change", function (e) {
                     var imgsize = $("#imgfile")[0].files[0].size;
                     var imgtype = $("#imgfile")[0].files[0].type;

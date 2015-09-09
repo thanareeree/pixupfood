@@ -78,8 +78,8 @@ include './view/navbar.php';
                             </div>
                         </div>
                     </div>
-                    <ul class="nav navbar-nav navbar-right text-uppercase">
-                        <li><a  <?= (!isset($_SESSION["islogin"])) ? 'href="#"' : 'href="api/logout.php" class="nav-link"' ?> ><?= (!isset($_SESSION["islogin"])) ? 'สมัครสมาชิก | เข้าสู่ระบบ >>' : $_SESSION["userdata"]["firstName"] . " " . $_SESSION["userdata"]["lastName"] ?></a></li>
+                    <ul class="nav navbar-nav navbar-right text-uppercase" <?= (!isset($_SESSION["islogin"])) ? '' : 'style="display: none"' ?> >
+                        <li><a  href="#" > สมัครสมาชิก | เข้าสู่ระบบ >></a></li>
                         <li class="dropdown">
                             <a href="login.php" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
                                 <img src="assets/images/bar/user.png" style="width:40px;height:40px;"/>
@@ -140,6 +140,51 @@ include './view/navbar.php';
                             </ul>
                         </li>
                     </ul>
+
+                    <ul class="nav navbar-nav navbar-right text-uppercase" <?= (!isset($_SESSION["islogin"])) ? 'style="display: none"' : '' ?> >
+                        <li><a href="api/logout.php" class="nav-link"><?= (!isset($_SESSION["islogin"])) ? 'No Session' : "สวัสดีคุณ " . $_SESSION["userdata"]["firstName"] . " " . $_SESSION["userdata"]["lastName"] ?></a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="assets/images/bar/user.png" style="width:40px;height:40px;"/>
+                            </a>
+                            <ul class="dropdown-menu" style="padding: 0px">
+                                <li>
+                                    <div class="middlePage1">
+                                        <div class="panel panel-info">
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-md-4" style="border-right:1px solid #ccc;height:auto;">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <a href="view/cus_customer_profile.php">
+                                                                    <img src="assets/images/profile/1.jpg" width="160px" height="160px">
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <form class="form-horizontal">
+                                                            <fieldset>
+                                                                <input id="textinput" name="textinput" type="text" placeholder="Enter User Name" class="form-control input-md"><br>
+                                                                <a href="api/logout.php">
+                                                                    <button id="logoutbutton" type="button" class="btn btn-danger btn-sm pull-right" style="margin-left: 15px;">Logout</button>
+                                                                </a>
+                                                                <a href="view/cus_customer_profile.php">
+                                                                    <button id="profilebutton" class="btn btn-info btn-sm pull-right" type="button">Profile</button>
+                                                                </a>
+                                                            </fieldset>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
                 </div>
             </div>
         </nav>
