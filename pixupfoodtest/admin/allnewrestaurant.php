@@ -1,6 +1,6 @@
 <?php
 include '../dbconn.php';
-$res1 = $con->query("SELECT * FROM `restaurant` where available = 0`");
+$res1 = $con->query("SELECT * FROM `restaurant` where available = 0");
 while ($data1 = $res1->fetch_assoc()) {
     ?>
     <tr>

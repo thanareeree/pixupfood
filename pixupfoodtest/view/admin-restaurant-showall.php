@@ -101,16 +101,16 @@ include '../dbconn.php';
                 <!-- /.modal-dialog --> 
             </div>
 
-            <!-- Modal open Confirm-->
+             <!-- Modal open Confirm-->
             <div class="modal fade" id="openconfirmmodal">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">Restaurant: &nbsp;<span id="showrestaurantname"></span></h4>
+                            <h4 class="modal-title">ภาพหลักฐานประกอบการสมัครของร้าน &nbsp;<span id="showrestaurantname"></span></h4>
                         </div>
-                        <div class="modal-body">
-                            <p>Image Preview:</p>
+                        <div id="showimage">
+                            
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal"></span>cancel</button>
@@ -261,7 +261,9 @@ include '../dbconn.php';
                         success: function (returndata) {
                             if (returndata == "ok") {
                                 $("#deletemodal").modal("hide");
-                                fetchdataShowall();
+                                document.location.reload();
+                                //fetchdataShowall();
+                                
                             } else {
                                 alert("error");
                             }
@@ -270,14 +272,30 @@ include '../dbconn.php';
                 });
 
                 $("#showdata").on("click", ".openconfirmbtn", function (e) {
-                    var approvename = $(this).attr("id");
+                   var approvename = $(this).attr("id");
                     var name = approvename.replace("openconfirm", "");
                     $("#showrestaurantname").html(name);
-                    $("#openconfirmmodal").modal('show');
+
+                    $.ajax({
+                        url: "../admin/view-imageapprove.php",
+                        type: "POST",
+                        data: {"name": name},
+                        dataType: "html",
+                        success: function (returndata) {
+                            $("#showimage").html(returndata);
+                            $("#openconfirmmodal").modal("show");
+                            if(){   //เช้คว่า span #imgnull มีค่ามั้ย
+                                $("#approveyes").attr("disabled", "disabled");
+                            }else{
+                                 $("#approveyes").removeAttr("disabled");
+                            }
+                        }
+                    });
                 });
 
+
                 $("#approveyes").on("click", function (e) {
-                    $("#approveyes").html("<img src='../assets/images/loader.gif' style='width:25px; margin:0 auto;'>");
+                    
                     $.ajax({
                         url: "../admin/approverestaurant.php",
                         type: "POST",
@@ -286,7 +304,8 @@ include '../dbconn.php';
                         success: function (returndata) {
                             if (returndata == "ok") {
                                 $("#openconfirmmodal").modal("hide");
-                                fetchdataShowall();
+                                document.location.reload();
+                                //fetchdataShowall();
                             } else {
                                 alert("error");
                             }
@@ -311,7 +330,8 @@ include '../dbconn.php';
                         success: function (returndata) {
                             if (returndata == "ok") {
                                 $("#blockmodal").modal("hide");
-                                fetchdataShowall();
+                                document.location.reload();
+                                //fetchdataShowall();
                             } else {
                                 alert("error");
                             }
@@ -335,7 +355,8 @@ include '../dbconn.php';
                         success: function (returndata) {
                             if (returndata == "ok") {
                                 $("#blockedmodal").modal("hide");
-                                fetchdataShowall();
+                                document.location.reload();
+                                //fetchdataShowall();
                             } else {
                                 alert("error");
                             }

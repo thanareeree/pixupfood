@@ -38,7 +38,7 @@ if ($res->num_rows == 0 && $res2->num_rows == 0) {
             document.location = "../view/res_confirmform.php?id=<?= $_SESSION["restdata"]["id"] ?>";
         </script>
         <?php
-    } else if ($_SESSION["restdata"]["available"] == 0) { //แอดมิน อนุมัติแล้ว ร้านอาหารสามารถเข้าไป manage ร้านได้ปกติ
+    } else if ($_SESSION["restdata"]["available"] == 0) { //แอดมิน ยังไม่อนุมัติ
         ?>
         <script>
             document.location = "../view/res_unapprove.php";
