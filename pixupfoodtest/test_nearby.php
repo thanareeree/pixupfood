@@ -206,40 +206,17 @@ include './view/navbar.php';
                     <div class="row">
                         <div class="carousel slide" id="rescarousel">
                             <div class="carousel-inner">
-
                                 <ul class="thumbnails">
                                     <div id="shownearbylist">
-
-                                        <li class="col-sm-3">
-                                            <div class="fff">
-                                                <div class="thumbnail">
-                                                    <a href="#"><img src="assets/images/default-img360.png" alt=""></a>
-                                                </div>
-                                                <div class="caption">
-                                                    <h4>Praesent commodo</h4>
-                                                    <p></p>
-                                                    <p>Nullam Condimentum Nibh Etiam Sem</p>
-                                                    <p>Nullam Condimentum Nibh Etiam Sem</p>
-                                                    <a style="color:rgba(255,127,0,1)" class="btn btn-mini" href="#">» Read More</a>
-                                                </div>
-                                            </div>
-                                        </li>
-
+                                        
 
                                     </div>
                                 </ul>
 
-
-
-
-
-
-
-
                             </div><!-- /#myCarousel -->
                         </div>
                     </div>
-
+                </div>
             </section>
             <div id="map" style="display: none"></div>
             <form>
@@ -301,8 +278,8 @@ include './view/navbar.php';
 
                 function getPosition(pos) {
                     globalPosition = pos;
-                    document.getElementById("latinput").value = pos.coords.latitude;
-                    document.getElementById("longinput").value = pos.coords.longitude;
+                    lat = pos.coords.latitude;
+                    long = pos.coords.longitude;
                     // alert($("#latinput").val() + "\n" + $("#longinput").val());
                     console.log(pos);
 
@@ -314,21 +291,29 @@ include './view/navbar.php';
                     document.getElementById("longinput").value = "";
                 }
 
-                function loadajax() {
+                function showlist() {
                     $.ajax({
                         url: 'customer/customer-search-nearby.php',
-                        data: {"lat": $("#latinput").val(),
-                            "long": $("#longinput").val()},
-                        dataType: "json",
-                        success: function (data) {
-                            
+                        type: "POST",
+                        data: {"lat": lat,
+                            "long": long},
+                        dataType: "html",
+                        success: function (returndata) {
+                            if(returndata=="error"){
+                                alert("123459859859656");
+                            }else{
+                            $("#shownearbylist").append(returndata);
+                        }
                         }
                     });
                 }
+                showlist();
 
-                $(function () {
-                    setTimeout(loadajax, 500);
-                });
+
+
+
+
+
                 /*$.ajax({
                  type: "POST",
                  url: "../restaurant/restaurant-save.php",
