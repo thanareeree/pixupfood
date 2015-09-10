@@ -212,7 +212,7 @@ include '../dbconn.php';
                         data: {"id": id},
                         dataType: "html",
                         success: function (returndata) {
-                            $("#showimage").html(returndata);
+                            $("#viewbody").html(returndata);
                             $("#viewmodal").modal("show");
                         }
                     });
