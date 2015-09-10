@@ -42,7 +42,7 @@ include './navbar.php';
 
 
     </head>
-    <body onload="startMap()">
+    <body>
         <?php show_navbar(); ?>
         <!-- start register -->
         <section id="res_register">
