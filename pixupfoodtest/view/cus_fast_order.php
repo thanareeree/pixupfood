@@ -28,9 +28,7 @@ include '../dbconn.php';
         addlink("Test Title");
         ?>
         <!-- custom css -->
-        <link rel="stylesheet" href="../assets/css/restaurant_view.css">
-        <link href="http://jondmiles.com/bootstrap-datepaginator/css/bootstrap-datepicker.css" rel="stylesheet" media="screen" type="text/css">
-        <link href="http://jondmiles.com/bootstrap-datepaginator/css/bootstrap-datepaginator.min.css" rel="stylesheet" media="screen" type="text/css">
+        <link rel="stylesheet" href="../assets/css/fast_order.css">
 
     </head>
     <body>
@@ -39,7 +37,7 @@ include '../dbconn.php';
 
 
         <!-- start profile -->
-        <section id="restaurant_view">
+        <section id="fast_order">
             <div class="profilecontainer">
                 <div class="headprofile">
                     <img align="left" class="fb-image-lg" src="../assets/images/city-restaurant-lunch-outside.png" alt="Profile image example"/>
@@ -101,9 +99,13 @@ include '../dbconn.php';
                             <form role="form">
                                 <div class="tab-content">
                                     <div class="tab-pane active" role="tabpanel" id="step1">
-                                        <h3>Step 1</h3>
-                                        <p>This is step 1</p>
-                                        <div class="datepaginator" id="paginator"></div>
+                                        <div class="container_field">
+                                            <h3>Step 1</h3>
+                                                <input type="checkbox" name="sex" value="male">&nbsp;อาหารจานเดียว&nbsp;&nbsp;
+                                                <input type="checkbox" name="sex" value="female">&nbsp;ข้าว + กับข้าว 1 อย่าง&nbsp;&nbsp;
+                                                <input type="checkbox" name="sex" value="male">&nbsp;ข้าว + กับข้าว 2 อย่าง&nbsp;&nbsp;
+                                                <input type="checkbox" name="sex" value="female">&nbsp;ข้าว + กับข้าว 3 อย่าง
+                                        </div>
                                         <ul class="list-inline pull-right">
                                             <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
                                         </ul>
@@ -351,38 +353,7 @@ include '../dbconn.php';
                 $(elem).prev().find('a[data-toggle="tab"]').click();
             }
         </script>
-        <script>
-            $(document).ready(function () {
 
-// This will wait for the DOM (your HTML) to be loaded before executing aFunction
-
-                /* uncomment to use optios
-                 var options = {
-                 selectedDate: '2013-01-01',
-                 selectedDateFormat: 'YYYY-MM-DD'
-                 }
-                 
-                 $('#paginator').datepaginator(options);
-                 
-                 */
-
-//  defatult settings, i.e. today's date etc.
-
-                $('#paginator').datepaginator();
-
-
-                /* uncomment to add event if date is changed
-                 $('#paginator').on('selectedDateChanged', function(event, date) {
-                 // Your logic goes here
-                 alert('Date was changed.');
-                 });
-                 */
-
-            });
-        </script>
-        <script type="text/javascript" src="http://jondmiles.com/bootstrap-datepaginator/js/moment.min.js"></script>
-        <script type="text/javascript" src="http://jondmiles.com/bootstrap-datepaginator/js/bootstrap-datepicker.js"></script>
-        <script type="text/javascript" src="http://jondmiles.com/bootstrap-datepaginator/js/bootstrap-datepaginator.min.js"></script>
 
     </body>
 </html>
