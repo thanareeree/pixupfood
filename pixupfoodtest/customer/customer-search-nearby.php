@@ -7,7 +7,7 @@ if ($lat != "" && $long != "") {
     $res = $con->query("SELECT *, ( 3959 * acos( cos( radians(" . $lat . ") ) "
             . "* cos( radians( x ) ) * cos( radians( y ) - radians(" . $long . ") ) "
             . "+ sin( radians(" . $lat . ") ) * sin( radians( x ) ) ) ) AS distance "
-            . "FROM restaurant HAVING distance < 25 ORDER BY distance LIMIT 0 , 12");
+            . "FROM restaurant HAVING distance < 25 ORDER BY distance LIMIT 0 , 8");
     while ($data = $res->fetch_assoc()) {
         ?>
 
@@ -19,14 +19,12 @@ if ($lat != "" && $long != "") {
                 </div>
                 <div class = "caption">
                     <h4><?= $data["name"] ?></h4>
-                    
                     <p style="text-align: left"><span class="glyphicon glyphicon-cutlery">&nbsp;</span><?= $data["detail"] ?></p>
                     <p style="text-align: left"><span class="glyphicon glyphicon-map-marker">&nbsp;</span><?= $data["province"] ?></p>
                     <a style = "color:rgba(255,127,0,1)" class = "btn btn-mini" href = "#">» Read More</a>
                 </div>
             </div>
         </li>
-
 
 
 

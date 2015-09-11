@@ -278,6 +278,7 @@ include './view/navbar.php';
             </div>
         </section>
         <!-- end 6 step -->
+
         <!-- start nearby -->
         <section id="nearby" style="padding-bottom:5px">
             <div class="container wow fadeInUp">
@@ -285,178 +286,20 @@ include './view/navbar.php';
                 <div class="row">
                     <div class="carousel slide" id="rescarousel">
                         <div class="carousel-inner">
-                            <div class="item active">
-                                <ul class="thumbnails">
-                                    <li class="col-sm-3">
-                                        <div class="fff">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/default-img360.png" alt=""></a>
-                                            </div>
-                                            <div class="caption">
-                                                <h4>Praesent commodo</h4>
-                                                <p>Nullam Condimentum Nibh Etiam Sem</p>
-                                                <a style="color:rgba(255,127,0,1)" class="btn btn-mini" href="#">» Read More</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="col-sm-3">
-                                        <div class="fff">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/default-img360.png" alt=""></a>
-                                            </div>
-                                            <div class="caption">
-                                                <h4>Praesent commodo</h4>
-                                                <p>Nullam Condimentum Nibh Etiam Sem</p>
-                                                <a style="color:rgba(255,127,0,1)" class="btn btn-mini" href="#">» Read More</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="col-sm-3">
-                                        <div class="fff">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/default-img360.png" alt=""></a>
-                                            </div>
-                                            <div class="caption">
-                                                <h4>Praesent commodo</h4>
-                                                <p>Nullam Condimentum Nibh Etiam Sem</p>
-                                                <a style="color:rgba(255,127,0,1)" class="btn btn-mini" href="#">» Read More</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="col-sm-3">
-                                        <div class="fff">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/default-img360.png" alt=""></a>
-                                            </div>
-                                            <div class="caption">
-                                                <h4>Praesent commodo</h4>
-                                                <p>Nullam Condimentum Nibh Etiam Sem</p>
-                                                <a style="color:rgba(255,127,0,1)" class="btn btn-mini" href="#">» Read More</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div><!-- /Slide1 --> 
-                            <div class="item">
-                                <ul class="thumbnails">
-                                    <li class="col-sm-3">
-                                        <div class="fff">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/default-img360.png" alt=""></a>
-                                            </div>
-                                            <div class="caption">
-                                                <h4>Praesent commodo</h4>
-                                                <p>Nullam Condimentum Nibh Etiam Sem</p>
-                                                <a style="color:rgba(255,127,0,1)" class="btn btn-mini" href="#">» Read More</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="col-sm-3">
-                                        <div class="fff">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/default-img360.png" alt=""></a>
-                                            </div>
-                                            <div class="caption">
-                                                <h4>Praesent commodo</h4>
-                                                <p>Nullam Condimentum Nibh Etiam Sem</p>
-                                                <a style="color:rgba(255,127,0,1)" class="btn btn-mini" href="#">» Read More</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="col-sm-3">
-                                        <div class="fff">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/default-img360.png" alt=""></a>
-                                            </div>
-                                            <div class="caption">
-                                                <h4>Praesent commodo</h4>
-                                                <p>Nullam Condimentum Nibh Etiam Sem</p>
-                                                <a style="color:rgba(255,127,0,1)" class="btn btn-mini" href="#">» Read More</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="col-sm-3">
-                                        <div class="fff">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/default-img360.png" alt=""></a>
-                                            </div>
-                                            <div class="caption">
-                                                <h4>Praesent commodo</h4>
-                                                <p>Nullam Condimentum Nibh Etiam Sem</p>
-                                                <a style="color:rgba(255,127,0,1)" class="btn btn-mini" href="#">» Read More</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div><!-- /Slide2 --> 
-                            <div class="item">
-                                <ul class="thumbnails">
-                                    <li class="col-sm-3">	
-                                        <div class="fff">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/default-img360.png" alt=""></a>
-                                            </div>
-                                            <div class="caption">
-                                                <h4>Praesent commodo</h4>
-                                                <p>Nullam Condimentum Nibh Etiam Sem</p>
-                                                <a style="color:rgba(255,127,0,1)" class="btn btn-mini" href="#">» Read More</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="col-sm-3">
-                                        <div class="fff">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/default-img360.png" alt=""></a>
-                                            </div>
-                                            <div class="caption">
-                                                <h4>Praesent commodo</h4>
-                                                <p>Nullam Condimentum Nibh Etiam Sem</p>
-                                                <a style="color:rgba(255,127,0,1)" class="btn btn-mini" href="#">» Read More</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="col-sm-3">
-                                        <div class="fff">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/default-img360.png" alt=""></a>
-                                            </div>
-                                            <div class="caption">
-                                                <h4>Praesent commodo</h4>
-                                                <p>Nullam Condimentum Nibh Etiam Sem</p>
-                                                <a style="color:rgba(255,127,0,1)" class="btn btn-mini" href="#">» Read More</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="col-sm-3">
-                                        <div class="fff">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/default-img360.png" alt=""></a>
-                                            </div>
-                                            <div class="caption">
-                                                <h4>Praesent commodo</h4>
-                                                <p>Nullam Condimentum Nibh Etiam Sem</p>
-                                                <a style="color:rgba(255,127,0,1)" class="btn btn-mini" href="#">» Read More</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div><!-- /Slide3 --> 
-                        </div>
+                            <ul class="thumbnails">
+                                <div id="shownearbylist">
 
 
-                        <nav>
-                            <ul class="control-box2 pager">
-                                <li><a style="color:black" data-slide="prev" href="#rescarousel" class=""><i class="glyphicon glyphicon-chevron-left"></i></a></li>
-                                <li><a style="color:black" data-slide="next" href="#rescarousel" class=""><i class="glyphicon glyphicon-chevron-right"></i></a></li>
+                                </div>
                             </ul>
-                        </nav>
-                        <!-- /.control-box -->   
 
-                    </div><!-- /#myCarousel -->
+                        </div><!-- /#myCarousel -->
+                    </div>
                 </div>
             </div>
         </section>
-        <!-- end nearby -->
+        <div id="map" style="display: none"></div>
+
         <!-- news update head -->
         <section id="nupdateh">
             <img src="assets/images/newsupdatehead.png">
@@ -688,7 +531,8 @@ include './view/navbar.php';
         <script src="assets/bootstrap/js/bootstrap.min.js"></script>
         <script src="assets/js/wow.min.js"></script>   
         <script src="assets/js/custom.js"></script>
-        
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+
         <script>
             $("#menu-toggle").click(function (e) {
                 e.preventDefault();
@@ -701,8 +545,58 @@ include './view/navbar.php';
                 $('.dropdown-menu').find('form').click(function (e) {
                     e.stopPropagation();
                 });
+                
+                var lat = 13.6415824;
+                var long = 100.4963968;
+                function startMap() {
 
-               
+                    map = new google.maps.Map(document.getElementById("map"));
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(getPosition, errorFunction);
+                        //navigator.geolocation.watchPosition(updatePosition);
+                    } else {
+                        alert("ไม่สามารถใช้งาน Search by nearby ได้");
+                        document.getElementById("latinput").value = "";
+                        document.getElementById("longinput").value = "";
+                    }
+                }
+
+                startMap();
+
+                function getPosition(pos) {
+                    globalPosition = pos;
+                    lat = pos.coords.latitude;
+                    long = pos.coords.longitude;
+                    // alert($("#latinput").val() + "\n" + $("#longinput").val());
+                    console.log(pos);
+
+                }
+
+                function errorFunction() {
+                    alert("ไม่สามารถใช้งาน Search by nearby ได้");
+                    document.getElementById("latinput").value = "";
+                    document.getElementById("longinput").value = "";
+                }
+
+                function showlist() {
+                    $.ajax({
+                        url: 'customer/customer-search-nearby.php',
+                        type: "POST",
+                        data: {"lat": lat,
+                            "long": long},
+                        dataType: "html",
+                        success: function (returndata) {
+                            if (returndata == "error") {
+                                alert("123459859859656");
+                            } else {
+                                $("#shownearbylist").append(returndata);
+                            }
+                        }
+                    });
+                }
+                showlist();
+
+
 
             });
         </script>
