@@ -12,11 +12,14 @@ if (move_uploaded_file(@$_FILES["imgfile"]["tmp_name"], $target_file)) {
 
     if ($con->error == "") {
         ?>
-        <script> document.location = "../view/res_confirmform.php?success=1";</script>
+        <script> document.location = "../view/res_register_success.php";</script>
         <?php
 
-    }else{
-        echo $con->error;
+    } else {
+        ?>
+        <script> document.location = "../view/res_confirmform.php?success=0";</script>
+        <?php
+
     }
 } else {
     echo json_encode(array(

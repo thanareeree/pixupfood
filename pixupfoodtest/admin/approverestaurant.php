@@ -7,6 +7,6 @@ $con->query("UPDATE `restaurant` SET `available`= 1 WHERE name = '$name'");
 if($con->error==""){
     echo "ok";
 }else{
-    echo "error";
+    echo $con->error;
 }
 

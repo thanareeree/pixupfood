@@ -78,8 +78,8 @@ include './view/navbar.php';
                             </div>
                         </div>
                     </div>
-                    <ul class="nav navbar-nav navbar-right text-uppercase">
-                        <li><a  <?= (!isset($_SESSION["islogin"])) ? 'href="#"' : 'href="api/logout.php" class="nav-link"' ?> ><?= (!isset($_SESSION["islogin"])) ? 'สมัครสมาชิก | เข้าสู่ระบบ >>' : $_SESSION["userdata"]["firstName"] . " " . $_SESSION["userdata"]["lastName"] ?></a></li>
+                    <ul class="nav navbar-nav navbar-right text-uppercase" <?= (!isset($_SESSION["islogin"])) ? '' : 'style="display: none"' ?> >
+                        <li><a  href="#" > สมัครสมาชิก | เข้าสู่ระบบ >></a></li>
                         <li class="dropdown">
                             <a href="login.php" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
                                 <img src="assets/images/bar/user.png" style="width:40px;height:40px;"/>
@@ -121,10 +121,10 @@ include './view/navbar.php';
                                                     </div>
 
                                                     <div class="col-md-7" style="border-left:1px solid #ccc;height:160px">
-                                                        <form class="form-horizontal" action="api/loginsession.php" method="post">
+                                                        <form class="form-horizontal" action="api/loginsession.php" method="post" id="loginbox">
                                                             <fieldset>
-                                                                <input id="textinput" name="loginemail" type="text" placeholder="Enter User Name" class="form-control input-md">                                                                
-                                                                <input id="textinput" name="password" type="password" placeholder="Enter Password" class="form-control input-md" style="margin: 10px 0 5px 0">
+                                                                <input id="loginemail"  name="loginemail" type="text" placeholder="Enter User Name" class="form-control input-md">                                                                
+                                                                <input  id="password" name="password" type="password" placeholder="Enter Password" class="form-control input-md" style="margin: 10px 0 5px 0">
                                                                 <div class="spacing"><input type="checkbox" name="checkboxes" id="checkboxes-0" value="1"><small> Remember me</small></div>
                                                                 <div class="spacing spacing-height"><a href="#"><p style="font-size: 14px">Forgot Password?</p></a><br/></div>
                                                                 <button type="submit"  class="btn btn-info btn-sm pull-right">Sign In</button>
@@ -140,6 +140,51 @@ include './view/navbar.php';
                             </ul>
                         </li>
                     </ul>
+
+                    <ul class="nav navbar-nav navbar-right text-uppercase" <?= (!isset($_SESSION["islogin"])) ? 'style="display: none"' : '' ?> >
+                        <li><a href="api/logout.php" class="nav-link"><?= (!isset($_SESSION["islogin"])) ? 'No Session' : "สวัสดีคุณ " . $_SESSION["userdata"]["firstName"] . " " . $_SESSION["userdata"]["lastName"] ?></a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="assets/images/bar/user.png" style="width:40px;height:40px;"/>
+                            </a>
+                            <ul class="dropdown-menu" style="padding: 0px">
+                                <li>
+                                    <div class="middlePage1">
+                                        <div class="panel panel-info">
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-md-4" style="border-right:1px solid #ccc;height:auto;">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <a href="view/cus_customer_profile.php">
+                                                                    <img src="assets/images/profile/1.jpg" width="160px" height="160px">
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <form class="form-horizontal">
+                                                            <fieldset>
+                                                                <input id="textinput" name="textinput" type="text" placeholder="Enter User Name" class="form-control input-md"><br>
+                                                                <a href="api/logout.php">
+                                                                    <button id="logoutbutton" type="button" class="btn btn-danger btn-sm pull-right" style="margin-left: 15px;">Logout</button>
+                                                                </a>
+                                                                <a href="view/cus_customer_profile.php">
+                                                                    <button id="profilebutton" class="btn btn-info btn-sm pull-right" type="button">Profile</button>
+                                                                </a>
+                                                            </fieldset>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
                 </div>
             </div>
         </nav>
@@ -655,6 +700,9 @@ include './view/navbar.php';
                 $('.dropdown-menu').find('form').click(function (e) {
                     e.stopPropagation();
                 });
+
+               
+
             });
         </script>
 
