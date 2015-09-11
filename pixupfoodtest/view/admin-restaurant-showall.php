@@ -101,7 +101,7 @@ include '../dbconn.php';
                 <!-- /.modal-dialog --> 
             </div>
 
-             <!-- Modal open Confirm-->
+            <!-- Modal open Confirm-->
             <div class="modal fade" id="openconfirmmodal">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -272,7 +272,7 @@ include '../dbconn.php';
                 });
 
                 $("#showdata").on("click", ".openconfirmbtn", function (e) {
-                   var approvename = $(this).attr("id");
+                    var approvename = $(this).attr("id");
                     var name = approvename.replace("openconfirm", "");
                     $("#showrestaurantname").html(name);
 
@@ -285,7 +285,7 @@ include '../dbconn.php';
                             $("#showimage").html(returndata);
                             $("#openconfirmmodal").modal("show");
                         }
-                    });
+                });
                 });
 
 

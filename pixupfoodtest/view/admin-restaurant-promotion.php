@@ -10,15 +10,31 @@ include '../dbconn.php';
         <meta charset="UTF-8">
 
         <?php addlink("Promotion Management"); ?>
+        <style>
+            .content2 
+            {
+                margin-left: 20px;
+                margin-right: 20px;
+                padding: 30px 0;
+                padding-left: 40px;
+                padding-right: 40px;
+                background-color:rgba(255,246,143,0.3);
+                border-top-left-radius:25px;
+                border-top-right-radius:25px;
+                border-bottom-left-radius:25px;
+                border-bottom-right-radius:25px;
+                height:auto;
+            }
+        </style>
     </head>
     <body>
         <?php navAdminAfterLogin(); ?>
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
-                    
+
                 </div>
-                
+
                 <div class="col-sm-5">
                     <h4>Add payment:</h4>
                     <div class="panel panel-default">

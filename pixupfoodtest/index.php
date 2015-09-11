@@ -688,6 +688,7 @@ include './view/navbar.php';
         <script src="assets/bootstrap/js/bootstrap.min.js"></script>
         <script src="assets/js/wow.min.js"></script>   
         <script src="assets/js/custom.js"></script>
+        
         <script>
             $("#menu-toggle").click(function (e) {
                 e.preventDefault();
