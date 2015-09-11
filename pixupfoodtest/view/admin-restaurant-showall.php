@@ -26,8 +26,8 @@ include '../dbconn.php';
                             <th data-field="id" data-sortable="true">ID</th>
                             <th data-field="resname"  data-sortable="true">Restaurant Name</th>
                             <th data-field="plantype" data-sortable="true" data-toggle="tooltip" data-placement="top" title="1 = ทดลองใช้ 1 ปี">Service Plan Type</th>
-                            <th data-field="approve">Approve</th>
-                            <th data-field="block">Block</th>
+                            <th data-field="approve" data-sortable="true" >Approve</th>
+                            <th data-field="block" data-sortable="true" >Block</th>
                             <th data-field="actions" >Actions</th>
                             </thead>
                             <tbody id="showdata">
@@ -45,6 +45,9 @@ include '../dbconn.php';
                                             </button>
                                             <button class="btn btn-success approvebtn" id="approvebtn" style="<?= ($data1["available"] == 1) ? '' : 'display: none' ?>">
                                                 <span class="glyphicon glyphicon-ok"></span>
+                                            </button>
+                                             <button class="btn btn-warning unapprovebtn" id="unapprove<?= $data1["name"] ?>" style="<?= ($data1["available"] == 2) ? '' : 'display: none' ?>">
+                                                <span class="glyphicon glyphicon-exclamation-sign"></span>
                                             </button>
                                         </td>                                       
                                         <td>
@@ -101,6 +104,7 @@ include '../dbconn.php';
                 <!-- /.modal-dialog --> 
             </div>
 
+            
             <!-- Modal open Confirm-->
             <div class="modal fade" id="openconfirmmodal">
                 <div class="modal-dialog">
@@ -110,15 +114,43 @@ include '../dbconn.php';
                             <h4 class="modal-title">ภาพหลักฐานประกอบการสมัครของร้าน &nbsp;<span id="showrestaurantname"></span></h4>
                         </div>
                         <div id="showimage">
-                            
+
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal"></span>cancel</button>
-                            <button type="button" class="btn btn-success" id="approveyes" ></span>Approve</button>
+                            <form action="#" method="post">
+                                <div class="form-group col-sm-12 ">
+                                    <div class="col-sm-8">
+                                        <textarea class="form-control" id="reasondetail" name="reasondetail" rows="1" placeholder="ไม่อนุญาต เนื่องจาก?"required></textarea>
+                                    </div> 
+                                    <div class="col-sm-4">
+                                        <button type="button" class="btn btn-default" id="disapprovebtn"></span>ไม่อนุญาต</button>
+                                        <button type="button" class="btn btn-success" id="approveyes" ></span>อนุญาต</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
             </div><!-- /.modal -->
+            
+            <div class="modal fade" id="unapprovemodal" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                            <h4 class="modal-title custom_align" >อนุญาตร้าน</h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="alert alert-warning"><span class="glyphicon glyphicon-exclamation-sign"></span> อนุมัติให้ร้าน&nbsp; <span id="showrestname"></span>&nbsp; เข้าใช้เว็บได้ ?</div>
+                        </div>
+                        <div class="modal-footer ">
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> No</button>
+                            <button type="button" class="btn btn-success" id="unappyes" ><span class="glyphicon glyphicon-ok-sign"></span> Yes</button>
+                        </div>
+                    </div>
+                </div> <!-- /.modal-content --> 
+            </div> <!-- /.modal-dialog --> 
 
             <!-- Modal block Restaurant -->
             <div class="modal fade" id="blockmodal" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
@@ -271,7 +303,7 @@ include '../dbconn.php';
                     });
                 });
 
-                $("#showdata").on("click", ".openconfirmbtn", function (e) {
+               $("#showdata").on("click", ".openconfirmbtn", function (e) {
                     var approvename = $(this).attr("id");
                     var name = approvename.replace("openconfirm", "");
                     $("#showrestaurantname").html(name);
@@ -284,10 +316,13 @@ include '../dbconn.php';
                         success: function (returndata) {
                             $("#showimage").html(returndata);
                             $("#openconfirmmodal").modal("show");
+                            $("#disapprovebtn").attr("disabled", "disabled");
                         }
+                    });
                 });
+                $("#reasondetail").on("keydown", function (e) {
+                    $("#disapprovebtn").removeAttr("disabled");
                 });
-
 
                 $("#approveyes").on("click", function (e) {
                     
@@ -303,6 +338,54 @@ include '../dbconn.php';
                                 //fetchdataShowall();
                             } else {
                                 alert("error");
+                            }
+                        }
+                    });
+                });
+                
+                 $("#disapprovebtn").on("click", function (e) {
+                    $.ajax({
+                        url: "../admin/unapprove-restaurant.php",
+                        type: "POST",
+                        data: {"name": $("#showrestaurantname").html(),
+                            "reason": $("#reasondetail").val()},
+                        dataType: "html",
+                        success: function (returndata) {
+                            if (returndata == "ok") {
+                                $("#openconfirmmodal").modal("hide");
+                                document.location.reload();
+                                //fetchdataShowall();
+                                 
+                            } else {
+                                alert(returndata);
+                            }
+                        }
+                    });
+                });
+
+                $("#showdata").on("click", ".unapprovebtn", function (e) {
+                    var unapprovename = $(this).attr("id");
+                    var name = unapprovename.replace("unapprove", "");
+                    $("#showrestname").html(name);
+                    $("#unapprovemodal").modal('show');
+                });
+
+
+
+
+                $("#unappyes").on("click", function (e) {
+                    $.ajax({
+                        url: "../admin/approverestaurant.php",
+                        type: "POST",
+                        data: {"name": $("#showrestname").html()},
+                        dataType: "html",
+                        success: function (returndata) {
+                            if (returndata == "ok") {
+                                $("#unapprovemodal").modal("hide");
+                                document.location.reload();
+                                //fetchdataShowall();
+                            } else {
+                                alert(returndata);
                             }
                         }
                     });
