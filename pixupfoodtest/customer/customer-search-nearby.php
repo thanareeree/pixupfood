@@ -12,10 +12,11 @@ if ($lat != "" && $long != "") {
         ?>
 
 
+     
         <li class = "col-sm-3">
             <div class = "fff">
                 <div class = "thumbnail">
-                    <a href = "#"><img src = "<?= ($data["img_path"]=="")?'assets/images/default-img482.png':substr($data["img_path"], 3)?>" alt = ""></a>
+                    <a href = "#"><img src = "<?= ($data["img_path"] == "") ? 'assets/images/default-img360.png' : substr($data["img_path"], 3) ?>" alt = ""></a>
                 </div>
                 <div class = "caption">
                     <h4><?= $data["name"] ?></h4>
@@ -33,8 +34,8 @@ if ($lat != "" && $long != "") {
         <?php
     }
 } else {
-    $res = $con->query("SELECT * FROM restaurant  ORDER BY name LIMIT 0 , 12");
-    while ($data = $res->fetch_assoc()) {
+    $res2 = $con->query("SELECT * FROM restaurant  ORDER BY name LIMIT 0 , 12");
+    while ($data2 = $res2->fetch_assoc()) {
         ?>
 
         <li class = "col-sm-3">
@@ -43,7 +44,7 @@ if ($lat != "" && $long != "") {
                     <a href = "#"><img src = "../assets/images/default-img360.png" alt = ""></a>
                 </div>
                 <div class = "caption">
-                    <h4><?= $data["name"] ?></h4>
+                    <h4><?= $data2["name"] ?></h4>
                     <p></p>
                     <p>Nullam Condimentum Nibh Etiam Sem</p>
                     <p>Nullam Condimentum Nibh Etiam Sem</p>

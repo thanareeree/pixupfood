@@ -206,17 +206,26 @@ include './view/navbar.php';
                     <div class="row">
                         <div class="carousel slide" id="rescarousel">
                             <div class="carousel-inner">
+
                                 <ul class="thumbnails">
                                     <div id="shownearbylist">
-                                        
+
+
 
                                     </div>
                                 </ul>
 
+
+
+
+
+
+
+
                             </div><!-- /#myCarousel -->
                         </div>
                     </div>
-                </div>
+
             </section>
             <div id="map" style="display: none"></div>
             <form>
@@ -291,7 +300,7 @@ include './view/navbar.php';
                     document.getElementById("longinput").value = "";
                 }
 
-                function showlist() {
+            function showlist() {
                     $.ajax({
                         url: 'customer/customer-search-nearby.php',
                         type: "POST",
@@ -299,20 +308,15 @@ include './view/navbar.php';
                             "long": long},
                         dataType: "html",
                         success: function (returndata) {
-                            if(returndata=="error"){
+                            if (returndata == "error") {
                                 alert("123459859859656");
-                            }else{
-                            $("#shownearbylist").append(returndata);
-                        }
+                            } else {
+                                $("#shownearbylist").append(returndata);
+                            }
                         }
                     });
                 }
                 showlist();
-
-
-
-
-
 
                 /*$.ajax({
                  type: "POST",
