@@ -98,10 +98,23 @@ http://www.templatemo.com/preview/templatemo_446_boxer
     height: 13px;
 }
 
-#restaurant_view {
+#fast_order {
     font-family: 'supermarketregular';
     padding-top: 70px;
     margin-bottom: 30px;
+}
+
+#fast_order .hrs {
+    border-top-width: 2px;
+    border-color: #FF5F00;
+    margin-top: 0px;
+    margin-bottom: 20px;
+}
+
+#fast_order .content2{
+    margin-left: 100px;
+    width: 80%;
+    
 }
 
 .wizard {
@@ -124,7 +137,7 @@ http://www.templatemo.com/preview/templatemo_446_boxer
     height: 2px;
     background: #e0e0e0;
     position: absolute;
-    width: 80%;
+    width: 85%;
     margin: 0 auto;
     left: 0;
     right: 0;
@@ -171,7 +184,7 @@ span.round-tab:hover {
 }
 
 .wizard .nav-tabs > li {
-    width: 25%;
+    width: 16.5%;
 }
 
 .wizard li:after {
