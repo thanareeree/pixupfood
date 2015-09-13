@@ -1,0 +1,146 @@
+@import url("../..//assets/Supermarket/stylesheet.css");
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 28-Aug-2015, 00:22:48
+    Author     : Tanawat
+*/
+
+/* start allnews_page */
+#allnews
+{
+    background: url('../images/food-vacation-boats-lunch.jpg') no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    color: #fff;
+    font-family: 'supermarketregular';
+    margin-top: 70px;
+    height: 200px;    
+}
+#allnews text-center
+{
+    text-align: center;
+}
+#allnews h1
+{
+    font-size: 55pt;
+    margin-top: 35px;
+}
+#allnews h2
+{
+    padding-bottom: 10px;
+}
+#allnews h3
+{
+    margin-bottom: 0px;
+}
+#allnews p
+{
+    margin-top: 0px;
+}
+#allnews address
+{
+    padding-top: 20px;
+}
+#allnews address .fa
+{
+    background: #28a7e9;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    margin-top: 6px;
+    margin-right: 10px;
+}
+#allnews .contact-form
+{
+    padding-top: 40px;
+}
+#allnews .form-control
+{
+    border: none;
+    border-radius: 0px;
+    box-shadow: none;
+    font-family: 'supermarketregular';
+}
+#allnews input
+{
+    font-family: 'supermarketregular';
+    height: 50px;
+}
+#allnews select
+{
+    height: 50px;
+}
+#allnews input[type="submit"]
+{
+    background: #28a7e9;
+    color: #fff;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+#allnews input[type="submit"]:hover {
+    background: #107DB6;
+}
+#allnews .overlay 
+{
+    width: 100%;
+    background: rgba(0, 0, 0, 0.4);
+}  
+#allnews .container
+{
+    padding-bottom: 50px;
+} 
+/* end search_page */
+
+
+/* start search_page_body */
+#allnews_body
+{
+    font-family: 'supermarketregular';
+}
+#allnews_body .outcontainner
+{
+    margin: 5px 50px 5px 50px;
+    padding: 10px 15px 5px 15px;
+}
+#allnews_body p
+{
+    margin-bottom: 10px;
+}
+#allnews_body .form-control
+{
+    border-color: #ccc;
+    border-radius: 0px;
+    box-shadow: none;
+    font-family: 'supermarketregular';
+    margin-bottom: 10px;
+}
+#allnews_body input[type="checkbox"]
+{
+    font-family: 'supermarketregular';
+    margin: 10px 0 5px 0;
+}
+#allnews_body select
+{
+    height: 50px;
+}
+#allnews_body .ingroup
+{
+    height: 50px;
+}
+#allnews_body input[type="submit"]
+{
+    background: #28a7e9;
+    color: #fff;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+#allnews_body input[type="submit"]:hover {
+    background: #107DB6;
+}
+/* end search_page_body */

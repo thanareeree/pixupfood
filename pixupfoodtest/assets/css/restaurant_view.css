@@ -86,11 +86,26 @@ http://www.templatemo.com/preview/templatemo_446_boxer
     padding: 10px 10px 10px 300px;
 }
 
+#restaurant_view .container_field
+{
+    background-color:rgba(255,246,143,0.4);
+    padding: 10px 10px 10px 10px;
+    margin-bottom: 15px;
+}
+
 #restaurant_view {
     font-family: 'supermarketregular';
     padding-top: 70px;
     margin-bottom: 30px;
 }
+
+#restaurant_view input[type="checkbox"] {
+    font-family: 'supermarketregular';
+    margin: 10px 0 5px 0;
+    padding: 0px;
+    height: 13px;
+}
+
 
 .wizard {
     /* margin: 20px auto; */
@@ -108,7 +123,7 @@ http://www.templatemo.com/preview/templatemo_446_boxer
         position: relative;
     }
 
-.connecting-line {
+#restaurant_view .connecting-line {
     height: 2px;
     background: #e0e0e0;
     position: absolute;
@@ -116,8 +131,19 @@ http://www.templatemo.com/preview/templatemo_446_boxer
     margin: 0 auto;
     left: 0;
     right: 0;
-    top: 50%;
+    top: 40%;
     z-index: 1;
+}
+
+#restaurant_view a {
+    color: #FF5F00;
+}
+
+#restaurant_view .hrs {
+    border-top-width: 2px;
+    border-color: #FF5F00;
+    margin-top: 0px;
+    margin-bottom: 20px;
 }
 
 .wizard .nav-tabs > li.active > a, .wizard .nav-tabs > li.active > a:hover, .wizard .nav-tabs > li.active > a:focus {
@@ -159,13 +185,13 @@ span.round-tab:hover {
 }
 
 .wizard .nav-tabs > li {
-    width: 25%;
+    width: 20%;
 }
 
 .wizard li:after {
     content: " ";
     position: absolute;
-    left: 46%;
+    left: 45%;
     opacity: 0;
     margin: 0 auto;
     bottom: 0px;
@@ -177,7 +203,7 @@ span.round-tab:hover {
 .wizard li.active:after {
     content: " ";
     position: absolute;
-    left: 46%;
+    left: 45%;
     opacity: 1;
     margin: 0 auto;
     bottom: 0px;
@@ -188,7 +214,7 @@ span.round-tab:hover {
 .wizard .nav-tabs > li a {
     width: 70px;
     height: 70px;
-    margin: 0 20px 20px 60px;
+    margin: 0 40px 20px 40px;
     border-radius: 100%;
     padding: 0;
 }
@@ -231,4 +257,40 @@ span.round-tab:hover {
         position: absolute;
         left: 35%;
     }
+}
+
+
+#pinBoot {
+  position: relative;
+  max-width: 100%;
+  width: 100%;
+}
+img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+.white-panel {
+  position: absolute;
+  background: white;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
+  padding: 10px;
+}
+/*
+stylize any heading tags withing white-panel below
+*/
+
+.white-panel h1 {
+  font-size: 1em;
+}
+.white-panel h1 a {
+  color: #A92733;
+}
+.white-panel:hover {
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+  margin-top: -5px;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }

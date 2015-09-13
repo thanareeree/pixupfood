@@ -79,3 +79,10 @@ http://www.templatemo.com/preview/templatemo_446_boxer
 #profile input[type="submit"]:hover {
     background: #107DB6;
 }
+
+#profile .container_field
+{
+    background-color:rgba(255,246,143,0.4);
+    padding: 10px 10px 10px 10px;
+    margin-bottom: 15px;
+}

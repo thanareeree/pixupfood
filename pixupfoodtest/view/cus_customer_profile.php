@@ -2,7 +2,6 @@
 include '../api/islogin.php';
 include '../view/navbar.php';
 include '../dbconn.php';
-
 ?>
 
 
@@ -146,12 +145,14 @@ include '../dbconn.php';
             <div class="container">
                 <div class="row" style="margin-top:50px">
                     <div class="col-md-3">
-                        <div class="showbio">
-                            <p style="font-weight:bold">Biography</p>
-                            <p> My name's <?= $_SESSION["userdata"]["firstName"] ?>  <?= $_SESSION["userdata"]["lastName"] ?></p>
-                            <p> address: <?= $_SESSION["userdata"]["address"] ?></p>
-                            <p> Tel: <?= $_SESSION["userdata"]["tel"] ?></p>
-                            <p> Email: <?= $_SESSION["userdata"]["email"] ?></p>
+                        <div class="container_field">
+                            <div class="showbio">
+                                <p style="font-weight:bold">Biography</p>
+                                <p> My name's <?= $_SESSION["userdata"]["firstName"] ?>  <?= $_SESSION["userdata"]["lastName"] ?></p>
+                                <p> address: <?= $_SESSION["userdata"]["address"] ?></p>
+                                <p> Tel: <?= $_SESSION["userdata"]["tel"] ?></p>
+                                <p> Email: <?= $_SESSION["userdata"]["email"] ?></p>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-1">
@@ -601,7 +602,6 @@ include '../dbconn.php';
 
         <?php
         show_footer();
-        
         ?>
 
         <script>
