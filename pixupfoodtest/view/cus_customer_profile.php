@@ -28,18 +28,18 @@ include '../dbconn.php';
         ?>
         <!-- custom css -->
         <link rel="stylesheet" href="../assets/css/profile.css">
-        <style>
-            
-        </style>
+
 
     </head>
     <body>
 
         <?php cusnavbar(); ?>
         <?php
-        $id = $_SESSION["userdata"]["id"];
-        $res2 = $con->query("select * from customer where id = '$id' ");
+        $cusid = $_SESSION["userdata"]["id"];
+        $res2 = $con->query("select * from customer where id = '$cusid' ");
         $data2 = $res2->fetch_assoc();
+
+        $res3 = $con->query("SELECT * FROM `shippingAddress` WHERE customer_id = '$cusid'");
         ?>
 
         <!-- start profile -->
@@ -493,6 +493,11 @@ include '../dbconn.php';
                             <!-- shipping address -->
                             <div class="tab-pane fade" id="shipadd">
                                 <div class="content2">
+                                    <?php
+                                    $result = $con->query("SELECT * FROM `shippingAddress`");
+                                    $i = 1;
+                                    ?>
+
                                     <table class="table table-hover" id="task-table">
                                         <thead>
                                             <tr>
@@ -505,22 +510,45 @@ include '../dbconn.php';
                                         <tbody>
                                             <tr>
                                                 <td>1</td>
-                                                <td>123 ม.4 ต.ยยยยยยยย</td>
-                                                <td><p><button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#edit" disabled="disabled"><span class="glyphicon glyphicon-pencil"></span></button></p></td>
-                                                <td><p><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+                                                <td><?= $data2['address'] ?></td>
+                                                <td>
+                                                    <p>
+                                                        <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#edit" disabled="disabled">
+                                                            <span class="glyphicon glyphicon-pencil"></span>
+                                                        </button>
+                                                    </p>
+                                                </td>
+                                                <td>
+                                                    <p>
+                                                        <button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" >
+                                                            <span class="glyphicon glyphicon-trash"></span>
+                                                        </button>
+                                                    </p>
+                                                </td>
                                             </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>3848 ม.บางมด</td>
-                                                <td><p><button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
-                                                <td><p><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
+                                            <?php while ($data4 = $result->fetch_assoc()) { ?>
+                                                <tr>
+                                                    <td><?= $i++; ?></td>
+                                                    <td><?= $data4['address'] ?></td>
+                                                    <td>
+                                                        <p>
+                                                            <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#edit" >
+                                                                <span class="glyphicon glyphicon-pencil"></span>
+                                                            </button>
+                                                        </p>
+                                                    </td>
+                                                    <td>
+                                                        <p>
+                                                            <button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" >
+                                                                <span class="glyphicon glyphicon-trash"></span>
+                                                            </button>
+                                                        </p>
+                                                    </td>
+                                                </tr>
+                                                <?php
+                                            }
+                                            ?>
+
                                         </tbody>
                                     </table>
                                     <div class="row">
@@ -541,22 +569,44 @@ include '../dbconn.php';
                                     <div class="modal fade" id="add_address" tabindex="-1" role="dialog" aria-labelledby="shipping_address">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="mdrecl" name="mdrecl"><span aria-hidden="true">&times;</span></button>
-                                                    <h4 class="modal-title" id="shipping_address">Add Other Address</h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form action="#" id="addressform" name="addressform" method="post">
+                                                <form action="../customer/add-shipping-address.php?id=<?= $cusid ?>" id="addressform" name="addressform" method="post">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="mdrecl" name="mdrecl"><span aria-hidden="true">&times;</span></button>
+                                                        <h4 class="modal-title" id="shipping_address">เพิ่มที่จัดส่งสินค้า</h4>
+                                                    </div>
+                                                    <div class="modal-body">
 
+                                                        <label for="address">รายละเอียดที่จัดส่งสินค้า:<span style="color: red;font-size: 20px;font-weight: normal">*</span></label>
                                                         <div class="form-group">
-                                                            <input name="address" type="text" required class="form-control input-lg" id="address" placeholder="Address">
+                                                            <textarea required class="form-control" placeholder="ที่จัดส่งสินค้า" rows="3"  name="address" id="address"></textarea>
                                                         </div>
-
-                                                        <div class="modal-footer form-group">
-                                                            <input type="submit" class="btn btn-primary" name="nextbutton" id="nextbutton" value="Update" >
+                                                        <label for="addtype">ประเภทที่อยู่อาศัย:<span style="color: red;font-size: 20px;font-weight: normal">*</span></label>
+                                                        <div class="form-group" >
+                                                            <select name="addtype" id="addtype" class="col-sm-12" required>
+                                                                <option value="อพาร์ทเมนท์">อพาร์ทเมนท์</option>
+                                                                <option value="สถานที่ราชการ">สถานที่ราชการ</option>
+                                                                <option value="โรงพยาบาล">โรงพยาบาล</option>
+                                                                <option value="โรงแรม">โรงแรม</option>
+                                                                <option value="บ้าน">บ้าน</option>
+                                                                <option value="ตลาด">ตลาด</option>
+                                                                <option value="โรงเรียน">โรงเรียน</option>
+                                                                <option value="ร้านค้า">ร้านค้า</option>
+                                                                <option value="วัด">วัด</option>
+                                                                <option value="อื่นๆ">อื่นๆ</option>
+                                                            </select>
                                                         </div>
-                                                    </form>
-                                                </div>
+                                                        <label for="addnaming">กรุณาใส่ข้อมูลระบุที่จัดส่งเพื่อความรวดเร็ว:<span style="color: red;font-size: 20px;font-weight: normal">*</span></label>
+                                                        <div class="form-group">
+                                                            <input required class="form-control" placeholder="ชื่อเรียกที่จัดส่งเพื่อความรวดเร็ว"  name="addnaming" id="addnaming">
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <div>
+                                                            <input type="reset" class="btn btn-warning col-sm-3" name="resetbtn" value="Reset" >
+                                                            <input type="submit" class="btn btn-primary col-sm-3" name="addbtn"  value="Add" >
+                                                        </div>
+                                                    </div> 
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
@@ -568,19 +618,44 @@ include '../dbconn.php';
                             <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-                                            <h4 class="modal-title custom_align" id="Heading">Edit Your Shipping Address</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="form-group">
-                                                <textarea rows="2" class="form-control" placeholder="Address เก่า"></textarea>
-
+                                        <form action="../customer/edie-shipping-address.php?id=<?= $cusid ?>" method="post">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="mdrecl" name="mdrecl"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="shipping_address">เปลี่ยนแปลงข้อมูลที่จัดส่งสินค้า</h4>
                                             </div>
-                                        </div>
-                                        <div class="modal-footer ">
-                                            <button type="button" class="btn btn-warning btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Update</button>
-                                        </div>
+                                            <div class="modal-body">
+
+                                                <label for="address">รายละเอียดที่จัดส่งสินค้า:<span style="color: red;font-size: 20px;font-weight: normal">*</span></label>
+                                                <div class="form-group">
+                                                    <textarea required class="form-control" placeholder="ที่จัดส่งสินค้า" rows="3"  name="address" id="address"></textarea>
+                                                </div>
+                                                <label for="addtype">ประเภทที่อยู่อาศัย:<span style="color: red;font-size: 20px;font-weight: normal">*</span></label>
+                                                <div class="form-group" >
+                                                    <select name="addtype" id="addtype" class="col-sm-12" required>
+                                                        <option value="อพาร์ทเมนท์">อพาร์ทเมนท์</option>
+                                                        <option value="สถานที่ราชการ">สถานที่ราชการ</option>
+                                                        <option value="โรงพยาบาล">โรงพยาบาล</option>
+                                                        <option value="โรงแรม">โรงแรม</option>
+                                                        <option value="บ้าน">บ้าน</option>
+                                                        <option value="ตลาด">ตลาด</option>
+                                                        <option value="โรงเรียน">โรงเรียน</option>
+                                                        <option value="ร้านค้า">ร้านค้า</option>
+                                                        <option value="วัด">วัด</option>
+                                                        <option value="อื่นๆ">อื่นๆ</option>
+                                                    </select>
+                                                </div>
+                                                <label for="addnaming">กรุณาใส่ข้อมูลระบุที่จัดส่งเพื่อความรวดเร็ว:<span style="color: red;font-size: 20px;font-weight: normal">*</span></label>
+                                                <div class="form-group">
+                                                    <input required class="form-control" placeholder="ชื่อเรียกที่จัดส่งเพื่อความรวดเร็ว"  name="addnaming" id="addnaming">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <div>
+                                                    <input type="reset" class="btn btn-warning col-sm-3" name="resetbtn" value="Reset" >
+                                                    <input type="submit" class="btn btn-primary col-sm-3" name="updateaddbtn"  value="Update" >
+                                                </div>
+                                            </div> 
+                                        </form>
                                     </div>
                                     <!-- /.modal-content --> 
                                 </div>
@@ -723,7 +798,7 @@ include '../dbconn.php';
                 });
 
                 $("#canceleditpro").on("click", function (e) {
-alert($("#ecfname").val()+""+$("#ecemail").val()+""+$("#ecphone").val()+""+$("#ecadd").val()+""+$("#eclname").val());
+                    alert($("#ecfname").val() + "" + $("#ecemail").val() + "" + $("#ecphone").val() + "" + $("#ecadd").val() + "" + $("#eclname").val());
                     //$("#editprofile").find('input:text, input:password, input:file, select, textarea').val('');
                     //$("#editprofile").find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected');
 
