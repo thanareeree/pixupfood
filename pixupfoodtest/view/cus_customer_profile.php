@@ -2,7 +2,6 @@
 include '../api/islogin.php';
 include '../view/navbar.php';
 include '../dbconn.php';
-
 ?>
 
 
@@ -29,22 +28,31 @@ include '../dbconn.php';
         ?>
         <!-- custom css -->
         <link rel="stylesheet" href="../assets/css/profile.css">
+        <style>
+            
+        </style>
 
     </head>
     <body>
 
         <?php cusnavbar(); ?>
-
+        <?php
+        $id = $_SESSION["userdata"]["id"];
+        $res2 = $con->query("select * from customer where id = '$id' ");
+        $data2 = $res2->fetch_assoc();
+        ?>
 
         <!-- start profile -->
         <section id="profile">
             <div class="profilecontainer">
-                <div class="headprofile">
+                <div class="headprofile"> 
                     <img align="left" class="fb-image-lg" src="../assets/images/pearhead.png" alt="Profile image example"/>
-                    <img align="left" class="fb-image-profile thumbnail" src="http://lorempixel.com/180/180/people/9/" alt="Profile image example"/>
+                    <img align="left" class="fb-image-profile thumbnail" src="<?= $data2["img_path"] ?>" id="imgprofile"/>
                     <div class="fb-profile-text">
-                        <h1><?= $_SESSION["userdata"]["firstName"] ?>  <?= $_SESSION["userdata"]["lastName"] ?></h1>
-                        <a href="#" data-toggle="modal" data-target="#editprofile" style="color:orange;">
+
+                        <h1><?= $data2["firstName"] ?>  <?= $data2["lastName"] ?></h1>
+                        <span style="color: white"></span>
+                        <a href="#" data-toggle="modal" data-target="#editprofilemodal"style="color:orange;">
                             <i class="fa fa-pencil"></i> Edit Profile
                         </a>
                         <a href="#" data-toggle="modal" data-target="#chpassform" style="color:orange;margin: 0 0 0 30px;">
@@ -56,56 +64,47 @@ include '../dbconn.php';
             <!-- edit profile -->
 
             <!-- Modal customer -->
-            <div class="modal fade" id="editprofile" tabindex="-1" role="dialog" aria-labelledby="ModalCusLabel">
+            <div class="modal fade" id="editprofilemodal" tabindex="-1" role="dialog" aria-labelledby="ModalCusLabel">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="mdrecl" name="mdrecl"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="ModalCusLabel">Edit Profile</h4>
+                            <h4 class="modal-title" id="ModalCusLabel">Edit Profile<span id="cusidedit" style="display: none"></span></h4>
                         </div>
                         <div class="modal-body">
-                            <form action="#" id="cuseditform" name="cuseditform" method="post">
-                                <h4>Select Your Profile Picture</h4>
+                            <form action="../customer/update-profile.php?id=<?= $data2["id"] ?>" id="cuseditform" name="cuseditform" method="post" enctype="multipart/form-data">
+                                <h4>Select Your New Profile Picture</h4>
+
                                 <div class="form-group">
-                                    <input type="file" name="imgpro" id="imgpro">
+                                    <input type="file" name="imgpro" id="imgpro" >
+                                    <p id="output" style="color: red"></p>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12 form-group">
-                                        <input type="email" class="form-control" placeholder="Email" id="ecemail">
+                                        <input type="email" class="form-control" placeholder="Email" id="ecemail" name="ecemail" value="<?= $data2["email"] ?>">
                                     </div>
                                     <div class="col-md-6 form-group">
-                                        <input type="text" class="form-control" placeholder="FirstName" id="ecfname">
+                                        <input type="text" class="form-control" placeholder="FirstName" id="ecfname" name="ecfname" value="<?= $data2["firstName"] ?>">
                                     </div>
                                     <div class="col-md-6 form-group">
-                                        <input type="text" class="form-control" placeholder="LastName" id="eclname">
+                                        <input type="text" class="form-control" placeholder="LastName" id="eclname" name="eclname" value="<?= $data2["lastName"] ?>">
                                     </div>
                                     <div class="col-md-12 form-group">
-                                        <textarea class="form-control" placeholder="Address" rows="3" id="ecadd"></textarea>
-                                    </div>
+                                        <textarea class="form-control" placeholder="Address" rows="3" id="ecadd" name="ecadd" > <?= $data2["address"] ?></textarea>
+                                    </div> 
                                     <div class="col-md-12 form-group">
-                                        <input type="text" class="form-control" placeholder="Zip Code" id="eczip">
-                                    </div>
-                                    <div class="col-md-12 form-group">
-                                        <select class="form-control prolist" id="sel1">
-                                            <?php
-                                            $res = $con->query("SELECT `id`, `name` FROM `province`");
-                                            while ($data = $res->fetch_assoc()) {
-                                                ?>
-
-                                                <option value="<?= $data['id'] ?>"> <?= $data['name'] ?> </option>
-
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-12 form-group">
-                                        <input type="tel" class="form-control" placeholder="Phone" id="ecphone">
+                                        <input type="tel" class="form-control" placeholder="Phone" id="ecphone" name="ecphone" value="<?= $data2["tel"] ?>">
                                     </div><br>
-                                    <div class="col-md-6 pull-right form-group">
-                                        <input type="submit" class="form-control text-uppercase" value="Update">
+                                    <div class="col-md-3 pull-right form-group">
+                                        <input type="submit" class="form-control text-uppercase" id="updateprobtn" value="Update">
+                                    </div>
+                                    <div class="col-md-3 pull-right form-group">
+                                        <input type="button"  class="form-control btn-danger text-uppercase"  id="canceleditpro" value="Cancel">
                                     </div>
                                 </div>
                             </form>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -121,9 +120,6 @@ include '../dbconn.php';
                         <div class="modal-body">
                             <form action="#" id="chpassform" name="chpassform" method="post">
                                 <div class="row">
-                                    <div class="col-md-12 form-group">
-                                        <input type="email" class="form-control" placeholder="Email" id="ecemail">
-                                    </div>
                                     <div class="col-md-12 form-group">
                                         <input required type="password" class="form-control" placeholder="Old Password" id="crpass">
                                     </div>
@@ -148,10 +144,9 @@ include '../dbconn.php';
                     <div class="col-md-3">
                         <div class="showbio">
                             <p style="font-weight:bold">Biography</p>
-                            <p> My name's <?= $_SESSION["userdata"]["firstName"] ?>  <?= $_SESSION["userdata"]["lastName"] ?></p>
-                            <p> address: <?= $_SESSION["userdata"]["address"] ?></p>
-                            <p> Tel: <?= $_SESSION["userdata"]["tel"] ?></p>
-                            <p> Email: <?= $_SESSION["userdata"]["email"] ?></p>
+                            <p> address: <?= $data2["address"] ?></p>
+                            <p> Tel: <?= $data2["tel"] ?></p>
+                            <p> Email: <?= $data2["email"] ?></p>
                         </div>
                     </div>
                     <div class="col-md-1">
@@ -601,7 +596,6 @@ include '../dbconn.php';
 
         <?php
         show_footer();
-        
         ?>
 
         <script>
@@ -663,84 +657,105 @@ include '../dbconn.php';
             });
         </script>
         <script>
-            $("#addshipbtn").click(function (evt) {
-                //alert("มาล่ะ แต่ modal ไม่มา");
-                $("#add_address").modal('show');
-            });
+            $(document).ready(function () {
 
-            $("#saveaddbtn").on("click", function (e) {
-                $.ajax({
-                    url: "../customer/ajaxsave-address.php",
-                    type: "POST",
-                    data: {"address": $("#addressinput").val(),
-                        "proid": $(".prolist").val(),
-                        "addnaming": $("#addressnaming").val(),
-                        "cusid": $("#shipcusid").val()},
-                    dataType: "html",
-                    success: function (returndata) {
-                        //$("#textinput").val("");
-                        if (returndata == "ok") {
-                            $("#add_address").modal('hide');
-                            // fetchdata();
-                        } else {
-                            alert("start" + returndata + "พัง");
+
+
+                $("#addshipbtn").click(function (evt) {
+                    alert(cusid + "---23456");
+                    //$("#add_address").modal('show');
+                });
+
+                $("#saveaddbtn").on("click", function (e) {
+                    $.ajax({
+                        url: "../customer/ajaxsave-address.php",
+                        type: "POST",
+                        data: {"address": $("#addressinput").val(),
+                            "proid": $(".prolist").val(),
+                            "addnaming": $("#addressnaming").val(),
+                            "cusid": $("#shipcusid").val()},
+                        dataType: "html",
+                        success: function (returndata) {
+                            //$("#textinput").val("");
+                            if (returndata == "ok") {
+                                $("#add_address").modal('hide');
+                                // fetchdata();
+                            } else {
+                                alert("start" + returndata + "พัง");
+                            }
                         }
-                    }
-                    //
+                        //
+                    });
                 });
-            });
-            function fetchdata() {
-                $.ajax({
-                    url: "../customer/shipaddresslist.php",
-                    type: "POST",
-                    dataType: "html",
-                    success: function (returndata) {
-                        $(".shiplist").html(returndata);
-                    }
-                });
-            }
-            fetchdata();
-
-            $("#changeprofile").on("click", "#editprofilebtn", function (e) {
-                $("#editprofilemodal").modal('show');
-
-            });
-
-            $("#imgpro").on("change", function (e) {
-                var imgsize = $("#imgpro")[0].files[0].size;
-                var imgtype = $("#imgpro")[0].files[0].type;
-                switch (imgtype) {
-                    case 'image/png':
-                    case 'image/pjpeg':
-                    case 'image/jpeg':
-                        break;
-                    default :
-                        $("#output").html("<b>" + imgtype + "</b>  Unsupport file type!! <br>");
-                }
-                if (imgsize > 1048576) {
-                    $("#output").html("Size: <b>" + imgsize + "</b> too big file!!");
-                } else {
-                    $("#output").html(" ");
-                }
-            });
-
-            $("#updateprofilebtn").on("click", function (e) {
-                $("#updateprofilebtn").attr("disabled", "disabled");
-                $("#updateprofilebtn").html("<img src='../assets/images/loader.gif' style='width:25px; margin:0 auto;'>");
-                $.ajax({
-                    url: "../customer/update-profile.php",
-                    type: "POST",
-                    data: new FormData(this),
-                    dataType: "html",
-                    success: function (returndata) {
-                        if (returndata !== "ok") {
-                            $("#editprofilemodal").modal('hide');
-                            alert(returndata);
-                        } else if (returndata == "ok") {
-                            alert("start" + returndata + "พัง");
+                function fetchdata() {
+                    $.ajax({
+                        url: "../customer/shipaddresslist.php",
+                        type: "POST",
+                        dataType: "html",
+                        success: function (returndata) {
+                            $(".shiplist").html(returndata);
                         }
+                    });
+                }
+                fetchdata();
+
+
+
+                $("#imgpro").on("change", function (e) {
+                    var imgsize = $("#imgpro")[0].files[0].size;
+                    var imgtype = $("#imgpro")[0].files[0].type;
+                    switch (imgtype) {
+                        case 'image/png':
+                        case 'image/pjpeg':
+                        case 'image/jpeg':
+                            break;
+                        default :
+                            $("#output").html("Error: <b>" + imgtype + "</b>  Unsupport file type!! <br>");
+                            $("#sendbtn").attr("disabled", "disabled");
+                    }
+                    if (imgsize > 1048576) {
+                        $("#output").html("Size: <b>" + imgsize + "</b> too big file!!");
+                        $("#updateprobtn").attr("disabled", "disabled");
+                    } else {
+                        $("#output").html(" ");
+                        $("#updateprobtn").removeAttr("disabled");
                     }
                 });
+
+                $("#canceleditpro").on("click", function (e) {
+alert($("#ecfname").val()+""+$("#ecemail").val()+""+$("#ecphone").val()+""+$("#ecadd").val()+""+$("#eclname").val());
+                    //$("#editprofile").find('input:text, input:password, input:file, select, textarea').val('');
+                    //$("#editprofile").find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected');
+
+
+                });
+
+                $("#updateprofilebtn").on("click", function (e) {
+                    $("#updateprofilebtn").attr("disabled", "disabled");
+                    $("#updateprofilebtn").html("<img src='../assets/images/loader.gif' style='width:25px; margin:0 auto;'>");
+                    $.ajax({
+                        url: "../customer/update-profile.php",
+                        type: "POST",
+                        data: new FormData(this),
+                        dataType: "html",
+                        success: function (returndata) {
+                            if (returndata !== "ok") {
+                                $("#editprofilemodal").modal('hide');
+                                alert(returndata);
+                            } else if (returndata == "ok") {
+                                alert("start" + returndata + "พัง");
+                            }
+                        }
+                    });
+                });
+
+                $("#cuseditform").on("submit", function (e) {
+                    $(".preloader").removeClass();
+                    document.location.reload();
+
+                });
+
+
             });
 
         </script>
