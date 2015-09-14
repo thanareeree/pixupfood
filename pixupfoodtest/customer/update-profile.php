@@ -26,6 +26,8 @@ if ($_FILES['imgpro']['name'] != "") {
             . "`email`='$email',`tel`='$tel',`address`='$address',"
             . "`img_path`='$target_file' WHERE id = '$id'");
     if ($con->error == "") {
+        //$res = $con->query("select * from customer where id= '$id'");
+         //$_SESSION["userdata"] = $res->fetch_assoc();
         ?>
         <script>
             document.location = "../view/cus_customer_profile.php";
@@ -39,6 +41,8 @@ if ($_FILES['imgpro']['name'] != "") {
     $con->query("UPDATE `customer` SET `firstName`='$fname',`lastName`='$lname',"
             . "`email`='$email',`tel`='$tel',`address`='$address' WHERE id = '$id'");
     if ($con->error == "") {
+        // $res = $con->query("select * from customer where id= '$id'");
+         //$_SESSION["userdata"] = $res->fetch_assoc();
         ?>
         <script>
             document.location = "../view/cus_customer_profile.php";

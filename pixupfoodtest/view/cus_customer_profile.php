@@ -218,9 +218,9 @@ include '../dbconn.php';
                     <div class="col-md-3">
                         <div class="showbio">
                             <p style="font-weight:bold">Biography</p>
-                            <p> <span class="glyphicon glyphicon-home"></span> <?= " ".$data2["address"] ?></p>
-                            <p>  <span class="glyphicon glyphicon-earphone"></span><?= $data2["tel"] ?></p>
-                            <p> <span class="glyphicon glyphicon-envelope"></span> <?= $data2["email"] ?></p>
+                            <p> <span class="glyphicon glyphicon-home"></span> &nbsp;<?= $data2["address"] ?></p>
+                            <p>  <span class="glyphicon glyphicon-earphone"></span>&nbsp;<?= $data2["tel"] ?></p>
+                            <p> <span class="glyphicon glyphicon-envelope"></span> &nbsp;<?= $data2["email"] ?></p>
                         </div>
                     </div>
                     <div class="col-md-1">
