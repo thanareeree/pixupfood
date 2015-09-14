@@ -183,11 +183,13 @@ function cusnavbar() { ?>
                 <div class="col-md-4" style="margin:7px 0 0 15%;">
                     <div id="custom-search-input">
                         <div class="input-group col-md-12">
-                            <input type="text" class="form-control input-lg" placeholder="Search.." />
+                            <input type="text" class="form-control input-lg" placeholder="Search.."  id=""/>
                             <span class="input-group-btn">
+                                <a href="">
                                 <button class="btn btn-info btn-lg" type="button">
                                     <i class="glyphicon glyphicon-search"></i>
                                 </button>
+                                </a>
                             </span>
                         </div>
                     </div>

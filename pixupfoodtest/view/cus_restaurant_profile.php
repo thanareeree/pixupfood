@@ -1,7 +1,5 @@
 <?php
 include '../api/islogin.php';
-include '../view/navbar.php';
-include '../api/function.php';
 include '../dbconn.php';
 ?>
 
@@ -25,7 +23,7 @@ include '../dbconn.php';
         <meta name="description" content="">
 
         <?php
-        addlink("Test Title");
+include '../template/addlink.php'; addlink("Test Title");
         ?>
         <!-- custom css -->
         <link rel="stylesheet" href="../assets/css/cus_restaurant.css">
@@ -33,7 +31,7 @@ include '../dbconn.php';
     </head>
     <body>
 
-        <?php cusnavbar(); ?>
+        <?php include '../view/cus_navbar.php'; cusnavbar(); ?>
 
 
         <!-- start profile -->
@@ -600,8 +598,9 @@ include '../dbconn.php';
 
 
         <?php
+                                            include '../template/footer.php';
         show_footer();
-        iconscript();
+      
         ?>
 
         <script>

@@ -33,7 +33,7 @@ include '../dbconn.php';
     </head>
     <body>
 
-        <?php cusnavbar(); ?>
+       
         <?php
         $cusid = $_SESSION["userdata"]["id"];
         $res2 = $con->query("select * from customer where id = '$cusid' ");
@@ -41,7 +41,81 @@ include '../dbconn.php';
 
         $res3 = $con->query("SELECT * FROM `shippingAddress` WHERE customer_id = '$cusid'");
         ?>
+        <!--start preloader -->
+        <div class = "preloader">
+            <div class = "loader"></div>
+        </div>
+        <!--end preloader -->
+        <!--start navigation -->
+        <nav class = "navbar navbar-default navbar-fixed-top templatemo-nav" role = "navigation">
+            <div class = "container" style = "margin-left:100px;margin-right:40px;height:70px;width:auto;">
+                <div class = "navbar-header">
+                    <button class = "navbar-toggle" data-toggle = "collapse" data-target = ".navbar-collapse">
+                        <span class = "icon icon-bar"></span>
+                    </button>
 
+                    <a href = "../index.php" class = "navbar-brand">Pixup</a>
+                    <a href = "../index.php" class = "navbar-brand" style = "color:rgba(0,0,32,1);padding-left: 0px;">Food</a>
+                    <div class = "col-md-4" style = "margin:7px 0 0 15%;">
+                        <div id = "custom-search-input">
+                            <div class = "input-group col-md-12">
+                                <input type = "text" class = "form-control input-lg" placeholder = "Search.." />
+                                <span class = "input-group-btn">
+                                    <button class = "btn btn-info btn-lg" type = "button">
+                                        <i class = "glyphicon glyphicon-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class = "nav navbar-nav navbar-right text-uppercase">
+                        <li><a href = "../api/logout.php" class = "nav-link"><?= "สวัสดีคุณ ".$data2["firstName"] . " " . $data2["lastName"]?></a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="../assets/images/bar/user.png" style="width:40px;height:40px;"/>
+                            </a>
+                            <ul class="dropdown-menu" style="padding: 0px">
+                                <li>
+                                    <div class="middlePage1">
+                                        <div class="panel panel-info">
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-md-4" style="border-right:1px solid #ccc;height:auto;">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <a href="cus_customer_profile.php">
+                                                                    <img src="<?= $data2["img_path"] ?>"  width="160px" height="160px">
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <form class="form-horizontal">
+                                                            <fieldset>
+                                                                <input id="textinput" name="textinput" type="text" placeholder="Enter User Name" class="form-control input-md"><br>
+                                                                <a href="../api/logout.php">
+                                                                    <button id="logoutbutton" type="button" class="btn btn-danger btn-sm pull-right" style="margin-left: 15px;">Logout</button>
+                                                                </a>
+                                                                <a href="cus_customer_profile.php">
+                                                                    <button id="profilebutton" class="btn btn-info btn-sm pull-right" type="button">Profile</button>
+                                                                </a>
+                                                            </fieldset>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- end navigation -->
+        
         <!-- start profile -->
         <section id="profile">
             <div class="profilecontainer">
@@ -144,9 +218,9 @@ include '../dbconn.php';
                     <div class="col-md-3">
                         <div class="showbio">
                             <p style="font-weight:bold">Biography</p>
-                            <p> address: <?= $data2["address"] ?></p>
-                            <p> Tel: <?= $data2["tel"] ?></p>
-                            <p> Email: <?= $data2["email"] ?></p>
+                            <p> <span class="glyphicon glyphicon-home"></span> <?= " ".$data2["address"] ?></p>
+                            <p>  <span class="glyphicon glyphicon-earphone"></span><?= $data2["tel"] ?></p>
+                            <p> <span class="glyphicon glyphicon-envelope"></span> <?= $data2["email"] ?></p>
                         </div>
                     </div>
                     <div class="col-md-1">
@@ -492,10 +566,10 @@ include '../dbconn.php';
 
                             <!-- shipping address -->
                             <div class="tab-pane fade" id="shipadd">
-                                <div class="content2">
+                                <div class="content2" id="">
                                     <?php
-                                    $result = $con->query("SELECT * FROM `shippingAddress`");
-                                    $i = 1;
+                                    $result = $con->query("SELECT * FROM `shippingAddress` where customer_id = '$cusid'");
+                                    $i = 2;
                                     ?>
 
                                     <table class="table table-hover" id="task-table">
@@ -513,14 +587,14 @@ include '../dbconn.php';
                                                 <td><?= $data2['address'] ?></td>
                                                 <td>
                                                     <p>
-                                                        <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#edit" disabled="disabled">
+                                                        <button class="btn btn-primary btn-xs"  disabled="disabled">
                                                             <span class="glyphicon glyphicon-pencil"></span>
                                                         </button>
                                                     </p>
                                                 </td>
                                                 <td>
                                                     <p>
-                                                        <button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" >
+                                                        <button class="btn btn-danger btn-xs" data-title="Delete" disabled="disabled">
                                                             <span class="glyphicon glyphicon-trash"></span>
                                                         </button>
                                                     </p>
@@ -532,14 +606,14 @@ include '../dbconn.php';
                                                     <td><?= $data4['address'] ?></td>
                                                     <td>
                                                         <p>
-                                                            <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#edit" >
+                                                            <button class="btn btn-primary btn-xs editadd" id="editadd<?= $data4["id"] ?>"  >
                                                                 <span class="glyphicon glyphicon-pencil"></span>
                                                             </button>
                                                         </p>
                                                     </td>
                                                     <td>
                                                         <p>
-                                                            <button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" >
+                                                            <button class="btn btn-danger btn-xs deleteadd" id="deleteadd<?= $data4["id"] ?>" data-title="Delete"  >
                                                                 <span class="glyphicon glyphicon-trash"></span>
                                                             </button>
                                                         </p>
@@ -585,6 +659,7 @@ include '../dbconn.php';
                                                             <select name="addtype" id="addtype" class="col-sm-12" required>
                                                                 <option value="อพาร์ทเมนท์">อพาร์ทเมนท์</option>
                                                                 <option value="สถานที่ราชการ">สถานที่ราชการ</option>
+                                                                <option value="มหาวิทยาลัย">มหาวิทยาลัย</option>
                                                                 <option value="โรงพยาบาล">โรงพยาบาล</option>
                                                                 <option value="โรงแรม">โรงแรม</option>
                                                                 <option value="บ้าน">บ้าน</option>
@@ -615,39 +690,16 @@ include '../dbconn.php';
                                 </div>
                             </div>
 
-                            <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+                            <div class="modal fade" id="edit_addshipmodal" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
-                                        <form action="../customer/edie-shipping-address.php?id=<?= $cusid ?>" method="post">
+                                        <form action="../customer/edit-shipping-address.php?id=<?= $cusid ?>" method="post">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="mdrecl" name="mdrecl"><span aria-hidden="true">&times;</span></button>
-                                                <h4 class="modal-title" id="shipping_address">เปลี่ยนแปลงข้อมูลที่จัดส่งสินค้า</h4>
+                                                <h4 class="modal-title" id="shipping_address">เปลี่ยนแปลงข้อมูลที่จัดส่งสินค้า<span id="showadd_id"></span></h4>
                                             </div>
-                                            <div class="modal-body">
+                                            <div id="formeditaddrsss">
 
-                                                <label for="address">รายละเอียดที่จัดส่งสินค้า:<span style="color: red;font-size: 20px;font-weight: normal">*</span></label>
-                                                <div class="form-group">
-                                                    <textarea required class="form-control" placeholder="ที่จัดส่งสินค้า" rows="3"  name="address" id="address"></textarea>
-                                                </div>
-                                                <label for="addtype">ประเภทที่อยู่อาศัย:<span style="color: red;font-size: 20px;font-weight: normal">*</span></label>
-                                                <div class="form-group" >
-                                                    <select name="addtype" id="addtype" class="col-sm-12" required>
-                                                        <option value="อพาร์ทเมนท์">อพาร์ทเมนท์</option>
-                                                        <option value="สถานที่ราชการ">สถานที่ราชการ</option>
-                                                        <option value="โรงพยาบาล">โรงพยาบาล</option>
-                                                        <option value="โรงแรม">โรงแรม</option>
-                                                        <option value="บ้าน">บ้าน</option>
-                                                        <option value="ตลาด">ตลาด</option>
-                                                        <option value="โรงเรียน">โรงเรียน</option>
-                                                        <option value="ร้านค้า">ร้านค้า</option>
-                                                        <option value="วัด">วัด</option>
-                                                        <option value="อื่นๆ">อื่นๆ</option>
-                                                    </select>
-                                                </div>
-                                                <label for="addnaming">กรุณาใส่ข้อมูลระบุที่จัดส่งเพื่อความรวดเร็ว:<span style="color: red;font-size: 20px;font-weight: normal">*</span></label>
-                                                <div class="form-group">
-                                                    <input required class="form-control" placeholder="ชื่อเรียกที่จัดส่งเพื่อความรวดเร็ว"  name="addnaming" id="addnaming">
-                                                </div>
                                             </div>
                                             <div class="modal-footer">
                                                 <div>
@@ -662,6 +714,30 @@ include '../dbconn.php';
                                 <!-- /.modal-dialog --> 
                             </div>
                             <!-- end shipping address -->
+
+                            <div class="modal fade" id="delete-addmodal" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                                            <h4 class="modal-title custom_align" id="Heading">ลบข้อมูลที่จัดส่ง<span id="showadddel_id" ></span></h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> คุณต้องการลบข้อมูลที่จัดส่งนี้ ?</div>
+                                        </div>
+                                        <div class="modal-footer ">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> No</button>
+                                            <button type="submit" class="btn btn-success" id="deleteaddyes"><span class="glyphicon glyphicon-ok-sign"></span> Yes</button>
+                                        </div>
+                                    </div>
+                                    <!-- /.modal-content --> 
+                                </div>
+                                <!-- /.modal-dialog --> 
+                            </div>
+                            <!-- end shop list -->
+
+
+
                         </div>
                     </div>
                 </div>
@@ -763,6 +839,7 @@ include '../dbconn.php';
                     });
                 });
                 function fetchdata() {
+
                     $.ajax({
                         url: "../customer/shipaddresslist.php",
                         type: "POST",
@@ -773,6 +850,7 @@ include '../dbconn.php';
                     });
                 }
                 fetchdata();
+
 
 
 
@@ -805,30 +883,51 @@ include '../dbconn.php';
 
                 });
 
-                $("#updateprofilebtn").on("click", function (e) {
-                    $("#updateprofilebtn").attr("disabled", "disabled");
-                    $("#updateprofilebtn").html("<img src='../assets/images/loader.gif' style='width:25px; margin:0 auto;'>");
+                $(".editadd").click(function (e) {
+                    var editid = $(this).attr("id");
+                    var add_id = editid.replace("editadd", "");
+                    $("#showadd_id").html(add_id);
                     $.ajax({
-                        url: "../customer/update-profile.php",
+                        url: "../customer/shipping-formmodal.php",
                         type: "POST",
-                        data: new FormData(this),
+                        data: {"id": add_id},
                         dataType: "html",
                         success: function (returndata) {
-                            if (returndata !== "ok") {
-                                $("#editprofilemodal").modal('hide');
-                                alert(returndata);
-                            } else if (returndata == "ok") {
-                                alert("start" + returndata + "พัง");
-                            }
+                            $("#formeditaddrsss").html(returndata);
+                            $("#edit_addshipmodal").modal('show');
                         }
                     });
                 });
 
-                $("#cuseditform").on("submit", function (e) {
-                    $(".preloader").removeClass();
-                    document.location.reload();
+                $(".deleteadd").click(function (e) {
+                    var delid = $(this).attr("id");
+                    var add_id = delid.replace("deleteadd", "");
+                    $("#showadddel_id").html(add_id);
+                    $("#delete-addmodal").modal('show');
 
                 });
+
+                $("#deleteaddyes").click(function (e) {
+                    $("#deleteaddyes").attr("disabled", "disabled");
+                    $.ajax({
+                        url: "../customer/delete-shipping-address.php",
+                        type: "POST",
+                        data: {"id": $("#showadddel_id").html()},
+                        dataType: "html",
+                        success: function (returndata) {
+                            if (returndata == "ok") {
+                                $("#delete-addmodal").modal('hide');
+                                document.location.reload();
+                                //fetchdataShowall();
+
+                            } else {
+                                alert(returndata);
+                            }
+
+                        }
+                    });
+                });
+
 
 
             });
