@@ -69,9 +69,9 @@ include './view/navbar.php';
                     <div class="col-md-4" style="margin:7px 0 0 15%;">
                         <div id="custom-search-input">
                             <div class="input-group col-md-12">
-                                <input type="text" class="form-control input-lg" placeholder="Search.." />
+                                    <input type="text" class="form-control input-lg" placeholder="Search.." id="searchinput" />
                                 <span class="input-group-btn">
-                                    <button class="btn btn-info btn-lg" type="button">
+                                    <button class="btn btn-info btn-lg" type="button" id="searchbtn">
                                         <i class="glyphicon glyphicon-search"></i>
                                     </button>
                                 </span>
@@ -545,7 +545,7 @@ include './view/navbar.php';
                 $('.dropdown-menu').find('form').click(function (e) {
                     e.stopPropagation();
                 });
-                
+
                 var lat = 13.6415824;
                 var long = 100.4963968;
                 function startMap() {
@@ -596,7 +596,17 @@ include './view/navbar.php';
                 }
                 showlist();
 
+                $("#searchbtn").click(function (e) {
+                    var searchkeyword = $("#searchinput").val();
+                    document.location = "view/search_page.php?search=" + searchkeyword;
+                });
 
+                $("#searchinput").on("keyup", function (e) {
+                    if (e.keyCode == "13") {
+                        var searchkeyword = $(this).val();
+                        document.location = "view/search_page.php?search=" + searchkeyword;
+                    }
+                });
 
             });
         </script>

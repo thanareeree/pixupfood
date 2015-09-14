@@ -154,7 +154,22 @@ function show_footer() { ?>
             $("#wrapper").toggleClass("toggled");
         });
     </script>
+    <script>
+     $(document).ready(function () {
+         $("#searchbtn").click(function (e) {
+                    var searchkeyword = $("#searchinput").val();
+                    document.location = "search_page.php?search=" + searchkeyword;
+                });
 
+                $("#searchinput").on("keyup", function (e) {
+                    if (e.keyCode == "13") {
+                        var searchkeyword = $(this).val();
+                        document.location = "search_page.php?search=" + searchkeyword;
+                    }
+                });
+     });
+     
+    </script>
     <script src="../assets/js/wow.min.js"></script>
     <script src="../assets/js/custom.js"></script>
      <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
@@ -183,13 +198,10 @@ function cusnavbar() { ?>
                 <div class="col-md-4" style="margin:7px 0 0 15%;">
                     <div id="custom-search-input">
                         <div class="input-group col-md-12">
-                            <input type="text" class="form-control input-lg" placeholder="Search.."  id=""/>
+                            <input type="text" class="form-control input-lg" placeholder="Search.."  id="searchinput"/>
                             <span class="input-group-btn">
-                                <a href="">
-                                <button class="btn btn-info btn-lg" type="button">
+                                    <button class="btn btn-info btn-lg" type="button" id="searchbtn">
                                     <i class="glyphicon glyphicon-search"></i>
-                                </button>
-                                </a>
                             </span>
                         </div>
                     </div>
