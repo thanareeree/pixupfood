@@ -1178,10 +1178,7 @@ include '../dbconn.php';
                                                                             ทั่วไป
                                                                         </div>
                                                                         <form>
-                                                                            <div class="row" style="margin:10px 0 0 5px;">
-                                                                                <span style="margin-left: 24px;"> ชื่ออาหาร </span> &nbsp;<input type="text">
-                                                                                <span style="margin-left: 25px;"> ราคาอาหาร </span> &nbsp;<input type="text">&nbsp; บาท 
-                                                                            </div>
+                                                                            
                                                                             <div class="row" style="margin:10px 0 0 30px;">
                                                                                 <span> หมวดหมู่ </span>&nbsp;
                                                                                 <select style="width: 150px;">
@@ -1192,17 +1189,11 @@ include '../dbconn.php';
                                                                                     <option>เครื่องดื่ม</option>
                                                                                 </select>
                                                                                 <span style="margin-left: 25px;"> หมวดหมู่ </span>&nbsp;&nbsp;
-                                                                                <select style="width: 150px;  margin-left: 5px;">
-                                                                                    <option>--ตัวเลือก--</option>
-                                                                                    <option>อาหารไทย</option>
-                                                                                    <option>อาหารฝรั่ง</option>
-                                                                                    <option>อาหารญี่ปุ่น</option>
-                                                                                    <option>อาหารเหนือ</option>
-                                                                                    <option>อาหารอีสาน</option>
-                                                                                    <option>อาหารใต้</option>
-                                                                                    <option>อาหารเจ</option>
-                                                                                    <option>อาหารมังสวิรัติ</option>
-                                                                                </select>
+                                                                                <?php include '../template/foodtype-list.php'; ?>
+                                                                            </div>
+                                                                            <div class="row" style="margin:10px 0 0 5px;">
+                                                                                <span style="margin-left: 24px;"> ชื่ออาหาร </span> &nbsp;<input type="text">
+                                                                                <span style="margin-left: 25px;"> ราคาอาหาร </span> &nbsp;<input type="text">&nbsp; บาท 
                                                                             </div>
                                                                         </form>
                                                                     </div>
@@ -1335,17 +1326,7 @@ include '../dbconn.php';
                                                                                     <option>เครื่องดื่ม</option>
                                                                                 </select>
                                                                                 <span style="margin-left: 25px;"> หมวดหมู่ </span>&nbsp;&nbsp;
-                                                                                <select style="width: 150px;  margin-left: 5px;">
-                                                                                    <option>--ตัวเลือก--</option>
-                                                                                    <option>อาหารไทย</option>
-                                                                                    <option>อาหารฝรั่ง</option>
-                                                                                    <option>อาหารญี่ปุ่น</option>
-                                                                                    <option>อาหารเหนือ</option>
-                                                                                    <option>อาหารอีสาน</option>
-                                                                                    <option>อาหารใต้</option>
-                                                                                    <option>อาหารเจ</option>
-                                                                                    <option>อาหารมังสวิรัติ</option>
-                                                                                </select>
+                                                                                <?php include '../template/foodtype-list.php'; ?>
                                                                             </div>
                                                                         </form>
                                                                     </div>
@@ -1495,8 +1476,25 @@ include '../dbconn.php';
 
     <!-- start footer -->
     <?php include '../template/footer.php'; ?>
+
     <script>
-    
-    </script>   
+        (function ($) {
+            'use strict';
+            var uploadForm = document.getElementById('js-upload-form');
+
+            var startUpload = function (files) {
+                console.log(files)
+            }
+
+            uploadForm.addEventListener('submit', function (e) {
+                var uploadFiles = document.getElementById('js-upload-files').files;
+                e.preventDefault()
+
+                startUpload(uploadFiles)
+            })
+        })(jQuery);
+    </script>
+
+     
 </body>
 </html>
