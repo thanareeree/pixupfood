@@ -211,7 +211,7 @@ include './dbconn.php';
                         </div>
                     </div>
                     <div class="col-md-7 col-lg-7 wow fadeInRight" data-wow-delay="0.6s" style="padding:60px 15px 0 100px">
-                        <ul class="media-list main-list">
+                        <ul class="media-list main-list" style="border-top:1px solid #e8e8e8; padding-top:1.1em">
                             <li class="media">
                                 <a class="pull-left" href="#">
                                     <img class="media-object" src="assets/images/default-img150.png" alt="...">

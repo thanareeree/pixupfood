@@ -17,13 +17,10 @@ include '../dbconn.php';
         -->
         <!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> -->
 
-        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="keywords" content="">
-        <meta name="description" content="">
+        <title>Restaurant</title>
 
         <?php
-include '../template/addlink.php'; addlink("Test Title");
+include '../template/customer-title.php'; 
         ?>
         <!-- custom css -->
         <link rel="stylesheet" href="../assets/css/cus_restaurant.css">
@@ -31,7 +28,7 @@ include '../template/addlink.php'; addlink("Test Title");
     </head>
     <body>
 
-        <?php include '../view/cus_navbar.php'; cusnavbar(); ?>
+        <?php include '../template/customer-navbar.php'; ?>
 
 
         <!-- start profile -->
@@ -598,9 +595,7 @@ include '../template/addlink.php'; addlink("Test Title");
 
 
         <?php
-                                            include '../template/footer.php';
-        show_footer();
-      
+          include '../template/footer.php';
         ?>
 
         <script>
