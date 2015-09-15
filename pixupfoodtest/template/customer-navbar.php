@@ -24,19 +24,23 @@ if (isset($_SESSION["islogin"])) {
                 <a href="../index.php" class="navbar-brand">Pixup</a>
                 <a href="../index.php" class="navbar-brand" style="color:rgba(0,0,32,1);padding-left: 0px;">Food</a>
                 <div class="col-md-4" style="margin:7px 0 0 15%;">
-                    <div id="custom-search-input">
-                        <div class="input-group col-md-12">
-                            <input type="text" class="form-control input-lg" placeholder="Search.." />
-                            <span class="input-group-btn">
-                                <button class="btn btn-info btn-lg" type="button">
-                                    <i class="glyphicon glyphicon-search"></i>
-                                </button>
-                            </span>
+                    <form action="../view/search_page.php" method="get">
+                        <div id="custom-search-input">
+                            <div class="input-group col-md-12">
+                                <input type="text" name="search" class="form-control input-lg" placeholder="Search.." />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-info btn-lg" type="submit">
+                                        <i class="glyphicon glyphicon-search"></i>
+                                    </button>
+                                </span>
+
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
+
                 <ul class="nav navbar-nav navbar-right text-uppercase">
-                    <li><a href="../api/logout.php" class="nav-link"><?= $data["firstName"] . " " . $data["lastName"] ." ".$id ?></a></li>
+                    <li><a href="../api/logout.php" class="nav-link"><?= $data["firstName"] . " " . $data["lastName"] . " " . $id ?></a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <img src="../assets/images/bar/user.png" style="width:40px;height:40px;"/>
@@ -51,7 +55,7 @@ if (isset($_SESSION["islogin"])) {
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <a href="cus_customer_profile.php">
-                                                                <img src="<?= $data["img_path"]?>" width="160px" height="160px">
+                                                                <img src="<?= $data["img_path"] ?>" width="160px" height="160px">
                                                             </a>
                                                         </div>
                                                     </div>
@@ -100,16 +104,20 @@ if (isset($_SESSION["islogin"])) {
                 <a href="../index.php" style="color:rgba(255,127,0,1)" class="navbar-brand">Pixup</a>
                 <a href="../index.php" class="navbar-brand" style="color:black;padding-left: 0px;">Food</a>
                 <div class="col-md-4" style="margin:7px 0 0 15%;">
-                    <div id="custom-search-input">
-                        <div class="input-group col-md-12">
-                            <input type="text" class="form-control input-lg" placeholder="Search.." />
-                            <span class="input-group-btn">
-                                <button class="btn btn-info btn-lg" type="button">
-                                    <i class="glyphicon glyphicon-search"></i>
-                                </button>
-                            </span>
+                     <form action="../view/search_page.php" method="get">
+                        <div id="custom-search-input">
+                            <div class="input-group col-md-12">
+                                <input type="text" name="search" class="form-control input-lg" placeholder="Search.." />
+
+                                <span class="input-group-btn">
+                                    <button class="btn btn-info btn-lg" type="submit">
+                                        <i class="glyphicon glyphicon-search"></i>
+                                    </button>
+                                </span>
+
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
                 <ul class="nav navbar-nav navbar-right text-uppercase">
                     <li><a href="#">สมัครสมาชิก | เข้าสู่ระบบ >></a></li>

@@ -1,7 +1,6 @@
 <?php
 session_start();
 include '../dbconn.php';
-include '../view/navbar.php';
 ?>
 
 
@@ -13,32 +12,16 @@ include '../view/navbar.php';
         Boxer Template
         http://www.templatemo.com/preview/templatemo_446_boxer
         -->
-        <meta  charset="utf-8" />
+
         <title>PixupFood - The Original Food Delivery</title>
-        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="keywords" content="">
-        <meta name="description" content="">
-
-        <!-- animate css -->
-        <link rel="stylesheet" href="../assets/css/animate.min.css">
-        <!-- bootstrap css -->
-        <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.css">
-
-
-        <!-- custom css -->
-        <link rel="stylesheet" href="../assets/css/fresh-bootstrap-table.css">
+        <?php include '../template/customer-title.php'; ?>
         <link rel="stylesheet" href="../assets/css/search_page.css">
-        <link rel="stylesheet" href="../assets/css/style.css">
-        <link rel="stylesheet" href="../assets/css/search.css">
-        <link rel="stylesheet" href="../assets/css/slide2.css">
-        <link rel="stylesheet" type="text/css" href="../assets/css/simple-sidebar.css" />
+
 
 
     </head>
     <body>
-        <?php show_navbar(); ?>
+        <?php include '../template/customer-navbar.php'; ?>
 
         <!-- start register -->
         <section id="search_page">
@@ -153,7 +136,14 @@ include '../view/navbar.php';
             </div>
         </section>
         <!-- end register -->
-<?php show_footer(); ?>
-  
+        <?php include '../template/footer.php'; ?>
+        <script>
+            $(document).ready(function () {
+                alert(loadPageVar("search"));
+            });
+            function loadPageVar(sVar) {
+                return unescape(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + escape(sVar).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
+            }
+        </script>
     </body>
 </html>
