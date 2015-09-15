@@ -9,20 +9,10 @@ include '../dbconn.php';
 
 <html>
     <head>
-        <meta charset="UTF-8">
-        <!-- 
-        Boxer Template
-        http://www.templatemo.com/preview/templatemo_446_boxer
-        -->
-        <!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> -->
-
-        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="keywords" content="">
-        <meta name="description" content="">
+        <title>Pixupfood - Restaurant Menu Management</title>
 
         <?php
-        addlink("Customer Profile");
+        include '../template/customer-title.php';
         ?>
         <!-- custom css -->
         <link rel="stylesheet" href="../assets/css/res_restaurant_manage.css">
@@ -30,7 +20,7 @@ include '../dbconn.php';
     </head>
     <body>
 
-        <?php cusnavbar(); ?>
+        <?php include '../template/restaurant-navbar.php'; ?>
 
         <!-- start head -->
         <section id="head">
@@ -54,6 +44,14 @@ include '../dbconn.php';
     <scetion id="menu">
         <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
             <div class="btn-group" role="group">
+                <a href="res_restaurant_manage_order.php">
+                    <button type="button" id="orders" class="btn btn-default" >
+                        <span class="glyphicon glyphicon-align-left" aria-hidden="true" ></span>
+                        <div class="hidden-xs">รายการสั่งซื้อ</div>
+                    </button>
+                </a>
+            </div>
+            <div class="btn-group" role="group">
                 <a href="res_restaurant_manage_today.php">
                     <button type="button" id="today" class="btn btn-default">
                         <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
@@ -62,30 +60,25 @@ include '../dbconn.php';
                 </a>
             </div>
             <div class="btn-group" role="group">
-                <a href="res_restaurant_manage_calendar.php">
-                    <button type="button" id="orders" class="btn btn-default" data-toggle="tab">
-                        <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
-                        <div class="hidden-xs">รายการสั่งซื้อ</div>
-                    </button>
-                </a>
-            </div><div class="btn-group" role="group">
-                <a href="">
-                    <button type="button" id="calendar" class="btn btn-default" data-toggle="tab">
-                        <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
-                        <div class="hidden-xs">ปฏิทิน</div>
-                    </button>
-                </a>
-            </div><div class="btn-group" role="group">
                 <a href="res_restaurant_manage_menulist.php">
-                    <button type="button" id="menulist" class="btn btn-default" data-toggle="tab">
-                        <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+                    <button type="button" id="menulist" class="btn btn-warning" >
+                        <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
                         <div class="hidden-xs">รายการอาหาร</div>
                     </button>
                 </a>
-            </div><div class="btn-group" role="group">
+            </div>
+            <div class="btn-group" role="group">
+                <a href="res_restaurant_manage_calendar.php">
+                    <button type="button" id="calendar" class="btn btn-default" >
+                        <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                        <div class="hidden-xs">ปฏิทิน</div>
+                    </button>
+                </a>
+            </div>
+            <div class="btn-group" role="group">
                 <a href="res_restaurant_manage_edit.php">
-                    <button type="button" id="editres" class="btn btn-default" data-toggle="tab">
-                        <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+                    <button type="button" id="editres" class="btn btn-default">
+                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                         <div class="hidden-xs">การตั้งค่า</div>
                     </button>
                 </a>
@@ -93,6 +86,8 @@ include '../dbconn.php';
         </div>
     </scetion>
     <!--End Menu Item-->
+
+
     <!-- รายการอาหาร -->
     <div class="tab-pane fade in" id="tab4">
         <div class="container" style="margin-top: 50px;">
@@ -102,33 +97,34 @@ include '../dbconn.php';
                         <div class="tabbable-line">
                             <ul class="nav nav-tabs ">
                                 <li class="active">
-                                    <a href="#tab_default_1_4" data-toggle="tab">
-                                        รายการอาหารปัจจุบัน </a>  
+                                    <a href="#tab_default_1_4" data-toggle="tab">รายการอาหารปัจจุบัน </a>  
                                 </li>
                                 <li>
-                                    <a href="#tab_default_2_4" data-toggle="tab">
-                                        รายการอาหารที่หมดชั่วคราว </a>
+                                    <a href="#tab_default_2_4" data-toggle="tab">รายการอาหารที่หมดชั่วคราว </a>
                                 </li>
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="tab_default_1_4">
                                     <div class="page-header">
-
                                         <div class="row">
                                             <div class="col-md-8"><h2>รายการอาหารปัจจุบัน</h2></div>
                                             <div class="col-md-2">
                                                 <p class="text-center pull-right" style="margin-top: 20px;">
                                                     <a class="btn icon-btn btn-success" data-toggle="modal" data-target='#AddMenu'>
                                                         <span class="glyphicon btn-glyphicon glyphicon-plus img-circle text-success">
-                                                        </span> เพิ่มใหม่</a></p>
+                                                        </span> เพิ่มใหม่</a>
+                                                </p>
                                             </div>
                                             <div class="col-md-2">
                                                 <p class="text-center pull-left" style="margin-top: 20px;">
                                                     <a class="btn icon-btn btn-warning" data-toggle="modal" data-target='#'>
                                                         <span class="glyphicon btn-glyphicon glyphicon-trash img-circle text-warning">
-                                                        </span> ลบทิ้ง</a></p></div>
+                                                        </span> ลบทิ้ง</a>
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
+                                    
                                     <!-- ค้นหา -->
                                     <div class="row">
                                         <!-- Card Projects -->
@@ -1300,7 +1296,7 @@ include '../dbconn.php';
                                                                             </button>
                                                                         </p>
                                                                         <!-- Upload Function-->   
-                                                                                </form>
+                                                                        </form>
                                                                         <form action="uploadfile.php" method="post" enctype="multipart/form-data" target="ifrm">
                                                                             <input type="file" name="upload" style="display:none" />
                                                                             <input type="button" name="uploadbutton" value="choose file" onclick="upload.click()" onmouseout="uploadtext.value = upload.value" style="display:none"/>
@@ -1503,17 +1499,6 @@ include '../dbconn.php';
     <?php
     show_footer();
     ?>
-    <script src="../assets/js/jquery.singlePageNav.min.js"></script>
-
-    <script>
-                                                                                $(document).ready(function () {
-                                                                                    $(".btn-pref .btn").click(function () {
-                                                                                        $(".btn-pref .btn").removeClass("btn-warning").addClass("btn-default");
-                                                                                        $(".tab").addClass("active"); // instead of this do the below 
-                                                                                        $(this).removeClass("btn-default").addClass("btn-warning");
-                                                                                    });
-                                                                                });
-    </script>
 
 
     <!--for old News-->

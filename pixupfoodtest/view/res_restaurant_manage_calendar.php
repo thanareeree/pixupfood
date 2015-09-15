@@ -9,20 +9,10 @@ include '../dbconn.php';
 
 <html>
     <head>
-        <meta charset="UTF-8">
-        <!-- 
-        Boxer Template
-        http://www.templatemo.com/preview/templatemo_446_boxer
-        -->
-        <!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> -->
-
-        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="keywords" content="">
-        <meta name="description" content="">
+         <title>Pixupfood - Restaurant Calendar Management</title>
 
         <?php
-        addlink("Customer Profile");
+        include '../template/customer-title.php';
         ?>
         <!-- custom css -->
         <link rel="stylesheet" href="../assets/css/res_restaurant_manage.css">
@@ -30,7 +20,7 @@ include '../dbconn.php';
     </head>
     <body>
 
-        <?php cusnavbar(); ?>
+        <?php include '../template/restaurant-navbar.php'; ?>
 
 
         <!-- start profile -->
