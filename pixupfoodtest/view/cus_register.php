@@ -1,7 +1,7 @@
 <?php
 session_start();
 include '../dbconn.php';
-include './navbar.php';
+
 ?>
 
 
@@ -13,31 +13,17 @@ include './navbar.php';
         Boxer Template
         http://www.templatemo.com/preview/templatemo_446_boxer
         -->
-        <meta  charset="utf-8" />
+        
         <title>PixupFood - The Original Food Delivery</title>
-        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="keywords" content="">
-        <meta name="description" content="">
-
-        <!-- animate css -->
-        <link rel="stylesheet" href="../assets/css/animate.min.css">
-        <!-- bootstrap css -->
-        <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.css">
-
+       <?php include '../template/customer-title.php'; ?>
 
         <!-- custom css -->
         <link rel="stylesheet" href="../assets/css/register.css">
-        <link rel="stylesheet" href="../assets/css/style.css">
-        <link rel="stylesheet" href="../assets/css/search.css">
-        <link rel="stylesheet" href="../assets/css/slide2.css">
-        <link rel="stylesheet" type="text/css" href="../assets/css/simple-sidebar.css" />
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+        
 
     </head>
     <body>
-        <?php show_navbar(); ?>
+        <?php include '../template/customer-navbar.php'; ?>
         <!-- start register -->
         <section id="cus_register">
             <div class="overlay">
@@ -99,7 +85,7 @@ include './navbar.php';
             </div>
         </section>
         <!-- end register -->
-        <?php show_footer(); ?>
+        <?php include '../template/footer.php'; ?>
         <script>
             $(document).ready(function () {
                 //Handles menu drop down
