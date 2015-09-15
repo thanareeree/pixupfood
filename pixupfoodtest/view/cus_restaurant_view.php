@@ -121,7 +121,7 @@ include '../dbconn.php';
                             <!-- Promotion -->
                             <div role="tabpanel" class="tab-pane" id="promo">
                                 <br><div class="row">
-                                    <section id="pinBoot">
+                                    <section id="pinBootpromo">
                                         <article class="white-panel"><img src="http://i.imgur.com/sDLIAZD.png" alt="">
                                             <h4><a href="#">Title 1</a></h4>
                                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
