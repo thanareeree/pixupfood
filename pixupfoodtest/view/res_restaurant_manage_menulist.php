@@ -1,6 +1,5 @@
 <?php
 include '../api/islogin.php';
-include '../view/navbar.php';
 include '../dbconn.php';
 ?>
 
@@ -17,7 +16,11 @@ include '../dbconn.php';
 
     </head>
     <body>
-
+        <?php
+        $resid = $_SESSION["restdata"]["id"];
+        $result = $con->query("select * from restaurant where id = '$resid' ");
+        $resdata = $result->fetch_assoc();
+        ?>
         <?php include '../template/restaurant-navbar.php'; ?>
 
         <!-- start head -->
@@ -1120,7 +1123,7 @@ include '../dbconn.php';
 
                                     <!-- จบรายการเครื่องดื่ม-->
 
-                                    <!-- Modal แก้ไขเมนู -->
+                                    <!-- Modal แก้ไขเมนู ------------------------------------------------------------------------------>
                                     <!--EditMenu Modal-->
                                     <div class="modal fade" id="EditMenu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                         <div class="modal-dialog" role="document">
@@ -1152,10 +1155,10 @@ include '../dbconn.php';
                                                                         <p align="center"><button type="button" name="img" value="อัพโหลด" onClick="upload.click()" onMouseOut="uploadtext.value = upload.value" class="btn btn-primary btn-block" style="font-style:normal">เลือกรูป</button></p>
                                                                         <!-- Upload Function-->   
 
-                                                                        <form action="uploadfile.php" method="post" enctype="multipart/form-data" target="ifrm">
-                                                                            <input type="file" name="upload" style="display:none" />
-                                                                            <input type="button" name="uploadbutton" value="choose file" onclick="upload.click()" onmouseout="uploadtext.value = upload.value" style="display:none"/>
-                                                                        </form>
+                                                                        <!--<form action="uploadfile.php" method="post" enctype="multipart/form-data" target="ifrm">-->
+                                                                        <input type="file" name="upload" style="display:none" />
+                                                                        <input type="button" name="uploadbutton" value="choose file" onclick="upload.click()" onmouseout="uploadtext.value = upload.value" style="display:none"/>
+                                                                        <!--</form>-->
 
                                                                         <iframe name="ifrm" style="display:none;">
                                                                         </iframe>
@@ -1178,7 +1181,7 @@ include '../dbconn.php';
                                                                             ทั่วไป
                                                                         </div>
                                                                         <form>
-                                                                            
+
                                                                             <div class="row" style="margin:10px 0 0 30px;">
                                                                                 <span> หมวดหมู่ </span>&nbsp;
                                                                                 <select style="width: 150px;">
@@ -1205,30 +1208,11 @@ include '../dbconn.php';
                                                                 <div class="col-md-6">
                                                                     <div class="card" style="margin-top: 1px;">
                                                                         <div class="card-action">
-                                                                            <div class="page-header"style="font-size:18px;margin-top: 0px;">โปรโมชั่น</div>
-                                                                            <div class="material-switch">
-                                                                                <span style="margin-left: 28px;"> ปิดใช้งาน </span> &nbsp;
-                                                                                <input id="someSwitchOptionSuccess2" name="someSwitchOption001" type="checkbox"/>
-                                                                                <label for="someSwitchOptionSuccess2" class="label-success"></label>
-                                                                                &nbsp; <span>เปิดใช้งาน</span> <br> <br>
-                                                                                <div class="radio" style="margin-left: 23px;">
-                                                                                    <input type="radio" > <span > &nbsp;ลดราคา </span>&nbsp; <input type="text" style="width: 108px;"><span>&nbsp; บาท </span> <br><br>
-                                                                                    <input type="radio" > <span > &nbsp;ลดราคา </span>&nbsp; <input type="text" style="width: 108px;"><span>&nbsp; % </span>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <div class="card" style="margin-top: 1px;">
-                                                                        <div class="card-action">
                                                                             <div class="page-header" style="font-size:18px;margin-top: 0px;">สถานะ</div>
 
 
                                                                             <div class="material-switch ">
-                                                                                <span style="
-                                                                                      margin-left: 33px;
-                                                                                      "> สินค้าหมด </span> &nbsp;
+                                                                                <span style="margin-left: 33px;"> สินค้าหมด </span> &nbsp;
                                                                                 <input id="someSwitchOptionSuccess" name="someSwitchOption001" type="checkbox"/>
                                                                                 <label for="someSwitchOptionSuccess" class="label-success"></label>
                                                                                 &nbsp; <span>มีสินค้า</span>
@@ -1251,70 +1235,24 @@ include '../dbconn.php';
 
                                     <!--End EditMenu Modal-->
 
-                                    <!--AddMenu Modal-->
+                                    <!--AddMenu Modal--------------------------------------------------------------------------------->
                                     <div class="modal fade" id="AddMenu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                                        <div class="modal-dialog" role="document">
+                                        <div class="modal-dialog" role="document">  
                                             <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                    <h4 class="modal-title" id="myModalLabel">เพิ่มรายการใหม่</h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="row" style="margin: 0px;">
-                                                        <div class="card">
-                                                            <div class="card-action">
-                                                                <div class="page-header" style="font-size:18px;margin-top: 0px;">
-                                                                    รูปภาพ
-                                                                </div> 
-                                                                <div class="row">
-                                                                    <div class="col-md-6"> 
-                                                                        <div class="thumbnails">
-                                                                            <div class="span4">
-                                                                                <form>
-                                                                                    <div class="thumbnail">
-                                                                                            <!-- <input type="file" name="img"> --->
-                                                                                        <img src="http://placehold.it/160x100" alt="ALT NAME">
-                                                                                    </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-6" style="margin-top: 60px;"> 
-                                                                        <p align="center">
-                                                                            <button type="button" name="img" value="อัพโหลด" onClick="upload.click()" onMouseOut="uploadtext.value = upload.value" class="btn btn-primary btn-block" style="font-style:normal">
-                                                                                เลือกรูป
-                                                                            </button>
-                                                                        </p>
-                                                                        <!-- Upload Function-->   
-                                                                        </form>
-                                                                        <form action="uploadfile.php" method="post" enctype="multipart/form-data" target="ifrm">
-                                                                            <input type="file" name="upload" style="display:none" />
-                                                                            <input type="button" name="uploadbutton" value="choose file" onclick="upload.click()" onmouseout="uploadtext.value = upload.value" style="display:none"/>
-                                                                        </form>
+                                                <form action="../restaurant/menu-add.php?id=<?= $resid ?>" method="post" enctype="multipart/form-data" name="add_menu_form" >
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                        <h4 class="modal-title" id="myModalLabel">เพิ่มรายการใหม่</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="row" style="margin: 0px;">
 
-                                                                        <iframe name="ifrm" style="display:none;">
-                                                                        </iframe>
-
-                                                                        <div class="progress">
-                                                                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
-                                                                                100%
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="row" style="margin:15px -15px;">
-                                                            <div class="col-md-12">
-                                                                <div class="card" style="margin-top: 1px;">
-                                                                    <div class="card-action">
-                                                                        <div class="page-header" style="font-size:18px;margin-top: 0px;">
-                                                                            ทั่วไป
-                                                                        </div>
-                                                                        <form>
-                                                                            <div class="row" style="margin:10px 0 0 5px;">
-                                                                                <span style="margin-left: 24px;"> ชื่ออาหาร </span> &nbsp;<input type="text">
-                                                                                <span style="margin-left: 25px;"> ราคาอาหาร </span> &nbsp;<input type="text">&nbsp; บาท 
+                                                            <div class="row" style="margin:15px -15px;">
+                                                                <div class="col-md-12">
+                                                                    <div class="card" style="margin-top: 1px;">
+                                                                        <div class="card-action">
+                                                                            <div class="page-header" style="font-size:18px;margin-top: 0px;">
+                                                                                ทั่วไป
                                                                             </div>
                                                                             <div class="row" style="margin:10px 0 0 30px;">
                                                                                 <span> หมวดหมู่ </span>&nbsp;
@@ -1328,60 +1266,64 @@ include '../dbconn.php';
                                                                                 <span style="margin-left: 25px;"> หมวดหมู่ </span>&nbsp;&nbsp;
                                                                                 <?php include '../template/foodtype-list.php'; ?>
                                                                             </div>
-                                                                        </form>
+                                                                            <div class="row" style="margin:10px 0 0 5px;">
+                                                                                <span style="margin-left: 24px;"> ชื่ออาหาร </span> &nbsp;<input type="text">
+                                                                                <span style="margin-left: 25px;"> ราคาอาหาร </span> &nbsp;<input type="text">&nbsp; บาท 
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <form action="#" method="#">
-                                                                <div class="col-md-6">
-                                                                    <div class="card" style="margin-top: 1px;">
-                                                                        <div class="card-action">
-                                                                            <div class="page-header"style="font-size:18px;margin-top: 0px;">โปรโมชั่น</div>
-                                                                            <div class="material-switch">
-                                                                                <span style="margin-left: 28px;"> ปิดใช้งาน </span> &nbsp;
-                                                                                <input id="someSwitchOptionSuccess2" name="someSwitchOption001" type="checkbox"/>
-                                                                                <label for="someSwitchOptionSuccess2" class="label-success"></label>
-                                                                                &nbsp; <span>เปิดใช้งาน</span> <br> <br>
-                                                                                <div class="radio" style="margin-left: 23px;">
-                                                                                    <input type="radio" > <span > &nbsp;ลดราคา </span>&nbsp; <input type="text" style="width: 108px;"><span>&nbsp; บาท </span> <br><br>
-                                                                                    <input type="radio" > <span > &nbsp;ลดราคา </span>&nbsp; <input type="text" style="width: 108px;"><span>&nbsp; % </span>
+                                                            <div class="card">
+                                                                <div class="card-action">
+                                                                    <div class="page-header" style="font-size:18px;margin-top: 0px;">
+                                                                        รูปภาพ
+                                                                    </div> 
+                                                                    <div class="row">
+                                                                        <div class="col-md-6"> 
+                                                                            <div class="thumbnails">
+                                                                                <div class="span4">
+                                                                                    <div class="thumbnail" id="images_preview">
+                                                                                                <!-- <input type="file" name="img"> --->
+                                                                                        <img src="../assets/images/default-img360.png" alt="ALT NAME" id="defaultimg">
+
+                                                                                    </div>                                                                                    
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6" style="margin-top: 60px;"> 
+                                                                            <p align="center"><button type="button" name="img" value="อัพโหลด" onClick="imagesnewmenu.click()" onMouseOut="uploadtext.value = imagesnewmenu.value" class="btn btn-primary btn-block" style="font-style:normal">เลือกรูป</button></p>
+                                                                            <!-- Upload Function-->   
+
+                                                                            <!-- <form action="uploadfile.php" method="post" enctype="multipart/form-data" target="ifrm">-->
+                                                                            <input type="file" id="imagesnewmenu" name="imagesnewmenu" style="display:none" accept="image/jpeg,image/pjpeg,image/png"  />
+                                                                            <input type="button" name="uploadbutton" value="choose file" onclick="imagesnewmenu.click()" onmouseout="uploadtext.value = imagesnewmenu.value" style="display:none"/>
+                                                                            <!--</form>-->
+
+                                                                            <div class="progress">
+                                                                                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 50%; display: none" >
+                                                                                    50%
+                                                                                </div>
+                                                                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%; display: none">
+                                                                                    100%
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-6">
-                                                                    <div class="card" style="margin-top: 1px;">
-                                                                        <div class="card-action">
-                                                                            <div class="page-header" style="font-size:18px;margin-top: 0px;">สถานะ</div>
+                                                            </div>
 
-
-                                                                            <div class="material-switch ">
-                                                                                <span style="
-                                                                                      margin-left: 33px;
-                                                                                      "> สินค้าหมด </span> &nbsp;
-                                                                                <input id="someSwitchOptionSuccess" name="someSwitchOption001" type="checkbox"/>
-                                                                                <label for="someSwitchOptionSuccess" class="label-success"></label>
-                                                                                &nbsp; <span>มีสินค้า</span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </form>
                                                         </div>
                                                     </div>
-                                                </div>
-
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
-                                                    <button type="button" class="btn btn-primary">บันทึก</button>
-                                                </div>
-                                            </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                                                        <button type="submit" class="btn btn-primary">บันทึก</button>
+                                                    </div>
+                                                </form>
+                                            </div> 
                                         </div>
-                                    </div>
-                                    <!--End AddMenu Modal-->
+                                    </div><!--End AddMenu Modal-->
+
                                 </div>
 
                                 <!-- รายการอาหารที่หมดชั่วคราว -->
@@ -1477,22 +1419,16 @@ include '../dbconn.php';
     <!-- start footer -->
     <?php include '../template/footer.php'; ?>
 
-    <script>
-        (function ($) {
-            'use strict';
-            var uploadForm = document.getElementById('js-upload-form');
-
-            var startUpload = function (files) {
-                console.log(files)
-            }
-
-            uploadForm.addEventListener('submit', function (e) {
-                var uploadFiles = document.getElementById('js-upload-files').files;
-                e.preventDefault()
-
-                startUpload(uploadFiles)
-            })
-        })(jQuery);
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#imagesnewmenu').on('change', function () {
+                $('#add_menu_form').ajaxForm({
+                    //display the uploaded images
+                    target: '#images_preview'
+                    
+                });
+            });
+        });
     </script>
 
      

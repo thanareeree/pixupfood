@@ -16,6 +16,7 @@
 <script src="../assets/js/wow.min.js"></script>
 <script src="../assets/js/custom.js"></script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+<script src="../assets/js/jquery.form.js"></script>
 
 
 
