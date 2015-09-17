@@ -1256,15 +1256,23 @@ include '../dbconn.php';
                                                                             </div>
                                                                             <div class="row" style="margin:10px 0 0 30px;">
                                                                                 <span> หมวดหมู่ </span>&nbsp;
-                                                                                <select style="width: 150px;">
+                                                                                <select style="width: 150px;" id="select_type" name="select_type" id="select_type">
                                                                                     <option>--ตัวเลือก--</option>
-                                                                                    <option>ชนิดข้าว</option>
-                                                                                    <option>กับข้าว</option>
-                                                                                    <option>อาหารจานด่วน</option>
-                                                                                    <option>เครื่องดื่ม</option>
+                                                                                    <option value="ชนิดข้าว">ชนิดข้าว</option>
+                                                                                    <option value="กับข้าว">กับข้าว</option>
+                                                                                    <option value="อาหารจานเดียว">อาหารจานเดียว</option>
+                                                                                    <option value="เครื่องดื่ม">เครื่องดื่ม</option>
                                                                                 </select>
-                                                                                <span style="margin-left: 25px;"> หมวดหมู่ </span>&nbsp;&nbsp;
-                                                                                <?php include '../template/foodtype-list.php'; ?>
+                                                                                <span style="margin-left: 25px; display: none" id="type" > หมวดหมู่อาหาร </span>&nbsp;&nbsp;
+                                                                                <select class="foodtypelist" name="foodtypelist" id="foodtypelist"style="width: 150px;  margin-left: 5px; display: none" >
+                                                                                    <option>--ตัวเลือก--</option>
+                                                                                    <?php
+                                                                                    $res1 = $con->query("SELECT * FROM `food_type`");
+                                                                                    while ($data1 = $res1->fetch_assoc()) {
+                                                                                        ?>
+                                                                                        <option value="<?= $data1['id'] ?>"> <?= $data1['description'] ?> </option>
+                                                                                    <?php } ?>
+                                                                                </select>
                                                                             </div>
                                                                             <div class="row" style="margin:10px 0 0 5px;">
                                                                                 <span style="margin-left: 24px;"> ชื่ออาหาร </span> &nbsp;<input type="text">
@@ -1292,7 +1300,8 @@ include '../dbconn.php';
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-md-6" style="margin-top: 60px;"> 
-                                                                            <p align="center"><button type="button" name="img" value="อัพโหลด" onClick="imagesnewmenu.click()" onMouseOut="uploadtext.value = imagesnewmenu.value" class="btn btn-primary btn-block" style="font-style:normal">เลือกรูป</button></p>
+                                                                            <span id="uploadtext" ></span>
+                                                                            <p align="center" ><button type="button" name="img" value="อัพโหลด" onClick="imagesnewmenu.click()" onMouseOut="uploadtext.value = imagesnewmenu.value" class="btn btn-primary btn-block" style="font-style:normal">เลือกรูป</button></p>
                                                                             <!-- Upload Function-->   
 
                                                                             <!-- <form action="uploadfile.php" method="post" enctype="multipart/form-data" target="ifrm">-->
@@ -1421,16 +1430,26 @@ include '../dbconn.php';
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#imagesnewmenu').on('change', function () {
-                $('#add_menu_form').ajaxForm({
-                    //display the uploaded images
-                    target: '#images_preview'
-                    
-                });
+            $('#imagesnewmenu').on('change', function (e) {
+                var filename = $('#imagesnewmenu').val();
+                var fname = filename.substring(12);
+                var name = "File: " + fname;
+                $("#uploadtext").html(name);
             });
+
+            $('#select_type').on('change', function (e) {
+                if ($("#select_type").val() == 'กับข้าว') {
+                    $("#type").show();
+                    $("#foodtypelist").show();
+                } else {
+                    $("#type").hide();
+                    $("#foodtypelist").hide();
+                }
+            });
+
         });
     </script>
 
-     
+
 </body>
 </html>
