@@ -1256,7 +1256,7 @@ include '../dbconn.php';
                                                                             </div>
                                                                             <div class="row" style="margin:10px 0 0 30px;">
                                                                                 <span> หมวดหมู่ </span>&nbsp;
-                                                                                <select style="width: 150px;" id="select_type" name="select_type" id="select_type">
+                                                                                <select style="width: 150px;" id="select_type" name="select_type" required="">
                                                                                     <option>--ตัวเลือก--</option>
                                                                                     <option value="ชนิดข้าว">ชนิดข้าว</option>
                                                                                     <option value="กับข้าว">กับข้าว</option>
@@ -1275,8 +1275,8 @@ include '../dbconn.php';
                                                                                 </select>
                                                                             </div>
                                                                             <div class="row" style="margin:10px 0 0 5px;">
-                                                                                <span style="margin-left: 24px;"> ชื่ออาหาร </span> &nbsp;<input type="text">
-                                                                                <span style="margin-left: 25px;"> ราคาอาหาร </span> &nbsp;<input type="text">&nbsp; บาท 
+                                                                                <span style="margin-left: 24px;"> ชื่ออาหาร </span> &nbsp;<input type="text" name="foodname" required="">
+                                                                                <span style="margin-left: 25px;"> ราคาอาหาร </span> &nbsp;<input type="text" name="price" required="">&nbsp; บาท 
                                                                             </div>
                                                                         </div>
                                                                     </div>
