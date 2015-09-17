@@ -23,7 +23,7 @@ $target_file = $target_dir . $newfliename;
 
 
 
-if ($_FILES['imagesnewmenu']['name'] != "" && $type == "กับข้าว") {  //มีรูป เป็นกับข้าว
+if ($_FILES['imagesnewmenu']['name'] != "" && ($type == "กับข้าว" || $type == "อาหารจานเดียว")) {  //มีรูป เป็นกับข้าว
     $food_type = $_POST["foodtypelist"];
 
 
@@ -50,7 +50,7 @@ if ($_FILES['imagesnewmenu']['name'] != "" && $type == "กับข้าว") 
     } else {
         echo $con->error;
     }
-} else if ($_FILES['imagesnewmenu']['name'] != "" && $type != "กับข้าว") {  //มีรูป ไม่ใช่กับข้าว ไม่มี foodtype
+} else if ($_FILES['imagesnewmenu']['name'] != "" && ($type != "กับข้าว" || $type != "อาหารจานเดียว")) {  //มีรูป ไม่ใช่กับข้าว ไม่มี foodtype
     move_uploaded_file(@$_FILES["imagesnewmenu"]["tmp_name"], $target_file);
     $con->query("INSERT INTO `menu`(`id`, `name`, `type`, `price`, `img_path`, `restaurant_id`) "
             . "VALUES ('null','$name','$type','$price','$target_file','$resid')");
@@ -65,7 +65,7 @@ if ($_FILES['imagesnewmenu']['name'] != "" && $type == "กับข้าว") 
     } else {
         echo $con->error;
     }
-} else if ($_FILES['imagesnewmenu']['name'] == "" && $type == "กับข้าว") {  //ไม่มีรูป แต่เป็นกับข้าว เลยมี foodtype
+} else if ($_FILES['imagesnewmenu']['name'] == "" && ($type == "กับข้าว" || $type == "อาหารจานเดียว")) {  //ไม่มีรูป แต่เป็นกับข้าว เลยมี foodtype
     $food_type = $_POST["foodtypelist"];
 
     $con->query("INSERT INTO `menu`(`id`, `name`, `type`, `price`, `img_path`, `restaurant_id`) "
@@ -90,7 +90,7 @@ if ($_FILES['imagesnewmenu']['name'] != "" && $type == "กับข้าว") 
     } else {
         echo "ไม่เจอ menu id";
     }
-} else if ($_FILES['imagesnewmenu']['name'] == "" && $type != "กับข้าว") {  //ไม่มีรูป ไม่ใช่กับข้าว
+} else if ($_FILES['imagesnewmenu']['name'] == "" && ($type != "กับข้าว" || $type != "อาหารจานเดียว")) {  //ไม่มีรูป ไม่ใช่กับข้าว
     $con->query("INSERT INTO `menu`(`id`, `name`, `type`, `price`, `img_path`, `restaurant_id`) "
             . "VALUES ('null','$name','$type','$price',null,'$resid')");
 

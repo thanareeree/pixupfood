@@ -6,7 +6,7 @@ while ($data2 = $res2->fetch_assoc()) {
         <div class="card">
             <div class="maxheight">
                 <div class="card-image" >
-                    <img src="<?= ($data2["img_path"] == "") ? '../assets/images/default-img360.png' : $data2["img_path"] ?>" width="249px" height="156px">
+                    <img src="<?= ($data2["img_path"] == "") ? '../assets/images/default-img360.png' : $data2["img_path"] ?>" >
                 </div>
                 <div class="card-content height">
                     <div class="product-name"><?= $data2["name"] ?></div>
