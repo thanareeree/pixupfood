@@ -22,6 +22,8 @@ include '../dbconn.php';
                 max-width: 100%;
                 height: 156px;
             }
+
+
         </style>
     </head>
     <body>
@@ -142,7 +144,10 @@ include '../dbconn.php';
                                             <div class="card">
                                                 <div class="card-content">
                                                     <h2>ค้นหา</h2>
-                                                    <input type="text" class="form-control" placeholder="ป้อนคำค้นหา...">
+                                                    <form action="#" method="get" id="searchbyname">
+                                                        <input type="hidden" name="restaurant" value="<?= $resid; ?>" >
+                                                        <input type="text" class="form-control" placeholder="ป้อนคำค้นหา..." name="searchname">
+                                                    </form>
                                                     <!-- Menu 1 Row -->
                                                     <div class="row">
                                                         <div class="col-md-3">
@@ -249,7 +254,7 @@ include '../dbconn.php';
                                                     <div class="row">
                                                         <?php include '../restaurant/menu-singlefood-list.php'; ?>
                                                     </div>
-                                                    
+
                                                 </div>
                                             </div>
                                         </div>
@@ -265,7 +270,7 @@ include '../dbconn.php';
                                                     <h2>เครื่องดื่ม</h2>
                                                     <!-- Menu 1 Row -->
                                                     <div class="row">
-                                                      <?php include '../restaurant/menu-drinktype-list.php'; ?>
+                                                        <?php include '../restaurant/menu-drinktype-list.php'; ?>
                                                     </div>
                                                 </div>
                                             </div>
@@ -597,6 +602,24 @@ include '../dbconn.php';
                     $("#foodtypelist").hide();
                 }
             });
+
+            $("#searchbyname").submit(function (e) {
+                $.ajax({
+                    url: "../restaurant/menu-searchbyname.php",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.result == "1") {
+                           alert();
+                        } else {
+                            alert("ไม่สามารถบันทึกข้อมูลได้\nError : ");
+
+                        }
+                    }
+                });
+            });
+
+
 
         });
     </script>
