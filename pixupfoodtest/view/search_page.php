@@ -2,48 +2,70 @@
 session_start();
 include '../dbconn.php';
 ?>
-
-
-
-
-<html >
+<html>
     <head>
-        <!-- 
-        Boxer Template
-        http://www.templatemo.com/preview/templatemo_446_boxer
-        -->
-
         <title>PixupFood - The Original Food Delivery</title>
         <?php include '../template/customer-title.php'; ?>
         <link rel="stylesheet" href="../assets/css/search_page.css">
-
-
-
     </head>
     <body>
         <?php include '../template/customer-navbar.php'; ?>
-
         <!-- start register -->
         <section id="search_page">
             <div class="overlay">
-                <div class="container text-center">
-                    <h1>PIXUPFOOD</h1>
-                    <h4>Search Food & Restaurant That You Want</h4>
+                <div class="container">
                     <div class="row">
-                        <div class="col-md-2"></div>
-                        <div class="col-md-8">
-                            <div id="custom-search-input">
-                                <div class="input-group col-md-12">
-                                    <input type="text" class="form-control input-lg" placeholder="Search.." />
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-info btn-lg" type="button">
-                                            <i class="glyphicon glyphicon-search"></i>
-                                        </button>
-                                    </span>
+                        <div class="col-md-5 col-md-offset-1">
+                            <h1>PIXUPFOOD</h1>
+                            <h4>Search Food & Restaurant That You Want</h4>
+                        </div>
+                        <div class="col-md-5" id="searchcri">
+                            <div class="row">
+                                <div class="col-md-4 searchtitle">
+                                    Search By :
+                                </div>
+                                <div class="col-md-8">
+                                    <select class="form-control" id="searchby">
+                                        <option value="foodname">รายการอาหาร</option>
+                                        <option value="rest">ร้านอาหาร</option>
+                                        <option value="nearbyfood">ร้านอาหารบริเวณใกล้เคียง</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 searchtitle">
+                                    Food Type : 
+                                </div>
+                                <div class="col-md-8">
+                                    <select class="form-control" id="foodtype">
+                                        <option value="all">ทั้งหมด</option>
+                                        <?php
+                                        $getFoodTypeRes = $con->query("SELECT * FROM food_type");
+                                        while ($foodtype = $getFoodTypeRes->fetch_assoc()) {
+                                            ?>
+                                            <option value="<?= $foodtype["id"] ?>"><?= $foodtype["description"] ?></option>
+                                            <?php
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 searchtitle">
+                                    Keyword : 
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="searchtxt" placeholder="Search for...">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" id="searchbtn" type="button">
+                                                <i class="glyphicon glyphicon-search"></i>
+                                            </button>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2"></div>
                     </div>
                 </div>
             </div>
@@ -52,43 +74,7 @@ include '../dbconn.php';
         <section id="search_page_body">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-3">
-                        <h2>Fillter</h2>
-                        <div class="col-md-12" style="padding-left:0px;">
-                            <select class="form-control prolist" id="plan">
-                                <option value="Type">ประเภทอาหาร</option>
-                                <option value="North">อาหารเหนือ</option>
-                                <option value="EastNorth">อาหารอีสาน</option>
-                                <option value="South">อาหารใต้</option>
-                                <option value="Carte">อาหารตามสั่งทั่วไป</option>
-                                <option value="Dessert">ขนมหวาน</option>
-                                <option value="Bakery">เบเกอรี่</option>
-                            </select>
-                        </div>
-                        <div class="col-md-12" style="padding-left:0px;">
-                            <h3>Restaurant Options</h3>
-                            <form action="">
-                                <input type="checkbox" name="sex" value="male">&nbsp;สั่งอาหารมากกว่า 100 ชุด<br>
-                                <input type="checkbox" name="sex" value="female">&nbsp;สั่งอาหารล่วงหน้ามากกว่า 1 วัน<br>
-                                <input type="checkbox" name="sex" value="male">&nbsp;มีรายการโปรโมชัน<br>
-                                <input type="checkbox" name="sex" value="female">&nbsp;รับชำระสินค้าออนไลน์<br>
-                                <input type="checkbox" name="sex" value="male">&nbsp;ร้านที่เปิดให้บริการ<br>
-                                <input type="checkbox" name="sex" value="female">&nbsp;มีบริการด่วนพิเศษ
-                            </form>
-                        </div>
-                        <div class="col-md-12" style="padding-left:0px;">
-                            <h3>Food Types</h3>
-                            <form action="">
-                                <input type="checkbox" name="sex" value="male">&nbsp;อาหารตามสั่ง<br>
-                                <input type="checkbox" name="sex" value="female">&nbsp;อาหารจัดเซ็ต(Box Set)<br>
-                                <input type="checkbox" name="sex" value="male">&nbsp;อาหารว่าง<br>
-                                <input type="checkbox" name="sex" value="female">&nbsp;ขนม เครื่องดื่ม และ เบเกอรี่<br>
-                                <input type="checkbox" name="sex" value="male">&nbsp;อาหารมังสวิรัติ<br>
-                                <input type="checkbox" name="sex" value="female">&nbsp;อาหารฮาลาล
-                            </form>
-                        </div>
-                    </div>
-                    <div class="col-md-9">
+                    <div class="col-md-12">
                         <h2>Result</h2>
                         <div class="col-md-12" style="padding-left:0px;">
                             <div class="content2" style="padding-bottom:15px">
@@ -99,33 +85,44 @@ include '../dbconn.php';
                                         <th data-field="rfname"  data-sortable="true" style="width: 300px">Restaurants/Foods Name</th>
                                         <th data-field="addetail"  data-sortable="true" >Address/Details</th>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <a class="pull-left" href="#">
-                                                        <img class="media-object" src="http://placehold.it/150x90" alt="...">
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <h4 class="media-heading">Lorem ipsum dolor asit amet</h4>
-                                                </td>
-                                                <td>
-                                                    <p>By Jhon Doe</p>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <a class="pull-left" href="#">
-                                                        <img class="media-object" src="http://placehold.it/150x90" alt="...">
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <h4 class="media-heading">Lorem ipsum dolor asit amet</h4>
-                                                </td>
-                                                <td>
-                                                    <p>By Jhon Doe</p>
-                                                </td>
-                                            </tr>
+
+                                        <tbody id="result">
+                                            <?php
+                                            $search = $con->real_escape_string(@$_GET["search"]);
+                                            $numrow = 0;
+                                            if ($search != "") {
+                                                $res = $con->query("SELECT DISTINCT restaurant.id, restaurant.name ,restaurant.address, restaurant.tel ,restaurant.img_path "
+                                                        . "FROM restaurant "
+                                                        . "LEFT JOIN menu ON menu.restaurant_id = restaurant.id "
+                                                        . "WHERE restaurant.name LIKE '%$search%' OR menu.name LIKE '%$search%' ");
+                                                $numrow = $res->num_rows;
+                                            }
+                                            if ($numrow == 0) {
+                                                ?>
+                                                <tr><td colspan="3" style="text-align: center;"><h2>No Result !</h2></td></tr>
+                                                <?php
+                                            }
+                                            while ($data = $res->fetch_assoc()) {
+                                                ?>
+                                                <tr>
+                                                    <td>
+                                                        <a class="pull-left" href="#">
+                                                            <img class="media-object" 
+                                                                 src="<?= ($data["img_path"] == "" ? "../assets/images/default-img150.png" : $data["img_path"]) ?>"
+                                                                 style="max-width: 150px;">
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <h4 class="media-heading"><?= $data["name"] ?></h4>
+                                                    </td>
+                                                    <td>
+                                                        <p><?= $data["address"] ?><br><?= $data["tel"] ?></p>
+                                                    </td>
+                                                </tr>
+
+                                                <?php
+                                            }
+                                            ?>
                                         </tbody>
                                     </table>
                                 </div>                                
@@ -139,11 +136,35 @@ include '../dbconn.php';
         <?php include '../template/footer.php'; ?>
         <script>
             $(document).ready(function () {
-                alert(loadPageVar("search"));
+                $("#searchby").on("change", function (e) {
+                    var searchby = $(this).val();
+                    if (searchby == "foodname") {
+                        $("#foodtype").val("all");
+                        $("#foodtype").removeAttr("disabled");
+                    } else {
+                        $("#foodtype").val(0);
+                        $("#foodtype").attr("disabled", "disabled");
+                    }
+                });
+
+                $("#searchbtn").on("click", function (e) {
+                    $("#result").html('<tr><td colspan="3" style="text-align: center;"><h2>Searching...</h2></td></tr>');
+                    var searchby = $("#searchby").val();
+                    var foodtype = $("#foodtype").val();
+                    var searchtxt = $("#searchtxt").val();
+                    $.ajax({
+                        url: "../customer/ajax_search.php",
+                        type: 'POST',
+                        dataType: 'html',
+                        data: {"searchby":searchby, "foodtype":foodtype,"searchtxt":searchtxt},
+                        success: function (data, textStatus, jqXHR) {
+                            $("#result").html(data);
+                        }
+                    });
+                });
+
+
             });
-            function loadPageVar(sVar) {
-                return unescape(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + escape(sVar).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
-            }
         </script>
     </body>
 </html>

@@ -27,7 +27,7 @@ if (isset($_SESSION["islogin"])) {
                     <form action="../view/search_page.php" method="get">
                         <div id="custom-search-input">
                             <div class="input-group col-md-12">
-                                <input type="text" name="search" class="form-control input-lg" placeholder="Search.." />
+                                <input type="text" name="search" value="<?=@$_GET["search"]?>" class="form-control input-lg" placeholder="Search.." />
                                 <span class="input-group-btn">
                                     <button class="btn btn-info btn-lg" type="submit">
                                         <i class="glyphicon glyphicon-search"></i>
