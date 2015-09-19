@@ -17,6 +17,12 @@ if ($searchby == "foodname") {
                 . "LEFT JOIN menu ON menu.restaurant_id = restaurant.id "
                 . "WHERE menu.name LIKE '%$searchtxt%' $foodtypeq ");
         $numrow = $res->num_rows;
+    }else if($searchtxt == ""){
+         $res = $con->query("SELECT menu.id, menu.name as menuname, restaurant.name as resname, restaurant.address, restaurant.tel, menu.img_path  "
+                . "FROM restaurant "
+                . "LEFT JOIN menu ON menu.restaurant_id = restaurant.id "
+                . "WHERE menu.name LIKE '%' $foodtypeq ");
+        $numrow = $res->num_rows;
     }
     if ($numrow == 0) {
         ?>

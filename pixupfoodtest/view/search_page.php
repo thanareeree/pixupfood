@@ -22,7 +22,7 @@ include '../dbconn.php';
                         <div class="col-md-5" id="searchcri">
                             <div class="row">
                                 <div class="col-md-4 searchtitle">
-                                    Search By :
+                                    ค้นหาจาก :
                                 </div>
                                 <div class="col-md-8">
                                     <select class="form-control" id="searchby">
@@ -34,7 +34,7 @@ include '../dbconn.php';
                             </div>
                             <div class="row">
                                 <div class="col-md-4 searchtitle">
-                                    Food Type : 
+                                    ประเภทอาหาร : 
                                 </div>
                                 <div class="col-md-8">
                                     <select class="form-control" id="foodtype">
@@ -52,11 +52,11 @@ include '../dbconn.php';
                             </div>
                             <div class="row">
                                 <div class="col-md-4 searchtitle">
-                                    Keyword : 
+                                    คีย์เวิร์ด : 
                                 </div>
                                 <div class="col-md-8">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="searchtxt" placeholder="Search for...">
+                                        <input type="text" class="form-control" id="searchtxt" placeholder="ชื่อร้านอาหาร | ชื่อรายการอาหาร">
                                         <span class="input-group-btn">
                                             <button class="btn btn-default" id="searchbtn" type="button">
                                                 <i class="glyphicon glyphicon-search"></i>
@@ -75,15 +75,15 @@ include '../dbconn.php';
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        <h2>Result</h2>
+                        <h2>ผลการค้นหา</h2>
                         <div class="col-md-12" style="padding-left:0px;">
                             <div class="content2" style="padding-bottom:15px">
                                 <div class="fresh-table" style="font-family: 'supermarketregular';">
                                     <table id="fresh-table" class="table">
                                         <thead style="background-color: #FF9F00">
-                                        <th data-field="picture"  style="width: 180px">Pictures</th>
-                                        <th data-field="rfname"  data-sortable="true" style="width: 300px">Restaurants/Foods Name</th>
-                                        <th data-field="addetail"  data-sortable="true" >Address/Details</th>
+                                        <th data-field="picture"  style="width: 180px">รูปภาพ</th>
+                                        <th data-field="rfname"  data-sortable="true" style="width: 300px">ชื่อร้านอาหร/ชื่อรายการอาหาร</th>
+                                        <th data-field="addetail"  data-sortable="true" >ที่อยู่ของร้านอาหาร/รายละเอียด</th>
                                         </thead>
 
                                         <tbody id="result">
