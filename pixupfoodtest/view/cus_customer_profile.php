@@ -31,7 +31,7 @@ include '../dbconn.php';
             <div class="profilecontainer">
                 <div class="headprofile"> 
                     <img align="left" class="fb-image-lg" src="../assets/images/pearhead.png" alt="Profile image example"/>
-                    <img align="left" class="fb-image-profile thumbnail" src="<?= $data2["img_path"] ?>" id="imgprofile"/>
+                    <img align="left" class="fb-image-profile thumbnail" src="<?= ($data2["img_path"]=="" ? '../assets/images/defaulf-profile.png':$data2["img_path"]) ?>" id="imgprofile" style="max-width: 175px;" height="175px"/>
                         <div class="fb-profile-text">
 
                             <h1><?= $data2["firstName"] ?>  <?= $data2["lastName"] ?></h1>
@@ -140,6 +140,13 @@ include '../dbconn.php';
                     <div class="col-md-8">
                         <!-- 4 element -->
                         <div class="row">
+                            <div class="col-md-2 templatemo-box fadeInUp">
+                                <a href="#history" data-toggle="tab" id="navhistory">
+                                    <img class="img-responsive imgsize" src="../assets/images/profile/menu_list/orderhis_b_c.png" title="ประวัติการสั่งซื้อ" onmouseover="this.src = '../assets/images/profile/menu_list/orderhis_a_c.png';"
+                                         onmouseout="this.src = '../assets/images/profile/menu_list/orderhis_b_c.png';" style="margin: 0 0 0 20px">
+                                    <p class="elt" style="margin:0">ประวัติการสั่งซ้อ</p>
+                                </a>
+                            </div>
                             <div class="col-md-2 templatemo-box fadeInUp webfont">
                                 <a href="#shoplist" data-toggle="tab" id="navshoplist">
                                     <img class="img-responsive imgsize" src="../assets/images/profile/menu_list/shoplist_b_c.png" title="ตะกร้า" onmouseover="this.src = '../assets/images/profile/menu_list/shoplist_a_c.png';"
@@ -153,13 +160,6 @@ include '../dbconn.php';
                                          onmouseout="this.src = '../assets/images/profile/menu_list/fav_b_c.png';" style="margin: 0 0 0 15px">
                                     <p class="elt" style="margin: 0 0 0 20px">ชื่นชอบ</p>
                                 </a>       
-                            </div>
-                            <div class="col-md-2 templatemo-box fadeInUp">
-                                <a href="#history" data-toggle="tab" id="navhistory">
-                                    <img class="img-responsive imgsize" src="../assets/images/profile/menu_list/orderhis_b_c.png" title="ประวัติการสั่งซื้อ" onmouseover="this.src = '../assets/images/profile/menu_list/orderhis_a_c.png';"
-                                         onmouseout="this.src = '../assets/images/profile/menu_list/orderhis_b_c.png';" style="margin: 0 0 0 20px">
-                                    <p class="elt" style="margin:0">ประวัติการสั่งซ้อ</p>
-                                </a>
                             </div>
                             <div class="col-md-2 templatemo-box fadeInUp">
                                 <a href="#shipadd" data-toggle="tab" id="navshipadd">
