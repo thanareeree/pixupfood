@@ -1,7 +1,6 @@
 <?php
 session_start();
 include '../dbconn.php';
-
 ?>
 
 
@@ -13,13 +12,13 @@ include '../dbconn.php';
         Boxer Template
         http://www.templatemo.com/preview/templatemo_446_boxer
         -->
-        
+
         <title>PixupFood - The Original Food Delivery</title>
-       <?php include '../template/customer-title.php'; ?>
+        <?php include '../template/customer-title.php'; ?>
 
         <!-- custom css -->
         <link rel="stylesheet" href="../assets/css/register.css">
-        
+
 
     </head>
     <body>
@@ -85,12 +84,47 @@ include '../dbconn.php';
             </div>
         </section>
         <!-- end register -->
+
+        <!-- Modal ลูกค้าต้องอ่านก่อนถึงจะสมัครได้-->
+        <div class="modal fade" id="termsmodal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">โปรดอ่านข้อกำหนดก่อนลงทะเบียน</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>..............</p>
+                        <form>
+                            <input type="checkbox" >&nbsp; ยอมรับ
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="../index.php"><button type="button" class="btn btn-default"  >ยกเลิก</button></a>
+                        <button type="button" class="btn btn-primary" id="nextregisbtn" disabled="">ต่อไป</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
         <?php include '../template/footer.php'; ?>
         <script>
             $(document).ready(function () {
                 //Handles menu drop down
                 $('.dropdown-menu').find('form').click(function (e) {
                     e.stopPropagation();
+                });
+                $('#termsmodal').modal({
+                    backdrop: 'static',
+                    keyboard: false
+                });
+
+                $("#termsmodal").modal('show');
+
+                $("input[type=checkbox]").on("click", function (e) {
+                    $("#nextregisbtn").removeAttr("disabled");
+                });
+                $("#nextregisbtn").click(function (e) {
+                    $("#termsmodal").modal('hide');
                 });
             });
         </script>

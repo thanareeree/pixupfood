@@ -57,8 +57,8 @@ include './navbar.php';
                 </div>
                 <div class="tab-content">
                     <div class="container " >
-                        <form action="../restaurant/restaurant-save.php" method="post" id="restaurantformregis">
-                           <div class="row firststep">
+                        <form action="../restaurant/restaurant-save.php" method="post" id="restaurantformregis" >
+                            <div class="row firststep">
                                 <div class="col-md-2 wow fadeInUp" data-wow-delay="0.6s">
                                     <h2 class="text-uppercase">ข้อมูลผู้ประกอบการร้านอาหาร</h2>
                                 </div>
@@ -184,18 +184,48 @@ include './navbar.php';
                     </div>
                 </div>
             </div>
-            <!-- Modal Cancelbttn เเจ้งบอกร้านว่า ท่านสามารถล็อกอินเข้าใช้งานได้ เเละเปิดร้านได้ต้อง อัพโดหหลดเอกสารและรอทางแอดเข้ามารับรองการเปิดร้านบนเว็บก่อน ถึงจะใช้งานได้ -->
-
-
             <div id="map" style="display: none"></div>
         </section>
         <!-- end register -->
 
+        <!-- Modal จะเปิดร้านได้ต้อง อัพโดหหลดเอกสารและรอทางแอดเข้ามารับรองการเปิดร้านบนเว็บก่อน ถึงจะใช้งานได้ -->
+        <div class="modal fade" id="termsmodal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">โปรดอ่านข้อกำหนดก่อนลงทะเบียน</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>..............</p>
+                        <form>
+                            <input type="checkbox" >&nbsp; ยอมรับ
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="../index.php"><button type="button" class="btn btn-default"  >ยกเลิก</button></a>
+                        <button type="button" class="btn btn-primary" id="nextregisbtn" disabled="">ต่อไป</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
 
 
         <?php show_footer(); ?>
         <script>
             $(document).ready(function () {
+                $('#termsmodal').modal({
+                    backdrop: 'static',
+                    keyboard: false
+                });
+                $("#termsmodal").modal('show');
+                
+                $( "input[type=checkbox]" ).on( "click", function (e){
+                    $("#nextregisbtn").removeAttr("disabled");
+                });
+                $("#nextregisbtn").click(function (e){
+                    $("#termsmodal").modal('hide');
+                });
+
                 function startMap() {
 
                     map = new google.maps.Map(document.getElementById("map"));
@@ -257,13 +287,13 @@ include './navbar.php';
                             "resaddress": $("#resaddress").val(),
                             "provincelist": $("#provincelist").val(),
                             "zonelist": $("#zonelist").val(),
-                            "planlist": $("#planlist").val() },
+                            "planlist": $("#planlist").val()},
                         dataType: "json",
                         success: function (data) {
                             if (data.result == "1") {
-                                document.location = "res_confirmform.php?id="+data.id;
+                                document.location = "res_confirmform.php?id=" + data.id;
                             } else {
-                                alert("ไม่สามารถบันทึกข้อมูลได้\nError : " + data.error+"\n"+
+                                alert("ไม่สามารถบันทึกข้อมูลได้\nError : " + data.error + "\n" +
                                         $("#resemail").val());
 
                             }
