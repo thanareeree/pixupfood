@@ -105,11 +105,11 @@ include '../dbconn.php';
                                             while ($data = $res->fetch_assoc()) {
                                                 ?>
                                                 <tr>
-                                                    <td>
-                                                        <a class="pull-left" href="#">
-                                                            <img class="media-object" 
+                                                    <td style="text-align: center;">
+                                                        <a class="" href="#">
+                                                            <img 
                                                                  src="<?= ($data["img_path"] == "" ? "../assets/images/default-img150.png" : $data["img_path"]) ?>"
-                                                                 style="max-width: 150px;">
+                                                                 style="max-width: 150px; max-height:90px;">
                                                         </a>
                                                     </td>
                                                     <td>
@@ -132,10 +132,37 @@ include '../dbconn.php';
                 </div>
             </div>
         </section>
+         <div id="map" style="display: none"></div>
         <!-- end register -->
         <?php include '../template/footer.php'; ?>
         <script>
             $(document).ready(function () {
+                
+                var lat = "";
+                var long = "";
+               /* var lat = 13.6415824;
+                var long = 100.4963968;*/
+                function startMap() {
+
+                    map = new google.maps.Map(document.getElementById("map"));
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(getPosition);
+                        //navigator.geolocation.watchPosition(updatePosition);
+                    } else {
+                       lat = "";
+                       long = "";
+                    }
+                }startMap();
+
+                function getPosition(pos) {
+                    globalPosition = pos;
+                    lat = pos.coords.latitude;
+                    long = pos.coords.longitude;
+                    // alert($("#latinput").val() + "\n" + $("#longinput").val());
+                    console.log(pos);
+
+                }
+
                 $("#searchby").on("change", function (e) {
                     var searchby = $(this).val();
                     if (searchby == "foodname") {
@@ -156,7 +183,7 @@ include '../dbconn.php';
                         url: "../customer/ajax_search.php",
                         type: 'POST',
                         dataType: 'html',
-                        data: {"searchby":searchby, "foodtype":foodtype,"searchtxt":searchtxt},
+                        data: {"searchby": searchby, "foodtype": foodtype, "searchtxt": searchtxt,"lat": lat, "long": long},
                         success: function (data, textStatus, jqXHR) {
                             $("#result").html(data);
                         }
