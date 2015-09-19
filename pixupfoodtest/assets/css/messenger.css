@@ -1,0 +1,299 @@
+@import url("../Supermarket/stylesheet.css");
+
+@media (max-width:768px)
+{
+    
+#messenger .fb-profile-text>h1{
+    font-weight: 700;
+    font-size:14px;
+}
+
+#messenger .fb-image-profile
+{
+    margin: 5px 10px 0px 20px;
+    z-index: 9;
+    width: 13%;
+	border-radius:50%; 
+}
+}
+
+@media (max-width: 768px){
+/* #messenger .headprofile img.fb-image-lg{
+    z-index: 0;
+    width: 100%;  
+    margin-bottom: 10px;
+}
+
+#messenger .fb-image-profile
+{
+    margin: -90px 45px 0px 80px;
+    z-index: 9;
+    width: 13%;
+    border-radius:50%;
+}*/
+
+
+
+/* modal edit profile*/
+#messenger address
+{
+    padding-top: 20px;
+}
+#messenger address .fa
+{
+    background: #28a7e9;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    margin-top: 6px;
+    margin-right: 10px;
+}
+#messenger .contact-form
+{
+    padding-top: 40px;
+}
+#messenger .form-control
+{
+    border-radius: 0px;
+    box-shadow: none;
+}
+#messenger input
+{
+    height: 45px;
+}
+#messenger select
+{
+    height: 45px;
+}
+#messenger input[type="submit"]
+{
+    background: #28a7e9;
+    color: #fff;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+#messenger input[type="submit"]:hover {
+    background: #107DB6;
+}
+
+#messenger .container_status
+{
+    background-color:rgba(255,246,143,0.4);
+    padding: 5px 5px 5px 20px;
+}
+
+#messenger .container_field
+{
+    background-color:rgba(255,246,143,0.4);
+    padding: 10px 10px 10px 10px;
+    margin-bottom: 15px;
+}
+
+#messenger {
+    font-family: 'supermarketregular';
+    margin-top: 70px;
+}
+
+#messenger input[type="checkbox"] {
+    font-family: 'supermarketregular';
+    margin: 10px 0 5px 0;
+    padding: 0px;
+    height: 13px;
+}
+
+
+.wizard {
+    /* margin: 20px auto; */
+    background: #fff;
+}
+
+    .wizard .nav-tabs {
+        position: relative;
+        margin: 10px auto;
+        margin-bottom: 0;
+        border-bottom-color: #e0e0e0;
+    }
+
+    .wizard > div.wizard-inner {
+        position: relative;
+    }
+
+#messenger .connecting-line {
+    height: 2px;
+    background: #e0e0e0;
+    position: absolute;
+    width: 80%;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    top: 40%;
+    z-index: 1;
+}
+
+#messenger a {
+    color: #FF5F00;
+}
+
+#messenger .hrs {
+    border-top-width: 2px;
+    border-color: #FF5F00;
+    margin-top: 0px;
+    margin-bottom: 20px;
+}
+
+.wizard .nav-tabs > li.active > a, .wizard .nav-tabs > li.active > a:hover, .wizard .nav-tabs > li.active > a:focus {
+    color: #555555;
+    cursor: default;
+    border: 0;
+    border-bottom-color: transparent;
+}
+
+span.round-tab {
+    width: 70px;
+    height: 70px;
+    line-height: 70px;
+    display: inline-block;
+    border-radius: 100px;
+    background: #fff;
+    border: 2px solid #e0e0e0;
+    z-index: 2;
+    position: absolute;
+    left: 0;
+    text-align: center;
+    font-size: 25px;
+}
+span.round-tab i{
+    color:#555555;
+}
+.wizard li.active span.round-tab {
+    background: #fff;
+    border: 2px solid #5bc0de;
+    
+}
+.wizard li.active span.round-tab i{
+    color: #5bc0de;
+}
+
+span.round-tab:hover {
+    color: #333;
+    border: 2px solid #333;
+}
+
+.wizard .nav-tabs > li {
+    width: 20%;
+}
+
+.wizard li:after {
+    content: " ";
+    position: absolute;
+    left: 45%;
+    opacity: 0;
+    margin: 0 auto;
+    bottom: 0px;
+    border: 5px solid transparent;
+    border-bottom-color: #5bc0de;
+    transition: 0.1s ease-in-out;
+}
+
+.wizard li.active:after {
+    content: " ";
+    position: absolute;
+    left: 45%;
+    opacity: 1;
+    margin: 0 auto;
+    bottom: 0px;
+    border: 10px solid transparent;
+    border-bottom-color: #5bc0de;
+}
+
+.wizard .nav-tabs > li a {
+    width: 70px;
+    height: 70px;
+    margin: 0 40px 20px 40px;
+    border-radius: 100%;
+    padding: 0;
+}
+
+    .wizard .nav-tabs > li a:hover {
+        background: transparent;
+    }
+
+.wizard .tab-pane {
+    position: relative;
+    padding-top: 50px;
+}
+
+.wizard h3 {
+    margin-top: 0;
+}
+
+@media( max-width : 585px ) {
+
+    .wizard {
+        width: 90%;
+        height: auto !important;
+    }
+
+    span.round-tab {
+        font-size: 16px;
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+    }
+
+    .wizard .nav-tabs > li a {
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+    }
+
+    .wizard li.active:after {
+        content: " ";
+        position: absolute;
+        left: 35%;
+    }
+}
+
+
+#pinBoot {
+  position: relative;
+  max-width: 100%;
+  width: 100%;
+}
+#pinBootpromo {
+  position: relative;
+  max-width: 100%;
+  width: 100%;
+}
+img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+.white-panel {
+  position: absolute;
+  background: white;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
+  padding: 10px;
+}
+/*
+stylize any heading tags withing white-panel below
+*/
+
+.white-panel h1 {
+  font-size: 1em;
+}
+.white-panel h1 a {
+  color: #A92733;
+}
+.white-panel:hover {
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+  margin-top: -5px;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+}

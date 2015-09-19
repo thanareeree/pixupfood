@@ -43,7 +43,7 @@ include './view/navbar.php';
         <!-- end preloader -->
         <!-- start navigation -->
         <nav class="navbar navbar-default navbar-fixed-top templatemo-nav" role="navigation">
-            <div class="navbar-header" style="padding-left:10px;">
+            <!-- <div class="navbar-header" style="padding-left:10px;">
                 <a href="#menu-toggle" id="menu-toggle" >
                     <img src="assets/images/bar/menu.png" width="50" height="50" style="margin-top:8px;"/>
                 </a>
@@ -58,7 +58,7 @@ include './view/navbar.php';
                         <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
-            </div>
+            </div> -->
             <div class="container" style="margin-left:100px;margin-right:40px;height:70px;width:auto;">
                 <div class="navbar-header">
                     <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
