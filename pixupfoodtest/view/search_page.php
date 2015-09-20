@@ -82,8 +82,9 @@ include '../dbconn.php';
                                     <table id="fresh-table" class="table">
                                         <thead style="background-color: #FF9F00">
                                         <th data-field="picture"  style="width: 180px">รูปภาพ</th>
-                                        <th data-field="rfname"  data-sortable="true" style="width: 300px">ชื่อร้านอาหร/ชื่อรายการอาหาร</th>
-                                        <th data-field="addetail"  data-sortable="true" >ที่อยู่ของร้านอาหาร/รายละเอียด</th>
+                                        <th data-field="rfname"  data-sortable="true" style="width: 300px">ชื่อร้านอาหาร/ชื่อรายการอาหาร</th>
+                                        <th data-field="addetail"  data-sortable="true" >รายละเอียด</th>
+                                        <th></th>
                                         </thead>
 
                                         <tbody id="result">
@@ -91,7 +92,7 @@ include '../dbconn.php';
                                             $search = $con->real_escape_string(@$_GET["search"]);
                                             $numrow = 0;
                                             if ($search != "") {
-                                                $res = $con->query("SELECT DISTINCT restaurant.id, restaurant.name ,restaurant.address, restaurant.tel ,restaurant.img_path "
+                                                $res = $con->query("SELECT DISTINCT restaurant.id, restaurant.name ,restaurant.address, restaurant.detail, restaurant.tel ,restaurant.img_path "
                                                         . "FROM restaurant "
                                                         . "LEFT JOIN menu ON menu.restaurant_id = restaurant.id "
                                                         . "WHERE restaurant.name LIKE '%$search%' OR menu.name LIKE '%$search%' ");
@@ -108,15 +109,18 @@ include '../dbconn.php';
                                                     <td style="text-align: center;">
                                                         <a class="" href="#">
                                                             <img 
-                                                                 src="<?= ($data["img_path"] == "" ? "../assets/images/default-img150.png" : $data["img_path"]) ?>"
-                                                                 style="max-width: 150px; max-height:90px;">
+                                                                src="<?= ($data["img_path"] == "" ? "../assets/images/default-img150.png" : $data["img_path"]) ?>"
+                                                                style="max-width: 150px; max-height:90px;">
                                                         </a>
                                                     </td>
                                                     <td>
                                                         <h4 class="media-heading"><?= $data["name"] ?></h4>
                                                     </td>
                                                     <td>
-                                                        <p><?= $data["address"] ?><br><?= $data["tel"] ?></p>
+                                                        <p><?= $data["detail"] ?><br><i class="glyphicon glyphicon-phone" ></i>&nbsp;<?= $data["tel"] ?></p>
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-success restaurant_order" id="restaurant_order<?= $data["id"] ?>"><i class="glyphicon glyphicon-plus"></i>&nbsp; สั่งอาหารล่วงหน้า</button>
                                                     </td>
                                                 </tr>
 
@@ -132,16 +136,17 @@ include '../dbconn.php';
                 </div>
             </div>
         </section>
-         <div id="map" style="display: none"></div>
+        <div id="map" style="display: none"></div>
+        <div style="margin: 150px"></div>
         <!-- end register -->
         <?php include '../template/footer.php'; ?>
         <script>
             $(document).ready(function () {
-                
+
                 var lat = "";
                 var long = "";
-               /* var lat = 13.6415824;
-                var long = 100.4963968;*/
+                /* var lat = 13.6415824;
+                 var long = 100.4963968;*/
                 function startMap() {
 
                     map = new google.maps.Map(document.getElementById("map"));
@@ -149,10 +154,11 @@ include '../dbconn.php';
                         navigator.geolocation.getCurrentPosition(getPosition);
                         //navigator.geolocation.watchPosition(updatePosition);
                     } else {
-                       lat = "";
-                       long = "";
+                        lat = "";
+                        long = "";
                     }
-                }startMap();
+                }
+                startMap();
 
                 function getPosition(pos) {
                     globalPosition = pos;
@@ -183,13 +189,12 @@ include '../dbconn.php';
                         url: "../customer/ajax_search.php",
                         type: 'POST',
                         dataType: 'html',
-                        data: {"searchby": searchby, "foodtype": foodtype, "searchtxt": searchtxt,"lat": lat, "long": long},
+                        data: {"searchby": searchby, "foodtype": foodtype, "searchtxt": searchtxt, "lat": lat, "long": long},
                         success: function (data, textStatus, jqXHR) {
                             $("#result").html(data);
                         }
                     });
                 });
-
 
             });
         </script>
