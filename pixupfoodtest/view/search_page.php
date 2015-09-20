@@ -92,10 +92,14 @@ include '../dbconn.php';
                                             $search = $con->real_escape_string(@$_GET["search"]);
                                             $numrow = 0;
                                             if ($search != "") {
-                                                $res = $con->query("SELECT DISTINCT restaurant.id, restaurant.name ,restaurant.address, restaurant.detail, restaurant.tel ,restaurant.img_path "
+                                                $res = $con->query("SELECT DISTINCT restaurant.id, restaurant.name ,restaurant.address, "
+                                                        . "restaurant.detail, restaurant.tel ,restaurant.img_path, menu.name as menu_name, "
+                                                        . "menu.id as menu_id, zone.name as zone_name, restaurant.province "
                                                         . "FROM restaurant "
                                                         . "LEFT JOIN menu ON menu.restaurant_id = restaurant.id "
-                                                        . "WHERE restaurant.name LIKE '%$search%' OR menu.name LIKE '%$search%' ");
+                                                        . "JOIN zone ON zone.id = restaurant.zone_id "
+                                                        . "WHERE restaurant.name LIKE '%$search%' OR menu.name LIKE '%$search%' "
+                                                        . "AND zone.name IN (SELECT zone.name FROM zone WHERE id = restaurant.zone_id)");
                                                 $numrow = $res->num_rows;
                                             }
                                             if ($numrow == 0) {
@@ -114,10 +118,10 @@ include '../dbconn.php';
                                                         </a>
                                                     </td>
                                                     <td>
-                                                        <h4 class="media-heading"><?= $data["name"] ?></h4>
+                                                        <h4 class="media-heading"><?= $data["name"] ?><?= ($data["menu_name"]!=""? '&nbsp;/&nbsp;'.$data["menu_name"]:'')?></h4>
                                                     </td>
                                                     <td>
-                                                        <p><?= $data["detail"] ?><br><i class="glyphicon glyphicon-phone" ></i>&nbsp;<?= $data["tel"] ?></p>
+                                                        <i class="glyphicon glyphicon-map-marker"></i>&nbsp;<?= ($data["province"] == "กรุงเทพมหานคร") ? 'เขต' . $data["zone_name"] . '&nbsp;' : '' ?> <?= $data["province"] ?> 
                                                     </td>
                                                     <td>
                                                         <button class="btn btn-success restaurant_order" id="restaurant_order<?= $data["id"] ?>"><i class="glyphicon glyphicon-plus"></i>&nbsp; สั่งอาหารล่วงหน้า</button>

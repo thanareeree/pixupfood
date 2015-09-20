@@ -69,7 +69,7 @@ if ($searchby == "foodname") {
                 . "restaurant.detail,  restaurant.tel,restaurant.img_path, restaurant.zone_id,"
                 . " zone.name as zone_name, restaurant.province  "
                 . "FROM restaurant JOIN zone ON zone.id = restaurant.zone_id "
-                . "WHERE restaurant.name LIKE '%ร้าน%' "
+                . "WHERE restaurant.name LIKE '%$searchtxt%' "
                 . "AND zone.name IN (SELECT zone.name FROM zone WHERE id = restaurant.zone_id)");
         $numrow = $res->num_rows;
     }
@@ -135,6 +135,7 @@ if ($searchby == "foodname") {
             </td>
             <td>
                  <i class="glyphicon glyphicon-map-marker"></i>&nbsp;<?= ($data["province"] == "กรุงเทพมหานคร") ? 'เขต' . $data["zone_name"] . '&nbsp;' : '' ?> <?= $data["province"] ?> 
+                 <br><i class="glyphicon glyphicon-flag"></i>&nbsp;รัศมี&nbsp;<?= substr($data["distance"],0 ,5)?>&nbsp;กิโลเมตร
             </td>
             <td>
                 <button class="btn btn-success restaurant_order" id="restaurant_order<?= $data["id"] ?>"><i class="glyphicon glyphicon-plus"></i>&nbsp; สั่งอาหารล่วงหน้า</button>
