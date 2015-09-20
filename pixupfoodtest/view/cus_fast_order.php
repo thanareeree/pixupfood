@@ -99,6 +99,13 @@ include '../dbconn.php';
                                             </span>
                                         </a>
                                     </li>
+                                    <li role="presentation" class="disabled">
+                                        <a href="#step7" data-toggle="tab" aria-controls="complete" role="tab" title="step7">
+                                            <span class="round-tab">
+                                                <i class="glyphicon glyphicon-ok"></i>
+                                            </span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
 
@@ -494,6 +501,42 @@ include '../dbconn.php';
                                         <ul class="list-inline pull-right">
                                             <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
                                             <li><button type="button" class="btn btn-primary btn-info-full next-step">Save and continue</button></li>
+                                        </ul>
+                                    </div>
+                                    <div class="tab-pane" role="tabpanel" id="step7">
+                                        <div class="container_field">
+                                            <h3>ขั้นตอนที่ 7 : ตรวจสอบข้อมูลความถูกต้อง</h3><br>
+                                            <div class="row">
+                                                <form action="#">
+                                                    <div class="col-md-4">
+                                                        <h1>ร้านป้าลมัย</h1><hr class="hrs">
+                                                        <h4>เมนูที่เลือก: <span>ข้าวผัดกระเพรา+หมูกระเทียม</span></h4>
+                                                        <h4>จำนวน: <span>300</span> กล่อง </h4>
+                                                        <h4>ราคา: <span>10000</span> บาท</h4>
+                                                        <h4>ค่าจัดส่ง: <span>100</span> บาท</h4><hr class="hrs">
+                                                        <h4>ราคารวม: <span>10100</span> บาท</h4>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <h1>ร้านป้าสมัย</h1><hr class="hrs">
+                                                        <h4>เมนูที่เลือก: <span>ข้าวผัดกระเพรา+หมูกระเทียม</span></h4>
+                                                        <h4>จำนวน: <span>300</span> กล่อง </h4>
+                                                        <h4>ราคา: <span>10000</span> บาท</h4>
+                                                        <h4>ค่าจัดส่ง: <span>100</span> บาท</h4><hr class="hrs">
+                                                        <h4>ราคารวม: <span>10100</span> บาท</h4>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <h1>ร้านป้าสมร</h1><hr class="hrs">
+                                                        <h4>เมนูที่เลือก: <span>ข้าวผัดกระเพรา+หมูกระเทียม</span></h4>
+                                                        <h4>จำนวน: <span>300</span> กล่อง </h4>
+                                                        <h4>ราคา: <span>10000</span> บาท</h4>
+                                                        <h4>ค่าจัดส่ง: <span>100</span> บาท</h4><hr class="hrs">
+                                                        <h4>ราคารวม: <span>10100</span> บาท</h4>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <ul class="list-inline pull-right">
+                                            <li><button type="button" class="btn btn-primary next-step">Order</button></li>
                                         </ul>
                                     </div>
                                 </div>

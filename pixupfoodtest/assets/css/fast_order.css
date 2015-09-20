@@ -184,13 +184,13 @@ span.round-tab:hover {
 }
 
 .wizard .nav-tabs > li {
-    width: 16.5%;
+    width: 13.7%;
 }
 
 .wizard li:after {
     content: " ";
     position: absolute;
-    left: 46%;
+    left: 55%;
     opacity: 0;
     margin: 0 auto;
     bottom: 0px;
@@ -202,7 +202,7 @@ span.round-tab:hover {
 .wizard li.active:after {
     content: " ";
     position: absolute;
-    left: 46%;
+    left: 55%;
     opacity: 1;
     margin: 0 auto;
     bottom: 0px;
