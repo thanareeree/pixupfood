@@ -65,10 +65,12 @@ if ($searchby == "foodname") {
 } else if ($searchby == "rest") {
     $numrow = 0;
     if ($searchtxt != "") {
-        $res = $con->query("SELECT DISTINCT restaurant.id, restaurant.name ,restaurant.address, restaurant.detail, restaurant.tel ,restaurant.img_path "
-                . "FROM restaurant "
-                . "LEFT JOIN menu ON menu.restaurant_id = restaurant.id "
-                . "WHERE restaurant.name LIKE '%$searchtxt%'");
+        $res = $con->query("SELECT DISTINCT restaurant.id, restaurant.name ,restaurant.address, "
+                . "restaurant.detail,  restaurant.tel,restaurant.img_path, restaurant.zone_id,"
+                . " zone.name as zone_name, restaurant.province  "
+                . "FROM restaurant JOIN zone ON zone.id = restaurant.zone_id "
+                . "WHERE restaurant.name LIKE '%ร้าน%' "
+                . "AND zone.name IN (SELECT zone.name FROM zone WHERE id = restaurant.zone_id)");
         $numrow = $res->num_rows;
     }
     if ($numrow == 0) {
@@ -90,9 +92,10 @@ if ($searchby == "foodname") {
                 <h4 class="media-heading"><?= $data["name"] ?></h4>
             </td>
             <td>
-                <p><?= $data["detail"] ?><br><?= $data["tel"] ?></p>
+                <i class="glyphicon glyphicon-map-marker"></i>&nbsp;<?= ($data["province"] == "กรุงเทพมหานคร") ? 'เขต' . $data["zone_name"] . '&nbsp;' : '' ?> <?= $data["province"] ?> 
+
             </td>
-             <td>
+            <td>
                 <button class="btn btn-success restaurant_order" id="restaurant_order<?= $data["id"] ?>"><i class="glyphicon glyphicon-plus"></i>&nbsp; สั่งอาหารล่วงหน้า</button>
             </td>
         </tr>
@@ -102,10 +105,14 @@ if ($searchby == "foodname") {
 } else if ($searchby == "nearbyfood") {
     $numrow = 0;
     if ($lat != "" && $long != "") {
-        $res = $con->query("SELECT *, ( 3959 * acos( cos( radians(" . $lat . ") ) "
+        $res = $con->query("SELECT DISTINCT restaurant.id, restaurant.name ,restaurant.address, "
+                . "restaurant.detail,  restaurant.tel,restaurant.img_path, restaurant.zone_id,"
+                . " zone.name as zone_name, restaurant.province, ( 3959 * acos( cos( radians(" . $lat . ") ) "
                 . "* cos( radians( x ) ) * cos( radians( y ) - radians(" . $long . ") ) "
                 . "+ sin( radians(" . $lat . ") ) * sin( radians( x ) ) ) ) AS distance "
-                . "FROM restaurant HAVING distance < 25 ORDER BY distance LIMIT 0 , 20");
+                . "FROM restaurant JOIN zone ON zone.id = restaurant.zone_id "
+                . "WHERE zone.name IN (SELECT zone.name FROM zone WHERE id = restaurant.zone_id)"
+                . "HAVING distance < 25 ORDER BY distance LIMIT 0 , 20");
         $numrow = $res->num_rows;
     }
     if ($numrow == 0) {
@@ -127,7 +134,7 @@ if ($searchby == "foodname") {
                 <h4 class="media-heading"><?= $data["name"] ?></h4>
             </td>
             <td>
-                <p><?= $data["detail"] ?><br><?= $data["tel"] ?></p>
+                 <i class="glyphicon glyphicon-map-marker"></i>&nbsp;<?= ($data["province"] == "กรุงเทพมหานคร") ? 'เขต' . $data["zone_name"] . '&nbsp;' : '' ?> <?= $data["province"] ?> 
             </td>
             <td>
                 <button class="btn btn-success restaurant_order" id="restaurant_order<?= $data["id"] ?>"><i class="glyphicon glyphicon-plus"></i>&nbsp; สั่งอาหารล่วงหน้า</button>
