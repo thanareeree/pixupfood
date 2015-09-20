@@ -118,7 +118,7 @@ include '../dbconn.php';
                                                         </a>
                                                     </td>
                                                     <td>
-                                                        <h4 class="media-heading"><?= $data["name"] ?><?= ($data["menu_name"]!=""? '&nbsp;/&nbsp;'.$data["menu_name"]:'')?></h4>
+                                                        <h4 class="media-heading"><?= $data["name"] ?><?= ($data["menu_name"] != "" ? '&nbsp;/&nbsp;' . $data["menu_name"] : '') ?></h4>
                                                     </td>
                                                     <td>
                                                         <i class="glyphicon glyphicon-map-marker"></i>&nbsp;<?= ($data["province"] == "กรุงเทพมหานคร") ? 'เขต' . $data["zone_name"] . '&nbsp;' : '' ?> <?= $data["province"] ?> 
@@ -140,8 +140,14 @@ include '../dbconn.php';
                 </div>
             </div>
         </section>
+
         <div id="map" style="display: none"></div>
-        <div style="margin: 150px"></div>
+        <div style="margin: 150px; margin-top: 40px; text-align: center">
+            <a href="#search_page" style="color: #FF9F00; display: none" id="backtop">
+                <i class="glyphicon glyphicon-arrow-up"></i>
+                <h4 >Back to top</h4>
+            </a>
+        </div>
         <!-- end register -->
         <?php include '../template/footer.php'; ?>
         <script>
@@ -172,7 +178,8 @@ include '../dbconn.php';
                     console.log(pos);
 
                 }
-
+                
+                
                 $("#searchby").on("change", function (e) {
                     var searchby = $(this).val();
                     if (searchby == "foodname") {
@@ -183,6 +190,8 @@ include '../dbconn.php';
                         $("#foodtype").attr("disabled", "disabled");
                     }
                 });
+
+
 
                 $("#searchbtn").on("click", function (e) {
                     $("#result").html('<tr><td colspan="3" style="text-align: center;"><h2>Searching...</h2></td></tr>');
@@ -196,6 +205,7 @@ include '../dbconn.php';
                         data: {"searchby": searchby, "foodtype": foodtype, "searchtxt": searchtxt, "lat": lat, "long": long},
                         success: function (data, textStatus, jqXHR) {
                             $("#result").html(data);
+
                         }
                     });
                 });
