@@ -1,47 +1,45 @@
 @import url("../Supermarket/stylesheet.css");
 
-
-/*
-Boxer Template
-http://www.templatemo.com/preview/templatemo_446_boxer
-*/
-#fast_order .headprofile img.fb-image-lg{
-    z-index: 0;
-    width: 100%;  
-    margin-bottom: 10px;
-}
-
-#fast_order .fb-image-profile
-{
-    margin: -90px 45px 0px 80px;
-    z-index: 9;
-    width: 13%;
-    border-radius:50%;
-}
-
 @media (max-width:768px)
 {
     
-#fast_order .fb-profile-text>h1{
+#messenger .fb-profile-text>h1{
     font-weight: 700;
     font-size:14px;
 }
 
-#fast_order .fb-image-profile
+#messenger .fb-image-profile
 {
-    margin: -45px 10px 0px 25px;
+    margin: 5px 10px 0px 20px;
     z-index: 9;
     width: 13%;
 	border-radius:50%; 
 }
 }
 
+@media (max-width: 768px){
+/* #messenger .headprofile img.fb-image-lg{
+    z-index: 0;
+    width: 100%;  
+    margin-bottom: 10px;
+}
+
+#messenger .fb-image-profile
+{
+    margin: -90px 45px 0px 80px;
+    z-index: 9;
+    width: 13%;
+    border-radius:50%;
+}*/
+
+
+
 /* modal edit profile*/
-#fast_order address
+#messenger address
 {
     padding-top: 20px;
 }
-#fast_order address .fa
+#messenger address .fa
 {
     background: #28a7e9;
     border-radius: 50%;
@@ -52,70 +50,59 @@ http://www.templatemo.com/preview/templatemo_446_boxer
     margin-top: 6px;
     margin-right: 10px;
 }
-#fast_order .contact-form
+#messenger .contact-form
 {
     padding-top: 40px;
 }
-#fast_order .form-control
+#messenger .form-control
 {
     border-radius: 0px;
     box-shadow: none;
 }
-#fast_order input
+#messenger input
 {
     height: 45px;
 }
-#fast_order select
+#messenger select
 {
     height: 45px;
 }
-#fast_order input[type="submit"]
+#messenger input[type="submit"]
 {
     background: #28a7e9;
     color: #fff;
     font-weight: bold;
     transition: all 0.3s ease;
 }
-#fast_order input[type="submit"]:hover {
+#messenger input[type="submit"]:hover {
     background: #107DB6;
 }
 
-#fast_order .container_status
+#messenger .container_status
 {
     background-color:rgba(255,246,143,0.4);
-    padding: 10px 10px 10px 300px;
+    padding: 5px 5px 5px 20px;
 }
-#fast_order .container_field
+
+#messenger .container_field
 {
     background-color:rgba(255,246,143,0.4);
     padding: 10px 10px 10px 10px;
     margin-bottom: 15px;
 }
-#fast_order input[type="checkbox"] {
+
+#messenger {
+    font-family: 'supermarketregular';
+    margin-top: 70px;
+}
+
+#messenger input[type="checkbox"] {
     font-family: 'supermarketregular';
     margin: 10px 0 5px 0;
     padding: 0px;
     height: 13px;
 }
 
-#fast_order {
-    font-family: 'supermarketregular';
-    padding-top: 70px;
-    margin-bottom: 30px;
-}
-
-#fast_order .hrs {
-    border-top-width: 2px;
-    border-color: #FF5F00;
-    margin-top: 0px;
-    margin-bottom: 20px;
-}
-
-#fast_order .content2{
-    margin-left: 100px;
-    width: 80%;
-    
-}
 
 .wizard {
     /* margin: 20px auto; */
@@ -133,16 +120,27 @@ http://www.templatemo.com/preview/templatemo_446_boxer
         position: relative;
     }
 
-.connecting-line {
+#messenger .connecting-line {
     height: 2px;
     background: #e0e0e0;
     position: absolute;
-    width: 85%;
+    width: 80%;
     margin: 0 auto;
     left: 0;
     right: 0;
-    top: 50%;
+    top: 40%;
     z-index: 1;
+}
+
+#messenger a {
+    color: #FF5F00;
+}
+
+#messenger .hrs {
+    border-top-width: 2px;
+    border-color: #FF5F00;
+    margin-top: 0px;
+    margin-bottom: 20px;
 }
 
 .wizard .nav-tabs > li.active > a, .wizard .nav-tabs > li.active > a:hover, .wizard .nav-tabs > li.active > a:focus {
@@ -184,13 +182,13 @@ span.round-tab:hover {
 }
 
 .wizard .nav-tabs > li {
-    width: 13.7%;
+    width: 20%;
 }
 
 .wizard li:after {
     content: " ";
     position: absolute;
-    left: 55%;
+    left: 45%;
     opacity: 0;
     margin: 0 auto;
     bottom: 0px;
@@ -202,7 +200,7 @@ span.round-tab:hover {
 .wizard li.active:after {
     content: " ";
     position: absolute;
-    left: 55%;
+    left: 45%;
     opacity: 1;
     margin: 0 auto;
     bottom: 0px;
@@ -213,7 +211,7 @@ span.round-tab:hover {
 .wizard .nav-tabs > li a {
     width: 70px;
     height: 70px;
-    margin: 0 20px 20px 60px;
+    margin: 0 40px 20px 40px;
     border-radius: 100%;
     padding: 0;
 }
@@ -256,4 +254,46 @@ span.round-tab:hover {
         position: absolute;
         left: 35%;
     }
+}
+
+
+#pinBoot {
+  position: relative;
+  max-width: 100%;
+  width: 100%;
+}
+#pinBootpromo {
+  position: relative;
+  max-width: 100%;
+  width: 100%;
+}
+img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+.white-panel {
+  position: absolute;
+  background: white;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
+  padding: 10px;
+}
+/*
+stylize any heading tags withing white-panel below
+*/
+
+.white-panel h1 {
+  font-size: 1em;
+}
+.white-panel h1 a {
+  color: #A92733;
+}
+.white-panel:hover {
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+  margin-top: -5px;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
 }

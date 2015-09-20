@@ -9,20 +9,9 @@ include '../api/function.php';
 
 <html>
     <head>
-       
-
-
-        <!-- 
-        Boxer Template
-        http://www.templatemo.com/preview/templatemo_446_boxer
-        -->
-        <!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> -->
-
         <title>Pixupfood - Restaurant View</title>
 
-        <?php
-        include '../template/customer-title.php';
-        ?>
+        <?php include '../template/customer-title.php';?>
         <!-- custom css -->
         <link rel="stylesheet" href="../assets/css/restaurant_view.css">
         <link href="http://jondmiles.com/bootstrap-datepaginator/css/bootstrap-datepicker.css" rel="stylesheet" media="screen" type="text/css">
@@ -30,21 +19,21 @@ include '../api/function.php';
 
     </head>
     <body>
-
         <?php include '../template/customer-navbar.php'; ?>
-
-
+        
         <!-- start profile -->
         <section id="restaurant_view">
             <div class="profilecontainer">
                 <div class="headprofile">
                     <img align="left" class="fb-image-lg" src="../assets/images/city-restaurant-lunch-outside.png" alt="Profile image example"/>
                     <div class="container_status">
-                        <span>Address: <?= $_SESSION["userdata"]["email"] ?></span><span> Tel: <?= $_SESSION["userdata"]["tel"] ?></span>>
+                        <span>Address: <?= $_SESSION["userdata"]["email"] ?></span><span> Tel: <?= $_SESSION["userdata"]["tel"] ?></span><br>
+                        <span>เวลาเปิด - ปิด:</span><br>
+                        <span>สถานะ:__________</span>
                     </div>
                     <img align="left" class="fb-image-profile thumbnail" src="http://lorempixel.com/180/180/people/9/" alt="Profile image example"/>
                     <div class="fb-profile-text">
-                        <h1><?= $_SESSION["userdata"]["firstName"] ?>  <?= $_SESSION["userdata"]["lastName"] ?></h1>
+                        <br><h1><?= $_SESSION["userdata"]["firstName"] ?>  <?= $_SESSION["userdata"]["lastName"] ?></h1>
                         <div class="row lead">
                             <div id="stars-existing" class="starrr" data-rating='4'></div>
                         </div>
@@ -118,50 +107,92 @@ include '../api/function.php';
                             <div role="tabpanel" class="tab-pane" id="promo">
                                 <br><div class="row">
                                     <section id="pinBootpromo">
-                                        <article class="white-panel"><img src="http://i.imgur.com/sDLIAZD.png" alt="">
-                                            <h4><a href="#">Title 1</a></h4>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                                                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                        </article>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="thumbnail">
+                                                    <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                                                    <div class="caption">
+                                                        <h3>Thumbnail label</h3>
+                                                        <p>...</p>
+                                                        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="thumbnail">
+                                                    <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                                                    <div class="caption">
+                                                        <h3>Thumbnail label</h3>
+                                                        <p>...</p>
+                                                        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="thumbnail">
+                                                    <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                                                    <div class="caption">
+                                                        <h3>Thumbnail label</h3>
+                                                        <p>...</p>
+                                                        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="thumbnail">
+                                                    <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                                                    <div class="caption">
+                                                        <h3>Thumbnail label</h3>
+                                                        <p>...</p>
+                                                        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                                    </div>
+                                                </div>
+                                            </div>                                                
+                                        </div> <hr class="hrs">
 
-                                        <article class="white-panel"> <img src="http://i.imgur.com/8lhFhc1.gif" alt="">
-                                            <h4><a href="#">Title 2</a></h4>
-                                            <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                        </article>
-
-                                        <article class="white-panel"> <img src="http://i.imgur.com/xOIMvAe.jpg" alt="">
-                                            <h4><a href="#">Title 3</a></h4>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                                                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                                        </article>
-
-                                        <article class="white-panel"> <img src="http://i.imgur.com/3gXW3L3.jpg" alt="">
-                                            <h4><a href="#">Title 4</a></h4>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                                                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                        </article>
-
-                                        <article class="white-panel"> <img src="http://i.imgur.com/o2RVMqm.jpg" alt="">
-                                            <h4><a href="#">Title 5</a></h4>
-                                            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                        </article>
-
-                                        <article class="white-panel"> <img src="http://i.imgur.com/kFFpuKA.jpg" alt="">
-                                            <h4><a href="#">Title 6</a></h4>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                                                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                                        </article>
-                                        <article class="white-panel"><img src="http://i.imgur.com/E9RmLPA.jpg" alt="">
-                                            <h4><a href="#">Title 7</a></h4>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                                                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                        </article>
-
-                                        <article class="white-panel"> <img src="http://i.imgur.com/8lhFhc1.gif" alt="">
-                                            <h4><a href="#">Title 8</a></h4>
-                                            <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                        </article>
-
+                                        <!-- 3 -->
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="thumbnail">
+                                                    <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                                                    <div class="caption">
+                                                        <h3>Thumbnail label</h3>
+                                                        <p>...</p>
+                                                        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="thumbnail">
+                                                    <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                                                    <div class="caption">
+                                                        <h3>Thumbnail label</h3>
+                                                        <p>...</p>
+                                                        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="thumbnail">
+                                                    <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                                                    <div class="caption">
+                                                        <h3>Thumbnail label</h3>
+                                                        <p>...</p>
+                                                        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="thumbnail">
+                                                    <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                                                    <div class="caption">
+                                                        <h3>Thumbnail label</h3>
+                                                        <p>...</p>
+                                                        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                                    </div>
+                                                </div>
+                                            </div> 
+                                        </div>
                                     </section>
                                 </div>
                             </div>
@@ -383,10 +414,15 @@ include '../api/function.php';
                                             <div class="tab-pane" role="tabpanel" id="step4">
                                                 <div class="tab-pane" role="tabpanel" id="step4">
                                                     <div class="container_field">
-                                                        <h3>ขั้นตอนที่ 4 : เลือกวันที่และสถานที่จัดส่ง</h3>
+                                                        <h3>ขั้นตอนที่ 4 : เลือกวัน เวลา และสถานที่จัดส่ง</h3>
                                                         <div>
                                                             <h3>ส่งวันที่ :     
                                                                 <input type="date" name="senddate">
+                                                            </h3>
+                                                        </div>
+                                                        <div>
+                                                            <h3>เวลาประมาณ :     
+                                                                <input type="time" name="sendtime">
                                                             </h3>
                                                         </div>
                                                         <h3>สถานที่</h3>
@@ -443,9 +479,18 @@ include '../api/function.php';
                                             </div>
                                             <div class="tab-pane" role="tabpanel" id="step5">
                                                 <div class="container_field">
-                                                    <h3>ขั้นตอนที่ 5 : เลือกวิธีชำระเงิน</h3>
-                                                    <input type="checkbox" name="sex" value="male">&nbsp;เงินสด&nbsp;&nbsp;
-                                                    <input type="checkbox" name="sex" value="female">&nbsp;โอนเงินผ่านบัญชีธนาคาร&nbsp;&nbsp;
+                                                    <div class="row">                                                        
+                                                        <h3>ขั้นตอนที่ 5 : เลือกวิธีชำระเงิน</h3>
+                                                        <div class="col-md-6">
+                                                            <input type="checkbox" name="sex" value="male">&nbsp;เงินสด&nbsp;&nbsp;
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <input type="checkbox" name="sex" value="female">&nbsp;โอนเงินผ่านบัญชีธนาคาร&nbsp;&nbsp;
+                                                            <p>เลขที่บัญชี:_____________</p>
+                                                            <p>ชื่อบัญชี:_______________</p>
+                                                            <p>ธนาคาร:________สาขา_______</p>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <ul class="list-inline pull-right">
                                                     <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
@@ -486,8 +531,7 @@ include '../api/function.php';
                         <div class="datepaginator" id="paginator"></div><br><hr>
                         <div class="container_field">
                             <h3>Order & Price</h3>
-                            <input type="checkbox" name="sex" value="male">&nbsp;เงินสด&nbsp;&nbsp;
-                            <input type="checkbox" name="sex" value="female">&nbsp;โอนเงินผ่านบัญชีธนาคาร&nbsp;&nbsp;
+                            <p>บอกรายละเอียดรายการ พร้อมราคาที่ลูกค้าเลือก</p>
                         </div>
                         <ul class="list-inline pull-right">
                             <li><button type="button" class="btn btn-primary next-step">Order</button></li>
@@ -710,7 +754,7 @@ include '../api/function.php';
         <script>
             $(document).ready(function () {
 
-// This will wait for the DOM (your HTML) to be loaded before executing aFunction
+                // This will wait for the DOM (your HTML) to be loaded before executing aFunction
 
                 /* uncomment to use optios
                  var options = {
@@ -722,7 +766,7 @@ include '../api/function.php';
                  
                  */
 
-//  defatult settings, i.e. today's date etc.
+                //  defatult settings, i.e. today's date etc.
 
                 $('#paginator').datepaginator();
 

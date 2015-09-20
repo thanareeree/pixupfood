@@ -1,23 +1,12 @@
 <?php
 session_start();
 include './dbconn.php';
-
 ?>
 
-
-
-
-<html >
+<html>
     <head>
-        <!-- 
-        Boxer Template
-        http://www.templatemo.com/preview/templatemo_446_boxer
-        -->
        <?php include './template/customer-title-index.php'; ?>
         <title>PixupFood - The Original Food Delivery</title>
-       
-
-
     </head>
     <body>
         <?php include './template/customer-navbar-indexpage.php'; ?>
