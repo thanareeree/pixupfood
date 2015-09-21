@@ -124,7 +124,9 @@ include '../dbconn.php';
                                                         <i class="glyphicon glyphicon-map-marker"></i>&nbsp;<?= ($data["province"] == "กรุงเทพมหานคร") ? 'เขต' . $data["zone_name"] . '&nbsp;' : '' ?> <?= $data["province"] ?> 
                                                     </td>
                                                     <td>
-                                                        <button class="btn btn-success restaurant_order" id="restaurant_order<?= $data["id"] ?>"><i class="glyphicon glyphicon-plus"></i>&nbsp; สั่งอาหารล่วงหน้า</button>
+                                                        <a href="cus_restaurant_view.php?resId=<?= $data["id"] ?>">
+                                                            <button class="btn btn-success restaurant_order" id="restaurant_order<?= $data["id"] ?>"><i class="glyphicon glyphicon-plus"></i>&nbsp; สั่งอาหารล่วงหน้า</button>
+                                                        </a>
                                                     </td>
                                                 </tr>
 
@@ -178,8 +180,8 @@ include '../dbconn.php';
                     console.log(pos);
 
                 }
-                
-                
+
+
                 $("#searchby").on("change", function (e) {
                     var searchby = $(this).val();
                     if (searchby == "foodname") {

@@ -1,7 +1,6 @@
 <?php
-include '../api/islogin.php';
+session_start();
 include '../dbconn.php';
-include '../api/function.php';
 ?>
 
 
