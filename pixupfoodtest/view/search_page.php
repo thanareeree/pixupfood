@@ -98,8 +98,10 @@ include '../dbconn.php';
                                                         . "FROM restaurant "
                                                         . "LEFT JOIN menu ON menu.restaurant_id = restaurant.id "
                                                         . "JOIN zone ON zone.id = restaurant.zone_id "
-                                                        . "WHERE restaurant.name LIKE '%$search%' OR menu.name LIKE '%$search%' "
-                                                        . "AND zone.name IN (SELECT zone.name FROM zone WHERE id = restaurant.zone_id)");
+                                                        . "WHERE (restaurant.name LIKE '%$search%' AND restaurant.available = 1 )"
+                                                        . "OR menu.name LIKE '%$search%' "
+                                                        . "AND zone.name IN (SELECT zone.name FROM zone WHERE id = restaurant.zone_id)"
+                                                        . "GROUP by restaurant.name ");
                                                 $numrow = $res->num_rows;
                                             }
                                             if ($numrow == 0) {
@@ -118,7 +120,9 @@ include '../dbconn.php';
                                                         </a>
                                                     </td>
                                                     <td>
-                                                        <h4 class="media-heading"><?= $data["name"] ?><?= ($data["menu_name"] != "" ? '&nbsp;/&nbsp;' . $data["menu_name"] : '') ?></h4>
+                                                        <h4 class="media-heading"><?= $data["name"] ?></h4><br>
+                                                        <!-- ($data["menu_name"] != "" ? '&nbsp;/&nbsp;' . $data["menu_name"] : '')  -->
+                                                        
                                                     </td>
                                                     <td>
                                                         <i class="glyphicon glyphicon-map-marker"></i>&nbsp;<?= ($data["province"] == "กรุงเทพมหานคร") ? 'เขต' . $data["zone_name"] . '&nbsp;' : '' ?> <?= $data["province"] ?> 

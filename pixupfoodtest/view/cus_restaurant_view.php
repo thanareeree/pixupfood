@@ -160,263 +160,271 @@ include '../dbconn.php';
                                         </ul>
                                     </div>
 
-                                    <form role="form">
-                                        <div class="tab-content">
-                                            <div class="tab-pane active" role="tabpanel" id="step1">
-                                                <div class="container_field">
-                                                    <h3>ขั้นตอนที่ 1 : เลือกกล่อง</h3>
-                                                    <input type="checkbox" name="sex" value="male">&nbsp;อาหารจานเดียว&nbsp;&nbsp;
-                                                    <input type="checkbox" name="sex" value="female">&nbsp;ข้าว + กับข้าว 1 อย่าง&nbsp;&nbsp;
-                                                    <input type="checkbox" name="sex" value="male">&nbsp;ข้าว + กับข้าว 2 อย่าง&nbsp;&nbsp;
-                                                    <input type="checkbox" name="sex" value="female">&nbsp;ข้าว + กับข้าว 3 อย่าง
-                                                </div>
-                                                <ul class="list-inline pull-right">
-                                                    <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
-                                                </ul>
-                                            </div>
-                                            <div class="tab-pane" role="tabpanel" id="step2">
-                                                <div class="container_field">
-                                                    <h3>ขั้นตอนที่ 2 : เลือกข้าว</h3>
-                                                    <input type="checkbox" name="sex" value="male">&nbsp;ข้าวหอมมะลิ&nbsp;&nbsp;
-                                                    <input type="checkbox" name="sex" value="female">&nbsp;ข้าวเสาไห้&nbsp;&nbsp;
-                                                    <input type="checkbox" name="sex" value="male">&nbsp;ข้าวกล้อง&nbsp;&nbsp;
-                                                    <input type="checkbox" name="sex" value="female">&nbsp;ข้าวไรซ์เบอรี่
-                                                </div>
-                                                <ul class="list-inline pull-right">
-                                                    <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
-                                                    <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
-                                                </ul>
-                                            </div>
-                                            <div class="tab-pane" role="tabpanel" id="step3" >
-                                                <div class="container_field">
-                                                    <h3>ขั้นตอนที่ 3 : เลือกกับข้าว</h3>
-                                                    <h3>ลำดับที่ 1</h3>
-                                                    <div class="row">
-                                                        <div class="col-md-3">
-                                                            <div class="thumbnail">
-                                                                <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                                <div class="caption">
-                                                                    <h3>Thumbnail label</h3>
-                                                                    <p>...</p>
-                                                                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <div class="thumbnail">
-                                                                <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                                <div class="caption">
-                                                                    <h3>Thumbnail label</h3>
-                                                                    <p>...</p>
-                                                                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <div class="thumbnail">
-                                                                <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                                <div class="caption">
-                                                                    <h3>Thumbnail label</h3>
-                                                                    <p>...</p>
-                                                                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <div class="thumbnail">
-                                                                <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                                <div class="caption">
-                                                                    <h3>Thumbnail label</h3>
-                                                                    <p>...</p>
-                                                                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                                </div>
-                                                            </div>
-                                                        </div>                        
-                                                    </div> <hr class="hrs">
 
-                                                    <!-- 2 -->
-                                                    <h3>ลำดับที่ 2</h3>
-                                                    <div class="row">
-                                                        <div class="col-md-3">
-                                                            <div class="thumbnail">
-                                                                <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                                <div class="caption">
-                                                                    <h3>Thumbnail label</h3>
-                                                                    <p>...</p>
-                                                                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <div class="thumbnail">
-                                                                <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                                <div class="caption">
-                                                                    <h3>Thumbnail label</h3>
-                                                                    <p>...</p>
-                                                                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <div class="thumbnail">
-                                                                <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                                <div class="caption">
-                                                                    <h3>Thumbnail label</h3>
-                                                                    <p>...</p>
-                                                                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <div class="thumbnail">
-                                                                <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                                <div class="caption">
-                                                                    <h3>Thumbnail label</h3>
-                                                                    <p>...</p>
-                                                                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                                </div>
-                                                            </div>
-                                                        </div>                                                
-                                                    </div> <hr class="hrs">
-
-                                                    <!-- 3 -->
-                                                    <h3>ลำดับที่ 3</h3>
-                                                    <div class="row">
-                                                        <div class="col-md-3">
-                                                            <div class="thumbnail">
-                                                                <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                                <div class="caption">
-                                                                    <h3>Thumbnail label</h3>
-                                                                    <p>...</p>
-                                                                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <div class="thumbnail">
-                                                                <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                                <div class="caption">
-                                                                    <h3>Thumbnail label</h3>
-                                                                    <p>...</p>
-                                                                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <div class="thumbnail">
-                                                                <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                                <div class="caption">
-                                                                    <h3>Thumbnail label</h3>
-                                                                    <p>...</p>
-                                                                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <div class="thumbnail">
-                                                                <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                                <div class="caption">
-                                                                    <h3>Thumbnail label</h3>
-                                                                    <p>...</p>
-                                                                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                                </div>
-                                                            </div>
-                                                        </div>                                                
-                                                    </div>
-                                                </div>
-                                                <ul class="list-inline pull-right">
-                                                    <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
-                                                    <li><button type="button" class="btn btn-primary btn-info-full next-step">Save and continue</button></li>
-                                                </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" role="tabpanel" id="step1">
+                                            <div class="container_field">
+                                                <h3>ขั้นตอนที่ 1 : เลือกกล่อง</h3>
+                                                <?php
+                                                $foodboxRes = $con->query("SELECT food_box.id, food_box.description, "
+                                                        . "mapping_food_box.restaurant_id as resid "
+                                                        . "FROM mapping_food_box "
+                                                        . "LEFT JOIN food_box ON food_box.id = mapping_food_box.food_box_id "
+                                                        . "WHERE mapping_food_box.restaurant_id = '$resid' ");
+                                                $foodboxData = $foodboxRes->fetch_assoc();
+                                                while ()
+                                                ?>
+                                                <input type="checkbox" name="sex" value="male">&nbsp;อาหารจานเดียว&nbsp;&nbsp;
+                                                
+                                                <?php ?>
                                             </div>
-                                            <div class="tab-pane" role="tabpanel" id="step4">
-                                                <div class="tab-pane" role="tabpanel" id="step4">
-                                                    <div class="container_field">
-                                                        <h3>ขั้นตอนที่ 4 : เลือกวัน เวลา และสถานที่จัดส่ง</h3>
-                                                        <div>
-                                                            <h3>ส่งวันที่ :     
-                                                                <input type="date" name="senddate">
-                                                            </h3>
-                                                        </div>
-                                                        <div>
-                                                            <h3>เวลาประมาณ :     
-                                                                <input type="time" name="sendtime">
-                                                            </h3>
-                                                        </div>
-                                                        <h3>สถานที่</h3>
-
-                                                        <br><br>
-                                                        <h3>เลือกจากสถานที่ของคุณ</h3>
-                                                        <div class="content2">
-                                                            <table class="table table-hover" id="task-table">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>No.</th>
-                                                                        <th>Address</th>
-                                                                        <th>Select</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td>1</td>
-                                                                        <td>123 ม.4 ต.ยยยยยยยย</td>
-                                                                        <td><input type="checkbox"></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>2</td>
-                                                                        <td>3848 ม.บางมด</td>
-                                                                        <td><input type="checkbox"></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td></td>
-                                                                        <td></td>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                            <div class="row">
-                                                                <div id="inbox" style="margin:15% 0 0 0;">
-                                                                    <div class="fab btn-group show-on-hover dropup" id="add_sa" data-toggle="modal" data-target="#add_address">
-                                                                        <button type="button" class="btn btn-danger glyphicon glyphicon-plus btn-io">
-                                                                            <span class="fa-stack fa-2x">
-                                                                                <i class="fa fa-circle fa-stack-2x fab-backdrop"></i>
-                                                                                <i class="fa fa-plus fa-stack-1x fa-inverse fab-primary"></i>
-                                                                                <i class="fa fa-plus fa-stack-1x fa-inverse fab-secondary"></i>
-                                                                            </span>
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>  
-                                                        </div>
-                                                    </div>
-                                                    <ul class="list-inline pull-right">
-                                                        <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
-                                                        <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
-                                                    </ul>
-                                                </div>                                   
-                                            </div>
-                                            <div class="tab-pane" role="tabpanel" id="step5">
-                                                <div class="container_field">
-                                                    <div class="row">                                                        
-                                                        <h3>ขั้นตอนที่ 5 : เลือกวิธีชำระเงิน</h3>
-                                                        <div class="col-md-6">
-                                                            <input type="checkbox" name="sex" value="male">&nbsp;เงินสด&nbsp;&nbsp;
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <input type="checkbox" name="sex" value="female">&nbsp;โอนเงินผ่านบัญชีธนาคาร&nbsp;&nbsp;
-                                                            <p>เลขที่บัญชี:_____________</p>
-                                                            <p>ชื่อบัญชี:_______________</p>
-                                                            <p>ธนาคาร:________สาขา_______</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <ul class="list-inline pull-right">
-                                                    <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
-                                                    <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
-                                                </ul>
-                                            </div>
+                                            <ul class="list-inline pull-right">
+                                                <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
+                                            </ul>
                                         </div>
-                                    </form>
+                                        <div class="tab-pane" role="tabpanel" id="step2">
+                                            <div class="container_field">
+                                                <h3>ขั้นตอนที่ 2 : เลือกข้าว</h3>
+                                                <input type="checkbox" name="sex" value="male">&nbsp;ข้าวหอมมะลิ&nbsp;&nbsp;
+                                                <input type="checkbox" name="sex" value="female">&nbsp;ข้าวเสาไห้&nbsp;&nbsp;
+                                                <input type="checkbox" name="sex" value="male">&nbsp;ข้าวกล้อง&nbsp;&nbsp;
+                                                <input type="checkbox" name="sex" value="female">&nbsp;ข้าวไรซ์เบอรี่
+                                            </div>
+                                            <ul class="list-inline pull-right">
+                                                <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
+                                                <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
+                                            </ul>
+                                        </div>
+                                        <div class="tab-pane" role="tabpanel" id="step3" >
+                                            <div class="container_field">
+                                                <h3>ขั้นตอนที่ 3 : เลือกกับข้าว</h3>
+                                                <h3>ลำดับที่ 1</h3>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div class="thumbnail">
+                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                                                            <div class="caption">
+                                                                <h3>Thumbnail label</h3>
+                                                                <p>...</p>
+                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="thumbnail">
+                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                                                            <div class="caption">
+                                                                <h3>Thumbnail label</h3>
+                                                                <p>...</p>
+                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="thumbnail">
+                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                                                            <div class="caption">
+                                                                <h3>Thumbnail label</h3>
+                                                                <p>...</p>
+                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="thumbnail">
+                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                                                            <div class="caption">
+                                                                <h3>Thumbnail label</h3>
+                                                                <p>...</p>
+                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>                        
+                                                </div> <hr class="hrs">
+
+                                                <!-- 2 -->
+                                                <h3>ลำดับที่ 2</h3>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div class="thumbnail">
+                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                                                            <div class="caption">
+                                                                <h3>Thumbnail label</h3>
+                                                                <p>...</p>
+                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="thumbnail">
+                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                                                            <div class="caption">
+                                                                <h3>Thumbnail label</h3>
+                                                                <p>...</p>
+                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="thumbnail">
+                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                                                            <div class="caption">
+                                                                <h3>Thumbnail label</h3>
+                                                                <p>...</p>
+                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="thumbnail">
+                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                                                            <div class="caption">
+                                                                <h3>Thumbnail label</h3>
+                                                                <p>...</p>
+                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>                                                
+                                                </div> <hr class="hrs">
+
+                                                <!-- 3 -->
+                                                <h3>ลำดับที่ 3</h3>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div class="thumbnail">
+                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                                                            <div class="caption">
+                                                                <h3>Thumbnail label</h3>
+                                                                <p>...</p>
+                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="thumbnail">
+                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                                                            <div class="caption">
+                                                                <h3>Thumbnail label</h3>
+                                                                <p>...</p>
+                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="thumbnail">
+                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                                                            <div class="caption">
+                                                                <h3>Thumbnail label</h3>
+                                                                <p>...</p>
+                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="thumbnail">
+                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                                                            <div class="caption">
+                                                                <h3>Thumbnail label</h3>
+                                                                <p>...</p>
+                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>                                                
+                                                </div>
+                                            </div>
+                                            <ul class="list-inline pull-right">
+                                                <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
+                                                <li><button type="button" class="btn btn-primary btn-info-full next-step">Save and continue</button></li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="tab-pane" role="tabpanel" id="step4">
+                                            <div class="tab-pane" role="tabpanel" id="step4">
+                                                <div class="container_field">
+                                                    <h3>ขั้นตอนที่ 4 : เลือกวัน เวลา และสถานที่จัดส่ง</h3>
+                                                    <div>
+                                                        <h3>ส่งวันที่ :     
+                                                            <input type="date" name="senddate">
+                                                        </h3>
+                                                    </div>
+                                                    <div>
+                                                        <h3>เวลาประมาณ :     
+                                                            <input type="time" name="sendtime">
+                                                        </h3>
+                                                    </div>
+                                                    <h3>สถานที่</h3>
+
+                                                    <br><br>
+                                                    <h3>เลือกจากสถานที่ของคุณ</h3>
+                                                    <div class="content2">
+                                                        <table class="table table-hover" id="task-table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>No.</th>
+                                                                    <th>Address</th>
+                                                                    <th>Select</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>1</td>
+                                                                    <td>123 ม.4 ต.ยยยยยยยย</td>
+                                                                    <td><input type="checkbox"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>2</td>
+                                                                    <td>3848 ม.บางมด</td>
+                                                                    <td><input type="checkbox"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <div class="row">
+                                                            <div id="inbox" style="margin:15% 0 0 0;">
+                                                                <div class="fab btn-group show-on-hover dropup" id="add_sa" data-toggle="modal" data-target="#add_address">
+                                                                    <button type="button" class="btn btn-danger glyphicon glyphicon-plus btn-io">
+                                                                        <span class="fa-stack fa-2x">
+                                                                            <i class="fa fa-circle fa-stack-2x fab-backdrop"></i>
+                                                                            <i class="fa fa-plus fa-stack-1x fa-inverse fab-primary"></i>
+                                                                            <i class="fa fa-plus fa-stack-1x fa-inverse fab-secondary"></i>
+                                                                        </span>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>  
+                                                    </div>
+                                                </div>
+                                                <ul class="list-inline pull-right">
+                                                    <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
+                                                    <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
+                                                </ul>
+                                            </div>                                   
+                                        </div>
+                                        <div class="tab-pane" role="tabpanel" id="step5">
+                                            <div class="container_field">
+                                                <div class="row">                                                        
+                                                    <h3>ขั้นตอนที่ 5 : เลือกวิธีชำระเงิน</h3>
+                                                    <div class="col-md-6">
+                                                        <input type="checkbox" name="sex" value="male">&nbsp;เงินสด&nbsp;&nbsp;
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <input type="checkbox" name="sex" value="female">&nbsp;โอนเงินผ่านบัญชีธนาคาร&nbsp;&nbsp;
+                                                        <p>เลขที่บัญชี:_____________</p>
+                                                        <p>ชื่อบัญชี:_______________</p>
+                                                        <p>ธนาคาร:________สาขา_______</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <ul class="list-inline pull-right">
+                                                <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
+                                                <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -639,11 +647,11 @@ include '../dbconn.php';
                 });
             });
             $('#paginator').datepaginator();
-            
-            $('#info').click(function (e){
+
+            $('#info').click(function (e) {
                 alert('ccccc');
             });
-            
+
             /*
              Ref:
              Thanks to:
