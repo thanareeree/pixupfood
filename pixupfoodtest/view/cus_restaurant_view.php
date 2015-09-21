@@ -15,7 +15,15 @@ include '../dbconn.php';
         <link rel="stylesheet" href="../assets/css/restaurant_view.css">
         <link href="http://jondmiles.com/bootstrap-datepaginator/css/bootstrap-datepicker.css" rel="stylesheet" media="screen" type="text/css">
         <link href="http://jondmiles.com/bootstrap-datepaginator/css/bootstrap-datepaginator.min.css" rel="stylesheet" media="screen" type="text/css">
-
+        <style>
+            #restaurant_view .fb-image-profile
+            {
+                margin: -160px 45px 10px 80px;
+                z-index: 9;
+                width: 13%;
+                border-radius:50%;
+            }
+        </style>
     </head>
     <body>
         <?php
@@ -66,14 +74,14 @@ include '../dbconn.php';
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="news">
                                 <br><div class="row">
-                                  
-                                        <section id="pinBoot">
-                                            <article class="white-panel"><img src="../assets/images/res_resall/menuedit/FriedEgg.jpg" alt="">
-                                                <h4><a href="#">เมนูใหม่</a></h4>
-                                                <p>ทางร้านของเราได้เพิ่มเมนูอาหารใหม่ นั่นก็คือ สปาเก็ดดี้ไวท์ซอท สั่งได้แล้ววันนี้</p>
-                                            </article>
-                                        </section>
-                                 
+
+                                    <section id="pinBoot">
+                                        <article class="white-panel"><img src="../assets/images/res_resall/menuedit/FriedEgg.jpg" alt="">
+                                            <h4><a href="#">เมนูใหม่</a></h4>
+                                            <p>ทางร้านของเราได้เพิ่มเมนูอาหารใหม่ นั่นก็คือ สปาเก็ดดี้ไวท์ซอท สั่งได้แล้ววันนี้</p>
+                                        </article>
+                                    </section>
+
                                 </div>
                             </div>
                             <!-- Promotion -->
@@ -103,8 +111,8 @@ include '../dbconn.php';
                                     </section>
                                 </div>
                             </div>
-                            
-                            
+
+
                             <!-- Order -->
                             <div role="tabpanel" class="tab-pane" id="order">
                                 <div class="wizard">
@@ -410,11 +418,11 @@ include '../dbconn.php';
                                     </form>
                                 </div>
                             </div>
-                            
+
                             <!-- Promotion -->
                             <div role="tabpanel" class="tab-pane" id="info">
                                 <br><div class="row">
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -458,60 +466,8 @@ include '../dbconn.php';
         </section> 
 
 
-        <?php
-        include '../template/footer.php';
-        ?>
+        <?php include '../template/footer.php'; ?>
 
-        <script>
-            (function () {
-                'use strict';
-                $.fn.extend({
-                    filterTable: function () {
-                        return this.each(function () {
-                            $(this).on('keyup', function (e) {
-                                $('.filterTable_no_results').remove();
-                                var $this = $(this),
-                                        search = $this.val().toLowerCase(),
-                                        target = $this.attr('data-filters'),
-                                        $target = $(target),
-                                        $rows = $target.find('tbody tr');
-
-                                if (search == '') {
-                                    $rows.show();
-                                } else {
-                                    $rows.each(function () {
-                                        var $this = $(this);
-                                        $this.text().toLowerCase().indexOf(search) === -1 ? $this.hide() : $this.show();
-                                    })
-                                    if ($target.find('tbody tr:visible').size() === 0) {
-                                        var col_count = $target.find('tr').first().find('td').size();
-                                        var no_results = $('<tr class="filterTable_no_results"><td colspan="' + col_count + '">No results found</td></tr>')
-                                        $target.find('tbody').append(no_results);
-                                    }
-                                }
-                            });
-                        });
-                    }
-                });
-                $('[data-action="filter"]').filterTable();
-            })(jQuery);
-
-            $(function () {
-                // attach table filter plugin to inputs
-                $('[data-action="filter"]').filterTable();
-
-                $('.container').on('click', '.panel-heading span.filter', function (e) {
-                    var $this = $(this),
-                            $panel = $this.parents('.panel');
-
-                    $panel.find('.panel-body').slideToggle();
-                    if ($this.css('display') != 'none') {
-                        $panel.find('.panel-body input').focus();
-                    }
-                });
-                $('[data-toggle="tooltip"]').tooltip();
-            });
-        </script>
         <script>
             var __slice = [].slice;
 
@@ -629,6 +585,7 @@ include '../dbconn.php';
                 });
             });
         </script>
+
         <script>
             $(document).ready(function () {
                 //Initialize tooltips
@@ -666,35 +623,6 @@ include '../dbconn.php';
                 $(elem).prev().find('a[data-toggle="tab"]').click();
             }
         </script>
-        <script>
-            $(document).ready(function () {
-
-                // This will wait for the DOM (your HTML) to be loaded before executing aFunction
-
-                /* uncomment to use optios
-                 var options = {
-                 selectedDate: '2013-01-01',
-                 selectedDateFormat: 'YYYY-MM-DD'
-                 }
-                 
-                 $('#paginator').datepaginator(options);
-                 
-                 */
-
-                //  defatult settings, i.e. today's date etc.
-
-                $('#paginator').datepaginator();
-
-
-                /* uncomment to add event if date is changed
-                 $('#paginator').on('selectedDateChanged', function(event, date) {
-                 // Your logic goes here
-                 alert('Date was changed.');
-                 });
-                 */
-
-            });
-        </script>
         <script type="text/javascript" src="http://jondmiles.com/bootstrap-datepaginator/js/moment.min.js"></script>
         <script type="text/javascript" src="http://jondmiles.com/bootstrap-datepaginator/js/bootstrap-datepicker.js"></script>
         <script type="text/javascript" src="http://jondmiles.com/bootstrap-datepaginator/js/bootstrap-datepaginator.min.js"></script>
@@ -709,32 +637,13 @@ include '../dbconn.php';
                     single_column_breakpoint: 700
                 });
             });
-
+            $('#paginator').datepaginator();
             /*
              Ref:
              Thanks to:
              http://www.jqueryscript.net/layout/Simple-jQuery-Plugin-To-Create-Pinterest-Style-Grid-Layout-Pinterest-Grid.html
              */
 
-
-            /*
-             Pinterest Grid Plugin
-             Copyright 2014 Mediademons
-             @author smm 16/04/2014
-             
-             usage:
-             
-             $(document).ready(function() {
-             
-             $('#blog-landing').pinterest_grid({
-             no_columns: 4
-             });
-             
-             });
-             
-             
-             */
-            ;
             (function ($, window, document, undefined) {
                 var pluginName = 'pinterest_grid',
                         defaults = {
