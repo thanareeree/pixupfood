@@ -21,6 +21,7 @@ include '../dbconn.php';
                 margin: -160px 45px 10px 80px;
                 z-index: 9;
                 width: 13%;
+                height: 175px;
                 border-radius:50%;
             }
         </style>
@@ -49,7 +50,7 @@ include '../dbconn.php';
                         <h3><i class="glyphicon glyphicon-cutlery"></i>&nbsp;<?= $restaurantdata["resname"] ?></h3><br> 
                         <div id="stars-existing" class="starrr" data-rating='4'></div>
                     </div>
-                    <img align="left" class="fb-image-profile thumbnail" src="<?= ($restaurantdata["img_path"] == "" ? '../assets/images/bar/restaurant.png' : $restaurantdata["img_path"]) ?>"  style="max-width: 175px;" height="175px"/>
+                    <img align="left" class="fb-image-profile thumbnail" src="<?= ($restaurantdata["img_path"] == "" ? '../assets/images/bar/restaurant.png' : $restaurantdata["img_path"]) ?>"  style="max-width: 175px; max-height: 175px" />
                     <div class="fb-profile-text">
                         <br>
                         <div class="row lead">

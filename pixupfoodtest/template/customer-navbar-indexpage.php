@@ -67,7 +67,7 @@ if (isset($_SESSION["islogin"])) {
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <a href="view/cus_customer_profile.php">
-                                                                <img src="<?= substr($data["img_path"], 3) ?>" style="max-width: 110px; max-height: 110px">
+                                                                <img src="<?= ($data["img_path"]=="" ? 'assets/images/defaulf-profile.png': substr($data["img_path"], 3) ) ?>" style="max-width: 110px; max-height: 110px">
                                                             </a>
                                                         </div>
                                                     </div>
