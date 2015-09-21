@@ -96,7 +96,7 @@ include '../dbconn.php';
                                                         . "restaurant.detail, restaurant.tel ,restaurant.img_path, menu.name as menu_name, "
                                                         . "menu.id as menu_id, zone.name as zone_name, restaurant.province "
                                                         . "FROM restaurant "
-                                                        . "LEFT JOIN menu ON menu.restaurant_id = restaurant.id "
+                                                        . "RIGHT JOIN menu ON menu.restaurant_id = restaurant.id "
                                                         . "JOIN zone ON zone.id = restaurant.zone_id "
                                                         . "WHERE (restaurant.name LIKE '%$search%' AND restaurant.available = 1 )"
                                                         . "OR menu.name LIKE '%$search%' "

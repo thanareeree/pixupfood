@@ -24,6 +24,11 @@ include '../dbconn.php';
                 height: 175px;
                 border-radius:50%;
             }
+            #restaurant_view .menu_img{
+                width: 100%;
+                max-width: 100%;
+                height: 100px;
+            }
         </style>
     </head>
     <body>
@@ -171,12 +176,11 @@ include '../dbconn.php';
                                                         . "FROM mapping_food_box "
                                                         . "LEFT JOIN food_box ON food_box.id = mapping_food_box.food_box_id "
                                                         . "WHERE mapping_food_box.restaurant_id = '$resid' ");
-                                                $foodboxData = $foodboxRes->fetch_assoc();
-                                                while ()
-                                                ?>
-                                                <input type="checkbox" name="sex" value="male">&nbsp;อาหารจานเดียว&nbsp;&nbsp;
-                                                
-                                                <?php ?>
+
+                                                while ($foodboxData = $foodboxRes->fetch_assoc()) {
+                                                    ?>
+                                                    <input type="checkbox" name="box<?= $foodboxData["id"] ?>" value="box<?= $foodboxData["id"] ?>">&nbsp;<?= $foodboxData["description"] ?><br>
+                                                <?php } ?>
                                             </div>
                                             <ul class="list-inline pull-right">
                                                 <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
@@ -185,10 +189,14 @@ include '../dbconn.php';
                                         <div class="tab-pane" role="tabpanel" id="step2">
                                             <div class="container_field">
                                                 <h3>ขั้นตอนที่ 2 : เลือกข้าว</h3>
-                                                <input type="checkbox" name="sex" value="male">&nbsp;ข้าวหอมมะลิ&nbsp;&nbsp;
-                                                <input type="checkbox" name="sex" value="female">&nbsp;ข้าวเสาไห้&nbsp;&nbsp;
-                                                <input type="checkbox" name="sex" value="male">&nbsp;ข้าวกล้อง&nbsp;&nbsp;
-                                                <input type="checkbox" name="sex" value="female">&nbsp;ข้าวไรซ์เบอรี่
+                                                <?php
+                                                $riceListRes = $con->query("SELECT * FROM `menu` where restaurant_id = '$resid' and type = 'ชนิดข้าว'");
+
+                                                while ($riceData = $riceListRes->fetch_assoc()) {
+                                                    ?>
+                                                    <input type="checkbox" name="box<?= $riceData["id"] ?>" value="box<?= $riceData["id"] ?>">&nbsp;<?= $riceData["name"] ?>&nbsp;&nbsp;(<?= $riceData["price"] ?>&nbsp;บาท)<br>
+                                                <?php } ?>
+
                                             </div>
                                             <ul class="list-inline pull-right">
                                                 <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
@@ -200,136 +208,74 @@ include '../dbconn.php';
                                                 <h3>ขั้นตอนที่ 3 : เลือกกับข้าว</h3>
                                                 <h3>ลำดับที่ 1</h3>
                                                 <div class="row">
-                                                    <div class="col-md-3">
-                                                        <div class="thumbnail">
-                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                            <div class="caption">
-                                                                <h3>Thumbnail label</h3>
-                                                                <p>...</p>
-                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                                    <?php
+                                                    $foodListRes = $con->query("SELECT * FROM `menu` where restaurant_id = '$resid' and type = 'กับข้าว'");
+
+                                                    while ($foddListData = $foodListRes->fetch_assoc()) {
+                                                        ?>
+                                                        <div class="col-md-3">
+                                                            <div class="thumbnail">
+                                                                <a href="#"><img class="menu_img" src="<?= ($foddListData["img_path"] == "") ? '../assets/images/default-img360.png' : $foddListData["img_path"] ?>"></a>
+                                                                <div class="caption">
+                                                                    <h4><?=$foddListData["name"]?></h4>
+                                                                    <p><?=$foddListData["price"]?>&nbsp;บาท</p>
+                                                                    <p style="text-align: right"><button type="button" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i></button></p>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <div class="thumbnail">
-                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                            <div class="caption">
-                                                                <h3>Thumbnail label</h3>
-                                                                <p>...</p>
-                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <div class="thumbnail">
-                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                            <div class="caption">
-                                                                <h3>Thumbnail label</h3>
-                                                                <p>...</p>
-                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <div class="thumbnail">
-                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                            <div class="caption">
-                                                                <h3>Thumbnail label</h3>
-                                                                <p>...</p>
-                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>                        
+
+                                                        <?php
+                                                    }
+                                                    ?>
                                                 </div> <hr class="hrs">
 
                                                 <!-- 2 -->
                                                 <h3>ลำดับที่ 2</h3>
                                                 <div class="row">
-                                                    <div class="col-md-3">
-                                                        <div class="thumbnail">
-                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                            <div class="caption">
-                                                                <h3>Thumbnail label</h3>
-                                                                <p>...</p>
-                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                                    <?php
+                                                    $foodListRes = $con->query("SELECT * FROM `menu` where restaurant_id = '$resid' and type = 'กับข้าว'");
+
+                                                    while ($foddListData = $foodListRes->fetch_assoc()) {
+                                                        ?>
+                                                        <div class="col-md-3">
+                                                            <div class="thumbnail">
+                                                                <a href="#"><img class="menu_img" src="<?= ($foddListData["img_path"] == "") ? '../assets/images/default-img360.png' : $foddListData["img_path"] ?>"></a>
+                                                                <div class="caption">
+                                                                    <h4><?=$foddListData["name"]?></h4>
+                                                                    <p><?=$foddListData["price"]?>&nbsp;บาท</p>
+                                                                    <p style="text-align: right"><button type="button" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i></button></p>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <div class="thumbnail">
-                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                            <div class="caption">
-                                                                <h3>Thumbnail label</h3>
-                                                                <p>...</p>
-                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <div class="thumbnail">
-                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                            <div class="caption">
-                                                                <h3>Thumbnail label</h3>
-                                                                <p>...</p>
-                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <div class="thumbnail">
-                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                            <div class="caption">
-                                                                <h3>Thumbnail label</h3>
-                                                                <p>...</p>
-                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>                                                
+
+                                                        <?php
+                                                    }
+                                                    ?>
+                                                                                              
                                                 </div> <hr class="hrs">
 
                                                 <!-- 3 -->
                                                 <h3>ลำดับที่ 3</h3>
                                                 <div class="row">
-                                                    <div class="col-md-3">
-                                                        <div class="thumbnail">
-                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                            <div class="caption">
-                                                                <h3>Thumbnail label</h3>
-                                                                <p>...</p>
-                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                                    <?php
+                                                    $foodListRes = $con->query("SELECT * FROM `menu` where restaurant_id = '$resid' and type = 'กับข้าว'");
+
+                                                    while ($foddListData = $foodListRes->fetch_assoc()) {
+                                                        ?>
+                                                        <div class="col-md-3">
+                                                            <div class="thumbnail">
+                                                                <a href="#"><img class="menu_img" src="<?= ($foddListData["img_path"] == "") ? '../assets/images/default-img360.png' : $foddListData["img_path"] ?>"></a>
+                                                                <div class="caption">
+                                                                    <h4><?=$foddListData["name"]?></h4>
+                                                                    <p><?=$foddListData["price"]?>&nbsp;บาท</p>
+                                                                    <p style="text-align: right"><button type="button" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i></button></p>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <div class="thumbnail">
-                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                            <div class="caption">
-                                                                <h3>Thumbnail label</h3>
-                                                                <p>...</p>
-                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <div class="thumbnail">
-                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                            <div class="caption">
-                                                                <h3>Thumbnail label</h3>
-                                                                <p>...</p>
-                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <div class="thumbnail">
-                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                            <div class="caption">
-                                                                <h3>Thumbnail label</h3>
-                                                                <p>...</p>
-                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>                                                
+
+                                                        <?php
+                                                    }
+                                                    ?>                                            
                                                 </div>
                                             </div>
                                             <ul class="list-inline pull-right">
