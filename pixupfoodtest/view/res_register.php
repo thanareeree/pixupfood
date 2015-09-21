@@ -174,7 +174,10 @@ include '../dbconn.php';
                         <h4 class="modal-title">โปรดอ่านข้อกำหนดก่อนลงทะเบียน</h4>
                     </div>
                     <div class="modal-body">
-                        <p>..............</p>
+                        <p>
+                            1. <br><br>
+                            2. <br><br>
+                        </p>
                         <form>
                             <input type="checkbox" >&nbsp; ยอมรับ
                         </form>
