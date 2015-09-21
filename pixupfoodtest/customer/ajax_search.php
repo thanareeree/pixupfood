@@ -57,7 +57,9 @@ if ($searchby == "foodname") {
                 <p style="font-size: 20px"><?= $data["price"] ?>&nbsp;บาท<br></p>
             </td>
             <td>
-                <button class="btn btn-success menu_order" id="menu_order<?= $data["id"] ?>"><i class="glyphicon glyphicon-plus"></i>&nbsp; สั่งรายการอาหารนี้</button>
+                <span class="tooltip-r" data-toggle="tooltip" data-placement="top" title="log in to ordet this restaurant">
+                    <button class="btn btn-success menu_order" id="menu_order<?= $data["id"] ?>"><i class="glyphicon glyphicon-plus"></i>&nbsp; สั่งรายการอาหารนี้</button>
+                </span>
             </td>
         </tr>
         <?php
@@ -69,7 +71,7 @@ if ($searchby == "foodname") {
                 . "restaurant.detail,  restaurant.tel,restaurant.img_path, restaurant.zone_id,"
                 . " zone.name as zone_name, restaurant.province  "
                 . "FROM restaurant JOIN zone ON zone.id = restaurant.zone_id "
-                . "WHERE restaurant.name LIKE '%$searchtxt%' "
+                . "WHERE (restaurant.name LIKE '%$searchtxt%' AND restaurant.available = 1) "
                 . "AND zone.name IN (SELECT zone.name FROM zone WHERE id = restaurant.zone_id)");
         $numrow = $res->num_rows;
     }
@@ -97,7 +99,9 @@ if ($searchby == "foodname") {
             </td>
             <td>
                 <a href="../view/cus_restaurant_view.php?resId=<?= $data["id"] ?>">
-                    <button class="btn btn-success restaurant_order" id="restaurant_order<?= $data["id"] ?>"><i class="glyphicon glyphicon-plus"></i>&nbsp; สั่งอาหารล่วงหน้า</button>
+                    <span class="tooltip-r" data-toggle="tooltip" data-placement="top" title="log in to ordet this restaurant">
+                        <button class="btn btn-success restaurant_order" id="restaurant_order<?= $data["id"] ?>"><i class="glyphicon glyphicon-plus"></i>&nbsp; สั่งอาหารล่วงหน้า</button>
+                    </span>
                 </a>
             </td>
         </tr>
@@ -113,7 +117,8 @@ if ($searchby == "foodname") {
                 . "* cos( radians( x ) ) * cos( radians( y ) - radians(" . $long . ") ) "
                 . "+ sin( radians(" . $lat . ") ) * sin( radians( x ) ) ) ) AS distance "
                 . "FROM restaurant JOIN zone ON zone.id = restaurant.zone_id "
-                . "WHERE zone.name IN (SELECT zone.name FROM zone WHERE id = restaurant.zone_id)"
+                . " WHERE restaurant.available = 1 "
+                . "AND zone.name IN (SELECT zone.name FROM zone WHERE id = restaurant.zone_id)"
                 . "HAVING distance < 25 ORDER BY distance LIMIT 0 , 20");
         $numrow = $res->num_rows;
     }
@@ -141,7 +146,9 @@ if ($searchby == "foodname") {
             </td>
             <td>
                 <a href="../view/cus_restaurant_view.php?resId=<?= $data["id"] ?>">
-                    <button class="btn btn-success restaurant_order" id="restaurant_order<?= $data["id"] ?>"><i class="glyphicon glyphicon-plus"></i>&nbsp; สั่งอาหารล่วงหน้า</button>
+                    <span class="tooltip-r" data-toggle="tooltip" data-placement="top" title="log in to ordet this restaurant">
+                        <button class="btn btn-success restaurant_order" id="restaurant_order<?= $data["id"] ?>"><i class="glyphicon glyphicon-plus"></i>&nbsp; สั่งอาหารล่วงหน้า</button>
+                    </span>
                 </a>
             </td>
         </tr>

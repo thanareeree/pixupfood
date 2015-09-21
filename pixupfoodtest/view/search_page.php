@@ -98,8 +98,10 @@ include '../dbconn.php';
                                                         . "FROM restaurant "
                                                         . "LEFT JOIN menu ON menu.restaurant_id = restaurant.id "
                                                         . "JOIN zone ON zone.id = restaurant.zone_id "
-                                                        . "WHERE restaurant.name LIKE '%$search%' OR menu.name LIKE '%$search%' "
-                                                        . "AND zone.name IN (SELECT zone.name FROM zone WHERE id = restaurant.zone_id)");
+                                                        . "WHERE (restaurant.name LIKE '%$search%' AND restaurant.available = 1 )"
+                                                        . "OR menu.name LIKE '%$search%' "
+                                                        . "AND zone.name IN (SELECT zone.name FROM zone WHERE id = restaurant.zone_id)"
+                                                        . "GROUP by restaurant.name ");
                                                 $numrow = $res->num_rows;
                                             }
                                             if ($numrow == 0) {
@@ -118,14 +120,19 @@ include '../dbconn.php';
                                                         </a>
                                                     </td>
                                                     <td>
-                                                        <h4 class="media-heading"><?= $data["name"] ?><?= ($data["menu_name"] != "" ? '&nbsp;/&nbsp;' . $data["menu_name"] : '') ?></h4>
+                                                        <h4 class="media-heading"><?= $data["name"] ?></h4><br>
+                                                        <!-- ($data["menu_name"] != "" ? '&nbsp;/&nbsp;' . $data["menu_name"] : '')  -->
+                                                        
                                                     </td>
                                                     <td>
                                                         <i class="glyphicon glyphicon-map-marker"></i>&nbsp;<?= ($data["province"] == "กรุงเทพมหานคร") ? 'เขต' . $data["zone_name"] . '&nbsp;' : '' ?> <?= $data["province"] ?> 
                                                     </td>
-                                                    <td>
-                                                        <a href="cus_restaurant_view.php?resId=<?= $data["id"] ?>">
-                                                            <button class="btn btn-success restaurant_order" id="restaurant_order<?= $data["id"] ?>"><i class="glyphicon glyphicon-plus"></i>&nbsp; สั่งอาหารล่วงหน้า</button>
+                                                    <td><span class="tooltip-r" data-toggle="tooltip" data-placement="top" title="log in to ordet this restaurant">
+                                                        <a href="cus_restaurant_view.php?resId=<?= $data["id"] ?>" > 
+                                                            <span class="tooltip-r" data-toggle="tooltip" data-placement="top" title="log in to ordet this restaurant">
+                                                                <button class="btn btn-success restaurant_order" id="restaurant_order<?= $data["id"] ?>"  ><i class="glyphicon glyphicon-plus" ></i>&nbsp; สั่งอาหารล่วงหน้า
+                                                                </button>
+                                                            </span>
                                                         </a>
                                                     </td>
                                                 </tr>
@@ -152,6 +159,26 @@ include '../dbconn.php';
         </div>
         <!-- end register -->
         <?php include '../template/footer.php'; ?>
+        <?php
+        if (isset($_SESSION["islogin"])) {
+            ?>
+            <script>
+                $('.tooltip-r').removeAttr("title");
+            </script>
+            <?php
+        } else {
+            ?>
+            <script>
+                $('a').click(function (e) {
+                    e.preventDefault()
+                });
+                $(function () {
+                    $('[data-toggle="tooltip"]').tooltip()
+                })
+            </script>
+            <?php
+        }
+        ?>
         <script>
             $(document).ready(function () {
 
@@ -194,7 +221,6 @@ include '../dbconn.php';
                 });
 
 
-
                 $("#searchbtn").on("click", function (e) {
                     $("#result").html('<tr><td colspan="3" style="text-align: center;"><h2>Searching...</h2></td></tr>');
                     var searchby = $("#searchby").val();
@@ -211,6 +237,9 @@ include '../dbconn.php';
                         }
                     });
                 });
+
+
+
 
             });
         </script>

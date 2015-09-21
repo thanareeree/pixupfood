@@ -10,29 +10,49 @@ include '../dbconn.php';
     <head>
         <title>Pixupfood - Restaurant View</title>
 
-        <?php include '../template/customer-title.php';?>
+        <?php include '../template/customer-title.php'; ?>
         <!-- custom css -->
         <link rel="stylesheet" href="../assets/css/restaurant_view.css">
         <link href="http://jondmiles.com/bootstrap-datepaginator/css/bootstrap-datepicker.css" rel="stylesheet" media="screen" type="text/css">
         <link href="http://jondmiles.com/bootstrap-datepaginator/css/bootstrap-datepaginator.min.css" rel="stylesheet" media="screen" type="text/css">
-
+        <style>
+            #restaurant_view .fb-image-profile
+            {
+                margin: -160px 45px 10px 80px;
+                z-index: 9;
+                width: 13%;
+                height: 175px;
+                border-radius:50%;
+            }
+        </style>
     </head>
     <body>
+        <?php
+        $resid = $_GET["resId"];
+        $restaurantres = $con->query("SELECT restaurant.id, restaurant.name as resname, restaurant.firstname,"
+                . "restaurant.lastname,restaurant.x, restaurant.y, restaurant.img_path, "
+                . "restaurant.star, restaurant.address,restaurant.price_prepay, restaurant.province, "
+                . "zone.name "
+                . "FROM `restaurant` "
+                . "JOIN zone ON zone.id = restaurant.zone_id "
+                . "where restaurant.id = '$resid' "
+                . "and zone.name IN (SELECT zone.name FROM zone WHERE id = restaurant.zone_id)");
+        $restaurantdata = $restaurantres->fetch_assoc();
+        ?>
         <?php include '../template/customer-navbar.php'; ?>
-        
+
         <!-- start profile -->
         <section id="restaurant_view">
             <div class="profilecontainer">
                 <div class="headprofile">
                     <img align="left" class="fb-image-lg" src="../assets/images/city-restaurant-lunch-outside.png" alt="Profile image example"/>
                     <div class="container_status">
-                        <span>Address: <?= $_SESSION["userdata"]["email"] ?></span><span> Tel: <?= $_SESSION["userdata"]["tel"] ?></span><br>
-                        <span>เวลาเปิด - ปิด:</span><br>
-                        <span>สถานะ:__________</span>
+                        <h3><i class="glyphicon glyphicon-cutlery"></i>&nbsp;<?= $restaurantdata["resname"] ?></h3><br> 
+                        <div id="stars-existing" class="starrr" data-rating='4'></div>
                     </div>
-                    <img align="left" class="fb-image-profile thumbnail" src="http://lorempixel.com/180/180/people/9/" alt="Profile image example"/>
+                    <img align="left" class="fb-image-profile thumbnail" src="<?= ($restaurantdata["img_path"] == "" ? '../assets/images/bar/restaurant.png' : $restaurantdata["img_path"]) ?>"  style="max-width: 175px; max-height: 175px" />
                     <div class="fb-profile-text">
-                        <br><h1><?= $_SESSION["userdata"]["firstName"] ?>  <?= $_SESSION["userdata"]["lastName"] ?></h1>
+                        <br>
                         <div class="row lead">
                             <div id="stars-existing" class="starrr" data-rating='4'></div>
                         </div>
@@ -49,57 +69,20 @@ include '../dbconn.php';
                             <li role="presentation" class="active"><a href="#news" aria-controls="news" role="tab" data-toggle="tab">News</a></li>
                             <li role="presentation"><a href="#promo" aria-controls="promo" role="tab" data-toggle="tab">Promotions</a></li>
                             <li role="presentation"><a href="#order" aria-controls="order" role="tab" data-toggle="tab">สั่งอาหาร</a></li>
+                            <li role="presentation"><a href="#info" aria-controls="info" role="tab" data-toggle="tab">ข้อมูลร้าน</a></li>
                         </ul>
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="news">
                                 <br><div class="row">
+
                                     <section id="pinBoot">
-                                        <article class="white-panel"><img src="http://i.imgur.com/sDLIAZD.png" alt="">
-                                            <h4><a href="#">Title 1</a></h4>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                                                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                        <article class="white-panel"><img src="../assets/images/res_resall/menuedit/FriedEgg.jpg" alt="">
+                                            <h4><a href="#">เมนูใหม่</a></h4>
+                                            <p>ทางร้านของเราได้เพิ่มเมนูอาหารใหม่ นั่นก็คือ สปาเก็ดดี้ไวท์ซอท สั่งได้แล้ววันนี้</p>
                                         </article>
-
-                                        <article class="white-panel"> <img src="http://i.imgur.com/8lhFhc1.gif" alt="">
-                                            <h4><a href="#">Title 2</a></h4>
-                                            <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                        </article>
-
-                                        <article class="white-panel"> <img src="http://i.imgur.com/xOIMvAe.jpg" alt="">
-                                            <h4><a href="#">Title 3</a></h4>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                                                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                                        </article>
-
-                                        <article class="white-panel"> <img src="http://i.imgur.com/3gXW3L3.jpg" alt="">
-                                            <h4><a href="#">Title 4</a></h4>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                                                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                        </article>
-
-                                        <article class="white-panel"> <img src="http://i.imgur.com/o2RVMqm.jpg" alt="">
-                                            <h4><a href="#">Title 5</a></h4>
-                                            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                        </article>
-
-                                        <article class="white-panel"> <img src="http://i.imgur.com/kFFpuKA.jpg" alt="">
-                                            <h4><a href="#">Title 6</a></h4>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                                                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                                        </article>
-                                        <article class="white-panel"><img src="http://i.imgur.com/E9RmLPA.jpg" alt="">
-                                            <h4><a href="#">Title 7</a></h4>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                                                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                        </article>
-
-                                        <article class="white-panel"> <img src="http://i.imgur.com/8lhFhc1.gif" alt="">
-                                            <h4><a href="#">Title 8</a></h4>
-                                            <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                        </article>
-
                                     </section>
+
                                 </div>
                             </div>
                             <!-- Promotion -->
@@ -108,16 +91,14 @@ include '../dbconn.php';
                                     <section id="pinBootpromo">
                                         <div class="row">
                                             <div class="col-md-3">
-                                                <div class="thumbnail">
-                                                    <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                    <div class="caption">
-                                                        <h3>Thumbnail label</h3>
-                                                        <p>...</p>
-                                                        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                    </div>
-                                                </div>
+                                                <section id="pinBoot">
+                                                    <article class="white-panel"><img src="../assets/images/sixStep/step5.png" alt="">
+                                                        <h4><a href="#">ฟรีค่าจัดส่ง</a></h4>
+                                                        <p>1 เดือนเท่านั้น</p>
+                                                    </article>
+                                                </section>
                                             </div>
-                                            <div class="col-md-3">
+                                            <!--<div class="col-md-3">
                                                 <div class="thumbnail">
                                                     <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
                                                     <div class="caption">
@@ -126,75 +107,13 @@ include '../dbconn.php';
                                                         <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="thumbnail">
-                                                    <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                    <div class="caption">
-                                                        <h3>Thumbnail label</h3>
-                                                        <p>...</p>
-                                                        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="thumbnail">
-                                                    <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                    <div class="caption">
-                                                        <h3>Thumbnail label</h3>
-                                                        <p>...</p>
-                                                        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                    </div>
-                                                </div>
-                                            </div>                                                
-                                        </div> <hr class="hrs">
-
-                                        <!-- 3 -->
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <div class="thumbnail">
-                                                    <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                    <div class="caption">
-                                                        <h3>Thumbnail label</h3>
-                                                        <p>...</p>
-                                                        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="thumbnail">
-                                                    <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                    <div class="caption">
-                                                        <h3>Thumbnail label</h3>
-                                                        <p>...</p>
-                                                        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="thumbnail">
-                                                    <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                    <div class="caption">
-                                                        <h3>Thumbnail label</h3>
-                                                        <p>...</p>
-                                                        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="thumbnail">
-                                                    <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                    <div class="caption">
-                                                        <h3>Thumbnail label</h3>
-                                                        <p>...</p>
-                                                        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                    </div>
-                                                </div>
-                                            </div> 
+                                            </div>     -->                    
                                         </div>
                                     </section>
                                 </div>
                             </div>
+
+
                             <!-- Order -->
                             <div role="tabpanel" class="tab-pane" id="order">
                                 <div class="wizard">
@@ -241,263 +160,278 @@ include '../dbconn.php';
                                         </ul>
                                     </div>
 
-                                    <form role="form">
-                                        <div class="tab-content">
-                                            <div class="tab-pane active" role="tabpanel" id="step1">
-                                                <div class="container_field">
-                                                    <h3>ขั้นตอนที่ 1 : เลือกกล่อง</h3>
-                                                    <input type="checkbox" name="sex" value="male">&nbsp;อาหารจานเดียว&nbsp;&nbsp;
-                                                    <input type="checkbox" name="sex" value="female">&nbsp;ข้าว + กับข้าว 1 อย่าง&nbsp;&nbsp;
-                                                    <input type="checkbox" name="sex" value="male">&nbsp;ข้าว + กับข้าว 2 อย่าง&nbsp;&nbsp;
-                                                    <input type="checkbox" name="sex" value="female">&nbsp;ข้าว + กับข้าว 3 อย่าง
-                                                </div>
-                                                <ul class="list-inline pull-right">
-                                                    <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
-                                                </ul>
-                                            </div>
-                                            <div class="tab-pane" role="tabpanel" id="step2">
-                                                <div class="container_field">
-                                                    <h3>ขั้นตอนที่ 2 : เลือกข้าว</h3>
-                                                    <input type="checkbox" name="sex" value="male">&nbsp;ข้าวหอมมะลิ&nbsp;&nbsp;
-                                                    <input type="checkbox" name="sex" value="female">&nbsp;ข้าวเสาไห้&nbsp;&nbsp;
-                                                    <input type="checkbox" name="sex" value="male">&nbsp;ข้าวกล้อง&nbsp;&nbsp;
-                                                    <input type="checkbox" name="sex" value="female">&nbsp;ข้าวไรซ์เบอรี่
-                                                </div>
-                                                <ul class="list-inline pull-right">
-                                                    <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
-                                                    <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
-                                                </ul>
-                                            </div>
-                                            <div class="tab-pane" role="tabpanel" id="step3">
-                                                <div class="container_field">
-                                                    <h3>ขั้นตอนที่ 3 : เลือกกับข้าว</h3>
-                                                    <h3>ลำดับที่ 1</h3>
-                                                    <div class="row">
-                                                        <div class="col-md-3">
-                                                            <div class="thumbnail">
-                                                                <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                                <div class="caption">
-                                                                    <h3>Thumbnail label</h3>
-                                                                    <p>...</p>
-                                                                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <div class="thumbnail">
-                                                                <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                                <div class="caption">
-                                                                    <h3>Thumbnail label</h3>
-                                                                    <p>...</p>
-                                                                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <div class="thumbnail">
-                                                                <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                                <div class="caption">
-                                                                    <h3>Thumbnail label</h3>
-                                                                    <p>...</p>
-                                                                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <div class="thumbnail">
-                                                                <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                                <div class="caption">
-                                                                    <h3>Thumbnail label</h3>
-                                                                    <p>...</p>
-                                                                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                                </div>
-                                                            </div>
-                                                        </div>                        
-                                                    </div> <hr class="hrs">
 
-                                                    <!-- 2 -->
-                                                    <h3>ลำดับที่ 2</h3>
-                                                    <div class="row">
-                                                        <div class="col-md-3">
-                                                            <div class="thumbnail">
-                                                                <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                                <div class="caption">
-                                                                    <h3>Thumbnail label</h3>
-                                                                    <p>...</p>
-                                                                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <div class="thumbnail">
-                                                                <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                                <div class="caption">
-                                                                    <h3>Thumbnail label</h3>
-                                                                    <p>...</p>
-                                                                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <div class="thumbnail">
-                                                                <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                                <div class="caption">
-                                                                    <h3>Thumbnail label</h3>
-                                                                    <p>...</p>
-                                                                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <div class="thumbnail">
-                                                                <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                                <div class="caption">
-                                                                    <h3>Thumbnail label</h3>
-                                                                    <p>...</p>
-                                                                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                                </div>
-                                                            </div>
-                                                        </div>                                                
-                                                    </div> <hr class="hrs">
-
-                                                    <!-- 3 -->
-                                                    <h3>ลำดับที่ 3</h3>
-                                                    <div class="row">
-                                                        <div class="col-md-3">
-                                                            <div class="thumbnail">
-                                                                <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                                <div class="caption">
-                                                                    <h3>Thumbnail label</h3>
-                                                                    <p>...</p>
-                                                                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <div class="thumbnail">
-                                                                <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                                <div class="caption">
-                                                                    <h3>Thumbnail label</h3>
-                                                                    <p>...</p>
-                                                                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <div class="thumbnail">
-                                                                <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                                <div class="caption">
-                                                                    <h3>Thumbnail label</h3>
-                                                                    <p>...</p>
-                                                                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <div class="thumbnail">
-                                                                <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                                <div class="caption">
-                                                                    <h3>Thumbnail label</h3>
-                                                                    <p>...</p>
-                                                                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                                </div>
-                                                            </div>
-                                                        </div>                                                
-                                                    </div>
-                                                </div>
-                                                <ul class="list-inline pull-right">
-                                                    <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
-                                                    <li><button type="button" class="btn btn-primary btn-info-full next-step">Save and continue</button></li>
-                                                </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" role="tabpanel" id="step1">
+                                            <div class="container_field">
+                                                <h3>ขั้นตอนที่ 1 : เลือกกล่อง</h3>
+                                                <?php
+                                                $foodboxRes = $con->query("SELECT food_box.id, food_box.description, "
+                                                        . "mapping_food_box.restaurant_id as resid "
+                                                        . "FROM mapping_food_box "
+                                                        . "LEFT JOIN food_box ON food_box.id = mapping_food_box.food_box_id "
+                                                        . "WHERE mapping_food_box.restaurant_id = '$resid' ");
+                                                $foodboxData = $foodboxRes->fetch_assoc();
+                                                while ()
+                                                ?>
+                                                <input type="checkbox" name="sex" value="male">&nbsp;อาหารจานเดียว&nbsp;&nbsp;
+                                                
+                                                <?php ?>
                                             </div>
-                                            <div class="tab-pane" role="tabpanel" id="step4">
-                                                <div class="tab-pane" role="tabpanel" id="step4">
-                                                    <div class="container_field">
-                                                        <h3>ขั้นตอนที่ 4 : เลือกวัน เวลา และสถานที่จัดส่ง</h3>
-                                                        <div>
-                                                            <h3>ส่งวันที่ :     
-                                                                <input type="date" name="senddate">
-                                                            </h3>
-                                                        </div>
-                                                        <div>
-                                                            <h3>เวลาประมาณ :     
-                                                                <input type="time" name="sendtime">
-                                                            </h3>
-                                                        </div>
-                                                        <h3>สถานที่</h3>
-                                                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2637.965367675441!2d100.49418899116831!3d13.651153172648238!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0000000000000000%3A0x0f0100b33d0b31d0!2sKing+Mongkut%E2%80%99s+University+of+Technology+Thonburi!5e0!3m2!1sth!2s!4v1442071829798" width="730" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
-                                                        <br><br>
-                                                        <h3>เลือกจากสถานที่ของคุณ</h3>
-                                                        <div class="content2">
-                                                            <table class="table table-hover" id="task-table">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>No.</th>
-                                                                        <th>Address</th>
-                                                                        <th>Select</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td>1</td>
-                                                                        <td>123 ม.4 ต.ยยยยยยยย</td>
-                                                                        <td><input type="checkbox"></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>2</td>
-                                                                        <td>3848 ม.บางมด</td>
-                                                                        <td><input type="checkbox"></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td></td>
-                                                                        <td></td>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                            <div class="row">
-                                                                <div id="inbox" style="margin:15% 0 0 0;">
-                                                                    <div class="fab btn-group show-on-hover dropup" id="add_sa" data-toggle="modal" data-target="#add_address">
-                                                                        <button type="button" class="btn btn-danger glyphicon glyphicon-plus btn-io">
-                                                                            <span class="fa-stack fa-2x">
-                                                                                <i class="fa fa-circle fa-stack-2x fab-backdrop"></i>
-                                                                                <i class="fa fa-plus fa-stack-1x fa-inverse fab-primary"></i>
-                                                                                <i class="fa fa-plus fa-stack-1x fa-inverse fab-secondary"></i>
-                                                                            </span>
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>  
-                                                        </div>
-                                                    </div>
-                                                    <ul class="list-inline pull-right">
-                                                        <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
-                                                        <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
-                                                    </ul>
-                                                </div>                                   
-                                            </div>
-                                            <div class="tab-pane" role="tabpanel" id="step5">
-                                                <div class="container_field">
-                                                    <div class="row">                                                        
-                                                        <h3>ขั้นตอนที่ 5 : เลือกวิธีชำระเงิน</h3>
-                                                        <div class="col-md-6">
-                                                            <input type="checkbox" name="sex" value="male">&nbsp;เงินสด&nbsp;&nbsp;
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <input type="checkbox" name="sex" value="female">&nbsp;โอนเงินผ่านบัญชีธนาคาร&nbsp;&nbsp;
-                                                            <p>เลขที่บัญชี:_____________</p>
-                                                            <p>ชื่อบัญชี:_______________</p>
-                                                            <p>ธนาคาร:________สาขา_______</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <ul class="list-inline pull-right">
-                                                    <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
-                                                    <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
-                                                </ul>
-                                            </div>
+                                            <ul class="list-inline pull-right">
+                                                <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
+                                            </ul>
                                         </div>
-                                    </form>
+                                        <div class="tab-pane" role="tabpanel" id="step2">
+                                            <div class="container_field">
+                                                <h3>ขั้นตอนที่ 2 : เลือกข้าว</h3>
+                                                <input type="checkbox" name="sex" value="male">&nbsp;ข้าวหอมมะลิ&nbsp;&nbsp;
+                                                <input type="checkbox" name="sex" value="female">&nbsp;ข้าวเสาไห้&nbsp;&nbsp;
+                                                <input type="checkbox" name="sex" value="male">&nbsp;ข้าวกล้อง&nbsp;&nbsp;
+                                                <input type="checkbox" name="sex" value="female">&nbsp;ข้าวไรซ์เบอรี่
+                                            </div>
+                                            <ul class="list-inline pull-right">
+                                                <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
+                                                <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
+                                            </ul>
+                                        </div>
+                                        <div class="tab-pane" role="tabpanel" id="step3" >
+                                            <div class="container_field">
+                                                <h3>ขั้นตอนที่ 3 : เลือกกับข้าว</h3>
+                                                <h3>ลำดับที่ 1</h3>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div class="thumbnail">
+                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                                                            <div class="caption">
+                                                                <h3>Thumbnail label</h3>
+                                                                <p>...</p>
+                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="thumbnail">
+                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                                                            <div class="caption">
+                                                                <h3>Thumbnail label</h3>
+                                                                <p>...</p>
+                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="thumbnail">
+                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                                                            <div class="caption">
+                                                                <h3>Thumbnail label</h3>
+                                                                <p>...</p>
+                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="thumbnail">
+                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                                                            <div class="caption">
+                                                                <h3>Thumbnail label</h3>
+                                                                <p>...</p>
+                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>                        
+                                                </div> <hr class="hrs">
+
+                                                <!-- 2 -->
+                                                <h3>ลำดับที่ 2</h3>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div class="thumbnail">
+                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                                                            <div class="caption">
+                                                                <h3>Thumbnail label</h3>
+                                                                <p>...</p>
+                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="thumbnail">
+                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                                                            <div class="caption">
+                                                                <h3>Thumbnail label</h3>
+                                                                <p>...</p>
+                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="thumbnail">
+                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                                                            <div class="caption">
+                                                                <h3>Thumbnail label</h3>
+                                                                <p>...</p>
+                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="thumbnail">
+                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                                                            <div class="caption">
+                                                                <h3>Thumbnail label</h3>
+                                                                <p>...</p>
+                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>                                                
+                                                </div> <hr class="hrs">
+
+                                                <!-- 3 -->
+                                                <h3>ลำดับที่ 3</h3>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div class="thumbnail">
+                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                                                            <div class="caption">
+                                                                <h3>Thumbnail label</h3>
+                                                                <p>...</p>
+                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="thumbnail">
+                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                                                            <div class="caption">
+                                                                <h3>Thumbnail label</h3>
+                                                                <p>...</p>
+                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="thumbnail">
+                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                                                            <div class="caption">
+                                                                <h3>Thumbnail label</h3>
+                                                                <p>...</p>
+                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="thumbnail">
+                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                                                            <div class="caption">
+                                                                <h3>Thumbnail label</h3>
+                                                                <p>...</p>
+                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>                                                
+                                                </div>
+                                            </div>
+                                            <ul class="list-inline pull-right">
+                                                <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
+                                                <li><button type="button" class="btn btn-primary btn-info-full next-step">Save and continue</button></li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="tab-pane" role="tabpanel" id="step4">
+                                            <div class="tab-pane" role="tabpanel" id="step4">
+                                                <div class="container_field">
+                                                    <h3>ขั้นตอนที่ 4 : เลือกวัน เวลา และสถานที่จัดส่ง</h3>
+                                                    <div>
+                                                        <h3>ส่งวันที่ :     
+                                                            <input type="date" name="senddate">
+                                                        </h3>
+                                                    </div>
+                                                    <div>
+                                                        <h3>เวลาประมาณ :     
+                                                            <input type="time" name="sendtime">
+                                                        </h3>
+                                                    </div>
+                                                    <h3>สถานที่</h3>
+
+                                                    <br><br>
+                                                    <h3>เลือกจากสถานที่ของคุณ</h3>
+                                                    <div class="content2">
+                                                        <table class="table table-hover" id="task-table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>No.</th>
+                                                                    <th>Address</th>
+                                                                    <th>Select</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>1</td>
+                                                                    <td>123 ม.4 ต.ยยยยยยยย</td>
+                                                                    <td><input type="checkbox"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>2</td>
+                                                                    <td>3848 ม.บางมด</td>
+                                                                    <td><input type="checkbox"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <div class="row">
+                                                            <div id="inbox" style="margin:15% 0 0 0;">
+                                                                <div class="fab btn-group show-on-hover dropup" id="add_sa" data-toggle="modal" data-target="#add_address">
+                                                                    <button type="button" class="btn btn-danger glyphicon glyphicon-plus btn-io">
+                                                                        <span class="fa-stack fa-2x">
+                                                                            <i class="fa fa-circle fa-stack-2x fab-backdrop"></i>
+                                                                            <i class="fa fa-plus fa-stack-1x fa-inverse fab-primary"></i>
+                                                                            <i class="fa fa-plus fa-stack-1x fa-inverse fab-secondary"></i>
+                                                                        </span>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>  
+                                                    </div>
+                                                </div>
+                                                <ul class="list-inline pull-right">
+                                                    <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
+                                                    <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
+                                                </ul>
+                                            </div>                                   
+                                        </div>
+                                        <div class="tab-pane" role="tabpanel" id="step5">
+                                            <div class="container_field">
+                                                <div class="row">                                                        
+                                                    <h3>ขั้นตอนที่ 5 : เลือกวิธีชำระเงิน</h3>
+                                                    <div class="col-md-6">
+                                                        <input type="checkbox" name="sex" value="male">&nbsp;เงินสด&nbsp;&nbsp;
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <input type="checkbox" name="sex" value="female">&nbsp;โอนเงินผ่านบัญชีธนาคาร&nbsp;&nbsp;
+                                                        <p>เลขที่บัญชี:_____________</p>
+                                                        <p>ชื่อบัญชี:_______________</p>
+                                                        <p>ธนาคาร:________สาขา_______</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <ul class="list-inline pull-right">
+                                                <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
+                                                <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Promotion -->
+                            <div role="tabpanel" class="tab-pane" id="info">
+                                <br><div class="row">
+
                                 </div>
                             </div>
                         </div>
@@ -541,61 +475,8 @@ include '../dbconn.php';
         </section> 
 
 
-        <?php
-        include '../template/footer.php';
-        iconscript();
-        ?>
+        <?php include '../template/footer.php'; ?>
 
-        <script>
-            (function () {
-                'use strict';
-                $.fn.extend({
-                    filterTable: function () {
-                        return this.each(function () {
-                            $(this).on('keyup', function (e) {
-                                $('.filterTable_no_results').remove();
-                                var $this = $(this),
-                                        search = $this.val().toLowerCase(),
-                                        target = $this.attr('data-filters'),
-                                        $target = $(target),
-                                        $rows = $target.find('tbody tr');
-
-                                if (search == '') {
-                                    $rows.show();
-                                } else {
-                                    $rows.each(function () {
-                                        var $this = $(this);
-                                        $this.text().toLowerCase().indexOf(search) === -1 ? $this.hide() : $this.show();
-                                    })
-                                    if ($target.find('tbody tr:visible').size() === 0) {
-                                        var col_count = $target.find('tr').first().find('td').size();
-                                        var no_results = $('<tr class="filterTable_no_results"><td colspan="' + col_count + '">No results found</td></tr>')
-                                        $target.find('tbody').append(no_results);
-                                    }
-                                }
-                            });
-                        });
-                    }
-                });
-                $('[data-action="filter"]').filterTable();
-            })(jQuery);
-
-            $(function () {
-                // attach table filter plugin to inputs
-                $('[data-action="filter"]').filterTable();
-
-                $('.container').on('click', '.panel-heading span.filter', function (e) {
-                    var $this = $(this),
-                            $panel = $this.parents('.panel');
-
-                    $panel.find('.panel-body').slideToggle();
-                    if ($this.css('display') != 'none') {
-                        $panel.find('.panel-body input').focus();
-                    }
-                });
-                $('[data-toggle="tooltip"]').tooltip();
-            });
-        </script>
         <script>
             var __slice = [].slice;
 
@@ -713,6 +594,7 @@ include '../dbconn.php';
                 });
             });
         </script>
+
         <script>
             $(document).ready(function () {
                 //Initialize tooltips
@@ -750,35 +632,6 @@ include '../dbconn.php';
                 $(elem).prev().find('a[data-toggle="tab"]').click();
             }
         </script>
-        <script>
-            $(document).ready(function () {
-
-                // This will wait for the DOM (your HTML) to be loaded before executing aFunction
-
-                /* uncomment to use optios
-                 var options = {
-                 selectedDate: '2013-01-01',
-                 selectedDateFormat: 'YYYY-MM-DD'
-                 }
-                 
-                 $('#paginator').datepaginator(options);
-                 
-                 */
-
-                //  defatult settings, i.e. today's date etc.
-
-                $('#paginator').datepaginator();
-
-
-                /* uncomment to add event if date is changed
-                 $('#paginator').on('selectedDateChanged', function(event, date) {
-                 // Your logic goes here
-                 alert('Date was changed.');
-                 });
-                 */
-
-            });
-        </script>
         <script type="text/javascript" src="http://jondmiles.com/bootstrap-datepaginator/js/moment.min.js"></script>
         <script type="text/javascript" src="http://jondmiles.com/bootstrap-datepaginator/js/bootstrap-datepicker.js"></script>
         <script type="text/javascript" src="http://jondmiles.com/bootstrap-datepaginator/js/bootstrap-datepaginator.min.js"></script>
@@ -793,6 +646,11 @@ include '../dbconn.php';
                     single_column_breakpoint: 700
                 });
             });
+            $('#paginator').datepaginator();
+
+            $('#info').click(function (e) {
+                alert('ccccc');
+            });
 
             /*
              Ref:
@@ -800,25 +658,6 @@ include '../dbconn.php';
              http://www.jqueryscript.net/layout/Simple-jQuery-Plugin-To-Create-Pinterest-Style-Grid-Layout-Pinterest-Grid.html
              */
 
-
-            /*
-             Pinterest Grid Plugin
-             Copyright 2014 Mediademons
-             @author smm 16/04/2014
-             
-             usage:
-             
-             $(document).ready(function() {
-             
-             $('#blog-landing').pinterest_grid({
-             no_columns: 4
-             });
-             
-             });
-             
-             
-             */
-            ;
             (function ($, window, document, undefined) {
                 var pluginName = 'pinterest_grid',
                         defaults = {

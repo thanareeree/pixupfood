@@ -1,6 +1,7 @@
 <?php
 
 include '../dbconn.php';
+$id = $_GET["id"];
 
 $target_dir = "../upload/customer/";
 
@@ -12,13 +13,13 @@ $target_file = $target_dir . $newfliename;
 
 
 
-$fname = $_POST["ecfname"];
-$lname = $_POST["eclname"];
-$email = $_POST["ecemail"];
-$tel = $_POST["ecphone"];
-$address = $_POST["ecadd"];
+$fname = @$_POST["ecfname"];
+$lname = @$_POST["eclname"];
+$email = @$_POST["ecemail"];
+$tel = @$_POST["ecphone"];
+$address = @$_POST["ecadd"];
 
-$id = $_GET["id"];
+
 
 
 
