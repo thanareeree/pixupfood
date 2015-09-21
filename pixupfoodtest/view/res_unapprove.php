@@ -69,7 +69,7 @@ include './res_navbar.php';
                                 <div class="col-md-9 content2 center-block">
                                     <div class="col-md-12" >
                                         <h3 style="text-align: center">ท่านยังไม่สามารถเข้าใช้เว็บไซต์ในขณะนี้ได้</h3><br>
-                                        <h3 style="text-align: center">   กรุณารอ Admin ของระบบทำการตรวจสอบข้อมูลก่อน</h3>
+                                        <h3 style="text-align: center">กรุณารอ Admin ของระบบทำการตรวจสอบข้อมูลก่อน</h3>
                                     </div>
                                 </div>
                             </div>
