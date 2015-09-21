@@ -27,7 +27,7 @@ if (isset($_SESSION["islogin"])) {
                     <form action="../view/search_page.php" method="get">
                         <div id="custom-search-input">
                             <div class="input-group col-md-12">
-                                <input type="text" name="search" value="<?=@$_GET["search"]?>" class="form-control input-lg" placeholder="Search.." />
+                                <input type="text" name="search" value="<?= @$_GET["search"] ?>" class="form-control input-lg" placeholder="Search.." />
                                 <span class="input-group-btn">
                                     <button class="btn btn-info btn-lg" type="submit">
                                         <i class="glyphicon glyphicon-search"></i>
@@ -51,19 +51,19 @@ if (isset($_SESSION["islogin"])) {
                                     <div class="panel panel-info">
                                         <div class="panel-body">
                                             <div class="row">
-                                                <div class="col-md-4" style="border-right:1px solid #ccc;height:auto;">
+                                                <div class="col-md-5" style="border-right:1px solid #ccc;height:auto;">
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <a href="cus_customer_profile.php">
-                                                                <img src="<?= $data["img_path"] ?>" width="160px" height="160px">
+                                                                <img src="<?= $data["img_path"] ?>" style="max-width: 110px; max-height: 110px">
                                                             </a>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-8">
+                                                <div class="col-md-7">
                                                     <form class="form-horizontal">
                                                         <fieldset>
-                                                            <input id="textinput" name="textinput" type="text" placeholder="Enter User Name" class="form-control input-md"><br>
+                                                           <br><br> <br><br>
                                                             <a href="../api/logout.php">
                                                                 <button id="logoutbutton" type="button" class="btn btn-danger btn-sm pull-right" style="margin-left: 15px;">Logout</button>
                                                             </a>
@@ -104,10 +104,10 @@ if (isset($_SESSION["islogin"])) {
                 <a href="../index.php" style="color:rgba(255,127,0,1)" class="navbar-brand">Pixup</a>
                 <a href="../index.php" class="navbar-brand" style="color:black;padding-left: 0px;">Food</a>
                 <div class="col-md-4" style="margin:7px 0 0 15%;">
-                     <form action="../view/search_page.php" method="get">
+                    <form action="../view/search_page.php" method="get">
                         <div id="custom-search-input">
                             <div class="input-group col-md-12">
-                                <input type="text" name="search" value="<?=@$_GET["search"]?>" class="form-control input-lg" placeholder="Search.." />
+                                <input type="text" name="search" value="<?= @$_GET["search"] ?>" class="form-control input-lg" placeholder="Search.." />
                                 <span class="input-group-btn">
                                     <button class="btn btn-info btn-lg" type="submit">
                                         <i class="glyphicon glyphicon-search"></i>
@@ -159,10 +159,19 @@ if (isset($_SESSION["islogin"])) {
                                                         <div class="col-md-1"></div>
                                                     </div>
                                                 </div>
-
+                                                <?php
+                                                $pageURL = 'http';
+                                                $pageURL .= "://";
+                                                if ($_SERVER["SERVER_PORT"] != "80") {
+                                                    $pageURL .=$_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["REQUEST_URI"];
+                                                } else {
+                                                    $pageURL .= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+                                                }
+                                                ?>
                                                 <div class="col-md-7" style="border-left:1px solid #ccc;height:160px">
                                                     <form class="form-horizontal" action="../api/loginsession.php" method="post">
                                                         <fieldset>
+                                                            <input type="hidden" name="current_url" value="<?= $pageURL ?>">
                                                             <input id="textinput" name="loginemail" type="text" placeholder="Enter User Name" class="form-control input-md">                                                                
                                                             <input id="textinput" name="password" type="password" placeholder="Enter Password" class="form-control input-md" style="margin: 10px 0 5px 0">
                                                             <div class="spacing"><input type="checkbox" name="checkboxes" id="checkboxes-0" value="1"><small> Remember me</small></div>

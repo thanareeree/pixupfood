@@ -2,7 +2,7 @@
 session_start();
 
 include '../dbconn.php';
-
+$currenturl = @$_POST["current_url"];
 $email = $_POST["loginemail"];
 $password = $_POST["password"];
 $de_password = md5($password);
@@ -28,9 +28,7 @@ if ($res->num_rows == 0 && $res2->num_rows == 0) {
     } else if ($_SESSION["userdata"]["available"] != 0) {
         ?>
         <script>
-            //location.reload();
-            history.go(2);
-            //document.location = "../view/cus_customer_profile.php";
+            document.location = "<?= $currenturl ?>";
         </script>
         <?php
 
