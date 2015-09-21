@@ -57,7 +57,9 @@ if ($searchby == "foodname") {
                 <p style="font-size: 20px"><?= $data["price"] ?>&nbsp;บาท<br></p>
             </td>
             <td>
-                <button class="btn btn-success menu_order" id="menu_order<?= $data["id"] ?>"><i class="glyphicon glyphicon-plus"></i>&nbsp; สั่งรายการอาหารนี้</button>
+                <span class="tooltip-r" data-toggle="tooltip" data-placement="top" title="log in to ordet this restaurant">
+                    <button class="btn btn-success menu_order" id="menu_order<?= $data["id"] ?>"><i class="glyphicon glyphicon-plus"></i>&nbsp; สั่งรายการอาหารนี้</button>
+                </span>
             </td>
         </tr>
         <?php
@@ -97,7 +99,9 @@ if ($searchby == "foodname") {
             </td>
             <td>
                 <a href="../view/cus_restaurant_view.php?resId=<?= $data["id"] ?>">
-                    <button class="btn btn-success restaurant_order" id="restaurant_order<?= $data["id"] ?>"><i class="glyphicon glyphicon-plus"></i>&nbsp; สั่งอาหารล่วงหน้า</button>
+                    <span class="tooltip-r" data-toggle="tooltip" data-placement="top" title="log in to ordet this restaurant">
+                        <button class="btn btn-success restaurant_order" id="restaurant_order<?= $data["id"] ?>"><i class="glyphicon glyphicon-plus"></i>&nbsp; สั่งอาหารล่วงหน้า</button>
+                    </span>
                 </a>
             </td>
         </tr>
@@ -141,7 +145,9 @@ if ($searchby == "foodname") {
             </td>
             <td>
                 <a href="../view/cus_restaurant_view.php?resId=<?= $data["id"] ?>">
-                    <button class="btn btn-success restaurant_order" id="restaurant_order<?= $data["id"] ?>"><i class="glyphicon glyphicon-plus"></i>&nbsp; สั่งอาหารล่วงหน้า</button>
+                    <span class="tooltip-r" data-toggle="tooltip" data-placement="top" title="log in to ordet this restaurant">
+                        <button class="btn btn-success restaurant_order" id="restaurant_order<?= $data["id"] ?>"><i class="glyphicon glyphicon-plus"></i>&nbsp; สั่งอาหารล่วงหน้า</button>
+                    </span>
                 </a>
             </td>
         </tr>

@@ -187,7 +187,7 @@ include '../dbconn.php';
                                                     <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
                                                 </ul>
                                             </div>
-                                            <div class="tab-pane" role="tabpanel" id="step3">
+                                            <div class="tab-pane" role="tabpanel" id="step3" >
                                                 <div class="container_field">
                                                     <h3>ขั้นตอนที่ 3 : เลือกกับข้าว</h3>
                                                     <h3>ลำดับที่ 1</h3>
@@ -639,6 +639,11 @@ include '../dbconn.php';
                 });
             });
             $('#paginator').datepaginator();
+            
+            $('#info').click(function (e){
+                alert('ccccc');
+            });
+            
             /*
              Ref:
              Thanks to:
