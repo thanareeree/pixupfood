@@ -43,6 +43,13 @@ include '../dbconn.php';
                 . "where restaurant.id = '$resid' "
                 . "and zone.name IN (SELECT zone.name FROM zone WHERE id = restaurant.zone_id)");
         $restaurantdata = $restaurantres->fetch_assoc();
+
+        $cusid = $_SESSION["userdata"]["id"];
+        $customerRes = $con->query("select customer.id, customer.firstName, customer.lastName,"
+                . " customer.email, customer.tel, customer.address   "
+                . "from customer "
+                . "where id = '$cusid' ");
+        $customerData = $customerRes->fetch_assoc();
         ?>
         <?php include '../template/customer-navbar.php'; ?>
 
@@ -217,8 +224,8 @@ include '../dbconn.php';
                                                             <div class="thumbnail">
                                                                 <a href="#"><img class="menu_img" src="<?= ($foddListData["img_path"] == "") ? '../assets/images/default-img360.png' : $foddListData["img_path"] ?>"></a>
                                                                 <div class="caption">
-                                                                    <h4><?=$foddListData["name"]?></h4>
-                                                                    <p><?=$foddListData["price"]?>&nbsp;บาท</p>
+                                                                    <h4><?= $foddListData["name"] ?></h4>
+                                                                    <p><?= $foddListData["price"] ?>&nbsp;บาท</p>
                                                                     <p style="text-align: right"><button type="button" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i></button></p>
                                                                 </div>
                                                             </div>
@@ -241,8 +248,8 @@ include '../dbconn.php';
                                                             <div class="thumbnail">
                                                                 <a href="#"><img class="menu_img" src="<?= ($foddListData["img_path"] == "") ? '../assets/images/default-img360.png' : $foddListData["img_path"] ?>"></a>
                                                                 <div class="caption">
-                                                                    <h4><?=$foddListData["name"]?></h4>
-                                                                    <p><?=$foddListData["price"]?>&nbsp;บาท</p>
+                                                                    <h4><?= $foddListData["name"] ?></h4>
+                                                                    <p><?= $foddListData["price"] ?>&nbsp;บาท</p>
                                                                     <p style="text-align: right"><button type="button" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i></button></p>
                                                                 </div>
                                                             </div>
@@ -251,7 +258,7 @@ include '../dbconn.php';
                                                         <?php
                                                     }
                                                     ?>
-                                                                                              
+
                                                 </div> <hr class="hrs">
 
                                                 <!-- 3 -->
@@ -266,8 +273,8 @@ include '../dbconn.php';
                                                             <div class="thumbnail">
                                                                 <a href="#"><img class="menu_img" src="<?= ($foddListData["img_path"] == "") ? '../assets/images/default-img360.png' : $foddListData["img_path"] ?>"></a>
                                                                 <div class="caption">
-                                                                    <h4><?=$foddListData["name"]?></h4>
-                                                                    <p><?=$foddListData["price"]?>&nbsp;บาท</p>
+                                                                    <h4><?= $foddListData["name"] ?></h4>
+                                                                    <p><?= $foddListData["price"] ?>&nbsp;บาท</p>
                                                                     <p style="text-align: right"><button type="button" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i></button></p>
                                                                 </div>
                                                             </div>
@@ -289,44 +296,58 @@ include '../dbconn.php';
                                                 <div class="container_field">
                                                     <h3>ขั้นตอนที่ 4 : เลือกวัน เวลา และสถานที่จัดส่ง</h3>
                                                     <div>
-                                                        <h3>ส่งวันที่ :     
+                                                        <h4>ส่งวันที่:     
                                                             <input type="date" name="senddate">
-                                                        </h3>
+                                                        </h4>
                                                     </div>
                                                     <div>
-                                                        <h3>เวลาประมาณ :     
+                                                        <h4>เวลาประมาณ:     
                                                             <input type="time" name="sendtime">
-                                                        </h3>
+                                                        </h4>
                                                     </div>
-                                                    <h3>สถานที่</h3>
-
-                                                    <br><br>
-                                                    <h3>เลือกจากสถานที่ของคุณ</h3>
+                                                    <h3>สถานที่จัดส่ง:</h3>
                                                     <div class="content2">
                                                         <table class="table table-hover" id="task-table">
                                                             <thead>
                                                                 <tr>
                                                                     <th>No.</th>
-                                                                    <th>Address</th>
+                                                                    <th colspan="3">Address</th>
                                                                     <th>Select</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
                                                                 <tr>
                                                                     <td>1</td>
-                                                                    <td>123 ม.4 ต.ยยยยยยยย</td>
-                                                                    <td><input type="checkbox"></td>
+                                                                    <td colspan="3"><?= $customerData['address'] ?></td>
+                                                                    <td><input type="radio" value="<?= $customerData['address'] ?>" name="shipAddressCus"> </td>
                                                                 </tr>
-                                                                <tr>
-                                                                    <td>2</td>
-                                                                    <td>3848 ม.บางมด</td>
-                                                                    <td><input type="checkbox"></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                </tr>
+                                                                <?php
+                                                                $i = 2;
+                                                                $numrow = 0;
+                                                                if($cusid!='') {
+                                                                    $shipAddressRess = $con->query("SELECT  shippingAddress.address,shippingAddress.type, "
+                                                                            . " shippingAddress.address_naming, shippingAddress.id"
+                                                                            . "FROM `shippingAddress` "
+                                                                            . "WHERE  customer_id = '$cusid'");
+                                                                    $numrow = $shipAddressRess->num_rows;
+                                                                }
+                                                                if ($numrow == 0) {
+                                                                    ?>
+                                                                    <tr><td></td><td colspan="3" style="text-align: center;"></td><td></td></tr>
+                                                                    <?php
+                                                                } else {
+                                                                    while ($shipAddressData = $shipAddressRess->fetch_assoc()) {
+                                                                        ?>
+                                                                        <tr>
+                                                                            <td><?= $i++; ?></td>
+                                                                            <td colspan="3"><?= $shipAddressData['address'] ?></td>
+                                                                            <td><input type="radio"  name="shipAddress<?= $shipAddressData['id'] ?>" value="<?= $shipAddressData['address'] ?>"> </td>
+                                                                        </tr>
+
+                                                                        <?php
+                                                                    }
+                                                                }
+                                                                ?>
                                                             </tbody>
                                                         </table>
                                                         <div class="row">
@@ -343,6 +364,7 @@ include '../dbconn.php';
                                                             </div>
                                                         </div>  
                                                     </div>
+
                                                 </div>
                                                 <ul class="list-inline pull-right">
                                                     <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
