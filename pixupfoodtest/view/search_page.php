@@ -28,7 +28,7 @@ include '../dbconn.php';
                                     <select class="form-control" id="searchby">
                                         <option value="foodname">รายการอาหาร</option>
                                         <option value="rest">ร้านอาหาร</option>
-                                        <option value="nearbyfood">ร้านอาหารบริเวณใกล้เคียง</option>
+                                        <option value="nearbyfood">ร้านอาหารบริเวณใกล้คุณ</option>
                                     </select>
                                 </div>
                             </div>
