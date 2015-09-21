@@ -2,7 +2,7 @@
 session_start();
 
 include '../dbconn.php';
-
+$currenturl = @$_POST["current_url"];
 $email = $_POST["loginemail"];
 $password = $_POST["password"];
 $de_password = md5($password);
@@ -28,7 +28,7 @@ if ($res->num_rows == 0 && $res2->num_rows == 0) {
     } else if ($_SESSION["userdata"]["available"] != 0) {
         ?>
         <script>
-            document.location = "../view/cus_customer_profile.php";
+            document.location = "<?= $currenturl ?>";
         </script>
         <?php
 
@@ -38,13 +38,13 @@ if ($res->num_rows == 0 && $res2->num_rows == 0) {
             document.location = "../view/res_confirmform.php?id=<?= $_SESSION["restdata"]["id"] ?>";
         </script>
         <?php
-    } else if ($_SESSION["restdata"]["available"] == 0) { //แอดมิน ยังไม่อนุมัติ
+    } else if ($_SESSION["restdata"]["available"] == 0 || $_SESSION["restdata"]["available"] == 2) { //แอดมิน ยังไม่อนุมัติ
         ?>
         <script>
             document.location = "../view/res_unapprove.php";
         </script>
         <?php
-    }else if ($_SESSION["restdata"]["available"] != 0) { //แอดมิน อนุมัติแล้ว ร้านอาหารสามารถเข้าไป manage ร้านได้ปกติ
+    }else if ($_SESSION["restdata"]["available"] == 1) { //แอดมิน อนุมัติแล้ว ร้านอาหารสามารถเข้าไป manage ร้านได้ปกติ
         ?>
         <script>
             document.location = "../view/res_restaurant_manage_menulist.php";

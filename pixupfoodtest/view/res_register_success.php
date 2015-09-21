@@ -1,56 +1,37 @@
 <?php
 session_start();
 include '../dbconn.php';
-include './res_navbar.php';
 ?>
 
 
 <html >
     <head>
-        <!-- 
-        Boxer Template
-        http://www.templatemo.com/preview/templatemo_446_boxer
-        -->
-        <meta  charset="utf-8" />
         <title>Restaurant Register Form</title>
-        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="keywords" content="">
-        <meta name="description" content="">
-
-        <!-- animate css -->
-        <link rel="stylesheet" href="../assets/css/animate.min.css">
-        <!-- bootstrap css -->
-        <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
-
-
-
+        <?php include '../template/customer-title.php'; ?>
         <!-- custom css -->
         <link rel="stylesheet" href="../assets/css/register.css">
-        <link rel="stylesheet" href="../assets/css/style.css">
-        <link rel="stylesheet" href="../assets/css/search.css">
-        <link rel="stylesheet" href="../assets/css/slide2.css">
-        <link rel="stylesheet" type="text/css" href="../assets/css/simple-sidebar.css" />
+
         <style>
-            .content2 
-            {
+            .content2 {
                 margin-left: 20px;
+                margin-top: 40px;
+                margin-bottom: 60px;
                 margin-right: 20px;
                 padding: 30px 0;
                 padding-left: 40px;
                 padding-right: 40px;
-                background-color:rgba(255,246,143,0.3);
-                border-top-left-radius:25px;
-                border-top-right-radius:25px;
-                border-bottom-left-radius:25px;
-                border-bottom-right-radius:25px;
-                height:auto;
+                background-color: rgba(255,246,143,0.3);
+                border-top-left-radius: 25px;
+                border-top-right-radius: 25px;
+                border-bottom-left-radius: 25px;
+                border-bottom-right-radius: 25px;
+                height: auto;
             }
         </style>
 
     </head>
     <body>
-        <?php show_navbar(); ?>
+        <?php include './res_navbar.php'; ?>
         <!-- start register -->
         <section id="res_register">
             <div class="overlay">
@@ -69,20 +50,18 @@ include './res_navbar.php';
                                 <div class="col-md-8 content2 center-block">
                                     <div class="col-md-12" >
                                         <h4>ขั้นตอนการสมัครสมาชิกเพื่อเข้าเปิดร้านอาหารบนเว็บไซต์ pixupfood.com ของท่านสำเร็จเรียบร้อย</h4><br>
-                                        <h4>ท่านจะเข้ามาเปิดร้านอาหารได้สมบูรณ์ ก็ต่อเมื่อ Admin ของระบบ อนุญาตให้ท่านเข้าใช้งานเว็บไซต์แล้วเท่านั้น</h4><br>
-                                        <h4>ระบบจะเข้ามาตรวจสอบข้อมูลทุกชั่วโมง โปรดตรวจสอบสถานะได้โดยการเข้าสู่ระบบ</h4>
+                                        <h4>ระบบจะเข้ามาตรวจสอบข้อมูลของท่านทุกชั่วโมง ขอบคุณครับ</h4>
                                     </div>
                                 </div>
                             </div>
-                            </div>
                         </div>
                     </div>
-                </div>
+                </div> 
+
             </div>
         </section>
 
-
-        <?php show_footer(); ?>
+        <?php include '../template/footer.php'; ?>
         <script>
             $(document).ready(function () {
                 $("#cancelbtn").on("click", function (e) {

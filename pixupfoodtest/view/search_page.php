@@ -28,7 +28,7 @@ include '../dbconn.php';
                                     <select class="form-control" id="searchby">
                                         <option value="foodname">รายการอาหาร</option>
                                         <option value="rest">ร้านอาหาร</option>
-                                        <option value="nearbyfood">ร้านอาหารบริเวณใกล้เคียง</option>
+                                        <option value="nearbyfood">ร้านอาหารบริเวณใกล้คุณ</option>
                                     </select>
                                 </div>
                             </div>
@@ -82,8 +82,9 @@ include '../dbconn.php';
                                     <table id="fresh-table" class="table">
                                         <thead style="background-color: #FF9F00">
                                         <th data-field="picture"  style="width: 180px">รูปภาพ</th>
-                                        <th data-field="rfname"  data-sortable="true" style="width: 300px">ชื่อร้านอาหร/ชื่อรายการอาหาร</th>
-                                        <th data-field="addetail"  data-sortable="true" >ที่อยู่ของร้านอาหาร/รายละเอียด</th>
+                                        <th data-field="rfname"  data-sortable="true" style="width: 300px">ชื่อร้านอาหาร/ชื่อรายการอาหาร</th>
+                                        <th data-field="addetail"  data-sortable="true" >รายละเอียด</th>
+                                        <th></th>
                                         </thead>
 
                                         <tbody id="result">
@@ -91,10 +92,14 @@ include '../dbconn.php';
                                             $search = $con->real_escape_string(@$_GET["search"]);
                                             $numrow = 0;
                                             if ($search != "") {
-                                                $res = $con->query("SELECT DISTINCT restaurant.id, restaurant.name ,restaurant.address, restaurant.tel ,restaurant.img_path "
+                                                $res = $con->query("SELECT DISTINCT restaurant.id, restaurant.name ,restaurant.address, "
+                                                        . "restaurant.detail, restaurant.tel ,restaurant.img_path, menu.name as menu_name, "
+                                                        . "menu.id as menu_id, zone.name as zone_name, restaurant.province "
                                                         . "FROM restaurant "
                                                         . "LEFT JOIN menu ON menu.restaurant_id = restaurant.id "
-                                                        . "WHERE restaurant.name LIKE '%$search%' OR menu.name LIKE '%$search%' ");
+                                                        . "JOIN zone ON zone.id = restaurant.zone_id "
+                                                        . "WHERE restaurant.name LIKE '%$search%' OR menu.name LIKE '%$search%' "
+                                                        . "AND zone.name IN (SELECT zone.name FROM zone WHERE id = restaurant.zone_id)");
                                                 $numrow = $res->num_rows;
                                             }
                                             if ($numrow == 0) {
@@ -108,15 +113,20 @@ include '../dbconn.php';
                                                     <td style="text-align: center;">
                                                         <a class="" href="#">
                                                             <img 
-                                                                 src="<?= ($data["img_path"] == "" ? "../assets/images/default-img150.png" : $data["img_path"]) ?>"
-                                                                 style="max-width: 150px; max-height:90px;">
+                                                                src="<?= ($data["img_path"] == "" ? "../assets/images/default-img150.png" : $data["img_path"]) ?>"
+                                                                style="max-width: 150px; max-height:90px;">
                                                         </a>
                                                     </td>
                                                     <td>
-                                                        <h4 class="media-heading"><?= $data["name"] ?></h4>
+                                                        <h4 class="media-heading"><?= $data["name"] ?><?= ($data["menu_name"] != "" ? '&nbsp;/&nbsp;' . $data["menu_name"] : '') ?></h4>
                                                     </td>
                                                     <td>
-                                                        <p><?= $data["address"] ?><br><?= $data["tel"] ?></p>
+                                                        <i class="glyphicon glyphicon-map-marker"></i>&nbsp;<?= ($data["province"] == "กรุงเทพมหานคร") ? 'เขต' . $data["zone_name"] . '&nbsp;' : '' ?> <?= $data["province"] ?> 
+                                                    </td>
+                                                    <td>
+                                                        <a href="cus_restaurant_view.php?resId=<?= $data["id"] ?>">
+                                                            <button class="btn btn-success restaurant_order" id="restaurant_order<?= $data["id"] ?>"><i class="glyphicon glyphicon-plus"></i>&nbsp; สั่งอาหารล่วงหน้า</button>
+                                                        </a>
                                                     </td>
                                                 </tr>
 
@@ -132,16 +142,23 @@ include '../dbconn.php';
                 </div>
             </div>
         </section>
-         <div id="map" style="display: none"></div>
+
+        <div id="map" style="display: none"></div>
+        <div style="margin: 150px; margin-top: 40px; text-align: center">
+            <a href="#search_page" style="color: #FF9F00; display: none" id="backtop">
+                <i class="glyphicon glyphicon-arrow-up"></i>
+                <h4 >Back to top</h4>
+            </a>
+        </div>
         <!-- end register -->
         <?php include '../template/footer.php'; ?>
         <script>
             $(document).ready(function () {
-                
+
                 var lat = "";
                 var long = "";
-               /* var lat = 13.6415824;
-                var long = 100.4963968;*/
+                /* var lat = 13.6415824;
+                 var long = 100.4963968;*/
                 function startMap() {
 
                     map = new google.maps.Map(document.getElementById("map"));
@@ -149,10 +166,11 @@ include '../dbconn.php';
                         navigator.geolocation.getCurrentPosition(getPosition);
                         //navigator.geolocation.watchPosition(updatePosition);
                     } else {
-                       lat = "";
-                       long = "";
+                        lat = "";
+                        long = "";
                     }
-                }startMap();
+                }
+                startMap();
 
                 function getPosition(pos) {
                     globalPosition = pos;
@@ -162,6 +180,7 @@ include '../dbconn.php';
                     console.log(pos);
 
                 }
+
 
                 $("#searchby").on("change", function (e) {
                     var searchby = $(this).val();
@@ -174,6 +193,8 @@ include '../dbconn.php';
                     }
                 });
 
+
+
                 $("#searchbtn").on("click", function (e) {
                     $("#result").html('<tr><td colspan="3" style="text-align: center;"><h2>Searching...</h2></td></tr>');
                     var searchby = $("#searchby").val();
@@ -183,13 +204,13 @@ include '../dbconn.php';
                         url: "../customer/ajax_search.php",
                         type: 'POST',
                         dataType: 'html',
-                        data: {"searchby": searchby, "foodtype": foodtype, "searchtxt": searchtxt,"lat": lat, "long": long},
+                        data: {"searchby": searchby, "foodtype": foodtype, "searchtxt": searchtxt, "lat": lat, "long": long},
                         success: function (data, textStatus, jqXHR) {
                             $("#result").html(data);
+
                         }
                     });
                 });
-
 
             });
         </script>

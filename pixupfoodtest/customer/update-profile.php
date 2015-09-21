@@ -3,7 +3,12 @@
 include '../dbconn.php';
 
 $target_dir = "../upload/customer/";
-$target_file = $target_dir . basename(@$_FILES["imgpro"]["name"]);
+
+$filename = $_FILES["imgpro"]["name"];
+$file_basename = substr($filename, 0, strripos($filename, '.')); // get file extention
+$file_ext = substr($filename, strripos($filename, '.')); // get file name
+$newfliename =  "img".$id."-". uniqid().$file_ext;
+$target_file = $target_dir . $newfliename;
 
 
 

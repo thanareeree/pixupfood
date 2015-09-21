@@ -1,7 +1,6 @@
 <?php
-include '../api/islogin.php';
+session_start();
 include '../dbconn.php';
-include '../api/function.php';
 ?>
 
 
@@ -9,20 +8,9 @@ include '../api/function.php';
 
 <html>
     <head>
-       
-
-
-        <!-- 
-        Boxer Template
-        http://www.templatemo.com/preview/templatemo_446_boxer
-        -->
-        <!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> -->
-
         <title>Pixupfood - Restaurant View</title>
 
-        <?php
-        include '../template/customer-title.php';
-        ?>
+        <?php include '../template/customer-title.php';?>
         <!-- custom css -->
         <link rel="stylesheet" href="../assets/css/restaurant_view.css">
         <link href="http://jondmiles.com/bootstrap-datepaginator/css/bootstrap-datepicker.css" rel="stylesheet" media="screen" type="text/css">
@@ -30,10 +18,8 @@ include '../api/function.php';
 
     </head>
     <body>
-
         <?php include '../template/customer-navbar.php'; ?>
-
-
+        
         <!-- start profile -->
         <section id="restaurant_view">
             <div class="profilecontainer">

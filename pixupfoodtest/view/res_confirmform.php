@@ -1,41 +1,21 @@
 <?php
 session_start();
 include '../dbconn.php';
-include './res_navbar.php';
+
 ?>
 
 
 <html >
     <head>
-        <!-- 
-        Boxer Template
-        http://www.templatemo.com/preview/templatemo_446_boxer
-        -->
-        <meta  charset="utf-8" />
         <title>Restaurant Register Form</title>
-        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="keywords" content="">
-        <meta name="description" content="">
-
-        <!-- animate css -->
-        <link rel="stylesheet" href="../assets/css/animate.min.css">
-        <!-- bootstrap css -->
-        <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
-
-
-
+        <?php include '../template/customer-title.php'; ?>
         <!-- custom css -->
         <link rel="stylesheet" href="../assets/css/register.css">
-        <link rel="stylesheet" href="../assets/css/style.css">
-        <link rel="stylesheet" href="../assets/css/search.css">
-        <link rel="stylesheet" href="../assets/css/slide2.css">
-        <link rel="stylesheet" type="text/css" href="../assets/css/simple-sidebar.css" />
-
+        
 
     </head>
     <body>
-        <?php show_navbar(); ?>
+        <?php include './res_navbar.php'; ?>
         <!-- start register -->
         <section id="res_register">
             <div class="overlay">
@@ -106,8 +86,7 @@ include './res_navbar.php';
                     <div class="modal-body">
                         <div class="alert alert-danger" role="alert">
                             <p>ขั้นตอนการสมัครสมาชิกเพื่อเข้าเปิดร้านอาหารบนเว็บไซต์ pixupfood.com ของท่านยังไม่สมบูรณ์</p><br>
-                            <p>การเข้าสู่ระบบครั้งแรก ท่านต้องจะต้องอัพโหลดหลักฐานประกอบการสมัครอีกครั้ง </p><br>
-                            <p> เพื่อใช้เป็นหลักฐานในการตรวจสอบข้อมูลร้านและรับรองร้านของท่าน </p>
+                            <p>ท่านจะต้องอัพโหลดหลักฐานประกอบการสมัครอีกครั้ง </p><br>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -128,8 +107,7 @@ include './res_navbar.php';
                     </div>
                     <div class="modal-body">
                         <p>ขั้นตอนการสมัครสมาชิกเพื่อเข้าเปิดร้านอาหารบนเว็บไซต์ pixupfood.com ของท่านสำเร็จเรียบร้อย</p><br>
-                        <p>ท่านจะเข้ามาเปิดร้านอาหารได้สมบูรณ์ ก็ต่อเมื่อ Admin ของระบบ อนุญาตให้ท่านเข้าใช้งานเว็บไซต์แล้วเท่านั้น</p><br>
-                        <p>ระบบจะเข้ามาตรวจสอบข้อมูลทุกชั่วโมง โปรดตรวจสอบสถานะได้โดยการเข้าสู่ระบบ</p>
+                        <p>ระบบจะเข้ามาตรวจสอบข้อมูลของท่านทุกชั่วโมง ขอบคุณครับ</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default " data-dismiss="modal">Close</button>
@@ -139,7 +117,7 @@ include './res_navbar.php';
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
 
-        <?php show_footer(); ?>
+        <?php include '../template/footer.php'; ?>
         <script>
             $(document).ready(function () {
                 $("#cancelbtn").on("click", function (e) {

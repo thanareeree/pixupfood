@@ -43,7 +43,7 @@ include '../dbconn.php';
                     <div class="container">
                         <div class="carousel-caption-new">
                             <div class="RestaurantHeader">
-                                ร้านนายใหญ่โภชนา
+                                <?= $resdata["name"]?>
                             </div>
                         </div>
                     </div>

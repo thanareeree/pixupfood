@@ -15,11 +15,11 @@
 <script src="assets/js/wow.min.js"></script>   
 <script src="assets/js/custom.js"></script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
-
+<!--
 <script>
     $("#menu-toggle").click(function (e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });
-</script>
+</script>-->
 

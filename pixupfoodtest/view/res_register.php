@@ -1,38 +1,16 @@
 <?php
 session_start();
 include '../dbconn.php';
-include './navbar.php';
+
 ?>
 
-
-
-
-<html >
+<html>
     <head>
-        <!-- 
-        Boxer Template
-        http://www.templatemo.com/preview/templatemo_446_boxer
-        -->
-        <meta  charset="utf-8" />
+        
         <title>Restaurant Register Form</title>
-        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="keywords" content="">
-        <meta name="description" content="">
-
-        <!-- animate css -->
-        <link rel="stylesheet" href="../assets/css/animate.min.css">
-        <!-- bootstrap css -->
-        <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.css">
-
-
+        <?php include '../template/customer-title.php'; ?>
         <!-- custom css -->
         <link rel="stylesheet" href="../assets/css/register.css">
-        <link rel="stylesheet" href="../assets/css/style.css">
-        <link rel="stylesheet" href="../assets/css/search.css">
-        <link rel="stylesheet" href="../assets/css/slide2.css">
-        <link rel="stylesheet" type="text/css" href="../assets/css/simple-sidebar.css" />
         <style>
             #map {
                 height: 250px;
@@ -43,7 +21,7 @@ include './navbar.php';
 
     </head>
     <body>
-        <?php show_navbar(); ?>
+        <?php include './res_navbar.php'; ?>
         <!-- start register -->
         <section id="res_register">
             <div class="overlay">
@@ -210,7 +188,7 @@ include './navbar.php';
         </div><!-- /.modal -->
 
 
-        <?php show_footer(); ?>
+        <?php include '../template/footer.php'; ?>
         <script>
             $(document).ready(function () {
                 $('#termsmodal').modal({

@@ -3,34 +3,30 @@ include '../api/islogin.php';
 include '../dbconn.php';
 ?>
 
-
-
-
 <html>
     <head>
         <meta charset="UTF-8">
-
-
-        <!-- 
-        Boxer Template
-        http://www.templatemo.com/preview/templatemo_446_boxer
-        -->
-        <!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> -->
-
         <title>Pixupfood - Order</title>
 
+<<<<<<< HEAD
         <?php
         include '../template/customer-title.php';
         ;
         ?>
+=======
+        <?php include '../template/customer-title.php';?>
+>>>>>>> 5a24177a5923fcea00f4af8f6c1e6fd2a71e44f2
         <!-- custom css -->
         <link rel="stylesheet" href="../assets/css/fast_order.css">
 
     </head>
     <body>
+<<<<<<< HEAD
 
 <?php include '../template/customer-navbar.php'; ?>
-
+=======
+        <?php include '../template/customer-navbar.php'; ?>
+>>>>>>> 5a24177a5923fcea00f4af8f6c1e6fd2a71e44f2
 
         <!-- start profile -->
         <section id="fast_order">
@@ -645,9 +641,7 @@ include '../dbconn.php';
         </section> 
 
 
-        <?php
-        include '../template/footer.php';
-        ?>
+        <?php include '../template/footer.php';?>
 
         <script>
             (function () {
