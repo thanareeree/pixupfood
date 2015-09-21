@@ -9,20 +9,10 @@ include '../dbconn.php';
 
 <html>
     <head>
-        <meta charset="UTF-8">
-        <!-- 
-        Boxer Template
-        http://www.templatemo.com/preview/templatemo_446_boxer
-        -->
-        <!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> -->
-
-        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="keywords" content="">
-        <meta name="description" content="">
+        <title>Pixupfood - Restaurant Today Management</title>
 
         <?php
-        addlink("Customer Profile");
+        include '../template/customer-title.php';
         ?>
         <!-- custom css -->
         <link rel="stylesheet" href="../assets/css/res_restaurant_manage.css">
@@ -30,7 +20,7 @@ include '../dbconn.php';
     </head>
     <body>
 
-        <?php cusnavbar(); ?>
+        <?php include '../template/restaurant-navbar.php'; ?>
 
 
         <!-- start profile -->
@@ -55,27 +45,32 @@ include '../dbconn.php';
     <scetion id="menu">
         <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
             <div class="btn-group" role="group">
-                <button type="button" id="today" class="btn btn-primary" href="#tab1" data-toggle="tab"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+                <button type="button" id="today" class="btn btn-primary"  >
+                    <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
                     <div class="hidden-xs">วันนี้</div>
                 </button>
             </div>
             <div class="btn-group" role="group">
-                <button type="button" id="order" class="btn btn-default" href="#tab2" data-toggle="tab"><span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
+                <button type="button" id="order" class="btn btn-default" >
+                    <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
                     <div class="hidden-xs">รายการสั่งซื้อ</div>
                 </button>
             </div>
             <div class="btn-group" role="group">
-                <button type="button" id="following" class="btn btn-default" href="#tab3" data-toggle="tab"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                <button type="button" id="following" class="btn btn-default" >
+                    <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
                     <div class="hidden-xs">ปฏิทิน</div>
                 </button>
             </div>
             <div class="btn-group" role="group">
-                <button type="button" id="following" class="btn btn-default" href="#tab4" data-toggle="tab"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                <button type="button" id="following" class="btn btn-default">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                     <div class="hidden-xs">รายการอาหาร</div>
                 </button>
             </div>
             <div class="btn-group" role="group">
-                <button type="button" id="following" class="btn btn-default" href="#tab5" data-toggle="tab"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                <button type="button" id="following" class="btn btn-default" >
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                     <div class="hidden-xs">การตั้งค่า</div>
                 </button>
             </div>

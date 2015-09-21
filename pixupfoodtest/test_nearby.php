@@ -48,43 +48,38 @@ include './view/navbar.php';
         <div class="preloader">
             <div class="loader"></div>
         </div>
-        <!-- end preloader -->
-        <!-- start navigation -->
-        <nav class="navbar navbar-default navbar-fixed-top templatemo-nav" role="navigation">
-            <div class="navbar-header" style="padding-left:10px;">
-                <a href="#menu-toggle" id="menu-toggle" >
-                    <img src="assets/images/bar/menu.png" width="50" height="50" style="margin-top:8px;"/>
-                </a>
-            </div>
-            <div id="wrapper" class="toggled menubox">
-                <div id="sidebar-wrapper">
-                    <ul style="padding-left:0;font-weight:bold;">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#feature">Features</a></li>
-                        <li><a href="#pricing">Pricing</a></li>
-                        <li><a href="#download">Download</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="container" style="margin-left:100px;margin-right:40px;height:70px;width:auto;">
+        <nav class="navbar navbar-default" >
+           
+           
+              
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
-                    <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon icon-bar"></span>
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
                     </button>
-                    <a href="index.php" style="color:rgba(255,127,0,1)" class="navbar-brand">Pixup</a>
-                    <a href="index.php" class="navbar-brand" style="color:black;padding-left: 0px;">Food</a>
+                    <a href="#" class="navbar-brand" style="margin-left: 20px; ">Pixup</a>
+                    <a href="#" class="navbar-brand" style="color:rgba(0,0,32,1);padding-left: 0px;">Food</a> 
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"> 
                     <div class="col-md-4" style="margin:7px 0 0 15%;">
-                        <div id="custom-search-input">
-                            <div class="input-group col-md-12">
-                                <input type="text" class="form-control input-lg" placeholder="Search.." />
-                                <span class="input-group-btn">
-                                    <button class="btn btn-info btn-lg" type="button">
-                                        <i class="glyphicon glyphicon-search"></i>
-                                    </button>
-                                </span>
+                        <form class="navbar-form navbar-right" role="search">
+                            <div id="custom-search-input">
+                                <div class="input-group col-md-12">
+                                    <input type="text" class="form-control input-lg" placeholder="Search.." />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-info btn-lg" type="button">
+                                            <i class="glyphicon glyphicon-search"></i>
+                                        </button>
+                                    </span>
+                                </div>
                             </div>
-                        </div>
+                      </form>
                     </div>
                     <ul class="nav navbar-nav navbar-right text-uppercase" <?= (!isset($_SESSION["islogin"])) ? '' : 'style="display: none"' ?> >
                         <li><a  href="#" > สมัครสมาชิก | เข้าสู่ระบบ >></a></li>
@@ -143,7 +138,6 @@ include './view/navbar.php';
                                             </div>
                                         </div>
                                     </div>
-
                                 </li>
                             </ul>
                         </li>
@@ -193,10 +187,11 @@ include './view/navbar.php';
                         </li>
                     </ul>
 
-                </div>
-            </div>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
         </nav>
-        <!-- end navigation -->
+
+
         <div class="container">
 
             <!-- start nearby -->
@@ -206,17 +201,26 @@ include './view/navbar.php';
                     <div class="row">
                         <div class="carousel slide" id="rescarousel">
                             <div class="carousel-inner">
+
                                 <ul class="thumbnails">
                                     <div id="shownearbylist">
-                                        
+
+
 
                                     </div>
                                 </ul>
 
+
+
+
+
+
+
+
                             </div><!-- /#myCarousel -->
                         </div>
                     </div>
-                </div>
+
             </section>
             <div id="map" style="display: none"></div>
             <form>
@@ -299,20 +303,15 @@ include './view/navbar.php';
                             "long": long},
                         dataType: "html",
                         success: function (returndata) {
-                            if(returndata=="error"){
+                            if (returndata == "error") {
                                 alert("123459859859656");
-                            }else{
-                            $("#shownearbylist").append(returndata);
-                        }
+                            } else {
+                                $("#shownearbylist").append(returndata);
+                            }
                         }
                     });
                 }
                 showlist();
-
-
-
-
-
 
                 /*$.ajax({
                  type: "POST",

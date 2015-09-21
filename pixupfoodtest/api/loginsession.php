@@ -47,7 +47,7 @@ if ($res->num_rows == 0 && $res2->num_rows == 0) {
     }else if ($_SESSION["restdata"]["available"] != 0) { //แอดมิน อนุมัติแล้ว ร้านอาหารสามารถเข้าไป manage ร้านได้ปกติ
         ?>
         <script>
-            document.location = "####";
+            document.location = "../view/res_restaurant_manage_menulist.php";
         </script>
         <?php
     }

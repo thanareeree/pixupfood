@@ -1,7 +1,7 @@
 <?php
 session_start();
 include './dbconn.php';
-include './view/navbar.php';
+
 ?>
 
 
@@ -13,29 +13,14 @@ include './view/navbar.php';
         Boxer Template
         http://www.templatemo.com/preview/templatemo_446_boxer
         -->
-        <meta  charset="utf-8" />
+       <?php include './template/customer-title-index.php'; ?>
         <title>PixupFood - The Original Food Delivery</title>
-        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="keywords" content="">
-        <meta name="description" content="">
-
-        <!-- animate css -->
-        <link rel="stylesheet" href="assets/css/animate.min.css">
-        <!-- bootstrap css -->
-        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.css">
-
-
-        <!-- custom css -->
-        <link rel="stylesheet" href="assets/css/style.css">
-        <link rel="stylesheet" href="assets/css/search.css">
-        <link rel="stylesheet" href="assets/css/slide2.css">
-        <link rel="stylesheet" type="text/css" href="assets/css/simple-sidebar.css" />
+       
 
 
     </head>
     <body>
+<<<<<<< HEAD
         <!-- start preloader -->
         <div class="preloader">
             <div class="loader"></div>
@@ -189,6 +174,9 @@ include './view/navbar.php';
             </div>
         </nav>
         <!-- end navigation -->
+=======
+        <?php include './template/customer-navbar-indexpage.php'; ?>
+>>>>>>> dfc1c57301e1f9ddbd9db8cc5fed7db3ff1def29
 
         <!-- start home -->
         <section id="home">
@@ -278,6 +266,7 @@ include './view/navbar.php';
             </div>
         </section>
         <!-- end 6 step -->
+
         <!-- start nearby -->
         <section id="nearby" style="padding-bottom:5px">
             <div class="container wow fadeInUp">
@@ -285,178 +274,20 @@ include './view/navbar.php';
                 <div class="row">
                     <div class="carousel slide" id="rescarousel">
                         <div class="carousel-inner">
-                            <div class="item active">
-                                <ul class="thumbnails">
-                                    <li class="col-sm-3">
-                                        <div class="fff">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/default-img360.png" alt=""></a>
-                                            </div>
-                                            <div class="caption">
-                                                <h4>Praesent commodo</h4>
-                                                <p>Nullam Condimentum Nibh Etiam Sem</p>
-                                                <a style="color:rgba(255,127,0,1)" class="btn btn-mini" href="#">» Read More</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="col-sm-3">
-                                        <div class="fff">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/default-img360.png" alt=""></a>
-                                            </div>
-                                            <div class="caption">
-                                                <h4>Praesent commodo</h4>
-                                                <p>Nullam Condimentum Nibh Etiam Sem</p>
-                                                <a style="color:rgba(255,127,0,1)" class="btn btn-mini" href="#">» Read More</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="col-sm-3">
-                                        <div class="fff">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/default-img360.png" alt=""></a>
-                                            </div>
-                                            <div class="caption">
-                                                <h4>Praesent commodo</h4>
-                                                <p>Nullam Condimentum Nibh Etiam Sem</p>
-                                                <a style="color:rgba(255,127,0,1)" class="btn btn-mini" href="#">» Read More</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="col-sm-3">
-                                        <div class="fff">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/default-img360.png" alt=""></a>
-                                            </div>
-                                            <div class="caption">
-                                                <h4>Praesent commodo</h4>
-                                                <p>Nullam Condimentum Nibh Etiam Sem</p>
-                                                <a style="color:rgba(255,127,0,1)" class="btn btn-mini" href="#">» Read More</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div><!-- /Slide1 --> 
-                            <div class="item">
-                                <ul class="thumbnails">
-                                    <li class="col-sm-3">
-                                        <div class="fff">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/default-img360.png" alt=""></a>
-                                            </div>
-                                            <div class="caption">
-                                                <h4>Praesent commodo</h4>
-                                                <p>Nullam Condimentum Nibh Etiam Sem</p>
-                                                <a style="color:rgba(255,127,0,1)" class="btn btn-mini" href="#">» Read More</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="col-sm-3">
-                                        <div class="fff">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/default-img360.png" alt=""></a>
-                                            </div>
-                                            <div class="caption">
-                                                <h4>Praesent commodo</h4>
-                                                <p>Nullam Condimentum Nibh Etiam Sem</p>
-                                                <a style="color:rgba(255,127,0,1)" class="btn btn-mini" href="#">» Read More</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="col-sm-3">
-                                        <div class="fff">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/default-img360.png" alt=""></a>
-                                            </div>
-                                            <div class="caption">
-                                                <h4>Praesent commodo</h4>
-                                                <p>Nullam Condimentum Nibh Etiam Sem</p>
-                                                <a style="color:rgba(255,127,0,1)" class="btn btn-mini" href="#">» Read More</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="col-sm-3">
-                                        <div class="fff">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/default-img360.png" alt=""></a>
-                                            </div>
-                                            <div class="caption">
-                                                <h4>Praesent commodo</h4>
-                                                <p>Nullam Condimentum Nibh Etiam Sem</p>
-                                                <a style="color:rgba(255,127,0,1)" class="btn btn-mini" href="#">» Read More</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div><!-- /Slide2 --> 
-                            <div class="item">
-                                <ul class="thumbnails">
-                                    <li class="col-sm-3">	
-                                        <div class="fff">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/default-img360.png" alt=""></a>
-                                            </div>
-                                            <div class="caption">
-                                                <h4>Praesent commodo</h4>
-                                                <p>Nullam Condimentum Nibh Etiam Sem</p>
-                                                <a style="color:rgba(255,127,0,1)" class="btn btn-mini" href="#">» Read More</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="col-sm-3">
-                                        <div class="fff">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/default-img360.png" alt=""></a>
-                                            </div>
-                                            <div class="caption">
-                                                <h4>Praesent commodo</h4>
-                                                <p>Nullam Condimentum Nibh Etiam Sem</p>
-                                                <a style="color:rgba(255,127,0,1)" class="btn btn-mini" href="#">» Read More</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="col-sm-3">
-                                        <div class="fff">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/default-img360.png" alt=""></a>
-                                            </div>
-                                            <div class="caption">
-                                                <h4>Praesent commodo</h4>
-                                                <p>Nullam Condimentum Nibh Etiam Sem</p>
-                                                <a style="color:rgba(255,127,0,1)" class="btn btn-mini" href="#">» Read More</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="col-sm-3">
-                                        <div class="fff">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/default-img360.png" alt=""></a>
-                                            </div>
-                                            <div class="caption">
-                                                <h4>Praesent commodo</h4>
-                                                <p>Nullam Condimentum Nibh Etiam Sem</p>
-                                                <a style="color:rgba(255,127,0,1)" class="btn btn-mini" href="#">» Read More</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div><!-- /Slide3 --> 
-                        </div>
+                            <ul class="thumbnails">
+                                <div id="shownearbylist">
 
 
-                        <nav>
-                            <ul class="control-box2 pager">
-                                <li><a style="color:black" data-slide="prev" href="#rescarousel" class=""><i class="glyphicon glyphicon-chevron-left"></i></a></li>
-                                <li><a style="color:black" data-slide="next" href="#rescarousel" class=""><i class="glyphicon glyphicon-chevron-right"></i></a></li>
+                                </div>
                             </ul>
-                        </nav>
-                        <!-- /.control-box -->   
 
-                    </div><!-- /#myCarousel -->
+                        </div><!-- /#myCarousel -->
+                    </div>
                 </div>
             </div>
         </section>
-        <!-- end nearby -->
+        <div id="map" style="display: none"></div>
+
         <!-- news update head -->
         <section id="nupdateh">
             <img src="assets/images/newsupdatehead.png">
@@ -672,29 +503,7 @@ include './view/navbar.php';
         </section>
         <!-- end contact -->
 
-        <!-- start footer -->
-        <footer>
-            <div class="container">
-                <div class="row">
-                    <p>Copyright © 2015 PixupFood</p>
-                    <p>School of Information Technology</p>
-                    <p>King Mongkut’s University of Technology Thonburi</p>
-                </div>
-            </div>
-        </footer>
-        <!-- end footer -->
-        <!-- script references -->
-        <script src="assets/js/jquery-2.1.4.min.js"></script>
-        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-        <script src="assets/js/wow.min.js"></script>   
-        <script src="assets/js/custom.js"></script>
-        
-        <script>
-            $("#menu-toggle").click(function (e) {
-                e.preventDefault();
-                $("#wrapper").toggleClass("toggled");
-            });
-        </script>
+        <?php include './template/footer-indexpage.php'; ?>
         <script>
             $(document).ready(function () {
                 //Handles menu drop down
@@ -702,7 +511,67 @@ include './view/navbar.php';
                     e.stopPropagation();
                 });
 
-               
+                var lat = 13.6415824;
+                var long = 100.4963968;
+                function startMap() {
+
+                    map = new google.maps.Map(document.getElementById("map"));
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(getPosition, errorFunction);
+                        //navigator.geolocation.watchPosition(updatePosition);
+                    } else {
+                        alert("ไม่สามารถใช้งาน Search by nearby ได้");
+                        document.getElementById("latinput").value = "";
+                        document.getElementById("longinput").value = "";
+                    }
+                }
+
+                startMap();
+
+                function getPosition(pos) {
+                    globalPosition = pos;
+                    lat = pos.coords.latitude;
+                    long = pos.coords.longitude;
+                    // alert($("#latinput").val() + "\n" + $("#longinput").val());
+                    console.log(pos);
+
+                }
+
+                function errorFunction() {
+                    alert("ไม่สามารถใช้งาน Search by nearby ได้");
+                    document.getElementById("latinput").value = "";
+                    document.getElementById("longinput").value = "";
+                }
+
+                function showlist() {
+                    $.ajax({
+                        url: 'customer/customer-search-nearby.php',
+                        type: "POST",
+                        data: {"lat": lat,
+                            "long": long},
+                        dataType: "html",
+                        success: function (returndata) {
+                            if (returndata == "error") {
+                                alert("123459859859656");
+                            } else {
+                                $("#shownearbylist").append(returndata);
+                            }
+                        }
+                    });
+                }
+                showlist();
+
+                $("#searchbtn").click(function (e) {
+                    var searchkeyword = $("#searchinput").val();
+                    document.location = "view/search_page.php?search=" + searchkeyword;
+                });
+
+                $("#searchinput").on("keyup", function (e) {
+                    if (e.keyCode == "13") {
+                        var searchkeyword = $(this).val();
+                        document.location = "view/search_page.php?search=" + searchkeyword;
+                    }
+                });
 
             });
         </script>

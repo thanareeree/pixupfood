@@ -1,7 +1,6 @@
 <?php
 session_start();
 include '../dbconn.php';
-include './navbar.php';
 ?>
 
 
@@ -13,31 +12,17 @@ include './navbar.php';
         Boxer Template
         http://www.templatemo.com/preview/templatemo_446_boxer
         -->
-        <meta  charset="utf-8" />
+
         <title>PixupFood - The Original Food Delivery</title>
-        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="keywords" content="">
-        <meta name="description" content="">
-
-        <!-- animate css -->
-        <link rel="stylesheet" href="../assets/css/animate.min.css">
-        <!-- bootstrap css -->
-        <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.css">
-
+        <?php include '../template/customer-title.php'; ?>
 
         <!-- custom css -->
         <link rel="stylesheet" href="../assets/css/register.css">
-        <link rel="stylesheet" href="../assets/css/style.css">
-        <link rel="stylesheet" href="../assets/css/search.css">
-        <link rel="stylesheet" href="../assets/css/slide2.css">
-        <link rel="stylesheet" type="text/css" href="../assets/css/simple-sidebar.css" />
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
 
     </head>
     <body>
-        <?php show_navbar(); ?>
+        <?php include '../template/customer-navbar.php'; ?>
         <!-- start register -->
         <section id="cus_register">
             <div class="overlay">
@@ -99,12 +84,47 @@ include './navbar.php';
             </div>
         </section>
         <!-- end register -->
-        <?php show_footer(); ?>
+
+        <!-- Modal ลูกค้าต้องอ่านก่อนถึงจะสมัครได้-->
+        <div class="modal fade" id="termsmodal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">โปรดอ่านข้อกำหนดก่อนลงทะเบียน</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>..............</p>
+                        <form>
+                            <input type="checkbox" >&nbsp; ยอมรับ
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="../index.php"><button type="button" class="btn btn-default"  >ยกเลิก</button></a>
+                        <button type="button" class="btn btn-primary" id="nextregisbtn" disabled="">ต่อไป</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+        <?php include '../template/footer.php'; ?>
         <script>
             $(document).ready(function () {
                 //Handles menu drop down
                 $('.dropdown-menu').find('form').click(function (e) {
                     e.stopPropagation();
+                });
+                $('#termsmodal').modal({
+                    backdrop: 'static',
+                    keyboard: false
+                });
+
+                $("#termsmodal").modal('show');
+
+                $("input[type=checkbox]").on("click", function (e) {
+                    $("#nextregisbtn").removeAttr("disabled");
+                });
+                $("#nextregisbtn").click(function (e) {
+                    $("#termsmodal").modal('hide');
                 });
             });
         </script>

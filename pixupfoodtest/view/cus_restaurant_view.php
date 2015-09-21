@@ -1,8 +1,7 @@
 <?php
 include '../api/islogin.php';
-include '../view/navbar.php';
-include '../api/function.php';
 include '../dbconn.php';
+include '../api/function.php';
 ?>
 
 
@@ -10,7 +9,7 @@ include '../dbconn.php';
 
 <html>
     <head>
-        <meta charset="UTF-8">
+       
 
 
         <!-- 
@@ -19,13 +18,10 @@ include '../dbconn.php';
         -->
         <!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> -->
 
-        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="keywords" content="">
-        <meta name="description" content="">
+        <title>Pixupfood - Restaurant View</title>
 
         <?php
-        addlink("Test Title");
+        include '../template/customer-title.php';
         ?>
         <!-- custom css -->
         <link rel="stylesheet" href="../assets/css/restaurant_view.css">
@@ -35,7 +31,7 @@ include '../dbconn.php';
     </head>
     <body>
 
-        <?php cusnavbar(); ?>
+        <?php include '../template/customer-navbar.php'; ?>
 
 
         <!-- start profile -->
@@ -560,7 +556,7 @@ include '../dbconn.php';
 
 
         <?php
-        show_footer();
+        include '../template/footer.php';
         iconscript();
         ?>
 

@@ -1,7 +1,5 @@
 <?php
 include '../api/islogin.php';
-include '../view/navbar.php';
-include '../api/function.php';
 include '../dbconn.php';
 ?>
 
@@ -19,13 +17,11 @@ include '../dbconn.php';
         -->
         <!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> -->
 
-        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="keywords" content="">
-        <meta name="description" content="">
+        <title>Pixupfood - Order</title>
 
         <?php
-        addlink("Test Title");
+        include '../template/customer-title.php';
+        ;
         ?>
         <!-- custom css -->
         <link rel="stylesheet" href="../assets/css/fast_order.css">
@@ -33,7 +29,7 @@ include '../dbconn.php';
     </head>
     <body>
 
-        <?php cusnavbar(); ?>
+<?php include '../template/customer-navbar.php'; ?>
 
 
         <!-- start profile -->
@@ -117,7 +113,8 @@ include '../dbconn.php';
                                             <input type="checkbox" name="sex" value="male">&nbsp;อาหารจานเดียว&nbsp;&nbsp;
                                             <input type="checkbox" name="sex" value="female">&nbsp;ข้าว + กับข้าว 1 อย่าง&nbsp;&nbsp;
                                             <input type="checkbox" name="sex" value="male">&nbsp;ข้าว + กับข้าว 2 อย่าง&nbsp;&nbsp;
-                                            <input type="checkbox" name="sex" value="female">&nbsp;ข้าว + กับข้าว 3 อย่าง
+                                            <input type="checkbox" name="sex" value="female">&nbsp;ข้าว + กับข้าว 3 อย่าง<br><br><br>
+                                            <span>จำนวน </span><input type="text"><span> กล่อง</span>
                                         </div>
                                         <ul class="list-inline pull-right">
                                             <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
@@ -345,6 +342,9 @@ include '../dbconn.php';
                                                 <h3>ส่งวันที่ :     
                                                     <input type="date" name="senddate">
                                                 </h3>
+                                                <h3>เวลา :     
+                                                    <input type="time" name="sendtime">
+                                                </h3>
                                             </div>
                                             <h3>สถานที่</h3>
                                             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2637.965367675441!2d100.49418899116831!3d13.651153172648238!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0000000000000000%3A0x0f0100b33d0b31d0!2sKing+Mongkut%E2%80%99s+University+of+Technology+Thonburi!5e0!3m2!1sth!2s!4v1442071829798" width="1120" height="400" frameborder="0" style="border:0" allowfullscreen></iframe>
@@ -507,30 +507,127 @@ include '../dbconn.php';
                                         <div class="container_field">
                                             <h3>ขั้นตอนที่ 7 : ตรวจสอบข้อมูลความถูกต้อง</h3><br>
                                             <div class="row">
-                                                <form action="#">
+                                                <form action="#" style="margin: 0;">
                                                     <div class="col-md-4">
                                                         <h1>ร้านป้าลมัย</h1><hr class="hrs">
-                                                        <h4>เมนูที่เลือก: <span>ข้าวผัดกระเพรา+หมูกระเทียม</span></h4>
-                                                        <h4>จำนวน: <span>300</span> กล่อง </h4>
-                                                        <h4>ราคา: <span>10000</span> บาท</h4>
-                                                        <h4>ค่าจัดส่ง: <span>100</span> บาท</h4><hr class="hrs">
-                                                        <h4>ราคารวม: <span>10100</span> บาท</h4>
+                                                        <table class="table table-hover" id="task-table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Order List</th>
+                                                                    <th></th>
+                                                                    <th></th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>เมนูที่เลือก: </td>
+                                                                    <td>ข้าวผัดกระเพรา+หมูกระเทียม</td>
+                                                                    <td></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>จำนวน: </td>
+                                                                    <td>300</td>
+                                                                    <td>กล่อง</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>ราคา: </td>
+                                                                    <td>10000</td>
+                                                                    <td>บาท</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>ค่าจัดส่ง: </td>
+                                                                    <td>100</td>
+                                                                    <td>บาท</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>ราคารวม: </td>
+                                                                    <td>10100</td>
+                                                                    <td>บาท</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
                                                     </div>
+                                                </form>
+                                                <form action="#" style="margin: 0;">
                                                     <div class="col-md-4">
                                                         <h1>ร้านป้าสมัย</h1><hr class="hrs">
-                                                        <h4>เมนูที่เลือก: <span>ข้าวผัดกระเพรา+หมูกระเทียม</span></h4>
-                                                        <h4>จำนวน: <span>300</span> กล่อง </h4>
-                                                        <h4>ราคา: <span>10000</span> บาท</h4>
-                                                        <h4>ค่าจัดส่ง: <span>100</span> บาท</h4><hr class="hrs">
-                                                        <h4>ราคารวม: <span>10100</span> บาท</h4>
+                                                        <table class="table table-hover" id="task-table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Order List</th>
+                                                                    <th></th>
+                                                                    <th></th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>เมนูที่เลือก: </td>
+                                                                    <td>ข้าวผัดกระเพรา+หมูกระเทียม</td>
+                                                                    <td></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>จำนวน: </td>
+                                                                    <td>300</td>
+                                                                    <td>กล่อง</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>ราคา: </td>
+                                                                    <td>10000</td>
+                                                                    <td>บาท</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>ค่าจัดส่ง: </td>
+                                                                    <td>100</td>
+                                                                    <td>บาท</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>ราคารวม: </td>
+                                                                    <td>10100</td>
+                                                                    <td>บาท</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
                                                     </div>
+                                                </form>
+                                                <form  action="#">
                                                     <div class="col-md-4">
                                                         <h1>ร้านป้าสมร</h1><hr class="hrs">
-                                                        <h4>เมนูที่เลือก: <span>ข้าวผัดกระเพรา+หมูกระเทียม</span></h4>
-                                                        <h4>จำนวน: <span>300</span> กล่อง </h4>
-                                                        <h4>ราคา: <span>10000</span> บาท</h4>
-                                                        <h4>ค่าจัดส่ง: <span>100</span> บาท</h4><hr class="hrs">
-                                                        <h4>ราคารวม: <span>10100</span> บาท</h4>
+                                                        <table class="table table-hover" id="task-table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Order List</th>
+                                                                    <th></th>
+                                                                    <th></th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>เมนูที่เลือก: </td>
+                                                                    <td>ข้าวผัดกระเพรา+หมูกระเทียม</td>
+                                                                    <td></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>จำนวน: </td>
+                                                                    <td>300</td>
+                                                                    <td>กล่อง</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>ราคา: </td>
+                                                                    <td>10000</td>
+                                                                    <td>บาท</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>ค่าจัดส่ง: </td>
+                                                                    <td>100</td>
+                                                                    <td>บาท</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>ราคารวม: </td>
+                                                                    <td>10100</td>
+                                                                    <td>บาท</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
                                                     </div>
                                                 </form>
                                             </div>
@@ -549,8 +646,7 @@ include '../dbconn.php';
 
 
         <?php
-        show_footer();
-        iconscript();
+        include '../template/footer.php';
         ?>
 
         <script>

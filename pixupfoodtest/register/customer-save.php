@@ -43,7 +43,7 @@ if (isset($_POST["cusemail"]) && $_POST["cusemail"] != "") {
             $sms->username = 'thanaree';
             $sms->password = '58c60d';
 
-            $b = $sms->send('0000', $data2["tel"], "Your Pixupfood OTP password is: " . $data2["password"] . "\n" . "รหัสนี้ใช้ได้ภายใน 7 วัน");
+            $b = $sms->send('0000', $data2["tel"], "Your Pixupfood OTP password is: " . $data2["password"] . "\n" . "ใช้รหัสได้ภายใน 30 นาที");
             //var_dump( $b);
             ?>
             <script>

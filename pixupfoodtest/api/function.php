@@ -37,7 +37,7 @@ function iconscript() {
 <?php } ?>
 
 
-<?php
+
 
 
 

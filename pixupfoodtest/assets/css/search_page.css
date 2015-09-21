@@ -18,7 +18,7 @@ and open the template in the editor.
     color: #fff;
     font-family: 'supermarketregular';
     margin-top: 70px;
-    height: 300px;    
+    height: 190px;    
 }
 #search_page text-center
 {
@@ -35,7 +35,7 @@ and open the template in the editor.
 }
 #search_page h3
 {
-    margin-bottom: 0px;
+    margin-bottom: 10px;
 }
 #search_page p
 {
@@ -62,19 +62,14 @@ and open the template in the editor.
 }
 #search_page .form-control
 {
-    border: none;
-    border-radius: 0px;
-    box-shadow: none;
     font-family: 'supermarketregular';
 }
 #search_page input
 {
     font-family: 'supermarketregular';
-    height: 50px;
 }
 #search_page select
 {
-    height: 50px;
 }
 #search_page input[type="submit"]
 {
@@ -144,3 +139,20 @@ and open the template in the editor.
     background: #107DB6;
 }
 /* end search_page_body */
+
+
+#searchcri{
+    margin-top:25px;
+}
+
+#searchcri .row{
+    padding-top:10px;
+}
+
+
+#searchcri .searchtitle{
+    text-align: right;
+    padding-right:10px;
+    font-size:20px;
+    line-height: 35px;
+}
