@@ -10,7 +10,7 @@ include '../dbconn.php';
     <head>
         <title>Pixupfood - Restaurant View</title>
 
-        <?php include '../template/customer-title.php';?>
+        <?php include '../template/customer-title.php'; ?>
         <!-- custom css -->
         <link rel="stylesheet" href="../assets/css/restaurant_view.css">
         <link href="http://jondmiles.com/bootstrap-datepaginator/css/bootstrap-datepicker.css" rel="stylesheet" media="screen" type="text/css">
@@ -18,21 +18,32 @@ include '../dbconn.php';
 
     </head>
     <body>
+        <?php
+        $resid = $_GET["resId"];
+        $restaurantres = $con->query("SELECT restaurant.id, restaurant.name as resname, restaurant.firstname,"
+                . "restaurant.lastname,restaurant.x, restaurant.y, restaurant.img_path, "
+                . "restaurant.star, restaurant.address,restaurant.price_prepay, restaurant.province, "
+                . "zone.name "
+                . "FROM `restaurant` "
+                . "JOIN zone ON zone.id = restaurant.zone_id "
+                . "where restaurant.id = '$resid' "
+                . "and zone.name IN (SELECT zone.name FROM zone WHERE id = restaurant.zone_id)");
+        $restaurantdata = $restaurantres->fetch_assoc();
+        ?>
         <?php include '../template/customer-navbar.php'; ?>
-        
+
         <!-- start profile -->
         <section id="restaurant_view">
             <div class="profilecontainer">
                 <div class="headprofile">
                     <img align="left" class="fb-image-lg" src="../assets/images/city-restaurant-lunch-outside.png" alt="Profile image example"/>
                     <div class="container_status">
-                        <span>Address: <?= $_SESSION["userdata"]["email"] ?></span><span> Tel: <?= $_SESSION["userdata"]["tel"] ?></span><br>
-                        <span>เวลาเปิด - ปิด:</span><br>
-                        <span>สถานะ:__________</span>
+                        <h3><i class="glyphicon glyphicon-cutlery"></i>&nbsp;<?= $restaurantdata["resname"] ?></h3><br> 
+                        <div id="stars-existing" class="starrr" data-rating='4'></div>
                     </div>
-                    <img align="left" class="fb-image-profile thumbnail" src="http://lorempixel.com/180/180/people/9/" alt="Profile image example"/>
+                    <img align="left" class="fb-image-profile thumbnail" src="<?= ($restaurantdata["img_path"] == "" ? '../assets/images/bar/restaurant.png' : $restaurantdata["img_path"]) ?>"  style="max-width: 175px;" height="175px"/>
                     <div class="fb-profile-text">
-                        <br><h1><?= $_SESSION["userdata"]["firstName"] ?>  <?= $_SESSION["userdata"]["lastName"] ?></h1>
+                        <br>
                         <div class="row lead">
                             <div id="stars-existing" class="starrr" data-rating='4'></div>
                         </div>
@@ -49,57 +60,20 @@ include '../dbconn.php';
                             <li role="presentation" class="active"><a href="#news" aria-controls="news" role="tab" data-toggle="tab">News</a></li>
                             <li role="presentation"><a href="#promo" aria-controls="promo" role="tab" data-toggle="tab">Promotions</a></li>
                             <li role="presentation"><a href="#order" aria-controls="order" role="tab" data-toggle="tab">สั่งอาหาร</a></li>
+                            <li role="presentation"><a href="#info" aria-controls="info" role="tab" data-toggle="tab">ข้อมูลร้าน</a></li>
                         </ul>
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="news">
                                 <br><div class="row">
-                                    <section id="pinBoot">
-                                        <article class="white-panel"><img src="http://i.imgur.com/sDLIAZD.png" alt="">
-                                            <h4><a href="#">Title 1</a></h4>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                                                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                        </article>
-
-                                        <article class="white-panel"> <img src="http://i.imgur.com/8lhFhc1.gif" alt="">
-                                            <h4><a href="#">Title 2</a></h4>
-                                            <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                        </article>
-
-                                        <article class="white-panel"> <img src="http://i.imgur.com/xOIMvAe.jpg" alt="">
-                                            <h4><a href="#">Title 3</a></h4>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                                                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                                        </article>
-
-                                        <article class="white-panel"> <img src="http://i.imgur.com/3gXW3L3.jpg" alt="">
-                                            <h4><a href="#">Title 4</a></h4>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                                                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                        </article>
-
-                                        <article class="white-panel"> <img src="http://i.imgur.com/o2RVMqm.jpg" alt="">
-                                            <h4><a href="#">Title 5</a></h4>
-                                            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                        </article>
-
-                                        <article class="white-panel"> <img src="http://i.imgur.com/kFFpuKA.jpg" alt="">
-                                            <h4><a href="#">Title 6</a></h4>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                                                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                                        </article>
-                                        <article class="white-panel"><img src="http://i.imgur.com/E9RmLPA.jpg" alt="">
-                                            <h4><a href="#">Title 7</a></h4>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                                                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                        </article>
-
-                                        <article class="white-panel"> <img src="http://i.imgur.com/8lhFhc1.gif" alt="">
-                                            <h4><a href="#">Title 8</a></h4>
-                                            <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                        </article>
-
-                                    </section>
+                                  
+                                        <section id="pinBoot">
+                                            <article class="white-panel"><img src="../assets/images/res_resall/menuedit/FriedEgg.jpg" alt="">
+                                                <h4><a href="#">เมนูใหม่</a></h4>
+                                                <p>ทางร้านของเราได้เพิ่มเมนูอาหารใหม่ นั่นก็คือ สปาเก็ดดี้ไวท์ซอท สั่งได้แล้ววันนี้</p>
+                                            </article>
+                                        </section>
+                                 
                                 </div>
                             </div>
                             <!-- Promotion -->
@@ -108,16 +82,14 @@ include '../dbconn.php';
                                     <section id="pinBootpromo">
                                         <div class="row">
                                             <div class="col-md-3">
-                                                <div class="thumbnail">
-                                                    <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                    <div class="caption">
-                                                        <h3>Thumbnail label</h3>
-                                                        <p>...</p>
-                                                        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                    </div>
-                                                </div>
+                                                <section id="pinBoot">
+                                                    <article class="white-panel"><img src="../assets/images/sixStep/step5.png" alt="">
+                                                        <h4><a href="#">ฟรีค่าจัดส่ง</a></h4>
+                                                        <p>1 เดือนเท่านั้น</p>
+                                                    </article>
+                                                </section>
                                             </div>
-                                            <div class="col-md-3">
+                                            <!--<div class="col-md-3">
                                                 <div class="thumbnail">
                                                     <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
                                                     <div class="caption">
@@ -126,75 +98,13 @@ include '../dbconn.php';
                                                         <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="thumbnail">
-                                                    <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                    <div class="caption">
-                                                        <h3>Thumbnail label</h3>
-                                                        <p>...</p>
-                                                        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="thumbnail">
-                                                    <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                    <div class="caption">
-                                                        <h3>Thumbnail label</h3>
-                                                        <p>...</p>
-                                                        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                    </div>
-                                                </div>
-                                            </div>                                                
-                                        </div> <hr class="hrs">
-
-                                        <!-- 3 -->
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <div class="thumbnail">
-                                                    <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                    <div class="caption">
-                                                        <h3>Thumbnail label</h3>
-                                                        <p>...</p>
-                                                        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="thumbnail">
-                                                    <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                    <div class="caption">
-                                                        <h3>Thumbnail label</h3>
-                                                        <p>...</p>
-                                                        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="thumbnail">
-                                                    <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                    <div class="caption">
-                                                        <h3>Thumbnail label</h3>
-                                                        <p>...</p>
-                                                        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="thumbnail">
-                                                    <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                    <div class="caption">
-                                                        <h3>Thumbnail label</h3>
-                                                        <p>...</p>
-                                                        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                    </div>
-                                                </div>
-                                            </div> 
+                                            </div>     -->                    
                                         </div>
                                     </section>
                                 </div>
                             </div>
+                            
+                            
                             <!-- Order -->
                             <div role="tabpanel" class="tab-pane" id="order">
                                 <div class="wizard">
@@ -425,7 +335,7 @@ include '../dbconn.php';
                                                             </h3>
                                                         </div>
                                                         <h3>สถานที่</h3>
-                                                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2637.965367675441!2d100.49418899116831!3d13.651153172648238!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0000000000000000%3A0x0f0100b33d0b31d0!2sKing+Mongkut%E2%80%99s+University+of+Technology+Thonburi!5e0!3m2!1sth!2s!4v1442071829798" width="730" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+
                                                         <br><br>
                                                         <h3>เลือกจากสถานที่ของคุณ</h3>
                                                         <div class="content2">
@@ -500,6 +410,13 @@ include '../dbconn.php';
                                     </form>
                                 </div>
                             </div>
+                            
+                            <!-- Promotion -->
+                            <div role="tabpanel" class="tab-pane" id="info">
+                                <br><div class="row">
+                                    
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Add Shipping address Modal -->
@@ -543,7 +460,6 @@ include '../dbconn.php';
 
         <?php
         include '../template/footer.php';
-        iconscript();
         ?>
 
         <script>
