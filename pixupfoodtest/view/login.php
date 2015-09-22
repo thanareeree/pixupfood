@@ -151,8 +151,7 @@ include './navbar.php';
                             <div class="row">
                                 <div class="col-xs-4 col-sm-3 col-md-3 form-group">
                                     <span class="button-checkbox">
-                                        <button type="button" class="btn" data-color="info" tabindex="7">
-                                            <span class="state-icon glyphicon glyphicon-unchecked"></span>ฉันยอมรับ</button>
+                                        
                                         <input type="checkbox" name="tcr" id="tcr" class="hidden" value="1">
                                     </span>
                                 </div>

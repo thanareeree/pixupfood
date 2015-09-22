@@ -174,6 +174,7 @@ include '../dbconn.php';
 
 
                                     <div class="tab-content">
+                                        <!-- เลือกกล่อง -------------------------------------------------------------->
                                         <div class="tab-pane active" role="tabpanel" id="step1">
                                             <div class="container_field">
                                                 <h3>ขั้นตอนที่ 1 : เลือกกล่อง</h3>
@@ -186,13 +187,15 @@ include '../dbconn.php';
 
                                                 while ($foodboxData = $foodboxRes->fetch_assoc()) {
                                                     ?>
-                                                    <input type="checkbox" name="box<?= $foodboxData["id"] ?>" value="box<?= $foodboxData["id"] ?>">&nbsp;<?= $foodboxData["description"] ?><br>
+                                                    <input type="radio" name="foodboxtype" value="box<?= $foodboxData["id"] ?>">&nbsp;<?= $foodboxData["description"] ?><br>
                                                 <?php } ?>
                                             </div>
                                             <ul class="list-inline pull-right">
                                                 <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
                                             </ul>
                                         </div>
+                                        
+                                        <!-- เลือกชนิดข้าวข้าว -------------------------------------------------------------->
                                         <div class="tab-pane" role="tabpanel" id="step2">
                                             <div class="container_field">
                                                 <h3>ขั้นตอนที่ 2 : เลือกข้าว</h3>
@@ -201,7 +204,7 @@ include '../dbconn.php';
 
                                                 while ($riceData = $riceListRes->fetch_assoc()) {
                                                     ?>
-                                                    <input type="checkbox" name="box<?= $riceData["id"] ?>" value="box<?= $riceData["id"] ?>">&nbsp;<?= $riceData["name"] ?>&nbsp;&nbsp;(<?= $riceData["price"] ?>&nbsp;บาท)<br>
+                                                <input type="radio" name="ricetype" value="<?= $riceData["name"] ?>">&nbsp;<?= $riceData["name"] ?>&nbsp;&nbsp;(<?= $riceData["price"] ?>&nbsp;บาท)<br>
                                                 <?php } ?>
 
                                             </div>
@@ -212,7 +215,7 @@ include '../dbconn.php';
                                         </div>
                                         <div class="tab-pane" role="tabpanel" id="step3" >
                                             <div class="container_field">
-                                                <h3>ขั้นตอนที่ 3 : เลือกกับข้าว</h3>
+                                                <h3>ขั้นตอนที่ 3 : เลือกรายการอาหาร</h3>
                                                 <h3>ลำดับที่ 1</h3>
                                                 <div class="row">
                                                     <?php
@@ -226,7 +229,9 @@ include '../dbconn.php';
                                                                 <div class="caption">
                                                                     <h4><?= $foddListData["name"] ?></h4>
                                                                     <p><?= $foddListData["price"] ?>&nbsp;บาท</p>
-                                                                    <p style="text-align: right"><button type="button" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i></button></p>
+                                                                    <p style="text-align: right">
+                                                                        <button type="button" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i></button>
+                                                                    </p>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -235,55 +240,6 @@ include '../dbconn.php';
                                                     }
                                                     ?>
                                                 </div> <hr class="hrs">
-
-                                                <!-- 2 -->
-                                                <h3>ลำดับที่ 2</h3>
-                                                <div class="row">
-                                                    <?php
-                                                    $foodListRes = $con->query("SELECT * FROM `menu` where restaurant_id = '$resid' and type = 'กับข้าว'");
-
-                                                    while ($foddListData = $foodListRes->fetch_assoc()) {
-                                                        ?>
-                                                        <div class="col-md-3">
-                                                            <div class="thumbnail">
-                                                                <a href="#"><img class="menu_img" src="<?= ($foddListData["img_path"] == "") ? '../assets/images/default-img360.png' : $foddListData["img_path"] ?>"></a>
-                                                                <div class="caption">
-                                                                    <h4><?= $foddListData["name"] ?></h4>
-                                                                    <p><?= $foddListData["price"] ?>&nbsp;บาท</p>
-                                                                    <p style="text-align: right"><button type="button" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i></button></p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <?php
-                                                    }
-                                                    ?>
-
-                                                </div> <hr class="hrs">
-
-                                                <!-- 3 -->
-                                                <h3>ลำดับที่ 3</h3>
-                                                <div class="row">
-                                                    <?php
-                                                    $foodListRes = $con->query("SELECT * FROM `menu` where restaurant_id = '$resid' and type = 'กับข้าว'");
-
-                                                    while ($foddListData = $foodListRes->fetch_assoc()) {
-                                                        ?>
-                                                        <div class="col-md-3">
-                                                            <div class="thumbnail">
-                                                                <a href="#"><img class="menu_img" src="<?= ($foddListData["img_path"] == "") ? '../assets/images/default-img360.png' : $foddListData["img_path"] ?>"></a>
-                                                                <div class="caption">
-                                                                    <h4><?= $foddListData["name"] ?></h4>
-                                                                    <p><?= $foddListData["price"] ?>&nbsp;บาท</p>
-                                                                    <p style="text-align: right"><button type="button" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i></button></p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <?php
-                                                    }
-                                                    ?>                                            
-                                                </div>
                                             </div>
                                             <ul class="list-inline pull-right">
                                                 <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
@@ -319,33 +275,22 @@ include '../dbconn.php';
                                                                 <tr>
                                                                     <td>1</td>
                                                                     <td colspan="3"><?= $customerData['address'] ?></td>
-                                                                    <td><input type="radio" value="<?= $customerData['address'] ?>" name="shipAddressCus"> </td>
+                                                                    <td><input type="radio" value="<?= $customerData['address'] ?>" name="shipAddress"> </td>
                                                                 </tr>
                                                                 <?php
                                                                 $i = 2;
-                                                                $numrow = 0;
-                                                                if($cusid!='') {
-                                                                    $shipAddressRess = $con->query("SELECT  shippingAddress.address,shippingAddress.type, "
-                                                                            . " shippingAddress.address_naming, shippingAddress.id"
-                                                                            . "FROM `shippingAddress` "
-                                                                            . "WHERE  customer_id = '$cusid'");
-                                                                    $numrow = $shipAddressRess->num_rows;
-                                                                }
-                                                                if ($numrow == 0) {
-                                                                    ?>
-                                                                    <tr><td></td><td colspan="3" style="text-align: center;"></td><td></td></tr>
-                                                                    <?php
-                                                                } else {
-                                                                    while ($shipAddressData = $shipAddressRess->fetch_assoc()) {
-                                                                        ?>
-                                                                        <tr>
-                                                                            <td><?= $i++; ?></td>
-                                                                            <td colspan="3"><?= $shipAddressData['address'] ?></td>
-                                                                            <td><input type="radio"  name="shipAddress<?= $shipAddressData['id'] ?>" value="<?= $shipAddressData['address'] ?>"> </td>
-                                                                        </tr>
 
-                                                                        <?php
-                                                                    }
+                                                                $shipAddressRes = $con->query("SELECT CONCAT(shippingAddress.address,' ประเภท',shippingAddress.type,'(', shippingAddress.address_naming,')') AS ship_address, shippingAddress.id FROM `shippingAddress` WHERE customer_id = '$cusid'");
+
+                                                                while ($shipAddressData = $shipAddressRes->fetch_assoc()) {
+                                                                    ?>
+                                                                    <tr>
+                                                                        <td><?= $i++; ?></td>
+                                                                        <td colspan="3"><?= $shipAddressData['ship_address'] ?></td>
+                                                                        <td><input type="radio"  name="shipAddress" value="<?= $shipAddressData['ship_address'] ?>"> </td>
+                                                                    </tr>
+
+                                                                    <?php
                                                                 }
                                                                 ?>
                                                             </tbody>
