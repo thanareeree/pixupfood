@@ -122,18 +122,18 @@ include '../dbconn.php';
                                                     <td>
                                                         <h4 class="media-heading"><?= $data["name"] ?></h4><br>
                                                         <!-- ($data["menu_name"] != "" ? '&nbsp;/&nbsp;' . $data["menu_name"] : '')  -->
-                                                        
+
                                                     </td>
                                                     <td>
                                                         <i class="glyphicon glyphicon-map-marker"></i>&nbsp;<?= ($data["province"] == "กรุงเทพมหานคร") ? 'เขต' . $data["zone_name"] . '&nbsp;' : '' ?> <?= $data["province"] ?> 
                                                     </td>
                                                     <td><span class="tooltip-r" data-toggle="tooltip" data-placement="top" title="log in to ordet this restaurant">
-                                                        <a href="cus_restaurant_view.php?resId=<?= $data["id"] ?>" > 
-                                                            <span class="tooltip-r" data-toggle="tooltip" data-placement="top" title="log in to ordet this restaurant">
-                                                                <button class="btn btn-success restaurant_order" id="restaurant_order<?= $data["id"] ?>"  ><i class="glyphicon glyphicon-plus" ></i>&nbsp; สั่งอาหารล่วงหน้า
-                                                                </button>
-                                                            </span>
-                                                        </a>
+                                                            <a href="cus_restaurant_view.php?resId=<?= $data["id"] ?>" > 
+                                                                <span class="tooltip-r" data-toggle="tooltip" data-placement="top" title="log in to ordet this restaurant">
+                                                                    <button class="btn btn-success restaurant_order" id="restaurant_order<?= $data["id"] ?>"  ><i class="glyphicon glyphicon-plus" ></i>&nbsp; สั่งอาหารล่วงหน้า
+                                                                    </button>
+                                                                </span>
+                                                            </a>
                                                     </td>
                                                 </tr>
 
@@ -220,6 +220,12 @@ include '../dbconn.php';
                     }
                 });
 
+                $("#searchtxt").on("keyup", function (e) {
+                    if (e.keyCode == 13) {
+                        $("#searchbtn").click();
+                    }
+                });
+
 
                 $("#searchbtn").on("click", function (e) {
                     $("#result").html('<tr><td colspan="3" style="text-align: center;"><h2>Searching...</h2></td></tr>');
@@ -233,7 +239,7 @@ include '../dbconn.php';
                         data: {"searchby": searchby, "foodtype": foodtype, "searchtxt": searchtxt, "lat": lat, "long": long},
                         success: function (data, textStatus, jqXHR) {
                             $("#result").html(data);
-
+                            $('[data-toggle="tooltip"]').tooltip();
                         }
                     });
                 });

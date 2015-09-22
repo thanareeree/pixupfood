@@ -187,11 +187,12 @@ include '../dbconn.php';
 
                                                 while ($foodboxData = $foodboxRes->fetch_assoc()) {
                                                     ?>
-                                                    <input type="radio" name="foodboxtype" value="box<?= $foodboxData["id"] ?>">&nbsp;<?= $foodboxData["description"] ?><br>
+                                                <p><input type="radio" name="foodboxtype" id="foodboxtype" value="box<?= $foodboxData["id"] ?>"><?= $foodboxData["description"] ?></p><br>
                                                 <?php } ?>
+                                                <h5>จำนวนกล่อง: &nbsp;<input type="number" name="boxamount" id="boxamount" value="" ></h5>
                                             </div>
                                             <ul class="list-inline pull-right">
-                                                <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
+                                                <li><button type="button" class="btn btn-primary next-step" id="nextstep1">Save and continue</button></li>
                                             </ul>
                                         </div>
                                         
@@ -204,13 +205,13 @@ include '../dbconn.php';
 
                                                 while ($riceData = $riceListRes->fetch_assoc()) {
                                                     ?>
-                                                <input type="radio" name="ricetype" value="<?= $riceData["name"] ?>">&nbsp;<?= $riceData["name"] ?>&nbsp;&nbsp;(<?= $riceData["price"] ?>&nbsp;บาท)<br>
+                                                <input type="radio" name="ricetype" id="ricetype" value="<?= $riceData["name"] ?>">&nbsp;<?= $riceData["name"] ?>&nbsp;&nbsp;(<?= $riceData["price"] ?>&nbsp;บาท)<br>
                                                 <?php } ?>
 
                                             </div>
                                             <ul class="list-inline pull-right">
-                                                <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
-                                                <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
+                                                <li><button type="button" class="btn btn-default prev-step" id="prevstep2">Previous</button></li>
+                                                <li><button type="button" class="btn btn-primary next-step" id="nextstep2">Save and continue</button></li>
                                             </ul>
                                         </div>
                                         <div class="tab-pane" role="tabpanel" id="step3" >

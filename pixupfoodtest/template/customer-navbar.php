@@ -8,10 +8,10 @@ if (isset($_SESSION["islogin"])) {
     $res = $con->query("select * from customer where id = '$id'");
     $data = $res->fetch_assoc();
     ?>
-    <!-- start preloader -->
+    <!-- start preloader 
     <div class="preloader">
         <div class="loader"></div>
-    </div>
+    </div>-->
     <!-- end preloader -->
     <!-- start navigation -->
     <nav class="navbar navbar-default navbar-fixed-top templatemo-nav" role="navigation">
@@ -89,10 +89,10 @@ if (isset($_SESSION["islogin"])) {
 
 
 <?php } else { ?>
-    <!-- start preloader -->
+    <!-- start preloader
     <div class="preloader">
         <div class="loader"></div>
-    </div>
+    </div> -->
     <!-- end preloader -->
     <!-- start navigation -->
     <nav class="navbar navbar-default navbar-fixed-top templatemo-nav" role="navigation">
