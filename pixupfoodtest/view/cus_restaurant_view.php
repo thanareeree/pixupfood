@@ -24,6 +24,11 @@ include '../dbconn.php';
                 height: 175px;
                 border-radius:50%;
             }
+            #restaurant_view .menu_img{
+                width: 100%;
+                max-width: 100%;
+                height: 100px;
+            }
         </style>
     </head>
     <body>
@@ -38,6 +43,13 @@ include '../dbconn.php';
                 . "where restaurant.id = '$resid' "
                 . "and zone.name IN (SELECT zone.name FROM zone WHERE id = restaurant.zone_id)");
         $restaurantdata = $restaurantres->fetch_assoc();
+
+        $cusid = $_SESSION["userdata"]["id"];
+        $customerRes = $con->query("select customer.id, customer.firstName, customer.lastName,"
+                . " customer.email, customer.tel, customer.address   "
+                . "from customer "
+                . "where id = '$cusid' ");
+        $customerData = $customerRes->fetch_assoc();
         ?>
         <?php include '../template/customer-navbar.php'; ?>
 
@@ -162,6 +174,7 @@ include '../dbconn.php';
 
 
                                     <div class="tab-content">
+                                        <!-- เลือกกล่อง -------------------------------------------------------------->
                                         <div class="tab-pane active" role="tabpanel" id="step1">
                                             <div class="container_field">
                                                 <h3>ขั้นตอนที่ 1 : เลือกกล่อง</h3>
@@ -171,24 +184,29 @@ include '../dbconn.php';
                                                         . "FROM mapping_food_box "
                                                         . "LEFT JOIN food_box ON food_box.id = mapping_food_box.food_box_id "
                                                         . "WHERE mapping_food_box.restaurant_id = '$resid' ");
-                                                $foodboxData = $foodboxRes->fetch_assoc();
-                                                while ()
-                                                ?>
-                                                <input type="checkbox" name="sex" value="male">&nbsp;อาหารจานเดียว&nbsp;&nbsp;
-                                                
-                                                <?php ?>
+
+                                                while ($foodboxData = $foodboxRes->fetch_assoc()) {
+                                                    ?>
+                                                    <input type="radio" name="foodboxtype" value="box<?= $foodboxData["id"] ?>">&nbsp;<?= $foodboxData["description"] ?><br>
+                                                <?php } ?>
                                             </div>
                                             <ul class="list-inline pull-right">
                                                 <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
                                             </ul>
                                         </div>
+                                        
+                                        <!-- เลือกชนิดข้าวข้าว -------------------------------------------------------------->
                                         <div class="tab-pane" role="tabpanel" id="step2">
                                             <div class="container_field">
                                                 <h3>ขั้นตอนที่ 2 : เลือกข้าว</h3>
-                                                <input type="checkbox" name="sex" value="male">&nbsp;ข้าวหอมมะลิ&nbsp;&nbsp;
-                                                <input type="checkbox" name="sex" value="female">&nbsp;ข้าวเสาไห้&nbsp;&nbsp;
-                                                <input type="checkbox" name="sex" value="male">&nbsp;ข้าวกล้อง&nbsp;&nbsp;
-                                                <input type="checkbox" name="sex" value="female">&nbsp;ข้าวไรซ์เบอรี่
+                                                <?php
+                                                $riceListRes = $con->query("SELECT * FROM `menu` where restaurant_id = '$resid' and type = 'ชนิดข้าว'");
+
+                                                while ($riceData = $riceListRes->fetch_assoc()) {
+                                                    ?>
+                                                <input type="radio" name="ricetype" value="<?= $riceData["name"] ?>">&nbsp;<?= $riceData["name"] ?>&nbsp;&nbsp;(<?= $riceData["price"] ?>&nbsp;บาท)<br>
+                                                <?php } ?>
+
                                             </div>
                                             <ul class="list-inline pull-right">
                                                 <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
@@ -197,140 +215,31 @@ include '../dbconn.php';
                                         </div>
                                         <div class="tab-pane" role="tabpanel" id="step3" >
                                             <div class="container_field">
-                                                <h3>ขั้นตอนที่ 3 : เลือกกับข้าว</h3>
+                                                <h3>ขั้นตอนที่ 3 : เลือกรายการอาหาร</h3>
                                                 <h3>ลำดับที่ 1</h3>
                                                 <div class="row">
-                                                    <div class="col-md-3">
-                                                        <div class="thumbnail">
-                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                            <div class="caption">
-                                                                <h3>Thumbnail label</h3>
-                                                                <p>...</p>
-                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <div class="thumbnail">
-                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                            <div class="caption">
-                                                                <h3>Thumbnail label</h3>
-                                                                <p>...</p>
-                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <div class="thumbnail">
-                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                            <div class="caption">
-                                                                <h3>Thumbnail label</h3>
-                                                                <p>...</p>
-                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <div class="thumbnail">
-                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                            <div class="caption">
-                                                                <h3>Thumbnail label</h3>
-                                                                <p>...</p>
-                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>                        
-                                                </div> <hr class="hrs">
+                                                    <?php
+                                                    $foodListRes = $con->query("SELECT * FROM `menu` where restaurant_id = '$resid' and type = 'กับข้าว'");
 
-                                                <!-- 2 -->
-                                                <h3>ลำดับที่ 2</h3>
-                                                <div class="row">
-                                                    <div class="col-md-3">
-                                                        <div class="thumbnail">
-                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                            <div class="caption">
-                                                                <h3>Thumbnail label</h3>
-                                                                <p>...</p>
-                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                                    while ($foddListData = $foodListRes->fetch_assoc()) {
+                                                        ?>
+                                                        <div class="col-md-3">
+                                                            <div class="thumbnail">
+                                                                <a href="#"><img class="menu_img" src="<?= ($foddListData["img_path"] == "") ? '../assets/images/default-img360.png' : $foddListData["img_path"] ?>"></a>
+                                                                <div class="caption">
+                                                                    <h4><?= $foddListData["name"] ?></h4>
+                                                                    <p><?= $foddListData["price"] ?>&nbsp;บาท</p>
+                                                                    <p style="text-align: right">
+                                                                        <button type="button" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i></button>
+                                                                    </p>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <div class="thumbnail">
-                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                            <div class="caption">
-                                                                <h3>Thumbnail label</h3>
-                                                                <p>...</p>
-                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <div class="thumbnail">
-                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                            <div class="caption">
-                                                                <h3>Thumbnail label</h3>
-                                                                <p>...</p>
-                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <div class="thumbnail">
-                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                            <div class="caption">
-                                                                <h3>Thumbnail label</h3>
-                                                                <p>...</p>
-                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>                                                
-                                                </div> <hr class="hrs">
 
-                                                <!-- 3 -->
-                                                <h3>ลำดับที่ 3</h3>
-                                                <div class="row">
-                                                    <div class="col-md-3">
-                                                        <div class="thumbnail">
-                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                            <div class="caption">
-                                                                <h3>Thumbnail label</h3>
-                                                                <p>...</p>
-                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <div class="thumbnail">
-                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                            <div class="caption">
-                                                                <h3>Thumbnail label</h3>
-                                                                <p>...</p>
-                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <div class="thumbnail">
-                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                            <div class="caption">
-                                                                <h3>Thumbnail label</h3>
-                                                                <p>...</p>
-                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <div class="thumbnail">
-                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                            <div class="caption">
-                                                                <h3>Thumbnail label</h3>
-                                                                <p>...</p>
-                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>                                                
-                                                </div>
+                                                        <?php
+                                                    }
+                                                    ?>
+                                                </div> <hr class="hrs">
                                             </div>
                                             <ul class="list-inline pull-right">
                                                 <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
@@ -343,44 +252,47 @@ include '../dbconn.php';
                                                 <div class="container_field">
                                                     <h3>ขั้นตอนที่ 4 : เลือกวัน เวลา และสถานที่จัดส่ง</h3>
                                                     <div>
-                                                        <h3>ส่งวันที่ :     
+                                                        <h4>ส่งวันที่:     
                                                             <input type="date" name="senddate">
-                                                        </h3>
+                                                        </h4>
                                                     </div>
                                                     <div>
-                                                        <h3>เวลาประมาณ :     
+                                                        <h4>เวลาประมาณ:     
                                                             <input type="time" name="sendtime">
-                                                        </h3>
+                                                        </h4>
                                                     </div>
-                                                    <h3>สถานที่</h3>
-
-                                                    <br><br>
-                                                    <h3>เลือกจากสถานที่ของคุณ</h3>
+                                                    <h3>สถานที่จัดส่ง:</h3>
                                                     <div class="content2">
                                                         <table class="table table-hover" id="task-table">
                                                             <thead>
                                                                 <tr>
                                                                     <th>No.</th>
-                                                                    <th>Address</th>
+                                                                    <th colspan="3">Address</th>
                                                                     <th>Select</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
                                                                 <tr>
                                                                     <td>1</td>
-                                                                    <td>123 ม.4 ต.ยยยยยยยย</td>
-                                                                    <td><input type="checkbox"></td>
+                                                                    <td colspan="3"><?= $customerData['address'] ?></td>
+                                                                    <td><input type="radio" value="<?= $customerData['address'] ?>" name="shipAddress"> </td>
                                                                 </tr>
-                                                                <tr>
-                                                                    <td>2</td>
-                                                                    <td>3848 ม.บางมด</td>
-                                                                    <td><input type="checkbox"></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                </tr>
+                                                                <?php
+                                                                $i = 2;
+
+                                                                $shipAddressRes = $con->query("SELECT CONCAT(shippingAddress.address,' ประเภท',shippingAddress.type,'(', shippingAddress.address_naming,')') AS ship_address, shippingAddress.id FROM `shippingAddress` WHERE customer_id = '$cusid'");
+
+                                                                while ($shipAddressData = $shipAddressRes->fetch_assoc()) {
+                                                                    ?>
+                                                                    <tr>
+                                                                        <td><?= $i++; ?></td>
+                                                                        <td colspan="3"><?= $shipAddressData['ship_address'] ?></td>
+                                                                        <td><input type="radio"  name="shipAddress" value="<?= $shipAddressData['ship_address'] ?>"> </td>
+                                                                    </tr>
+
+                                                                    <?php
+                                                                }
+                                                                ?>
                                                             </tbody>
                                                         </table>
                                                         <div class="row">
@@ -397,6 +309,7 @@ include '../dbconn.php';
                                                             </div>
                                                         </div>  
                                                     </div>
+
                                                 </div>
                                                 <ul class="list-inline pull-right">
                                                     <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
