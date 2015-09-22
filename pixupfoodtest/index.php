@@ -5,12 +5,12 @@ include './dbconn.php';
 
 <html>
     <head>
-       <?php include './template/customer-title-index.php'; ?>
+        <?php include './template/customer-title-index.php'; ?>
         <title>PixupFood - The Original Food Delivery</title>
     </head>
     <body>
-<<<<<<< HEAD
-<<<<<<< HEAD
+        <<<<<<< HEAD
+        <<<<<<< HEAD
         <!-- start preloader -->
         <div class="preloader">
             <div class="loader"></div>
@@ -164,12 +164,12 @@ include './dbconn.php';
             </div>
         </nav>
         <!-- end navigation -->
-=======
+        =======
         <?php include './template/customer-navbar-indexpage.php'; ?>
->>>>>>> dfc1c57301e1f9ddbd9db8cc5fed7db3ff1def29
-=======
+        >>>>>>> dfc1c57301e1f9ddbd9db8cc5fed7db3ff1def29
+        =======
         <?php include './template/customer-navbar-indexpage.php'; ?>
->>>>>>> 5a24177a5923fcea00f4af8f6c1e6fd2a71e44f2
+        >>>>>>> 5a24177a5923fcea00f4af8f6c1e6fd2a71e44f2
 
         <!-- start home -->
         <section id="home">
@@ -292,7 +292,7 @@ include './dbconn.php';
             <div class="container">
                 <div class="row">
                     <div class="col-md-5 col-lg-5 wow fadeInLeft" data-wow-delay="0.6s">
-                        <a href="#" style="color:rgba(111,0,114,1)">
+                        <a href="view/cus_allnews.php" style="color:rgba(111,0,114,1)">
                             <h2 class="text-uppercase">ข่าวสาร<<</h2>
                         </a>
                         <div class="featured-article">
@@ -346,7 +346,7 @@ include './dbconn.php';
             <div class="container">
                 <div class="row">
                     <div class="col-md-5 col-lg-5 wow fadeInLeft" data-wow-delay="0.6s">
-                        <a href="#" style="color:rgba(111,0,114,1)">
+                        <a href="view/cus_allpromotions.php" style="color:rgba(111,0,114,1)">
                             <h2 class="text-uppercase">โปรโมชั่น<<</h2>
                         </a>
                         <div class="featured-article">
