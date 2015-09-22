@@ -13,7 +13,7 @@ include '../dbconn.php';
         <?php include '../template/customer-title.php'; ?>
         <!-- custom css -->
         <link rel="stylesheet" href="../assets/css/profile.css">
-
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
     </head>
     <body>
@@ -165,7 +165,14 @@ include '../dbconn.php';
                                 <a href="#shipadd" data-toggle="tab" id="navshipadd">
                                     <img class="img-responsive imgsize" src="../assets/images/profile/menu_list/shipadd_b_c.png" title="ที่อยู่การจัดส่ง" onmouseover="this.src = '../assets/images/profile/menu_list/shipadd_a_c.png';"
                                          onmouseout="this.src = '../assets/images/profile/menu_list/shipadd_b_c.png';" style="margin: 0 0 0 15px">
-                                    <p class="elt" style="margin:0">ที่อยู่การจัดส่ง</p>
+                                    <p class="elt" style="margin:3">ที่อยู่การจัดส่ง</p>
+                                </a>
+                            </div>
+                            <div class="col-md-2 templatemo-box fadeInUp">
+                                <a href="#tracking" data-toggle="tab" id="navtracking">
+                                    <img class="img-responsive imgsize" src="../assets/images/profile/menu_list/tracking_b_c.png" title="ตรวจสถานะสินค้า" onmouseover="this.src = '../assets/images/profile/menu_list/tracking_a_c.png';"
+                                         onmouseout="this.src = '../assets/images/profile/menu_list/tracking_b_c.png';" style="margin: 0 0 0 15px">
+                                    <p class="elt" style="margin: 0 0 0 8px">สถานะสินค้า</p>
                                 </a>
                             </div>
                         </div>
@@ -175,7 +182,7 @@ include '../dbconn.php';
                     <div class="col-md-4">
                     </div>
                     <div class="col-md-8">
-                        <div class="tab-content" style="margin-top:-50px;">
+                        <div class="tab-content" style="margin-top:-80px;">
                             <!-- shop list -->
                             <div class="tab-pane fade in active" id="shoplist">
                                 <div class="content2">
@@ -448,6 +455,54 @@ include '../dbconn.php';
                                                             <td>Finished</td>
                                                             <td><p data-placement="top" data-toggle="tooltip" title="View"><button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#View" ><span class="glyphicon glyphicon-list-alt"></span></button></p></td>
                                                             <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- order history -->
+                            <div class="tab-pane fade" id="tracking">
+                                <div class="content2">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="panel panel-success" style="margin:10px 0 10px 0;">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">Tasks</h3>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <input type="text" class="form-control" id="task-table-filter" data-action="filter" data-filters="#task-table" placeholder="Filter Tasks" />
+                                                </div>
+                                                <table class="table table-hover" id="task-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>No.</th>
+                                                            <th>List</th>
+                                                            <th>Status</th>
+                                                            <th>Details</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>1</td>
+                                                            <td>Site Wireframes</td>
+                                                            <td>Waiting</td>
+                                                            <td><p data-placement="top" data-toggle="tooltip" title="View"><button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#View" ><span class="glyphicon glyphicon-list-alt"></span></button></p></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>2</td>
+                                                            <td>Mobile Landing Page</td>
+                                                            <td>Waiting</td>
+                                                            <td><p data-placement="top" data-toggle="tooltip" title="View"><button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#View" ><span class="glyphicon glyphicon-list-alt"></span></button></p></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>3</td>
+                                                            <td>Add SEO tags</td>
+                                                            <td>Finished</td>
+                                                            <td><p data-placement="top" data-toggle="tooltip" title="View"><button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#View" ><span class="glyphicon glyphicon-list-alt"></span></button></p></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
