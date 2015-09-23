@@ -136,12 +136,12 @@ include '../dbconn.php';
                                                             </div>
                                                         </div>
                                                         <div class="material-switch" style="margin-left: 27%">
-                                                            <span style="font-size: 20px"> ปิดร้าน </span> &nbsp;
-                                                            <input id="someSwitchOptionSuccess2" name="someSwitchOption001" type="checkbox"/>
-                                                            <label for="someSwitchOptionSuccess2" class="label-success"></label>
-                                                            &nbsp;  <span style="font-size: 20px">เปิดร้าน</span>
+                                                            <span style="font-size: 20px"> เปิดร้าน </span> &nbsp;
+                                                            <input id="switchClose" name="someSwitchOption001" type="checkbox" value="<?=$resdata["close"]?>"  <?= ($resdata["close"]==1?'checked':'')?>/>
+                                                            <label for="switchClose" class="label-success"></label>
+                                                            &nbsp;  <span style="font-size: 20px">ปิดร้าน</span>
                                                         </div><hr>
-                                                        <p style="font-size: 20px">เวลาเปิด-ปิด: &nbsp;</p>
+                                                        <p style="font-size: 20px">เวลาเปิด-ปิด: &nbsp;<?= ($resdata["opentime"]==""?'-':$resdata["opentime"])?></p>
                                                     </div>
 
                                                     <!-- modal สถานะร้านค้า-->
@@ -187,10 +187,10 @@ include '../dbconn.php';
                                                         </div>
                                                         &nbsp;   <span style="font-size: 20px">ชื่อร้าน: </span>
                                                         <span style="font-size: 20px; color: orange;"> <?= $resdata["name"] ?></span><br>
-                                                        &nbsp;   <span style="font-size: 20px">ประเภทร้าน: </span>
-                                                        <span style="font-size: 20px; color: orange;"> ร้านอาหารตามสั่ง </span><br>
+                                                        &nbsp;   <span style="font-size: 20px">ประเภทร้าน:</span>
+                                                        <span style="font-size: 20px; color: orange;"> <?= ($resdata["restaurant_type"]==""?'-':$resdata["restaurant_type"])?> </span><br>
                                                         &nbsp;   <span style="font-size: 20px">หน้าร้าน: </span>
-                                                        <span style="font-size: 20px; color: orange;"> มี </span><br>
+                                                        <span style="font-size: 20px; color: orange;"> <?= ($resdata["has_restaurant"]==""?'-':$resdata["has_restaurant"])?> </span><br>
                                                     </div>
 
                                                     <!-- modal ร้านค้าหมายเลข-->
@@ -631,6 +631,10 @@ include '../dbconn.php';
                                 $("#uploadtext").html(name);
                                 $("#chooseimgbtn").hide();
                                 $("#uploadimgbtn").show();
+                            });
+                            
+                            $("#switchClose").click(function (e){
+                                
                             });
                         });
                     </script>
