@@ -99,16 +99,8 @@ include '../dbconn.php';
                             <div class="form-group">
                                 <input  type="checkbox" name="orderFromMenu" value="orderFromMenu">&nbsp;&nbsp;สั่งอาหารจากรายการอาหาร<br>
                                  <input  type="checkbox" name="orderFromMenuSet" value="male">&nbsp;&nbsp;สั่งอาหารจากเมนูเซต<br>
-                                
-                            </div>
+                              </div>
                         </div>
-                        <!-- <div class="col-md-10" style="padding-left:0px;">
-                             <hr><h3>Order Options</h3>
-                             <div class="form-group">
-                                 <input  type="checkbox" name="sex" value="male">&nbsp;&nbsp;สั่งอาหารจากรายการอาหาร<br>
-                                 <input type="checkbox" name="sex" value="female">&nbsp;&nbsp;สั่งอาหารจากชุดอาหาร<br>
-                             </div>
-                         </div>-->
                     </div>
                     <div class="col-md-9" style="padding-left:0px; ">
                         <h2>ผลการค้นหา</h2>
