@@ -1,6 +1,6 @@
 <?php
-include '../api/islogin.php';
-include '../dbconn.php';
+include '/api/islogin.php';
+include '/dbconn.php';
 ?>
 
 
@@ -10,9 +10,9 @@ include '../dbconn.php';
     <head>
         <title>Pixupfood - Restaurant Menu Management</title>
 
-        <?php include '../template/customer-title.php'; ?>
+        <?php include '/template/customer-title.php'; ?>
         <!-- custom css -->
-        <link rel="stylesheet" href="../assets/css/res_restaurant_manage.css">
+        <link rel="stylesheet" href="/assets/css/res_restaurant_manage.css">
         <style>
             .card .card-image img {
                 border-radius: 2px 2px 0 0;
@@ -32,14 +32,14 @@ include '../dbconn.php';
         $result = $con->query("select * from restaurant where id = '$resid' ");
         $resdata = $result->fetch_assoc();
         ?>
-        <?php include '../template/restaurant-navbar.php'; ?>
+        <?php include '/template/restaurant-navbar.php'; ?>
 
         <!-- start head -->
         <section id="head">
             <div id="myCarousel" class="carousel" style="margin-top:70px;">
                 <!-- Indicators -->
                 <div class="item">
-                    <img src="../assets/images/slide/aa.png" class="img-responsive">
+                    <img src="/assets/images/slide/aa.png" class="img-responsive">
                     <div class="container">
                         <div class="carousel-caption-new">
                             <div class="RestaurantHeader">
@@ -153,7 +153,7 @@ include '../dbconn.php';
                                                         <div class="col-md-3">
                                                             <div class="card maxheight">
                                                                 <div class="card-image">
-                                                                    <img src="../assets/images/res_resall/menuedit/FriedEgg.jpg">
+                                                                    <img src="/assets/images/res_resall/menuedit/FriedEgg.jpg">
                                                                 </div>
                                                                 <div class="card-content height">
                                                                     <div class="product-name">ไข่ดาว</div>
@@ -177,7 +177,7 @@ include '../dbconn.php';
                                                             <div class="card">
                                                                 <div class="maxheight">
                                                                     <div class="card-image">
-                                                                        <img src="../assets/images/res_resall/menuedit/pork.jpg">
+                                                                        <img src="/assets/images/res_resall/menuedit/pork.jpg">
                                                                     </div>
                                                                     <div class="card-content height">
                                                                         <div class="product-name">กระดูกหมูกระเทียมพริกไทย</div>
@@ -217,7 +217,7 @@ include '../dbconn.php';
                                                     <h2>ขนิดข้าว</h2>
                                                     <!-- Menu 1 Row -->
                                                     <div class="row">
-                                                        <?php include '../restaurant/menu-ricetype-list.php'; ?>
+                                                        <?php include '/restaurant/menu-ricetype-list.php'; ?>
                                                     </div>
                                                 </div>
                                             </div>
@@ -234,7 +234,7 @@ include '../dbconn.php';
                                                     <h2>รายการกับข้าว</h2>
                                                     <!-- Menu 1 Row -->
                                                     <div class="row">
-                                                        <?php include '../restaurant/menu-foodtype-list.php'; ?>
+                                                        <?php include '/restaurant/menu-foodtype-list.php'; ?>
                                                     </div>
                                                 </div>
                                             </div>
@@ -252,7 +252,7 @@ include '../dbconn.php';
                                                     <h2>อาหารจานเดียว</h2>
                                                     <!-- Menu 1 Row-->
                                                     <div class="row">
-                                                        <?php include '../restaurant/menu-singlefood-list.php'; ?>
+                                                        <?php include '/restaurant/menu-singlefood-list.php'; ?>
                                                     </div>
 
                                                 </div>
@@ -267,10 +267,10 @@ include '../dbconn.php';
                                         <div class="col-md-12">
                                             <div class="card">
                                                 <div class="card-content">
-                                                    <h2>เครื่องดื่ม</h2>
+                                                    <h2>เมนูเซต</h2>
                                                     <!-- Menu 1 Row -->
                                                     <div class="row">
-                                                        <?php include '../restaurant/menu-drinktype-list.php'; ?>
+                                                        <?php include '/restaurant/menu-drinktype-list.php'; ?>
                                                     </div>
                                                 </div>
                                             </div>
@@ -302,7 +302,7 @@ include '../dbconn.php';
                                                                                 <form>
                                                                                     <div class="thumbnail">
                                                                                             <!-- <input type="file" name="img"> --->
-                                                                                        <img src="../assets/images/res_resall/menuedit/FriedEgg.jpg" alt="ALT NAME">
+                                                                                        <img src="/assets/images/res_resall/menuedit/FriedEgg.jpg" alt="ALT NAME">
                                                                                     </div>                                                                                    
                                                                             </div>
                                                                         </div>
@@ -345,10 +345,10 @@ include '../dbconn.php';
                                                                                     <option>ชนิดข้าว</option>
                                                                                     <option>กับข้าว</option>
                                                                                     <option>อาหารจานด่วน</option>
-                                                                                    <option>เครื่องดื่ม</option>
+                                                                                    <option>เมนูเซต</option>
                                                                                 </select>
                                                                                 <span style="margin-left: 25px;"> หมวดหมู่ </span>&nbsp;&nbsp;
-                                                                                <?php include '../template/foodtype-list.php'; ?>
+                                                                                <?php include '/template/foodtype-list.php'; ?>
                                                                             </div>
                                                                             <div class="row" style="margin:10px 0 0 5px;">
                                                                                 <span style="margin-left: 24px;"> ชื่ออาหาร </span> &nbsp;<input type="text">
