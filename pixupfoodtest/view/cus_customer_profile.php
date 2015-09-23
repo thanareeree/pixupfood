@@ -15,6 +15,7 @@ include '../dbconn.php';
         <link rel="stylesheet" href="../assets/css/profile.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
+
     </head>
     <body>
         <?php
@@ -31,18 +32,18 @@ include '../dbconn.php';
             <div class="profilecontainer">
                 <div class="headprofile"> 
                     <img align="left" class="fb-image-lg" src="../assets/images/pearhead.png" alt="Profile image example"/>
-                    <img align="left" class="fb-image-profile thumbnail" src="<?= ($data2["img_path"]=="" ? '../assets/images/defaulf-profile.png':$data2["img_path"]) ?>" id="imgprofile" style="max-width: 175px;" height="175px"/>
-                        <div class="fb-profile-text">
+                    <img align="left" class="fb-image-profile thumbnail" src="<?= ($data2["img_path"] == "" ? '../assets/images/defaulf-profile.png' : $data2["img_path"]) ?>" id="imgprofile" style="max-width: 175px;" height="175px"/>
+                    <div class="fb-profile-text">
 
-                            <h1><?= $data2["firstName"] ?>  <?= $data2["lastName"] ?></h1>
-                            <span style="color: white"></span>
-                            <a href="#" data-toggle="modal" data-target="#editprofilemodal"style="color:orange;">
-                                <i class="fa fa-pencil"></i> Edit Profile
-                            </a>
-                            <a href="#" data-toggle="modal" data-target="#chpassform" style="color:orange;margin: 0 0 0 30px;">
-                                <i class="fa fa-asterisk"></i> Change password
-                            </a>
-                        </div>
+                        <h1><?= $data2["firstName"] ?>  <?= $data2["lastName"] ?></h1>
+                        <span style="color: white"></span>
+                        <a href="#" data-toggle="modal" data-target="#editprofilemodal"style="color:orange;">
+                            <i class="fa fa-pencil"></i> Edit Profile
+                        </a>
+                        <a href="#" data-toggle="modal" data-target="#chpassform" style="color:orange;margin: 0 0 0 30px;">
+                            <i class="fa fa-asterisk"></i> Change password
+                        </a>
+                    </div>
                 </div>
             </div> <!-- /container -->
             <!-- edit profile -->
@@ -141,10 +142,17 @@ include '../dbconn.php';
                         <!-- 4 element -->
                         <div class="row">
                             <div class="col-md-2 templatemo-box fadeInUp">
+                                <a href="#tracking" data-toggle="tab" id="navtracking">
+                                    <img class="img-responsive imgsize" src="../assets/images/profile/menu_list/tracking_b_c.png" title="ตรวจสถานะสินค้า" onmouseover="this.src = '../assets/images/profile/menu_list/tracking_a_c.png';"
+                                         onmouseout="this.src = '../assets/images/profile/menu_list/tracking_b_c.png';" style="margin: 0 0 0 15px">
+                                    <p class="elt" style="margin: 0  0 8px">ออเดอร์ปัจจุบัน</p>
+                                </a>
+                            </div>
+                            <div class="col-md-2 templatemo-box fadeInUp">
                                 <a href="#history" data-toggle="tab" id="navhistory">
                                     <img class="img-responsive imgsize" src="../assets/images/profile/menu_list/orderhis_b_c.png" title="ประวัติการสั่งซื้อ" onmouseover="this.src = '../assets/images/profile/menu_list/orderhis_a_c.png';"
                                          onmouseout="this.src = '../assets/images/profile/menu_list/orderhis_b_c.png';" style="margin: 0 0 0 20px">
-                                    <p class="elt" style="margin:0">ประวัติการสั่งซ้อ</p>
+                                    <p class="elt" style="margin:0">ประวัติการสั่งซื้อ</p>
                                 </a>
                             </div>
                             <div class="col-md-2 templatemo-box fadeInUp webfont">
@@ -168,13 +176,7 @@ include '../dbconn.php';
                                     <p class="elt" style="margin:3">ที่อยู่การจัดส่ง</p>
                                 </a>
                             </div>
-                            <div class="col-md-2 templatemo-box fadeInUp">
-                                <a href="#tracking" data-toggle="tab" id="navtracking">
-                                    <img class="img-responsive imgsize" src="../assets/images/profile/menu_list/tracking_b_c.png" title="ตรวจสถานะสินค้า" onmouseover="this.src = '../assets/images/profile/menu_list/tracking_a_c.png';"
-                                         onmouseout="this.src = '../assets/images/profile/menu_list/tracking_b_c.png';" style="margin: 0 0 0 15px">
-                                    <p class="elt" style="margin: 0 0 0 8px">สถานะสินค้า</p>
-                                </a>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -184,19 +186,19 @@ include '../dbconn.php';
                     <div class="col-md-8">
                         <div class="tab-content" style="margin-top:-80px;">
                             <!-- shop list -->
-                            <div class="tab-pane fade in active" id="shoplist">
+                            <div class="tab-pane fade " id="shoplist">
                                 <div class="content2">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="panel panel-success" style="margin:10px 0 10px 0;">
-                                                <div class="panel-heading">
+                                                <!--<div class="panel-heading">
                                                     <h3 class="panel-title">Tasks</h3>
                                                 </div>
                                                 <div class="panel-body">
                                                     <input type="text" class="form-control" id="task-table-filter" data-action="filter" data-filters="#task-table" placeholder="Filter Tasks" />
-                                                </div>
+                                                </div>-->
                                                 <table class="table table-hover" id="task-table">
-                                                    <thead>
+                                                    <thead style="background-color: #FF9F00; color: white">
                                                         <tr>
                                                             <th>No.</th>
                                                             <th>List</th>
@@ -374,14 +376,14 @@ include '../dbconn.php';
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="panel panel-success" style="margin:10px 0 10px 0;">
-                                                <div class="panel-heading">
+                                                <!--<div class="panel-heading">
                                                     <h3 class="panel-title">Tasks</h3>
                                                 </div>
                                                 <div class="panel-body">
                                                     <input type="text" class="form-control" id="task-table-filter" data-action="filter" data-filters="#task-table" placeholder="Filter Tasks" />
-                                                </div>
+                                                </div>-->
                                                 <table class="table table-hover" id="task-table">
-                                                    <thead>
+                                                    <thead style="background-color: #FF9F00; color: white">
                                                         <tr>
                                                             <th>No.</th>
                                                             <th>List</th>
@@ -463,21 +465,21 @@ include '../dbconn.php';
                                     </div>
                                 </div>
                             </div>
-                            
-                            <!-- order history -->
-                            <div class="tab-pane fade" id="tracking">
+
+                            <!-- order tracking -->
+                            <div class="tab-pane fade in active" id="tracking">
                                 <div class="content2">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="panel panel-success" style="margin:10px 0 10px 0;">
-                                                <div class="panel-heading">
+                                                <!--<div class="panel-heading">
                                                     <h3 class="panel-title">Tasks</h3>
                                                 </div>
                                                 <div class="panel-body">
                                                     <input type="text" class="form-control" id="task-table-filter" data-action="filter" data-filters="#task-table" placeholder="Filter Tasks" />
-                                                </div>
+                                                </div>-->
                                                 <table class="table table-hover" id="task-table">
-                                                    <thead>
+                                                    <thead style="background-color: #FF9F00; color: white">
                                                         <tr>
                                                             <th>No.</th>
                                                             <th>List</th>
@@ -533,14 +535,15 @@ include '../dbconn.php';
 
                             <!-- shipping address -->
                             <div class="tab-pane fade" id="shipadd">
-                                <div class="content2" id="">
+                                <div class="content2" >
+
                                     <?php
                                     $result = $con->query("SELECT * FROM `shippingAddress` where customer_id = '$cusid'");
                                     $i = 2;
                                     ?>
 
-                                    <table class="table table-hover" id="task-table">
-                                        <thead>
+                                    <table class="table table-hover" id="task-table" style="border: 1px solid;border-color: #D2D2D2;">
+                                        <thead style="background-color: #FF9F00; color: white">
                                             <tr>
                                                 <th>No.</th>
                                                 <th>Address</th>
@@ -595,7 +598,7 @@ include '../dbconn.php';
                                     <div class="row">
                                         <div id="inbox" style="margin:15% 0 0 0;">
                                             <div class="fab btn-group show-on-hover dropup" id="add_sa" data-toggle="modal" data-target="#add_address">
-                                                <button type="button" class="btn btn-danger glyphicon glyphicon-plus btn-io">
+                                                <button type="button" class="btn btn-danger  btn-io">
                                                     <span class="fa-stack fa-2x">
                                                         <i class="fa fa-circle fa-stack-2x fab-backdrop"></i>
                                                         <i class="fa fa-plus fa-stack-1x fa-inverse fab-primary"></i>
@@ -651,9 +654,8 @@ include '../dbconn.php';
                                                 </form>
                                             </div>
                                         </div>
+
                                     </div>
-
-
                                 </div>
                             </div>
 

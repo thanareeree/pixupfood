@@ -84,7 +84,7 @@ include '../dbconn.php';
         <section id="search_page_body">
             <div class="container">
                 <div class="row">
-                    <h2 class="searchTitle__content">ผลการค้นหา</h2>
+
                     <div class="col-md-12" style="margin-top: 20px;">
                         <!--div class="row">
                             <div class="col-md-3"></div>
@@ -94,12 +94,13 @@ include '../dbconn.php';
                         </div>-->
                     </div>
                     <div class="col-md-3">
-                        <h3>Order Options</h3>
                         <div class="col-md-10" style="padding-left:0px;">
+                           <h3>Order Options</h3>
                             <div class="form-group">
-                                <input  type="checkbox" name="sex" value="male">&nbsp;&nbsp;สั่งอาหารจากรายการอาหาร<br>
-                                <!--<input type="checkbox" name="sex" value="female">&nbsp;&nbsp;สั่งอาหารจากชุดอาหาร<br>-->
-                            </div><hr>
+                                <input  type="checkbox" name="orderFromMenu" value="orderFromMenu">&nbsp;&nbsp;สั่งอาหารจากรายการอาหาร<br>
+                                 <input  type="checkbox" name="orderFromMenuSet" value="male">&nbsp;&nbsp;สั่งอาหารจากเมนูเซต<br>
+                                
+                            </div>
                         </div>
                         <!-- <div class="col-md-10" style="padding-left:0px;">
                              <hr><h3>Order Options</h3>
@@ -110,11 +111,11 @@ include '../dbconn.php';
                          </div>-->
                     </div>
                     <div class="col-md-9" style="padding-left:0px; ">
-
+                        <h2>ผลการค้นหา</h2>
                         <div class="content2" style="padding-bottom:15px">
                             <div class="fresh-table" style="font-family: 'supermarketregular';">
                                 <table id="fresh-table" class="table">
-                                    <thead style="background-color: #FF9F00">
+                                    <thead style="background-color: #FF9F00; color: white">
                                     <th data-field="picture"  style="width: 180px">รูปภาพ</th>
                                     <th data-field="rfname"  data-sortable="true" style="width: 300px">ชื่อร้านอาหาร/ชื่อรายการอาหาร</th>
                                     <th data-field="addetail"  data-sortable="true" >รายละเอียด</th>
