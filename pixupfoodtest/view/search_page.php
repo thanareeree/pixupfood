@@ -120,15 +120,17 @@ include '../dbconn.php';
                                         $numrow = 0;
                                         if ($search != "") {
                                             $res = $con->query("SELECT DISTINCT restaurant.id, restaurant.name ,restaurant.address, "
-                                                    . "restaurant.detail, restaurant.tel ,restaurant.img_path, menu.name as menu_name, "
+                                                    . "restaurant.detail, restaurant.tel ,restaurant.img_path, main_menu.name as menu_name, "
                                                     . "menu.id as menu_id, zone.name as zone_name, restaurant.province "
                                                     . "FROM restaurant "
                                                     . "RIGHT JOIN menu ON menu.restaurant_id = restaurant.id "
+                                                    . "RIGHT JOIN main_menu ON main_menu.id = menu.main_menu_id "
                                                     . "JOIN zone ON zone.id = restaurant.zone_id "
                                                     . "WHERE (restaurant.name LIKE '%$search%' AND restaurant.available = 1 )"
-                                                    . "OR menu.name LIKE '%$search%' "
+                                                    . "OR main_menu.name LIKE '%$search%' "
                                                     . "AND zone.name IN (SELECT zone.name FROM zone WHERE id = restaurant.zone_id)"
                                                     . "GROUP by restaurant.name ");
+                                            echo $con->error;
                                             $numrow = $res->num_rows;
                                         }
                                         if ($numrow == 0) {

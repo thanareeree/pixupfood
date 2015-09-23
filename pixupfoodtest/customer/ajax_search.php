@@ -15,13 +15,14 @@ if ($foodtype == "all") {
 if ($searchby == "foodname") {
     $numrow = 0;
     if ($searchtxt != "") {
-        $res = $con->query("SELECT menu.id, menu.name as menuname,menu.price ,menu.type , food_type.description ,"
+        $res = $con->query("SELECT menu.id, main_menu.name as menuname,menu.price ,main_menu.type , food_type.description ,"
                 . "restaurant.name as resname, restaurant.address, restaurant.detail, restaurant.tel, menu.img_path "
                 . "FROM restaurant "
                 . "LEFT JOIN menu ON menu.restaurant_id = restaurant.id "
+                . "LEFT JOIN main_menu ON menu.main_menu_id = main_menu.id "
                 . "LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = menu.id "
                 . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
-                . "WHERE menu.name LIKE '%$searchtxt%' $foodtypeq ");
+                . "WHERE main_menu.name LIKE '%$searchtxt%' $foodtypeq ");
         $numrow = $res->num_rows;
     } else if ($searchtxt == "") {
         $res = $con->query("SELECT menu.id, menu.name as menuname,menu.price ,menu.type , food_type.description ,"
