@@ -1,9 +1,10 @@
 <?php
-include '../dbconn.php';
 
-$target_dir = "../upload/customer/";
-$id = $_GET["id"];
-$filename = $_FILES["imgpro"]["name"];
+include '../dbconn.php';
+$id = @$_GET["id"];
+$target_dir = "../upload/restaurant/images/";
+
+$filename = @$_FILES["imagerest"]["name"];
 $file_basename = substr($filename, 0, strripos($filename, '.')); // get file extention
 $file_ext = substr($filename, strripos($filename, '.')); // get file name
 $newfliename =  "img".$id."-". uniqid().$file_ext;
@@ -12,16 +13,15 @@ $target_file = $target_dir . $newfliename;
 
 
 
-if ($_FILES['imgpro']['name'] != "") {
-
-    move_uploaded_file(@$_FILES["imgpro"]["tmp_name"], $target_file);
-    $con->query("UPDATE `customer` SET `img_path`='$target_file' WHERE id = '$id'");
+if ($filename !="") {
+     move_uploaded_file(@$_FILES["imagerest"]["tmp_name"], $target_file);
+    $con->query("UPDATE `restaurant` SET `img_path`='$target_file' WHERE id = '$id'");
     if ($con->error == "") {
         //$res = $con->query("select * from customer where id= '$id'");
          //$_SESSION["userdata"] = $res->fetch_assoc();
         ?>
         <script>
-            document.location = "../view/cus_customer_profile.php";
+            document.location = "../view/res_restaurant_manage_edit.php";
         </script>
         <?php
 
@@ -29,11 +29,9 @@ if ($_FILES['imgpro']['name'] != "") {
         echo $con->error;
     }
 } else {
-        echo $con->error;
+        echo "อัพไม่ได้".$target_file."0000".$target_dir."000".$file_basename."000".$file_ext;
     
 }
-
-
 
 
 

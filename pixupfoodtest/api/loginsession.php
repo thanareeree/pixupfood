@@ -32,7 +32,7 @@ if ($res->num_rows == 0 && $res2->num_rows == 0) {
         </script>
         <?php
 
-    } else if ($_SESSION["restdata"]["type"] == 1 && $_SESSION["restdata"]["img_path"] == null) {  //กรณีแอดมินยังไม่ได้ verify ให้เปิดร้าน
+    } else if ($_SESSION["restdata"]["type"] == 1 && $_SESSION["restdata"]["img_path_confirm"] == null) {  //ไม่อัพรูป
         ?>
         <script>
             document.location = "../view/res_confirmform.php?id=<?= $_SESSION["restdata"]["id"] ?>";
@@ -47,7 +47,7 @@ if ($res->num_rows == 0 && $res2->num_rows == 0) {
     }else if ($_SESSION["restdata"]["available"] == 1) { //แอดมิน อนุมัติแล้ว ร้านอาหารสามารถเข้าไป manage ร้านได้ปกติ
         ?>
         <script>
-            document.location = "../view/res_restaurant_manage_menulist.php";
+            document.location = "../view/res_restaurant_manage_edit.php";
         </script>
         <?php
     }

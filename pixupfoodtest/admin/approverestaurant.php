@@ -3,7 +3,7 @@
 include '../dbconn.php';
 
 $name = $_POST["name"];
-$con->query("UPDATE `restaurant` SET `available`= 1 WHERE name = '$name'");
+$con->query("UPDATE `restaurant` SET `available`= 1, level = 'กลาง' WHERE name = '$name'");
 
 if ($con->error == "") {
     $res = $con->query("select * from restaurant where name = '$name'");

@@ -21,14 +21,16 @@ if (isset($_POST["resemail"]) && $_POST["resemail"] != "") {
     $en_password = md5($password);
 
 
-    $con->query("INSERT INTO `restaurant`(`id`, `name`, "
-            . "`firstname`, `lastname`, `email`, `tel`, `available`, `created_time`, "
-            . "`password`, `detail`, `x`, `y`, `img_path`, `star`, `address`, `price_prepay`, "
-            . "`img_path_confirm`, `serviceplan_id`, `zone_id`, `province`)"
-            . "VALUES "
-            . "('null','$resname','$fname','$lname','$email',"
-            . "'$phone','0',now(),'$en_password','$detail','$lat','$long',null,null,'$resaddress',null,null,'$planid','$zoneid','$prolist')");
-
+    $con->query("INSERT INTO `restaurant`(`id`, `name`, `firstname`, `lastname`, `email`, `tel`, `available`, "
+            . "`created_time`, `password`, `detail`, `x`, `y`, `img_path`, `address`, `opentime`, "
+            . "`price_prepay`, `amount_box_limit`, `img_path_confirm`, `serviceplan_id`, `zone_id`, "
+            . "`province`,`has_restaurant`, `restaurant_type`) "
+            . "VALUES (null,'$resname','$fname','$lname','$email','$phone','0',"
+            . "now(),'$en_password','$detail','$lat','$long',null,'$resaddress',null,"
+            . "null,null,null,'$planid','$zoneid',"
+            . "'$prolist',null,null)");
+    
+    
     if ($con->error == "") {
         $res = $con->query("select id from restaurant where email = '$email'");
         $data = $res->fetch_assoc();

@@ -9,9 +9,9 @@ if (isset($_SESSION["islogin"])) {
     $data = $res->fetch_assoc();
     ?>
     <!-- start preloader -->
-    <div class="preloader">
+    <!--<div class="preloader">
         <div class="loader"></div>
-    </div>
+    </div>-->
     <!-- end preloader -->
     <!-- start navigation -->
     <nav class="navbar navbar-default navbar-fixed-top templatemo-nav" role="navigation">
