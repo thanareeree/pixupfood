@@ -26,7 +26,7 @@ if (isset($_SESSION["islogin"])) {
                     <form action="/view/search_page.php" method="get">
                         <div id="custom-search-input">
                             <div class="input-group col-md-12">
-                                <input type="text" name="search" value="<?= @$_GET["search"] ?>" class="form-control input-lg" placeholder="Search.." />
+                                <input type="text" name="search" required value="<?= @$_GET["search"] ?>" class="form-control input-lg" placeholder="ค้นหาร้านอาหารที่นี่" />
                                 <span class="input-group-btn">
                                     <button class="btn btn-info btn-lg" type="submit">
                                         <i class="glyphicon glyphicon-search"></i>
@@ -39,7 +39,7 @@ if (isset($_SESSION["islogin"])) {
                 </div>
 
                 <ul class="nav navbar-nav navbar-right text-uppercase">
-                    <li><a href="/api/logout.php" class="nav-link"><?= $data["firstName"] . " " . $data["lastName"] . " " . $id ?></a></li>
+                    <li><a href="/view/cus_customer_profile.php" class="nav-link"><?= $data["firstName"] . " " . $data["lastName"] ?></a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <img src="/assets/images/bar/user.png" style="width:40px;height:40px;"/>
@@ -53,7 +53,7 @@ if (isset($_SESSION["islogin"])) {
                                                 <div class="col-md-5" style="border-right:1px solid #ccc;height:auto;">
                                                     <div class="row">
                                                         <div class="col-md-12">
-                                                            <a href="cus_customer_profile.php">
+                                                            <a href="/view/cus_customer_profile.php">
                                                                 <img src="<?= ($data["img_path"]=="" ? '/assets/images/defaulf-profile.png':$data["img_path"]) ?>" style="max-width: 110px; max-height: 110px">
                                                             </a>
                                                         </div>

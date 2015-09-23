@@ -6,7 +6,7 @@ $data2 = $res2->fetch_assoc();
 ?>
 
 <div class="modal-body">
-    <form action="../customer/update-profile.php" id="cuseditform" name="cuseditform" method="post">
+    <form action="/customer/update-profile.php" id="cuseditform" name="cuseditform" method="post">
         <h4>Select Your New Profile Picture</h4>
 
         <div class="form-group">

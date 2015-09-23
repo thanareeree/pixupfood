@@ -1,6 +1,6 @@
 <?php
-include '/api/islogin.php';
-include '/dbconn.php';
+include '../api/islogin.php';
+include '../dbconn.php';
 ?>
 
 
@@ -10,7 +10,7 @@ include '/dbconn.php';
     <head>
         <title>Pixupfood - Restaurant Menu Management</title>
 
-        <?php include '/template/customer-title.php'; ?>
+        <?php include '../template/customer-title.php'; ?>
         <!-- custom css -->
         <link rel="stylesheet" href="/assets/css/res_restaurant_manage.css">
         <style>
@@ -32,7 +32,7 @@ include '/dbconn.php';
         $result = $con->query("select * from restaurant where id = '$resid' ");
         $resdata = $result->fetch_assoc();
         ?>
-        <?php include '/template/restaurant-navbar.php'; ?>
+        <?php include '../template/restaurant-navbar.php'; ?>
 
         <!-- start head -->
         <section id="head">
@@ -217,7 +217,7 @@ include '/dbconn.php';
                                                     <h2>ขนิดข้าว</h2>
                                                     <!-- Menu 1 Row -->
                                                     <div class="row">
-                                                        <?php include '/restaurant/menu-ricetype-list.php'; ?>
+                                                        <?php include '../restaurant/menu-ricetype-list.php'; ?>
                                                     </div>
                                                 </div>
                                             </div>
@@ -234,7 +234,7 @@ include '/dbconn.php';
                                                     <h2>รายการกับข้าว</h2>
                                                     <!-- Menu 1 Row -->
                                                     <div class="row">
-                                                        <?php include '/restaurant/menu-foodtype-list.php'; ?>
+                                                        <?php include '../restaurant/menu-foodtype-list.php'; ?>
                                                     </div>
                                                 </div>
                                             </div>
@@ -252,7 +252,7 @@ include '/dbconn.php';
                                                     <h2>อาหารจานเดียว</h2>
                                                     <!-- Menu 1 Row-->
                                                     <div class="row">
-                                                        <?php include '/restaurant/menu-singlefood-list.php'; ?>
+                                                        <?php include '../restaurant/menu-singlefood-list.php'; ?>
                                                     </div>
 
                                                 </div>
@@ -270,7 +270,7 @@ include '/dbconn.php';
                                                     <h2>เมนูเซต</h2>
                                                     <!-- Menu 1 Row -->
                                                     <div class="row">
-                                                        <?php include '/restaurant/menu-drinktype-list.php'; ?>
+                                                        <?php include '../restaurant/menu-menusettype-list.php'; ?>
                                                     </div>
                                                 </div>
                                             </div>
@@ -348,7 +348,7 @@ include '/dbconn.php';
                                                                                     <option>เมนูเซต</option>
                                                                                 </select>
                                                                                 <span style="margin-left: 25px;"> หมวดหมู่ </span>&nbsp;&nbsp;
-                                                                                <?php include '/template/foodtype-list.php'; ?>
+                                                                                <?php include '../template/foodtype-list.php'; ?>
                                                                             </div>
                                                                             <div class="row" style="margin:10px 0 0 5px;">
                                                                                 <span style="margin-left: 24px;"> ชื่ออาหาร </span> &nbsp;<input type="text">
@@ -395,7 +395,7 @@ include '/dbconn.php';
                                     <div class="modal fade" id="AddMenu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                         <div class="modal-dialog" role="document">  
                                             <div class="modal-content">
-                                                <form action="../restaurant/menu-add.php?id=<?= $resid ?>" method="post" enctype="multipart/form-data" name="add_menu_form" >
+                                                <form action="/restaurant/menu-add.php?id=<?= $resid ?>" method="post" enctype="multipart/form-data" name="add_menu_form" >
                                                     <div class="modal-header">
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                         <h4 class="modal-title" id="myModalLabel">เพิ่มรายการใหม่</h4>
@@ -449,7 +449,7 @@ include '/dbconn.php';
                                                                                 <div class="span4">
                                                                                     <div class="thumbnail" id="images_preview">
                                                                                                 <!-- <input type="file" name="img"> --->
-                                                                                        <img src="../assets/images/default-img360.png" alt="ALT NAME" id="defaultimg">
+                                                                                        <img src="/assets/images/default-img360.png" alt="ALT NAME" id="defaultimg">
 
                                                                                     </div>                                                                                    
                                                                                 </div>
@@ -516,7 +516,7 @@ include '/dbconn.php';
                                                         <div class="col-md-3">
                                                             <div class="card maxheight">
                                                                 <div class="card-image">
-                                                                    <img src="../assets/images/res_resall/menuedit/FriedEgg.jpg">
+                                                                    <img src="/assets/images/res_resall/menuedit/FriedEgg.jpg">
                                                                 </div>
                                                                 <div class="card-content height">
                                                                     <div class="product-name">ไข่ดาว</div>
@@ -540,7 +540,7 @@ include '/dbconn.php';
                                                             <div class="card">
                                                                 <div class="maxheight">
                                                                     <div class="card-image">
-                                                                        <img src="../assets/images/res_resall/menuedit/pork.jpg">
+                                                                        <img src="/assets/images/res_resall/menuedit/pork.jpg">
                                                                     </div>
                                                                     <div class="card-content height">
                                                                         <div class="product-name">กระดูกหมูกระเทียมพริกไทย</div>
@@ -605,7 +605,7 @@ include '/dbconn.php';
 
             $("#searchbyname").submit(function (e) {
                 $.ajax({
-                    url: "../restaurant/menu-searchbyname.php",
+                    url: "/restaurant/menu-searchbyname.php",
                     type: "GET",
                     dataType: "json",
                     success: function (data) {

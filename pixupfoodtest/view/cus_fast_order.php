@@ -7,32 +7,20 @@ include '../dbconn.php';
     <head>
         <meta charset="UTF-8">
         <title>Pixupfood - Order</title>
+        <?php include '../template/customer-title.php'; ?>
 
-<<<<<<< HEAD
-        <?php
-        include '../template/customer-title.php';
-        ;
-        ?>
-=======
-        <?php include '../template/customer-title.php';?>
->>>>>>> 5a24177a5923fcea00f4af8f6c1e6fd2a71e44f2
         <!-- custom css -->
-        <link rel="stylesheet" href="../assets/css/fast_order.css">
+        <link rel="stylesheet" href="/assets/css/fast_order.css">
 
     </head>
     <body>
-<<<<<<< HEAD
-
-<?php include '../template/customer-navbar.php'; ?>
-=======
         <?php include '../template/customer-navbar.php'; ?>
->>>>>>> 5a24177a5923fcea00f4af8f6c1e6fd2a71e44f2
 
         <!-- start profile -->
         <section id="fast_order">
             <div class="profilecontainer">
                 <div class="headprofile">
-                    <img align="left" class="fb-image-lg" src="../assets/images/city-restaurant-lunch-outside.png" alt="Profile image example"/>
+                    <img align="left" class="fb-image-lg" src="/assets/images/city-restaurant-lunch-outside.png" alt="Profile image example"/>
                 </div>
             </div> <!-- /container -->
             <!-- edit profile -->
@@ -641,7 +629,7 @@ include '../dbconn.php';
         </section> 
 
 
-        <?php include '../template/footer.php';?>
+        <?php include '../template/footer.php'; ?>
 
         <script>
             (function () {

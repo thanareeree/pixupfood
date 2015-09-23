@@ -10,7 +10,7 @@ include '../dbconn.php';
         <title>Restaurant Register Form</title>
         <?php include '../template/customer-title.php'; ?>
         <!-- custom css -->
-        <link rel="stylesheet" href="../assets/css/register.css">
+        <link rel="stylesheet" href="/assets/css/register.css">
         
 
     </head>
@@ -49,7 +49,7 @@ include '../dbconn.php';
                             <div class="col-md-12 wow fadeInUp" data-wow-delay="0.6s" style="margin-top: 10px;">
                                 <div class="col-md-3"></div>
                                 <div class="col-md-9">
-                                    <form action="../restaurant/upload-confirm-image.php?id=<?= $_GET["id"] ?>" method="post" enctype="multipart/form-data" id="formupload">
+                                    <form action="/restaurant/upload-confirm-image.php?id=<?= $_GET["id"] ?>" method="post" enctype="multipart/form-data" id="formupload">
                                         <div class="col-md-3" style="text-align: right">
                                             <h4>อัพโหลดรูปภาพ:</h4>
                                         </div>
@@ -127,7 +127,7 @@ include '../dbconn.php';
                 $(".okbutton").on("click", function (e) {
                     $(".okbutton").attr("disabled", "disabled");
                     $("#modalcancel").modal("hide");
-                    document.location = "../api/logout.php";
+                    document.location = "/api/logout.php";
                 });
                 
                 $.urlParam = function (name) {

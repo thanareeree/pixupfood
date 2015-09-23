@@ -35,7 +35,7 @@ include '../dbconn.php';
                 <div class="col-sm-12">
                     <h4 style="margin-top: 30px">Add New Food Type:</h4>
                     <div class="content2 col-sm-7">
-                        <form action="../admin/save-newfoodtype.php" method="post">
+                        <form action="/admin/save-newfoodtype.php" method="post">
                             <div class="form-group">
                                 <label for="newfoodtype" class="col-sm-3 control-label" style="text-align: right">New Food Type</label>
                                 <div class="col-sm-9">
@@ -78,15 +78,15 @@ include '../dbconn.php';
                 </div>
             </div>
         </div>
-        <script src="../assets/js/jquery-2.1.4.min.js"></script>
-        <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
-        <script src="../assets/js/bootstrap-table.js"></script>
+        <script src="/assets/js/jquery-2.1.4.min.js"></script>
+        <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/assets/js/bootstrap-table.js"></script>
         <script>
             $(document).ready(function () {
                 $(".delbtn").on("click", function (e) {
 
                     $.ajax({
-                        url: "../admin/delete-foodtype.php",
+                        url: "/admin/delete-foodtype.php",
                         type: "POST",
                         data: {"id": $(".foodtypelist").val()},
                         dataType: "html",

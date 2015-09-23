@@ -6,7 +6,7 @@ include '../dbconn.php';
     <head>
         <title>PixupFood - The Original Food Delivery</title>
         <?php include '../template/customer-title.php'; ?>
-        <link rel="stylesheet" href="../assets/css/search_page.css">
+        <link rel="stylesheet" href="/assets/css/search_page.css">
         <style>
             .searchTitle__content {
                 width: 100%;
@@ -144,7 +144,7 @@ include '../dbconn.php';
                                                 <td style="text-align: center;">
                                                     <a class="" href="#">
                                                         <img 
-                                                            src="<?= ($data["img_path"] == "" ? "../assets/images/default-img150.png" : $data["img_path"]) ?>"
+                                                            src="<?= ($data["img_path"] == "" ? "/assets/images/default-img150.png" : $data["img_path"]) ?>"
                                                             style="max-width: 150px; max-height:90px;">
                                                     </a>
                                                 </td>
@@ -189,7 +189,7 @@ include '../dbconn.php';
         <!-- end register -->
         <?php include '../template/footer.php'; ?>
         <?php
-        if (isset($_SESSION["islogin"])) {
+        if (isset($_SESSION["userdata"]["id"])) {
             ?>
             <script>
                 $('.tooltip-r').removeAttr("title");
@@ -262,7 +262,7 @@ include '../dbconn.php';
                     var foodtype = $("#foodtype").val();
                     var searchtxt = $("#searchtxt").val();
                     $.ajax({
-                        url: "../customer/ajax_search.php",
+                        url: "/customer/ajax_search.php",
                         type: 'POST',
                         dataType: 'html',
                         data: {"searchby": searchby, "foodtype": foodtype, "searchtxt": searchtxt, "lat": lat, "long": long},

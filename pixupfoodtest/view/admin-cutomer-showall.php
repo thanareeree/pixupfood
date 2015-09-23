@@ -153,9 +153,9 @@ include '../dbconn.php';
             </div>
             
         </div>
-        <script src="../assets/js/jquery-2.1.4.min.js"></script>
-        <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
-        <script src="../assets/js/bootstrap-table.js"></script>
+        <script src="/assets/js/jquery-2.1.4.min.js"></script>
+        <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/assets/js/bootstrap-table.js"></script>
         <script type="text/javascript">
             $(document).ready(function () {
                 $('#fresh-table').bootstrapTable({
@@ -200,7 +200,7 @@ include '../dbconn.php';
                     $("#showrestid").html(id);
 
                     $.ajax({
-                        url: "../admin/view-customer.php",
+                        url: "/admin/view-customer.php",
                         type: "POST",
                         data: {"id": id},
                         dataType: "html",
@@ -220,7 +220,7 @@ include '../dbconn.php';
                 $("#deleteyes").on("click", function (e) {
                     
                     $.ajax({
-                        url: "../admin/deletecustomer.php",
+                        url: "/admin/deletecustomer.php",
                         type: "POST",
                         data: {"id": $("#showid").html()},
                         dataType: "html",
@@ -246,7 +246,7 @@ include '../dbconn.php';
                 $("#blockyes").on("click", function (e) {
 
                     $.ajax({
-                        url: "../admin/blockcustomer.php",
+                        url: "/admin/blockcustomer.php",
                         type: "POST",
                         data: {"id": $("#showblockid").html()},
                         dataType: "html",
@@ -272,7 +272,7 @@ include '../dbconn.php';
                 $("#unblockyes").on("click", function (e) {
 
                     $.ajax({
-                        url: "../admin/blockcustomer.php",
+                        url: "/admin/blockcustomer.php",
                         type: "POST",
                         data: {"id": $("#showblockedid").html()},
                         dataType: "html",

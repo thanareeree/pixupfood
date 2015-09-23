@@ -16,7 +16,7 @@ if ($con->error == "") {
                 . "VALUES ('null','$reason','$restid')");
         if ($con->error == "") {
             /*
-              include '../register/thsms.php';
+              include '/register/thsms.php';
               $sms = new thsms();
               $sms->username = 'thanaree';
               $sms->password = '58c60d';

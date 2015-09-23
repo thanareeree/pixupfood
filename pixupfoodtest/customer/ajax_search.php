@@ -22,16 +22,19 @@ if ($searchby == "foodname") {
                 . "LEFT JOIN main_menu ON menu.main_menu_id = main_menu.id "
                 . "LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = menu.id "
                 . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
-                . "WHERE main_menu.name LIKE '%$searchtxt%' $foodtypeq ");
+                . "WHERE (main_menu.name LIKE '%$searchtxt%' AND main_menu.type NOT LIKE 'ชนิดข้าว') $foodtypeq "
+                . "GROUP BY main_menu.name");
         $numrow = $res->num_rows;
     } else if ($searchtxt == "") {
-        $res = $con->query("SELECT menu.id, menu.name as menuname,menu.price ,menu.type , food_type.description ,"
+        $res = $con->query("SELECT menu.id, main_menu.name as menuname,menu.price ,main_menu.type , food_type.description ,"
                 . "restaurant.name as resname, restaurant.address, restaurant.detail, restaurant.tel, menu.img_path "
                 . "FROM restaurant "
                 . "LEFT JOIN menu ON menu.restaurant_id = restaurant.id "
+                . "LEFT JOIN main_menu ON menu.main_menu_id = main_menu.id "
                 . "LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = menu.id "
                 . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
-                . "WHERE menu.name LIKE '%' $foodtypeq ");
+                . "WHERE (main_menu.name LIKE '%$searchtxt%' AND main_menu.type NOT LIKE 'ชนิดข้าว') $foodtypeq "
+                . "GROUP BY main_menu.name");
         $numrow = $res->num_rows;
     }
     if ($numrow == 0) {
@@ -45,7 +48,7 @@ if ($searchby == "foodname") {
             <td style="text-align: center;">
                 <a class="" href="#">
                     <img
-                        src="<?= ($data["img_path"] == "" ? "../assets/images/default-img150.png" : $data["img_path"]) ?>"
+                        src="<?= ($data["img_path"] == "" ? "/assets/images/default-img150.png" : $data["img_path"]) ?>"
                         style="max-width: 150px; max-height:90px;">
                 </a>
             </td>
@@ -72,6 +75,7 @@ if ($searchby == "foodname") {
                 . "restaurant.detail,  restaurant.tel,restaurant.img_path, restaurant.zone_id,"
                 . " zone.name as zone_name, restaurant.province  "
                 . "FROM restaurant JOIN zone ON zone.id = restaurant.zone_id "
+                . "RIGHT JOIN menu ON menu.reataurant_id = restaurant.id"
                 . "WHERE (restaurant.name LIKE '%$searchtxt%' AND restaurant.available = 1) "
                 . "AND zone.name IN (SELECT zone.name FROM zone WHERE id = restaurant.zone_id)");
         $numrow = $res->num_rows;
@@ -87,7 +91,7 @@ if ($searchby == "foodname") {
             <td style="text-align: center;">
                 <a class="" href="#">
                     <img 
-                        src="<?= ($data["img_path"] == "" ? "../assets/images/default-img150.png" : $data["img_path"]) ?>"
+                        src="<?= ($data["img_path"] == "" ? "/assets/images/default-img150.png" : $data["img_path"]) ?>"
                         style="max-width: 150px; max-height:90px;">
                 </a>
             </td>
@@ -99,7 +103,7 @@ if ($searchby == "foodname") {
 
             </td>
             <td>
-                <a href="../view/cus_restaurant_view.php?resId=<?= $data["id"] ?>">
+                <a href="/view/cus_restaurant_view.php?resId=<?= $data["id"] ?>">
                     <span class="tooltip-r" data-toggle="tooltip" data-placement="top" title="log in to ordet this restaurant">
                         <button class="btn btn-success restaurant_order" id="restaurant_order<?= $data["id"] ?>"><i class="glyphicon glyphicon-plus"></i>&nbsp; สั่งอาหารล่วงหน้า</button>
                     </span>
@@ -134,7 +138,7 @@ if ($searchby == "foodname") {
             <td style="text-align: center;">
                 <a class="" href="#">
                     <img 
-                        src="<?= ($data["img_path"] == "" ? "../assets/images/default-img150.png" : $data["img_path"]) ?>"
+                        src="<?= ($data["img_path"] == "" ? "/assets/images/default-img150.png" : $data["img_path"]) ?>"
                         style="max-width: 150px; max-height:90px;">
                 </a>
             </td>
@@ -146,7 +150,7 @@ if ($searchby == "foodname") {
                 <br><i class="glyphicon glyphicon-flag"></i>&nbsp;รัศมี&nbsp;<?= substr($data["distance"], 0, 5) ?>&nbsp;กิโลเมตร
             </td>
             <td>
-                <a href="../view/cus_restaurant_view.php?resId=<?= $data["id"] ?>">
+                <a href="/view/cus_restaurant_view.php?resId=<?= $data["id"] ?>">
                     <span class="tooltip-r" data-toggle="tooltip" data-placement="top" title="log in to ordet this restaurant">
                         <button class="btn btn-success restaurant_order" id="restaurant_order<?= $data["id"] ?>"><i class="glyphicon glyphicon-plus"></i>&nbsp; สั่งอาหารล่วงหน้า</button>
                     </span>

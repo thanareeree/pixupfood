@@ -43,14 +43,14 @@ include '../dbconn.php';
             </div><!-- /.container-fluid -->
         </nav>
 
-        <script src="../assets/js/jquery-2.1.4.min.js"></script>
-        <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/assets/js/jquery-2.1.4.min.js"></script>
+        <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
         <script>
             $(document).ready(function (e) {
                 // $("#navright-before").show();
                 $("#loginbtn").on("click", function (e) {
                     $.ajax({
-                        url: "../admin/login.php",
+                        url: "/admin/login.php",
                         type: "POST",
                         data: {"username": $("#usernameinput").val(),
                             "password": $("#pwdinput").val()},
@@ -58,7 +58,7 @@ include '../dbconn.php';
                         success: function (returndata) {
 
                             if (returndata == "ok") {
-                               document.location = "admin-index.php";
+                               document.location = "/view/admin-index.php";
                             } else {
                                 alert("error");
                             }

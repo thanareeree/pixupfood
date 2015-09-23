@@ -38,7 +38,7 @@ include '../dbconn.php';
                 <div class="col-sm-7">
                     <h4 style="margin-top: 30px">Create New Service Plan:</h4>
                     <div class="content2">
-                        <form action="../admin/saveserviceplan.php" method="post">
+                        <form action="/admin/saveserviceplan.php" method="post">
                             <div class="form-group">
                                 <label for="servicename" class="col-sm-3 control-label" style="text-align: right">Service Name</label>
                                 <div class="col-sm-9">
@@ -69,7 +69,7 @@ include '../dbconn.php';
                         $res2 = $con->query("SELECT * FROM `serviceplan`");
                         while ($data2 = $res2->fetch_assoc()) {
                             ?>
-                            <form action="../admin/editserviceplan.php" method="post">
+                            <form action="/admin/editserviceplan.php" method="post">
                                 <div class="form-group">
                                     <label for="servicename" class="col-sm-3 control-label" style="text-align: right">Service Name</label>
                                     <div class="col-sm-9">
@@ -195,8 +195,8 @@ include '../dbconn.php';
 
         </div>
 
-        <script src="../assets/js/jquery-2.1.4.min.js"></script>
-        <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/assets/js/jquery-2.1.4.min.js"></script>
+        <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
         <script>
             $(document).ready(function () {
                 $("#showalldata").on("click", ".deletebtn", function (e) {
@@ -208,7 +208,7 @@ include '../dbconn.php';
                 $("#deleteyes").on("click", function (e) {
                     $("#deleteyes").attr("disabled", "disabled");
                     $.ajax({
-                        url: "../admin/deleteserviceplan.php",
+                        url: "/admin/deleteserviceplan.php",
                         type: "POST",
                         data: {"id": $("#showid").html()},
                         dataType: "html",
@@ -228,7 +228,7 @@ include '../dbconn.php';
                     $("#showrestid").html(id);
 
                     $.ajax({
-                        url: "../admin/view-serviceplan.php",
+                        url: "/admin/view-serviceplan.php",
                         type: "POST",
                         data: {"id": id},
                         dataType: "html",
@@ -245,7 +245,7 @@ include '../dbconn.php';
                     $("#showrestid").html(id);
 
                     $.ajax({
-                        url: "../admin/view-serviceplan.php",
+                        url: "/admin/view-serviceplan.php",
                         type: "POST",
                         data: {"id": id},
                         dataType: "html",

@@ -18,7 +18,7 @@ include '../dbconn.php';
 
 
         <!-- custom css -->
-        <link rel="stylesheet" href="../assets/css/register.css">
+        <link rel="stylesheet" href="/assets/css/register.css">
         
 
 
@@ -37,8 +37,8 @@ include '../dbconn.php';
                         <span class="icon icon-bar"></span>
                     </button>
 
-                    <a href="../index.php" class="navbar-brand">Pixup</a>
-                    <a href="../index.php" class="navbar-brand" style="color:rgba(0,0,32,1);padding-left: 0px;">Food</a>
+                    <a href="/index.php" class="navbar-brand">Pixup</a>
+                    <a href="/index.php" class="navbar-brand" style="color:rgba(0,0,32,1);padding-left: 0px;">Food</a>
                     <div class="col-md-4" style="margin:7px 0 0 15%;">
                         <div id="custom-search-input">
                             <div class="input-group col-md-12">
@@ -52,10 +52,10 @@ include '../dbconn.php';
                         </div>
                     </div>
                     <ul class="nav navbar-nav navbar-right text-uppercase">
-                        <li><a href="../api/logout.php" class="nav-link"><?= (!isset($_SESSION["islogin"])) ? 'No Session' : "สวัสดีคุณ " . $_SESSION["userdata"]["firstName"] . " " . $_SESSION["userdata"]["lastName"] ?></a></li>
+                        <li><a href="/api/logout.php" class="nav-link"><?= (!isset($_SESSION["islogin"])) ? 'No Session' : "สวัสดีคุณ " . $_SESSION["userdata"]["firstName"] . " " . $_SESSION["userdata"]["lastName"] ?></a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="../assets/images/bar/user.png" style="width:40px;height:40px;"/>
+                                <img src="/assets/images/bar/user.png" style="width:40px;height:40px;"/>
                             </a>
 
                         </li>
@@ -85,7 +85,7 @@ include '../dbconn.php';
                         </div>
                         <div class="col-md-5 wow fadeInUp" data-wow-delay="0.6s" style="margin-top: 10px;">
                             <div>
-                                <form action="../register/customer-save.php" method="post" id="otpform">
+                                <form action="/register/customer-save.php" method="post" id="otpform">
                                     <div class="col-md-12 form-group">
                                         <input type="hidden" id="cusid" name="cusid" value="<?= $_SESSION["userdata"]["id"] ?>">
                                         <input required type="text" class="form-control" placeholder="OTP password" id="otpinput" name="otpinput">
@@ -95,7 +95,7 @@ include '../dbconn.php';
                                         <input type="submit" class="form-control text-uppercase" value="Send">
                                     </div>
                                     <div class="col-md-4 pull-right">
-                                        <a href="../api/logout.php"><input type="button" class="form-control text-uppercase btn-danger" id="cancelbtn" value="Cancel"></a>
+                                        <a href="/api/logout.php"><input type="button" class="form-control text-uppercase btn-danger" id="cancelbtn" value="Cancel"></a>
                                     </div>
                                 </form>
                             </div>
@@ -119,8 +119,8 @@ include '../dbconn.php';
         <!-- end footer -->
 
         <!-- script references -->
-        <script src="../assets/js/jquery-2.1.4.min.js"></script>
-        <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/assets/js/jquery-2.1.4.min.js"></script>
+        <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
         <script>
             $("#menu-toggle").click(function (e) {
                 e.preventDefault();
@@ -128,8 +128,8 @@ include '../dbconn.php';
             });
         </script>
 
-        <script src="../assets/js/wow.min.js"></script>
-        <script src="../assets/js/custom.js"></script>
+        <script src="/assets/js/wow.min.js"></script>
+        <script src="/assets/js/custom.js"></script>
 
         <script>
             $(document).ready(function () {
@@ -140,12 +140,12 @@ include '../dbconn.php';
                 $("#otpform").on("submit", function (e) {
                     $.ajax({
                         type: "POST",
-                        url: "../customer/checkotppassword.php",
+                        url: "/customer/checkotppassword.php",
                         data: $("#otpform").serializeArray(),
                         dataType: "json",
                         success: function (data) {
                             if (data.result == "1") {
-                                document.location = "../view/cus_customer_profile.php?id=" + data.id;
+                                document.location = "/view/cus_customer_profile.php?id=" + data.id;
                                 //checkOTPTime(data.created_otp);
                                 // function checkOTPTime(data.created_otp) เพื่อไปเซ็คว่ามันหมดเวลาล่ะยัง
                             } else {

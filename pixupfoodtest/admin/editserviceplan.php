@@ -9,7 +9,7 @@ $con->query("");
 if ($con->error == "") {
     ?>
     <script>
-        document.location = "../view/admin-restaurant-serviceplan.php"
+        document.location = "/view/admin-restaurant-serviceplan.php"
     </script>
 
     <?php

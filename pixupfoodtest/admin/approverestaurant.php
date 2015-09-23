@@ -11,7 +11,7 @@ if ($con->error == "") {
     if ($res->num_rows == 1) {
         $data = $res->fetch_assoc();
         /*
-          include '../register/thsms.php';
+          include '/register/thsms.php';
           $sms = new thsms();
           $sms->username = 'thanaree';
           $sms->password = '58c60d';

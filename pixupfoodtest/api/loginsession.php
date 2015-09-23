@@ -28,14 +28,14 @@ if ($res->num_rows == 0 && $res2->num_rows == 0) {
     if ($_SESSION["userdata"]["type"] == 2 && $_SESSION["userdata"]["available"] == 0) {
         $response = array(
             "result" => 1,
-            "redirectTo"=>"../view/cus_otpform.php?id=".$_SESSION["userdata"]["id"]
+            "redirectTo"=>"/view/cus_otpform.php?id=".$_SESSION["userdata"]["id"]
         );
     } else if ($_SESSION["userdata"]["available"] != 0) {
         $response = array(
             "result" => 2,
             "id"=>$data["id"],
             "name"=>$data["firstName"]." ".$data["lastName"],
-            "img"=>($data["img_path"]=="" ? '../assets/images/defaulf-profile.png':$data["img_path"])
+            "img"=>($data["img_path"]=="" ? '/assets/images/defaulf-profile.png':$data["img_path"])
         );
     } else if ($_SESSION["restdata"]["type"] == 1 && $_SESSION["restdata"]["img_path_confirm"] == null) {  //ไม่อัพรูป
         $response = array(
@@ -45,12 +45,12 @@ if ($res->num_rows == 0 && $res2->num_rows == 0) {
     } else if ($_SESSION["restdata"]["available"] == 0 || $_SESSION["restdata"]["available"] == 2) { //แอดมิน ยังไม่อนุมัติ
         $response = array(
             "result" => 1,
-            "redirectTo"=>"../view/res_unapprove.php"
+            "redirectTo"=>"/view/res_unapprove.php"
         );
     } else if ($_SESSION["restdata"]["available"] == 1) { //แอดมิน อนุมัติแล้ว ร้านอาหารสามารถเข้าไป manage ร้านได้ปกติ
         $response = array(
             "result" => 1,
-            "redirectTo"=>"../view/res_restaurant_manage_edit.php"
+            "redirectTo"=>"/view/res_restaurant_manage_edit.php"
         );
     }
 }

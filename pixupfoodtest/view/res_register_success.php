@@ -9,7 +9,7 @@ include '../dbconn.php';
         <title>Restaurant Register Form</title>
         <?php include '../template/customer-title.php'; ?>
         <!-- custom css -->
-        <link rel="stylesheet" href="../assets/css/register.css">
+        <link rel="stylesheet" href="/assets/css/register.css">
 
         <style>
             .content2 {
@@ -71,7 +71,7 @@ include '../dbconn.php';
                 $(".okbutton").on("click", function (e) {
                     $(".okbutton").attr("disabled", "disabled");
                     $("#modalcancel").modal("hide");
-                    document.location = "../index.php";
+                    document.location = "/index.php";
                 });
 
                 $.urlParam = function (name) {

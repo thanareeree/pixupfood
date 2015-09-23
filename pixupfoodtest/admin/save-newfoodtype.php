@@ -9,7 +9,7 @@ $con->query("INSERT INTO `food_type`(`id`, `description`) VALUES ('null','$name'
 if ($con->error == "") {
     ?>
     <script>
-        document.location = "../view/admin-restaurant-editmenu.php"
+        document.location = "/view/admin-restaurant-editmenu.php"
     </script>
 
     <?php
