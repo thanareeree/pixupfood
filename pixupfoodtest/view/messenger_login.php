@@ -39,14 +39,11 @@ include './navbar.php';
         <nav class="navbar navbar-default navbar-fixed-top templatemo-nav" role="navigation">
             <div class="container">
                 <div class="navbar-header">
-                    <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon icon-bar"></span>
-                    </button>
                     <a href="../index.php" style="color:rgba(255,127,0,1);padding-right: 0px;" class="navbar-brand">Pixup</a>
                     <a href="../index.php" class="navbar-brand" style="color:black;padding-left: 0px;">Food</a>
                     <ul class="nav navbar-nav navbar-right text-uppercase pull-right">
                         <li><a <?= (!isset($_SESSION["islogin"])) ? 'href="#"' : 'href="../api/logout.php" class="nav-link"' ?> ><?= (!isset($_SESSION["islogin"])) ? ' สวัสดี ' : $_SESSION["userdata"]["firstName"] . " " . $_SESSION["userdata"]["lastName"] ?>
-                                <img src="../assets/images/bar/user.png" style="width:30px;height:30px;"/> 
+                                <img src="../assets/images/bar/user.png" style="width:30px;height:30px;margin-right: 20px"/> 
                             </a>
                         </li>                                                 
                     </ul>
@@ -62,7 +59,7 @@ include './navbar.php';
                     <div class="row">
                         <div class="col-sm-6 wow fadeInRight" data-wow-delay="0.6s">
                             <h2 class="text-uppercase">เข้าสู่ระบบ</h2>
-                            <div class="contact-form">
+                            <div class="contact-formmessenger">
                                 <form action="../api/loginsession.php" method="post">
                                     <div class="col-md-4" style="margin-top:13px;font-weight:bold;font-size:18px;">
                                         USERNAME &nbsp; &nbsp;:

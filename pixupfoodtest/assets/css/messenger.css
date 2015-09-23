@@ -50,9 +50,10 @@
     margin-top: 6px;
     margin-right: 10px;
 }
-#messenger .contact-form
+#messenger form
 {
     padding-top: 40px;
+    padding-bottom: 20px;
 }
 #messenger .form-control
 {
@@ -81,7 +82,8 @@
 #messenger .container_status
 {
     background-color:rgba(255,246,143,0.4);
-    padding: 5px 5px 5px 20px;
+    padding: 30px 8px 5px 8px;
+    margin-top: 70px;
 }
 
 #messenger .container_field
@@ -257,16 +259,6 @@ span.round-tab:hover {
 }
 
 
-#pinBoot {
-  position: relative;
-  max-width: 100%;
-  width: 100%;
-}
-#pinBootpromo {
-  position: relative;
-  max-width: 100%;
-  width: 100%;
-}
 img {
   width: 100%;
   max-width: 100%;

@@ -61,46 +61,15 @@ include '../dbconn.php';
                 <div class="headprofile">
                     <img align="left" class="fb-image-lg" src="../assets/images/city-restaurant-lunch-outside.png" alt="Profile image example"/>
                     <div class="container_status">
-                        <form action="#">
-                            <table class="table table-hover" id="task-table">
-                                <thead>
-                                    <tr>
-                                        <th>ลำดับที่</th>
-                                        <th>รายการอาหาร</th>
-                                        <th>ชื่อลูกค้า</th>
-                                        <th>จำนวน</th>
-                                        <th>เพิ่มเติม</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Site Wireframes</td>
-                                        <td>John Smith</td>
-                                        <td>4</td>
-                                        <td><p data-placement="top" data-toggle="tooltip" title="Confirm"><button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#Confirm" ><span class="glyphicon glyphicon-ok"></span></button></p></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Mobile Landing Page</td>
-                                        <td>Kilgore Trout</td>
-                                        <td>4</td>
-                                        <td><p data-placement="top" data-toggle="tooltip" title="Confirm"><button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#Confirm" ><span class="glyphicon glyphicon-ok"></span></button></p></td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Add SEO tags</td>
-                                        <td>Bob Loblaw</td>
-                                        <td>4</td>
-                                        <td><p data-placement="top" data-toggle="tooltip" title="Confirm"><button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#Confirm" ><span class="glyphicon glyphicon-ok"></span></button></p></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-        <!--<h4>ชื่อผู้รับ: </h4><span>นายลมุน ลูกป้าลมัย</span>
-        <h4>รหัสรายการ: </h4><span>LM00010</span>
-        <h4>รหัสยืนยัน:</h4>
-        <input type="text" name="otpaccept">
-        <button type="button" class="btn btn-primary">confirm</button>-->
+                        <form action="#">                           
+                            <h4>ชื่อผู้รับ: </h4><span>นายลมุน ลูกป้าลมัย</span>
+                            <h4>รหัสรายการ: </h4><span>LM00010</span>
+                            <h4>ที่อยู่จัดส่ง: </h4><span>365/1167 ซ.พุทธบูชา 47 แขวงบางมด เขตทุ่งครุ กทม 10140</span>
+                            <h4>โทร:</h4><span>0877056769</span>
+                            <h4>วิธีชำระเงิน:</h4><span>เงินสด</span>
+                            <h4>รหัสยืนยัน:</h4>
+                            <input type="text" name="otpaccept">
+                            <button type="button" class="btn btn-primary">confirm</button>
                         </form>
                     </div>
                 </div>
