@@ -7,6 +7,7 @@ include './dbconn.php';
     <head>
         <?php include './template/customer-title-index.php'; ?>
         <title>PixupFood - The Original Food Delivery</title>
+        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css">
     </head>
     <body>
         <<<<<<< HEAD
@@ -403,51 +404,72 @@ include './dbconn.php';
                         <h2 class="text-uppercase">Our Pricing</h2>
                     </div>
                     <div class="col-md-4 wow fadeIn" data-wow-delay="0.6s">
-                        <div class="pricing text-uppercase">
-                            <div class="pricing-title">
-                                <h4>Basic Plan</h4>
-                                <p>$10</p>
-                                <small class="text-lowercase">monthly</small>
+                        <div class="panel price panel-green">
+                            <div class="panel-heading arrow_box text-center">
+                                <h3>FREE PLAN</h3>
                             </div>
-                            <ul>
-                                <li>2 GB Space</li>
-                                <li>200 GB Bandwidth</li>
-                                <li>20 More Themes</li>
-                                <li>Lifetime Support</li>
+                            <div class="panel-body text-center">
+                                <p class="lead" style="font-size:35px;margin: 0px;"><strong>฿0 / month</strong></p>
+                            </div>
+                            <ul class="list-group list-group-flush text-center">
+                                <li class="list-group-item"><i class="icon-ok text-success"></i> จำกัดเมนูอาหาร 20 เมนู</li>
+                                <li class="list-group-item"><i class="icon-ok text-success"></i> จำกัดจำนวนคนส่งอาหาร</li>
+                                <li class="list-group-item"><i class="icon-ok text-success"></i> ติดตามสถานะด้วยตนเอง</li>
+                                <li class="list-group-item"><i class="icon-ok text-success"></i> ดูแลระบบในเวลาเปิดร้าน</li>
+                                <li class="list-group-item"> -</li>
+                                <li class="list-group-item"> -</li>
+                                <li class="list-group-item"> -</li>
+                                <li class="list-group-item"> -</li>
                             </ul>
-                            <button class="btn btn-primary text-uppercase">Sign up</button>
+                            <div class="panel-body text-center">
+                                <span>ใช้งานฟรี ไม่เสียค่าใช้จ่าย!</span>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-4 wow fadeIn" data-wow-delay="0.6s">
-                        <div class="pricing active text-uppercase">
-                            <div class="pricing-title">
-                                <h4>Business Plan</h4>
-                                <p>$20</p>
-                                <small class="text-lowercase">monthly</small>
+                        <div class="panel price panel-blue">
+                            <div class="panel-heading  text-center">
+                                <h3>PRO PLAN</h3>
                             </div>
-                            <ul>
-                                <li>5 GB space</li>
-                                <li>500 GB Bandwidth</li>
-                                <li>50 More Themes</li>
-                                <li>Lifetime Support</li>
+                            <div class="panel-body text-center">
+                                <p class="lead" style="font-size:35px;margin: 0px;"><strong>฿100 / month</strong></p>
+                            </div>
+                            <ul class="list-group list-group-flush text-center">
+                                <li class="list-group-item"><i class="icon-ok text-success"></i> จำกัดเมนูอาหาร 60 เมนู</li>
+                                <li class="list-group-item"><i class="icon-ok text-success"></i> ไม่จำกัดจำนวนคนส่งอาหาร</li>
+                                <li class="list-group-item"><i class="icon-ok text-success"></i> ติดตามสถานะด้วย code</li>
+                                <li class="list-group-item"><i class="icon-ok text-success"></i> ดูแลระบบในเวลาเปิดร้าน</li>
+                                <li class="list-group-item"><i class="icon-ok text-success"></i> รีวิวร้านอาหาร 1ครั้ง/เดือน</li>
+                                <li class="list-group-item"><i class="icon-ok text-success"></i> ฟรีขึ้นโฆษณาหน้าแรก 1ตัว</li>
+                                <li class="list-group-item"> -</li>
+                                <li class="list-group-item"> -</li>
                             </ul>
-                            <button class="btn btn-primary text-uppercase">Sign up</button>
+                            <div class="panel-body text-center">
+                                <span>จ่ายสบายๆ เหมาะกับผู้เริ่มต้นใช้งาน!</span>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-4 wow fadeIn" data-wow-delay="0.6s">
-                        <div class="pricing text-uppercase">
-                            <div class="pricing-title">
-                                <h4>Pro Plan</h4>
-                                <p>$30</p>
-                                <small class="text-lowercase">monthly</small>
+                        <div class="panel price panel-red">
+                            <div class="panel-heading arrow_box text-center">
+                                <h3>DEV PLAN</h3>
                             </div>
-                            <ul>
-                                <li>10 GB space</li>
-                                <li>1,000 GB bandwidth</li>
-                                <li>100 more themes</li>
-                                <li>Lifetime Support</li>
+                            <div class="panel-body text-center">
+                                <p class="lead" style="font-size:35px;margin: 0px;"><strong>฿250 / 3months</strong></p>
+                            </div>
+                            <ul class="list-group list-group-flush text-center">
+                                <li class="list-group-item"><i class="icon-ok text-success"></i> ไม่จำกัดเมนูอาหาร</li>
+                                <li class="list-group-item"><i class="icon-ok text-success"></i> ไม่จำกัดจำนวนคนส่งอาหาร</li>
+                                <li class="list-group-item"><i class="icon-ok text-success"></i> ติดตามสถานะด้วย code</li>
+                                <li class="list-group-item"><i class="icon-ok text-success"></i> ดูแลระบบตลอด 24/7</li>
+                                <li class="list-group-item"><i class="icon-ok text-success"></i> รีวิวร้านอาหาร 2ครั้ง/เดือน</li>
+                                <li class="list-group-item"><i class="icon-ok text-success"></i> สอนการใช้งานตามขั้นตอน</li>
+                                <li class="list-group-item"><i class="icon-ok text-success"></i> ดูแลระบบหลังบ้าน</li>
+                                <li class="list-group-item"><i class="icon-ok text-success"></i> ฟรีขึ้นโฆษณาหน้าแรก 2ตัว</li>
                             </ul>
-                            <button class="btn btn-primary text-uppercase">Sign Up</button>
+                            <div class="panel-body text-center">
+                                <span>สุดคุ้ม! กับบริการเสริมพิเศษ</span>
+                            </div>
                         </div>
                     </div>
                 </div>

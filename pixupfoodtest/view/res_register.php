@@ -11,6 +11,7 @@ include '../dbconn.php';
         <!-- custom css -->
         <link rel="stylesheet" href="../assets/css/register.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css">
         <style>
             #map {
                 height: 250px;
@@ -181,68 +182,81 @@ include '../dbconn.php';
                         <div class="container">
                             <div class="row">
                                 <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-
-                                    <!-- PRICE ITEM -->
+                                    <!-- plan1 -->
                                     <div class="panel price panel-green">
                                         <div class="panel-heading arrow_box text-center">
                                             <h3>FREE PLAN</h3>
                                         </div>
                                         <div class="panel-body text-center">
-                                            <p class="lead" style="font-size:35px"><strong>฿0 / month</strong></p>
+                                            <p class="lead" style="font-size:35px;margin: 0px;"><strong>฿0 / month</strong></p>
                                         </div>
                                         <ul class="list-group list-group-flush text-center">
-                                            <li class="list-group-item"><i class="icon-ok text-success"></i> Personal use</li>
-                                            <li class="list-group-item"><i class="icon-ok text-success"></i> Unlimited projects</li>
-                                            <li class="list-group-item"><i class="icon-ok text-success"></i> 27/7 support</li>
+                                            <li class="list-group-item"><i class="icon-ok text-success"></i> จำกัดเมนูอาหาร 20 เมนู</li>
+                                            <li class="list-group-item"><i class="icon-ok text-success"></i> จำกัดจำนวนคนส่งอาหาร</li>
+                                            <li class="list-group-item"><i class="icon-ok text-success"></i> ติดตามสถานะด้วยตนเอง</li>
+                                            <li class="list-group-item"><i class="icon-ok text-success"></i> ดูแลระบบในเวลาเปิดร้าน</li>
+                                            <li class="list-group-item"> -</li>
+                                            <li class="list-group-item"> -</li>
+                                            <li class="list-group-item"> -</li>
+                                            <li class="list-group-item"> -</li>
                                         </ul>
-                                        <div class="panel-footer">
-                                            <a class="btn btn-lg btn-block btn-success" href="#">BUY NOW!</a>
+                                        <div class="panel-body text-center">
+                                            <span>ใช้งานฟรี ไม่เสียค่าใช้จ่าย!</span>
                                         </div>
                                     </div>
-                                    <!-- /PRICE ITEM -->
+                                    <!-- /plan1 -->
                                 </div>
 
                                 <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-
-                                    <!-- PRICE ITEM -->
-                                    <div class="panel price panel-red">
+                                    <!-- plan2 -->
+                                    <div class="panel price panel-blue">
                                         <div class="panel-heading  text-center">
                                             <h3>PRO PLAN</h3>
                                         </div>
                                         <div class="panel-body text-center">
-                                            <p class="lead" style="font-size:35px"><strong>฿100 / month</strong></p>
+                                            <p class="lead" style="font-size:35px;margin: 0px;"><strong>฿100 / month</strong></p>
                                         </div>
                                         <ul class="list-group list-group-flush text-center">
-                                            <li class="list-group-item"><i class="icon-ok text-danger"></i> Personal use</li>
-                                            <li class="list-group-item"><i class="icon-ok text-danger"></i> Unlimited projects</li>
-                                            <li class="list-group-item"><i class="icon-ok text-danger"></i> 27/7 support</li>
+                                            <li class="list-group-item"><i class="icon-ok text-success"></i> จำกัดเมนูอาหาร 60 เมนู</li>
+                                            <li class="list-group-item"><i class="icon-ok text-success"></i> ไม่จำกัดจำนวนคนส่งอาหาร</li>
+                                            <li class="list-group-item"><i class="icon-ok text-success"></i> ติดตามสถานะด้วย code</li>
+                                            <li class="list-group-item"><i class="icon-ok text-success"></i> ดูแลระบบในเวลาเปิดร้าน</li>
+                                            <li class="list-group-item"><i class="icon-ok text-success"></i> รีวิวร้านอาหาร 1ครั้ง/เดือน</li>
+                                            <li class="list-group-item"><i class="icon-ok text-success"></i> ฟรีขึ้นโฆษณาหน้าแรก 1ตัว</li>
+                                            <li class="list-group-item"> -</li>
+                                            <li class="list-group-item"> -</li>
                                         </ul>
-                                        <div class="panel-footer">
-                                            <a class="btn btn-lg btn-block btn-danger" href="#">BUY NOW!</a>
+                                        <div class="panel-body text-center">
+                                            <span>จ่ายสบายๆ เหมาะกับผู้เริ่มต้นใช้งาน!</span>
                                         </div>
                                     </div>
-                                    <!-- /PRICE ITEM -->
+                                    <!-- /plan2 -->
                                 </div>
 
                                 <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-                                    <!-- PRICE ITEM -->
-                                    <div class="panel price panel-blue">
+                                    <!-- plan3 -->
+                                    <div class="panel price panel-red">
                                         <div class="panel-heading arrow_box text-center">
                                             <h3>DEV PLAN</h3>
                                         </div>
                                         <div class="panel-body text-center">
-                                            <p class="lead" style="font-size:35px"><strong>฿250 / 3months</strong></p>
+                                            <p class="lead" style="font-size:35px;margin: 0px;"><strong>฿250 / 3months</strong></p>
                                         </div>
                                         <ul class="list-group list-group-flush text-center">
-                                            <li class="list-group-item"><i class="icon-ok text-info"></i> Personal use</li>
-                                            <li class="list-group-item"><i class="icon-ok text-info"></i> Unlimited projects</li>
-                                            <li class="list-group-item"><i class="icon-ok text-info"></i> 27/7 support</li>
+                                            <li class="list-group-item"><i class="icon-ok text-success"></i> ไม่จำกัดเมนูอาหาร</li>
+                                            <li class="list-group-item"><i class="icon-ok text-success"></i> ไม่จำกัดจำนวนคนส่งอาหาร</li>
+                                            <li class="list-group-item"><i class="icon-ok text-success"></i> ติดตามสถานะด้วย code</li>
+                                            <li class="list-group-item"><i class="icon-ok text-success"></i> ดูแลระบบตลอด 24/7</li>
+                                            <li class="list-group-item"><i class="icon-ok text-success"></i> รีวิวร้านอาหาร 2ครั้ง/เดือน</li>
+                                            <li class="list-group-item"><i class="icon-ok text-success"></i> สอนการใช้งานตามขั้นตอน</li>
+                                            <li class="list-group-item"><i class="icon-ok text-success"></i> ดูแลระบบหลังบ้าน</li>
+                                            <li class="list-group-item"><i class="icon-ok text-success"></i> ฟรีขึ้นโฆษณาหน้าแรก 2ตัว</li>
                                         </ul>
-                                        <div class="panel-footer">
-                                            <a class="btn btn-lg btn-block btn-info" href="#">BUY NOW!</a>
+                                        <div class="panel-body text-center">
+                                            <span>สุดคุ้ม! กับบริการเสริมพิเศษ</span>
                                         </div>
                                     </div>
-                                    <!-- /PRICE ITEM -->
+                                    <!-- /plan3 -->
                                 </div>
                             </div>
                         </div>
