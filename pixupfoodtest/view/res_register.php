@@ -1,16 +1,16 @@
 <?php
 session_start();
 include '../dbconn.php';
-
 ?>
 
 <html>
     <head>
-        
+
         <title>Restaurant Register Form</title>
         <?php include '../template/customer-title.php'; ?>
         <!-- custom css -->
         <link rel="stylesheet" href="../assets/css/register.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
         <style>
             #map {
                 height: 250px;
@@ -136,7 +136,7 @@ include '../dbconn.php';
                                                 <?php } ?>
                                             </select>
                                         </div>
-                                        <div class="col-md-12">
+                                        <div class="col-md-11">
                                             <select class="form-control " id="planlist" name="planlist">
                                                 <?php
                                                 $res3 = $con->query("SELECT * FROM `serviceplan`");
@@ -145,7 +145,13 @@ include '../dbconn.php';
                                                     <option value="<?= $data3['id'] ?>"> <?= $data3['name'] ?> </option>
                                                 <?php } ?>
                                             </select>
-                                        </div><br>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <span data-toggle="modal" data-target="#squarespaceModal">
+                                                <i class="fa fa-question-circle fa-lg"></i>
+                                            </span>
+                                        </div>
+                                        <br>
                                         <div class="col-md-6">
                                             <input type="button" class="form-control text-uppercase btn-info" id="backbtn" value="Back">
                                         </div>
@@ -162,6 +168,91 @@ include '../dbconn.php';
             </div>
             <div id="map" style="display: none"></div>
         </section>
+
+        <!-- plan modal -->
+        <div class="modal fade" id="squarespaceModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                        <h3 class="modal-title" id="lineModalLabel">เปรียบเทียบแผนการใช้งาน</h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+
+                                    <!-- PRICE ITEM -->
+                                    <div class="panel price panel-green">
+                                        <div class="panel-heading arrow_box text-center">
+                                            <h3>FREE PLAN</h3>
+                                        </div>
+                                        <div class="panel-body text-center">
+                                            <p class="lead" style="font-size:35px"><strong>฿0 / month</strong></p>
+                                        </div>
+                                        <ul class="list-group list-group-flush text-center">
+                                            <li class="list-group-item"><i class="icon-ok text-success"></i> Personal use</li>
+                                            <li class="list-group-item"><i class="icon-ok text-success"></i> Unlimited projects</li>
+                                            <li class="list-group-item"><i class="icon-ok text-success"></i> 27/7 support</li>
+                                        </ul>
+                                        <div class="panel-footer">
+                                            <a class="btn btn-lg btn-block btn-success" href="#">BUY NOW!</a>
+                                        </div>
+                                    </div>
+                                    <!-- /PRICE ITEM -->
+                                </div>
+
+                                <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+
+                                    <!-- PRICE ITEM -->
+                                    <div class="panel price panel-red">
+                                        <div class="panel-heading  text-center">
+                                            <h3>PRO PLAN</h3>
+                                        </div>
+                                        <div class="panel-body text-center">
+                                            <p class="lead" style="font-size:35px"><strong>฿100 / month</strong></p>
+                                        </div>
+                                        <ul class="list-group list-group-flush text-center">
+                                            <li class="list-group-item"><i class="icon-ok text-danger"></i> Personal use</li>
+                                            <li class="list-group-item"><i class="icon-ok text-danger"></i> Unlimited projects</li>
+                                            <li class="list-group-item"><i class="icon-ok text-danger"></i> 27/7 support</li>
+                                        </ul>
+                                        <div class="panel-footer">
+                                            <a class="btn btn-lg btn-block btn-danger" href="#">BUY NOW!</a>
+                                        </div>
+                                    </div>
+                                    <!-- /PRICE ITEM -->
+                                </div>
+
+                                <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                                    <!-- PRICE ITEM -->
+                                    <div class="panel price panel-blue">
+                                        <div class="panel-heading arrow_box text-center">
+                                            <h3>DEV PLAN</h3>
+                                        </div>
+                                        <div class="panel-body text-center">
+                                            <p class="lead" style="font-size:35px"><strong>฿250 / 3months</strong></p>
+                                        </div>
+                                        <ul class="list-group list-group-flush text-center">
+                                            <li class="list-group-item"><i class="icon-ok text-info"></i> Personal use</li>
+                                            <li class="list-group-item"><i class="icon-ok text-info"></i> Unlimited projects</li>
+                                            <li class="list-group-item"><i class="icon-ok text-info"></i> 27/7 support</li>
+                                        </ul>
+                                        <div class="panel-footer">
+                                            <a class="btn btn-lg btn-block btn-info" href="#">BUY NOW!</a>
+                                        </div>
+                                    </div>
+                                    <!-- /PRICE ITEM -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- end register -->
 
         <!-- Modal จะเปิดร้านได้ต้อง อัพโดหหลดเอกสารและรอทางแอดเข้ามารับรองการเปิดร้านบนเว็บก่อน ถึงจะใช้งานได้ -->
@@ -178,7 +269,6 @@ include '../dbconn.php';
                             3. ผู้ที่สมัครสมาชิกต้องกรอกข้อมูลที่เป็นจริงให้ครบทุกข้อ เพื่อสิทธิประโยชน์ของท่านในการเข้าร่วมกิจกรรมของเรา<br><br>
                             4. ข้อมูลของสมาชิกจะถูกเก็บเป็นความลับอย่างสูงสุด ผู้ดูแลเว็บบอร์ดจะไม่เปิดเผยข้อมูลของท่านเพื่อประโยชน์ทางการค้า หรือเพื่อประโยชน์ในด้านอื่น ๆ ทั้งสิ้น<br><br>
                             5. เพื่อความเป็นส่วนตัวและความปลอดภัยในข้อมูลของท่านเอง ผู้ดูแลเว็บบอร์ดขอแจ้งให้ท่านทราบว่า เป็นหน้าที่ของท่านเองในการรักษาชื่อ Login และ Password ของท่านให้ดี โดยไม่บอกให้ผู้อื่นทราบ<br><br>
-                            6. <br><br>
                         </p>
                         <form>
                             <input type="checkbox" >&nbsp; ยอมรับ
@@ -201,11 +291,11 @@ include '../dbconn.php';
                     keyboard: false
                 });
                 $("#termsmodal").modal('show');
-                
-                $( "input[type=checkbox]" ).on( "click", function (e){
+
+                $("input[type=checkbox]").on("click", function (e) {
                     $("#nextregisbtn").removeAttr("disabled");
                 });
-                $("#nextregisbtn").click(function (e){
+                $("#nextregisbtn").click(function (e) {
                     $("#termsmodal").modal('hide');
                 });
 
