@@ -106,7 +106,7 @@ if (isset($_SESSION["islogin"])) {
                     <form action="/view/search_page.php" method="get">
                         <div id="custom-search-input">
                             <div class="input-group col-md-12">
-                                <input type="text" name="search" value="<?= @$_GET["search"] ?>" class="form-control input-lg" placeholder="Search.." />
+                                <input type="text" name="search" value="<?= @$_GET["search"] ?>" class="form-control input-lg" placeholder="ค้นหาร้านอาหารที่นี่" />
                                 <span class="input-group-btn">
                                     <button class="btn btn-info btn-lg" type="submit">
                                         <i class="glyphicon glyphicon-search"></i>
@@ -143,7 +143,7 @@ if (isset($_SESSION["islogin"])) {
                                                             <a href="/view/cus_register.php">
                                                                 <img src="/assets/images/bar/userl.png" style="width:60px; height:60px;margin-top: 10px;">
                                                             </a>
-                                                            <a href="cus_register.php">
+                                                            <a href="/view/cus_register.php">
                                                                 <p style="font-weight:bold"> CUSTOMERS </p>
                                                             </a>
                                                         </div>

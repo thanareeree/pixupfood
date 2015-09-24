@@ -95,11 +95,13 @@ include '../dbconn.php';
                     </div>
                     <div class="col-md-3">
                         <div class="col-md-10" style="padding-left:0px;">
-                           <h3>Order Options</h3>
-                            <div class="form-group">
-                                <input  type="checkbox" name="orderFromMenu" value="orderFromMenu">&nbsp;&nbsp;สั่งอาหารจากรายการอาหาร<br>
-                                 <input  type="checkbox" name="orderFromMenuSet" value="male">&nbsp;&nbsp;สั่งอาหารจากเมนูเซต<br>
-                              </div>
+                            <h3>Order Options</h3>
+                            <form>
+                                <div class="form-group">
+                                    <!--<input  type="checkbox" name="orderFromMenu" value="orderFromMenu">&nbsp;&nbsp;สั่งอาหารจากรายการอาหาร<br>-->
+                                    <input  type="checkbox" name="searchoption" value="orderFromMenuSet">&nbsp;&nbsp;สั่งอาหารจากเมนูเซต<br>
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <div class="col-md-9" style="padding-left:0px; ">
@@ -126,8 +128,8 @@ include '../dbconn.php';
                                                     . "RIGHT JOIN menu ON menu.restaurant_id = restaurant.id "
                                                     . "RIGHT JOIN main_menu ON main_menu.id = menu.main_menu_id "
                                                     . "JOIN zone ON zone.id = restaurant.zone_id "
-                                                    . "WHERE (restaurant.name LIKE '%$search%' AND restaurant.available = 1 )"
-                                                    . "OR main_menu.name LIKE '%$search%' "
+                                                    . "WHERE (restaurant.name LIKE '%$search%' OR main_menu.name LIKE '%$search%' )"
+                                                    . " AND (restaurant.available = 1 AND restaurant.close = 0) "
                                                     . "AND zone.name IN (SELECT zone.name FROM zone WHERE id = restaurant.zone_id)"
                                                     . "GROUP by restaurant.name ");
                                             echo $con->error;
@@ -189,7 +191,7 @@ include '../dbconn.php';
         <!-- end register -->
         <?php include '../template/footer.php'; ?>
         <?php
-        if (isset($_SESSION["userdata"]["id"])) {
+        if (isset($_SESSION["islogin"])) {
             ?>
             <script>
                 $('.tooltip-r').removeAttr("title");
@@ -213,8 +215,7 @@ include '../dbconn.php';
 
                 var lat = "";
                 var long = "";
-                /* var lat = 13.6415824;
-                 var long = 100.4963968;*/
+               
                 function startMap() {
 
                     map = new google.maps.Map(document.getElementById("map"));
@@ -261,6 +262,7 @@ include '../dbconn.php';
                     var searchby = $("#searchby").val();
                     var foodtype = $("#foodtype").val();
                     var searchtxt = $("#searchtxt").val();
+                    $("input[type=checkbox]").removeAttr("checked");
                     $.ajax({
                         url: "/customer/ajax_search.php",
                         type: 'POST',
@@ -273,6 +275,21 @@ include '../dbconn.php';
                     });
                 });
 
+
+                $("input[type=checkbox]").on("click", function (e) {
+                    $("#result").html('<tr><td colspan="3" style="text-align: center;"><h2>Searching...</h2></td></tr>');
+                    var searchoption = $("input:checked").val();
+                    $.ajax({
+                        url: "/customer/ajax_search_option.php",
+                        type: 'POST',
+                        dataType: 'html',
+                        data: {"searchoption": searchoption},
+                        success: function (data, textStatus, jqXHR) {
+                            $("#result").html(data);
+                            $('[data-toggle="tooltip"]').tooltip();
+                        }
+                    });
+                });
 
 
 

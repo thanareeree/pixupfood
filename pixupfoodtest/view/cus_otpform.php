@@ -6,7 +6,7 @@ include '../dbconn.php';
 
 
 
-<html >
+<html>
     <head>
         <!-- 
         Boxer Template

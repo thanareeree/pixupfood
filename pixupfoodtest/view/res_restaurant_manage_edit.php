@@ -26,7 +26,9 @@ include '../dbconn.php';
         $resdata = $result->fetch_assoc();
         ?>
         <?php include '../template/restaurant-navbar.php'; ?>
-
+        <form>
+            <input type="hidden" id="resIdvalue" value="<?= $resid ?>">
+        </form>
         <!-- start head -->
         <section id="head">
             <div id="myCarousel" class="carousel" style="margin-top:70px;">
@@ -92,6 +94,8 @@ include '../dbconn.php';
         </div>
     </scetion>
     <!--End Menu Item-->
+
+
     <section>
         <div class="container" style="margin-top: 50px;margin-bottom: 50px;">
             <div class="row">
@@ -137,11 +141,11 @@ include '../dbconn.php';
                                                         </div>
                                                         <div class="material-switch" style="margin-left: 27%">
                                                             <span style="font-size: 20px"> เปิดร้าน </span> &nbsp;
-                                                            <input id="switchClose" name="someSwitchOption001" type="checkbox" value="<?=$resdata["close"]?>"  <?= ($resdata["close"]==1?'checked':'')?>/>
+                                                            <input id="switchClose" name="someSwitchOption001" type="checkbox" value="<?= $resdata["close"] ?>"  <?= ($resdata["close"] == 1 ? 'checked' : '') ?>/>
                                                             <label for="switchClose" class="label-success"></label>
                                                             &nbsp;  <span style="font-size: 20px">ปิดร้าน</span>
                                                         </div><hr>
-                                                        <p style="font-size: 20px">เวลาเปิด-ปิด: &nbsp;<?= ($resdata["opentime"]==""?'-':$resdata["opentime"])?></p>
+                                                        <p style="font-size: 20px">เวลาเปิด-ปิด: &nbsp;<?= ($resdata["opentime"] == "" ? '-' : $resdata["opentime"]) ?></p>
                                                     </div>
 
                                                     <!-- modal สถานะร้านค้า-->
@@ -188,9 +192,9 @@ include '../dbconn.php';
                                                         &nbsp;   <span style="font-size: 20px">ชื่อร้าน: </span>
                                                         <span style="font-size: 20px; color: orange;"> <?= $resdata["name"] ?></span><br>
                                                         &nbsp;   <span style="font-size: 20px">ประเภทร้าน:</span>
-                                                        <span style="font-size: 20px; color: orange;"> <?= ($resdata["restaurant_type"]==""?'-':$resdata["restaurant_type"])?> </span><br>
+                                                        <span style="font-size: 20px; color: orange;"> <?= ($resdata["restaurant_type"] == "" ? '-' : $resdata["restaurant_type"]) ?> </span><br>
                                                         &nbsp;   <span style="font-size: 20px">หน้าร้าน: </span>
-                                                        <span style="font-size: 20px; color: orange;"> <?= ($resdata["has_restaurant"]==""?'-':$resdata["has_restaurant"])?> </span><br>
+                                                        <span style="font-size: 20px; color: orange;"> <?= ($resdata["has_restaurant"] == "" ? '-' : $resdata["has_restaurant"]) ?> </span><br>
                                                     </div>
 
                                                     <!-- modal ร้านค้าหมายเลข-->
@@ -285,14 +289,14 @@ include '../dbconn.php';
                                                             <div class="col-md-5">
                                                                 <?php
                                                                 $level = $resdata["level"];
-                                                                if($level=="พื้นฐาน"){
+                                                                if ($level == "พื้นฐาน") {
                                                                     echo '<img src="../assets/images/ResClass/Standard.png">';
-                                                                }else if($level=="กลาง"){
+                                                                } else if ($level == "กลาง") {
                                                                     echo '<img src="../assets/images/ResClass/middle.png">';
-                                                                }else if($level=="สูง"){
-                                                                     echo '<img src="../assets/images/ResClass/High.png">';
-                                                                }else  {
-                                                                     echo '<img src="../assets/images/ResClass/Premium.png">';
+                                                                } else if ($level == "สูง") {
+                                                                    echo '<img src="../assets/images/ResClass/High.png">';
+                                                                } else {
+                                                                    echo '<img src="../assets/images/ResClass/Premium.png">';
                                                                 }
                                                                 ?>
                                                             </div>
@@ -632,9 +636,27 @@ include '../dbconn.php';
                                 $("#chooseimgbtn").hide();
                                 $("#uploadimgbtn").show();
                             });
-                            
-                            $("#switchClose").click(function (e){
-                                
+
+                            $("#switchClose").click(function (e) {
+                                $.ajax({
+                                    type: "POST",
+                                    url: "/restaurant/edit-close-restaurant.php",
+                                    data: {"resId": $("#resIdvalue").val(),
+                                    "close":$("#switchClose").val()},
+                                    dataType: "json",
+                                    success: function (data) {
+                                        $("#switchClose").removeAttr("checked");
+                                        if (data.result == "1") {
+                                            $("#switchClose").attr("checked");
+                                            document.location.reload();
+                                        } else if(data.result == "0"){
+                                           $("#switchClose").removeAttr("checked");
+                                            //document.location.reload();
+                                        }else{
+                                            alert("ไม่สามารถบันทึกข้อมูลได้\nError : " + data.error);
+                                        }
+                                    }
+                                });
                             });
                         });
                     </script>
