@@ -41,7 +41,7 @@ if (isset($_SESSION["islogin"])) {
                         <a href="../view/res_restaurant_manage_calendar.php"  role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-calendar"></span></a> 
                     </li>
                     <li class="dropdown" >
-                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true" style="margin-left:10px; margin-right:20px"><?= $data["name"] . " " . $id ?></a>
+                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true" style="margin-left:10px; margin-right:20px"><?= $data["name"] ?>&nbsp;<i class="glyphicon glyphicon-menu-down" style="font-size: 10px;"></i></a>
                         <ul class="dropdown-menu" style=" margin-right:20px">
                             <li><a href="../view/res_restaurant_manage_edit.php"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;แก้ไขข้อมูลร้าน</a></li>
                             <li role="separator" class="divider"></li>

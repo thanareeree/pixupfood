@@ -34,14 +34,14 @@ include '../dbconn.php';
     <body>
         <?php
         $resid = $_GET["resId"];
-        $restaurantres = $con->query("SELECT restaurant.id, restaurant.name as resname, restaurant.firstname,"
-                . "restaurant.lastname,restaurant.x, restaurant.y, restaurant.img_path, "
-                . "restaurant.star, restaurant.address,restaurant.price_prepay, restaurant.province, "
-                . "zone.name "
+        $restaurantres = $con->query("SELECT restaurant.id, restaurant.name as resname, "
+                . "restaurant.firstname,restaurant.lastname,restaurant.x, restaurant.y, "
+                . "restaurant.img_path, restaurant.star, restaurant.address,restaurant.amount_box_limit,"
+                . " restaurant.province, restaurant.has_restaurant, restaurant.restaurant_type,"
+                . " zone.name as zonename "
                 . "FROM `restaurant` "
                 . "JOIN zone ON zone.id = restaurant.zone_id "
-                . "where restaurant.id = '$resid' "
-                . "and zone.name IN (SELECT zone.name FROM zone WHERE id = restaurant.zone_id)");
+                . "where restaurant.id = 33");
         $restaurantdata = $restaurantres->fetch_assoc();
 
         $cusid = $_SESSION["userdata"]["id"];
@@ -225,7 +225,7 @@ include '../dbconn.php';
                                                 <h3>ลำดับที่ 1</h3>
                                                 <div class="row">
                                                     <?php
-                                                    $foodListRes = $con->query("SELECT main_menu.name, menu.price, menu.img_path   "
+                                                    $foodListRes = $con->query("SELECT DISTINCT main_menu.name, menu.price, menu.img_path   "
                                                         . "FROM `menu` LEFT JOIN main_menu on main_menu.id = menu.main_menu_id "
                                                         . "LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
                                                         . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
@@ -250,7 +250,7 @@ include '../dbconn.php';
                                                         <?php
                                                     }
                                                     ?>
-                                                </div> <hr class="hrs">
+                                                </div> <!--<hr class="hrs">-->
                                             </div>
                                             <ul class="list-inline pull-right">
                                                 <li><button type="button" class="btn btn-default prev-step">Previous</button></li>

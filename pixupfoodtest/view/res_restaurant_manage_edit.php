@@ -12,8 +12,8 @@ include '../dbconn.php';
         <?php include '../template/customer-title.php'; ?>
 
         <!-- custom css -->
-        <link rel="stylesheet" href="../assets/css/res_restaurant_manage.css">
-        <link rel="stylesheet" href="../assets/css/Maps.css">
+        <link rel="stylesheet" href="/assets/css/res_restaurant_manage.css">
+        <link rel="stylesheet" href="/assets/css/Maps.css">
 
 
 
@@ -24,6 +24,14 @@ include '../dbconn.php';
         $resid = $_SESSION["restdata"]["id"];
         $result = $con->query("select * from restaurant where id = '$resid' ");
         $resdata = $result->fetch_assoc();
+
+        $deliveryRes = $con->query("SELECT delivery_type.id, delivery_type.description, "
+                . "mapping_delivery_type.deliveryfee "
+                . "FROM restaurant "
+                . "LEFT JOIN mapping_delivery_type ON mapping_delivery_type.restaurant_id = restaurant.id "
+                . "LEFT JOIN delivery_type ON delivery_type.id = mapping_delivery_type.delivery_type_id "
+                . "WHERE restaurant.id = '$resid' ");
+        $deliveryData = $deliveryRes->fetch_assoc();
         ?>
         <?php include '../template/restaurant-navbar.php'; ?>
         <form>
@@ -34,7 +42,7 @@ include '../dbconn.php';
             <div id="myCarousel" class="carousel" style="margin-top:70px;">
                 <!-- Indicators -->
                 <div class="item">
-                    <img src="../assets/images/slide/aa.png" class="img-responsive">
+                    <img src="/assets/images/slide/aa.png" class="img-responsive">
                     <div class="container">
                         <div class="carousel-caption-new">
                             <div class="RestaurantHeader">
@@ -107,10 +115,13 @@ include '../dbconn.php';
                                     <a href="#tab_default_1" data-toggle="tab">ทั่วไป </a>
                                 </li>
                                 <li>
-                                    <a href="#tab_default_2" data-toggle="tab">พนักงานจัดส่ง </a>
+                                    <a href="#tab_default_2" data-toggle="tab"> เกี่ยวกับรายการสั่งซื้อ</a>
                                 </li>
                                 <li>
-                                    <a href="#tab_default_3" data-toggle="tab">วิธีการชำระเงิน </a>
+                                    <a href="#tab_default_3" data-toggle="tab">วิธีการชำระเงิน</a>
+                                </li>
+                                <li>
+                                    <a href="#tab_default_4" data-toggle="tab"> พนักงานจัดส่ง</a>
                                 </li>
                             </ul>
 
@@ -156,7 +167,7 @@ include '../dbconn.php';
                                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                                                     <h2 class="modal-title" id="myModalLabel" >สถานะร้านค้า</h2>
                                                                 </div>
-                                                                <form action="../restaurant/edit-opentime.php?resId=<?= $resid ?>" method="post">
+                                                                <form action="/restaurant/edit-opentime.php?resId=<?= $resid ?>" method="post">
                                                                     <div class="modal-body">
                                                                         <div>
                                                                             <label>
@@ -258,10 +269,10 @@ include '../dbconn.php';
                                                             รูปภาพประจำร้าน
                                                         </div>
                                                         <div >
-                                                            <img src="<?= ($resdata["img_path"] == "" ? '../assets/images/default-img360.png' : $resdata["img_path"]) ?>" style="max-width: 403px;max-height: 260px">
+                                                            <img src="<?= ($resdata["img_path"] == "" ? '/assets/images/default-img360.png' : $resdata["img_path"]) ?>" style="max-width: 403px;max-height: 260px">
                                                         </div><hr>
                                                         <div id="updateImg" style="" >
-                                                            <form action="../restaurant/edit-image-restaurant.php?id=<?= $resid ?>" method="post" enctype="multipart/form-data">
+                                                            <form action="/restaurant/edit-image-restaurant.php?id=<?= $resid ?>" method="post" enctype="multipart/form-data">
                                                                 <span id="uploadtext" ></span>
                                                                 <p align="center" ><button type="button" name="img" id="chooseimgbtn"  onClick="imagerest.click()" onMouseOut="uploadtext.value = imagerest.value" class="btn btn-primary btn-block" style="font-style:normal">เลือกรูป</button></p>
                                                                 <input type="file" id="imagerest" name="imagerest" style="display:none" accept="image/jpeg,image/pjpeg,image/png"  />
@@ -290,13 +301,13 @@ include '../dbconn.php';
                                                                 <?php
                                                                 $level = $resdata["level"];
                                                                 if ($level == "พื้นฐาน") {
-                                                                    echo '<img src="../assets/images/ResClass/Standard.png">';
+                                                                    echo '<img src="/assets/images/ResClass/Standard.png">';
                                                                 } else if ($level == "กลาง") {
-                                                                    echo '<img src="../assets/images/ResClass/middle.png">';
+                                                                    echo '<img src="/assets/images/ResClass/middle.png">';
                                                                 } else if ($level == "สูง") {
-                                                                    echo '<img src="../assets/images/ResClass/High.png">';
+                                                                    echo '<img src="/assets/images/ResClass/High.png">';
                                                                 } else {
-                                                                    echo '<img src="../assets/images/ResClass/Premium.png">';
+                                                                    echo '<img src="/assets/images/ResClass/Premium.png">';
                                                                 }
                                                                 ?>
                                                             </div>
@@ -317,10 +328,10 @@ include '../dbconn.php';
 
                                                                     <span style="font-size: 25px; ">ระดับทั้งหมดที่มี</span><br>
                                                                     <div class="row">
-                                                                        <div class="col-md-3" style="padding-middle"><img src="../assets/images/ResClass/Standard.png"></div>
-                                                                        <div class="col-md-3" style="padding-middle"><img src="../assets/images/ResClass/middle.png"></div>
-                                                                        <div class="col-md-3" style="padding-middle"><img src="../assets/images/ResClass/High.png"></div>
-                                                                        <div class="col-md-3" style="padding-middle"><img src="../assets/images/ResClass/Premium.png"></div>
+                                                                        <div class="col-md-3" style="padding-middle"><img src="/assets/images/ResClass/Standard.png"></div>
+                                                                        <div class="col-md-3" style="padding-middle"><img src="/assets/images/ResClass/middle.png"></div>
+                                                                        <div class="col-md-3" style="padding-middle"><img src="/assets/images/ResClass/High.png"></div>
+                                                                        <div class="col-md-3" style="padding-middle"><img src="/assets/images/ResClass/Premium.png"></div>
                                                                     </div>
                                                                     <hr>
                                                                     <div class="row">
@@ -561,13 +572,6 @@ include '../dbconn.php';
                                                                                                 <input type="text" placeholder="รหัสไปรษณีย์" class="form-control">
                                                                                             </div>
                                                                                         </div>
-
-
-
-
-
-
-
                                                                                     </fieldset>
                                                                                 </form>
                                                                             </div><!-- /.col-lg-12 -->
@@ -594,149 +598,349 @@ include '../dbconn.php';
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane" id="tab_default_2">
 
+                                <div class="tab-pane" id="tab_default_2"><!--รายการสั่งซื้อ-->
+                                    <div class="page-header"style="margin-top: 20px;">
+                                        <span style="font-size: 40px">เกี่ยวกับรายการสั่งซื้อของลูกค้า</span>
+                                    </div>
 
+                                    <div class="card">
+                                        <div class="card-content">
+                                            <span style="font-size: 35px;">ตั้งค่าทั่วไป</span>
+                                            <div class="row">
 
+                                                <div class="col-md-6">
+                                                    <div class="card card-content" id="showdata_foodbox">
+                                                        <div class="page-header" style="font-size: 25px; margin-top: 5px">
+                                                            รูปแบบกล่อง
+                                                            <div class="pull-right">
+                                                                <p class="text-center">
+                                                                    <a  href="#" id="editbtn">
+                                                                        <span class="glyphicon glyphicon-pencil"style="font-size: 20px; color: orange"></span> 
+                                                                        <span style="font-size: 20px; color: orange">แก้ไข</span>
+                                                                    </a>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <form id="dataform_edit_foodbox">
+                                                            <?php
+                                                            $foodboxRes = $con->query("SELECT food_box.id "
+                                                                    . "FROM mapping_food_box "
+                                                                    . "LEFT JOIN food_box ON food_box.id = mapping_food_box.food_box_id "
+                                                                    . "WHERE mapping_food_box.restaurant_id = '$resid' ");
+
+                                                            $boxRes = $con->query("SELECT food_box.id, food_box.description FROM food_box ");
+                                                            while ($boxData = $boxRes->fetch_assoc()) {
+                                                                ?>
+                                                                <div class="input-group col-md-6" style="margin: 10px 120px;"  >
+                                                                    <input type="checkbox" name="foodbox[]" value="<?= $boxData["id"] ?>"><?= $boxData["description"] ?>
+                                                                </div>
+                                                            <?php } ?>
+                                                            <span class="input-group" style="margin-left: 250px;">
+                                                                <button class="btn btn-success" id="savebtn" type="button">บันทึก</button>
+                                                            </span>
+                                                        </form>
+                                                    </div>
+                                                    <div class="card card-content" id="showdata_limitbox">
+                                                        <div class="page-header" style="font-size: 25px; margin-top: 5px">
+                                                            จำนวนกล่องที่สามารถรับรายการสั่งซื้อได้สูงสุด/วัน
+                                                            <div class="pull-right">
+                                                                <p class="text-center">
+                                                                    <a  href="#" id="editbtn">
+                                                                        <span class="glyphicon glyphicon-pencil"style="font-size: 20px; color: orange"></span> 
+                                                                        <span style="font-size: 20px; color: orange">แก้ไข</span>
+                                                                    </a>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <form id="dataform_edit_limitbox">
+                                                            <div class="input-group col-md-6" style="margin: 10px 120px;"  >
+                                                                <div>
+                                                                    <span style="font-size: 20px">จำนวนกล่อง: </span>
+                                                                    <span style="font-size: 20px; color: orange;"><?= ($resdata["amount_box_limit"] == "" ? '&nbsp;-' : $resdata["amount_box_limit"]) ?>&nbsp;</span>
+                                                                    <span style="font-size: 20px">กล่อง</span><br>
+                                                                </div>
+                                                            </div>
+                                                            <div class="input-group col-md-6" style="margin: 10px 120px;" id="edit-limitbox" >
+                                                                <input type="number" class="form-control" id="limitbox" value="<?= $resdata["amount_box_limit"] ?>" placeholder="จำนวนกล่อง">
+                                                                <span class="input-group-btn">
+                                                                    <button class="btn btn-success" id="savebtn" type="button">บันทึก</button>
+                                                                </span>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="card card-content" id="showdata_minimumbox">
+                                                        <div class="page-header" style="font-size: 25px; margin-top: 5px">
+                                                            จำนวนกล่องขั้นต่ำ/สั่งซื้อ
+                                                            <div class="pull-right">
+                                                                <p class="text-center">
+                                                                    <a  href="#" id="editbtn">
+                                                                        <span class="glyphicon glyphicon-pencil"style="font-size: 20px; color: orange"></span> 
+                                                                        <span style="font-size: 20px; color: orange">แก้ไข</span>
+                                                                    </a>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <form id="dataform_edit_minimumbox">
+                                                            <div class="input-group col-md-6" style="margin: 10px 120px;"  >
+                                                                <div>
+                                                                    <span style="font-size: 20px">จำนวนกล่อง: </span>
+                                                                    <span style="font-size: 20px; color: orange;"><?= ($resdata["amount_box_limit"] == "" ? '&nbsp;-' : $resdata["amount_box_minimum"]) ?>&nbsp;</span>
+                                                                    <span style="font-size: 20px">กล่อง</span><br>
+                                                                </div>
+                                                            </div>
+                                                            <div class="input-group col-md-6" style="margin: 10px 120px;" id="edit-minimumbox">
+                                                                <input type="number" class="form-control" id="minimumbox"  value="<?= $resdata["amount_box_minimum"] ?>" placeholder="จำนวนกล่อง">
+                                                                <span class="input-group-btn">
+                                                                    <button class="btn btn-success" id="savebtn" type="submit">บันทึก</button>
+                                                                </span>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="card card-content" id="showdata_deliveryfee">
+                                                        <div class="page-header" style="font-size: 25px; margin-top: 5px">
+                                                            กำหนดค่าจัดส่ง
+                                                            <div class="pull-right">
+                                                                <p class="text-center">
+                                                                    <a  href="#" id="editbtn">
+                                                                        <span class="glyphicon glyphicon-pencil"style="font-size: 20px; color: orange"></span> 
+                                                                        <span style="font-size: 20px; color: orange">แก้ไข</span>
+                                                                    </a>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <form id="dataform_edit_deliveryfee">
+                                                            <div class="input-group col-md-6" style="margin: 10px 120px;"  >
+                                                                <div id="showdata">
+                                                                    <span style="font-size: 20px"><?= $deliveryData["description"] ?>: </span>
+                                                                    <span style="font-size: 20px; color: orange;"><?= ($deliveryData["deliveryfee"] == "" ? '&nbsp;-' : $deliveryData["deliveryfee"]) ?>&nbsp;</span>
+                                                                    <span style="font-size: 20px">บาท</span><br>
+                                                                </div>
+                                                            </div>
+                                                            <div class="input-group col-md-6" style="margin: 10px 120px; display: none" id="edit-deliveryfee">
+                                                                <input type="text" class="form-control" id="deliveryfee"  value="<?= $deliveryData["deliveryfee"] ?>" placeholder="จำนวนกล่อง">
+                                                                <span class="input-group-btn">
+                                                                    <button class="btn btn-success" id="savebtn" type="submit">บันทึก</button>
+                                                                </span>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="tab-pane" id="tab_default_3">
 
 
+                                <div class="tab-pane" id="tab_default_3"><!--การชำระเงิน-->
+                                    <div class="page-header"style="margin-top: 20px;">
+                                        <span style="font-size: 40px">เกี่ยวกับวิธีการชำระเงิน</span>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-content">
+                                            <span style="font-size: 35px;">ตั้งค่าทั่วไป</span>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="card card-content" id="showdata_payment">
+                                                        <div class="page-header" style="font-size: 25px; margin-top: 5px">
+                                                            รูปแบบการชำระเงิน
+                                                            <div class="pull-right">
+                                                                <p class="text-center">
+                                                                    <a  href="#" id="editbtn">
+                                                                        <span class="glyphicon glyphicon-pencil"style="font-size: 20px; color: orange"></span> 
+                                                                        <span style="font-size: 20px; color: orange">แก้ไข</span>
+                                                                    </a>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <form id="dataform_edit_payment">
+                                                            <?php
+                                                            $resPaymentRes = $con->query("SELECT payment_type.id, payment_type.description "
+                                                                    . "FROM restaurant "
+                                                                    . "LEFT JOIN mapping_payment_type ON mapping_payment_type.restaurant_id = restaurant.id "
+                                                                    . "LEFT JOIN payment_type ON payment_type.id = mapping_payment_type.payment_type_id"
+                                                                    . " WHERE restaurant.id = '$resid' ");
+
+                                                            $paymentRes = $con->query("SELECT payment_type.id, payment_type.description FROM payment_type");
+                                                            while ($paymentData = $paymentRes->fetch_assoc()) {
+                                                                ?>
+                                                                <div class="input-group col-md-6" style="margin: 10px 120px;"  >
+                                                                    <input type="checkbox" name="paymentData[]" value="<?= $paymentData["id"] ?>"><?= $paymentData["description"] ?>
+                                                                </div>
+                                                            <?php } ?>
+
+                                                            <span class="input-group" style="margin-left: 250px;">
+                                                                <button class="btn btn-success" id="savebtn" type="button">บันทึก</button>
+                                                            </span>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="card card-content" id="showdat_bankaccount">
+                                                        <div class="page-header" style="font-size: 25px; margin-top: 5px">
+                                                            ข้อมูลบัญชีธนาคาร
+                                                            <div class="pull-right">
+                                                                <p class="text-center">
+                                                                    <a  href="#" id="editbtn">
+                                                                        <span class="glyphicon glyphicon-pencil"style="font-size: 20px; color: orange"></span> 
+                                                                        <span style="font-size: 20px; color: orange">แก้ไข</span>
+                                                                    </a>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <form id="dataform_edit_bankaccount">
+
+
+
+                                                            <span class="input-group" style="margin-left: 250px;">
+                                                                <button class="btn btn-success" id="savebtn" type="button">บันทึก</button>
+                                                            </span>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="tab-pane" id="tab_default_4"><!--พนักงานส่ง-->
 
                                 </div>
                             </div>
                         </div>
-
                     </div>
-
-                    </section>
-
-
-                    <!-- start footer -->
-                    <?php include '../template/footer.php'; ?>
-                    <!--<script src="../assets/bootstrap-fileinput-master/js/fileinput.js"></script>
-                    <script src="../assets/bootstrap-fileinput-master/js/fileinput.min.js"></script>
-                    <script src="../assets/bootstrap-fileinput-master/js/fileinput_locale_LANG.js"></script>
-                    <script src="../assets/bootstrap-fileinput-master/js/plugins/canvas-to-blob.js"></script>
-                    <script src="../assets/bootstrap-fileinput-master/js/plugins/canvas-to-blob.min.js"></script>-->
-
-                    <script>
-                        $(document).ready(function () {
-                            $(".btn-pref .btn").click(function () {
-                                $(".btn-pref .btn").removeClass("btn-warning").addClass("btn-default");
-                                $(".tab").addClass("active"); // instead of this do the below 
-                                $(this).removeClass("btn-default").addClass("btn-warning");
-                            });
-
-                            $('#imagerest').on('change', function (e) {
-                                var filename = $('#imagerest').val();
-                                var fname = filename.substring(12);
-                                var name = "File: " + fname;
-                                $("#uploadtext").html(name);
-                                $("#chooseimgbtn").hide();
-                                $("#uploadimgbtn").show();
-                            });
-
-                            $("#switchClose").click(function (e) {
-                                $.ajax({
-                                    type: "POST",
-                                    url: "/restaurant/edit-close-restaurant.php",
-                                    data: {"resId": $("#resIdvalue").val(),
-                                    "close":$("#switchClose").val()},
-                                    dataType: "json",
-                                    success: function (data) {
-                                        $("#switchClose").removeAttr("checked");
-                                        if (data.result == "1") {
-                                            $("#switchClose").attr("checked");
-                                            document.location.reload();
-                                        } else if(data.result == "0"){
-                                           $("#switchClose").removeAttr("checked");
-                                            //document.location.reload();
-                                        }else{
-                                            alert("ไม่สามารถบันทึกข้อมูลได้\nError : " + data.error);
-                                        }
-                                    }
-                                });
-                            });
-                        });
-                    </script>
-
-                    <!--maps--> 
-                    <script>
-                        // Primary function for the Geo location app
-                        function success(position) {
-                            // create a simple variable for the ID
-                            var s = document.querySelector('#geostatus');
-
-                            if (s.className == 'success') {
-                                return;
-                            }
-
-                            // Replaces text with new message
-                            s.innerHTML = "พบตำแหน่งของคุณแล้ว!";
-                            // Adds new class to the ID status block
-                            s.className = 'success';
-
-                            // creates map wrapper for responsiveness
-                            var mapwrapper = document.createElement('div');
-                            mapwrapper.className = 'mapwrapper';
-
-                            // creates the block element at sets the width and height
-                            var mapcanvas = document.createElement('div');
-                            // Adds ID to the new div
-                            mapcanvas.id = 'mapcanvas';
-
-                            // Adds the new block element as the last thing within the article block
-                            document.querySelector('.map').appendChild(mapwrapper);
-
-                            // Adds the new block element as the last thing within the mapwrapper block
-                            document.querySelector('.mapwrapper').appendChild(mapcanvas);
+                </div>
+            </div>
+        </div>
+</section>
 
 
-                            // creates a new variable 'latlng' off of the google maps object
-                            var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+<!-- start footer -->
+<?php include '../template/footer.php'; ?>
+<!--<script src="/assets/bootstrap-fileinput-master/js/fileinput.js"></script>
+<script src="/assets/bootstrap-fileinput-master/js/fileinput.min.js"></script>
+<script src="/assets/bootstrap-fileinput-master/js/fileinput_locale_LANG.js"></script>
+<script src="/assets/bootstrap-fileinput-master/js/plugins/canvas-to-blob.js"></script>
+<script src="/assets/bootstrap-fileinput-master/js/plugins/canvas-to-blob.min.js"></script>-->
 
-                            // create new variable that contains options in key:value pairs
-                            var myOptions = {
-                                zoom: 15,
-                                center: latlng,
-                                // ROADMAP is set by default, other options are HYBRID, SATELLITE and TERRAIN
-                                mapTypeId: google.maps.MapTypeId.ROADMAP
-                            };
+<script>
+    $(document).ready(function () {
+        $(".btn-pref .btn").click(function () {
+            $(".btn-pref .btn").removeClass("btn-warning").addClass("btn-default");
+            $(".tab").addClass("active"); // instead of this do the below 
+            $(this).removeClass("btn-default").addClass("btn-warning");
+        });
 
-                            // creates the new 'map' variable using the google object
-                            // then using the 'mapcanvas' ID appending the options
-                            var map = new google.maps.Map(document.getElementById("mapcanvas"), myOptions);
+        $('#imagerest').on('change', function (e) {
+            var filename = $('#imagerest').val();
+            var fname = filename.substring(12);
+            var name = "File: " + fname;
+            $("#uploadtext").html(name);
+            $("#chooseimgbtn").hide();
+            $("#uploadimgbtn").show();
+        });
 
-                            // creates new 'marker' variable
-                            var marker = new google.maps.Marker({
-                                position: latlng,
-                                map: map,
-                                title: "You are here! (at least within a " + position.coords.accuracy + " meter radius)"
-                            });
-                        }
+        $("#switchClose").click(function (e) {
+            $.ajax({
+                type: "POST",
+                url: "/restaurant/edit-close-restaurant.php",
+                data: {"resId": $("#resIdvalue").val(),
+                    "close": $("#switchClose").val()},
+                dataType: "json",
+                success: function (data) {
+                    $("#switchClose").removeAttr("checked");
+                    if (data.result == "1") {
+                        $("#switchClose").attr("checked");
+                        document.location.reload();
+                    } else if (data.result == "0") {
+                        $("#switchClose").removeAttr("checked");
+                        //document.location.reload();
+                    } else {
+                        alert("ไม่สามารถบันทึกข้อมูลได้\nError : " + data.error);
+                    }
+                }
+            });
+        });
+    });
+</script>
 
-                        // Function that displays the error message
-                        function error(msg) {
+<!--maps--> 
+<script>
+    // Primary function for the Geo location app
+    function success(position) {
+        // create a simple variable for the ID
+        var s = document.querySelector('#geostatus');
 
-                            // sets simple variable to the status ID
-                            var s = document.querySelector('#geostatus');
-                            // designates typ eof message and passes in value
-                            s.innerHTML = typeof msg == 'string' ? msg : "ไม่สามารถค้นหาตำแหน่งได้";
-                            s.className = 'fail';
-                        }
+        if (s.className == 'success') {
+            return;
+        }
+
+        // Replaces text with new message
+        s.innerHTML = "พบตำแหน่งของคุณแล้ว!";
+        // Adds new class to the ID status block
+        s.className = 'success';
+
+        // creates map wrapper for responsiveness
+        var mapwrapper = document.createElement('div');
+        mapwrapper.className = 'mapwrapper';
+
+        // creates the block element at sets the width and height
+        var mapcanvas = document.createElement('div');
+        // Adds ID to the new div
+        mapcanvas.id = 'mapcanvas';
+
+        // Adds the new block element as the last thing within the article block
+        document.querySelector('.map').appendChild(mapwrapper);
+
+        // Adds the new block element as the last thing within the mapwrapper block
+        document.querySelector('.mapwrapper').appendChild(mapcanvas);
 
 
-                        // statement that tests for device functionality
-                        if (navigator.geolocation) {
-                            navigator.geolocation.getCurrentPosition(success, error);
-                        } else {
-                            error('not supported');
-                        }
+        // creates a new variable 'latlng' off of the google maps object
+        var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
-                        var mapwrapper = document.createElement('div');
-                        mapwrapper.className = 'mapwrapper';
+        // create new variable that contains options in key:value pairs
+        var myOptions = {
+            zoom: 15,
+            center: latlng,
+            // ROADMAP is set by default, other options are HYBRID, SATELLITE and TERRAIN
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
 
-                    </script>
-                    </body>
-                    </html>
+        // creates the new 'map' variable using the google object
+        // then using the 'mapcanvas' ID appending the options
+        var map = new google.maps.Map(document.getElementById("mapcanvas"), myOptions);
+
+        // creates new 'marker' variable
+        var marker = new google.maps.Marker({
+            position: latlng,
+            map: map,
+            title: "You are here! (at least within a " + position.coords.accuracy + " meter radius)"
+        });
+    }
+
+    // Function that displays the error message
+    function error(msg) {
+
+        // sets simple variable to the status ID
+        var s = document.querySelector('#geostatus');
+        // designates typ eof message and passes in value                         s.innerHTML = typeof msg == 'string' ? msg : "ไม่สามารถค้นหาตำแหน่งได้";
+        s.className = 'fail';
+    }
+
+
+    // statement that tests for device functionality
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(success, error);
+    } else {
+        error('not supported');
+    }
+
+    var mapwrapper = document.createElement('div');
+    mapwrapper.className = 'mapwrapper';
+
+</script>
+</body>
+</html>

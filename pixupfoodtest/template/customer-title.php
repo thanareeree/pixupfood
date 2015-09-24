@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="/assets/css/search.css">
 <link rel="stylesheet" href="/assets/css/simple-sidebar.css">
 <link rel="stylesheet" href="/assets/Supermarket/stylesheet.css">
-<link rel="stylesheet" href="/assets/css/jquery.datepick.css">
+<!--<link rel="stylesheet" href="/assets/css/jquery.datepick.css">-->
 
 
 

@@ -1,5 +1,5 @@
 <?php
-$res2 = $con->query("SELECT main_menu.name, menu.price, menu.img_path   "
+$res2 = $con->query("SELECT DISTINCT main_menu.name, menu.price, menu.img_path   "
         . "FROM `menu` LEFT JOIN main_menu on main_menu.id = menu.main_menu_id "
         . "LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
         . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "

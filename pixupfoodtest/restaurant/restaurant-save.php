@@ -23,7 +23,7 @@ if (isset($_POST["resemail"]) && $_POST["resemail"] != "") {
 
     $con->query("INSERT INTO `restaurant`(`id`, `name`, `firstname`, `lastname`, `email`, `tel`, `available`, "
             . "`created_time`, `password`, `detail`, `x`, `y`, `img_path`, `address`, `opentime`, "
-            . "`price_prepay`, `amount_box_limit`, `img_path_confirm`, `serviceplan_id`, `zone_id`, "
+            . "`amount_box_minimum`, `amount_box_limit`, `img_path_confirm`, `serviceplan_id`, `zone_id`, "
             . "`province`,`has_restaurant`, `restaurant_type`) "
             . "VALUES (null,'$resname','$fname','$lname','$email','$phone','0',"
             . "now(),'$en_password','$detail','$lat','$long',null,'$resaddress',null,"
