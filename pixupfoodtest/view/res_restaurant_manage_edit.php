@@ -757,23 +757,36 @@ include '../dbconn.php';
                                                         </div>
                                                         <form id="dataform_edit_payment">
                                                             <?php
-                                                            $resPaymentRes = $con->query("SELECT payment_type.id, payment_type.description "
-                                                                    . "FROM restaurant "
-                                                                    . "LEFT JOIN mapping_payment_type ON mapping_payment_type.restaurant_id = restaurant.id "
-                                                                    . "LEFT JOIN payment_type ON payment_type.id = mapping_payment_type.payment_type_id"
-                                                                    . " WHERE restaurant.id = '$resid' ");
+                                                                $resPaymentRes = $con->query("SELECT payment_type.id, payment_type.description "
+                                                                        . "FROM restaurant "
+                                                                        . "LEFT JOIN mapping_payment_type ON mapping_payment_type.restaurant_id = restaurant.id "
+                                                                        . "LEFT JOIN payment_type ON payment_type.id = mapping_payment_type.payment_type_id"
+                                                                        . " WHERE restaurant.id = '$resid' ");
+                                                                $hasData = $resPaymentRes->fetch_assoc();
+                                                               
+                                                            
+                                                            if ($hasData["id"]=="") {
+                                                                $paymentRes = $con->query("SELECT payment_type.id, payment_type.description FROM payment_type");
+                                                                while ($paymentData = $paymentRes->fetch_assoc()) {
+                                                                    ?>
+                                                                    <div class="input-group col-md-6" style="margin: 10px 120px;"  >
+                                                                        <input type="checkbox" name="paymentData[]" value="<?= $paymentData["id"] ?>"><?= $paymentData["description"] ?>
+                                                                    </div>
+                                                                    <?php
+                                                                }
+                                                                echo '<span class="input-group" style="margin-left: 250px;"><button class="btn btn-success" id="savebtn" type="submit">บันทึก</button></span>';
+                                                            } else {
+                                                                while ($resPaymentData = $resPaymentRes->fetch_assoc()) {
+                                                                    ?>
+                                                                    <div class=" col-md-6" style="margin: 10px 120px;"  >
+                                                                        <p><?= $resPaymentData["description"] ?></p>
+                                                                    </div>
+                                                                    <?php
+                                                                }
+                                                            }
+                                                            ?>
 
-                                                            $paymentRes = $con->query("SELECT payment_type.id, payment_type.description FROM payment_type");
-                                                            while ($paymentData = $paymentRes->fetch_assoc()) {
-                                                                ?>
-                                                                <div class="input-group col-md-6" style="margin: 10px 120px;"  >
-                                                                    <input type="checkbox" name="paymentData[]" value="<?= $paymentData["id"] ?>"><?= $paymentData["description"] ?>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                            <span class="input-group" style="margin-left: 250px;">
-                                                                <button class="btn btn-success" id="savebtn" type="button">บันทึก</button>
-                                                            </span>
+                                                            
                                                         </form>
                                                     </div>
                                                 </div>
@@ -804,7 +817,7 @@ include '../dbconn.php';
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="tab-pane" id="tab_default_4"><!--พนักงานส่ง-->
 
                                 </div>
@@ -814,133 +827,133 @@ include '../dbconn.php';
                 </div>
             </div>
         </div>
-</section>
+    </section>
 
 
-<!-- start footer -->
-<?php include '../template/footer.php'; ?>
-<!--<script src="/assets/bootstrap-fileinput-master/js/fileinput.js"></script>
-<script src="/assets/bootstrap-fileinput-master/js/fileinput.min.js"></script>
-<script src="/assets/bootstrap-fileinput-master/js/fileinput_locale_LANG.js"></script>
-<script src="/assets/bootstrap-fileinput-master/js/plugins/canvas-to-blob.js"></script>
-<script src="/assets/bootstrap-fileinput-master/js/plugins/canvas-to-blob.min.js"></script>-->
+    <!-- start footer -->
+    <?php include '../template/footer.php'; ?>
+    <!--<script src="/assets/bootstrap-fileinput-master/js/fileinput.js"></script>
+    <script src="/assets/bootstrap-fileinput-master/js/fileinput.min.js"></script>
+    <script src="/assets/bootstrap-fileinput-master/js/fileinput_locale_LANG.js"></script>
+    <script src="/assets/bootstrap-fileinput-master/js/plugins/canvas-to-blob.js"></script>
+    <script src="/assets/bootstrap-fileinput-master/js/plugins/canvas-to-blob.min.js"></script>-->
 
-<script>
-    $(document).ready(function () {
-        $(".btn-pref .btn").click(function () {
-            $(".btn-pref .btn").removeClass("btn-warning").addClass("btn-default");
-            $(".tab").addClass("active"); // instead of this do the below 
-            $(this).removeClass("btn-default").addClass("btn-warning");
-        });
+    <script>
+        $(document).ready(function () {
+            $(".btn-pref .btn").click(function () {
+                $(".btn-pref .btn").removeClass("btn-warning").addClass("btn-default");
+                $(".tab").addClass("active"); // instead of this do the below 
+                $(this).removeClass("btn-default").addClass("btn-warning");
+            });
 
-        $('#imagerest').on('change', function (e) {
-            var filename = $('#imagerest').val();
-            var fname = filename.substring(12);
-            var name = "File: " + fname;
-            $("#uploadtext").html(name);
-            $("#chooseimgbtn").hide();
-            $("#uploadimgbtn").show();
-        });
+            $('#imagerest').on('change', function (e) {
+                var filename = $('#imagerest').val();
+                var fname = filename.substring(12);
+                var name = "File: " + fname;
+                $("#uploadtext").html(name);
+                $("#chooseimgbtn").hide();
+                $("#uploadimgbtn").show();
+            });
 
-        $("#switchClose").click(function (e) {
-            $.ajax({
-                type: "POST",
-                url: "/restaurant/edit-close-restaurant.php",
-                data: {"resId": $("#resIdvalue").val(),
-                    "close": $("#switchClose").val()},
-                dataType: "json",
-                success: function (data) {
-                    $("#switchClose").removeAttr("checked");
-                    if (data.result == "1") {
-                        $("#switchClose").attr("checked");
-                        document.location.reload();
-                    } else if (data.result == "0") {
+            $("#switchClose").click(function (e) {
+                $.ajax({
+                    type: "POST",
+                    url: "/restaurant/edit-close-restaurant.php",
+                    data: {"resId": $("#resIdvalue").val(),
+                        "close": $("#switchClose").val()},
+                    dataType: "json",
+                    success: function (data) {
                         $("#switchClose").removeAttr("checked");
-                        //document.location.reload();
-                    } else {
-                        alert("ไม่สามารถบันทึกข้อมูลได้\nError : " + data.error);
+                        if (data.result == "1") {
+                            $("#switchClose").attr("checked");
+                            document.location.reload();
+                        } else if (data.result == "0") {
+                            $("#switchClose").removeAttr("checked");
+                            //document.location.reload();
+                        } else {
+                            alert("ไม่สามารถบันทึกข้อมูลได้\nError : " + data.error);
+                        }
                     }
-                }
+                });
             });
         });
-    });
-</script>
+    </script>
 
-<!--maps--> 
-<script>
-    // Primary function for the Geo location app
-    function success(position) {
-        // create a simple variable for the ID
-        var s = document.querySelector('#geostatus');
+    <!--maps--> 
+    <script>
+        // Primary function for the Geo location app
+        function success(position) {
+            // create a simple variable for the ID
+            var s = document.querySelector('#geostatus');
 
-        if (s.className == 'success') {
-            return;
+            if (s.className == 'success') {
+                return;
+            }
+
+            // Replaces text with new message
+            s.innerHTML = "พบตำแหน่งของคุณแล้ว!";
+            // Adds new class to the ID status block
+            s.className = 'success';
+
+            // creates map wrapper for responsiveness
+            var mapwrapper = document.createElement('div');
+            mapwrapper.className = 'mapwrapper';
+
+            // creates the block element at sets the width and height
+            var mapcanvas = document.createElement('div');
+            // Adds ID to the new div
+            mapcanvas.id = 'mapcanvas';
+
+            // Adds the new block element as the last thing within the article block
+            document.querySelector('.map').appendChild(mapwrapper);
+
+            // Adds the new block element as the last thing within the mapwrapper block
+            document.querySelector('.mapwrapper').appendChild(mapcanvas);
+
+
+            // creates a new variable 'latlng' off of the google maps object
+            var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+            // create new variable that contains options in key:value pairs
+            var myOptions = {
+                zoom: 15,
+                center: latlng,
+                // ROADMAP is set by default, other options are HYBRID, SATELLITE and TERRAIN
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+
+            // creates the new 'map' variable using the google object
+            // then using the 'mapcanvas' ID appending the options
+            var map = new google.maps.Map(document.getElementById("mapcanvas"), myOptions);
+
+            // creates new 'marker' variable
+            var marker = new google.maps.Marker({
+                position: latlng,
+                map: map,
+                title: "You are here! (at least within a " + position.coords.accuracy + " meter radius)"
+            });
         }
 
-        // Replaces text with new message
-        s.innerHTML = "พบตำแหน่งของคุณแล้ว!";
-        // Adds new class to the ID status block
-        s.className = 'success';
+        // Function that displays the error message
+        function error(msg) {
 
-        // creates map wrapper for responsiveness
+            // sets simple variable to the status ID
+            var s = document.querySelector('#geostatus');
+            // designates typ eof message and passes in value                         s.innerHTML = typeof msg == 'string' ? msg : "ไม่สามารถค้นหาตำแหน่งได้";
+            s.className = 'fail';
+        }
+
+
+        // statement that tests for device functionality
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(success, error);
+        } else {
+            error('not supported');
+        }
+
         var mapwrapper = document.createElement('div');
         mapwrapper.className = 'mapwrapper';
 
-        // creates the block element at sets the width and height
-        var mapcanvas = document.createElement('div');
-        // Adds ID to the new div
-        mapcanvas.id = 'mapcanvas';
-
-        // Adds the new block element as the last thing within the article block
-        document.querySelector('.map').appendChild(mapwrapper);
-
-        // Adds the new block element as the last thing within the mapwrapper block
-        document.querySelector('.mapwrapper').appendChild(mapcanvas);
-
-
-        // creates a new variable 'latlng' off of the google maps object
-        var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
-        // create new variable that contains options in key:value pairs
-        var myOptions = {
-            zoom: 15,
-            center: latlng,
-            // ROADMAP is set by default, other options are HYBRID, SATELLITE and TERRAIN
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-
-        // creates the new 'map' variable using the google object
-        // then using the 'mapcanvas' ID appending the options
-        var map = new google.maps.Map(document.getElementById("mapcanvas"), myOptions);
-
-        // creates new 'marker' variable
-        var marker = new google.maps.Marker({
-            position: latlng,
-            map: map,
-            title: "You are here! (at least within a " + position.coords.accuracy + " meter radius)"
-        });
-    }
-
-    // Function that displays the error message
-    function error(msg) {
-
-        // sets simple variable to the status ID
-        var s = document.querySelector('#geostatus');
-        // designates typ eof message and passes in value                         s.innerHTML = typeof msg == 'string' ? msg : "ไม่สามารถค้นหาตำแหน่งได้";
-        s.className = 'fail';
-    }
-
-
-    // statement that tests for device functionality
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(success, error);
-    } else {
-        error('not supported');
-    }
-
-    var mapwrapper = document.createElement('div');
-    mapwrapper.className = 'mapwrapper';
-
-</script>
+    </script>
 </body>
 </html>
