@@ -15,7 +15,6 @@ include '../dbconn.php';
         <link rel="stylesheet" href="/assets/css/profile.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
-
     </head>
     <body>
         <?php
@@ -127,8 +126,8 @@ include '../dbconn.php';
             <div class="container">
                 <div class="row" style="margin-top:50px">
                     <div class="col-md-3">
-                        <div class="container_field">
-                            <div class="showbio">
+                        <div class="card">
+                            <div class="card-content">
                                 <p style="font-weight:bold">Biography</p>
                                 <p><span class="glyphicon glyphicon-home"></span>&nbsp;<?= $data2["address"] ?></p>
                                 <p><span class="glyphicon glyphicon-earphone"></span>&nbsp;<?= $data2["tel"] ?></p>
@@ -140,43 +139,46 @@ include '../dbconn.php';
                     </div>
                     <div class="col-md-8">
                         <!-- 4 element -->
-                        <div class="row">
-                            <div class="col-md-2 templatemo-box fadeInUp">
-                                <a href="#tracking" data-toggle="tab" id="navtracking">
-                                    <img class="img-responsive imgsize" src="/assets/images/profile/menu_list/tracking_b_c.png" title="ตรวจสถานะสินค้า" onmouseover="this.src = '/assets/images/profile/menu_list/tracking_a_c.png';"
-                                         onmouseout="this.src = '/assets/images/profile/menu_list/tracking_b_c.png';" style="margin: 0 0 0 15px">
-                                    <p class="elt" style="margin: 0  0 8px">ออเดอร์ปัจจุบัน</p>
-                                </a>
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="row">
+                                    <div class="col-md-2 templatemo-box fadeInUp">
+                                        <a href="#tracking" data-toggle="tab" id="navtracking">
+                                            <img class="img-responsive imgsize" src="/assets/images/profile/menu_list/tracking_b_c.png" title="ตรวจสถานะสินค้า" onmouseover="this.src = '/assets/images/profile/menu_list/tracking_a_c.png';"
+                                                 onmouseout="this.src = '/assets/images/profile/menu_list/tracking_b_c.png';" style="margin: 0 0 0 15px">
+                                            <p class="elt" style="margin: 0">ออเดอร์ปัจจุบัน</p>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-2 templatemo-box fadeInUp">
+                                        <a href="#history" data-toggle="tab" id="navhistory">
+                                            <img class="img-responsive imgsize" src="/assets/images/profile/menu_list/orderhis_b_c.png" title="ประวัติการสั่งซื้อ" onmouseover="this.src = '/assets/images/profile/menu_list/orderhis_a_c.png';"
+                                                 onmouseout="this.src = '/assets/images/profile/menu_list/orderhis_b_c.png';" style="margin: 0 0 0 20px">
+                                            <p class="elt" style="margin:0 0 0 8px">ประวัติการซื้อ</p>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-2 templatemo-box fadeInUp webfont">
+                                        <a href="#shoplist" data-toggle="tab" id="navshoplist">
+                                            <img class="img-responsive imgsize" src="/assets/images/profile/menu_list/shoplist_b_c.png" title="ตะกร้า" onmouseover="this.src = '/assets/images/profile/menu_list/shoplist_a_c.png';"
+                                                 onmouseout="this.src = '/assets/images/profile/menu_list/shoplist_b_c.png';" style="margin: 0 0 0 10px">
+                                            <p class="elt" style="margin: 0 0 0 20px">ตะกร้า</p>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-2 templatemo-box fadeInUp">
+                                        <a href="#favlist" data-toggle="tab" id="navfavlist">
+                                            <img class="img-responsive imgsize" src="/assets/images/profile/menu_list/fav_b_c.png" title="ชื่นชอบ" onmouseover="this.src = '/assets/images/profile/menu_list/fav_a_c.png';"
+                                                 onmouseout="this.src = '/assets/images/profile/menu_list/fav_b_c.png';" style="margin: 0 0 0 15px">
+                                            <p class="elt" style="margin: 0 0 0 20px">ชื่นชอบ</p>
+                                        </a>       
+                                    </div>
+                                    <div class="col-md-2 templatemo-box fadeInUp">
+                                        <a href="#shipadd" data-toggle="tab" id="navshipadd">
+                                            <img class="img-responsive imgsize" src="/assets/images/profile/menu_list/shipadd_b_c.png" title="ที่อยู่การจัดส่ง" onmouseover="this.src = '/assets/images/profile/menu_list/shipadd_a_c.png';"
+                                                 onmouseout="this.src = '/assets/images/profile/menu_list/shipadd_b_c.png';" style="margin: 0 0 0 15px">
+                                            <p class="elt" style="margin:0">ที่อยู่การจัดส่ง</p>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-2 templatemo-box fadeInUp">
-                                <a href="#history" data-toggle="tab" id="navhistory">
-                                    <img class="img-responsive imgsize" src="/assets/images/profile/menu_list/orderhis_b_c.png" title="ประวัติการสั่งซื้อ" onmouseover="this.src = '/assets/images/profile/menu_list/orderhis_a_c.png';"
-                                         onmouseout="this.src = '/assets/images/profile/menu_list/orderhis_b_c.png';" style="margin: 0 0 0 20px">
-                                    <p class="elt" style="margin:0">ประวัติการสั่งซื้อ</p>
-                                </a>
-                            </div>
-                            <div class="col-md-2 templatemo-box fadeInUp webfont">
-                                <a href="#shoplist" data-toggle="tab" id="navshoplist">
-                                    <img class="img-responsive imgsize" src="/assets/images/profile/menu_list/shoplist_b_c.png" title="ตะกร้า" onmouseover="this.src = '/assets/images/profile/menu_list/shoplist_a_c.png';"
-                                         onmouseout="this.src = '/assets/images/profile/menu_list/shoplist_b_c.png';" style="margin: 0 0 0 10px">
-                                    <p class="elt" style="margin: 0 0 0 20px">ตะกร้า</p>
-                                </a>
-                            </div>
-                            <div class="col-md-2 templatemo-box fadeInUp">
-                                <a href="#favlist" data-toggle="tab" id="navfavlist">
-                                    <img class="img-responsive imgsize" src="/assets/images/profile/menu_list/fav_b_c.png" title="ชื่นชอบ" onmouseover="this.src = '/assets/images/profile/menu_list/fav_a_c.png';"
-                                         onmouseout="this.src = '/assets/images/profile/menu_list/fav_b_c.png';" style="margin: 0 0 0 15px">
-                                    <p class="elt" style="margin: 0 0 0 20px">ชื่นชอบ</p>
-                                </a>       
-                            </div>
-                            <div class="col-md-2 templatemo-box fadeInUp">
-                                <a href="#shipadd" data-toggle="tab" id="navshipadd">
-                                    <img class="img-responsive imgsize" src="/assets/images/profile/menu_list/shipadd_b_c.png" title="ที่อยู่การจัดส่ง" onmouseover="this.src = '/assets/images/profile/menu_list/shipadd_a_c.png';"
-                                         onmouseout="this.src = '/assets/images/profile/menu_list/shipadd_b_c.png';" style="margin: 0 0 0 15px">
-                                    <p class="elt" style="margin:3">ที่อยู่การจัดส่ง</p>
-                                </a>
-                            </div>
-
                         </div>
                     </div>
                 </div>
@@ -333,7 +335,7 @@ include '../dbconn.php';
 
                             <!-- favorite list -->
                             <div class="tab-pane fade" id="favlist">
-                                <div class="content2" style="padding-bottom:15px">
+                                <div class="content2" style="padding:20px 0 15px 0">
                                     <ul class="media-list main-list">
                                         <li class="media">
                                             <a class="pull-left" href="#">
@@ -534,7 +536,7 @@ include '../dbconn.php';
                             <!-- end order history -->
 
                             <!-- shipping address -->
-                            <div class="tab-pane fade" id="shipadd">
+                            <div class="tab-pane fade" id="shipadd" style="margin:20px 0 20px 0;">
                                 <div class="content2" >
 
                                     <?php
@@ -654,7 +656,6 @@ include '../dbconn.php';
                                                 </form>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -704,9 +705,6 @@ include '../dbconn.php';
                                 <!-- /.modal-dialog --> 
                             </div>
                             <!-- end shop list -->
-
-
-
                         </div>
                     </div>
                 </div>

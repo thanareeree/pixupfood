@@ -5,8 +5,6 @@ include '../dbconn.php';
 ?>
 
 
-
-
 <html>
     <head>
         <title>Pixupfood - Restaurant Order Management</title>
@@ -21,7 +19,6 @@ include '../dbconn.php';
     <body>
 
         <?php include '../template/restaurant-navbar.php'; ?>
-
 
         <!-- start profile -->
         <section id="head">
@@ -45,34 +42,48 @@ include '../dbconn.php';
     <scetion id="menu">
         <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
             <div class="btn-group" role="group">
-                <button type="button" id="today" class="btn btn-primary" href="#tab1" data-toggle="tab"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
-                    <div class="hidden-xs">วันนี้</div>
-                </button>
+                <a href="res_restaurant_manage_order.php">
+                    <button type="button" id="orders" class="btn btn-default" >
+                        <span class="glyphicon glyphicon-align-left" aria-hidden="true" ></span>
+                        <div class="hidden-xs">รายการสั่งซื้อ</div>
+                    </button>
+                </a>
             </div>
             <div class="btn-group" role="group">
-                <button type="button" id="order" class="btn btn-default" href="#tab2" data-toggle="tab"><span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
-                    <div class="hidden-xs">รายการสั่งซื้อ</div>
-                </button>
+                <a href="res_restaurant_manage_today.php">
+                    <button type="button" id="today" class="btn btn-default">
+                        <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+                        <div class="hidden-xs">วันนี้</div>
+                    </button>
+                </a>
             </div>
             <div class="btn-group" role="group">
-                <button type="button" id="following" class="btn btn-default" href="#tab3" data-toggle="tab"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-                    <div class="hidden-xs">ปฏิทิน</div>
-                </button>
+                <a href="res_restaurant_manage_menulist.php">
+                    <button type="button" id="menulist" class="btn btn-warning" >
+                        <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                        <div class="hidden-xs">รายการอาหาร</div>
+                    </button>
+                </a>
             </div>
             <div class="btn-group" role="group">
-                <button type="button" id="following" class="btn btn-default" href="#tab4" data-toggle="tab"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                    <div class="hidden-xs">รายการอาหาร</div>
-                </button>
+                <a href="res_restaurant_manage_calendar.php">
+                    <button type="button" id="calendar" class="btn btn-default" >
+                        <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                        <div class="hidden-xs">ปฏิทิน</div>
+                    </button>
+                </a>
             </div>
             <div class="btn-group" role="group">
-                <button type="button" id="following" class="btn btn-default" href="#tab5" data-toggle="tab"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                    <div class="hidden-xs">การตั้งค่า</div>
-                </button>
+                <a href="res_restaurant_manage_edit.php">
+                    <button type="button" id="editres" class="btn btn-default">
+                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                        <div class="hidden-xs">การตั้งค่า</div>
+                    </button>
+                </a>
             </div>
         </div>
     </scetion>
     <!--End Menu Item-->
-
     <div class="well white">
         <div class="tab-content">
             <!-- Start Content in Order List--> 
@@ -98,46 +109,808 @@ include '../dbconn.php';
                                                 รายการสั่งซื้อเสร็จสมบูรณ์ </a>
                                         </li>
                                     </ul>
+                                    <!-- Tab 1 -->
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="tab_default_1_2">
-                                            <p>
-                                                I'm in Tab 1.
-                                            </p>
-                                            <p>
-                                                Duis autem eum iriure dolor in hendrerit in vulputate velit esse molestie consequat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat.
-                                            </p>
-                                            <p>
-                                                <a class="btn btn-success" href="http://j.mp/metronictheme" target="_blank">
-                                                    Learn more...
-                                                </a>
-                                            </p>
+                                            <div class="page-header" style="font-size: 40px; margin-top: 5px">
+                                                รายการสั่งซื้อใหม่  
+                                                <div class="pull-right">
+                                                    <p class="text-center">
+                                                        <span style="font-size: 20px; color: orange">2 รายการใหม่ <span style="font-size: 20px; color: black">|</span> <span style="font-size: 20px; color: red">1 รายการด่วน</span></p>
+                                                </div>
+                                            </div>
+                                            <div class="card">
+                                                <div class="card-content">
+                                                    <div class="page-header" style="font-size: 30px; margin-top: 5px">รายการใหม่<span style="color: red; font-size: 30px; "> (ด่วน)</span> 
+                                                        <div class="pull-right">
+                                                            <p class="text-center">
+                                                                <span style="font-size: 20px; color: red">1 รายการด่วน</span></p>
+                                                        </div>
+                                                    </div>
+                                                    <!-- ตารางรายการด่วน -->
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <form action="#" method="get">
+                                                                <div class="input-group">
+                                                                    <!-- USE TWITTER TYPEAHEAD JSON WITH API TO SEARCH -->
+                                                                    <input class="form-control" id="system-search" name="q" placeholder="ค้นหาข้อมูลในตารางนี้" required>
+                                                                    <span class="input-group-btn">
+                                                                        <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+                                                                    </span>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <table class="table table-list-search">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>ลำดับ</th>
+                                                                        <th>เลขที่รายการ</th>
+                                                                        <th>ชื่อลูกค้า</th>
+                                                                        <th>ชนิดอาหาร</th>
+                                                                        <th>จำนวน(ขุด)</th>
+                                                                        <th>วัน/เวลาที่ลูกค้านัดรับ</th>
+                                                                        <th>เวลาที่เหลือ(นาที)</th>
+                                                                        <th>รายละเอียด</th>
+                                                                        <th>รับรายการ</th>
+                                                                        <th>ปฏิเสธรายการ</th>
+
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody class="table table-condensed table-hover">
+                                                                    <tr class="danger">
+                                                                        <td style="text-align: center">1</td>
+                                                                        <td>102458</td>                         
+                                                                        <td>คุณธิติ มหาโยธารักษ์</td>
+                                                                        <td>ข้าวกล้อง+ผัดกระเพราหมู+ไข่ดาว</td>
+                                                                        <td style="text-align: center">50</td>
+                                                                        <td>12-11-2015 12:30</td>
+                                                                        <td style="text-align: center">30</td>
+                                                                        <td class="text-center"><a class="btn btn-info btn-xs" data-toggle="modal" data-target='#detail' href="#detail"><span class="glyphicon glyphicon-eye-open"></span> แสดง</a></td>
+                                                                        <td class="text-center"><a class="btn btn-success btn-xs" data-toggle="modal" data-target='#accept' href="#accept"><span class="glyphicon glyphicon-check"></span> รับ</a></td>
+                                                                        <td class="text-center"><a class="btn btn-danger btn-xs" data-toggle="modal" data-target='#ignore' href="#ignore"><span class="glyphicon glyphicon-trash"></span> ปฏิเสธ</a></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="text-align: center">2</td>
+                                                                        <td>158642</td>
+                                                                        <td>คุณเอนก อนงค์พงศ์ไพร</td>
+                                                                        <td>ข้าวหอมมะลิ+หมูกระเทียม+ผัดผักรวม</td>
+                                                                        <td style="text-align: center">30</td>
+                                                                        <td>30-9-2015 13:30</td>
+                                                                        <td style="text-align: center">25</td>
+                                                                        <td class="text-center"><a class="btn btn-info btn-xs" data-toggle="modal" data-target='#detail' href="#detail"><span class="glyphicon glyphicon-eye-open"></span> แสดง</a></td>
+                                                                        <td class="text-center"><a class="btn btn-success btn-xs" data-toggle="modal" data-target='#accept' href="#accept"><span class="glyphicon glyphicon-check"></span> รับ</a></td>
+                                                                        <td class="text-center"><a class="btn btn-danger btn-xs" data-toggle="modal" data-target='#ignore' href="#ignore"><span class="glyphicon glyphicon-trash"></span> ปฏิเสธ</a></td>
+                                                                    </tr>
+
+                                                                    <tr>
+                                                                        <td style="text-align: center">3</td>
+                                                                        <td>123456</td>
+                                                                        <td>คุณปัญชลี สิริวัฒนชัยฉัตรบริรักษ์</td>
+                                                                        <td>ข้าวหอมมะลิ+หมูผัดกะปิ+คั่วกลิ้ง</td>
+                                                                        <td style="text-align: center">300</td>
+                                                                        <td>30-10-2015 14:30</td>
+                                                                        <td style="text-align: center">5</td>
+                                                                        <td class="text-center"><a class="btn btn-info btn-xs" data-toggle="modal" data-target='#detail' href="#detail"><span class="glyphicon glyphicon-eye-open"></span> แสดง</a></td>
+                                                                        <td class="text-center"><a class="btn btn-success btn-xs" data-toggle="modal" data-target='#accept' href="#accept"><span class="glyphicon glyphicon-check"></span> รับ</a></td>
+                                                                        <td class="text-center"><a class="btn btn-danger btn-xs" data-toggle="modal" data-target='#ignore' href="#ignore"><span class="glyphicon glyphicon-trash"></span> ปฏิเสธ</a></td>
+                                                                    </tr>
+
+                                                                </tbody>
+                                                            </table>   
+                                                        </div>
+                                                    </div>
+                                                    <!-- จบตารางรายการด่วน -->
+                                                </div>
+                                            </div>
+                                            <div class="card">
+                                                <div class="card-content">
+                                                    <div class="page-header" style="font-size: 30px; margin-top: 5px">รายการใหม่
+                                                        <div class="pull-right">
+                                                            <p class="text-center">
+                                                                <span style="font-size: 20px;">1 รายการ</span></p>
+                                                        </div>
+                                                        <!-- ตารางรายการใหม่ -->
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <form action="#" method="get">
+                                                                    <div class="input-group">
+                                                                        <!-- USE TWITTER TYPEAHEAD JSON WITH API TO SEARCH -->
+                                                                        <input class="form-control" id="system-search2" name="q" placeholder="ค้นหาข้อมูลในตารางนี้" required>
+                                                                        <span class="input-group-btn">
+                                                                            <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+                                                                        </span>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <table class="table table-list-search2">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>ลำดับ</th>
+                                                                            <th>เลขที่รายการ</th>
+                                                                            <th>ชื่อลูกค้า</th>
+                                                                            <th>ชนิดอาหาร</th>
+                                                                            <th>จำนวน(ขุด)</th>
+                                                                            <th>วัน/เวลาที่ลูกค้านัดรับ</th>
+                                                                            <th>เวลาที่เหลือ(ชั่วโมง)</th>
+                                                                            <th>รายละเอียด</th>
+                                                                            <th>รับรายการ</th>
+                                                                            <th>ปฏิเสธรายการ</th>
+
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody class="table table-condensed table-hover">
+                                                                        <tr class="warning">
+                                                                            <td style="text-align: center">1</td>
+                                                                            <td>102458</td>                         
+                                                                            <td>คุณธิติ มหาโยธารักษ์</td>
+                                                                            <td>ข้าวกล้อง+ผัดกระเพราหมู+ไข่ดาว</td>
+                                                                            <td style="text-align: center">50</td>
+                                                                            <td>12-11-2015 12:30</td>
+                                                                            <td style="text-align: center">3</td>
+                                                                            <td class="text-center"><a class="btn btn-info btn-xs" data-toggle="modal" data-target='#detail' href="#detail"><span class="glyphicon glyphicon-eye-open"></span> แสดง</a></td>
+                                                                            <td class="text-center"><a class="btn btn-success btn-xs" data-toggle="modal" data-target='#accept' href="#accept"><span class="glyphicon glyphicon-check"></span> รับ</a></td>
+                                                                            <td class="text-center"><a class="btn btn-danger btn-xs" data-toggle="modal" data-target='#ignore' href="#ignore"><span class="glyphicon glyphicon-trash"></span> ปฏิเสธ</a></td>
+                                                                        </tr>
+
+                                                                        <tr>
+                                                                            <td style="text-align: center">2</td>
+                                                                            <td>158642</td>
+                                                                            <td>คุณเอนก อนงค์พงศ์ไพร</td>
+                                                                            <td>ข้าวหอมมะลิ+หมูกระเทียม+ผัดผักรวม</td>
+                                                                            <td style="text-align: center">30</td>
+                                                                            <td>30-9-2015 13:30</td>
+                                                                            <td style="text-align: center">2</td>
+                                                                            <td class="text-center"><a class="btn btn-info btn-xs" data-toggle="modal" data-target='#detail' href="#detail"><span class="glyphicon glyphicon-eye-open"></span> แสดง</a></td>
+                                                                            <td class="text-center"><a class="btn btn-success btn-xs" data-toggle="modal" data-target='#accept' href="#accept"><span class="glyphicon glyphicon-check"></span> รับ</a></td>
+                                                                            <td class="text-center"><a class="btn btn-danger btn-xs" data-toggle="modal" data-target='#ignore' href="#ignore"><span class="glyphicon glyphicon-trash"></span> ปฏิเสธ</a></td>
+                                                                        </tr>
+
+                                                                        <tr>
+                                                                            <td style="text-align: center">3</td>
+                                                                            <td>123456</td>
+                                                                            <td>คุณปัญชลี สิริวัฒนชัยฉัตรบริรักษ์</td>
+                                                                            <td>ข้าวหอมมะลิ+หมูผัดกะปิ+คั่วกลิ้ง</td>
+                                                                            <td style="text-align: center">300</td>
+                                                                            <td>30-10-2015 14:30</td>
+                                                                            <td style="text-align: center">2</td>
+                                                                            <td class="text-center"><a class="btn btn-info btn-xs" data-toggle="modal" data-target='#detail' href="#detail"><span class="glyphicon glyphicon-eye-open"></span> แสดง</a></td>
+                                                                            <td class="text-center"><a class="btn btn-success btn-xs" data-toggle="modal" data-target='#accept' href="#accept"><span class="glyphicon glyphicon-check"></span> รับ</a></td>
+                                                                            <td class="text-center"><a class="btn btn-danger btn-xs" data-toggle="modal" data-target='#ignore' href="#ignore"><span class="glyphicon glyphicon-trash"></span> ปฏิเสธ</a></td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>   
+                                                            </div>
+                                                        </div>
+                                                        <!-- จบตารางรายการใหม่ -->
+                                                    </div>
+                                                </div>  
+                                            </div>
+
+
                                         </div>
+
+
+                                        <!-- Tab 1 -->
+
+                                        <!-- Tab รายการอยู่ระหว่างดำเนินการ -->
                                         <div class="tab-pane" id="tab_default_2_2">
-                                            <p>
-                                                Howdy, I'm in Tab 2.
-                                            </p>
-                                            <p>
-                                                Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat. Ut wisi enim ad minim veniam, quis nostrud exerci tation.
-                                            </p>
-                                            <p>
-                                                <a class="btn btn-warning" href="http://j.mp/metronictheme" target="_blank">
-                                                    Click for more features...
-                                                </a>
-                                            </p>
+                                            <div class="page-header" style="font-size: 40px; margin-top: 5px">
+                                                รายการสั่งซื้ออยู่ระหว่างดำเนินการ  
+
+                                            </div>
+                                            <div class="card">
+                                                <div class="card-content">
+                                                    <div class="page-header" style="font-size: 30px; margin-top: 5px">รายการทั้งหมด 
+                                                        <div class="pull-right">
+                                                            <p class="text-center">
+                                                                <span style="font-size: 20px; color: red">1 การเตือน</span></p>
+                                                        </div>
+                                                    </div>
+                                                    <!-- ตารางรายการอยู่ระหว่างดำเนินการ -->
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <form action="#" method="get">
+                                                                <div class="input-group">
+                                                                    <!-- USE TWITTER TYPEAHEAD JSON WITH API TO SEARCH -->
+                                                                    <input class="form-control" id="system-search3" name="q" placeholder="ค้นหาข้อมูลในตารางนี้" required>
+                                                                    <span class="input-group-btn">
+                                                                        <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+                                                                    </span>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <table class="table table-list-search3">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>ลำดับ</th>
+                                                                        <th>เลขที่รายการ</th>
+                                                                        <th>ชื่อลูกค้า</th>
+                                                                        <th>ชนิดอาหาร</th>
+                                                                        <th>จำนวน(ขุด)</th>
+                                                                        <th>วัน/เวลาที่ลูกค้านัดรับ</th>
+                                                                        <th>สถานะ</th>
+                                                                        <th>รายละเอียด</th>
+                                                                        <th>เปลี่ยนสถานะ</th>
+                                                                        <th>หมายเหตุ</th>
+
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody class="table table-condensed table-hover">
+                                                                    <tr>
+                                                                        <td>1</td>
+                                                                        <td>102458</td>                         
+                                                                        <td>คุณธิติ มหาโยธารักษ์</td>
+                                                                        <td>ข้าวกล้อง+ผัดกระเพาหมู+ไข่ดาว</td>
+                                                                        <td>50</td>
+                                                                        <td>12-11-2015 12:30</td>
+                                                                        <td>เตรียมวัตถุดิบ</td>
+                                                                        <td class="text-center"><a class="btn btn-info btn-xs" data-toggle="modal" data-target='#detail' href="#detail"><span class="glyphicon glyphicon-eye-open"></span> แสดง</a></td>
+                                                                        <td class="text-center"><a class="btn btn-warning btn-xs" data-toggle="modal" data-target='#changestatus' href="#changestatus"><span class="glyphicon glyphicon-refresh"></span> เปลี่ยน</a></td>
+                                                                        <td>-</td>
+                                                                    </tr>
+                                                                    <tr class="danger">
+                                                                        <td>2</td>
+                                                                        <td>158642</td>
+                                                                        <td>คุณเอนก อนงค์พงศ์ไพร</td>
+                                                                        <td>ข้าวหอมมะลิ+หมูกระเทียม+ผัดผักรวม</td>
+                                                                        <td>30</td>
+                                                                        <td>30-9-2015 13:30</td>
+                                                                        <td>ปรุงอาหาร</td>
+                                                                        <td class="text-center"><a class="btn btn-info btn-xs" data-toggle="modal" data-target='#detail' href="#detail"><span class="glyphicon glyphicon-eye-open"></span> แสดง</a></td>
+                                                                        <td class="text-center"><a class="btn btn-warning btn-xs" data-toggle="modal" data-target='#changestatus' href="#changestatus"><span class="glyphicon glyphicon-refresh"></span> เปลี่ยน</a></td>
+
+                                                                        <td>ขอยกเลิกรายการ</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>3</td>
+                                                                        <td>101121</td>
+                                                                        <td>คุณปัญชลี สิริวัฒนชัยฉัตรบริรักษ์</td>
+                                                                        <td>ข้าวหอมมะลิ+หมูผัดกะปิ+คั่วกลิ้ง</td>
+                                                                        <td>300</td>
+                                                                        <td>30-10-2015 14:30</td>
+                                                                        <td>เตรียมวัตถุดิบ</td>
+                                                                        <td class="text-center"><a class="btn btn-info btn-xs" data-toggle="modal" data-target='#detail' href="#detail"><span class="glyphicon glyphicon-eye-open"></span> แสดง</a></td>
+                                                                        <td class="text-center"><a class="btn btn-warning btn-xs" data-toggle="modal" data-target='#changestatus' href="#changestatus"><span class="glyphicon glyphicon-refresh"></span> เปลี่ยน</a></td>
+                                                                        <td>-</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>   
+                                                        </div>
+                                                    </div>
+                                                    <!-- จบตารางรายการอยู่ระหว่างดำเนินการ -->
+
+
+                                                </div>
+                                            </div>
                                         </div>
+                                        <!-- End Tab 2 -->
+
+                                        <!-- Tab 3 -->
                                         <div class="tab-pane" id="tab_default_3_2">
-                                            <p>
-                                                Howdy, I'm in Tab 3.
-                                            </p>
-                                            <p>
-                                                Duis autem vel eum iriure dolor in hendrerit in vulputate. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat
-                                            </p>
-                                            <p>
-                                                <a class="btn btn-info" href="http://j.mp/metronictheme" target="_blank">
-                                                    Learn more...
-                                                </a>
-                                            </p>
+                                            <div class="page-header" style="font-size: 40px; margin-top: 5px">
+                                                รายการสั่งซื้อเสร็จสมบูรณ์
+
+                                            </div>
+                                            <div class="card">
+                                                <div class="card-content">
+                                                    <div class="page-header" style="font-size: 30px; margin-top: 5px">รายการทั้งหมด 
+                                                        <div class="pull-right">
+                                                            <p class="text-center">
+                                                                <span style="font-size: 20px; color: orange">1 รายการใหม่</span></p>
+                                                        </div>
+                                                    </div>
+                                                    <!-- ตารางรายการเสร็จสมบูรณ์ -->
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                             <form action="#" method="get">
+                                                                <div class="input-group">
+                                                                    <!-- USE TWITTER TYPEAHEAD JSON WITH API TO SEARCH -->
+                                                                    <input class="form-control" id="system-search4" name="q" placeholder="ค้นหาข้อมูลในตารางนี้" required>
+                                                                    <span class="input-group-btn">
+                                                                        <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+                                                                    </span>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <table class="table table-list-search4">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>ลำดับ</th>
+                                                                        <th>เลขที่รายการ</th>
+                                                                        <th>ชื่อลูกค้า</th>
+                                                                        <th>ชนิดอาหาร</th>
+                                                                        <th>จำนวน(ขุด)</th>
+                                                                        <th>วัน/เวลาที่ลูกค้าได้รับสินค้า</th>
+                                                                        <th>ผู้ส่งสินค้า</th>
+                                                                        <th>สถานะ</th>
+                                                                        <th>รายละเอียด</th>
+                                                                        <th>หมายเหตุ</th>
+
+                                                                    </tr>
+
+                                                                </thead>
+                                                                <tbody class="table table-condensed table-hover">
+
+                                                                    <tr>
+                                                                        <td>1</td>
+                                                                        <td>102458</td>                         
+                                                                        <td>คุณธิติ มหาโยธารักษ์</td>
+                                                                        <td>ข้าวกล้อง+ผัดกระเพาหมู+ไข่ดาว</td>
+                                                                        <td>50</td>
+                                                                        <td>12-11-2015 12:40</td>
+                                                                        <td>108suchart</td>
+                                                                        <td>เสร็จสิ้น</td>
+                                                                        <td class="text-center"><a class="btn btn-info btn-xs" data-toggle="modal" data-target='#detail' href="#detail"><span class="glyphicon glyphicon-eye-open"></span> แสดง</a></td>
+                                                                        <td>-</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>2</td>
+                                                                        <td>158642</td>
+                                                                        <td>คุณเอนก อนงค์พงศ์ไพร</td>
+                                                                        <td>ข้าวหอมมะลิ+หมูกระเทียม+ผัดผักรวม</td>
+                                                                        <td>50</td>
+                                                                        <td>-</td>
+                                                                        <td>-</td>
+                                                                        <td>รายการถูกยกเลิก</td>
+                                                                        <td class="text-center"><a class="btn btn-info btn-xs" data-toggle="modal" data-target='#detail' href="#detail"><span class="glyphicon glyphicon-eye-open"></span> แสดง</a></td>
+                                                                        <td>ขอยกเลิกรายการ</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>3</td>
+                                                                        <td>101121</td>
+                                                                        <td>คุณปัญชลี สิริวัฒนชัยฉัตรบริรักษ์</td>
+                                                                        <td>ข้าวหอมมะลิ+หมูผัดกะปิ+คั่วกลิ้ง</td>
+                                                                        <td>300</td>
+                                                                        <td>30-10-2015 14:35</td>
+                                                                        <td>108suchart</td>
+                                                                        <td>เสร็จสิ้น</td>
+                                                                        <td class="text-center"><a class="btn btn-info btn-xs" data-toggle="modal" data-target='#detail' href="#detail"><span class="glyphicon glyphicon-eye-open"></span> แสดง</a></td>
+                                                                        <td>-</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>   
+                                                        </div>
+                                                    </div>
+                                                    <!-- ตารางรายการเสร็จสมบูรณ์ -->
+
+                                                </div>
+                                            </div>
                                         </div>
+                                        <!-- End Tab3-->
+                                        <!-- modal ตารางนะยูวว  -->
+                                        <!-- ignore -->
+                                        <div class="modal fade" id="ignore" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                        <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px; color: red">เตือน!!</div></span>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <span style="font-size: 20px;">ต้องการปฏิเสธรายการ ? </span>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">ยกเลิก</button>
+                                                        <button type="button" class="btn btn-danger">ยืนยัน</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- End ignore --> 
+
+                                        <!-- accept -->
+                                        <div class="modal fade" id="accept" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                        <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px; color: red">เตือน!!</div></span>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <span style="font-size: 20px;">ต้องการยอมรับรายการ ? </span>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">ยกเลิก</button>
+                                                        <button type="button" class="btn btn-success">ยืนยัน</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- End accept --> 
+
+                                        <!-- Detial -->
+                                        <div class="modal fade" id="detail" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                        <span class="modal-title" id="myModalLabel">
+
+                                                            <span style="font-size: 30px; margin-top: 5px;">รายละเอียดของรายการหมายเลข: </span>
+                                                            <span style="font-size: 30px; margin-top: 5px; color: orange">102458 </span>     
+
+                                                        </span>
+                                                    </div>
+                                                    <div class="modal-body">
+
+                                                        <div class="row" style="margin-top: 0px;">
+                                                            <div class="col-md-12">
+                                                                <div class="col-md-7">
+                                                                    <div class="card">
+                                                                        <div class="card-content">
+                                                                            <span style="font-size: 20px">สถานะของรายการ: </span>
+                                                                            <span style="font-size: 20px; color: orange;"> รอการตอบรับ </span><br>
+                                                                            <span style="font-size: 20px">ตอบรับรายการโดย: </span>
+                                                                            <span style="font-size: 20px; color: orange;"> นายใหญ่โภชนา </span><br>
+                                                                            <span style="font-size: 20px">ตอบรับรายวันที่: </span>
+                                                                            <span style="font-size: 20px; color: orange;"> 12-11-2015 </span><br>
+                                                                            <span style="font-size: 20px">ตอบรับรายวันที่: </span>
+                                                                            <span style="font-size: 20px; color: orange;"> 12:30 </span><br>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- ถ้าเป็นสถานะปฏิเสธ <div class="card">
+                                                                        <div class="card-content">
+                                                                            <span style="font-size: 20px">สถานะของรายการ: </span>
+                                                                            <span style="font-size: 20px; color: orange;"> ปฏิเสธรายการ </span><br>
+                                                                            <span style="font-size: 20px">ปฏิเสธรายการโดย: </span>
+                                                                            <span style="font-size: 20px; color: orange;"> นายใหญ่โภชนา </span><br>
+                                                                            <span style="font-size: 20px">ปฏิเสธรายวันที่: </span>
+                                                                            <span style="font-size: 20px; color: orange;"> 12-11-2015 </span><br>
+                                                                            <span style="font-size: 20px">ปฏิเสธรายวันที่: </span>
+                                                                            <span style="font-size: 20px; color: orange;"> 12:30 </span><br>
+                                                                        </div>
+                                                                    </div> -->
+                                                                    <div class="card">
+                                                                        <div class="card-content">
+                                                                            <span style="font-size: 20px">หมายเลขสมาชิกลูกค้า: </span>
+                                                                            <span style="font-size: 20px; color: orange;"> 26143 </span><br>
+
+                                                                            <span style="font-size: 20px">ชื่อ: </span>
+                                                                            <span style="font-size: 20px; color: orange;"> คุณธิติ มหาโยธารักษ์ </span><br>
+
+                                                                            <span style="font-size: 20px">โทรศัพท์: </span>
+                                                                            <span style="font-size: 20px; color: orange;"> 0812345678 </span><br>
+
+                                                                            <span style="font-size: 20px">อีเมล: </span>
+                                                                            <span style="font-size: 20px; color: orange;"> bank.thiti@gmail.com </span><br>
+
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-5">
+                                                                    <div class="card">
+                                                                        <div class="card-content">
+                                                                            <span style="font-size: 20px">จัดส่งสินค้าโดย: </span><br>
+                                                                            <span style="font-size: 20px; color: orange;">108suchart สุชาติ ปานขำ</span><br>
+                                                                            <span style="font-size: 20px">โทรศัพท์: </span><br>
+                                                                            <span style="font-size: 20px; color: orange;">0812345678</span><br>
+
+                                                                            <span style="font-size: 20px">ส่งสินค้าถึงวันที่: </span><br>
+                                                                            <span style="font-size: 20px; color: orange;"> 12-11-2015</span><br>
+
+                                                                            <span style="font-size: 20px">ส่งสินค้าถึงเวลา: </span><br>
+                                                                            <span style="font-size: 20px; color: orange;"> 12:40 </span><br>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="card">
+                                                                        <div class="card-content">
+
+                                                                            <span style="font-size: 20px">วันที่ลูกค้านัดรับสินค้า: </span><br>
+                                                                            <span style="font-size: 20px; color: orange;"> 12-11-2015</span><br>
+
+                                                                            <span style="font-size: 20px">เวลาที่ลูกค้านัดรับสินค้า: </span><br>
+                                                                            <span style="font-size: 20px; color: orange;"> 12:30 </span><br>
+
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row" style="margin-top: 5px;">
+                                                            <div class="col-md-12">
+                                                                <div class="col-md-12">
+                                                                    <div class="card">
+                                                                        <div class="card-content">
+                                                                            <span style="font-size: 20px">สถานที่ส่งสินค้า </span>
+                                                                            <hr style="margin-top: 5px;margin-bottom: 10px;">
+                                                                            <span style="font-size: 17px">บริษัท นาดาว บางกอก จำกัด 92/14 ซอยสุขุมวิท 31 (สวัสดี) แขวงคลองตันเหนือ เขตวัฒนา กทม. 10110</span>
+                                                                            <hr>
+                                                                            ตรงนี้ต้องใส่แมพที่แสดงจากจุด A คือร้าน ไปยังจุด B คือที่จัดส่งของลูกค้า
+                                                                            และมีการโชว์ระยะทาง แต่ใส่ไปใส่มาแม่งยังเน่าอยู่ เดี๋ยวค่อยว่ากันนะ ตอนนี้ยอมใจ 
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row" style="margin-top: 5px;">
+                                                            <div class="col-md-12">
+                                                                <div class="col-md-12">
+                                                                    <div class="card">
+                                                                        <div class="card-content">
+                                                                            <span style="font-size: 20px">รายการสินค้า </span>
+                                                                            <hr style="margin-top: 5px;margin-bottom: 10px;">
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <table class="table table-list-search">
+                                                                                        <thead>
+                                                                                            <tr>
+                                                                                                <th>ลำดับ</th>
+                                                                                                <th>รายการ</th>
+                                                                                                <th>ราคาต่อหน่วย/บาท</th>
+                                                                                                <th>จำนวน</th>
+                                                                                                <th>ราคารวม/บาท</th>
+                                                                                            </tr>
+                                                                                        </thead>
+                                                                                        <tbody class="table table-condensed table-hover">
+                                                                                            <tr>
+                                                                                                <td>1</td>                     
+                                                                                                <td>ข้าวกล้อง</td>
+                                                                                                <td style="text-align: center">10.00</td>
+                                                                                                <td style="text-align: center">50</td>
+                                                                                                <td style="text-align: center">500.00</td>
+
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td>2</td>                     
+                                                                                                <td>ผัดกระเพราหมู</td>
+                                                                                                <td style="text-align: center">15.00</td>
+                                                                                                <td style="text-align: center">50</td>
+                                                                                                <td style="text-align: center">750.00</td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td>3</td>                     
+                                                                                                <td>ไข่ดาว</td>
+                                                                                                <td style="text-align: center">5.00</td>
+                                                                                                <td style="text-align: center">50</td>
+                                                                                                <td style="text-align: center">250.00</td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td>4</td>                     
+                                                                                                <td>ค่าจัดส่ง</td>
+                                                                                                <td style="text-align: center">100.00</td>
+                                                                                                <td style="text-align: center">1</td>
+                                                                                                <td style="text-align: center">100.00</td>
+                                                                                            </tr>
+                                                                                            <tr class="success">
+                                                                                                <td></td>                     
+                                                                                                <td>ราคารวม</td>
+                                                                                                <td style="text-align: center"></td>
+                                                                                                <td style="text-align: center"></td>
+                                                                                                <td style="text-align: center">1,600.00</td>
+                                                                                            </tr>
+                                                                                            <tr class="warning">
+                                                                                                <td></td>                     
+                                                                                                <td>ส่วนลด10% 1D23A5</td>
+                                                                                                <td style="text-align: center"></td>
+                                                                                                <td style="text-align: center">1</td>
+                                                                                                <td style="text-align: center">-160.00</td>
+                                                                                            </tr>
+                                                                                            <tr class="danger">
+                                                                                                <td></td>                     
+                                                                                                <td>ราคารวมหลังหักส่วนลด</td>
+                                                                                                <td style="text-align: center"></td>
+                                                                                                <td style="text-align: center"></td>
+                                                                                                <td style="text-align: center">1,440.00</td>
+                                                                                            </tr>
+                                                                                        </tbody>
+                                                                                    </table>   
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row" style="margin-top: 5px;">
+                                                            <div class="col-md-12">
+                                                                <div class="col-md-6">
+                                                                    <div class="card">
+                                                                        <div class="card-content">
+                                                                            <span style="font-size: 20px">เพิ่มเติม </span>
+                                                                            <hr style="margin-top: 5px;margin-bottom: 10px;">
+                                                                            <span style="font-size: 15px; color: red;"> กระเพราไม่ใส่ถั่วฝักยาว </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="card">
+                                                                        <div class="card-content">
+                                                                            <span style="font-size: 20px">การชำระเงิน </span>
+                                                                            <hr style="margin-top: 5px;margin-bottom: 10px;">
+                                                                            <span style="font-size: 15px"> โอนเงินมัดจำผ่านธนาคาร: <br><span style="font-size: 15px; color: orange;"> กสิกรไทย เลขที่ 12-1231212-1 <br> 400.00 บาท</span> </span> &nbsp; 
+
+                                                                            <a href="#" class="btn btn-warning btn-xs "data-toggle="modal" data-target='.pop-up-2' href=".pop-up-2" style="margin-left: 90px;">แสดงสลิป</a><br>
+
+                                                                            <span style="font-size: 15px"> ชำระเงินด้วยเงินสด: <br><span style="font-size: 15px; color: red;"> ต้องชำระเพิ่ม ณ ที่รับสินค้า 1040.00 บาท </span> </span> &nbsp; 
+
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-success" data-toggle="modal" data-dismiss="modal" data-target='#accept' href="#accept">ยอมรับรายการ</button>
+                                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-dismiss="modal" data-target='#ignore' href="#ignore">ปฏิเสธรายการ</button>
+                                                        <button type="button" class="btn btn-primary">ออกใบงาน</button>
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- รูปสลิป -->
+                                        <div class="modal fade pop-up-2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel-2" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                        <span class="modal-title" id="myLargeModalLabel-2" style="font-size: 30px">สลิปประกอบรายการเลขที่</span>  <span style="font-size: 30px; color: orange"> 102458</span>
+                                                    </div>
+                                                    <div class="modal-body">           
+                                                        <span style="font-size: 15px; color: red;">ยอดเงินที่ปรากฎในระบบเป็นเพียงการคำนวณจากเงื่อนไขต่างๆในระบบอาจไม่ใช่ยอดเงินจริง กรุณาตรวจสอบข้อมูลภายในสลิปอีกครั้ง อย่างไรก็ตามหากพบปัญหากรุณาติดต่อ </span>  
+                                                        <a href="#" data-toggle="modal" data-target='#text' style="color: blue;" >support@pixupfood.com </a> 
+                                                        <hr>
+                                                        <span style="font-size: 20px"> โอนเงินมัดจำผ่านธนาคาร: </span>
+                                                        <span style="font-size: 15px; color: orange;"> กสิกรไทย เลขที่ 12-1231212-1</span>  <br> 
+                                                        <span style="font-size: 20px"> จำนวนเงิน:</span> <span style="font-size: 15px; color: orange;">400.00 บาท</span>  <br>
+                                                        <span style="font-size: 20px"> วัน/เวลาที่ระบบบันทึกสลิป:</span> <span style="font-size: 15px; color: orange;">12-10-2015 14:30</span>  <br>
+                                                        <hr>
+                                                        <img src="../assets/images/sample slip.jpg" class="img-responsive img-rounded center-block" alt="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- จบรูปสลิบ -->
+                                        <div class="modal fade" id="text" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                        <span class="modal-title" id="myModalLabel"><div style="font-size: 30px;">รายงาน</div></span>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <span style="font-size: 15px;">ส่งถึง: support@pixupfood.com </span><br>
+                                                        <span style="font-size: 15px;">เรื่อง: สลิปประกอบรายการเลขที่ 102458 </span>
+                                                        <hr>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+
+                                                                <textarea name="message" placeholder="พิมพ์ข้อความของคุณที่นี่..." rows="5" style=" width: 100%"></textarea>
+
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">ยกเลิก</button>
+                                                        <button type="button" class="btn btn-primary" >ส่ง</button>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- End Detail --> 
+
+
+                                        <!-- change status -->
+                                        <div class="modal fade" id="changestatus" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                        <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px;">เปลี่ยนแปลงสถานะ</div></span>
+                                                    </div>
+                                                    <div class="modal-body">
+
+                                                        <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
+                                                            <div class="btn-group" role="group">
+                                                                <button type="button" id="acceptlist" class="btn btn-warning" href="#1" data-toggle="tab" >รับรายการ</button>
+                                                            </div>
+                                                            <div class="btn-group" role="group">
+                                                                <button type="button" id="ingredent" class="btn btn-default" href="#2" data-toggle="tab">เตรียมวัตถุดิบ</button>
+                                                            </div>
+                                                            <div class="btn-group" role="group">
+                                                                <button type="button" id="cook" class="btn btn-default" href="#3" data-toggle="tab">ปรุงอาหาร</button>
+                                                            </div>
+                                                            <div class="btn-group" role="group">
+                                                                <button type="button" id="package" class="btn btn-default" href="#4" data-toggle="tab" >บรรจุสินค้า</button>
+                                                            </div>
+                                                            <div class="btn-group" role="group">
+                                                                <button type="button" id="send" class="btn btn-default" href="#5" data-toggle="tab" >เตรียมจัดส่ง</button>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="tab-content">
+                                                            <div class="tab-pane fade in active" id="1" style="display:none">
+
+                                                            </div>
+                                                            <div class="tab-pane fade in" id="2" style="display:none">
+
+                                                            </div>
+                                                            <div class="tab-pane fade in" id="3" style="display:none">
+
+                                                            </div>
+                                                            <div class="tab-pane fade in" id="4" style="display:none">
+
+                                                            </div>
+                                                            <div class="tab-pane fade in" id="5">
+                                                                <div class="page-header" style="font-size: 20pt; margin-top: 20px;">เลือกผู้จัดส่ง</div>
+                                                                <div class="row" style="margin-top: 0px;">
+                                                                    <div class="col-md-12"style="margin-top: 0px;">
+                                                                        <span class="form-group">
+                                                                            <select class="form-control" id="sel1"style="width: 100%">
+                                                                                <option>108Suchart</option>
+                                                                                <option>108Arnong</option>
+                                                                            </select>
+                                                                        </span>   
+                                                                    </div>
+                                                                </div>
+                                                                <hr>
+                                                                <div class="row" style="margin-top: 0px;">
+                                                                    <div class="col-md-12" style="margin-top: 0px;">
+                                                                        <div class="card">
+                                                                            <div class="card-content">
+                                                                                <span style="font-size: 20px">ชื่อผู้ใช้ของผู้จัดส่ง: </span>
+                                                                                <span style="font-size: 20px; color: orange;"> 108Suchart </span><br>
+
+                                                                                <span style="font-size: 20px">ชื่อ: </span>
+                                                                                <span style="font-size: 20px; color: orange;"> คุณสุชาติ ปานขำ </span><br>
+
+                                                                                <span style="font-size: 20px">โทรศัพท์: </span>
+                                                                                <span style="font-size: 20px; color: orange;"> 0812345678 </span><br>
+
+                                                                                <span style="font-size: 20px">อื่นๆ: </span>
+                                                                                <span style="font-size: 20px; color: orange;"> ไปต่อค่ะพี่สุชาติ วินหน้าปากซอย </span><br>
+
+
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <script>
+                                                        $(document).ready(function () {
+                                                            $(".btn-pref .btn").click(function () {
+                                                                $(".btn-pref .btn").removeClass("btn-warning").addClass("btn-default");
+                                                                // $(".tab").addClass("active"); // instead of this do the below 
+                                                                $(this).removeClass("btn-default").addClass("btn-warning");
+                                                            });
+                                                        });
+                                                    </script>
+
+
+
+
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">ยกเลิก</button>
+                                                        <button type="button" class="btn btn-primary">บันทึก</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- change status -->
+
+
+
+                                        <!-- จบ modal ตารางนะยูวว -->
                                     </div>
                                 </div>
                             </div>
@@ -145,450 +918,19 @@ include '../dbconn.php';
                     </div>
                 </div>
             </div>
-            <div class="tab-pane fade in" id="tab3">
 
-                <!--   <div class="row" style="
-                        margin-top: 5px;
-                        ">
-                       <div class="col-md-12">
-                           <div class="page-header"style="
-   
-                                margin-top: 10px;
-                                ">
-   
-                               <h2>ปฏิทิน</h2>
-                           </div>
-   
-                           <div class="datepaginator" id="paginator">
-   
-                           </div>
-                           <hr>
-   
-                           <div class="container">
-   
-                               <div class="row" style="
-                                    margin-top: 10px;
-                                    ">
-                                   <div class="col-md-12">
-                                       <div class="panel panel-primary">
-                                           <div class="panel-heading">
-                                               <h3 class="panel-title">Developers</h3>
-                                               <div class="pull-right">
-                                                   <span class="clickable filter" data-toggle="tooltip" title="Toggle table filter" data-container="body">
-                                                       <i class="glyphicon glyphicon-filter"></i>
-                                                   </span>
-                                               </div>
-                                           </div>
-                                           <div class="panel-body">
-                                               <input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Filter Developers" />
-                                           </div>
-                                           <table class="table table-hover" id="dev-table">
-                                               <thead>
-                                                   <tr>
-                                                       <th>#</th>
-                                                       <th>First Name</th>
-                                                       <th>Last Name</th>
-                                                       <th>Username</th>
-                                                   </tr>
-                                               </thead>
-                                               <tbody>
-                                                   <tr>
-                                                       <td>1</td>
-                                                       <td>Kilgore</td>
-                                                       <td>Trout</td>
-                                                       <td>kilgore</td>
-                                                   </tr>
-                                                   <tr>
-                                                       <td>2</td>
-                                                       <td>Bob</td>
-                                                       <td>Loblaw</td>
-                                                       <td>boblahblah</td>
-                                                   </tr>
-                                                   <tr>
-                                                       <td>3</td>
-                                                       <td>Holden</td>
-                                                       <td>Caulfield</td>
-                                                       <td>penceyreject</td>
-                                                   </tr>
-                                               </tbody>
-                                           </table>
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
-                -->
-            </div>
         </div>
     </div>
 
-<!-- start footer -->
-<?php
-show_footer();
-?>
+    <!-- start footer -->
+    <?php
+    show_footer();
+    ?>
+    <script src="../assets/js/jquery.singlePageNav.min.js"></script>
 
-
-<script>
-    $(document).ready(function () {
-        $(".btn-pref .btn").click(function () {
-            $(".btn-pref .btn").removeClass("btn-warning").addClass("btn-default");
-            $(".tab").addClass("active"); // instead of this do the below 
-            $(this).removeClass("btn-default").addClass("btn-warning");
-        });
-    });
-</script>
-
-
-<!--for old News-->
-<script>
-    $(document).ready(function () {
-        $('#pinBoot').pinterest_grid({
-            no_columns: 4,
-            padding_x: 10,
-            padding_y: 10,
-            margin_bottom: 50,
-            single_column_breakpoint: 700
-        });
-    });
-
-    /*
-     Ref:
-     Thanks to:
-     http://www.jqueryscript.net/layout/Simple-jQuery-Plugin-To-Create-Pinterest-Style-Grid-Layout-Pinterest-Grid.html
-     */
-
-
-    /*
-     Pinterest Grid Plugin
-     Copyright 2014 Mediademons
-     @author smm 16/04/2014
-     
-     usage:
-     
-     $(document).ready(function() {
-     
-     $('#blog-landing').pinterest_grid({
-     no_columns: 4
-     });
-     
-     });
-     
-     
-     */
-    ;
-    (function ($, window, document, undefined) {
-        var pluginName = 'pinterest_grid',
-                defaults = {
-                    padding_x: 10,
-                    padding_y: 10,
-                    no_columns: 3,
-                    margin_bottom: 50,
-                    single_column_breakpoint: 700
-                },
-        columns,
-                $article,
-                article_width;
-
-        function Plugin(element, options) {
-            this.element = element;
-            this.options = $.extend({}, defaults, options);
-            this._defaults = defaults;
-            this._name = pluginName;
-            this.init();
-        }
-
-        Plugin.prototype.init = function () {
-            var self = this,
-                    resize_finish;
-
-            $(window).resize(function () {
-                clearTimeout(resize_finish);
-                resize_finish = setTimeout(function () {
-                    self.make_layout_change(self);
-                }, 11);
-            });
-
-            self.make_layout_change(self);
-
-            setTimeout(function () {
-                $(window).resize();
-            }, 500);
-        };
-
-        Plugin.prototype.calculate = function (single_column_mode) {
-            var self = this,
-                    tallest = 0,
-                    row = 0,
-                    $container = $(this.element),
-                    container_width = $container.width();
-            $article = $(this.element).children();
-
-            if (single_column_mode === true) {
-                article_width = $container.width() - self.options.padding_x;
-            } else {
-                article_width = ($container.width() - self.options.padding_x * self.options.no_columns) / self.options.no_columns;
-            }
-
-            $article.each(function () {
-                $(this).css('width', article_width);
-            });
-
-            columns = self.options.no_columns;
-
-            $article.each(function (index) {
-                var current_column,
-                        left_out = 0,
-                        top = 0,
-                        $this = $(this),
-                        prevAll = $this.prevAll(),
-                        tallest = 0;
-
-                if (single_column_mode === false) {
-                    current_column = (index % columns);
-                } else {
-                    current_column = 0;
-                }
-
-                for (var t = 0; t < columns; t++) {
-                    $this.removeClass('c' + t);
-                }
-
-                if (index % columns === 0) {
-                    row++;
-                }
-
-                $this.addClass('c' + current_column);
-                $this.addClass('r' + row);
-
-                prevAll.each(function (index) {
-                    if ($(this).hasClass('c' + current_column)) {
-                        top += $(this).outerHeight() + self.options.padding_y;
-                    }
-                });
-
-                if (single_column_mode === true) {
-                    left_out = 0;
-                } else {
-                    left_out = (index % columns) * (article_width + self.options.padding_x);
-                }
-
-                $this.css({
-                    'left': left_out,
-                    'top': top
-                });
-            });
-
-            this.tallest($container);
-            $(window).resize();
-        };
-
-        Plugin.prototype.tallest = function (_container) {
-            var column_heights = [],
-                    largest = 0;
-
-            for (var z = 0; z < columns; z++) {
-                var temp_height = 0;
-                _container.find('.c' + z).each(function () {
-                    temp_height += $(this).outerHeight();
-                });
-                column_heights[z] = temp_height;
-            }
-
-            largest = Math.max.apply(Math, column_heights);
-            _container.css('height', largest + (this.options.padding_y + this.options.margin_bottom));
-        };
-
-        Plugin.prototype.make_layout_change = function (_self) {
-            if ($(window).width() < _self.options.single_column_breakpoint) {
-                _self.calculate(true);
-            } else {
-                _self.calculate(false);
-            }
-        };
-
-        $.fn[pluginName] = function (options) {
-            return this.each(function () {
-                if (!$.data(this, 'plugin_' + pluginName)) {
-                    $.data(this, 'plugin_' + pluginName,
-                            new Plugin(this, options));
-                }
-            });
-        };
-
-    })(jQuery, window, document);
-</script>
-<script>
-    $(document).ready(function () {
-        $('#characterLeft').text('140 characters left');
-        $('#message').keydown(function () {
-            var max = 140;
-            var len = $(this).val().length;
-            if (len >= max) {
-                $('#characterLeft').text('You have reached the limit');
-                $('#characterLeft').addClass('red');
-                $('#btnSubmit').addClass('disabled');
-            }
-            else {
-                var ch = max - len;
-                $('#characterLeft').text(ch + ' characters left');
-                $('#btnSubmit').removeClass('disabled');
-                $('#characterLeft').removeClass('red');
-            }
-        });
-    });
-
-
-</script>
-
-<script>
-    +function ($) {
-        'use strict';
-        var uploadForm = document.getElementById('js-upload-form');
-
-        var startUpload = function (files) {
-            console.log(files)
-        }
-
-        uploadForm.addEventListener('submit', function (e) {
-            var uploadFiles = document.getElementById('js-upload-files').files;
-            e.preventDefault()
-
-            startUpload(uploadFiles)
-        })
-    }(jQuery);
-</script>
-
-<!-- Compost Button-->
-<script>
-    $('.fab').hover(function () {
-        $(this).toggleClass('active');
-    });
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    })
-</script>
-
-<script>
-            /**
-             *   I don't recommend using this plugin on large tables, I just wrote it to make the demo useable. It will work fine for smaller tables 
-             *   but will likely encounter performance issues on larger tables.
-             *
-             *		<input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Filter Developers" />
-             *		$(input-element).filterTable()
-             *		
-             *	The important attributes are 'data-action="filter"' and 'data-filters="#table-selector"'
-             */
-                    (function () {
-                        'use strict';
-                        var $ = jQuery;
-                        $.fn.extend({
-                            filterTable: function () {
-                                return this.each(function () {
-                                    $(this).on('keyup', function (e) {
-                                        $('.filterTable_no_results').remove();
-                                        var $this = $(this),
-                                                search = $this.val().toLowerCase(),
-                                                target = $this.attr('data-filters'),
-                                                $target = $(target),
-                                                $rows = $target.find('tbody tr');
-
-                                        if (search == '') {
-                                            $rows.show();
-                                        } else {
-                                            $rows.each(function () {
-                                                var $this = $(this);
-                                                $this.text().toLowerCase().indexOf(search) === -1 ? $this.hide() : $this.show();
-                                            })
-                                            if ($target.find('tbody tr:visible').size() === 0) {
-                                                var col_count = $target.find('tr').first().find('td').size();
-                                                var no_results = $('<tr class="filterTable_no_results"><td colspan="' + col_count + '">No results found</td></tr>')
-                                                $target.find('tbody').append(no_results);
-                                            }
-                                        }
-                                    });
-                                });
-                            }
-                        });
-                        $('[data-action="filter"]').filterTable();
-                    })(jQuery);
-
-            $(function () {
-                // attach table filter plugin to inputs
-                $('[data-action="filter"]').filterTable();
-
-                $('.container').on('click', '.panel-heading span.filter', function (e) {
-                    var $this = $(this),
-                            $panel = $this.parents('.panel');
-
-                    $panel.find('.panel-body').slideToggle();
-                    if ($this.css('display') != 'none') {
-                        $panel.find('.panel-body input').focus();
-                    }
-                });
-                $('[data-toggle="tooltip"]').tooltip();
-            })
-                    /* Calendar Table */
-
-                            /**
-                             *   I don't recommend using this plugin on large tables, I just wrote it to make the demo useable. It will work fine for smaller tables 
-                             *   but will likely encounter performance issues on larger tables.
-                             *
-                             *		<input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Filter Developers" />
-                             *		$(input-element).filterTable()
-                             *		
-                             *	The important attributes are 'data-action="filter"' and 'data-filters="#table-selector"'
-                             */
-                                    (function () {
-                                        'use strict';
-                                        var $ = jQuery;
-                                        $.fn.extend({
-                                            filterTable: function () {
-                                                return this.each(function () {
-                                                    $(this).on('keyup', function (e) {
-                                                        $('.filterTable_no_results').remove();
-                                                        var $this = $(this),
-                                                                search = $this.val().toLowerCase(),
-                                                                target = $this.attr('data-filters'),
-                                                                $target = $(target),
-                                                                $rows = $target.find('tbody tr');
-
-                                                        if (search == '') {
-                                                            $rows.show();
-                                                        } else {
-                                                            $rows.each(function () {
-                                                                var $this = $(this);
-                                                                $this.text().toLowerCase().indexOf(search) === -1 ? $this.hide() : $this.show();
-                                                            })
-                                                            if ($target.find('tbody tr:visible').size() === 0) {
-                                                                var col_count = $target.find('tr').first().find('td').size();
-                                                                var no_results = $('<tr class="filterTable_no_results"><td colspan="' + col_count + '">No results found</td></tr>')
-                                                                $target.find('tbody').append(no_results);
-                                                            }
-                                                        }
-                                                    });
-                                                });
-                                            }
-                                        });
-                                        $('[data-action="filter"]').filterTable();
-                                    })(jQuery);
-
-                            $(function () {
-                                // attach table filter plugin to inputs
-                                $('[data-action="filter"]').filterTable();
-
-                                $('.container').on('click', '.panel-heading span.filter', function (e) {
-                                    var $this = $(this),
-                                            $panel = $this.parents('.panel');
-
-                                    $panel.find('.panel-body').slideToggle();
-                                    if ($this.css('display') != 'none') {
-                                        $panel.find('.panel-body input').focus();
-                                    }
-                                });
-                                $('[data-toggle="tooltip"]').tooltip();
-                            })
-
-
-</script>
+    <!-- ตารางรายการออเดอร์ -->
+    <script src="../assets/js/OrderSearch.js"></script>
+    <script src="../assets/js/ui-bootstrap-tpls-0.13.4.min.js"></script>
 
 </body>
 </html>

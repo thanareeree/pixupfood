@@ -285,6 +285,10 @@ border-left-color: #2dcb73;
 margin-right: 7px;
 }
 
+#head
+{
+    padding-top: 70px;
+}
 
 /* old news */
 #pinBoot {
@@ -296,6 +300,10 @@ img {
   width: 100%;
   max-width: 100%;
   height: auto;
+}
+.white
+{
+    background-color: #FFF;
 }
 .white-panel {
   position: absolute;

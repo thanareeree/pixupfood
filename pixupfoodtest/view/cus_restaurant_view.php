@@ -3,9 +3,6 @@ session_start();
 include '../dbconn.php';
 ?>
 
-
-
-
 <html>
     <head>
         <title>Pixupfood - Restaurant View</title>
@@ -53,26 +50,19 @@ include '../dbconn.php';
         ?>
         <?php include '../template/customer-navbar.php'; ?>
 
-        <!-- start profile -->
-        <section id="restaurant_view">
-            <div class="profilecontainer">
-                <div class="headprofile">
-                    <img align="left" class="fb-image-lg" src="/assets/images/city-restaurant-lunch-outside.png" alt="Profile image example"/>
-                    <div class="container_status">
-                        <h3><i class="glyphicon glyphicon-cutlery"></i>&nbsp;<?= $restaurantdata["resname"] ?></h3><br> 
+        <!-- edit head -->
+        <section id="restaurant_view_head">
+            <div class="overlay">
+                <div class="container text-center">
+                    <h1><i class="glyphicon glyphicon-cutlery"></i>&nbsp;<?= $restaurantdata["resname"] ?></h1>
+                    <div class="row lead">
                         <div id="stars-existing" class="starrr" data-rating='4'></div>
                     </div>
-                    <img align="left" class="fb-image-profile thumbnail" src="<?= ($restaurantdata["img_path"] == "" ? '/assets/images/bar/restaurant.png' : $restaurantdata["img_path"]) ?>"  style="max-width: 175px; max-height: 175px" />
-                    <div class="fb-profile-text">
-                        <br>
-                        <div class="row lead">
-                            <div id="stars-existing" class="starrr" data-rating='4'></div>
-                        </div>
-                    </div>
                 </div>
-            </div> <!-- /container -->
-            <!-- edit profile -->
-
+            </div>
+        </section>
+        <!-- edit body -->
+        <section id="restaurant_view">
             <div class="container">
                 <div class="row">
                     <div class="col-md-8">
@@ -226,11 +216,11 @@ include '../dbconn.php';
                                                 <div class="row">
                                                     <?php
                                                     $foodListRes = $con->query("SELECT DISTINCT main_menu.name, menu.price, menu.img_path   "
-                                                        . "FROM `menu` LEFT JOIN main_menu on main_menu.id = menu.main_menu_id "
-                                                        . "LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
-                                                        . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
-                                                        . "WHERE main_menu.type = 'กับข้าว' "
-                                                        . "and menu.restaurant_id = '$resid'");
+                                                            . "FROM `menu` LEFT JOIN main_menu on main_menu.id = menu.main_menu_id "
+                                                            . "LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
+                                                            . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
+                                                            . "WHERE main_menu.type = 'กับข้าว' "
+                                                            . "and menu.restaurant_id = '$resid'");
 
                                                     while ($foddListData = $foodListRes->fetch_assoc()) {
                                                         ?>

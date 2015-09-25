@@ -1,10 +1,21 @@
 @import url("../Supermarket/stylesheet.css");
 
 
-/*
-Boxer Template
-http://www.templatemo.com/preview/templatemo_446_boxer
-*/
+#restaurant_view_head
+{
+    background: url('/assets/images/city-restaurant-lunch-outside.png') no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    color: #fff;
+    font-family: 'supermarketregular';
+    margin-top: 40px;
+    height: 170px; 
+}
+#restaurant_view_head h1
+{
+    font-size: 55pt;
+    margin-top: 35px;
+}
 #restaurant_view .headprofile img.fb-image-lg{
     z-index: 0;
     width: 100%;  
@@ -95,7 +106,7 @@ http://www.templatemo.com/preview/templatemo_446_boxer
 
 #restaurant_view {
     font-family: 'supermarketregular';
-    padding-top: 70px;
+    padding-top: 30px;
     margin-bottom: 30px;
 }
 
@@ -106,7 +117,16 @@ http://www.templatemo.com/preview/templatemo_446_boxer
     height: 13px;
 }
 
-
+#pinBoot {
+  position: relative;
+  max-width: 100%;
+  width: 100%;
+}
+#pinBootpromo {
+  position: relative;
+  max-width: 100%;
+  width: 100%;
+}
 .wizard {
     /* margin: 20px auto; */
     background: #fff;
@@ -260,16 +280,6 @@ span.round-tab:hover {
 }
 
 
-#pinBoot {
-  position: relative;
-  max-width: 100%;
-  width: 100%;
-}
-#pinBootpromo {
-  position: relative;
-  max-width: 100%;
-  width: 100%;
-}
 img {
   width: 100%;
   max-width: 100%;
@@ -298,4 +308,21 @@ stylize any heading tags withing white-panel below
   -moz-transition: all 0.3s ease-in-out;
   -o-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
+}
+
+#restaurant_view .card{
+    font-family: 'supermarketregular';
+    margin-top: 10px;
+    position: relative;
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 4 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+#restaurant_view .card .card-content {
+    padding: 10px;
+}
+#restaurant_view .card .card-content .page-header {
+    font-size: 30px;
+    margin-top: 10px;
 }

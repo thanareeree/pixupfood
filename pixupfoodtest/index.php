@@ -6,24 +6,14 @@ include './dbconn.php';
     <head>
         <?php include './template/customer-title.php'; ?>
         <title>PixupFood - The Original Food Delivery</title>
-         <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css">
-         <link rel="stylesheet" href="/assets/css/slide2.css">
+        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/assets/css/slide2.css">
     </head>
     <body>
-        <!-- end navigation -->
         <?php include 'template/customer-navbar.php'; ?>
         <!-- start home -->
-        <section id="home">
-            <!-- Carousel ================================================== -->
-            <div id="Carousel1" class="carousel slide">
-                <!-- Indicators -->
-                <ol class="carousel-indicators">
-                    <li data-target="#Carousel1" data-slide-to="0" class="active"></li>
-                    <li data-target="#Carousel1" data-slide-to="1"></li>
-                    <li data-target="#Carousel1" data-slide-to="2"></li>
-                </ol>
                <section id="home">
-            <!-- Carousel ================================================== -->
+            <!-- Carousel -->
             <div id="Carousel1" class="carousel slide">
                 <!-- Indicators -->
                 <ol class="carousel-indicators">
@@ -60,16 +50,6 @@ include './dbconn.php';
                         </div>
                     </div>
                 </div>
-                <!-- Controls -->
-                <a class="left carousel-control" href="#Carousel1" data-slide="prev">
-                    <span class="icon-prev"></span>
-                </a>
-                <a class="right carousel-control" href="#Carousel1" data-slide="next">
-                    <span class="icon-next"></span>
-                </a>  
-            </div>
-            <!-- /.carousel -->
-        </section>
                 <!-- Controls -->
                 <a class="left carousel-control" href="#Carousel1" data-slide="prev">
                     <span class="icon-prev"></span>
@@ -132,8 +112,8 @@ include './dbconn.php';
 
                                 </div>
                             </ul>
-
-                        </div><!-- /#myCarousel -->
+                        </div>
+                        <!-- /#myCarousel -->
                     </div>
                 </div>
             </div>
