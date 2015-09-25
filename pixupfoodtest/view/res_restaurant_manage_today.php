@@ -45,34 +45,44 @@ include '../dbconn.php';
     <scetion id="menu">
         <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
             <div class="btn-group" role="group">
-                <button type="button" id="today" class="btn btn-primary"  >
-                    <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
-                    <div class="hidden-xs">วันนี้</div>
-                </button>
+                <a href="res_restaurant_manage_order.php">
+                    <button type="button" id="orders" class="btn btn-default" >
+                        <span class="glyphicon glyphicon-align-left" aria-hidden="true" ></span>
+                        <div class="hidden-xs">รายการสั่งซื้อ</div>
+                    </button>
+                </a>
             </div>
             <div class="btn-group" role="group">
-                <button type="button" id="order" class="btn btn-default" >
-                    <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
-                    <div class="hidden-xs">รายการสั่งซื้อ</div>
-                </button>
+                <a href="res_restaurant_manage_today.php">
+                    <button type="button" id="today" class="btn btn-default">
+                        <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+                        <div class="hidden-xs">วันนี้</div>
+                    </button>
+                </a>
             </div>
             <div class="btn-group" role="group">
-                <button type="button" id="following" class="btn btn-default" >
-                    <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-                    <div class="hidden-xs">ปฏิทิน</div>
-                </button>
+                <a href="res_restaurant_manage_menulist.php">
+                    <button type="button" id="menulist" class="btn btn-default" >
+                        <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                        <div class="hidden-xs">รายการอาหาร</div>
+                    </button>
+                </a>
             </div>
             <div class="btn-group" role="group">
-                <button type="button" id="following" class="btn btn-default">
-                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                    <div class="hidden-xs">รายการอาหาร</div>
-                </button>
+                <a href="res_restaurant_manage_calendar.php">
+                    <button type="button" id="calendar" class="btn btn-default" >
+                        <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                        <div class="hidden-xs">ปฏิทิน</div>
+                    </button>
+                </a>
             </div>
             <div class="btn-group" role="group">
-                <button type="button" id="following" class="btn btn-default" >
-                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                    <div class="hidden-xs">การตั้งค่า</div>
-                </button>
+                <a href="res_restaurant_manage_edit.php">
+                    <button type="button" id="editres" class="btn btn-warning">
+                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                        <div class="hidden-xs">การตั้งค่า</div>
+                    </button>
+                </a>
             </div>
         </div>
     </scetion>

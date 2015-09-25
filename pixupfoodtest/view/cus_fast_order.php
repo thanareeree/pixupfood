@@ -314,6 +314,15 @@ include '../dbconn.php';
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <hr class="hrs">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="page-header">
+                                                            เพิ่มเติม
+                                                        </div>
+                                                        <textarea rows="3" placeholder="หมายเหตุเพิ่มเติม เช่น ไม่เผ็ด ไม่ใส่ผัก" style="width: 100%"></textarea>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <ul class="list-inline pull-right" style="margin-top: 20px;">
@@ -521,8 +530,8 @@ include '../dbconn.php';
                                                     <form  action="#">
                                                         <div class="col-md-4">
                                                             <div class="row">
-                                                                    <h1>ร้านป้าสมร <input type="checkbox" name="sex" value="male"></h1>
-                                                                    <hr class="hrs">
+                                                                <h1>ร้านป้าสมร <input type="checkbox" name="sex" value="male"></h1>
+                                                                <hr class="hrs">
                                                             </div>
                                                             <table class="table table-hover" id="task-table">
                                                                 <thead>
