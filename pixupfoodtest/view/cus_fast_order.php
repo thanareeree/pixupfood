@@ -8,7 +8,6 @@ include '../dbconn.php';
         <meta charset="UTF-8">
         <title>Pixupfood - Order</title>
         <?php include '../template/customer-title.php'; ?>
-
         <!-- custom css -->
         <link rel="stylesheet" href="/assets/css/fast_order.css">
     </head>
@@ -16,7 +15,6 @@ include '../dbconn.php';
         <?php include '../template/customer-navbar.php'; ?>
 
         <!-- start profile -->
-        >
         <section id="fast_head">
             <div class="overlay">
                 <div class="container text-center">

@@ -143,4 +143,14 @@ and open the template in the editor.
 #all_promotions_body input[type="submit"]:hover {
     background: #107DB6;
 }
+
+#all_promotions_body .media-body{
+    padding-top: 5px;
+}
+#all_promotions_body .media{
+    padding-top: 5px;
+    border-top:1px solid #e8e8e8; 
+    padding-top:1.1em;
+    height: 115px;
+}
 /* end search_page_body */

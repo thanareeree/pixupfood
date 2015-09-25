@@ -141,46 +141,47 @@ include '../dbconn.php';
                         <!-- 4 element -->
                         <div class="card">
                             <div class="card-content">
-                        <div class="row">
-                            <div class="col-md-2 templatemo-box fadeInUp">
-                                <a href="#tracking" data-toggle="tab" id="navtracking">
-                                    <img class="img-responsive imgsize" src="/assets/images/profile/menu_list/tracking_b_c.png" title="ตรวจสถานะสินค้า" onmouseover="this.src = '/assets/images/profile/menu_list/tracking_a_c.png';"
-                                         onmouseout="this.src = '/assets/images/profile/menu_list/tracking_b_c.png';" style="margin: 0 0 0 15px">
-                                    <p class="elt" style="margin: 0  0 8px">ออเดอร์ปัจจุบัน</p>
-                                </a>
-                            </div>
-                            <div class="col-md-2 templatemo-box fadeInUp">
-                                <a href="#history" data-toggle="tab" id="navhistory">
-                                    <img class="img-responsive imgsize" src="/assets/images/profile/menu_list/orderhis_b_c.png" title="ประวัติการสั่งซื้อ" onmouseover="this.src = '/assets/images/profile/menu_list/orderhis_a_c.png';"
-                                         onmouseout="this.src = '/assets/images/profile/menu_list/orderhis_b_c.png';" style="margin: 0 0 0 20px">
-                                    <p class="elt" style="margin:0">ประวัติการสั่งซื้อ</p>
-                                </a>
-                            </div>
-                            <div class="col-md-2 templatemo-box fadeInUp webfont">
-                                <a href="#shoplist" data-toggle="tab" id="navshoplist">
-                                    <img class="img-responsive imgsize" src="/assets/images/profile/menu_list/shoplist_b_c.png" title="ตะกร้า" onmouseover="this.src = '/assets/images/profile/menu_list/shoplist_a_c.png';"
-                                         onmouseout="this.src = '/assets/images/profile/menu_list/shoplist_b_c.png';" style="margin: 0 0 0 10px">
-                                    <p class="elt" style="margin: 0 0 0 20px">ตะกร้า</p>
-                                </a>
-                            </div>
-                            <div class="col-md-2 templatemo-box fadeInUp">
-                                <a href="#favlist" data-toggle="tab" id="navfavlist">
-                                    <img class="img-responsive imgsize" src="/assets/images/profile/menu_list/fav_b_c.png" title="ชื่นชอบ" onmouseover="this.src = '/assets/images/profile/menu_list/fav_a_c.png';"
-                                         onmouseout="this.src = '/assets/images/profile/menu_list/fav_b_c.png';" style="margin: 0 0 0 15px">
-                                    <p class="elt" style="margin: 0 0 0 20px">ชื่นชอบ</p>
-                                </a>       
-                            </div>
-                            <div class="col-md-2 templatemo-box fadeInUp">
-                                <a href="#shipadd" data-toggle="tab" id="navshipadd">
-                                    <img class="img-responsive imgsize" src="/assets/images/profile/menu_list/shipadd_b_c.png" title="ที่อยู่การจัดส่ง" onmouseover="this.src = '/assets/images/profile/menu_list/shipadd_a_c.png';"
-                                         onmouseout="this.src = '/assets/images/profile/menu_list/shipadd_b_c.png';" style="margin: 0 0 0 15px">
-                                    <p class="elt" style="margin:3">ที่อยู่การจัดส่ง</p>
-                                </a>
+                                <div class="row">
+                                    <div class="col-md-2 templatemo-box fadeInUp">
+                                        <a href="#tracking" data-toggle="tab" id="navtracking">
+                                            <img class="img-responsive imgsize" src="/assets/images/profile/menu_list/tracking_b_c.png" title="ตรวจสถานะสินค้า" onmouseover="this.src = '/assets/images/profile/menu_list/tracking_a_c.png';"
+                                                 onmouseout="this.src = '/assets/images/profile/menu_list/tracking_b_c.png';" style="margin: 0 0 0 15px">
+                                            <p class="elt" style="margin: 0">ออเดอร์ปัจจุบัน</p>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-2 templatemo-box fadeInUp">
+                                        <a href="#history" data-toggle="tab" id="navhistory">
+                                            <img class="img-responsive imgsize" src="/assets/images/profile/menu_list/orderhis_b_c.png" title="ประวัติการสั่งซื้อ" onmouseover="this.src = '/assets/images/profile/menu_list/orderhis_a_c.png';"
+                                                 onmouseout="this.src = '/assets/images/profile/menu_list/orderhis_b_c.png';" style="margin: 0 0 0 20px">
+                                            <p class="elt" style="margin:0 0 0 8px">ประวัติการซื้อ</p>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-2 templatemo-box fadeInUp webfont">
+                                        <a href="#shoplist" data-toggle="tab" id="navshoplist">
+                                            <img class="img-responsive imgsize" src="/assets/images/profile/menu_list/shoplist_b_c.png" title="ตะกร้า" onmouseover="this.src = '/assets/images/profile/menu_list/shoplist_a_c.png';"
+                                                 onmouseout="this.src = '/assets/images/profile/menu_list/shoplist_b_c.png';" style="margin: 0 0 0 10px">
+                                            <p class="elt" style="margin: 0 0 0 20px">ตะกร้า</p>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-2 templatemo-box fadeInUp">
+                                        <a href="#favlist" data-toggle="tab" id="navfavlist">
+                                            <img class="img-responsive imgsize" src="/assets/images/profile/menu_list/fav_b_c.png" title="ชื่นชอบ" onmouseover="this.src = '/assets/images/profile/menu_list/fav_a_c.png';"
+                                                 onmouseout="this.src = '/assets/images/profile/menu_list/fav_b_c.png';" style="margin: 0 0 0 15px">
+                                            <p class="elt" style="margin: 0 0 0 20px">ชื่นชอบ</p>
+                                        </a>       
+                                    </div>
+                                    <div class="col-md-2 templatemo-box fadeInUp">
+                                        <a href="#shipadd" data-toggle="tab" id="navshipadd">
+                                            <img class="img-responsive imgsize" src="/assets/images/profile/menu_list/shipadd_b_c.png" title="ที่อยู่การจัดส่ง" onmouseover="this.src = '/assets/images/profile/menu_list/shipadd_a_c.png';"
+                                                 onmouseout="this.src = '/assets/images/profile/menu_list/shipadd_b_c.png';" style="margin: 0 0 0 15px">
+                                            <p class="elt" style="margin:0">ที่อยู่การจัดส่ง</p>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="col-md-4">
                     </div>
@@ -192,8 +193,8 @@ include '../dbconn.php';
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="panel panel-success" style="margin:10px 0 10px 0;">
-                                                <div class="panel-heading">
-                                                    <h3 class="panel-title">รายการที่รอการสั่งซื้อของคุณ</h3>
+                                                <!--<div class="panel-heading">
+                                                    <h3 class="panel-title">Tasks</h3>
                                                 </div>
                                                 <div class="panel-body">
                                                     <input type="text" class="form-control" id="task-table-filter" data-action="filter" data-filters="#task-table" placeholder="Filter Tasks" />
@@ -201,14 +202,14 @@ include '../dbconn.php';
                                                 <table class="table table-hover" id="task-table">
                                                     <thead style="background-color: #FF9F00; color: white">
                                                         <tr>
-                                                            <th>ลำดับที่</th>
-                                                            <th>รายการอาหาร</th>
-                                                            <th>ชื่อร้านอาหาร</th>
-                                                            <th>จำนวน</th>
-                                                            <th>ราคา/กล่อง</th>
-                                                            <th>ราคารวม</th>
-                                                            <th>ยืนยัน</th>
-                                                            <th>ลบทิ้ง</th>
+                                                            <th>No.</th>
+                                                            <th>List</th>
+                                                            <th>Restaurant</th>
+                                                            <th>Unit</th>
+                                                            <th>Price</th>
+                                                            <th>Total</th>
+                                                            <th>Confirm</th>
+                                                            <th>Delete</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -329,12 +330,12 @@ include '../dbconn.php';
                                 </div>
                                 <!-- /.modal-dialog --> 
                             </div>
-                            <!-- end ตะกร้า -->
+                            <!-- end shop list -->
 
 
-                            <!-- ชื่นชอบ -->
+                            <!-- favorite list -->
                             <div class="tab-pane fade" id="favlist">
-                                <div class="content2" style="padding:15px 0 15px 0">
+                                <div class="content2" style="padding:20px 0 15px 0">
                                     <ul class="media-list main-list">
                                         <li class="media">
                                             <a class="pull-left" href="#">
@@ -369,16 +370,16 @@ include '../dbconn.php';
                                     </ul>
                                 </div>
                             </div>
-                            <!-- end ชื่นชอบ -->
+                            <!-- end favorite list -->
 
-                            <!-- ประวัติการสั่งซื้อ -->
+                            <!-- order history -->
                             <div class="tab-pane fade" id="history">
                                 <div class="content2">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="panel panel-success" style="margin:10px 0 10px 0;">
-                                                <div class="panel-heading">
-                                                    <h3 class="panel-title">ประวัติการสั่งซื้อทั้งหมดของคุณ</h3>
+                                                <!--<div class="panel-heading">
+                                                    <h3 class="panel-title">Tasks</h3>
                                                 </div>
                                                 <div class="panel-body">
                                                     <input type="text" class="form-control" id="task-table-filter" data-action="filter" data-filters="#task-table" placeholder="Filter Tasks" />
@@ -386,13 +387,13 @@ include '../dbconn.php';
                                                 <table class="table table-hover" id="task-table">
                                                     <thead style="background-color: #FF9F00; color: white">
                                                         <tr>
-                                                            <th>ลำดับที่</th>
-                                                            <th>รายการอาหาร</th>
-                                                            <th>ร้านอาหาร</th>
-                                                            <th>ราคารวม</th>
-                                                            <th>สถานะ</th>
-                                                            <th>รายละเอียด</th>
-                                                            <th>ลบทิ้ง</th>
+                                                            <th>No.</th>
+                                                            <th>List</th>
+                                                            <th>Restaurant</th>
+                                                            <th>Total</th>
+                                                            <th>Status</th>
+                                                            <th>View</th>
+                                                            <th>Delete</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -467,14 +468,14 @@ include '../dbconn.php';
                                 </div>
                             </div>
 
-                            <!-- ติดตามสินค้า -->
+                            <!-- order tracking -->
                             <div class="tab-pane fade in active" id="tracking">
                                 <div class="content2">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="panel panel-success" style="margin:10px 0 10px 0;">
-                                                <div class="panel-heading">
-                                                    <h3 class="panel-title">ติดตามรายการอาหารของคุณ</h3>
+                                                <!--<div class="panel-heading">
+                                                    <h3 class="panel-title">Tasks</h3>
                                                 </div>
                                                 <div class="panel-body">
                                                     <input type="text" class="form-control" id="task-table-filter" data-action="filter" data-filters="#task-table" placeholder="Filter Tasks" />
@@ -482,10 +483,10 @@ include '../dbconn.php';
                                                 <table class="table table-hover" id="task-table">
                                                     <thead style="background-color: #FF9F00; color: white">
                                                         <tr>
-                                                            <th>ลำดับที่</th>
-                                                            <th>รายการอาหาร</th>
-                                                            <th>สถานะ</th>
-                                                            <th>รายละเอียด</th>
+                                                            <th>No.</th>
+                                                            <th>List</th>
+                                                            <th>Status</th>
+                                                            <th>Details</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -535,8 +536,9 @@ include '../dbconn.php';
                             <!-- end order history -->
 
                             <!-- shipping address -->
-                            <div class="tab-pane fade" id="shipadd">
+                            <div class="tab-pane fade" id="shipadd" style="margin:20px 0 20px 0;">
                                 <div class="content2" >
+
                                     <?php
                                     $result = $con->query("SELECT * FROM `shippingAddress` where customer_id = '$cusid'");
                                     $i = 2;
@@ -654,7 +656,6 @@ include '../dbconn.php';
                                                 </form>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>

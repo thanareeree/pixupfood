@@ -3,20 +3,11 @@ session_start();
 include '../dbconn.php';
 ?>
 
-
-
-
 <html >
-    <head>
-        <!-- 
-        Boxer Template
-        http://www.templatemo.com/preview/templatemo_446_boxer
-        -->
-        
+    <head>        
         <title>PixupFood - The Original Food Delivery</title>
         <?php include '../template/customer-title.php'; ?>
         <link rel="stylesheet" href="../assets/css/all_news.css">
-        
     </head>
     <body>
         <?php include '../template/customer-navbar.php'; ?>

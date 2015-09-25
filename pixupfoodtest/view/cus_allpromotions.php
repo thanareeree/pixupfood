@@ -3,21 +3,11 @@ session_start();
 include '../dbconn.php';
 ?>
 
-
-
-
 <html >
     <head>
-        <!-- 
-        Boxer Template
-        http://www.templatemo.com/preview/templatemo_446_boxer
-        -->
-       
         <title>PixupFood - Promotion</title>
           <?php include '../template/customer-title.php'; ?>
         <link rel="stylesheet" href="../assets/css/all_promotions.css">
-       
-
     </head>
     <body>
         <?php include '../template/customer-navbar.php'; ?>
