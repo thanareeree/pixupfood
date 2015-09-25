@@ -76,13 +76,6 @@ include '../dbconn.php';
                                             </span>
                                         </a>
                                     </li>
-                                    <li role="presentation" class="disabled">
-                                        <a href="#step7" data-toggle="tab" aria-controls="complete" role="tab" title="step7">
-                                            <span class="round-tab">
-                                                <i class="glyphicon glyphicon-ok"></i>
-                                            </span>
-                                        </a>
-                                    </li>
                                 </ul>
                             </div>
 
@@ -91,7 +84,9 @@ include '../dbconn.php';
                                     <div class="tab-pane active" role="tabpanel" id="step1">
                                         <div class="card">
                                             <div class="card-content">
-                                                <h3>ขั้นตอนที่ 1 : เลือกกล่อง</h3>
+                                                <div class="page-header">
+                                                    ขั้นตอนที่ 1 : เลือกกล่อง
+                                                </div>
                                                 <input type="checkbox" name="sex" value="male">&nbsp;อาหารจานเดียว&nbsp;&nbsp;
                                                 <input type="checkbox" name="sex" value="female">&nbsp;ข้าว + กับข้าว 1 อย่าง&nbsp;&nbsp;
                                                 <input type="checkbox" name="sex" value="male">&nbsp;ข้าว + กับข้าว 2 อย่าง&nbsp;&nbsp;
@@ -106,7 +101,9 @@ include '../dbconn.php';
                                     <div class="tab-pane" role="tabpanel" id="step2">
                                         <div class="card">
                                             <div class="card-content">
-                                                <h3>ขั้นตอนที่ 2 : เลือกข้าว</h3>
+                                                <div class="page-header">
+                                                    ขั้นตอนที่ 2 : เลือกข้าว
+                                                </div>
                                                 <input type="checkbox" name="sex" value="male">&nbsp;ข้าวหอมมะลิ&nbsp;&nbsp;
                                                 <input type="checkbox" name="sex" value="female">&nbsp;ข้าวเสาไห้&nbsp;&nbsp;
                                                 <input type="checkbox" name="sex" value="male">&nbsp;ข้าวกล้อง&nbsp;&nbsp;
@@ -121,7 +118,9 @@ include '../dbconn.php';
                                     <div class="tab-pane" role="tabpanel" id="step3">
                                         <div class="card">
                                             <div class="card-content">
-                                                <h3>ขั้นตอนที่ 3 : เลือกกับข้าว</h3>
+                                                <div class="page-header">
+                                                    ขั้นตอนที่ 3 : เลือกกับข้าว
+                                                </div>
                                                 <h3>ลำดับที่ 1</h3>
                                                 <div class="row">
                                                     <div class="col-md-2">
@@ -325,7 +324,9 @@ include '../dbconn.php';
                                     <div class="tab-pane" role="tabpanel" id="step4">
                                         <div class="card">
                                             <div class="card-content">
-                                                <h3>ขั้นตอนที่ 4 : เลือกวันที่และสถานที่จัดส่ง</h3>
+                                                <div class="page-header">
+                                                    ขั้นตอนที่ 4 : เลือกวันที่และสถานที่จัดส่ง
+                                                </div>
                                                 <div>
                                                     <h3>ส่งวันที่ :     
                                                         <input type="date" name="senddate">
@@ -333,10 +334,8 @@ include '../dbconn.php';
                                                     <h3>เวลา :     
                                                         <input type="time" name="sendtime">
                                                     </h3>
-                                                </div>
+                                                </div><br>
                                                 <h3>สถานที่</h3>
-                                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2637.965367675441!2d100.49418899116831!3d13.651153172648238!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0000000000000000%3A0x0f0100b33d0b31d0!2sKing+Mongkut%E2%80%99s+University+of+Technology+Thonburi!5e0!3m2!1sth!2s!4v1442071829798" width="1120" height="400" frameborder="0" style="border:0" allowfullscreen></iframe>
-                                                <br><br>
                                                 <h3>เลือกจากสถานที่ของคุณ</h3>
                                                 <div class="content2">
                                                     <table class="table table-hover" id="task-table">
@@ -413,9 +412,26 @@ include '../dbconn.php';
                                     <div class="tab-pane" role="tabpanel" id="step5">
                                         <div class="card">
                                             <div class="card-content">
-                                                <h3>ขั้นตอนที่ 5 : เลือกวิธีชำระเงิน</h3>
-                                                <input type="checkbox" name="sex" value="male">&nbsp;เงินสด&nbsp;&nbsp;
-                                                <input type="checkbox" name="sex" value="female">&nbsp;โอนเงินผ่านบัญชีธนาคาร&nbsp;&nbsp;
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="page-header">
+                                                            ขั้นตอนที่ 5 : เลือกวิธีชำระเงิน
+                                                        </div>
+                                                    </div>                                                                                             
+                                                    <div class="col-md-4">
+                                                        <input type="checkbox" name="sex" value="male">&nbsp;เงินสด&nbsp;&nbsp;
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <input type="checkbox" name="sex" value="female">&nbsp;โอนเงินผ่านบัญชีธนาคาร&nbsp;&nbsp;
+                                                        <p>เลขที่บัญชี:_____________</p>
+                                                        <p>ชื่อบัญชี:_______________</p>
+                                                        <p>ธนาคาร:________สาขา_______</p>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <input type="checkbox" name="sex" value="female">&nbsp;มัดจำ&nbsp;&nbsp;
+                                                        <span>จำนวน </span><input type="text"><span> บาท</span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <ul class="list-inline pull-right" style="margin-top: 20px;">
@@ -426,84 +442,13 @@ include '../dbconn.php';
                                     <div class="tab-pane" role="tabpanel" id="step6">
                                         <div class="card">
                                             <div class="card-content">
-                                                <h3>ขั้นตอนที่ 6 : เลือกร้านอาหาร</h3>
-                                                <div class="row">
-                                                    <div class="col-md-2">
-                                                        <div class="thumbnail">
-                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                            <div class="caption">
-                                                                <h3>Thumbnail label</h3>
-                                                                <p>...</p>
-                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <div class="thumbnail">
-                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                            <div class="caption">
-                                                                <h3>Thumbnail label</h3>
-                                                                <p>...</p>
-                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <div class="thumbnail">
-                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                            <div class="caption">
-                                                                <h3>Thumbnail label</h3>
-                                                                <p>...</p>
-                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <div class="thumbnail">
-                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                            <div class="caption">
-                                                                <h3>Thumbnail label</h3>
-                                                                <p>...</p>
-                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <div class="thumbnail">
-                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                            <div class="caption">
-                                                                <h3>Thumbnail label</h3>
-                                                                <p>...</p>
-                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <div class="thumbnail">
-                                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                            <div class="caption">
-                                                                <h3>Thumbnail label</h3>
-                                                                <p>...</p>
-                                                                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                <div class="page-header">
+                                                    ขั้นตอนที่ 6 : เลือกร้านอาหาร
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <ul class="list-inline pull-right" style="margin-top: 20px;">
-                                            <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
-                                            <li><button type="button" class="btn btn-primary btn-info-full next-step">Save and continue</button></li>
-                                        </ul>                                            
-                                    </div>
-                                    <div class="tab-pane" role="tabpanel" id="step7">
-                                        <div class="card">
-                                            <div class="card-content">
-                                                <h3>ขั้นตอนที่ 7 : ตรวจสอบข้อมูลความถูกต้อง</h3><br>
                                                 <div class="row">
                                                     <form action="#" style="margin: 0;">
                                                         <div class="col-md-4">
-                                                            <h1>ร้านป้าลมัย</h1><hr class="hrs">
+                                                            <h1>ร้านป้าลมัย <input type="checkbox" name="sex" value="male"></h1><hr class="hrs">
                                                             <table class="table table-hover" id="task-table">
                                                                 <thead>
                                                                     <tr>
@@ -516,12 +461,7 @@ include '../dbconn.php';
                                                                     <tr>
                                                                         <td>เมนูที่เลือก: </td>
                                                                         <td>ข้าวผัดกระเพรา+หมูกระเทียม</td>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>จำนวน: </td>
-                                                                        <td>300</td>
-                                                                        <td>กล่อง</td>
+                                                                        <td>300 กล่อง</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>ราคา: </td>
@@ -544,7 +484,7 @@ include '../dbconn.php';
                                                     </form>
                                                     <form action="#" style="margin: 0;">
                                                         <div class="col-md-4">
-                                                            <h1>ร้านป้าสมัย</h1><hr class="hrs">
+                                                            <h1>ร้านป้าสมัย <input type="checkbox" name="sex" value="male"></h1><hr class="hrs">
                                                             <table class="table table-hover" id="task-table">
                                                                 <thead>
                                                                     <tr>
@@ -557,12 +497,7 @@ include '../dbconn.php';
                                                                     <tr>
                                                                         <td>เมนูที่เลือก: </td>
                                                                         <td>ข้าวผัดกระเพรา+หมูกระเทียม</td>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>จำนวน: </td>
-                                                                        <td>300</td>
-                                                                        <td>กล่อง</td>
+                                                                        <td>300 กล่อง</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>ราคา: </td>
@@ -585,7 +520,10 @@ include '../dbconn.php';
                                                     </form>
                                                     <form  action="#">
                                                         <div class="col-md-4">
-                                                            <h1>ร้านป้าสมร</h1><hr class="hrs">
+                                                            <div class="row">
+                                                                    <h1>ร้านป้าสมร <input type="checkbox" name="sex" value="male"></h1>
+                                                                    <hr class="hrs">
+                                                            </div>
                                                             <table class="table table-hover" id="task-table">
                                                                 <thead>
                                                                     <tr>
@@ -598,12 +536,7 @@ include '../dbconn.php';
                                                                     <tr>
                                                                         <td>เมนูที่เลือก: </td>
                                                                         <td>ข้าวผัดกระเพรา+หมูกระเทียม</td>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>จำนวน: </td>
-                                                                        <td>300</td>
-                                                                        <td>กล่อง</td>
+                                                                        <td>300 กล่อง</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>ราคา: </td>
@@ -624,10 +557,16 @@ include '../dbconn.php';
                                                             </table>
                                                         </div>
                                                     </form>
-                                                </div>
+                                                    <a href="#" >
+                                                        <span class="pull-right" style="color: #0016b0;margin-right: 10px;">
+                                                            more>>>
+                                                        </span>
+                                                    </a>
+                                                </div>   
                                             </div>
                                         </div>
                                         <ul class="list-inline pull-right" style="margin-top: 20px;">
+                                            <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
                                             <li><button type="button" class="btn btn-primary next-step">Order</button></li>
                                         </ul>
                                     </div>
