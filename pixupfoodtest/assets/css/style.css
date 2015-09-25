@@ -280,7 +280,6 @@ img
     background-size: cover;
     color: #fff;
     text-align: center;
-    margin-bottom:10px;
 }
 #nupdateh p
 {
@@ -386,57 +385,167 @@ img
     padding-top: 30px;
     padding-bottom: 40px;
 }
-#pricing h2
-{
-    padding-bottom: 60px;
+
+/* COMMON PRICING STYLES */
+#pricing  .panel.price,
+#pricing  .panel.price>.panel-heading{
+    border-radius:0px;
+    -moz-transition: all .3s ease;
+    -o-transition:  all .3s ease;
+    -webkit-transition:  all .3s ease;
 }
-#pricing .pricing
-{
-    background: #fff;
+#pricing  .panel.price:hover{
+    box-shadow: 0px 0px 30px rgba(0,0,0, .2);
 }
-#pricing .active
-{
-    position: relative;
-    bottom: 20px;
+#pricing .panel.price:hover>.panel-heading{
+    box-shadow: 0px 0px 30px rgba(0,0,0, .2) inset;
 }
-#pricing .pricing .pricing-title
-{
-    background: #28a7e9;
+
+
+#pricing .panel.price>.panel-heading{
+    box-shadow: 0px 5px 0px rgba(50,50,50, .2) inset;
+    text-shadow:0px 3px 0px rgba(50,50,50, .6);
+}
+
+#pricing .price .list-group-item{
+    border-bottom-:1px solid rgba(250,250,250, .5);
+}
+
+#pricing .panel.price .list-group-item:last-child {
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+#pricing .panel.price .list-group-item:first-child {
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+}
+
+#pricing .price .panel-footer {
     color: #fff;
-    font-weight: bold;
-    padding: 30px;
+    border-bottom:0px;
+    background-color:  rgba(0,0,0, .1);
+    box-shadow: 0px 3px 0px rgba(0,0,0, .3);
 }
-#pricing .pricing .pricing-title p
-{
-    font-size: 20px;
+
+
+#pricing .panel.price .btn{
+    box-shadow: 0 -1px 0px rgba(50,50,50, .2) inset;
+    border:0px;
 }
-#pricing .pricing ul
-{
-    padding: 0;
-    margin: 0;
-}
-#pricing .pricing ul li
-{
-    display: block;
-    list-style: none;
-    padding: 16px;
-}
-#pricing .pricing .btn
-{
-    background: transparent;
-    border: 1px solid #28a7e9;
-    border-radius: 0px;
-    color: #28a7e9;
-    font-weight: bold;
-    padding-right: 40px;
-    padding-left: 40px;
-    margin-top: 20px;
-    margin-bottom: 30px;
-    transition: all 0.3s ease;
-}
-#pricing .pricing .btn:hover {
-    background: #28a7e9;
+
+/* green panel */
+
+
+.price.panel-green>.panel-heading {
     color: #fff;
+    background-color: #57AC57;
+    border-color: #71DF71;
+    border-bottom: 1px solid #71DF71;
+}
+
+
+.price.panel-green>.panel-body {
+    color: #fff;
+    background-color: #65C965;
+}
+
+
+.price.panel-green>.panel-body .lead{
+    text-shadow: 0px 3px 0px rgba(50,50,50, .3);
+}
+
+.price.panel-green .list-group-item {
+    color: #333;
+    background-color: rgba(50,50,50, .01);
+    font-weight:600;
+    text-shadow: 0px 1px 0px rgba(250,250,250, .75);
+}
+
+/* blue panel */
+
+
+.price.panel-blue>.panel-heading {
+    color: #fff;
+    background-color: #608BB4;
+    border-color: #78AEE1;
+    border-bottom: 1px solid #78AEE1;
+}
+
+
+.price.panel-blue>.panel-body {
+    color: #fff;
+    background-color: #73A3D4;
+}
+
+
+.price.panel-blue>.panel-body .lead{
+    text-shadow: 0px 3px 0px rgba(50,50,50, .3);
+}
+
+.price.panel-blue .list-group-item {
+    color: #333;
+    background-color: rgba(50,50,50, .01);
+    font-weight:600;
+    text-shadow: 0px 1px 0px rgba(250,250,250, .75);
+}
+
+/* red price */
+
+
+.price.panel-red>.panel-heading {
+    color: #fff;
+    background-color: #D04E50;
+    border-color: #FF6062;
+    border-bottom: 1px solid #FF6062;
+}
+
+
+.price.panel-red>.panel-body {
+    color: #fff;
+    background-color: #EF5A5C;
+}
+
+
+
+
+.price.panel-red>.panel-body .lead{
+    text-shadow: 0px 3px 0px rgba(50,50,50, .3);
+}
+
+.price.panel-red .list-group-item {
+    color: #333;
+    background-color: rgba(50,50,50, .01);
+    font-weight:600;
+    text-shadow: 0px 1px 0px rgba(250,250,250, .75);
+}
+
+/* grey price */
+
+
+.price.panel-grey>.panel-heading {
+    color: #fff;
+    background-color: #6D6D6D;
+    border-color: #B7B7B7;
+    border-bottom: 1px solid #B7B7B7;
+}
+
+
+.price.panel-grey>.panel-body {
+    color: #fff;
+    background-color: #808080;
+}
+
+
+
+.price.panel-grey>.panel-body .lead{
+    text-shadow: 0px 3px 0px rgba(50,50,50, .3);
+}
+
+.price.panel-grey .list-group-item {
+    color: #333;
+    background-color: rgba(50,50,50, .01);
+    font-weight:600;
+    text-shadow: 0px 1px 0px rgba(250,250,250, .75);
 }
 /* end pricing */
 
@@ -655,3 +764,12 @@ footer
     background: #107DB6;
 }
 /* login & register */
+
+
+
+
+#loreg .contact-formmessenger
+{
+    padding-top: 30px;
+    padding-bottom: 40px;
+}
