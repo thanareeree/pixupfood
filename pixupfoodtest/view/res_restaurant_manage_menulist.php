@@ -123,18 +123,15 @@ include '../dbconn.php';
                                     <div class="page-header">
                                         <div class="row">
                                             <div class="col-md-8"><h2>รายการอาหารปัจจุบัน</h2></div>
+                                            
                                             <div class="col-md-2">
-                                                <p class="text-center pull-right" style="margin-top: 20px;">
+                                                <p class="text-center pull-" style="margin-top: 20px; margin-left: 200px ">
                                                     <a class="btn icon-btn btn-success" id="addbtn">
                                                         <span class="glyphicon btn-glyphicon glyphicon-plus img-circle text-success">
                                                         </span> เพิ่มใหม่</a>
-                                                </p>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <p class="text-center pull-left" style="margin-top: 20px;">
-                                                    <a class="btn icon-btn btn-warning" data-toggle="modal" data-target='#'>
-                                                        <span class="glyphicon btn-glyphicon glyphicon-trash img-circle text-warning">
-                                                        </span> ลบทิ้ง</a>
+                                                    <a class="btn icon-btn btn-danger" id="closebtn" style="display: none">
+                                                        <span class="glyphicon btn-glyphicon glyphicon-triangle-top img-circle text-warning">
+                                                        </span>ปิด</a>
                                                 </p>
                                             </div>
                                         </div>
@@ -156,7 +153,7 @@ include '../dbconn.php';
                                                                     <option value="ชนิดข้าว">ชนิดข้าว</option>
                                                                     <option value="กับข้าว">กับข้าว</option>
                                                                     <option value="อาหารจานเดียว">อาหารจานเดียว</option>
-                                                                    <option value="เมนูเซต">เมนูเซต</option>
+                                                                    
                                                                 </select>
                                                                 <span style="margin-left: 25px;font-size: 18px;" id="type" > ชื่อรายการอาหาร </span>&nbsp;&nbsp;
                                                                 <select class="riceList" name="riceList" id="riceList"style="width: 150px; font-size: 18px; " >
@@ -201,20 +198,7 @@ include '../dbconn.php';
                                                                         <option value="<?= $riceData['id'] ?>"> <?= $riceData['name'] ?> </option>
                                                                     <?php } ?>
                                                                 </select>
-                                                                <select class="menusetList" name="menusetList" id="menusetList"style="width: 150px; font-size: 18px; display: none" >
-                                                                    <option value="0">--ตัวเลือก--</option>
-                                                                    <?php
-                                                                    $riceRes = $con->query("SELECT DISTINCT main_menu.id, main_menu.name "
-                                                                            . "FROM main_menu"
-                                                                            . " LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
-                                                                            . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
-                                                                            . "WHERE main_menu.type = 'เมนูเซต'"
-                                                                            . "ORDER BY main_menu.name");
-                                                                    while ($riceData = $riceRes->fetch_assoc()) {
-                                                                        ?>
-                                                                        <option value="<?= $riceData['id'] ?>"> <?= $riceData['name'] ?> </option>
-                                                                    <?php } ?>
-                                                                </select>
+                                                                
                                                                 <span style="margin-left: 25px;font-size: 18px;" id="type"  > ราคา </span>&nbsp;&nbsp;
                                                                 <input type="text"  id="priceinput" style="font-size: 18px;" required="">
 
@@ -242,7 +226,7 @@ include '../dbconn.php';
                                                                     <option value="ชนิดข้าว">ชนิดข้าว</option>
                                                                     <option value="กับข้าว">กับข้าว</option>
                                                                     <option value="อาหารจานเดียว">อาหารจานเดียว</option>
-                                                                    <option value="เมนูเซต">เมนูเซต</option>
+                                                                    
                                                                 </select>
                                                                 <span style="margin-left: 25px;font-size: 18px;" id="typeselect"> หมวดหมู่ </span>&nbsp;&nbsp;
                                                                 <select class="foodtypelist" name="foodtypelist" style="width: 150px;  margin-left: 5px;font-size: 18px">
@@ -274,63 +258,25 @@ include '../dbconn.php';
                                         <div class="col-md-12">
                                             <div class="card">
                                                 <div class="card-content">
+                                                    <div class="col-md-12" style="margin-bottom: 50px">
                                                     <h2>ค้นหา</h2>
-                                                    <form action="#" method="get" id="searchbyname">
-                                                        <input type="hidden" name="restaurant" value="<?= $resid; ?>" >
-                                                        <input type="text" class="form-control" placeholder="ป้อนคำค้นหา..." name="searchname">
+                                                    <form action="#" method="post" >
+                                                        <input type="hidden" name="restaurantid" id="restaurantid" value="<?= $resid; ?>" >
+                                                        <div class="col-md-6">
+                                                             
+                                                              <div class="input-group">
+                                                                 <input type="text" class="form-control input-lg" id="searchtext" placeholder="ชื่อรายการอาหาร">
+                                                            <span class="input-group-btn ">
+                                                                <button class="btn btn-default input-lg" type="button" id="searchbyname"><i class="glyphicon glyphicon-search"></i></button>
+                                                            </span>
+                                                              </div>
+                                                        </div>
                                                     </form>
+                                                    </div>
                                                     <!-- Menu 1 Row -->
-                                                    <div class="row">
-                                                        <div class="col-md-3">
-                                                            <div class="card maxheight">
-                                                                <div class="card-image">
-                                                                    <img src="/assets/images/res_resall/menuedit/FriedEgg.jpg">
-                                                                </div>
-                                                                <div class="card-content height">
-                                                                    <div class="product-name">ไข่ดาว</div>
-                                                                    <div class="product-price">7 บาท</div>
-                                                                </div>
-                                                                <div class="card-action">
-                                                                    <div class="row">
-                                                                        <div class="col-md-3 pull-left">
-                                                                            <p class="text-center">
-                                                                                <a class="btn icon-btn btn-danger" data-toggle="modal" data-target='#EditMenu'>
-                                                                                    <span class="glyphicon btn-glyphicon glyphicon-pencil img-circle text-danger">
-                                                                                    </span> แก้ไข
-                                                                                </a>
-                                                                            </p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <div class="card">
-                                                                <div class="maxheight">
-                                                                    <div class="card-image">
-                                                                        <img src="/assets/images/res_resall/menuedit/pork.jpg">
-                                                                    </div>
-                                                                    <div class="card-content height">
-                                                                        <div class="product-name">กระดูกหมูกระเทียมพริกไทย</div>
-                                                                        <span class="promotion-discount">70 บาท</span>
-                                                                        <span class="promotion-price"> 56 บาท</span>
-                                                                        <span class="promotion-percent" style="margin-left:25px"> 20%</span>
-                                                                    </div>
-                                                                    <div class="card-action">
-                                                                        <div class="row">
-                                                                            <div class="col-md-3 pull-left">
-                                                                                <p class="text-center">
-                                                                                    <a class="btn icon-btn btn-danger" data-toggle="modal" data-target='#EditMenu'>
-                                                                                        <span class="glyphicon btn-glyphicon glyphicon-pencil img-circle text-danger">
-                                                                                        </span> แก้ไข
-                                                                                    </a>
-                                                                                </p>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                    <div class="row" id="showmenudata">
+
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -392,23 +338,7 @@ include '../dbconn.php';
                                     </div>
                                     <!-- จบรายการอาหารจานด่วน-->
 
-                                    <!-- รายการเครื่องดื่ม -->
-                                    <div class="row">
-                                        <!-- Card Projects -->
-                                        <div class="col-md-12">
-                                            <div class="card">
-                                                <div class="card-content">
-                                                    <h2>เมนูเซต</h2>
-                                                    <!-- Menu 1 Row -->
-                                                    <div class="row">
-                                                        <?php include '../restaurant/menu-menusettype-list.php'; ?>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
 
-                                    <!-- จบรายการเครื่องดื่ม-->
 
                                     <!-- Modal แก้ไขเมนู ------------------------------------------------------------------------------>
                                     <!--EditMenu Modal-->
@@ -476,7 +406,7 @@ include '../dbconn.php';
                                                                                     <option>ชนิดข้าว</option>
                                                                                     <option>กับข้าว</option>
                                                                                     <option>อาหารจานด่วน</option>
-                                                                                    <option>เมนูเซต</option>
+                                                                                  
                                                                                 </select>
                                                                                 <span style="margin-left: 25px;"> หมวดหมู่ </span>&nbsp;&nbsp;
                                                                                 <?php include '../template/foodtype-list.php'; ?>
@@ -522,90 +452,8 @@ include '../dbconn.php';
 
                                     <!--End EditMenu Modal-->
 
-
-
                                 </div>
 
-                                <!-- รายการอาหารที่หมดชั่วคราว -->
-
-                                <div class="tab-pane" id="tab_default_2_4">
-                                    <div class="page-header">
-                                        <div class="row">
-                                            <div class="col-md-6"><h2>รายการอาหารที่หมดชั่วคราว</h2></div>
-                                            <div class="col-md-3"><p class="text-center" style="width: 0px;height: 0px;margin-left: 437px;margin-top: 20px;">
-                                                    <a class="btn icon-btn btn-warning" data-toggle="modal" data-target='#'>
-                                                        <span class="glyphicon btn-glyphicon glyphicon-trash img-circle text-warning">
-                                                        </span> ลบทิ้ง</a></p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- ค้นหา -->
-                                    <div class="row">
-                                        <!-- Card Projects -->
-                                        <div class="col-md-12">
-                                            <div class="card">
-                                                <div class="card-content">
-                                                    <!-- Menu 1 Row -->
-                                                    <div class="row">
-                                                        <div class="col-md-3">
-                                                            <div class="card maxheight">
-                                                                <div class="card-image">
-                                                                    <img src="/assets/images/res_resall/menuedit/FriedEgg.jpg">
-                                                                </div>
-                                                                <div class="card-content height">
-                                                                    <div class="product-name">ไข่ดาว</div>
-                                                                    <div class="product-price">7 บาท</div>
-                                                                </div>
-                                                                <div class="card-action">
-                                                                    <div class="row">
-                                                                        <div class="col-md-3" style="left: 13px;">
-                                                                            <p class="text-center">
-                                                                                <a class="btn icon-btn btn-success" data-toggle="modal" data-target='#'>
-                                                                                    <span class="glyphicon btn-glyphicon glyphicon-retweet img-circle text-success"> </span> 
-                                                                                    เปิดการจำหน่าย
-                                                                                </a>
-                                                                            </p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <div class="card">
-                                                                <div class="maxheight">
-                                                                    <div class="card-image">
-                                                                        <img src="/assets/images/res_resall/menuedit/pork.jpg">
-                                                                    </div>
-                                                                    <div class="card-content height">
-                                                                        <div class="product-name">กระดูกหมูกระเทียมพริกไทย</div>
-                                                                        <span class="promotion-discount">70 บาท</span>
-
-                                                                        <span class="promotion-price"> 56 บาท</span>
-                                                                        <span class="promotion-percent" style="margin-left:25px"> 20%</span>
-                                                                    </div>
-                                                                    <div class="card-action">
-                                                                        <div class="row">
-                                                                            <div class="col-md-3" style="left: 13px;">
-                                                                                <p class="text-center">
-                                                                                    <a class="btn icon-btn btn-success" data-toggle="modal" data-target='#'>
-                                                                                        <span class="glyphicon btn-glyphicon glyphicon-retweet img-circle text-success"> </span>
-                                                                                        เปิดการจำหน่าย
-                                                                                    </a>
-                                                                                </p>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>          
-                                </div>
-                                <!-- จบแทบ รายการอาหารที่หมดชั่วคราว -->
                             </div>
                         </div>
                     </div>
@@ -624,6 +472,14 @@ include '../dbconn.php';
             $("#addbtn").on("click", function (e) {
                 $("#addMenuForm").show();
                 $("#addNewMenuForm").show();
+                 $("#addbtn").hide();
+                 $("#closebtn").show();
+            });
+            $("#closebtn").on("click", function (e) {
+                $("#addMenuForm").hide();
+                $("#addNewMenuForm").hide();
+                 $("#addbtn").show();
+                 $("#closebtn").hide();
             });
 
 
@@ -657,12 +513,6 @@ include '../dbconn.php';
                     $("#singleMenu").show();
                     $("#menusetList").hide();
                     $("#singleMenu").attr("required");
-                } else if ($("#select_type").val() == 'เมนูเซต') {
-                    $("#riceList").hide();
-                    $("#menuList").hide();
-                    $("#singleMenu").hide();
-                    $("#menusetList").show();
-                    $("#menusetList").attr("required");
                 } else {
                     $("#riceList").hide();
                     $("#menuList").hide();
@@ -682,7 +532,7 @@ include '../dbconn.php';
                 }
             });
 
-            $("#savebtn").on("click", function (e) {
+            $("#addMenuRes").on("submit", function (e) {
                 var menuid = $("#menuList").val();
                 var riceid = $("#riceList").val();
                 var singleid = $("#singleMenu").val();
@@ -700,36 +550,35 @@ include '../dbconn.php';
                     success: function (data) {
                         $("#savebtn").removeAttr("disabled");
                         if (data.result == 1) { //สำเร็จ
-                            $("#priceinput").removeAttr("value");
-                            $("#menuList").val("");
-                            $("#riceList").val("");
-                            $("#singleMenu").val("");
-                            $("#menusetList").val("");
+                            $("#addMenuRes").trigger("reset");
                         } else {
-                            
+
                         }
                     }
                 });
-                console.log();
+                e.preventDefault();
+                
+                return false;
             });
-
-            $("#addMenuForm").on("submit", function (e) {
+            
+            
+            $("#ryhryryu").on("submit", function (e) {
                 var type = $("#typefood-add").val();
                 var foodtype = $(".foodtypelist").val();
                 var foodname = $("#foodname").val();
 
                 $("#show_error").html("");
                 $("#addNewMenubtn").attr("disabled");
-                $("#addNewMenubtn").html("<img src='/assets/images/loader.gif' style='height:15px; margin:0 auto;'>");
+                
                 $.ajax({
                     url: "/restaurant/menu-add.php",
-                    type: "GET",
+                    type: "post",
                     data: {"menuid": menuid, "riceid": riceid, "singleid": singleid, "menusetid": menuid},
                     dataType: "json",
                     success: function (data) {
                         $("#savebtn").removeAttr("disabled");
                         if (data.result == 1) { //สำเร็จ
-                            document.location = data.redirectTo;
+                           
                         } else {
 
                         }
@@ -737,21 +586,29 @@ include '../dbconn.php';
                 });
             });
 
-            $("#searchbyname").submit(function (e) {
+            $("#searchtext").on("keyup", function (e) {
+                if (e.keyCode == 13) {
+                    $("#searchbyname").click();
+                }
+            });
+
+
+            $("#searchtext").on("keyup", function (e) {
+                var searchmenuname = $("#searchtext").val();
+                var resid = $("#restaurantid").val();
+
                 $.ajax({
                     url: "/restaurant/menu-searchbyname.php",
-                    type: "GET",
-                    dataType: "json",
-                    success: function (data) {
-                        if (data.result == "1") {
-                            alert();
-                        } else {
-                            alert("ไม่สามารถบันทึกข้อมูลได้\nError : ");
-
-                        }
+                    type: "POST",
+                    dataType: "html",
+                    data: {"resid": resid, "searchname": searchmenuname},
+                    success: function (data, textStatus, jqXHR) {
+                        $("#showmenudata").html(data);
                     }
                 });
             });
+            
+            
 
 
 

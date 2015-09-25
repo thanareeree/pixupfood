@@ -4,7 +4,7 @@ session_start();
 include '../dbconn.php';
 $id = $_SESSION["restdata"]["id"];
 
-$closestatus = @$_POST["closestatus"];
+$closestatus = @$_POST["close"];
 
 if ($closestatus == 0) {
     $con->query("UPDATE restaurant SET close = 1 where id = '$id'");

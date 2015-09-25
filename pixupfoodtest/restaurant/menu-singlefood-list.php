@@ -1,9 +1,14 @@
 <?php
-$res2 = $con->query("SELECT DISTINCT main_menu.name, menu.price, menu.img_path   "
-        . "FROM `menu` LEFT JOIN main_menu on main_menu.id = menu.main_menu_id "
-        . "LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
-        . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
-        . "WHERE main_menu.type = 'อาหารจานเดียว'");
+
+$resid = $_SESSION["restdata"]["id"];
+$res2 = $con->query("SELECT DISTINCT restaurant.id,menu.img_path, menu.price, "
+        . "main_menu.name as menuname, restaurant.name as resname "
+        . "FROM restaurant "
+        . "LEFT JOIN menu ON menu.restaurant_id = restaurant.id "
+        . "LEFT JOIN main_menu ON main_menu.id = menu.main_menu_id "
+        . "left JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
+        . "left JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
+        . "WHERE restaurant.id = '$resid' and main_menu.type = 'อาหารจานเดียว'");
 while ($data2 = $res2->fetch_assoc()) {
     ?>
     <div class="col-md-3">
@@ -13,7 +18,7 @@ while ($data2 = $res2->fetch_assoc()) {
                     <img src="<?= ($data2["img_path"] == "") ? '/assets/images/default-img360.png' : $data2["img_path"] ?>">
                 </div>
                 <div class="card-content height">
-                    <div class="product-name"><?= $data2["name"] ?></div>
+                    <div class="product-name"><?= $data2["menuname"] ?></div>
                     <div class="product-price"><?= $data2["price"] ?>&nbsp;บาท</div>
                 </div>
 
