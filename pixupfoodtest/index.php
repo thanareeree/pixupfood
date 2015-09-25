@@ -7,12 +7,13 @@ include './dbconn.php';
         <?php include './template/customer-title.php'; ?>
         <title>PixupFood - The Original Food Delivery</title>
         <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/assets/css/slide2.css">
     </head>
     <body>
         <?php include 'template/customer-navbar.php'; ?>
         <!-- start home -->
                <section id="home">
-            <!-- Carousel ================================================== -->
+            <!-- Carousel -->
             <div id="Carousel1" class="carousel slide">
                 <!-- Indicators -->
                 <ol class="carousel-indicators">
@@ -111,8 +112,8 @@ include './dbconn.php';
 
                                 </div>
                             </ul>
-
-                        </div><!-- /#myCarousel -->
+                        </div>
+                        <!-- /#myCarousel -->
                     </div>
                 </div>
             </div>
