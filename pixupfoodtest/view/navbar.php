@@ -3,13 +3,13 @@
 
 function addlink($title) { ?>
     <title><?= $title ?></title>
-    <link rel="stylesheet" href="../assets/css/animate.min.css">
-    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/animate.min.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
     
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <link rel="stylesheet" href="../assets/css/search.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/simple-sidebar.css" />
-    <link rel="stylesheet" href="../assets/Supermarket/stylesheet.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/search.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/simple-sidebar.css" />
+    <link rel="stylesheet" href="/assets/Supermarket/stylesheet.css">
 
 <?php } 
 
@@ -27,8 +27,8 @@ function show_navbar() { ?>
                 <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon icon-bar"></span>
                 </button>
-                <a href="../index.php" style="color:rgba(255,127,0,1)" class="navbar-brand">Pixup</a>
-                <a href="../index.php" class="navbar-brand" style="color:black;padding-left: 0px;">Food</a>
+                <a href="/index.php" style="color:rgba(255,127,0,1)" class="navbar-brand">Pixup</a>
+                <a href="/index.php" class="navbar-brand" style="color:black;padding-left: 0px;">Food</a>
                 <div class="col-md-4" style="margin:7px 0 0 15%;">
                     <div id="custom-search-input">
                         <div class="input-group col-md-12">
@@ -42,10 +42,10 @@ function show_navbar() { ?>
                     </div>
                 </div>
                 <ul class="nav navbar-nav navbar-right text-uppercase">
-                    <li><a  <?= (!isset($_SESSION["islogin"])) ? 'href="#"' : 'href="../api/logout.php" class="nav-link"' ?> ><?= (!isset($_SESSION["islogin"])) ? 'สมัครสมาชิก | เข้าสู่ระบบ >>' : $_SESSION["userdata"]["firstName"] . " " . $_SESSION["userdata"]["lastName"] ?></a></li>
+                    <li><a href="#" ><?= (!isset($_SESSION["islogin"])) ? 'สมัครสมาชิก | เข้าสู่ระบบ >>' : $_SESSION["userdata"]["firstName"] . " " . $_SESSION["userdata"]["lastName"] ?></a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-                            <img src="../assets/images/bar/user.png" style="width:40px;height:40px;"/>
+                            <img src="/assets/images/bar/user.png" style="width:40px;height:40px;"/>
                         </a>
                         <ul class="dropdown-menu" style="padding: 0px">
                             <li>
@@ -65,7 +65,7 @@ function show_navbar() { ?>
                                                     <div class="row">
                                                         <div class="col-md-5" style="margin-left: 20px">
                                                             <a href="cus_register.php">
-                                                                <img src="../assets/images/bar/userl.png" style="width:60px; height:60px;margin-top: 10px;">
+                                                                <img src="/assets/images/bar/userl.png" style="width:60px; height:60px;margin-top: 10px;">
                                                             </a>
                                                             <a href="cus_register.php">
                                                                 <p style="font-weight:bold"> CUSTOMERS </p>
@@ -73,7 +73,7 @@ function show_navbar() { ?>
                                                         </div>
                                                         <div class="col-md-5">
                                                             <a href="res_register.php">
-                                                                <img src="../assets/images/bar/restaurant.png" style="width:60px; height:60px;margin-top: 10px;">
+                                                                <img src="/assets/images/bar/restaurant.png" style="width:60px; height:60px;margin-top: 10px;">
                                                             </a>
                                                             <a href="res_register.php">
                                                                 <p style="font-weight:bold"> RESTAURANTS </p>
@@ -84,7 +84,7 @@ function show_navbar() { ?>
                                                 </div>
 
                                                 <div class="col-md-7" style="border-left:1px solid #ccc;height:160px">
-                                                    <form class="form-horizontal" action="../api/loginsession.php" method="post">
+                                                    <form class="form-horizontal" action="/api/loginsession.php" method="post">
                                                         <fieldset>
                                                             <input id="textinput" name="loginemail" type="text" placeholder="Enter User Name" class="form-control input-md">                                                                
                                                             <input id="textinput" name="password" type="password" placeholder="Enter Password" class="form-control input-md" style="margin: 10px 0 5px 0">
@@ -130,8 +130,8 @@ function show_footer() { ?>
     <!-- end footer -->
 
     <!-- script references -->
-    <script src="../assets/js/jquery-2.1.4.min.js"></script>
-    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/assets/js/jquery-2.1.4.min.js"></script>
+    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
     <script>
         $("#menu-toggle").click(function (e) {
             e.preventDefault();
@@ -139,8 +139,8 @@ function show_footer() { ?>
         });
     </script>
 
-    <script src="../assets/js/wow.min.js"></script>
-    <script src="../assets/js/custom.js"></script>
+    <script src="/assets/js/wow.min.js"></script>
+    <script src="/assets/js/custom.js"></script>
      <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
 
 <?php } ?>
@@ -162,12 +162,12 @@ function cusnavbar() { ?>
                     <span class="icon icon-bar"></span>
                 </button>
 
-                <a href="../index.php" class="navbar-brand">Pixup</a>
-                <a href="../index.php" class="navbar-brand" style="color:rgba(0,0,32,1);padding-left: 0px;">Food</a>
+                <a href="/index.php" class="navbar-brand">Pixup</a>
+                <a href="/index.php" class="navbar-brand" style="color:rgba(0,0,32,1);padding-left: 0px;">Food</a>
                 <div class="col-md-4" style="margin:7px 0 0 15%;">
                     <div id="custom-search-input">
                         <div class="input-group col-md-12">
-                            <input type="text" class="form-control input-lg" placeholder="Search.." />
+                            <input type="text" class="form-control input-lg" placeholder="Search" />
                             <span class="input-group-btn">
                                 <button class="btn btn-info btn-lg" type="button">
                                     <i class="glyphicon glyphicon-search"></i>
@@ -177,10 +177,10 @@ function cusnavbar() { ?>
                     </div>
                 </div>
                 <ul class="nav navbar-nav navbar-right text-uppercase">
-                    <li><a href="../api/logout.php" class="nav-link"><?= (!isset($_SESSION["islogin"])) ? 'No Session' : "สวัสดีคุณ " . $_SESSION["userdata"]["firstName"] . " " . $_SESSION["userdata"]["lastName"] ?></a></li>
+                    <li><a href="/api/logout.php" class="nav-link"><?= (!isset($_SESSION["islogin"])) ? 'No Session' : "สวัสดีคุณ " . $_SESSION["userdata"]["firstName"] . " " . $_SESSION["userdata"]["lastName"] ?></a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="../assets/images/bar/user.png" style="width:40px;height:40px;"/>
+                            <img src="/assets/images/bar/user.png" style="width:40px;height:40px;"/>
                         </a>
                         <ul class="dropdown-menu" style="padding: 0px">
                             <li>
@@ -192,7 +192,7 @@ function cusnavbar() { ?>
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <a href="cus_customer_profile.php">
-                                                                <img src="../assets/images/profile/1.jpg" width="160px" height="160px">
+                                                                <img src="/assets/images/profile/1.jpg" width="160px" height="160px">
                                                             </a>
                                                         </div>
                                                     </div>
@@ -201,7 +201,7 @@ function cusnavbar() { ?>
                                                     <form class="form-horizontal">
                                                         <fieldset>
                                                             <input id="textinput" name="textinput" type="text" placeholder="Enter User Name" class="form-control input-md"><br>
-                                                            <a href="../api/logout.php">
+                                                            <a href="/api/logout.php">
                                                                 <button id="logoutbutton" type="button" class="btn btn-danger btn-sm pull-right" style="margin-left: 15px;">Logout</button>
                                                             </a>
                                                             <a href="cus_customer_profile.php">

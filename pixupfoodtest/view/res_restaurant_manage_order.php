@@ -15,7 +15,7 @@ include '../dbconn.php';
         include '../template/customer-title.php';
         ?>
         <!-- custom css -->
-        <link rel="stylesheet" href="../assets/css/res_restaurant_manage.css">
+        <link rel="stylesheet" href="/assets/css/res_restaurant_manage.css">
 
     </head>
     <body>
@@ -28,7 +28,7 @@ include '../dbconn.php';
             <div id="myCarousel" class="carousel slide">
                 <!-- Indicators -->
                 <div class="item active">
-                    <img src="../assets/images/slide/aa.png" class="img-responsive" style="margin-top:0px;">
+                    <img src="/assets/images/slide/aa.png" class="img-responsive" style="margin-top:0px;">
                     <div class="container white">
                         <div class="carousel-caption-new">
                             <div class="RestaurantHeader" style="font-family:supermarket">
@@ -225,7 +225,7 @@ include '../dbconn.php';
 <?php
 show_footer();
 ?>
-<script src="../assets/js/jquery.singlePageNav.min.js"></script>
+
 
 <script>
     $(document).ready(function () {

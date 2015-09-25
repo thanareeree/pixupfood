@@ -12,7 +12,7 @@ if($address!="" && $addtype!="" && $addnaming !=""){
     if ($con->error == "") {
         ?>
         <script>
-            document.location = "../view/cus_customer_profile.php";
+            document.location = "/view/cus_customer_profile.php";
             $(".preloader").removeClass();
         </script>
         <?php

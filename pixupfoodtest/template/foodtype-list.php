@@ -1,4 +1,4 @@
-<select class="foodtypelist" name="foodtypelist" style="width: 150px;  margin-left: 5px;">
+<select class="foodtypelist" name="foodtypelist" style="width: 150px;  margin-left: 5px;font-size: 18px">
     <option>--ตัวเลือก--</option>
     <?php
     $res1 = $con->query("SELECT * FROM `food_type`");

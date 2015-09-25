@@ -11,18 +11,18 @@ $file_basename = substr($filename, 0, strripos($filename, '.')); // get file ext
 $file_ext = substr($filename, strripos($filename, '.')); // get file name
 $newfliename =  "img".$id."-". uniqid().$file_ext;
 $target_file = $target_dir . $newfliename;
-
+$path_img = substr($target_file, 2);
 if (move_uploaded_file(@$_FILES["imgfile"]["tmp_name"], $target_file)) {
-    $con->query("UPDATE `restaurant` SET `img_path_confirm`= '$target_file' WHERE id = '$id'");
+    $con->query("UPDATE `restaurant` SET `img_path_confirm`= '$path_img' WHERE id = '$id'");
 
     if ($con->error == "") {
         ?>
-        <script> document.location = "../view/res_register_success.php";</script>
+        <script> document.location = "/view/res_register_success.php";</script>
         <?php
 
     } else {
         ?>
-        <script> document.location = "../view/res_confirmform.php?success=0";</script>
+        <script> document.location = "/view/res_confirmform.php?success=0";</script>
         <?php
 
     }

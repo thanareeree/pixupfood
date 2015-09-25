@@ -5,5 +5,5 @@ session_destroy();
 
 ?>
     <script>
-        document.location = "../view/admin-home.php";
+        document.location = "/view/admin-home.php";
     </script>

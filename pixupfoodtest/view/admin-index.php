@@ -180,9 +180,9 @@ include '../dbconn.php';
         </div>
 
 
-        <script src="../assets/js/jquery-2.1.4.min.js"></script>
-        <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
-        <script src="../assets/js/bootstrap-table.js"></script>
+        <script src="/assets/js/jquery-2.1.4.min.js"></script>
+        <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/assets/js/bootstrap-table.js"></script>
         <script type="text/javascript">
             $(document).ready(function () {
                 $('#fresh-table').bootstrapTable({
@@ -238,7 +238,7 @@ include '../dbconn.php';
                     $("#showrestid").html(id);
 
                     $.ajax({
-                        url: "../admin/view-restaurant.php",
+                        url: "/admin/view-restaurant.php",
                         type: "POST",
                         data: {"id": id},
                         dataType: "html",
@@ -252,7 +252,7 @@ include '../dbconn.php';
                 $("#deleteyes").on("click", function (e) {
                     $("#deleteyes").attr("disabled", "disabled");
                     $.ajax({
-                        url: "../admin/deleterestaurant.php",
+                        url: "/admin/deleterestaurant.php",
                         type: "POST",
                         data: {"id": $("#showid").html()},
                         dataType: "html",
@@ -273,7 +273,7 @@ include '../dbconn.php';
                     $("#showrestaurantname").html(name);
 
                     $.ajax({
-                        url: "../admin/view-imageapprove.php",
+                        url: "/admin/view-imageapprove.php",
                         type: "POST",
                         data: {"name": name},
                         dataType: "html",
@@ -293,7 +293,7 @@ include '../dbconn.php';
                 $("#approveyes").on("click", function (e) {
 
                     $.ajax({
-                        url: "../admin/approverestaurant.php",
+                        url: "/admin/approverestaurant.php",
                         type: "POST",
                         data: {"name": $("#showrestaurantname").html()},
                         dataType: "html",
@@ -311,7 +311,7 @@ include '../dbconn.php';
 
                 $("#disapprovebtn").on("click", function (e) {
                     $.ajax({
-                        url: "../admin/unapprove-restaurant.php",
+                        url: "/admin/unapprove-restaurant.php",
                         type: "POST",
                         data: {"name": $("#showrestaurantname").html(),
                             "reason": $("#reasondetail").val()},
@@ -341,7 +341,7 @@ include '../dbconn.php';
 
                 $("#unappyes").on("click", function (e) {
                     $.ajax({
-                        url: "../admin/approverestaurant.php",
+                        url: "/admin/approverestaurant.php",
                         type: "POST",
                         data: {"name": $("#showrestname").html()},
                         dataType: "html",

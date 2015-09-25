@@ -12,7 +12,7 @@ include '../dbconn.php';
         <title>Customer Profile</title>
         <?php include '../template/customer-title.php'; ?>
         <!-- custom css -->
-        <link rel="stylesheet" href="../assets/css/profile.css">
+        <link rel="stylesheet" href="/assets/css/profile.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
     </head>
@@ -30,8 +30,8 @@ include '../dbconn.php';
         <section id="profile">
             <div class="profilecontainer">
                 <div class="headprofile"> 
-                    <img align="left" class="fb-image-lg" src="../assets/images/pearhead.png" alt="Profile image example"/>
-                    <img align="left" class="fb-image-profile thumbnail" src="<?= ($data2["img_path"] == "" ? '../assets/images/defaulf-profile.png' : $data2["img_path"]) ?>" id="imgprofile" style="max-width: 175px;" height="175px"/>
+                    <img align="left" class="fb-image-lg" src="/assets/images/pearhead.png" alt="Profile image example"/>
+                    <img align="left" class="fb-image-profile thumbnail" src="<?= ($data2["img_path"] == "" ? '/assets/images/defaulf-profile.png' : $data2["img_path"]) ?>" id="imgprofile" style="max-width: 175px;" height="175px"/>
                     <div class="fb-profile-text">
 
                         <h1><?= $data2["firstName"] ?>  <?= $data2["lastName"] ?></h1>
@@ -56,7 +56,7 @@ include '../dbconn.php';
                             <h4 class="modal-title" id="ModalCusLabel">Edit Profile<span id="cusidedit" style="display: none"></span></h4>
                         </div>
                         <div class="modal-body">
-                            <form action="../customer/update-profile.php?id=<?= $data2["id"] ?>" id="cuseditform" name="cuseditform" method="post" enctype="multipart/form-data">
+                            <form action="/customer/update-profile.php?id=<?= $data2["id"] ?>" id="cuseditform" name="cuseditform" method="post" enctype="multipart/form-data">
                                 <h4>Select Your New Profile Picture</h4>
 
                                 <div class="form-group">
@@ -141,54 +141,53 @@ include '../dbconn.php';
                         <!-- 4 element -->
                         <div class="card">
                             <div class="card-content">
-                                <div class="row">
-                                    <div class="col-md-2 templatemo-box fadeInUp">
-                                        <a href="#history" data-toggle="tab" id="navhistory">
-                                            <img class="img-responsive imgsize" src="../assets/images/profile/menu_list/orderhis_b_c.png" title="ประวัติการสั่งซื้อ" onmouseover="this.src = '../assets/images/profile/menu_list/orderhis_a_c.png';"
-                                                 onmouseout="this.src = '../assets/images/profile/menu_list/orderhis_b_c.png';" style="margin: 0 0 0 20px">
-                                            <p class="elt" style="margin:0;padding-left: 20px;">ประวัติการซื้อ</p>
-                                        </a>
-                                    </div>
-                                    <div class="col-md-2 templatemo-box fadeInUp webfont">
-                                        <a href="#shoplist" data-toggle="tab" id="navshoplist">
-                                            <img class="img-responsive imgsize" src="../assets/images/profile/menu_list/shoplist_b_c.png" title="ตะกร้า" onmouseover="this.src = '../assets/images/profile/menu_list/shoplist_a_c.png';"
-                                                 onmouseout="this.src = '../assets/images/profile/menu_list/shoplist_b_c.png';" style="margin: 0 0 0 10px">
-                                            <p class="elt" style="margin: 0 0 0 20px">ตะกร้า</p>
-                                        </a>
-                                    </div>
-                                    <div class="col-md-2 templatemo-box fadeInUp" style="padding: 0px;">
-                                        <a href="#favlist" data-toggle="tab" id="navfavlist">
-                                            <img class="img-responsive imgsize" src="../assets/images/profile/menu_list/fav_b_c.png" title="ชื่นชอบ" onmouseover="this.src = '../assets/images/profile/menu_list/fav_a_c.png';"
-                                                 onmouseout="this.src = '../assets/images/profile/menu_list/fav_b_c.png';" style="margin: 0 0 0 15px">
-                                            <p class="elt" style="margin: 0 0 0 20px;">ชื่นชอบ</p>
-                                        </a>       
-                                    </div>
-                                    <div class="col-md-2 templatemo-box fadeInUp" style="padding: 0px;">
-                                        <a href="#shipadd" data-toggle="tab" id="navshipadd">
-                                            <img class="img-responsive imgsize" src="../assets/images/profile/menu_list/shipadd_b_c.png" title="ที่อยู่การจัดส่ง" onmouseover="this.src = '../assets/images/profile/menu_list/shipadd_a_c.png';"
-                                                 onmouseout="this.src = '../assets/images/profile/menu_list/shipadd_b_c.png';" style="margin: 0 0 0 15px">
-                                            <p class="elt" style="margin:0;">ที่อยู่การจัดส่ง</p>
-                                        </a>
-                                    </div>
-                                    <div class="col-md-2 templatemo-box fadeInUp" style="padding: 0px;">
-                                        <a href="#tracking" data-toggle="tab" id="navtracking">
-                                            <img class="img-responsive imgsize" src="../assets/images/profile/menu_list/tracking_b_c.png" title="ตรวจสถานะสินค้า" onmouseover="this.src = '../assets/images/profile/menu_list/tracking_a_c.png';"
-                                                 onmouseout="this.src = '../assets/images/profile/menu_list/tracking_b_c.png';" style="margin: 0 0 0 15px">
-                                            <p class="elt" style="margin: 0 0 0 8px;">สถานะสินค้า</p>
-                                        </a>
-                                    </div>
-                                </div>
+                        <div class="row">
+                            <div class="col-md-2 templatemo-box fadeInUp">
+                                <a href="#tracking" data-toggle="tab" id="navtracking">
+                                    <img class="img-responsive imgsize" src="/assets/images/profile/menu_list/tracking_b_c.png" title="ตรวจสถานะสินค้า" onmouseover="this.src = '/assets/images/profile/menu_list/tracking_a_c.png';"
+                                         onmouseout="this.src = '/assets/images/profile/menu_list/tracking_b_c.png';" style="margin: 0 0 0 15px">
+                                    <p class="elt" style="margin: 0  0 8px">ออเดอร์ปัจจุบัน</p>
+                                </a>
+                            </div>
+                            <div class="col-md-2 templatemo-box fadeInUp">
+                                <a href="#history" data-toggle="tab" id="navhistory">
+                                    <img class="img-responsive imgsize" src="/assets/images/profile/menu_list/orderhis_b_c.png" title="ประวัติการสั่งซื้อ" onmouseover="this.src = '/assets/images/profile/menu_list/orderhis_a_c.png';"
+                                         onmouseout="this.src = '/assets/images/profile/menu_list/orderhis_b_c.png';" style="margin: 0 0 0 20px">
+                                    <p class="elt" style="margin:0">ประวัติการสั่งซื้อ</p>
+                                </a>
+                            </div>
+                            <div class="col-md-2 templatemo-box fadeInUp webfont">
+                                <a href="#shoplist" data-toggle="tab" id="navshoplist">
+                                    <img class="img-responsive imgsize" src="/assets/images/profile/menu_list/shoplist_b_c.png" title="ตะกร้า" onmouseover="this.src = '/assets/images/profile/menu_list/shoplist_a_c.png';"
+                                         onmouseout="this.src = '/assets/images/profile/menu_list/shoplist_b_c.png';" style="margin: 0 0 0 10px">
+                                    <p class="elt" style="margin: 0 0 0 20px">ตะกร้า</p>
+                                </a>
+                            </div>
+                            <div class="col-md-2 templatemo-box fadeInUp">
+                                <a href="#favlist" data-toggle="tab" id="navfavlist">
+                                    <img class="img-responsive imgsize" src="/assets/images/profile/menu_list/fav_b_c.png" title="ชื่นชอบ" onmouseover="this.src = '/assets/images/profile/menu_list/fav_a_c.png';"
+                                         onmouseout="this.src = '/assets/images/profile/menu_list/fav_b_c.png';" style="margin: 0 0 0 15px">
+                                    <p class="elt" style="margin: 0 0 0 20px">ชื่นชอบ</p>
+                                </a>       
+                            </div>
+                            <div class="col-md-2 templatemo-box fadeInUp">
+                                <a href="#shipadd" data-toggle="tab" id="navshipadd">
+                                    <img class="img-responsive imgsize" src="/assets/images/profile/menu_list/shipadd_b_c.png" title="ที่อยู่การจัดส่ง" onmouseover="this.src = '/assets/images/profile/menu_list/shipadd_a_c.png';"
+                                         onmouseout="this.src = '/assets/images/profile/menu_list/shipadd_b_c.png';" style="margin: 0 0 0 15px">
+                                    <p class="elt" style="margin:3">ที่อยู่การจัดส่ง</p>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="row">
                     <div class="col-md-4">
                     </div>
                     <div class="col-md-8">
                         <div class="tab-content" style="margin-top:-80px;">
-                            <!-- ตะกร้า -->
-                            <div class="tab-pane fade in active" id="shoplist">
+                            <!-- shop list -->
+                            <div class="tab-pane fade " id="shoplist">
                                 <div class="content2">
                                     <div class="row">
                                         <div class="col-md-12">
@@ -198,9 +197,9 @@ include '../dbconn.php';
                                                 </div>
                                                 <div class="panel-body">
                                                     <input type="text" class="form-control" id="task-table-filter" data-action="filter" data-filters="#task-table" placeholder="Filter Tasks" />
-                                                </div>
+                                                </div>-->
                                                 <table class="table table-hover" id="task-table">
-                                                    <thead>
+                                                    <thead style="background-color: #FF9F00; color: white">
                                                         <tr>
                                                             <th>ลำดับที่</th>
                                                             <th>รายการอาหาร</th>
@@ -339,7 +338,7 @@ include '../dbconn.php';
                                     <ul class="media-list main-list">
                                         <li class="media">
                                             <a class="pull-left" href="#">
-                                                <img class="media-object" src="http://placehold.it/150x90" alt="...">
+                                                <img class="media-object" src="http://placehold.it/150x90" alt=".">
                                             </a>
                                             <div class="media-body">
                                                 <h4 class="media-heading">Lorem ipsum dolor asit amet</h4>
@@ -349,7 +348,7 @@ include '../dbconn.php';
                                         </li><hr>
                                         <li class="media">
                                             <a class="pull-left" href="#">
-                                                <img class="media-object" src="http://placehold.it/150x90" alt="...">
+                                                <img class="media-object" src="http://placehold.it/150x90" alt=".">
                                             </a>
                                             <div class="media-body">
                                                 <h4 class="media-heading">Lorem ipsum dolor asit amet</h4>
@@ -359,7 +358,7 @@ include '../dbconn.php';
                                         </li><hr>
                                         <li class="media">
                                             <a class="pull-left" href="#">
-                                                <img class="media-object" src="http://placehold.it/150x90" alt="...">
+                                                <img class="media-object" src="http://placehold.it/150x90" alt=".">
                                             </a>
                                             <div class="media-body">
                                                 <h4 class="media-heading">Lorem ipsum dolor asit amet</h4>
@@ -383,9 +382,9 @@ include '../dbconn.php';
                                                 </div>
                                                 <div class="panel-body">
                                                     <input type="text" class="form-control" id="task-table-filter" data-action="filter" data-filters="#task-table" placeholder="Filter Tasks" />
-                                                </div>
+                                                </div>-->
                                                 <table class="table table-hover" id="task-table">
-                                                    <thead>
+                                                    <thead style="background-color: #FF9F00; color: white">
                                                         <tr>
                                                             <th>ลำดับที่</th>
                                                             <th>รายการอาหาร</th>
@@ -469,7 +468,7 @@ include '../dbconn.php';
                             </div>
 
                             <!-- ติดตามสินค้า -->
-                            <div class="tab-pane fade" id="tracking">
+                            <div class="tab-pane fade in active" id="tracking">
                                 <div class="content2">
                                     <div class="row">
                                         <div class="col-md-12">
@@ -479,9 +478,9 @@ include '../dbconn.php';
                                                 </div>
                                                 <div class="panel-body">
                                                     <input type="text" class="form-control" id="task-table-filter" data-action="filter" data-filters="#task-table" placeholder="Filter Tasks" />
-                                                </div>
+                                                </div>-->
                                                 <table class="table table-hover" id="task-table">
-                                                    <thead>
+                                                    <thead style="background-color: #FF9F00; color: white">
                                                         <tr>
                                                             <th>ลำดับที่</th>
                                                             <th>รายการอาหาร</th>
@@ -537,14 +536,14 @@ include '../dbconn.php';
 
                             <!-- shipping address -->
                             <div class="tab-pane fade" id="shipadd">
-                                <div class="content2" id="">
+                                <div class="content2" >
                                     <?php
                                     $result = $con->query("SELECT * FROM `shippingAddress` where customer_id = '$cusid'");
                                     $i = 2;
                                     ?>
 
-                                    <table class="table table-hover" id="task-table" style="padding: 15px 0 15px 0">
-                                        <thead>
+                                    <table class="table table-hover" id="task-table" style="border: 1px solid;border-color: #D2D2D2;">
+                                        <thead style="background-color: #FF9F00; color: white">
                                             <tr>
                                                 <th>No.</th>
                                                 <th>Address</th>
@@ -599,7 +598,7 @@ include '../dbconn.php';
                                     <div class="row">
                                         <div id="inbox" style="margin:15% 0 0 0;">
                                             <div class="fab btn-group show-on-hover dropup" id="add_sa" data-toggle="modal" data-target="#add_address">
-                                                <button type="button" class="btn btn-danger glyphicon glyphicon-plus btn-io">
+                                                <button type="button" class="btn btn-danger  btn-io">
                                                     <span class="fa-stack fa-2x">
                                                         <i class="fa fa-circle fa-stack-2x fab-backdrop"></i>
                                                         <i class="fa fa-plus fa-stack-1x fa-inverse fab-primary"></i>
@@ -614,7 +613,7 @@ include '../dbconn.php';
                                     <div class="modal fade" id="add_address" tabindex="-1" role="dialog" aria-labelledby="shipping_address">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
-                                                <form action="../customer/add-shipping-address.php?id=<?= $cusid ?>" id="addressform" name="addressform" method="post">
+                                                <form action="/customer/add-shipping-address.php?id=<?= $cusid ?>" id="addressform" name="addressform" method="post">
                                                     <div class="modal-header">
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="mdrecl" name="mdrecl"><span aria-hidden="true">&times;</span></button>
                                                         <h4 class="modal-title" id="shipping_address">เพิ่มที่จัดส่งสินค้า</h4>
@@ -655,16 +654,15 @@ include '../dbconn.php';
                                                 </form>
                                             </div>
                                         </div>
+
                                     </div>
-
-
                                 </div>
                             </div>
 
                             <div class="modal fade" id="edit_addshipmodal" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
-                                        <form action="../customer/edit-shipping-address.php?id=<?= $cusid ?>" method="post">
+                                        <form action="/customer/edit-shipping-address.php?id=<?= $cusid ?>" method="post">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="mdrecl" name="mdrecl"><span aria-hidden="true">&times;</span></button>
                                                 <h4 class="modal-title" id="shipping_address">เปลี่ยนแปลงข้อมูลที่จัดส่งสินค้า<span id="showadd_id"></span></h4>
@@ -785,7 +783,7 @@ include '../dbconn.php';
 
                 $("#saveaddbtn").on("click", function (e) {
                     $.ajax({
-                        url: "../customer/ajaxsave-address.php",
+                        url: "/customer/ajaxsave-address.php",
                         type: "POST",
                         data: {"address": $("#addressinput").val(),
                             "proid": $(".prolist").val(),
@@ -807,7 +805,7 @@ include '../dbconn.php';
                 function fetchdata() {
 
                     $.ajax({
-                        url: "../customer/shipaddresslist.php",
+                        url: "/customer/shipaddresslist.php",
                         type: "POST",
                         dataType: "html",
                         success: function (returndata) {
@@ -854,7 +852,7 @@ include '../dbconn.php';
                     var add_id = editid.replace("editadd", "");
                     $("#showadd_id").html(add_id);
                     $.ajax({
-                        url: "../customer/shipping-formmodal.php",
+                        url: "/customer/shipping-formmodal.php",
                         type: "POST",
                         data: {"id": add_id},
                         dataType: "html",
@@ -876,7 +874,7 @@ include '../dbconn.php';
                 $("#deleteaddyes").click(function (e) {
                     $("#deleteaddyes").attr("disabled", "disabled");
                     $.ajax({
-                        url: "../customer/delete-shipping-address.php",
+                        url: "/customer/delete-shipping-address.php",
                         type: "POST",
                         data: {"id": $("#showadddel_id").html()},
                         dataType: "html",

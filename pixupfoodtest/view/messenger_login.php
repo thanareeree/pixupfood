@@ -20,13 +20,13 @@ include './navbar.php';
         <meta name="description" content="">
 
 
-        <link rel="stylesheet" href="../assets/css/animate.min.css">
-        <link rel="stylesheet" href="../assets/Supermarket/stylesheet.css">
-        <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/assets/css/animate.min.css">
+        <link rel="stylesheet" href="/assets/Supermarket/stylesheet.css">
+        <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
 
-        <link rel="stylesheet" href="../assets/css/style.css">
-        <link rel="stylesheet" href="../assets/css/search.css">
-        <link rel="stylesheet" type="text/css" href="../assets/css/simple-sidebar.css" />
+        <link rel="stylesheet" href="/assets/css/style.css">
+        <link rel="stylesheet" href="/assets/css/search.css">
+        <link rel="stylesheet" type="text/css" href="/assets/css/simple-sidebar.css" />
 
     </head>
     <body>
@@ -39,11 +39,11 @@ include './navbar.php';
         <nav class="navbar navbar-default navbar-fixed-top templatemo-nav" role="navigation">
             <div class="container">
                 <div class="navbar-header">
-                    <a href="../index.php" style="color:rgba(255,127,0,1);padding-right: 0px;" class="navbar-brand">Pixup</a>
-                    <a href="../index.php" class="navbar-brand" style="color:black;padding-left: 0px;">Food</a>
+                    <a href="/index.php" style="color:rgba(255,127,0,1);padding-right: 0px;" class="navbar-brand">Pixup</a>
+                    <a href="/index.php" class="navbar-brand" style="color:black;padding-left: 0px;">Food</a>
                     <ul class="nav navbar-nav navbar-right text-uppercase pull-right">
-                        <li><a <?= (!isset($_SESSION["islogin"])) ? 'href="#"' : 'href="../api/logout.php" class="nav-link"' ?> ><?= (!isset($_SESSION["islogin"])) ? ' สวัสดี ' : $_SESSION["userdata"]["firstName"] . " " . $_SESSION["userdata"]["lastName"] ?>
-                                <img src="../assets/images/bar/user.png" style="width:30px;height:30px;margin-right: 20px"/> 
+                        <li><a <?= (!isset($_SESSION["islogin"])) ? 'href="#"' : 'href="/api/logout.php" class="nav-link"' ?> ><?= (!isset($_SESSION["islogin"])) ? ' สวัสดี ' : $_SESSION["userdata"]["firstName"] . " " . $_SESSION["userdata"]["lastName"] ?>
+                                <img src="/assets/images/bar/user.png" style="width:30px;height:30px;"/> 
                             </a>
                         </li>                                                 
                     </ul>
@@ -59,8 +59,8 @@ include './navbar.php';
                     <div class="row">
                         <div class="col-sm-6 wow fadeInRight" data-wow-delay="0.6s">
                             <h2 class="text-uppercase">เข้าสู่ระบบ</h2>
-                            <div class="contact-formmessenger">
-                                <form action="../api/loginsession.php" method="post">
+                            <div class="contact-form">
+                                <form action="/api/loginsession.php" method="post">
                                     <div class="col-md-4" style="margin-top:13px;font-weight:bold;font-size:18px;">
                                         USERNAME &nbsp; &nbsp;:
                                     </div>
@@ -95,7 +95,7 @@ include './navbar.php';
                         <h4 class="modal-title" id="ModalCusLabel">Customer Register</h4>
                     </div>
                     <div class="modal-body">
-                        <form action="../register/customer-save.php" id="cusregisterform" name="cusregisterform" method="post" >
+                        <form action="/register/customer-save.php" id="cusregisterform" name="cusregisterform" method="post" >
                             <script language="JavaScript">
                                 function chkNumber(ele) {
                                     var vchar = String.fromCharCode(event.keyCode);
@@ -194,7 +194,7 @@ include './navbar.php';
                         <h4 class="modal-title" id="ModalResLabel">Restaurant Register</h4>
                     </div>
                     <div class="modal-body">
-                        <form action="../restaurant/res_save.php" id="resregisterform" method="post"  onsubmit="return checkCheckBox(this)"   >
+                        <form action="/restaurant/res_save.php" id="resregisterform" method="post"  onsubmit="return checkCheckBox(this)"   >
                             <script>
                                 function checkCheckBox(f) {
                                     if (f.tcr.checked == false) {

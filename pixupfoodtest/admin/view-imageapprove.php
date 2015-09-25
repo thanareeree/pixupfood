@@ -10,7 +10,7 @@ $data = $res->fetch_assoc();
     <?php
     if ($data["img_path_confirm"] == null) {
         ?>
-        <span style="color: red;font-size:18px" id="imgnull">**ทางร้านยังไม่ได้อัพโหลดรูปภาพ**</span><br><img  src="../assets/images/default-img482.png">
+        <span style="color: red;font-size:18px" id="imgnull">**ทางร้านยังไม่ได้อัพโหลดรูปภาพ**</span><br><img  src="/assets/images/default-img482.png">
     
             <?php
         } else {

@@ -1,12 +1,16 @@
 <?php
-$res2 = $con->query("SELECT * FROM `menu` where restaurant_id = '$resid' and type = 'กับข้าว'");
+$res2 = $con->query("SELECT DISTINCT main_menu.name, menu.price, menu.img_path   "
+        . "FROM `menu` LEFT JOIN main_menu on main_menu.id = menu.main_menu_id "
+        . "LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
+        . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
+        . "WHERE main_menu.type = 'กับข้าว'");
 while ($data2 = $res2->fetch_assoc()) {
     ?>
     <div class="col-md-3">
         <div class="card">
             <div class="maxheight">
                 <div class="card-image">
-                    <img src="<?= ($data2["img_path"] == "") ? '../assets/images/default-img360.png' : $data2["img_path"] ?>" >
+                    <img src="<?= ($data2["img_path"] == "") ? '/assets/images/default-img360.png' : $data2["img_path"] ?>" >
                 </div>
                 <div class="card-content height">
                     <div class="product-name"><?= $data2["name"] ?></div>

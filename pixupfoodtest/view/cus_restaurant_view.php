@@ -12,7 +12,7 @@ include '../dbconn.php';
 
         <?php include '../template/customer-title.php'; ?>
         <!-- custom css -->
-        <link rel="stylesheet" href="../assets/css/restaurant_view.css">
+        <link rel="stylesheet" href="/assets/css/restaurant_view.css">
         <link href="http://jondmiles.com/bootstrap-datepaginator/css/bootstrap-datepicker.css" rel="stylesheet" media="screen" type="text/css">
         <link href="http://jondmiles.com/bootstrap-datepaginator/css/bootstrap-datepaginator.min.css" rel="stylesheet" media="screen" type="text/css">
         <style>
@@ -34,14 +34,14 @@ include '../dbconn.php';
     <body>
         <?php
         $resid = $_GET["resId"];
-        $restaurantres = $con->query("SELECT restaurant.id, restaurant.name as resname, restaurant.firstname,"
-                . "restaurant.lastname,restaurant.x, restaurant.y, restaurant.img_path, "
-                . "restaurant.star, restaurant.address,restaurant.price_prepay, restaurant.province, "
-                . "zone.name "
+        $restaurantres = $con->query("SELECT restaurant.id, restaurant.name as resname, "
+                . "restaurant.firstname,restaurant.lastname,restaurant.x, restaurant.y, "
+                . "restaurant.img_path, restaurant.star, restaurant.address,restaurant.amount_box_limit,"
+                . " restaurant.province, restaurant.has_restaurant, restaurant.restaurant_type,"
+                . " zone.name as zonename "
                 . "FROM `restaurant` "
                 . "JOIN zone ON zone.id = restaurant.zone_id "
-                . "where restaurant.id = '$resid' "
-                . "and zone.name IN (SELECT zone.name FROM zone WHERE id = restaurant.zone_id)");
+                . "where restaurant.id = 33");
         $restaurantdata = $restaurantres->fetch_assoc();
 
         $cusid = $_SESSION["userdata"]["id"];
@@ -57,12 +57,12 @@ include '../dbconn.php';
         <section id="restaurant_view">
             <div class="profilecontainer">
                 <div class="headprofile">
-                    <img align="left" class="fb-image-lg" src="../assets/images/city-restaurant-lunch-outside.png" alt="Profile image example"/>
+                    <img align="left" class="fb-image-lg" src="/assets/images/city-restaurant-lunch-outside.png" alt="Profile image example"/>
                     <div class="container_status">
                         <h3><i class="glyphicon glyphicon-cutlery"></i>&nbsp;<?= $restaurantdata["resname"] ?></h3><br> 
                         <div id="stars-existing" class="starrr" data-rating='4'></div>
                     </div>
-                    <img align="left" class="fb-image-profile thumbnail" src="<?= ($restaurantdata["img_path"] == "" ? '../assets/images/bar/restaurant.png' : $restaurantdata["img_path"]) ?>"  style="max-width: 175px; max-height: 175px" />
+                    <img align="left" class="fb-image-profile thumbnail" src="<?= ($restaurantdata["img_path"] == "" ? '/assets/images/bar/restaurant.png' : $restaurantdata["img_path"]) ?>"  style="max-width: 175px; max-height: 175px" />
                     <div class="fb-profile-text">
                         <br>
                         <div class="row lead">
@@ -89,7 +89,7 @@ include '../dbconn.php';
                                 <br><div class="row">
 
                                     <section id="pinBoot">
-                                        <article class="white-panel"><img src="../assets/images/res_resall/menuedit/FriedEgg.jpg" alt="">
+                                        <article class="white-panel"><img src="/assets/images/res_resall/menuedit/FriedEgg.jpg" alt="">
                                             <h4><a href="#">เมนูใหม่</a></h4>
                                             <p>ทางร้านของเราได้เพิ่มเมนูอาหารใหม่ นั่นก็คือ สปาเก็ดดี้ไวท์ซอท สั่งได้แล้ววันนี้</p>
                                         </article>
@@ -104,7 +104,7 @@ include '../dbconn.php';
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <section id="pinBoot">
-                                                    <article class="white-panel"><img src="../assets/images/sixStep/step5.png" alt="">
+                                                    <article class="white-panel"><img src="/assets/images/sixStep/step5.png" alt="">
                                                         <h4><a href="#">ฟรีค่าจัดส่ง</a></h4>
                                                         <p>1 เดือนเท่านั้น</p>
                                                     </article>
@@ -187,30 +187,36 @@ include '../dbconn.php';
 
                                                 while ($foodboxData = $foodboxRes->fetch_assoc()) {
                                                     ?>
-                                                    <input type="radio" name="foodboxtype" value="box<?= $foodboxData["id"] ?>">&nbsp;<?= $foodboxData["description"] ?><br>
+                                                    <p><input type="radio" name="foodboxtype" id="foodboxtype" value="box<?= $foodboxData["id"] ?>"><?= $foodboxData["description"] ?></p><br>
                                                 <?php } ?>
+                                                <h5>จำนวนกล่อง: &nbsp;<input type="number" name="boxamount" id="boxamount" value="" ></h5>
                                             </div>
                                             <ul class="list-inline pull-right">
-                                                <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
+                                                <li><button type="button" class="btn btn-primary next-step" id="nextstep1">Save and continue</button></li>
                                             </ul>
                                         </div>
-                                        
+
                                         <!-- เลือกชนิดข้าวข้าว -------------------------------------------------------------->
                                         <div class="tab-pane" role="tabpanel" id="step2">
                                             <div class="container_field">
                                                 <h3>ขั้นตอนที่ 2 : เลือกข้าว</h3>
                                                 <?php
-                                                $riceListRes = $con->query("SELECT * FROM `menu` where restaurant_id = '$resid' and type = 'ชนิดข้าว'");
+                                                $riceListRes = $con->query("SELECT main_menu.name, menu.price   "
+                                                        . "FROM `menu` LEFT JOIN main_menu on main_menu.id = menu.main_menu_id "
+                                                        . "LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
+                                                        . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
+                                                        . "WHERE main_menu.type = 'ชนิดข้าว' "
+                                                        . "and menu.restaurant_id = '$resid'");
 
                                                 while ($riceData = $riceListRes->fetch_assoc()) {
                                                     ?>
-                                                <input type="radio" name="ricetype" value="<?= $riceData["name"] ?>">&nbsp;<?= $riceData["name"] ?>&nbsp;&nbsp;(<?= $riceData["price"] ?>&nbsp;บาท)<br>
+                                                    <input type="radio" name="ricetype" id="ricetype" value="<?= $riceData["name"] ?>">&nbsp;<?= $riceData["name"] ?>&nbsp;&nbsp;(<?= $riceData["price"] ?>&nbsp;บาท)<br>
                                                 <?php } ?>
 
                                             </div>
                                             <ul class="list-inline pull-right">
-                                                <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
-                                                <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
+                                                <li><button type="button" class="btn btn-default prev-step" id="prevstep2">Previous</button></li>
+                                                <li><button type="button" class="btn btn-primary next-step" id="nextstep2">Save and continue</button></li>
                                             </ul>
                                         </div>
                                         <div class="tab-pane" role="tabpanel" id="step3" >
@@ -219,13 +225,18 @@ include '../dbconn.php';
                                                 <h3>ลำดับที่ 1</h3>
                                                 <div class="row">
                                                     <?php
-                                                    $foodListRes = $con->query("SELECT * FROM `menu` where restaurant_id = '$resid' and type = 'กับข้าว'");
+                                                    $foodListRes = $con->query("SELECT DISTINCT main_menu.name, menu.price, menu.img_path   "
+                                                        . "FROM `menu` LEFT JOIN main_menu on main_menu.id = menu.main_menu_id "
+                                                        . "LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
+                                                        . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
+                                                        . "WHERE main_menu.type = 'กับข้าว' "
+                                                        . "and menu.restaurant_id = '$resid'");
 
                                                     while ($foddListData = $foodListRes->fetch_assoc()) {
                                                         ?>
                                                         <div class="col-md-3">
                                                             <div class="thumbnail">
-                                                                <a href="#"><img class="menu_img" src="<?= ($foddListData["img_path"] == "") ? '../assets/images/default-img360.png' : $foddListData["img_path"] ?>"></a>
+                                                                <a href="#"><img class="menu_img" src="<?= ($foddListData["img_path"] == "") ? '/assets/images/default-img360.png' : $foddListData["img_path"] ?>"></a>
                                                                 <div class="caption">
                                                                     <h4><?= $foddListData["name"] ?></h4>
                                                                     <p><?= $foddListData["price"] ?>&nbsp;บาท</p>
@@ -239,7 +250,7 @@ include '../dbconn.php';
                                                         <?php
                                                     }
                                                     ?>
-                                                </div> <hr class="hrs">
+                                                </div> <!--<hr class="hrs">-->
                                             </div>
                                             <ul class="list-inline pull-right">
                                                 <li><button type="button" class="btn btn-default prev-step">Previous</button></li>

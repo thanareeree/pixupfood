@@ -12,13 +12,6 @@ include '../dbconn.php';
     <head>
         <meta charset="UTF-8">
 
-
-        <!-- 
-        Boxer Template
-        http://www.templatemo.com/preview/templatemo_446_boxer
-        -->
-        <!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> -->
-
         <meta http-equiv="X-UA-Compatible" content="IE=Edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="keywords" content="">
@@ -28,7 +21,7 @@ include '../dbconn.php';
         addlink("Test Title");
         ?>
         <!-- custom css -->
-        <link rel="stylesheet" href="../assets/css/messenger.css">
+        <link rel="stylesheet" href="/assets/css/messenger.css">
         <link href="http://jondmiles.com/bootstrap-datepaginator/css/bootstrap-datepicker.css" rel="stylesheet" media="screen" type="text/css">
         <link href="http://jondmiles.com/bootstrap-datepaginator/css/bootstrap-datepaginator.min.css" rel="stylesheet" media="screen" type="text/css">
 
@@ -43,11 +36,11 @@ include '../dbconn.php';
         <nav class="navbar navbar-default navbar-fixed-top templatemo-nav" style="width: 360px;">
             <div class="container" style="height:60px;width:90%;">
                 <div class="navbar-header">
-                    <a href="../index.php" style="color:rgba(255,127,0,1);padding:20px 0 15px 0;" class="navbar-brand">Pixup</a>
-                    <a href="../index.php" class="navbar-brand" style="color:black;padding:20px 15px 15px 0;">Food</a>
+                    <a href="/index.php" style="color:rgba(255,127,0,1);padding:20px 0 15px 0;" class="navbar-brand">Pixup</a>
+                    <a href="/index.php" class="navbar-brand" style="color:black;padding:20px 15px 15px 0;">Food</a>
                     <ul class="nav navbar-nav navbar-right text-uppercase pull-right">
                         <li>
-                            <a  <?= (!isset($_SESSION["islogin"])) ? 'href="#"' : 'href="../api/logout.php" class="nav-link"' ?> ><?= (!isset($_SESSION["islogin"])) ? 'สมัครสมาชิก | เข้าสู่ระบบ >>' : $_SESSION["userdata"]["firstName"] . " " . $_SESSION["userdata"]["lastName"] ?> <img src="../assets/images/bar/user.png" style="width:40px;height:40px;"/> </a>
+                            <a  href="#"><?= (!isset($_SESSION["islogin"])) ? 'สมัครสมาชิก | เข้าสู่ระบบ >>' : $_SESSION["userdata"]["firstName"] . " " . $_SESSION["userdata"]["lastName"] ?> <img src="/assets/images/bar/user.png" style="width:40px;height:40px;"/> </a>
                         </li>
                     </ul>
                 </div>
@@ -59,7 +52,7 @@ include '../dbconn.php';
         <section id="messenger">
             <div class="profilecontainer">
                 <div class="headprofile">
-                    <img align="left" class="fb-image-lg" src="../assets/images/city-restaurant-lunch-outside.png" alt="Profile image example"/>
+                    <img align="left" class="fb-image-lg" src="/assets/images/city-restaurant-lunch-outside.png" alt="Profile image example"/>
                     <div class="container_status">
                         <form action="#">
                             <table class="table table-hover" id="task-table">

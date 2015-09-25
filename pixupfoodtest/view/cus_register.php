@@ -8,16 +8,13 @@ include '../dbconn.php';
 
 <html >
     <head>
-        <!-- 
-        Boxer Template
-        http://www.templatemo.com/preview/templatemo_446_boxer
-        -->
+       
 
         <title>PixupFood - The Original Food Delivery</title>
         <?php include '../template/customer-title.php'; ?>
 
         <!-- custom css -->
-        <link rel="stylesheet" href="../assets/css/register.css">
+        <link rel="stylesheet" href="/assets/css/register.css">
 
 
     </head>
@@ -50,7 +47,7 @@ include '../dbconn.php';
                         </div>
                         <div class="col-md-5 wow fadeInUp" data-wow-delay="0.6s" style="margin-top: 10px;">
                             <div>
-                                <form action="../register/customer-save.php" method="post">
+                                <form action="/register/customer-save.php" method="post">
                                     <div class="col-md-12 form-group">
                                         <input required type="email" class="form-control" placeholder="Email" id="cusemail" name="cusemail">
                                     </div>
@@ -108,7 +105,7 @@ include '../dbconn.php';
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <a href="../index.php"><button type="button" class="btn btn-default"  >ยกเลิก</button></a>
+                        <a href="/index.php"><button type="button" class="btn btn-default"  >ยกเลิก</button></a>
                         <button type="button" class="btn btn-primary" id="nextregisbtn" disabled="">ต่อไป</button>
                     </div>
                 </div><!-- /.modal-content -->

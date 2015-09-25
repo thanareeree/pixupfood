@@ -7,26 +7,13 @@ include '../dbconn.php';
     <head>
         <meta charset="UTF-8">
         <title>Pixupfood - Order</title>
-
-        <<<<<<< HEAD
-        <?php
-        include '../template/customer-title.php';
-        ;
-        ?>
-        =======
         <?php include '../template/customer-title.php'; ?>
-        >>>>>>> 5a24177a5923fcea00f4af8f6c1e6fd2a71e44f2
-        <!-- custom css -->
-        <link rel="stylesheet" href="../assets/css/fast_order.css">
 
+        <!-- custom css -->
+        <link rel="stylesheet" href="/assets/css/fast_order.css">
     </head>
     <body>
-        <<<<<<< HEAD
-
         <?php include '../template/customer-navbar.php'; ?>
-        =======
-        <?php include '../template/customer-navbar.php'; ?>
-        >>>>>>> 5a24177a5923fcea00f4af8f6c1e6fd2a71e44f2
 
         <!-- start profile -->
         >

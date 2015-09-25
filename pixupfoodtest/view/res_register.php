@@ -9,7 +9,7 @@ include '../dbconn.php';
         <title>Restaurant Register Form</title>
         <?php include '../template/customer-title.php'; ?>
         <!-- custom css -->
-        <link rel="stylesheet" href="../assets/css/register.css">
+        <link rel="stylesheet" href="/assets/css/register.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css">
         <style>
@@ -36,7 +36,7 @@ include '../dbconn.php';
                 </div>
                 <div class="tab-content">
                     <div class="container " >
-                        <form action="../restaurant/restaurant-save.php" method="post" id="restaurantformregis" >
+                        <form action="/restaurant/restaurant-save.php" method="post" id="restaurantformregis" >
                             <div class="row firststep">
                                 <div class="col-md-2 wow fadeInUp" data-wow-delay="0.6s">
                                     <h2 class="text-uppercase">ข้อมูลผู้ประกอบการร้านอาหาร</h2>
@@ -289,7 +289,7 @@ include '../dbconn.php';
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <a href="../index.php"><button type="button" class="btn btn-default"  >ยกเลิก</button></a>
+                        <a href="/index.php"><button type="button" class="btn btn-default"  >ยกเลิก</button></a>
                         <button type="button" class="btn btn-primary" id="nextregisbtn" disabled="">ต่อไป</button>
                     </div>
                 </div><!-- /.modal-content -->
@@ -361,7 +361,7 @@ include '../dbconn.php';
 
                     $.ajax({
                         type: "POST",
-                        url: "../restaurant/restaurant-save.php",
+                        url: "/restaurant/restaurant-save.php",
                         data: {"resemail": $("#resemail").val(),
                             "respassword": $("#respassword").val(),
                             "resfname": $("#resfname").val(),
@@ -378,7 +378,7 @@ include '../dbconn.php';
                         dataType: "json",
                         success: function (data) {
                             if (data.result == "1") {
-                                document.location = "res_confirmform.php?id=" + data.id;
+                                document.location = "/view/res_confirmform.php?id=" + data.id;
                             } else {
                                 alert("ไม่สามารถบันทึกข้อมูลได้\nError : " + data.error + "\n" +
                                         $("#resemail").val());
