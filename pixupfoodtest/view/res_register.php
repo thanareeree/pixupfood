@@ -211,7 +211,7 @@ include '../dbconn.php';
                                     <!-- plan2 -->
                                     <div class="panel price panel-blue">
                                         <div class="panel-heading  text-center">
-                                            <h3>PRO PLAN</h3>
+                                            <h3>BASIC PLAN</h3>
                                         </div>
                                         <div class="panel-body text-center">
                                             <p class="lead" style="font-size:35px;margin: 0px;"><strong>฿100 / month</strong></p>
@@ -237,7 +237,7 @@ include '../dbconn.php';
                                     <!-- plan3 -->
                                     <div class="panel price panel-red">
                                         <div class="panel-heading arrow_box text-center">
-                                            <h3>DEV PLAN</h3>
+                                            <h3>PRO PLAN</h3>
                                         </div>
                                         <div class="panel-body text-center">
                                             <p class="lead" style="font-size:35px;margin: 0px;"><strong>฿250 / 3months</strong></p>

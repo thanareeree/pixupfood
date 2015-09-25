@@ -19,22 +19,6 @@ include './dbconn.php';
         <!-- end preloader -->
         <!-- start navigation -->
         <nav class="navbar navbar-default navbar-fixed-top templatemo-nav" role="navigation">
-            <!-- <div class="navbar-header" style="padding-left:10px;">
-                <a href="#menu-toggle" id="menu-toggle" >
-                    <img src="assets/images/bar/menu.png" width="50" height="50" style="margin-top:8px;"/>
-                </a>
-            </div>
-            <div id="wrapper" class="toggled menubox">
-                <div id="sidebar-wrapper">
-                    <ul style="padding-left:0;font-weight:bold;">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#feature">Features</a></li>
-                        <li><a href="#pricing">Pricing</a></li>
-                        <li><a href="#download">Download</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-            </div> -->
             <div class="container" style="margin-left:100px;margin-right:40px;height:70px;width:auto;">
                 <div class="navbar-header">
                     <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -187,7 +171,8 @@ include './dbconn.php';
                         <img src="assets/images/slide/aa.png" class="img-responsive" style="margin-top:0px;">
                         <div class="container">
                             <div class="carousel-caption">
-                                <h1>The best of Think is do</h1>
+                                <h1>ข้าวผัดทะเล</h1>
+                                <p>ร้านอาหารป้าลมัย</p>
                             </div>
                         </div>
                     </div>
@@ -195,9 +180,8 @@ include './dbconn.php';
                         <img src="assets/images/slide/bb.png" class="img-responsive" style="margin-top:0px">
                         <div class="container">
                             <div class="carousel-caption">
-                                <h1>Changes to the Grid</h1>
-                                <p>Bootstrap 3 still features a 12-column grid, but many of the CSS class names have completely changed.</p>
-                                <p><a class="btn btn-large btn-primary" href="#">Learn more</a></p>
+                                <h1>กระเพราหมูสับรสเด็ด</h1>
+                                <p>ป้าหน้า ม.</p>
                             </div>
                         </div>
                     </div>
@@ -205,9 +189,8 @@ include './dbconn.php';
                         <img src="assets/images/slide/cc.png" class="img-responsive" style="margin-top:0px">
                         <div class="container">
                             <div class="carousel-caption">
-                                <h1>Percentage-based sizing</h1>
-                                <p>With "mobile-first" there is now only one percentage-based grid.</p>
-                                <p><a class="btn btn-large btn-primary" href="#">Browse gallery</a></p>
+                                <h1>หมูกระเทียม</h1>
+                                <p>ร้านอาหารหอมหวล</p>
                             </div>
                         </div>
                     </div>
@@ -298,11 +281,11 @@ include './dbconn.php';
                         </a>
                         <div class="featured-article">
                             <a href="#">
-                                <img src="assets/images/default-img482.png" alt="" class="thumb">
+                                <img src="assets/images/allnews/news01.jpg" alt="" class="thumb" >
                             </a>
                             <div class="block-title">
-                                <h2>Lorem ipsum dolor asit amet</h2>
-                                <p class="by-author"><small>By Jhon Doe</small></p>
+                                <h2>เมนูใหม่ ต้องลอง!!</h2>
+                                <p class="by-author"><small>เพิ่ม 3 เมนูใหม่กับร้านลมัยโภชนา<br>ผัดพริกแกงทะเล / หมูผัดพริกเผา / ข้าวผัดปลาเค็ม</small></p>
                             </div>
                         </div>
                     </div>
@@ -310,29 +293,29 @@ include './dbconn.php';
                         <ul class="media-list main-list">
                             <li class="media" style="border-top:1px solid #e8e8e8; padding-top:1.1em">
                                 <a class="pull-left" href="#">
-                                    <img class="media-object" src="assets/images/default-img150.png" alt="...">
+                                    <img class="media-object" src="assets/images/allnews/news02.jpg" alt="..." width="150px" style="max-height:90px;">
                                 </a>
                                 <div class="media-body">
-                                    <h4 class="media-heading">Lorem ipsum dolor asit amet</h4>
-                                    <p class="by-author">By Jhon Doe</p>
+                                    <h4 class="media-heading">อร่อยแน่ ขอแนะนำ!</h4>
+                                    <p class="by-author">ข้าวผัดลูกชิ้น ร้านอาหารไทย</p>
                                 </div>
                             </li>
                             <li class="media">
                                 <a class="pull-left" href="#">
-                                    <img class="media-object" src="assets/images/default-img150.png" alt="...">
+                                    <img class="media-object" src="assets/images/allnews/news03.jpg" alt="..." width="150px" style="max-height:90px;">
                                 </a>
                                 <div class="media-body">
-                                    <h4 class="media-heading">Lorem ipsum dolor asit amet</h4>
-                                    <p class="by-author">By Jhon Doe</p>
+                                    <h4 class="media-heading">สปาเก็ตตี้ขี้เมา</h4>
+                                    <p class="by-author">สปาเก็ตตี้ผัดขี้เมา รสเด็ด ปรุงสดใหม่ด้วยแม่ครัวมืออาชีพ จาก ร้านหนึ่ง</p>
                                 </div>
                             </li>
                             <li class="media">
                                 <a class="pull-left" href="#">
-                                    <img class="media-object" src="assets/images/default-img150.png" alt="...">
+                                    <img class="media-object" src="assets/images/allnews/news04.jpg" alt="..." width="150px" style="max-height:90px;">
                                 </a>
                                 <div class="media-body">
-                                    <h4 class="media-heading">Lorem ipsum dolor asit amet</h4>
-                                    <p class="by-author">By Jhon Doe</p>
+                                    <h4 class="media-heading">สาขาใหม่ ถนนประชาอุทิศ</h4>
+                                    <p class="by-author">เปิดสาขาที่ 3 กับร้านป้าน้อย ขึ้นชื่อเรื่องรสชาติ และความสดใหม่ของอาหาร พบกับเมนูอาหารมากมายหลากหลาย จะตามไปชิม หรือจะสั่งผ่านเว็บไซต์ก็สะดวก</p>
                                 </div>
                             </li>
                         </ul>
@@ -352,11 +335,11 @@ include './dbconn.php';
                         </a>
                         <div class="featured-article">
                             <a href="#">
-                                <img src="assets/images/default-img482.png" alt="" class="thumb">
+                                <img src="assets/images/allpromo/promo01.jpg" alt="" class="thumb">
                             </a>
                             <div class="block-title">
-                                <h2>Lorem ipsum dolor asit amet</h2>
-                                <p class="by-author"><small>By Jhon Doe</small></p>
+                                <h2>ลดสนั่นเมือง</h2>
+                                <p class="by-author"><small>ลดสูงสุดถึง 50% วันนี้ - 31 ธันวาคม 2558 ที่ร้านลุงอนันต์<br>เมื่อสั่งอาหารผ่านเว็บไซต์</small></p>
                             </div>
                         </div>
                     </div>
@@ -364,29 +347,29 @@ include './dbconn.php';
                         <ul class="media-list main-list" style="border-top:1px solid #e8e8e8; padding-top:1.1em">
                             <li class="media">
                                 <a class="pull-left" href="#">
-                                    <img class="media-object" src="assets/images/default-img150.png" alt="...">
+                                    <img class="media-object" src="assets/images/allpromo/promo02.jpg"  alt="..." width="150px" style="max-height:90px;">
                                 </a>
                                 <div class="media-body">
-                                    <h4 class="media-heading">Lorem ipsum dolor asit amet</h4>
-                                    <p class="by-author">By Jhon Doe</p>
+                                    <h4 class="media-heading">ป้าลมัยใจดี!!</h4>
+                                    <p class="by-author">ป้าลมัยใจดี ลด 10% ทุกยอดการสั่งซื้อผ่านเว็บไซต์เท่านั้น!!!</p>
                                 </div>
                             </li>
                             <li class="media">
                                 <a class="pull-left" href="#">
-                                    <img class="media-object" src="assets/images/default-img150.png" alt="...">
+                                    <img class="media-object" src="assets/images/allpromo/promo03.jpg"  alt="..." width="150px" style="max-height:90px;">
                                 </a>
                                 <div class="media-body">
-                                    <h4 class="media-heading">Lorem ipsum dolor asit amet</h4>
-                                    <p class="by-author">By Jhon Doe</p>
+                                    <h4 class="media-heading">ไม่มีอีกแล้ว กับโปรโมชั่นสุดพิเศษ!!!</h4>
+                                    <p class="by-author">ป้าน้อยใจปล้ำ เมื่อสั่งอาหารผ่านเว็บไซต์ ซื้อ 3 กล่องฟรี 1 กล่อง*<br>*จำกัดกล่องฟรีสูงสุดไม่เกิน 20 กล่อง</p>
                                 </div>
                             </li>
                             <li class="media">
                                 <a class="pull-left" href="#">
-                                    <img class="media-object" src="assets/images/default-img150.png" alt="...">
+                                    <img class="media-object" src="assets/images/allpromo/promo04.jpg"  alt="..." width="150px" style="max-height:90px;">
                                 </a>
                                 <div class="media-body">
-                                    <h4 class="media-heading">Lorem ipsum dolor asit amet</h4>
-                                    <p class="by-author">By Jhon Doe</p>
+                                    <h4 class="media-heading">ฟรีน้ำกระป๋อง!!</h4>
+                                    <p class="by-author">เมื่อมียอดสั่งซื้อกับร้านลุงเอก ผ่านเว็บไซต์ ทุก 100.- รับน้ำอัดลมฟรี 2 กระป๋อง</p>
                                 </div>
                             </li>
                         </ul>
@@ -400,7 +383,7 @@ include './dbconn.php';
         <section id="pricing">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-12 wow bounceIn">
+                    <div class="col-md-12 wow bounceIn" style="margin-bottom: 25px;">
                         <h2 class="text-uppercase">Our Pricing</h2>
                     </div>
                     <div class="col-md-4 wow fadeIn" data-wow-delay="0.6s">
@@ -429,7 +412,7 @@ include './dbconn.php';
                     <div class="col-md-4 wow fadeIn" data-wow-delay="0.6s">
                         <div class="panel price panel-blue">
                             <div class="panel-heading  text-center">
-                                <h3>PRO PLAN</h3>
+                                <h3>BASIC PLAN</h3>
                             </div>
                             <div class="panel-body text-center">
                                 <p class="lead" style="font-size:35px;margin: 0px;"><strong>฿100 / month</strong></p>
@@ -452,7 +435,7 @@ include './dbconn.php';
                     <div class="col-md-4 wow fadeIn" data-wow-delay="0.6s">
                         <div class="panel price panel-red">
                             <div class="panel-heading arrow_box text-center">
-                                <h3>DEV PLAN</h3>
+                                <h3>PRO PLAN</h3>
                             </div>
                             <div class="panel-body text-center">
                                 <p class="lead" style="font-size:35px;margin: 0px;"><strong>฿250 / 3months</strong></p>
@@ -483,31 +466,31 @@ include './dbconn.php';
                 <div class="container">
                     <div class="row">
                         <div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-                            <h2 class="text-uppercase">Contact Us</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation. </p>
+                            <h2 class="text-uppercase">ติดต่อเรา</h2>
+                            <p>มีปัญหาในการใช้งาน สนใจ หรือต้องการสอบถามข้อมูลเพิ่มเติมสามารถติดต่อเราได้ทันที </p>
                             <address>
-                                <p><i class="fa fa-map-marker"></i>1234 Street Name, City Name, United States</p>
-                                <p><i class="fa fa-phone"></i> 0992 234234 / 0234 234234</p>
-                                <p><i class="fa fa-envelope-o"></i> hello@yoursite.com</p>
+                                <p><i class="fa fa-map-marker"></i>365/1167 หมู่บ้านสวนธน ซ.พุทธบูชา47 แขวงบางมด เขตทุ่งครุ กรุงเทพมหานคร 10140</p>
+                                <p><i class="fa fa-phone"></i> 0877056769</p>
+                                <p><i class="fa fa-envelope-o"></i> support@pixupfood.com</p>
                             </address>
                         </div>
                         <div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
                             <div class="contact-form">
                                 <form action="#" method="post">
                                     <div class="col-md-6">
-                                        <input type="text" class="form-control" placeholder="Name">
+                                        <input type="text" class="form-control" placeholder="ชื่อ - นามสกุล">
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="email" class="form-control" placeholder="Email">
+                                        <input type="email" class="form-control" placeholder="อีเมลล์">
                                     </div>
                                     <div class="col-md-12">
-                                        <input type="text" class="form-control" placeholder="Subject">
+                                        <input type="text" class="form-control" placeholder="ชื่อเรื่อง">
                                     </div>
                                     <div class="col-md-12">
-                                        <textarea class="form-control" placeholder="Message" rows="4"></textarea>
+                                        <textarea class="form-control" placeholder="ข้อความ" rows="4"></textarea>
                                     </div>
                                     <div class="col-md-8">
-                                        <input type="submit" class="form-control text-uppercase" value="Send">
+                                        <input type="submit" class="form-control text-uppercase" value="ส่ง">
                                     </div>
                                 </form>
                             </div>
