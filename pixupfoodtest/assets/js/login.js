@@ -49,7 +49,7 @@ $(document).ready(function (e) {
                                                                 '<button id="profilebutton" class="btn btn-info btn-sm pull-right" type="button">Profile</button>'+
                                                             '</a>'+
                                                         '</fieldset></form></div></div></div></div></div></li></ul></li>');
-                document.location.reload();
+                //document.location.reload();
                 }
             }
         });

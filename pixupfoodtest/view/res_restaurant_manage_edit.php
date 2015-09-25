@@ -655,20 +655,24 @@ include '../dbconn.php';
                                                         </div>
                                                         <form id="dataform_edit_limitbox">
                                                             <div class="input-group col-md-6" style="margin: 10px 120px;"  >
-                                                                <div>
-                                                                    <span style="font-size: 20px">จำนวนกล่อง: </span>
-                                                                    <span style="font-size: 20px; color: orange;"><?= ($resdata["amount_box_limit"] == "" ? '&nbsp;-' : $resdata["amount_box_limit"]) ?>&nbsp;</span>
-                                                                    <span style="font-size: 20px">กล่อง</span><br>
-                                                                </div>
-                                                            </div>
-                                                            <div class="input-group col-md-6" style="margin: 10px 120px;" id="edit-limitbox" >
-                                                                <input type="number" class="form-control" id="limitbox" value="<?= $resdata["amount_box_limit"] ?>" placeholder="จำนวนกล่อง">
-                                                                <span class="input-group-btn">
-                                                                    <button class="btn btn-success" id="savebtn" type="button">บันทึก</button>
-                                                                </span>
+                                                                <?php if ($resdata["amount_box_limit"] == "") { ?>
+                                                                    <div class="input-group col-md-12" id="edit-minimumbox">
+                                                                        <input type="number" class="form-control" id="minimumbox"  value="<?= $resdata["amount_box_limit"] ?>" placeholder="จำนวนกล่อง">
+                                                                        <span class="input-group-btn">
+                                                                            <button class="btn btn-success" id="savebtn" type="submit">บันทึก</button>
+                                                                        </span>
+                                                                    </div>
+                                                                <?php } else { ?>
+                                                                    <div>
+                                                                        <span style="font-size: 20px">จำนวนกล่อง: </span>
+                                                                        <span style="font-size: 20px; color: orange;"><?= $resdata["amount_box_limit"] ?>&nbsp;</span>
+                                                                        <span style="font-size: 20px">กล่อง</span><br>
+                                                                    </div>
+                                                                <?php } ?>
                                                             </div>
                                                         </form>
                                                     </div>
+
                                                     <div class="card card-content" id="showdata_minimumbox">
                                                         <div class="page-header" style="font-size: 25px; margin-top: 5px">
                                                             จำนวนกล่องขั้นต่ำ/สั่งซื้อ
@@ -683,18 +687,22 @@ include '../dbconn.php';
                                                         </div>
                                                         <form id="dataform_edit_minimumbox">
                                                             <div class="input-group col-md-6" style="margin: 10px 120px;"  >
-                                                                <div>
-                                                                    <span style="font-size: 20px">จำนวนกล่อง: </span>
-                                                                    <span style="font-size: 20px; color: orange;"><?= ($resdata["amount_box_limit"] == "" ? '&nbsp;-' : $resdata["amount_box_minimum"]) ?>&nbsp;</span>
-                                                                    <span style="font-size: 20px">กล่อง</span><br>
-                                                                </div>
+                                                                <?php if ($resdata["amount_box_minimum"] == "") { ?>
+                                                                    <div class="input-group col-md-12" id="edit-minimumbox">
+                                                                        <input type="number" class="form-control" id="minimumbox"  value="<?= $resdata["amount_box_minimum"] ?>" placeholder="จำนวนกล่อง">
+                                                                        <span class="input-group-btn">
+                                                                            <button class="btn btn-success" id="savebtn" type="submit">บันทึก</button>
+                                                                        </span>
+                                                                    </div>
+                                                                <?php } else { ?>
+                                                                    <div>
+                                                                        <span style="font-size: 20px">จำนวนกล่อง: </span>
+                                                                        <span style="font-size: 20px; color: orange;"><?= $resdata["amount_box_minimum"] ?>&nbsp;</span>
+                                                                        <span style="font-size: 20px">กล่อง</span><br>
+                                                                    </div>
+                                                                <?php } ?>
                                                             </div>
-                                                            <div class="input-group col-md-6" style="margin: 10px 120px;" id="edit-minimumbox">
-                                                                <input type="number" class="form-control" id="minimumbox"  value="<?= $resdata["amount_box_minimum"] ?>" placeholder="จำนวนกล่อง">
-                                                                <span class="input-group-btn">
-                                                                    <button class="btn btn-success" id="savebtn" type="submit">บันทึก</button>
-                                                                </span>
-                                                            </div>
+
                                                         </form>
                                                     </div>
                                                 </div>
@@ -757,15 +765,15 @@ include '../dbconn.php';
                                                         </div>
                                                         <form id="dataform_edit_payment">
                                                             <?php
-                                                                $resPaymentRes = $con->query("SELECT payment_type.id, payment_type.description "
-                                                                        . "FROM restaurant "
-                                                                        . "LEFT JOIN mapping_payment_type ON mapping_payment_type.restaurant_id = restaurant.id "
-                                                                        . "LEFT JOIN payment_type ON payment_type.id = mapping_payment_type.payment_type_id"
-                                                                        . " WHERE restaurant.id = '$resid' ");
-                                                                $hasData = $resPaymentRes->fetch_assoc();
-                                                               
-                                                            
-                                                            if ($hasData["id"]=="") {
+                                                            $resPaymentRes = $con->query("SELECT payment_type.id, payment_type.description "
+                                                                    . "FROM restaurant "
+                                                                    . "LEFT JOIN mapping_payment_type ON mapping_payment_type.restaurant_id = restaurant.id "
+                                                                    . "LEFT JOIN payment_type ON payment_type.id = mapping_payment_type.payment_type_id"
+                                                                    . " WHERE restaurant.id = '$resid' ");
+                                                            $hasData = $resPaymentRes->fetch_assoc();
+
+
+                                                            if ($hasData["id"] == "") {
                                                                 $paymentRes = $con->query("SELECT payment_type.id, payment_type.description FROM payment_type");
                                                                 while ($paymentData = $paymentRes->fetch_assoc()) {
                                                                     ?>
@@ -786,7 +794,7 @@ include '../dbconn.php';
                                                             }
                                                             ?>
 
-                                                            
+
                                                         </form>
                                                     </div>
                                                 </div>
@@ -804,12 +812,29 @@ include '../dbconn.php';
                                                             </div>
                                                         </div>
                                                         <form id="dataform_edit_bankaccount">
-
-
-
-                                                            <span class="input-group" style="margin-left: 250px;">
-                                                                <button class="btn btn-success" id="savebtn" type="button">บันทึก</button>
-                                                            </span>
+                                                            <div class="form-group" style="margin-bottom: 15px;">
+                                                                <label class="col-sm-2 control-label" for="textinput">ธนาคาร</label>
+                                                                <div class="col-sm-10" style="margin-bottom: 15px;">
+                                                                    <input type="text" placeholder="ธนาคาร" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group" style="margin-bottom: 15px;">
+                                                                <label class="col-sm-2 control-label" for="textinput">ชื่อบัญชี</label>
+                                                                <div class="col-sm-10" style="margin-bottom: 15px;">
+                                                                    <input type="text" placeholder="ชื่อบัญชี" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group" >
+                                                                <label class="col-sm-2 control-label" for="textinput">เลขที่บัญชี</label>
+                                                                <div class="col-sm-10" style="margin-bottom: 15px;">
+                                                                    <input type="text" placeholder="เลขที่บัญชี" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group" >
+                                                                <span class="input-group" style="margin-left: 250px;">
+                                                                    <button class="btn btn-success" id="savebtn" type="button" style="    margin-left: 175px;">บันทึก</button>
+                                                                </span>
+                                                            </div>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -819,7 +844,62 @@ include '../dbconn.php';
                                 </div>
 
                                 <div class="tab-pane" id="tab_default_4"><!--พนักงานส่ง-->
-
+                                    <div class="page-header"style="margin-top: 20px;">
+                                        <span style="font-size: 40px">ข้อมูลเกี่ยวกับพนักงานจัดส่ง</span>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-content">
+                                            <span style="font-size: 35px;">ตั้งค่าทั่วไป</span>
+                                            <div class="row">
+                                                <div class="col-md-7">
+                                                    <div class="card card-content" id="showdat_bankaccount">
+                                                        <div class="page-header" style="font-size: 25px; margin-top: 5px">
+                                                            เพิ่มข้อมูลของพนักงานจัดส่ง
+                                                            
+                                                        </div>
+                                                        <form id="dataform_edit_bankaccount">
+                                                            <div class="form-group" style="margin-bottom: 15px;">
+                                                                <label class="col-sm-2 control-label" for="textinput">ชื่อ-สกุล</label>
+                                                                <div class="col-sm-10" style="margin-bottom: 15px;">
+                                                                    <input type="text" placeholder="ชื่อ-สกุล" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                             <div class="form-group" style="margin-bottom: 15px;">
+                                                                <label class="col-sm-2 control-label" for="textinput">ชื่อ(English)*</label>
+                                                                <div class="col-sm-10" style="margin-bottom: 15px;">
+                                                                    <input type="text" placeholder="ตัวอย่าง สมชาย-> Somchai" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group" style="margin-bottom: 15px;">
+                                                                <label class="col-sm-2 control-label" for="textinput">เบอร์โทรศัพท์</label>
+                                                                <div class="col-sm-10" style="margin-bottom: 15px;">
+                                                                    <input type="text" placeholder="เบอร์โทรศัพท์" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group" >
+                                                                <span class="input-group" style="margin-left: 250px;">
+                                                                    <button class="btn btn-success" id="savebtn" type="button" style="    margin-left: 260px;">บันทึก</button>
+                                                                </span>
+                                                            </div><hr>
+                                                            <p>*ข้อมูลนี้จำเป็นเพราะจะต้องนำไปเป็น username ในการเข้าสู่ระบบตอนพนักงานนำสินค้าไปส่งลูกค้า </p><br>
+                                                            <p>การใช้ Username ของพนักงานจัดส่ง คือ หมายเลขร้าน ตามด้วยชื่อ  </p><br>
+                                                            <p>ตัวอย่าง Username คือ 12Somchai และ Password คือ เบอร์โทศัพท์ของพนักงานจัดส่ง </p>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                 <div class="col-md-5">
+                                                    <div class="card card-content" id="showdat_bankaccount">
+                                                        <div class="page-header" style="font-size: 25px; margin-top: 5px">
+                                                            ข้อมูลข้อมูลของพนักงานจัดส่ง
+                                                            
+                                                        </div>
+                                                        <p style="text-align: center;font-size: 20px">ยังไม่มีข้อมูล</p>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
