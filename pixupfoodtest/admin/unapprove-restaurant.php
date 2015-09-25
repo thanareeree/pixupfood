@@ -15,7 +15,7 @@ if ($con->error == "") {
         $con->query("INSERT INTO `disapprove_restaurant`(`id`, `detail`, `restaurant_id`) "
                 . "VALUES ('null','$reason','$restid')");
         if ($con->error == "") {
-            /*
+            
               include '/register/thsms.php';
               $sms = new thsms();
               $sms->username = 'thanaree';
@@ -23,7 +23,7 @@ if ($con->error == "") {
 
               $b = $sms->send('0000', $data["tel"], "ร้านอาหาร: ".$data["name"]." \nท่านไม่มีสิทธิเข้าใช้เว็บ www.pixupfood.com เนื่องจาก".$reason." \nติดต่อสอบถามเพิ่มเติมได้ที่เบอร์ 0856656986 \nขอบคุณครับ");
               //var_dump( $b);
-             */
+             
             echo "ok";
         }
     } else {

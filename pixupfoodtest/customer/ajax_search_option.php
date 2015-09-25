@@ -2,7 +2,7 @@
 include '../dbconn.php';
 $searchoption = $con->real_escape_string(@$_POST["searchoption"]);
 
-if($searchoption == 'orderFromMenuSet'){
+if($searchoption == 'orderFromMenu'){
     $numrow = 0;
     
         $res = $con->query("SELECT DISTINCT main_menu.id, menu.img_path,  main_menu.name as menuname, "
@@ -11,8 +11,8 @@ if($searchoption == 'orderFromMenuSet'){
                 . "JOIN main_menu ON main_menu.id = menu.main_menu_id "
                 . "JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
                 . "JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
-                . "WHERE main_menu.type = 'เมนูเซต'"
-                . "GROUP BY main_menu.name");
+                . "WHERE main_menu.type != 'เมนูเซต'"
+                . " GROUP BY main_menu.name");
         $numrow = $res->num_rows;
      if ($numrow == 0) {
         ?>
@@ -35,7 +35,7 @@ if($searchoption == 'orderFromMenuSet'){
                 <h4 style="color: #ffaa3e"><?= ($data["foodtype"] != '' ? "#" . $data["foodtype"] : '' ) ?></h4>
             </td>
             <td>
-                <a href="/view/cus_order_menuset.php?menuSetId=<?= $data["id"]?>">
+                <a href="/view/cus_fast_order.php?menuSetId=<?= $data["id"]?>">
                     <span class="tooltip-r" data-toggle="tooltip" data-placement="top" title="log in to ordet this restaurant">
                         <button class="btn btn-success menu_order" id="menuset_order<?= $data["id"] ?>"><i class="glyphicon glyphicon-plus"></i>&nbsp; สั่งรายการอาหารนี้</button>
                     </span>

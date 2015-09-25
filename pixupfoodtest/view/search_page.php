@@ -98,14 +98,14 @@ include '../dbconn.php';
                             <h3>Order Options</h3>
                             <form>
                                 <div class="form-group">
-                                    <!--<input  type="checkbox" name="orderFromMenu" value="orderFromMenu">&nbsp;&nbsp;สั่งอาหารจากรายการอาหาร<br>-->
-                                    <input  type="checkbox" name="searchoption" value="orderFromMenuSet">&nbsp;&nbsp;สั่งอาหารจากเมนูเซต<br>
+                                    <input  type="checkbox" name="searchOption" value="orderFromMenu">&nbsp;&nbsp;<span style="font-size: 18px">สั่งอาหารจากรายการอาหาร</span><br>
+                                    
                                 </div>
                             </form>
                         </div>
                     </div>
                     <div class="col-md-9" style="padding-left:0px; ">
-                        <h2>ผลการค้นหา</h2>
+                        <h2>ผลการค้นหาคำว่า: &nbsp;<span id="showsearchtext"  style="color: #FF9F00"><?=@$_GET["search"]?></span></h2>
                         <div class="content2" style="padding-bottom:15px">
                             <div class="fresh-table" style="font-family: 'supermarketregular';">
                                 <table id="fresh-table" class="table">
@@ -121,17 +121,16 @@ include '../dbconn.php';
                                         $search = $con->real_escape_string(@$_GET["search"]);
                                         $numrow = 0;
                                         if ($search != "") {
-                                            $res = $con->query("SELECT DISTINCT restaurant.id, restaurant.name ,restaurant.address, "
-                                                    . "restaurant.detail, restaurant.tel ,restaurant.img_path, main_menu.name as menu_name, "
-                                                    . "menu.id as menu_id, zone.name as zone_name, restaurant.province "
-                                                    . "FROM restaurant "
-                                                    . "RIGHT JOIN menu ON menu.restaurant_id = restaurant.id "
-                                                    . "RIGHT JOIN main_menu ON main_menu.id = menu.main_menu_id "
-                                                    . "JOIN zone ON zone.id = restaurant.zone_id "
-                                                    . "WHERE (restaurant.name LIKE '%$search%' OR main_menu.name LIKE '%$search%' )"
-                                                    . " AND (restaurant.available = 1 AND restaurant.close = 0) "
-                                                    . "AND zone.name IN (SELECT zone.name FROM zone WHERE id = restaurant.zone_id)"
-                                                    . "GROUP by restaurant.name ");
+                                            $res = $con->query("SELECT DISTINCT restaurant.id,restaurant.name, menu.img_path,  main_menu.name as menuname,"
+                                                    . " food_type.description as foodtype, restaurant.name as resname, main_menu.id as menuid, menu.price "
+                                                    . "FROM menu "
+                                                    . "LEFT JOIN restaurant ON menu.restaurant_id = restaurant.id "
+                                                    . "JOIN main_menu ON main_menu.id = menu.main_menu_id "
+                                                    . "JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
+                                                    . "JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
+                                                    . "WHERE main_menu.name LIKE '%$search%' "
+                                                    . "AND (restaurant.close = 0 AND restaurant.block = 0) "
+                                                    . "AND food_type.description IN (SELECT food_type.description FROM food_type WHERE food_type.id = 15)");
                                             echo $con->error;
                                             $numrow = $res->num_rows;
                                         }
@@ -151,20 +150,19 @@ include '../dbconn.php';
                                                     </a>
                                                 </td>
                                                 <td>
-                                                    <h4 class="media-heading"><?= $data["name"] ?></h4><br>
+                                                    <h4 class="media-heading"><?= $data["name"] ?> / <?= $data["menuname"] ?></h4><br>
                                                     <!-- ($data["menu_name"] != "" ? '&nbsp;/&nbsp;' . $data["menu_name"] : '')  -->
 
                                                 </td>
                                                 <td>
-                                                    <i class="glyphicon glyphicon-map-marker"></i>&nbsp;<?= ($data["province"] == "กรุงเทพมหานคร") ? 'เขต' . $data["zone_name"] . '&nbsp;' : '' ?> <?= $data["province"] ?> 
+                                                    <p style="font-size: 20px"><?= $data["price"] ?>&nbsp;บาท<br></p>
                                                 </td>
-                                                <td><span class="tooltip-r" data-toggle="tooltip" data-placement="top" title="log in to ordet this restaurant">
-                                                        <a href="cus_restaurant_view.php?resId=<?= $data["id"] ?>" > 
-                                                            <span class="tooltip-r" data-toggle="tooltip" data-placement="top" title="log in to ordet this restaurant">
-                                                                <button class="btn btn-success restaurant_order" id="restaurant_order<?= $data["id"] ?>"  ><i class="glyphicon glyphicon-plus" ></i>&nbsp; สั่งอาหารล่วงหน้า
-                                                                </button>
-                                                            </span>
-                                                        </a>
+                                                <td>
+                                                    <a href="/view/cus_restaurant_view.php?menuId=<?= $data["menuid"] ?>&resId=<?= $data["id"] ?>">
+                                                        <span class="tooltip-r" data-toggle="tooltip" data-placement="top" title="log in to ordet this restaurant">
+                                                            <button class="btn btn-success menu_order" id="menu_order<?= $data["menuid"] ?>"><i class="glyphicon glyphicon-plus"></i>&nbsp; สั่งรายการอาหารนี้</button>
+                                                        </span>
+                                                    </a>
                                                 </td>
                                             </tr>
 
@@ -200,6 +198,7 @@ include '../dbconn.php';
         } else {
             ?>
             <script>
+              
                 $('a').click(function (e) {
                     e.preventDefault()
                 });
@@ -215,7 +214,7 @@ include '../dbconn.php';
 
                 var lat = "";
                 var long = "";
-               
+
                 function startMap() {
 
                     map = new google.maps.Map(document.getElementById("map"));
@@ -269,8 +268,10 @@ include '../dbconn.php';
                         dataType: 'html',
                         data: {"searchby": searchby, "foodtype": foodtype, "searchtxt": searchtxt, "lat": lat, "long": long},
                         success: function (data, textStatus, jqXHR) {
+                            $("#showsearchtext").html(searchtxt);
                             $("#result").html(data);
                             $('[data-toggle="tooltip"]').tooltip();
+                            
                         }
                     });
                 });
@@ -287,6 +288,7 @@ include '../dbconn.php';
                         success: function (data, textStatus, jqXHR) {
                             $("#result").html(data);
                             $('[data-toggle="tooltip"]').tooltip();
+                            
                         }
                     });
                 });

@@ -13,11 +13,10 @@ if ($lat != "" && $long != "") {
         <li class = "col-sm-3">
             <div class = "card-action">
                 <div class = "thumbnail">
-                    <a href = "/view/cus_restaurant_view.php?resId=<?= $data["id"]?>"><img src = "<?= ($data["img_path"] == "") ? 'assets/images/default-img360.png' : substr($data["img_path"], 3) ?>" style="max-width:100% ;max-height:162px "></a>
+                    <a href = "/view/cus_restaurant_view.php?resId=<?= $data["id"]?>"><img src = "<?= ($data["img_path"] == "") ? 'assets/images/default-img360.png' : $data["img_path"]?>" style="max-width:100% ;max-height:162px ;min-width: 243px;min-height: 162px;"></a>
                 </div>
                 <div class = "caption">
-                    <h4><?= $data["name"] ?></h4>
-                    <p style="text-align: left"><span class="glyphicon glyphicon-cutlery">&nbsp;</span><?= $data["detail"] ?></p>
+                    <p style="text-align: left"><span class="glyphicon glyphicon-cutlery">&nbsp;</span><?= $data["name"] ?></p>
                     <p style="text-align: left"><span class="glyphicon glyphicon-map-marker">&nbsp;</span><?= $data["province"] ?></p>
                     <a style = "color:rgba(255,127,0,1)" class = "btn btn-mini" href = "/view/cus_restaurant_view.php?resId=<?= $data["id"]?>">» ไปที่ร้านนี้</a>
                 </div>

@@ -48,7 +48,7 @@ if ($searchby == "foodname") {
         <tr>
             <td style="text-align: center;">
                 <a class="" href="#">
-                    <img src="<?= ($data["img_path"] == "" ? "/assets/images/default-img150.png" : $data["img_path"]) ?>" style="max-width: 150px; max-height:90px;">
+                    <img src="<?= ($data["img_path"] == "" ? "/assets/images/default-img150.png" : $data["img_path"]) ?>" style="max-width: 150px; max-height:90px; min-height: 90px; min-width: 150px">
                 </a>
             </td>
             <td>
@@ -93,9 +93,7 @@ if ($searchby == "foodname") {
         <tr>
             <td style="text-align: center;">
                 <a class="" href="#">
-                    <img 
-                        src="<?= ($data["img_path"] == "" ? "/assets/images/default-img150.png" : $data["img_path"]) ?>"
-                        style="max-width: 150px; max-height:90px;">
+                    <img src="<?= ($data["img_path"] == "" ? "/assets/images/default-img150.png" : $data["img_path"]) ?>" style="max-width: 150px; max-height:90px; min-height: 90px; min-width: 150px">
                 </a>
             </td>
             <td>
