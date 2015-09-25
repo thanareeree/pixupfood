@@ -40,7 +40,7 @@ include '../dbconn.php';
                     <div class="col-md-10">
                         <div class="row">
                             <div class="col-md-6" style="padding:60px 15px 30px 50px">
-                                <ul class="media-list main-list" style="border-top:1px solid #e8e8e8; padding-top:1.1em">
+                                <ul class="media-list main-list">
                                     <li class="media">
                                         <a class="pull-left" href="#">
                                             <img class="media-object" src="../assets/images/allpromo/promo01.jpg"  alt="..." width="150px" style="max-height:90px;">
@@ -62,7 +62,7 @@ include '../dbconn.php';
                                 </ul>
                             </div>
                             <div class="col-md-6" style="padding:60px 20px 0 10px">
-                                <ul class="media-list main-list" style="border-top:1px solid #e8e8e8; padding-top:1.1em">
+                                <ul class="media-list main-list">
                                     <li class="media">
                                         <a class="pull-left" href="#">
                                             <img class="media-object" src="../assets/images/allpromo/promo02.jpg"  alt="..." width="150px" style="max-height:90px;">
