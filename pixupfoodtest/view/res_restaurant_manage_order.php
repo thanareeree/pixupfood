@@ -926,11 +926,11 @@ include '../dbconn.php';
     <?php
     show_footer();
     ?>
-    <script src="../assets/js/jquery.singlePageNav.min.js"></script>
+    <script src="/assets/js/jquery.singlePageNav.min.js"></script>
 
     <!-- ตารางรายการออเดอร์ -->
-    <script src="../assets/js/OrderSearch.js"></script>
-    <script src="../assets/js/ui-bootstrap-tpls-0.13.4.min.js"></script>
+    <script src="/assets/js/OrderSearch.js"></script>
+    <script src="/assets/js/ui-bootstrap-tpls-0.13.4.min.js"></script>
 
 </body>
 </html>
