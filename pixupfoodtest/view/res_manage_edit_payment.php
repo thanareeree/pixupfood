@@ -115,7 +115,7 @@ include '../dbconn.php';
                                     <a href="/view/res_restaurant_manage_edit.php" >ทั่วไป </a>
                                 </li>
                                 <li >
-                                    <a href="/view/res_restaurant_manage_order.php" > เกี่ยวกับรายการสั่งซื้อ</a>
+                                    <a href="/view/res_manage_edit_order.php" > เกี่ยวกับรายการสั่งซื้อ</a>
                                 </li>
                                 <li class="active">
                                     <a href="/view/res_manage_edit_payment.php" >วิธีการชำระเงิน</a>

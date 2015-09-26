@@ -13,7 +13,7 @@ include '../dbconn.php';
 
         <!-- custom css -->
         <link rel="stylesheet" href="/assets/css/res_restaurant_manage.css">
-        
+
 
 
 
@@ -24,14 +24,6 @@ include '../dbconn.php';
         $resid = $_SESSION["restdata"]["id"];
         $result = $con->query("select * from restaurant where id = '$resid' ");
         $resdata = $result->fetch_assoc();
-
-        $deliveryRes = $con->query("SELECT delivery_type.id, delivery_type.description, "
-                . "mapping_delivery_type.deliveryfee "
-                . "FROM restaurant "
-                . "LEFT JOIN mapping_delivery_type ON mapping_delivery_type.restaurant_id = restaurant.id "
-                . "LEFT JOIN delivery_type ON delivery_type.id = mapping_delivery_type.delivery_type_id "
-                . "WHERE restaurant.id = '$resid' ");
-        $deliveryData = $deliveryRes->fetch_assoc();
         ?>
         <?php include '../template/restaurant-navbar.php'; ?>
         <form>
@@ -115,7 +107,7 @@ include '../dbconn.php';
                                     <a href="/view/res_restaurant_manage_edit.php" >ทั่วไป </a>
                                 </li>
                                 <li class="active">
-                                    <a href="/view/res_restaurant_manage_order.php" > เกี่ยวกับรายการสั่งซื้อ</a>
+                                    <a href="/view/res_manage_edit_order.php" > เกี่ยวกับรายการสั่งซื้อ</a>
                                 </li>
                                 <li>
                                     <a href="/view/res_manage_edit_payment.php" >วิธีการชำระเงิน</a>
@@ -127,7 +119,7 @@ include '../dbconn.php';
 
                             <div class="tab-content">
 
-                                <div class="tab-pane" id="tab_default_2"><!--รายการสั่งซื้อ-->
+                                <div class="tab-pane active" id="tab_default_2"><!--รายการสั่งซื้อ-->
                                     <div class="page-header"style="margin-top: 20px;">
                                         <span style="font-size: 40px">เกี่ยวกับรายการสั่งซื้อของลูกค้า</span>
                                     </div>
@@ -138,143 +130,221 @@ include '../dbconn.php';
                                             <div class="row">
 
                                                 <div class="col-md-6">
-                                                    <div class="card card-content" id="showdata_foodbox">
-                                                        <div class="page-header" style="font-size: 25px; margin-top: 5px">
-                                                            รูปแบบกล่อง
-                                                            <div class="pull-right">
-                                                                <p class="text-center">
-                                                                    <a  href="#" id="editbtn">
-                                                                        <span class="glyphicon glyphicon-pencil"style="font-size: 20px; color: orange"></span> 
-                                                                        <span style="font-size: 20px; color: orange">แก้ไข</span>
-                                                                    </a>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <form id="dataform_edit_foodbox">
-                                                            <?php
-                                                            $foodboxRes = $con->query("SELECT food_box.id "
-                                                                    . "FROM mapping_food_box "
-                                                                    . "LEFT JOIN food_box ON food_box.id = mapping_food_box.food_box_id "
-                                                                    . "WHERE mapping_food_box.restaurant_id = '$resid' ");
 
-                                                            $boxRes = $con->query("SELECT food_box.id, food_box.description FROM food_box ");
-                                                            while ($boxData = $boxRes->fetch_assoc()) {
-                                                                ?>
-                                                                <div class="input-group col-md-6" style="margin: 10px 120px;"  >
-                                                                    <input type="checkbox" name="foodbox[]" value="<?= $boxData["id"] ?>"><?= $boxData["description"] ?>
+                                                    <!--รูปแบบกล่อง-------------------------------------------->
+                                                    <?php
+                                                    $foodboxRes = $con->query("SELECT food_box.id, food_box.description "
+                                                            . "FROM mapping_food_box "
+                                                            . "LEFT JOIN food_box ON food_box.id = mapping_food_box.food_box_id "
+                                                            . "WHERE mapping_food_box.restaurant_id = '$resid' ");
+
+                                                    if ($foodboxRes->num_rows == null) {
+                                                        ?>
+                                                        <div class="card card-content" >
+                                                            <div class="page-header" style="font-size: 25px; margin-top: 5px">
+                                                                รูปแบบกล่อง
+
+                                                            </div>
+                                                            <form  method="post" action="/restaurant/edit-foodbox-type.php">
+                                                                <?php
+                                                                $boxRes = $con->query("SELECT food_box.id, food_box.description FROM food_box ");
+                                                                while ($boxData = $boxRes->fetch_assoc()) {
+                                                                    ?>
+                                                                    <input type="hidden"name="restiddata"value="<?= $resid ?>">
+                                                                    <div class="input-group col-md-6" style="margin: 10px 120px;"  >
+                                                                        <input type="checkbox" name="foodbox[]" value="<?= $boxData["id"] ?>"><?= $boxData["description"] ?>
+                                                                    </div>
+                                                                <?php } ?>
+                                                                <span class="input-group" style="margin-left: 250px;">
+                                                                    <button class="btn btn-success" id="savebtn" type="submit">บันทึก</button>
+                                                                </span>
+                                                            </form>
+                                                        </div>
+                                                    <?php } else { ?>
+                                                        <div class="card card-content" id="showdata_foodbox">
+                                                            <div class="page-header" style="font-size: 25px; margin-top: 5px">
+                                                                รูปแบบกล่อง
+                                                                <div class="pull-right">
+                                                                    <p class="text-center">
+                                                                        <a  class="btn icon-btn"id="editfoodboxbtn">
+                                                                            <span class="glyphicon glyphicon-pencil"style="font-size: 20px; color: orange"></span> 
+                                                                            <span style="font-size: 20px; color: orange">แก้ไข</span>
+                                                                        </a>
+                                                                    </p>
                                                                 </div>
-                                                            <?php } ?>
-                                                            <span class="input-group" style="margin-left: 250px;">
-                                                                <button class="btn btn-success" id="savebtn" type="button">บันทึก</button>
-                                                            </span>
-                                                        </form>
-                                                    </div>
-                                                    <div class="card card-content" id="showdata_limitbox">
-                                                        <div class="page-header" style="font-size: 25px; margin-top: 5px">
-                                                            จำนวนกล่องที่สามารถรับรายการสั่งซื้อได้สูงสุด/วัน
-                                                            <div class="pull-right">
-                                                                <p class="text-center">
-                                                                    <a  href="#" id="editbtn">
-                                                                        <span class="glyphicon glyphicon-pencil"style="font-size: 20px; color: orange"></span> 
-                                                                        <span style="font-size: 20px; color: orange">แก้ไข</span>
-                                                                    </a>
-                                                                </p>
+                                                            </div>
+                                                            <div id="dataform_foodbox">
+                                                                <?php
+                                                                while ($foodboxResData = $foodboxRes->fetch_assoc()) {
+                                                                    ?>
+                                                                    <div class="input-group col-md-6" style="margin: 10px 120px;" id="foodboxtypeShow" >
+                                                                        <ul>
+                                                                            <li style="font-size: 18px"> <?= $foodboxResData["description"] ?></li>
+                                                                        </ul>
+                                                                    </div>
+                                                                <?php } ?>
                                                             </div>
                                                         </div>
-                                                        <form id="dataform_edit_limitbox">
-                                                            <div class="input-group col-md-6" style="margin: 10px 120px;"  >
-                                                                <?php if ($resdata["amount_box_limit"] == "") { ?>
+                                                    <?php } ?>
+
+                                                    <!-- จำนวนกล่องสูงสุด -------------------->
+                                                    <?php if ($resdata["amount_box_limit"] == "") { ?>
+                                                        <div class="card card-content" id="showdata_limitbox">
+                                                            <div class="page-header" style="font-size: 25px; margin-top: 5px">
+                                                                จำนวนกล่องที่สามารถรับรายการสั่งซื้อได้สูงสุด/วัน
+
+                                                            </div>
+                                                            <form id="dataform_edit_limitbox" action="/restaurant/edit-amountbox-limit.php" method="post">
+                                                                <div class="input-group col-md-6" style="margin: 10px 120px;"  >
+
                                                                     <div class="input-group col-md-12" id="edit-minimumbox">
-                                                                        <input type="number" class="form-control" id="minimumbox"  value="<?= $resdata["amount_box_limit"] ?>" placeholder="จำนวนกล่อง">
+                                                                        <input type="hidden"name="restiddata"value="<?= $resid ?>">
+                                                                        <input type="number" class="form-control" required="" id="limitbox" name="limitbox"  placeholder="จำนวนกล่อง">
                                                                         <span class="input-group-btn">
                                                                             <button class="btn btn-success" id="savebtn" type="submit">บันทึก</button>
                                                                         </span>
                                                                     </div>
-                                                                <?php } else { ?>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    <?php } else { ?>
+                                                        <div class="card card-content" id="showdata_limitbox">
+                                                            <div class="page-header" style="font-size: 25px; margin-top: 5px">
+                                                                จำนวนกล่องที่สามารถรับรายการสั่งซื้อได้สูงสุด/วัน
+                                                                <div class="pull-right">
+                                                                    <p class="text-center">
+                                                                        <a  href="#" id="editbtn">
+                                                                            <span class="glyphicon glyphicon-pencil"style="font-size: 20px; color: orange"></span> 
+                                                                            <span style="font-size: 20px; color: orange">แก้ไข</span>
+                                                                        </a>
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                            <form id="dataform_edit_limitbox">
+                                                                <div class="input-group col-md-6" style="margin: 10px 120px;"  >
                                                                     <div>
                                                                         <span style="font-size: 20px">จำนวนกล่อง: </span>
                                                                         <span style="font-size: 20px; color: orange;"><?= $resdata["amount_box_limit"] ?>&nbsp;</span>
                                                                         <span style="font-size: 20px">กล่อง</span><br>
                                                                     </div>
-                                                                <?php } ?>
-                                                            </div>
-                                                        </form>
-                                                    </div>
 
-                                                    <div class="card card-content" id="showdata_minimumbox">
-                                                        <div class="page-header" style="font-size: 25px; margin-top: 5px">
-                                                            จำนวนกล่องขั้นต่ำ/สั่งซื้อ
-                                                            <div class="pull-right">
-                                                                <p class="text-center">
-                                                                    <a  href="#" id="editbtn">
-                                                                        <span class="glyphicon glyphicon-pencil"style="font-size: 20px; color: orange"></span> 
-                                                                        <span style="font-size: 20px; color: orange">แก้ไข</span>
-                                                                    </a>
-                                                                </p>
-                                                            </div>
+                                                                </div>
+                                                            </form>
                                                         </div>
-                                                        <form id="dataform_edit_minimumbox">
-                                                            <div class="input-group col-md-6" style="margin: 10px 120px;"  >
-                                                                <?php if ($resdata["amount_box_minimum"] == "") { ?>
+                                                    <?php } ?>
+
+                                                    <!-- จำนวนกล่องขั้นต่ำ -------------------->
+                                                    <?php if ($resdata["amount_box_minimum"] == "") { ?>
+                                                        <div class="card card-content" id="showdata_minimumbox">
+                                                            <div class="page-header" style="font-size: 25px; margin-top: 5px">
+                                                                จำนวนกล่องขั้นต่ำ/รายการสั่งซื้อ
+                                                                
+                                                            </div>
+                                                            <form id="dataform_edit_minimumbox" action="/restaurant/edit-minimum-box.php?resId=<?= $resid ?>" method="post">
+                                                                <div class="input-group col-md-6" style="margin: 10px 120px;"  >
+
                                                                     <div class="input-group col-md-12" id="edit-minimumbox">
-                                                                        <input type="number" class="form-control" id="minimumbox"  value="<?= $resdata["amount_box_minimum"] ?>" placeholder="จำนวนกล่อง">
+                                                                        <input type="number" class="form-control" id="minimumbox" required="" name="minimumbox" placeholder="จำนวนกล่อง">
                                                                         <span class="input-group-btn">
                                                                             <button class="btn btn-success" id="savebtn" type="submit">บันทึก</button>
                                                                         </span>
                                                                     </div>
-                                                                <?php } else { ?>
+                                                                </div>
+
+                                                            </form>
+                                                        </div>
+
+                                                    <?php } else { ?>
+                                                        <div class="card card-content" id="showdata_limitbox">
+                                                            <div class="page-header" style="font-size: 25px; margin-top: 5px">
+                                                                จำนวนกล่องขั้นต่ำ/รายการสั่งซื้อ
+                                                                <div class="pull-right">
+                                                                    <p class="text-center">
+                                                                        <a  href="#" id="editbtn">
+                                                                            <span class="glyphicon glyphicon-pencil"style="font-size: 20px; color: orange"></span> 
+                                                                            <span style="font-size: 20px; color: orange">แก้ไข</span>
+                                                                        </a>
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                            <form id="dataform_edit_limitbox">
+                                                                <div class="input-group col-md-6" style="margin: 10px 120px;"  >
                                                                     <div>
                                                                         <span style="font-size: 20px">จำนวนกล่อง: </span>
                                                                         <span style="font-size: 20px; color: orange;"><?= $resdata["amount_box_minimum"] ?>&nbsp;</span>
                                                                         <span style="font-size: 20px">กล่อง</span><br>
                                                                     </div>
-                                                                <?php } ?>
-                                                            </div>
 
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="card card-content" id="showdata_deliveryfee">
-                                                        <div class="page-header" style="font-size: 25px; margin-top: 5px">
-                                                            กำหนดค่าจัดส่ง
-                                                            <div class="pull-right">
-                                                                <p class="text-center">
-                                                                    <a  href="#" id="editbtn">
-                                                                        <span class="glyphicon glyphicon-pencil"style="font-size: 20px; color: orange"></span> 
-                                                                        <span style="font-size: 20px; color: orange">แก้ไข</span>
-                                                                    </a>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <form id="dataform_edit_deliveryfee">
-                                                            <div class="input-group col-md-6" style="margin: 10px 120px;"  >
-                                                                <div id="showdata">
-                                                                    <span style="font-size: 20px"><?= $deliveryData["description"] ?>: </span>
-                                                                    <span style="font-size: 20px; color: orange;"><?= ($deliveryData["deliveryfee"] == "" ? '&nbsp;-' : $deliveryData["deliveryfee"]) ?>&nbsp;</span>
-                                                                    <span style="font-size: 20px">บาท</span><br>
                                                                 </div>
+                                                            </form>
+                                                        </div>
+                                                    <?php } ?>
+
+                                                </div>
+                                                <!------ ค่าจัดส่งข ----->
+                                                <div class="col-md-6">
+                                                    <?php
+                                                    $deliveryRes = $con->query("SELECT delivery_type.id, delivery_type.description, "
+                                                            . "mapping_delivery_type.deliveryfee "
+                                                            . "FROM restaurant "
+                                                            . "LEFT JOIN mapping_delivery_type ON mapping_delivery_type.restaurant_id = restaurant.id "
+                                                            . "LEFT JOIN delivery_type ON delivery_type.id = mapping_delivery_type.delivery_type_id "
+                                                            . "WHERE restaurant.id = '$resid' ");
+                                                    $deliveryData = $deliveryRes->fetch_assoc();
+                                                    if ($deliveryData["deliveryfee"] == null) {
+                                                        ?>
+                                                        <div class="card card-content" id="showdata_deliveryfee">
+                                                            <div class="page-header" style="font-size: 25px; margin-top: 5px">
+                                                                กำหนดค่าจัดส่ง
                                                             </div>
-                                                            <div class="input-group col-md-6" style="margin: 10px 120px; display: none" id="edit-deliveryfee">
-                                                                <input type="text" class="form-control" id="deliveryfee"  value="<?= $deliveryData["deliveryfee"] ?>" placeholder="จำนวนกล่อง">
-                                                                <span class="input-group-btn">
-                                                                    <button class="btn btn-success" id="savebtn" type="submit">บันทึก</button>
-                                                                </span>
+                                                            <form id="dataform_edit_deliveryfee" method="post" action="/restaurant/edit-deliveryfee.php?resId=<?=$resid?>">
+                                                                    <div class="input-group col-md-6" style="margin: 10px 120px;" id="edit-deliveryfee">
+                                                                        <input type="text" class="form-control" id="deliveryfee" name="deliveryfee" placeholder="จำนวนกล่อง">
+                                                                        <span class="input-group-btn">
+                                                                            <button class="btn btn-success" id="savebtn" type="submit">บันทึก</button>
+                                                                        </span>
+                                                                    </div>
+                                                                </form>
                                                             </div>
-                                                        </form>
+                                                        <?php } else { ?>
+                                                            <div class="card card-content" id="showdata_deliveryfee">
+                                                                <div class="page-header" style="font-size: 25px; margin-top: 5px">
+                                                                    ค่าจัดส่ง
+                                                                    <div class="pull-right">
+                                                                        <p class="text-center">
+                                                                            <a  href="#" id="editbtn">
+                                                                                <span class="glyphicon glyphicon-pencil"style="font-size: 20px; color: orange"></span> 
+                                                                                <span style="font-size: 20px; color: orange">แก้ไข</span>
+                                                                            </a>
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                                <form id="dataform_edit_deliveryfee">
+                                                                    <div class="input-group col-md-6" style="margin: 10px 120px;"  >
+                                                                        <div id="showdata">
+
+                                                                            <span style="font-size: 20px"><?= $deliveryData["description"] ?>: </span>
+                                                                            <span style="font-size: 20px; color: orange;">&nbsp;<?= $deliveryData["deliveryfee"] ?>&nbsp;</span>
+                                                                            <span style="font-size: 20px">บาท</span><br>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        <?php } ?>
+
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     </section>
 
 
@@ -325,84 +395,15 @@ include '../dbconn.php';
                     }
                 });
             });
+
+            $("#editfoodboxbtn").on("click", function (e) {
+                $("#foodboxtypeEdit").show();
+
+            });
+
+
         });
     </script>
 
-    <!--maps--> 
-    <script>
-        // Primary function for the Geo location app
-        function success(position) {
-            // create a simple variable for the ID
-            var s = document.querySelector('#geostatus');
-
-            if (s.className == 'success') {
-                return;
-            }
-
-            // Replaces text with new message
-            s.innerHTML = "พบตำแหน่งของคุณแล้ว!";
-            // Adds new class to the ID status block
-            s.className = 'success';
-
-            // creates map wrapper for responsiveness
-            var mapwrapper = document.createElement('div');
-            mapwrapper.className = 'mapwrapper';
-
-            // creates the block element at sets the width and height
-            var mapcanvas = document.createElement('div');
-            // Adds ID to the new div
-            mapcanvas.id = 'mapcanvas';
-
-            // Adds the new block element as the last thing within the article block
-            document.querySelector('.map').appendChild(mapwrapper);
-
-            // Adds the new block element as the last thing within the mapwrapper block
-            document.querySelector('.mapwrapper').appendChild(mapcanvas);
-
-
-            // creates a new variable 'latlng' off of the google maps object
-            var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
-            // create new variable that contains options in key:value pairs
-            var myOptions = {
-                zoom: 15,
-                center: latlng,
-                // ROADMAP is set by default, other options are HYBRID, SATELLITE and TERRAIN
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-            };
-
-            // creates the new 'map' variable using the google object
-            // then using the 'mapcanvas' ID appending the options
-            var map = new google.maps.Map(document.getElementById("mapcanvas"), myOptions);
-
-            // creates new 'marker' variable
-            var marker = new google.maps.Marker({
-                position: latlng,
-                map: map,
-                title: "You are here! (at least within a " + position.coords.accuracy + " meter radius)"
-            });
-        }
-
-        // Function that displays the error message
-        function error(msg) {
-
-            // sets simple variable to the status ID
-            var s = document.querySelector('#geostatus');
-            // designates typ eof message and passes in value                         s.innerHTML = typeof msg == 'string' ? msg : "ไม่สามารถค้นหาตำแหน่งได้";
-            s.className = 'fail';
-        }
-
-
-        // statement that tests for device functionality
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(success, error);
-        } else {
-            error('not supported');
-        }
-
-        var mapwrapper = document.createElement('div');
-        mapwrapper.className = 'mapwrapper';
-
-    </script>
 </body>
 </html>
