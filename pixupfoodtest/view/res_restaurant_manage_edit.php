@@ -156,32 +156,41 @@ include '../dbconn.php';
                                                             <label for="switchClose" class="label-success"></label>
                                                             &nbsp;  <span style="font-size: 20px">ปิดร้าน</span>
                                                         </div><hr>
-                                                        <p style="font-size: 20px">เวลาเปิด-ปิด: &nbsp;<?= ($resdata["opentime"] == "" ? '-' : $resdata["opentime"]) ?></p>
+                                                        <p style="font-size: 20px;">เวลาเปิด-ปิด:<span style="color: #FF9900"> &nbsp;<?= ($resdata["opentime"] == "" ? '-' : $resdata["opentime"]) ?></span></p>
                                                     </div>
-                                                    
-                                                   
-                                                   
+
+
+
 
                                                     <!-- modal สถานะร้านค้า-->
                                                     <div class="modal fade" id="StatusRes" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
                                                         <div class="modal-dialog">
                                                             <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                                    <h2 class="modal-title" id="myModalLabel" >สถานะร้านค้า</h2>
-                                                                </div>
                                                                 <form action="/restaurant/edit-opentime.php?resId=<?= $resid ?>" method="post">
+                                                                    <div class="modal-header">
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                                        <h2 class="modal-title" id="myModalLabel" >สถานะร้านค้า</h2>
+                                                                    </div>
+
                                                                     <div class="modal-body">
-                                                                        <div>
-                                                                            <label>
-                                                                                <span style="font-size: 20px"> &nbsp;เวลาเปิดร้านในระบบอัตโนมัติ 
-                                                                                    <input type="time" name="opentime"> ถึง <input type="time" name="closetime"> </span>
-                                                                            </label>
+
+                                                                        <div class="form-group col-sm-12" >
+                                                                            <label class="col-sm-2 control-label" for="textinput">เวลาเปิด:</label>
+                                                                            <div class="col-sm-4" style="margin-bottom: 15px;">
+                                                                                <input required="" type="time" class="form-control col-md-3" name="opentime" >
+                                                                            </div>
                                                                         </div>
+                                                                        <div class="form-group col-sm-12" >
+                                                                            <label class="col-sm-2 control-label" for="textinput">เวลาปิด:</label>
+                                                                            <div class="col-sm-4" style="margin-bottom: 15px;">
+                                                                                <input required=""type="time" class="form-control" name="closetime">
+                                                                            </div>
+                                                                        </div>
+
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
-                                                                        <button type="button" class="btn btn-primary">บันทึก</button>
+                                                                        <button type="submit" class="btn btn-primary">บันทึก</button>
                                                                     </div>
                                                                 </form>
                                                             </div>
@@ -203,61 +212,74 @@ include '../dbconn.php';
                                                                 </p>
                                                             </div>
                                                         </div>
+
+                                                        <?php
+                                                        if ($resdata["has_restaurant"] == 1) {
+                                                            $restype = "มี";
+                                                        } else {
+                                                            $restype = "ไม่มี";
+                                                        }
+                                                        ?>
+
                                                         &nbsp;   <span style="font-size: 20px">ชื่อร้าน: </span>
                                                         <span style="font-size: 20px; color: orange;"> <?= $resdata["name"] ?></span><br>
                                                         &nbsp;   <span style="font-size: 20px">ประเภทร้าน:</span>
                                                         <span style="font-size: 20px; color: orange;"> <?= ($resdata["restaurant_type"] == "" ? '-' : $resdata["restaurant_type"]) ?> </span><br>
                                                         &nbsp;   <span style="font-size: 20px">หน้าร้าน: </span>
-                                                        <span style="font-size: 20px; color: orange;"> <?= ($resdata["has_restaurant"] == "" ? '-' : $resdata["has_restaurant"]) ?> </span><br>
+                                                        <span style="font-size: 20px; color: orange;"> <?= ($resdata["has_restaurant"] == "" ? '-' : $restype) ?> </span><br>
                                                     </div>
 
                                                     <!-- modal ร้านค้าหมายเลข-->
                                                     <div class="modal fade" id="Resno" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
                                                         <div class="modal-dialog">
                                                             <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                                    <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px">ร้านค้าหมายเลข <span style="font-size: 30px; color: orange;"><?= $resdata["id"] ?></span></div></span>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <div class="row">
-                                                                        <div class="col-md-12">
-                                                                            <div class="col-md-3">
-                                                                                <span style="font-size: 25px">ชื่อร้าน: </span><br><br>
-                                                                                <span style="font-size: 25px">ประเภทร้าน: </span><br><br>
-                                                                                <span style="font-size: 25px">หน้าร้าน: </span>
-                                                                            </div>
+                                                                <form method="post" action="/restaurant/edit-info-res.php?resId=<?= $resid ?>">
+                                                                    <div class="modal-header">
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                                        <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px">ร้านค้าหมายเลข <span style="font-size: 30px; color: orange;"><?= $resdata["id"] ?></span></div></span>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
 
-                                                                            <div class="col-md-9">
-                                                                                <input type="text" style="width: 50%; margin-top: 3px;"><br><br>
-                                                                                <span class="form-group">
-                                                                                    <select class="form-control" id="sel1"style="width: 50%; margin-top: 4px;">
-                                                                                        <option>อาหารตามสั่ง</option>
-                                                                                        <option>อาหารคลีน</option>
-                                                                                        <option>อาหารเจ</option>
-                                                                                        <option>อาหารมังสวิรัต</option>
-                                                                                        <option>อาหารเหนือ</option>
-                                                                                        <option>อาหารอีสาน</option>
-                                                                                        <option>อาหารใต้</option>
-                                                                                        <option>ของหวาน/ของว่าง</option>
-                                                                                    </select>
-                                                                                </span><br>  
-                                                                                <span class="form-group">
-                                                                                    <select class="form-control" id="sel1"style="width: 50%; margin-top: 4px;">
-                                                                                        <option>มี</option>
-                                                                                        <option>ไม่มี</option>
-                                                                                        <option>ปิดปรับปรุง</option>
-                                                                                    </select>
-                                                                                </span>   
+                                                                                <div class="col-md-3">
+                                                                                    <span style="font-size: 25px">ชื่อร้าน: </span><br><br>
+                                                                                    <span style="font-size: 25px">ประเภทร้าน: </span><br><br>
+                                                                                    <span style="font-size: 25px">หน้าร้าน: </span>
+                                                                                </div>
+
+                                                                                <div class="col-md-9">
+                                                                                    <input type="text" style="width: 50%; margin-top: 3px;" name="resname" value="<?= $resdata["name"] ?>"><br><br>
+                                                                                    <span class="form-group">
+                                                                                        <select class="form-control" id="restaurant_type" name="restaurant_type"style="width: 50%; margin-top: 4px;" <?= ($resdata["restaurant_type"] == "") ? '' : $resdata["restaurant_type"] ?>>
+                                                                                            <option value="อาหารตามสั่ง">อาหารตามสั่ง</option>
+                                                                                            <option value="อาหารคลีน">อาหารคลีน</option>
+                                                                                            <option value="อาหารเจ">อาหารเจ</option>
+                                                                                            <option value="อาหารมังสวิรัต">อาหารมังสวิรัต</option>
+                                                                                            <option value="อาหารเหนือ">อาหารเหนือ</option>
+                                                                                            <option value="อาหารอีสาน">อาหารอีสาน</option>
+                                                                                            <option value="อาหารใต้">อาหารใต้</option>
+                                                                                        </select>
+                                                                                    </span><br>  
+                                                                                    <span class="form-group">
+
+                                                                                        <select class="form-control" style="width: 50%; margin-top: 4px;" id="has_rest" name="has_rest" <?= ($resdata["has_restaurant"] == "") ? '' : $resdata["has_restaurant"] ?>>
+                                                                                            <option value="1">มี</option>
+                                                                                            <option value="0">ไม่มี</option>
+
+                                                                                        </select>
+                                                                                    </span>   
+                                                                                </div>
+
                                                                             </div>
                                                                         </div>
-                                                                    </div>
 
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
-                                                                    <button type="button" class="btn btn-primary">บันทึก</button>
-                                                                </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                                                                        <button type="submit" class="btn btn-primary">บันทึก</button>
+                                                                    </div>
+                                                                </form>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -636,9 +658,9 @@ include '../dbconn.php';
             });
 
             $("#switchClose").click(function (e) {
-                if ($('#switchClose').is(":checked")){
+                if ($('#switchClose').is(":checked")) {
                     var isClose = 0;
-                }else{
+                } else {
                     isClose = 1;
                 }
                 $.ajax({
@@ -648,7 +670,7 @@ include '../dbconn.php';
                         "close": isClose},
                     dataType: "json",
                     success: function (data) {
-                       // $("#switchClose").removeAttr("checked");
+                        // $("#switchClose").removeAttr("checked");
                         if (data.result == "1") {
                             $("#switchClose").attr('checked', true);
                             //document.location.reload();
