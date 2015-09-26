@@ -10,15 +10,31 @@ include '../dbconn.php';
         <?php include '../template/customer-title.php'; ?>
         <!-- custom css -->
         <link rel="stylesheet" href="/assets/css/restaurant_view.css">
-        <link href="http://jondmiles.com/bootstrap-datepaginator/css/bootstrap-datepicker.css" rel="stylesheet" media="screen" type="text/css">
-        <link href="http://jondmiles.com/bootstrap-datepaginator/css/bootstrap-datepaginator.min.css" rel="stylesheet" media="screen" type="text/css">
+
+        <link href='/assets/css/fullcalendar.css' rel='stylesheet' />
+        <link href='/assets/css/fullcalendar.print.css' rel='stylesheet' media='print' />
+        
         <style>
+            #restaurant_view .fb-image-profile
+            {
+                margin: -160px 45px 10px 80px;
+                z-index: 9;
+                width: 13%;
+                height: 175px;
+                border-radius:50%;
+            }
             #restaurant_view .menu_img{
                 width: 100%;
                 max-width: 100%;
                 height: 100px;
             }
+            #calendar {
+                max-width: 900px;
+                margin: 0 auto;
+            }
         </style>
+        
+
     </head>
     <body>
         <?php
@@ -201,9 +217,10 @@ include '../dbconn.php';
                                                         ?>
                                                         <input type="radio" name="ricetype" id="ricetype" value="<?= $riceData["name"] ?>">&nbsp;<?= $riceData["name"] ?>&nbsp;&nbsp;(<?= $riceData["price"] ?>&nbsp;บาท)<br>
                                                     <?php } ?>
+
                                                 </div>
                                             </div>
-                                            <ul class="list-inline pull-right" style="margin-top: 20px;">
+                                            <ul class="list-inline pull-right"  style="margin-top: 20px">
                                                 <li><button type="button" class="btn btn-default prev-step" id="prevstep2">Previous</button></li>
                                                 <li><button type="button" class="btn btn-primary next-step" id="nextstep2">Save and continue</button></li>
                                             </ul>
@@ -245,90 +262,92 @@ include '../dbconn.php';
                                                     </div> <!--<hr class="hrs">-->
                                                 </div>
                                             </div>
-                                            <ul class="list-inline pull-right"  style="margin-top: 20px;">
+                                            <ul class="list-inline pull-right"  style="margin-top: 20px">
                                                 <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
                                                 <li><button type="button" class="btn btn-primary btn-info-full next-step">Save and continue</button></li>
                                             </ul>
                                         </div>
 
                                         <div class="tab-pane" role="tabpanel" id="step4">
-                                            <div class="card">
-                                                <div class="card-content">
-                                                    <div class="page-header">
-                                                        ขั้นตอนที่ 4 : เลือกวัน เวลา และสถานที่จัดส่ง
-                                                    </div>
-                                                    <div>
-                                                        <h4>ส่งวันที่:     
-                                                            <input type="date" name="senddate">
-                                                        </h4>
-                                                    </div>
-                                                    <div>
-                                                        <h4>เวลาประมาณ:     
-                                                            <input type="time" name="sendtime">
-                                                        </h4>
-                                                    </div>
-                                                    <h3>สถานที่จัดส่ง:</h3>
-                                                    <div class="content2">
-                                                        <table class="table table-hover" id="task-table">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>No.</th>
-                                                                    <th colspan="3">Address</th>
-                                                                    <th>Select</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td>1</td>
-                                                                    <td colspan="3"><?= $customerData['address'] ?></td>
-                                                                    <td><input type="radio" value="<?= $customerData['address'] ?>" name="shipAddress"> </td>
-                                                                </tr>
-                                                                <?php
-                                                                $i = 2;
-
-                                                                $shipAddressRes = $con->query("SELECT CONCAT(shippingAddress.address,' ประเภท',shippingAddress.type,'(', shippingAddress.address_naming,')') AS ship_address, shippingAddress.id FROM `shippingAddress` WHERE customer_id = '$cusid'");
-
-                                                                while ($shipAddressData = $shipAddressRes->fetch_assoc()) {
-                                                                    ?>
+                                            <div class="tab-pane" role="tabpanel" id="step4">
+                                                <div class="card">
+                                                    <div class="card-content">
+                                                        <div class="page-header">
+                                                            ขั้นตอนที่ 4 : เลือกวัน เวลา และสถานที่จัดส่ง
+                                                        </div>
+                                                        <div>
+                                                            <h4>ส่งวันที่:     
+                                                                <input type="date" name="senddate">
+                                                            </h4>
+                                                        </div>
+                                                        <div>
+                                                            <h4>เวลาประมาณ:     
+                                                                <input type="time" name="sendtime">
+                                                            </h4>
+                                                        </div>
+                                                        <h3>สถานที่จัดส่ง:</h3>
+                                                        <div class="content2">
+                                                            <table class="table table-hover" id="task-table">
+                                                                <thead>
                                                                     <tr>
-                                                                        <td><?= $i++; ?></td>
-                                                                        <td colspan="3"><?= $shipAddressData['ship_address'] ?></td>
-                                                                        <td><input type="radio"  name="shipAddress" value="<?= $shipAddressData['ship_address'] ?>"> </td>
+                                                                        <th>No.</th>
+                                                                        <th colspan="3">Address</th>
+                                                                        <th>Select</th>
                                                                     </tr>
-
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>1</td>
+                                                                        <td colspan="3"><?= $customerData['address'] ?></td>
+                                                                        <td><input type="radio" value="<?= $customerData['address'] ?>" name="shipAddress"> </td>
+                                                                    </tr>
                                                                     <?php
-                                                                }
-                                                                ?>
-                                                            </tbody>
-                                                        </table>
-                                                        <div class="row">
-                                                            <div id="inbox" style="margin:15% 0 0 0;">
-                                                                <div class="fab btn-group show-on-hover dropup" id="add_sa" data-toggle="modal" data-target="#add_address">
-                                                                    <button type="button" class="btn btn-danger glyphicon glyphicon-plus btn-io">
-                                                                        <span class="fa-stack fa-2x">
-                                                                            <i class="fa fa-circle fa-stack-2x fab-backdrop"></i>
-                                                                            <i class="fa fa-plus fa-stack-1x fa-inverse fab-primary"></i>
-                                                                            <i class="fa fa-plus fa-stack-1x fa-inverse fab-secondary"></i>
-                                                                        </span>
-                                                                    </button>
+                                                                    $i = 2;
+
+                                                                    $shipAddressRes = $con->query("SELECT CONCAT(shippingAddress.address,' ประเภท',shippingAddress.type,'(', shippingAddress.address_naming,')') AS ship_address, shippingAddress.id FROM `shippingAddress` WHERE customer_id = '$cusid'");
+
+                                                                    while ($shipAddressData = $shipAddressRes->fetch_assoc()) {
+                                                                        ?>
+                                                                        <tr>
+                                                                            <td><?= $i++; ?></td>
+                                                                            <td colspan="3"><?= $shipAddressData['ship_address'] ?></td>
+                                                                            <td><input type="radio"  name="shipAddress" value="<?= $shipAddressData['ship_address'] ?>"> </td>
+                                                                        </tr>
+
+                                                                        <?php
+                                                                    }
+                                                                    ?>
+                                                                </tbody>
+                                                            </table>
+                                                            <div class="row">
+                                                                <div id="inbox" style="margin:15% 0 0 0;">
+                                                                    <div class="fab btn-group show-on-hover dropup" id="add_sa" data-toggle="modal" data-target="#add_address">
+                                                                        <button type="button" class="btn btn-danger glyphicon glyphicon-plus btn-io">
+                                                                            <span class="fa-stack fa-2x">
+                                                                                <i class="fa fa-circle fa-stack-2x fab-backdrop"></i>
+                                                                                <i class="fa fa-plus fa-stack-1x fa-inverse fab-primary"></i>
+                                                                                <i class="fa fa-plus fa-stack-1x fa-inverse fab-secondary"></i>
+                                                                            </span>
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </div>  
+                                                            </div>  
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <ul class="list-inline pull-right" style="margin-top: 20px;">
-                                                <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
-                                                <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
-                                            </ul>                                  
+                                                <ul class="list-inline pull-right"  style="margin-top: 20px">
+                                                    <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
+                                                    <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
+                                                </ul>
+                                            </div>                                   
                                         </div>
                                         <div class="tab-pane" role="tabpanel" id="step5">
                                             <div class="card">
                                                 <div class="card-content">
-                                                    <div class="page-header">
-                                                        ขั้นตอนที่ 5 : เลือกวิธีชำระเงิน
-                                                    </div>
-                                                    <div class="row">                                                        
+                                                    <div class="row">         
+                                                        <div class="page-header">
+                                                            ขั้นตอนที่ 5 : เลือกวิธีชำระเงิน
+                                                        </div>
                                                         <div class="col-md-6">
                                                             <input type="checkbox" name="sex" value="male">&nbsp;เงินสด&nbsp;&nbsp;
                                                         </div>
@@ -341,11 +360,11 @@ include '../dbconn.php';
                                                     </div>
                                                 </div>
                                             </div>
-                                            <ul class="list-inline pull-right" style="margin-top: 20px;">
-                                                <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
-                                                <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
-                                            </ul>
                                         </div>
+                                        <ul class="list-inline pull-right" style="margin-top: 20px">
+                                            <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
+                                            <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -383,7 +402,10 @@ include '../dbconn.php';
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="datepaginator" id="paginator"></div><br><hr>
+                        <div class="card">
+                            <div class="card-content">
+                                <div id="calendar"></div>
+                            </div></div><br><hr>
                         <div class="card">
                             <div class="card-content">
                                 <div class="page-header">
@@ -392,7 +414,7 @@ include '../dbconn.php';
                                 <p>บอกรายละเอียดรายการ พร้อมราคาที่ลูกค้าเลือก</p>
                             </div>
                         </div>
-                        <ul class="list-inline pull-right" style="margin-top: 20px;">
+                        <ul class="list-inline pull-right" style="margin-top: 20px">
                             <li><button type="button" class="btn btn-primary next-step">Order</button></li>
                         </ul>
                     </div>
@@ -404,122 +426,21 @@ include '../dbconn.php';
         <?php include '../template/footer.php'; ?>
 
         <script>
-            var __slice = [].slice;
-
-            (function ($, window) {
-                var Starrr;
-
-                Starrr = (function () {
-                    Starrr.prototype.defaults = {
-                        rating: void 0,
-                        numStars: 5,
-                        change: function (e, value) {
-                        }
-                    };
-
-                    function Starrr($el, options) {
-                        var i, _, _ref,
-                                _this = this;
-
-                        this.options = $.extend({}, this.defaults, options);
-                        this.$el = $el;
-                        _ref = this.defaults;
-                        for (i in _ref) {
-                            _ = _ref[i];
-                            if (this.$el.data(i) != null) {
-                                this.options[i] = this.$el.data(i);
-                            }
-                        }
-                        this.createStars();
-                        this.syncRating();
-                        this.$el.on('mouseover.starrr', 'i', function (e) {
-                            return _this.syncRating(_this.$el.find('i').index(e.currentTarget) + 1);
-                        });
-                        this.$el.on('mouseout.starrr', function () {
-                            return _this.syncRating();
-                        });
-                        this.$el.on('click.starrr', 'i', function (e) {
-                            return _this.setRating(_this.$el.find('i').index(e.currentTarget) + 1);
-                        });
-                        this.$el.on('starrr:change', this.options.change);
-                    }
-
-                    Starrr.prototype.createStars = function () {
-                        var _i, _ref, _results;
-
-                        _results = [];
-                        for (_i = 1, _ref = this.options.numStars; 1 <= _ref ? _i <= _ref : _i >= _ref; 1 <= _ref ? _i++ : _i--) {
-                            _results.push(this.$el.append("<i class='fa fa-star-o'></i>"));
-                        }
-                        return _results;
-                    };
-
-                    Starrr.prototype.setRating = function (rating) {
-                        if (this.options.rating === rating) {
-                            rating = void 0;
-                        }
-                        this.options.rating = rating;
-                        this.syncRating();
-                        return this.$el.trigger('starrr:change', rating);
-                    };
-
-                    Starrr.prototype.syncRating = function (rating) {
-                        var i, _i, _j, _ref;
-
-                        rating || (rating = this.options.rating);
-                        if (rating) {
-                            for (i = _i = 0, _ref = rating - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
-                                this.$el.find('i').eq(i).removeClass('fa-star-o').addClass('fa-star');
-                            }
-                        }
-                        if (rating && rating < 5) {
-                            for (i = _j = rating; rating <= 4 ? _j <= 4 : _j >= 4; i = rating <= 4 ? ++_j : --_j) {
-                                this.$el.find('i').eq(i).removeClass('fa-star').addClass('fa-star-o');
-                            }
-                        }
-                        if (!rating) {
-                            return this.$el.find('i').removeClass('fa-star').addClass('fa-star-o');
-                        }
-                    };
-
-                    return Starrr;
-
-                })();
-                return $.fn.extend({
-                    starrr: function () {
-                        var args, option;
-
-                        option = arguments[0], args = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
-                        return this.each(function () {
-                            var data;
-
-                            data = $(this).data('star-rating');
-                            if (!data) {
-                                $(this).data('star-rating', (data = new Starrr($(this), option)));
-                            }
-                            if (typeof option === 'string') {
-                                return data[option].apply(data, args);
-                            }
-                        });
-                    }
-                });
-            })(window.jQuery, window);
-
-            $(function () {
-                return $(".starrr").starrr();
-            });
 
             $(document).ready(function () {
 
-                $('#stars').on('starrr:change', function (e, value) {
-                    $('#count').html(value);
+
+                $('#calendar').fullCalendar({
+                    defaultDate: '2015-02-12',
+                    editable: true,
+                    eventLimit: true // allow "more" link when too many events
+
                 });
 
-                $('#stars-existing').on('starrr:change', function (e, value) {
-                    $('#count-existing').html(value);
-                });
             });
+
         </script>
+
 
         <script>
             $(document).ready(function () {
@@ -558,9 +479,6 @@ include '../dbconn.php';
                 $(elem).prev().find('a[data-toggle="tab"]').click();
             }
         </script>
-        <script type="text/javascript" src="http://jondmiles.com/bootstrap-datepaginator/js/moment.min.js"></script>
-        <script type="text/javascript" src="http://jondmiles.com/bootstrap-datepaginator/js/bootstrap-datepicker.js"></script>
-        <script type="text/javascript" src="http://jondmiles.com/bootstrap-datepaginator/js/bootstrap-datepaginator.min.js"></script>
 
         <script>
             $(document).ready(function () {
@@ -572,7 +490,7 @@ include '../dbconn.php';
                     single_column_breakpoint: 700
                 });
             });
-            $('#paginator').datepaginator();
+
 
             $('#info').click(function (e) {
                 alert('ccccc');

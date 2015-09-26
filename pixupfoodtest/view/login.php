@@ -45,7 +45,7 @@ include './navbar.php';
                                     <img src="../assets/images/bar/userl.png" style="width:104px; height:104px;"><br><br>
                                 </a>
                                 <a href="#" data-toggle="modal" data-target="#ModalCus">
-                                    <p style="margin-left:15px;font-weight:bold"> CUSTOMERS </p>
+                                    <p style="margin-left:15px;font-size: 14px;"> CUSTOMERS </p>
                                 </a>
                             </div>
                             <div class="col-md-1" style="margin-top:13px;"></div>
@@ -54,7 +54,7 @@ include './navbar.php';
                                     <img src=../assets/images/bar/restaurant.png style="width:104px; height:104px;"><br><br>
                                 </a>
                                 <a href="#" data-toggle="modal" data-target="#ModalRes">
-                                    <p style="margin-left:15px;font-weight:bold"> RESTAURANTS </p>
+                                    <p style="margin-left:15px;font-size: 14px;"> RESTAURANTS </p>
                                 </a>
                             </div>
                         </div>

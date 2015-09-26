@@ -128,14 +128,14 @@ if (isset($_SESSION["islogin"])) {
                                 <div class="middlePage">
                                     <div class="panel panel-info">
                                         <div class="panel-heading">
-                                            <h3 class="panel-title">Already Account? >> Sign In or Sign Up here</h3>
+                                            <h3 class="panel-title">ลงชื่อเข้าใช้ / สมัครสมาชิก</h3>
                                         </div>
                                         <div class="panel-body">
                                             <div class="row">
                                                 <div class="col-md-5" >
                                                     <div class="row">
                                                         <div class="col-md-12">
-                                                            <p class="text-uppercase" style="text-align: center;font-size: 20pt;">sign up here</p>
+                                                            <p class="text-uppercase" style="text-align: center;font-size: 20pt;">สมัครสมาชิกที่นี่</p>
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -144,7 +144,7 @@ if (isset($_SESSION["islogin"])) {
                                                                 <img src="/assets/images/bar/userl.png" style="width:60px; height:60px;margin-top: 10px;">
                                                             </a>
                                                             <a href="/view/cus_register.php">
-                                                                <p style="font-weight:bold"> CUSTOMERS </p>
+                                                                <p style="margin-left: 3px;font-size: 16px"> ผู้ใช้ทั่วไป </p>
                                                             </a>
                                                         </div>
                                                         <div class="col-md-5">
@@ -152,7 +152,7 @@ if (isset($_SESSION["islogin"])) {
                                                                 <img src="/assets/images/bar/restaurant.png" style="width:60px; height:60px;margin-top: 10px;">
                                                             </a>
                                                             <a href="/view/res_register.php">
-                                                                <p style="font-weight:bold"> RESTAURANTS </p>
+                                                                <p style="font-size: 14px"> ผู้ประกอบการ </p>
                                                             </a>
                                                         </div>
                                                         <div class="col-md-1"></div>
@@ -161,12 +161,12 @@ if (isset($_SESSION["islogin"])) {
                                                 <div class="col-md-7" style="border-left:1px solid #ccc;height:160px">
                                                     <form class="form-horizontal" id="loginform" action="/api/loginsession.php" method="post">
                                                         <fieldset>
-                                                            <input name="loginemail" id="loginemail" type="text" placeholder="Enter User Name" class="form-control input-md">                                                                
-                                                            <input name="password" id="password" type="password" placeholder="Enter Password" class="form-control input-md" style="margin: 10px 0 5px 0">
-                                                            <div class="spacing"><input type="checkbox" name="checkboxes" id="checkboxes-0" value="1"><small> Remember me</small></div>
-                                                            <div class="spacing spacing-height"><a href="#"><p style="font-size: 14px">Forgot Password?</p></a><br/></div>
+                                                            <input name="loginemail" id="loginemail" type="text" placeholder="อีเมลล์" class="form-control input-md">                                                                
+                                                            <input name="password" id="password" type="password" placeholder="รหัสผ่าน" class="form-control input-md" style="margin: 10px 0 5px 0">
+                                                            <div class="spacing"><input type="checkbox" name="checkboxes" id="checkboxes-0" value="1"><small> จำฉันไว้</small></div>
+                                                            <div class="spacing spacing-height"><a href="#"><p style="font-size: 14px">ลืมรหัสผ่าน?</p></a><br/></div>
                                                             <div style="margin-top:10px; color:red; height:25px;" id="showerror"></div>
-                                                            <button type="submit" id="submitbtn"  class="btn btn-info btn-sm pull-right" style="margin-top:-35px;">Sign In</button>
+                                                            <button type="submit" id="submitbtn"  class="btn btn-info btn-sm pull-right" style="margin-top:-35px;">ลงชื่อเข้าใช้</button>
                                                         </fieldset>
                                                     </form>
                                                 </div>
