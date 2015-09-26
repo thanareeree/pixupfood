@@ -13,7 +13,7 @@ include '../dbconn.php';
 
         <!-- custom css -->
         <link rel="stylesheet" href="/assets/css/res_restaurant_manage.css">
-        
+
 
 
 
@@ -24,14 +24,6 @@ include '../dbconn.php';
         $resid = $_SESSION["restdata"]["id"];
         $result = $con->query("select * from restaurant where id = '$resid' ");
         $resdata = $result->fetch_assoc();
-
-        $deliveryRes = $con->query("SELECT delivery_type.id, delivery_type.description, "
-                . "mapping_delivery_type.deliveryfee "
-                . "FROM restaurant "
-                . "LEFT JOIN mapping_delivery_type ON mapping_delivery_type.restaurant_id = restaurant.id "
-                . "LEFT JOIN delivery_type ON delivery_type.id = mapping_delivery_type.delivery_type_id "
-                . "WHERE restaurant.id = '$resid' ");
-        $deliveryData = $deliveryRes->fetch_assoc();
         ?>
         <?php include '../template/restaurant-navbar.php'; ?>
         <form>
@@ -135,53 +127,119 @@ include '../dbconn.php';
                                             <span style="font-size: 35px;">ตั้งค่าทั่วไป</span>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <div class="card card-content" id="showdata_payment">
-                                                        <div class="page-header" style="font-size: 25px; margin-top: 5px">
-                                                            รูปแบบการชำระเงิน
-                                                            <div class="pull-right">
-                                                                <p class="text-center">
-                                                                    <a  href="#" id="editbtn">
-                                                                        <span class="glyphicon glyphicon-pencil"style="font-size: 20px; color: orange"></span> 
-                                                                        <span style="font-size: 20px; color: orange">แก้ไข</span>
-                                                                    </a>
-                                                                </p>
+
+                                                    <?php
+                                                    $resPaymentRes = $con->query("select payment_type.id, payment_type.description "
+                                                            . "FROM mapping_payment_type "
+                                                            . "LEFT JOIN payment_type ON mapping_payment_type.payment_type_id = payment_type.id "
+                                                            . "where mapping_payment_type.restaurant_id = '$resid' ");
+
+
+                                                    if ($resPaymentRes->num_rows == null) {
+                                                        ?>
+                                                        <div class="card card-content" >
+                                                            <div class="page-header" style="font-size: 25px; margin-top: 5px">
+                                                                รูปแบบการชำระเงิน
+
                                                             </div>
-                                                        </div>
-                                                        <form id="dataform_edit_payment">
-                                                            <?php
-                                                            $resPaymentRes = $con->query("SELECT payment_type.id, payment_type.description "
-                                                                    . "FROM restaurant "
-                                                                    . "LEFT JOIN mapping_payment_type ON mapping_payment_type.restaurant_id = restaurant.id "
-                                                                    . "LEFT JOIN payment_type ON payment_type.id = mapping_payment_type.payment_type_id"
-                                                                    . " WHERE restaurant.id = '$resid' ");
-                                                            $hasData = $resPaymentRes->fetch_assoc();
-
-
-                                                            if ($hasData["id"] == "") {
-                                                                $paymentRes = $con->query("SELECT payment_type.id, payment_type.description FROM payment_type");
+                                                            <form id="dataform_edit_payment" action="/restaurant/add-payment-type.php?resId=<?= $resid ?>" method="post">
+                                                                <?php
+                                                                $paymentRes = $con->query("SELECT payment_type.id, payment_type.description FROM payment_type ");
                                                                 while ($paymentData = $paymentRes->fetch_assoc()) {
                                                                     ?>
                                                                     <div class="input-group col-md-6" style="margin: 10px 120px;"  >
                                                                         <input type="checkbox" name="paymentData[]" value="<?= $paymentData["id"] ?>"><?= $paymentData["description"] ?>
                                                                     </div>
-                                                                    <?php
-                                                                }
-                                                                echo '<span class="input-group" style="margin-left: 250px;"><button class="btn btn-success" id="savebtn" type="submit">บันทึก</button></span>';
-                                                            } else {
+                                                                <?php } ?>
+                                                                <span class="input-group" style="margin-left: 250px;">
+                                                                    <button class="btn btn-success" id="savebtn" type="submit">บันทึก</button>
+                                                                </span>
+                                                            </form>
+                                                        </div>
+
+
+                                                    <?php } else { ?>
+                                                        <div class="card card-content">
+                                                            <div class="page-header" style="font-size: 25px; margin-top: 5px">
+                                                                รูปแบบการชำระเงิน
+                                                                <div class="pull-right">
+
+                                                                </div>
+                                                            </div>
+                                                            <div id="dataform_foodbox">
+                                                                <?php
                                                                 while ($resPaymentData = $resPaymentRes->fetch_assoc()) {
                                                                     ?>
-                                                                    <div class=" col-md-6" style="margin: 10px 120px;"  >
-                                                                        <p><?= $resPaymentData["description"] ?></p>
+                                                                    <div class="input-group col-md-6" style="margin: 10px 120px;" id="foodboxtypeShow" >
+                                                                        <ul>
+                                                                            <li style="font-size: 18px"> <?= $resPaymentData["description"] ?></li>
+                                                                        </ul>
                                                                     </div>
-                                                                    <?php
-                                                                }
-                                                            }
-                                                            ?>
+                                                                <?php } ?>
+                                                            </div>
+                                                        </div>
+                                                    <?php } ?>
 
 
+                                                    <div class="card card-content" id="showdat_bankaccount" >
+                                                        <div class="page-header" style="font-size: 25px; margin-top: 5px">
+                                                            เพิ่มข้อมูลบัญชีธนาคาร
+                                                            <div class="pull-right">
+                                                            </div>
+                                                        </div>
+                                                        <form id="dataform_add_bankaccount" method="post" >
+                                                            <input type="hidden" id="resIdvalue" name="resIdvalue" value="<?= $resid ?>">
+
+                                                            <div class="form-group" style="margin-bottom: 15px;">
+                                                                <label class="col-sm-2 control-label" for="textinput">ชื่อบัญชี</label>
+                                                                <div class="col-sm-10" style="margin-bottom: 15px;">
+                                                                    <input type="text" placeholder="ชื่อบัญชี" class="form-control" id="accountname" name="accountname" required="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group" >
+                                                                <label class="col-sm-2 control-label" for="textinput">เลขที่บัญชี</label>
+                                                                <div class="col-sm-10" style="margin-bottom: 15px;">
+                                                                    <input type="text" placeholder="เลขที่บัญชี xxx-xxxxxx-x" class="form-control" id="accountid" name="accountid" maxlength="10" required="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group" style="margin-bottom: 15px;">
+                                                                <label class="col-sm-2 control-label" for="textinput">ธนาคาร</label>
+                                                                <div class="col-sm-10" style="margin-bottom: 15px;">
+                                                                    <select class="form-control"id="bankname" name="bankname" required="">
+                                                                        <option value="ธนาคารไทยพาณิชย์">ธนาคารไทยพาณิชย์</option>
+                                                                        <option value="ธนาคารกสิกรไทย">ธนาคารกสิกรไทย</option>
+                                                                        <option value="ธนาคารกรุงไทย">ธนาคารกรุงไทย</option>
+                                                                        <option value="ธนาคารกรุงเทพ">ธนาคารกรุงเทพ</option>
+                                                                        <option value="ธนาคารกรุงศรีอยุธยา">ธนาคารกรุงศรีอยุธยา</option>
+                                                                        <option value="ธนาคารธนชาต">ธนาคารธนชาต</option>
+                                                                        <option value="ธนาคารทหารไทย">ธนาคารทหารไทย </option>
+
+                                                                    </select>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group" >
+                                                                <label class="col-sm-2 control-label" for="textinput">
+                                                                    <p style="color:  red;font-size: 20px" id="showerror"></p>
+                                                                </label>
+                                                            </div>
+
+                                                            <div class="form-group" >
+                                                                <span class="input-group" style="margin-left: 250px;">
+                                                                    <button class="btn btn-success" id="savebtn" type="submit" style="    margin-left: 175px;">บันทึก</button>
+                                                                </span>
+
+                                                            </div>
                                                         </form>
                                                     </div>
+
+
+
                                                 </div>
+
+
+
+
                                                 <div class="col-md-6">
                                                     <div class="card card-content" id="showdat_bankaccount">
                                                         <div class="page-header" style="font-size: 25px; margin-top: 5px">
@@ -195,30 +253,29 @@ include '../dbconn.php';
                                                                 </p>
                                                             </div>
                                                         </div>
-                                                        <form id="dataform_edit_bankaccount">
-                                                            <div class="form-group" style="margin-bottom: 15px;">
-                                                                <label class="col-sm-2 control-label" for="textinput">ธนาคาร</label>
-                                                                <div class="col-sm-10" style="margin-bottom: 15px;">
-                                                                    <input type="text" placeholder="ธนาคาร" class="form-control">
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group" style="margin-bottom: 15px;">
-                                                                <label class="col-sm-2 control-label" for="textinput">ชื่อบัญชี</label>
-                                                                <div class="col-sm-10" style="margin-bottom: 15px;">
-                                                                    <input type="text" placeholder="ชื่อบัญชี" class="form-control">
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group" >
-                                                                <label class="col-sm-2 control-label" for="textinput">เลขที่บัญชี</label>
-                                                                <div class="col-sm-10" style="margin-bottom: 15px;">
-                                                                    <input type="text" placeholder="เลขที่บัญชี" class="form-control">
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group" >
-                                                                <span class="input-group" style="margin-left: 250px;">
-                                                                    <button class="btn btn-success" id="savebtn" type="button" style="    margin-left: 175px;">บันทึก</button>
-                                                                </span>
-                                                            </div>
+                                                        <form id="showdata">
+                                                            <?php
+                                                            $bankRes = $con->query("select * from bank_account where restaurant_id = '$resid'");
+                                                            if ($bankRes->num_rows == 0) {
+                                                                ?>
+                                                                <h4 style="    text-align: center;" id="nodata">ยังไม่ได้บัญทึกข้อมูล</h4>
+                                                                <?php
+                                                            } else {
+                                                                while ($bankData = $bankRes->fetch_assoc()) {
+                                                                    ?>
+                                                                    &nbsp;   <span style="font-size: 20px">ชื่อบัญชี: </span>
+                                                                    <span style="font-size: 20px; color: orange;"> <?= $bankData["accname"] ?></span><br>
+                                                                    &nbsp;   <span style="font-size: 20px">เลขที่บัญชี:</span>
+                                                                    <span style="font-size: 20px; color: orange;"><?= $bankData["accNo"] ?> </span><br>
+                                                                    &nbsp;   <span style="font-size: 20px">ธนาคาร: </span>
+                                                                    <span style="font-size: 20px; color: orange;"><?= $bankData["bank"] ?></span><br>
+                                                                    <hr>
+                                                                    <?php
+                                                                }
+                                                            }
+                                                            ?>
+                                                                    *เพื่อเป็นประโยชน์สำหรับการชำระค่าสินค้า
+
                                                         </form>
                                                     </div>
                                                 </div>
@@ -237,7 +294,7 @@ include '../dbconn.php';
 
     <!-- start footer -->
     <?php include '../template/footer.php'; ?>
-    
+
 
     <script>
         $(document).ready(function () {
@@ -256,7 +313,30 @@ include '../dbconn.php';
                 $("#uploadimgbtn").show();
             });
 
-           
+            $("#dataform_add_bankaccount").on('submit', function (e) {
+                $.ajax({
+                    url: "/restaurant/add-bankaccount.php",
+                    type: "POST",
+                    data: $("#dataform_add_bankaccount").serializeArray(),
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.result == 1) {
+                            $("#dataform_add_bankaccount").trigger("reset");
+                            $("#nodata").hide();
+                            $("#showdata").append('&nbsp;   <span style="font-size: 20px">ชื่อบัญชี: </span>' +
+                                    '<span style="font-size: 20px; color: orange;"> ' + data.accname + '</span><br>' +
+                                    ' &nbsp;   <span style="font-size: 20px">เลขที่บัญชี:</span> ' +
+                                    '<span style="font-size: 20px; color: orange;">' + data.accid + ' </span><br>' +
+                                    '&nbsp;   <span style="font-size: 20px">ธนาคาร: </span>' +
+                                    ' <span style="font-size: 20px; color: orange;">' + data.bankname + '</span><br><hr>');
+                        } else {
+                            $("#showerror").html(data.error);
+                        }
+                    }
+                });
+                e.preventDefault();
+                return false;
+            });
         });
     </script>
 
