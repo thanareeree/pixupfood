@@ -19,55 +19,69 @@ include '../dbconn.php';
 
     </head>
     <body>
-
+        <?php
+        $resid = $_SESSION["restdata"]["id"];
+        $result = $con->query("select * from restaurant where id = '$resid' ");
+        $resdata = $result->fetch_assoc();
+        ?>
         <?php include '../template/restaurant-navbar.php'; ?>
+        <form>
+            <input type="hidden" id="residValue" value="<?= $resid ?>">
+        </form>
 
-
-        <!-- start profile -->
-        <section id="head">
-            <div id="myCarousel" class="carousel slide">
-                <!-- Indicators -->
-                <div class="item active">
-                    <img src="../assets/images/slide/aa.png" class="img-responsive" style="margin-top:0px;">
-                    <div class="container">
-                        <div class="carousel-caption-new">
-                            <div class="RestaurantHeader" style="font-family:supermarket">
-                                ร้านนายใหญ่โภชนา
-                            </div>
-                        </div>
-                    </div>
-                </div> 
+        <!-- start head -->
+        <section id="RestaurantHeader">
+            <div class="overlay">
+                <div class="container text-center">
+                    <h1><i class="glyphicon glyphicon-cutlery"></i>&nbsp;<?= $resdata["name"] ?></h1>
+                </div>
             </div>
         </section>
+        <!-- end head-->
 
         <!-- Menu Bar-->
         <!--Menu Item-->
     <scetion id="menu">
         <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
             <div class="btn-group" role="group">
-                <button type="button" id="today" class="btn btn-primary" href="#tab1" data-toggle="tab"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
-                    <div class="hidden-xs">วันนี้</div>
-                </button>
+                <a href="res_restaurant_manage_order.php">
+                    <button type="button" id="orders" class="btn btn-default" >
+                        <span class="glyphicon glyphicon-align-left" aria-hidden="true" ></span>
+                        <div class="hidden-xs">รายการสั่งซื้อ</div>
+                    </button>
+                </a>
             </div>
             <div class="btn-group" role="group">
-                <button type="button" id="order" class="btn btn-default" href="#tab2" data-toggle="tab"><span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
-                    <div class="hidden-xs">รายการสั่งซื้อ</div>
-                </button>
+                <a href="res_restaurant_manage_today.php">
+                    <button type="button" id="today" class="btn btn-default">
+                        <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+                        <div class="hidden-xs">วันนี้</div>
+                    </button>
+                </a>
             </div>
             <div class="btn-group" role="group">
-                <button type="button" id="following" class="btn btn-default" href="#tab3" data-toggle="tab"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-                    <div class="hidden-xs">ปฏิทิน</div>
-                </button>
+                <a href="res_restaurant_manage_menulist.php">
+                    <button type="button" id="menulist" class="btn btn-default" >
+                        <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                        <div class="hidden-xs">รายการอาหาร</div>
+                    </button>
+                </a>
             </div>
             <div class="btn-group" role="group">
-                <button type="button" id="following" class="btn btn-default" href="#tab4" data-toggle="tab"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                    <div class="hidden-xs">รายการอาหาร</div>
-                </button>
+                <a href="res_restaurant_manage_calendar.php">
+                    <button type="button" id="calendar" class="btn btn-warning" >
+                        <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                        <div class="hidden-xs">ปฏิทิน</div>
+                    </button>
+                </a>
             </div>
             <div class="btn-group" role="group">
-                <button type="button" id="following" class="btn btn-default" href="#tab5" data-toggle="tab"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                    <div class="hidden-xs">การตั้งค่า</div>
-                </button>
+                <a href="res_restaurant_manage_edit.php">
+                    <button type="button" id="editres" class="btn btn-default">
+                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                        <div class="hidden-xs">การตั้งค่า</div>
+                    </button>
+                </a>
             </div>
         </div>
     </scetion>

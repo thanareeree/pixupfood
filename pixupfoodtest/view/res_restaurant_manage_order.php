@@ -17,25 +17,25 @@ include '../dbconn.php';
 
     </head>
     <body>
-
+        <?php
+        $resid = $_SESSION["restdata"]["id"];
+        $result = $con->query("select * from restaurant where id = '$resid' ");
+        $resdata = $result->fetch_assoc();
+        ?>
         <?php include '../template/restaurant-navbar.php'; ?>
+        <form>
+            <input type="hidden" id="residValue" value="<?= $resid ?>">
+        </form>
 
-        <!-- start profile -->
-        <section id="head">
-            <div id="myCarousel" class="carousel slide">
-                <!-- Indicators -->
-                <div class="item active">
-                    <img src="/assets/images/slide/aa.png" class="img-responsive" style="margin-top:0px;">
-                    <div class="container white">
-                        <div class="carousel-caption-new">
-                            <div class="RestaurantHeader" style="font-family:supermarket">
-                                ร้านนายใหญ่โภชนา
-                            </div>
-                        </div>
-                    </div>
-                </div> 
+        <!-- start head -->
+        <section id="RestaurantHeader">
+            <div class="overlay">
+                <div class="container text-center">
+                    <h1><i class="glyphicon glyphicon-cutlery"></i>&nbsp;<?= $resdata["name"] ?></h1>
+                </div>
             </div>
         </section>
+        <!-- end head-->
 
         <!-- Menu Bar-->
         <!--Menu Item-->
@@ -43,7 +43,7 @@ include '../dbconn.php';
         <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
             <div class="btn-group" role="group">
                 <a href="res_restaurant_manage_order.php">
-                    <button type="button" id="orders" class="btn btn-default" >
+                    <button type="button" id="orders" class="btn btn-warning" >
                         <span class="glyphicon glyphicon-align-left" aria-hidden="true" ></span>
                         <div class="hidden-xs">รายการสั่งซื้อ</div>
                     </button>
@@ -59,7 +59,7 @@ include '../dbconn.php';
             </div>
             <div class="btn-group" role="group">
                 <a href="res_restaurant_manage_menulist.php">
-                    <button type="button" id="menulist" class="btn btn-warning" >
+                    <button type="button" id="menulist" class="btn btn-default" >
                         <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
                         <div class="hidden-xs">รายการอาหาร</div>
                     </button>

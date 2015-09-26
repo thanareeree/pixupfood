@@ -13,14 +13,6 @@ include '../dbconn.php';
         <link href="http://jondmiles.com/bootstrap-datepaginator/css/bootstrap-datepicker.css" rel="stylesheet" media="screen" type="text/css">
         <link href="http://jondmiles.com/bootstrap-datepaginator/css/bootstrap-datepaginator.min.css" rel="stylesheet" media="screen" type="text/css">
         <style>
-            #restaurant_view .fb-image-profile
-            {
-                margin: -160px 45px 10px 80px;
-                z-index: 9;
-                width: 13%;
-                height: 175px;
-                border-radius:50%;
-            }
             #restaurant_view .menu_img{
                 width: 100%;
                 max-width: 100%;
@@ -166,92 +158,105 @@ include '../dbconn.php';
                                     <div class="tab-content">
                                         <!-- เลือกกล่อง -------------------------------------------------------------->
                                         <div class="tab-pane active" role="tabpanel" id="step1">
-                                            <div class="container_field">
-                                                <h3>ขั้นตอนที่ 1 : เลือกกล่อง</h3>
-                                                <?php
-                                                $foodboxRes = $con->query("SELECT food_box.id, food_box.description, "
-                                                        . "mapping_food_box.restaurant_id as resid "
-                                                        . "FROM mapping_food_box "
-                                                        . "LEFT JOIN food_box ON food_box.id = mapping_food_box.food_box_id "
-                                                        . "WHERE mapping_food_box.restaurant_id = '$resid' ");
+                                            <div class="card">
+                                                <div class="card-content">
+                                                    <div class="page-header">
+                                                        ขั้นตอนที่ 1 : เลือกกล่อง
+                                                    </div>
+                                                    <?php
+                                                    $foodboxRes = $con->query("SELECT food_box.id, food_box.description, "
+                                                            . "mapping_food_box.restaurant_id as resid "
+                                                            . "FROM mapping_food_box "
+                                                            . "LEFT JOIN food_box ON food_box.id = mapping_food_box.food_box_id "
+                                                            . "WHERE mapping_food_box.restaurant_id = '$resid' ");
 
-                                                while ($foodboxData = $foodboxRes->fetch_assoc()) {
-                                                    ?>
-                                                    <p><input type="radio" name="foodboxtype" id="foodboxtype" value="box<?= $foodboxData["id"] ?>"><?= $foodboxData["description"] ?></p><br>
-                                                <?php } ?>
-                                                <h5>จำนวนกล่อง: &nbsp;<input type="number" name="boxamount" id="boxamount" value="" ></h5>
+                                                    while ($foodboxData = $foodboxRes->fetch_assoc()) {
+                                                        ?>
+                                                        <p><input type="radio" name="foodboxtype" id="foodboxtype" value="box<?= $foodboxData["id"] ?>"><?= $foodboxData["description"] ?></p><br>
+                                                    <?php } ?>
+                                                    <h5>จำนวนกล่อง: &nbsp;<input type="number" name="boxamount" id="boxamount" value="" ></h5>
+                                                </div>
                                             </div>
-                                            <ul class="list-inline pull-right">
+                                            <ul class="list-inline pull-right" style="margin-top: 20px;">
                                                 <li><button type="button" class="btn btn-primary next-step" id="nextstep1">Save and continue</button></li>
                                             </ul>
                                         </div>
 
                                         <!-- เลือกชนิดข้าวข้าว -------------------------------------------------------------->
                                         <div class="tab-pane" role="tabpanel" id="step2">
-                                            <div class="container_field">
-                                                <h3>ขั้นตอนที่ 2 : เลือกข้าว</h3>
-                                                <?php
-                                                $riceListRes = $con->query("SELECT main_menu.name, menu.price   "
-                                                        . "FROM `menu` LEFT JOIN main_menu on main_menu.id = menu.main_menu_id "
-                                                        . "LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
-                                                        . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
-                                                        . "WHERE main_menu.type = 'ชนิดข้าว' "
-                                                        . "and menu.restaurant_id = '$resid'");
+                                            <div class="card">
+                                                <div class="card-content">
+                                                    <div class="page-header">
+                                                        ขั้นตอนที่ 2 : เลือกข้าว
+                                                    </div>
+                                                    <?php
+                                                    $riceListRes = $con->query("SELECT main_menu.name, menu.price   "
+                                                            . "FROM `menu` LEFT JOIN main_menu on main_menu.id = menu.main_menu_id "
+                                                            . "LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
+                                                            . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
+                                                            . "WHERE main_menu.type = 'ชนิดข้าว' "
+                                                            . "and menu.restaurant_id = '$resid'");
 
-                                                while ($riceData = $riceListRes->fetch_assoc()) {
-                                                    ?>
-                                                    <input type="radio" name="ricetype" id="ricetype" value="<?= $riceData["name"] ?>">&nbsp;<?= $riceData["name"] ?>&nbsp;&nbsp;(<?= $riceData["price"] ?>&nbsp;บาท)<br>
-                                                <?php } ?>
-
+                                                    while ($riceData = $riceListRes->fetch_assoc()) {
+                                                        ?>
+                                                        <input type="radio" name="ricetype" id="ricetype" value="<?= $riceData["name"] ?>">&nbsp;<?= $riceData["name"] ?>&nbsp;&nbsp;(<?= $riceData["price"] ?>&nbsp;บาท)<br>
+                                                    <?php } ?>
+                                                </div>
                                             </div>
-                                            <ul class="list-inline pull-right">
+                                            <ul class="list-inline pull-right" style="margin-top: 20px;">
                                                 <li><button type="button" class="btn btn-default prev-step" id="prevstep2">Previous</button></li>
                                                 <li><button type="button" class="btn btn-primary next-step" id="nextstep2">Save and continue</button></li>
                                             </ul>
                                         </div>
                                         <div class="tab-pane" role="tabpanel" id="step3" >
-                                            <div class="container_field">
-                                                <h3>ขั้นตอนที่ 3 : เลือกรายการอาหาร</h3>
-                                                <h3>ลำดับที่ 1</h3>
-                                                <div class="row">
-                                                    <?php
-                                                    $foodListRes = $con->query("SELECT DISTINCT main_menu.name, menu.price, menu.img_path   "
-                                                            . "FROM `menu` LEFT JOIN main_menu on main_menu.id = menu.main_menu_id "
-                                                            . "LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
-                                                            . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
-                                                            . "WHERE main_menu.type = 'กับข้าว' "
-                                                            . "and menu.restaurant_id = '$resid'");
+                                            <div class="card">
+                                                <div class="card-content">
+                                                    <div class="page-header">
+                                                        ขั้นตอนที่ 3 : เลือกรายการอาหาร
+                                                    </div>
+                                                    <h3>ลำดับที่ 1</h3>
+                                                    <div class="row">
+                                                        <?php
+                                                        $foodListRes = $con->query("SELECT DISTINCT main_menu.name, menu.price, menu.img_path   "
+                                                                . "FROM `menu` LEFT JOIN main_menu on main_menu.id = menu.main_menu_id "
+                                                                . "LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
+                                                                . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
+                                                                . "WHERE main_menu.type = 'กับข้าว' "
+                                                                . "and menu.restaurant_id = '$resid'");
 
-                                                    while ($foddListData = $foodListRes->fetch_assoc()) {
-                                                        ?>
-                                                        <div class="col-md-3">
-                                                            <div class="thumbnail">
-                                                                <a href="#"><img class="menu_img" src="<?= ($foddListData["img_path"] == "") ? '/assets/images/default-img360.png' : $foddListData["img_path"] ?>"></a>
-                                                                <div class="caption">
-                                                                    <h4><?= $foddListData["name"] ?></h4>
-                                                                    <p><?= $foddListData["price"] ?>&nbsp;บาท</p>
-                                                                    <p style="text-align: right">
-                                                                        <button type="button" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i></button>
-                                                                    </p>
+                                                        while ($foddListData = $foodListRes->fetch_assoc()) {
+                                                            ?>
+                                                            <div class="col-md-3">
+                                                                <div class="thumbnail">
+                                                                    <a href="#"><img class="menu_img" src="<?= ($foddListData["img_path"] == "") ? '/assets/images/default-img360.png' : $foddListData["img_path"] ?>"></a>
+                                                                    <div class="caption">
+                                                                        <h4><?= $foddListData["name"] ?></h4>
+                                                                        <p><?= $foddListData["price"] ?>&nbsp;บาท</p>
+                                                                        <p style="text-align: right">
+                                                                            <button type="button" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i></button>
+                                                                        </p>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
 
-                                                        <?php
-                                                    }
-                                                    ?>
-                                                </div> <!--<hr class="hrs">-->
+                                                            <?php
+                                                        }
+                                                        ?>
+                                                    </div> <!--<hr class="hrs">-->
+                                                </div>
                                             </div>
-                                            <ul class="list-inline pull-right">
+                                            <ul class="list-inline pull-right"  style="margin-top: 20px;">
                                                 <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
                                                 <li><button type="button" class="btn btn-primary btn-info-full next-step">Save and continue</button></li>
                                             </ul>
                                         </div>
 
                                         <div class="tab-pane" role="tabpanel" id="step4">
-                                            <div class="tab-pane" role="tabpanel" id="step4">
-                                                <div class="container_field">
-                                                    <h3>ขั้นตอนที่ 4 : เลือกวัน เวลา และสถานที่จัดส่ง</h3>
+                                            <div class="card">
+                                                <div class="card-content">
+                                                    <div class="page-header">
+                                                        ขั้นตอนที่ 4 : เลือกวัน เวลา และสถานที่จัดส่ง
+                                                    </div>
                                                     <div>
                                                         <h4>ส่งวันที่:     
                                                             <input type="date" name="senddate">
@@ -310,30 +315,33 @@ include '../dbconn.php';
                                                             </div>
                                                         </div>  
                                                     </div>
-
                                                 </div>
-                                                <ul class="list-inline pull-right">
-                                                    <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
-                                                    <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
-                                                </ul>
-                                            </div>                                   
+                                            </div>
+                                            <ul class="list-inline pull-right" style="margin-top: 20px;">
+                                                <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
+                                                <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
+                                            </ul>                                  
                                         </div>
                                         <div class="tab-pane" role="tabpanel" id="step5">
-                                            <div class="container_field">
-                                                <div class="row">                                                        
-                                                    <h3>ขั้นตอนที่ 5 : เลือกวิธีชำระเงิน</h3>
-                                                    <div class="col-md-6">
-                                                        <input type="checkbox" name="sex" value="male">&nbsp;เงินสด&nbsp;&nbsp;
+                                            <div class="card">
+                                                <div class="card-content">
+                                                    <div class="page-header">
+                                                        ขั้นตอนที่ 5 : เลือกวิธีชำระเงิน
                                                     </div>
-                                                    <div class="col-md-6">
-                                                        <input type="checkbox" name="sex" value="female">&nbsp;โอนเงินผ่านบัญชีธนาคาร&nbsp;&nbsp;
-                                                        <p>เลขที่บัญชี:_____________</p>
-                                                        <p>ชื่อบัญชี:_______________</p>
-                                                        <p>ธนาคาร:________สาขา_______</p>
+                                                    <div class="row">                                                        
+                                                        <div class="col-md-6">
+                                                            <input type="checkbox" name="sex" value="male">&nbsp;เงินสด&nbsp;&nbsp;
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <input type="checkbox" name="sex" value="female">&nbsp;โอนเงินผ่านบัญชีธนาคาร&nbsp;&nbsp;
+                                                            <p>เลขที่บัญชี:_____________</p>
+                                                            <p>ชื่อบัญชี:_______________</p>
+                                                            <p>ธนาคาร:________สาขา_______</p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <ul class="list-inline pull-right">
+                                            <ul class="list-inline pull-right" style="margin-top: 20px;">
                                                 <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
                                                 <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
                                             </ul>
@@ -376,11 +384,15 @@ include '../dbconn.php';
                     </div>
                     <div class="col-md-4">
                         <div class="datepaginator" id="paginator"></div><br><hr>
-                        <div class="container_field">
-                            <h3>Order & Price</h3>
-                            <p>บอกรายละเอียดรายการ พร้อมราคาที่ลูกค้าเลือก</p>
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="page-header">
+                                    Order & Price
+                                </div>
+                                <p>บอกรายละเอียดรายการ พร้อมราคาที่ลูกค้าเลือก</p>
+                            </div>
                         </div>
-                        <ul class="list-inline pull-right">
+                        <ul class="list-inline pull-right" style="margin-top: 20px;">
                             <li><button type="button" class="btn btn-primary next-step">Order</button></li>
                         </ul>
                     </div>
