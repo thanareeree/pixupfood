@@ -541,7 +541,7 @@ include '../dbconn.php';
 
                                     <?php
                                     $result = $con->query("SELECT * FROM `shippingAddress` where customer_id = '$cusid'");
-                                    $i = 2;
+                                    $i = 1;
                                     ?>
 
                                     <table class="table table-hover" id="task-table" style="border: 1px solid;border-color: #D2D2D2;">
@@ -554,24 +554,7 @@ include '../dbconn.php';
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td><?= $data2['address'] ?></td>
-                                                <td>
-                                                    <p>
-                                                        <button class="btn btn-primary btn-xs"  disabled="disabled">
-                                                            <span class="glyphicon glyphicon-pencil"></span>
-                                                        </button>
-                                                    </p>
-                                                </td>
-                                                <td>
-                                                    <p>
-                                                        <button class="btn btn-danger btn-xs" data-title="Delete" disabled="disabled">
-                                                            <span class="glyphicon glyphicon-trash"></span>
-                                                        </button>
-                                                    </p>
-                                                </td>
-                                            </tr>
+                                            
                                             <?php while ($data4 = $result->fetch_assoc()) { ?>
                                                 <tr>
                                                     <td><?= $i++; ?></td>

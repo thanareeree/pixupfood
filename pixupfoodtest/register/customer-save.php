@@ -22,6 +22,9 @@ if (isset($_POST["cusemail"]) && $_POST["cusemail"] != "") {
             . "VALUES "
             . "('null','$fname','$lname','$email',"
             . "'$phone','$address','0',now(),null,'$en_password')");
+    $cusid = $con->insert_id;
+    $con->query("INSERT INTO `shippingAddress`(`id`, `address`, `type`, `address_naming`, `customer_id`) "
+            . "VALUES (null,'$address',null,null,'$cusid')");
 
     if ($con->error == "") {
         $digits = 4;
@@ -43,7 +46,7 @@ if (isset($_POST["cusemail"]) && $_POST["cusemail"] != "") {
             $sms->username = 'thanaree';
             $sms->password = '58c60d';
 
-            $b = $sms->send('0000', $data2["tel"], "Your Pixupfood OTP password is: " . $data2["password"] . "\n" . "ใช้รหัสได้ภายใน 30 นาที");
+            $b = $sms->send('0000', $data2["tel"], "Your Pixupfood OTP password is: " . $data2["password"] . "\nใช้รหัสได้ภายใน 30 นาที\n https://pixupfood.com");
             //var_dump( $b);
             ?>
             <script>

@@ -104,10 +104,10 @@ include '../dbconn.php';
                         <div class="tabbable-line">
                             <ul class="nav nav-tabs ">
                                 <li class="active">
-                                    <a href="#tab_default_1_4" data-toggle="tab">รายการอาหารปัจจุบัน </a>  
+                                    <a href="/view/res_restaurant_manage_menulist.php" >รายการอาหารปัจจุบัน </a>  
                                 </li>
                                 <li>
-                                    <a href="#tab_default_2_4" data-toggle="tab">รายการอาหารที่หมดชั่วคราว </a>
+                                    <a href="/view//res_manage_menu_close.php" >รายการอาหารที่หมดชั่วคราว </a>
                                 </li>
                             </ul>
                             <div class="tab-content">

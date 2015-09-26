@@ -17,7 +17,11 @@ include '../dbconn.php';
 
     </head>
     <body>
-
+<?php
+        $resid = $_SESSION["restdata"]["id"];
+        $result = $con->query("select * from restaurant where id = '$resid' ");
+        $resdata = $result->fetch_assoc();
+        ?>
         <?php include '../template/restaurant-navbar.php'; ?>
 
         <!-- start profile -->

@@ -352,30 +352,6 @@ include '../dbconn.php';
                                                         <div class="row" style="margin-top: 0px;">
                                                             <div class="col-md-12">
                                                                 <div class="col-md-7">
-                                                                    <!--<div class="card">
-                                                                        <div class="card-content">
-                                                                            <span style="font-size: 20px">สถานะของรายการ: </span>
-                                                                            <span style="font-size: 20px; color: orange;"> รอการตอบรับ </span><br>
-                                                                            <span style="font-size: 20px">ตอบรับรายการโดย: </span>
-                                                                            <span style="font-size: 20px; color: orange;"> นายใหญ่โภชนา </span><br>
-                                                                            <span style="font-size: 20px">ตอบรับรายวันที่: </span>
-                                                                            <span style="font-size: 20px; color: orange;"> 12-11-2015 </span><br>
-                                                                            <span style="font-size: 20px">ตอบรับรายวันที่: </span>
-                                                                            <span style="font-size: 20px; color: orange;"> 12:30 </span><br>
-                                                                        </div>
-                                                                    </div>-->
-                                                                    <!-- ถ้าเป็นสถานะปฏิเสธ <div class="card">
-                                                                        <div class="card-content">
-                                                                            <span style="font-size: 20px">สถานะของรายการ: </span>
-                                                                            <span style="font-size: 20px; color: orange;"> ปฏิเสธรายการ </span><br>
-                                                                            <span style="font-size: 20px">ปฏิเสธรายการโดย: </span>
-                                                                            <span style="font-size: 20px; color: orange;"> นายใหญ่โภชนา </span><br>
-                                                                            <span style="font-size: 20px">ปฏิเสธรายวันที่: </span>
-                                                                            <span style="font-size: 20px; color: orange;"> 12-11-2015 </span><br>
-                                                                            <span style="font-size: 20px">ปฏิเสธรายวันที่: </span>
-                                                                            <span style="font-size: 20px; color: orange;"> 12:30 </span><br>
-                                                                        </div>
-                                                                    </div> -->
                                                                     <div class="card">
                                                                         <div class="card-content">
                                                                             <span style="font-size: 20px">หมายเลขสมาชิกลูกค้า: </span>
@@ -395,20 +371,6 @@ include '../dbconn.php';
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-5">
-                                                                    <div class="card">
-                                                                        <div class="card-content">
-                                                                            <span style="font-size: 20px">จัดส่งสินค้าโดย: </span><br>
-                                                                            <span style="font-size: 20px; color: orange;">108suchart สุชาติ ปานขำ</span><br>
-                                                                            <span style="font-size: 20px">โทรศัพท์: </span><br>
-                                                                            <span style="font-size: 20px; color: orange;">0812345678</span><br>
-
-                                                                            <span style="font-size: 20px">ส่งสินค้าถึงวันที่: </span><br>
-                                                                            <span style="font-size: 20px; color: orange;"> 12-11-2015</span><br>
-
-                                                                            <span style="font-size: 20px">ส่งสินค้าถึงเวลา: </span><br>
-                                                                            <span style="font-size: 20px; color: orange;"> 12:40 </span><br>
-                                                                        </div>
-                                                                    </div>
                                                                     <div class="card">
                                                                         <div class="card-content">
 
@@ -433,9 +395,6 @@ include '../dbconn.php';
                                                                             <hr style="margin-top: 5px;margin-bottom: 10px;">
                                                                             <span style="font-size: 17px">บริษัท นาดาว บางกอก จำกัด 92/14 ซอยสุขุมวิท 31 (สวัสดี) แขวงคลองตันเหนือ เขตวัฒนา กทม. 10110</span>
                                                                             <hr>
-                                                                            ตรงนี้ต้องใส่แมพที่แสดงจากจุด A คือร้าน ไปยังจุด B คือที่จัดส่งของลูกค้า
-                                                                            และมีการโชว์ระยะทาง แต่ใส่ไปใส่มาแม่งยังเน่าอยู่ เดี๋ยวค่อยว่ากันนะ ตอนนี้ยอมใจ 
-
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -553,66 +512,14 @@ include '../dbconn.php';
                                                     </div>
 
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-success" data-toggle="modal" data-dismiss="modal" data-target='#accept' href="#accept">ยอมรับรายการ</button>
-                                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-dismiss="modal" data-target='#ignore' href="#ignore">ปฏิเสธรายการ</button>
-                                                        <button type="button" class="btn btn-primary">ออกใบงาน</button>
+                                                        <button type="button" class="btn btn-success" id="ignoreOrderBtn" >ยอมรับรายการ</button>
+                                                        <button type="button" class="btn btn-danger" id="acceptOrderBtn" >ปฏิเสธรายการ</button>
                                                         <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- รูปสลิป -->
-                                        <div class="modal fade pop-up-2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel-2" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                                        <span class="modal-title" id="myLargeModalLabel-2" style="font-size: 30px">สลิปประกอบรายการเลขที่</span>  <span style="font-size: 30px; color: orange"> 102458</span>
-                                                    </div>
-                                                    <div class="modal-body">           
-                                                        <span style="font-size: 15px; color: red;">ยอดเงินที่ปรากฎในระบบเป็นเพียงการคำนวณจากเงื่อนไขต่างๆในระบบอาจไม่ใช่ยอดเงินจริง กรุณาตรวจสอบข้อมูลภายในสลิปอีกครั้ง อย่างไรก็ตามหากพบปัญหากรุณาติดต่อ </span>  
-                                                        <a href="#" data-toggle="modal" data-target='#text' style="color: blue;" >support@pixupfood.com </a> 
-                                                        <hr>
-                                                        <span style="font-size: 20px"> โอนเงินมัดจำผ่านธนาคาร: </span>
-                                                        <span style="font-size: 15px; color: orange;"> กสิกรไทย เลขที่ 12-1231212-1</span>  <br> 
-                                                        <span style="font-size: 20px"> จำนวนเงิน:</span> <span style="font-size: 15px; color: orange;">400.00 บาท</span>  <br>
-                                                        <span style="font-size: 20px"> วัน/เวลาที่ระบบบันทึกสลิป:</span> <span style="font-size: 15px; color: orange;">12-10-2015 14:30</span>  <br>
-                                                        <hr>
-                                                        <img src="../assets/images/sample slip.jpg" class="img-responsive img-rounded center-block" alt="">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- จบรูปสลิบ -->
-                                        <div class="modal fade" id="text" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                        <span class="modal-title" id="myModalLabel"><div style="font-size: 30px;">รายงาน</div></span>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <span style="font-size: 15px;">ส่งถึง: support@pixupfood.com </span><br>
-                                                        <span style="font-size: 15px;">เรื่อง: สลิปประกอบรายการเลขที่ 102458 </span>
-                                                        <hr>
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-
-                                                                <textarea name="message" placeholder="พิมพ์ข้อความของคุณที่นี่..." rows="5" style=" width: 100%"></textarea>
-
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default" data-dismiss="modal">ยกเลิก</button>
-                                                        <button type="button" class="btn btn-primary" >ส่ง</button>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        
                                         <!-- End Detail --> 
 
                                         <!-- จบ modal ตารางนะยูวว -->

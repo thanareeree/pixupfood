@@ -17,11 +17,15 @@ include '../dbconn.php';
 
     </head>
     <body>
-
+        <?php
+        $resid = $_SESSION["restdata"]["id"];
+        $result = $con->query("select * from restaurant where id = '$resid' ");
+        $resdata = $result->fetch_assoc();
+        ?>
         <?php include '../template/restaurant-navbar.php'; ?>
 
         <!-- start profile -->
-       <section id="RestaurantHeader">
+        <section id="RestaurantHeader">
             <div class="overlay">
                 <div class="container text-center">
                     <h1><i class="glyphicon glyphicon-cutlery"></i>&nbsp;<?= $resdata["name"] ?></h1>
@@ -100,7 +104,7 @@ include '../dbconn.php';
                                     </ul>
                                     <!-- Tab 1 -->
                                     <div class="tab-content">
-                                      
+
                                         <!-- Tab รายการอยู่ระหว่างดำเนินการ -->
                                         <div class="tab-pane active" id="tab_default_2_2">
                                             <div class="page-header" style="font-size: 40px; margin-top: 5px">
@@ -216,7 +220,7 @@ include '../dbconn.php';
                                         </div>
                                         <!-- End ignore --> 
 
-                                       
+
 
                                         <!-- Detial -->
                                         <div class="modal fade" id="detail" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
@@ -512,36 +516,24 @@ include '../dbconn.php';
 
                                                         <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
                                                             <div class="btn-group" role="group">
-                                                                <button type="button" id="acceptlist" class="btn btn-warning" href="#1" data-toggle="tab" >รับรายการ</button>
+                                                                <button type="button" id="acceptlist" class="btn btn-warning" >รับรายการ</button>
                                                             </div>
                                                             <div class="btn-group" role="group">
-                                                                <button type="button" id="ingredent" class="btn btn-default" href="#2" data-toggle="tab">เตรียมวัตถุดิบ</button>
+                                                                <button type="button" id="ingredent" class="btn btn-default" >เตรียมวัตถุดิบ</button>
                                                             </div>
                                                             <div class="btn-group" role="group">
-                                                                <button type="button" id="cook" class="btn btn-default" href="#3" data-toggle="tab">ปรุงอาหาร</button>
+                                                                <button type="button" id="cook" class="btn btn-default" >ปรุงอาหาร</button>
                                                             </div>
                                                             <div class="btn-group" role="group">
-                                                                <button type="button" id="package" class="btn btn-default" href="#4" data-toggle="tab" >บรรจุสินค้า</button>
+                                                                <button type="button" id="package" class="btn btn-default" >บรรจุสินค้า</button>
                                                             </div>
                                                             <div class="btn-group" role="group">
-                                                                <button type="button" id="send" class="btn btn-default" href="#5" data-toggle="tab" >เตรียมจัดส่ง</button>
+                                                                <button type="button" id="send" class="btn btn-default" >เตรียมจัดส่ง</button>
                                                             </div>
                                                         </div>
 
 
                                                         <div class="tab-content">
-                                                            <div class="tab-pane fade in active" id="1" style="display:none">
-
-                                                            </div>
-                                                            <div class="tab-pane fade in" id="2" style="display:none">
-
-                                                            </div>
-                                                            <div class="tab-pane fade in" id="3" style="display:none">
-
-                                                            </div>
-                                                            <div class="tab-pane fade in" id="4" style="display:none">
-
-                                                            </div>
                                                             <div class="tab-pane fade in" id="5">
                                                                 <div class="page-header" style="font-size: 20pt; margin-top: 20px;">เลือกผู้จัดส่ง</div>
                                                                 <div class="row" style="margin-top: 0px;">
@@ -570,9 +562,6 @@ include '../dbconn.php';
 
                                                                                 <span style="font-size: 20px">อื่นๆ: </span>
                                                                                 <span style="font-size: 20px; color: orange;"> ไปต่อค่ะพี่สุชาติ วินหน้าปากซอย </span><br>
-
-
-
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -581,20 +570,6 @@ include '../dbconn.php';
                                                             </div>
                                                         </div>
                                                     </div>
-
-                                                    <script>
-                                                        $(document).ready(function () {
-                                                            $(".btn-pref .btn").click(function () {
-                                                                $(".btn-pref .btn").removeClass("btn-warning").addClass("btn-default");
-                                                                // $(".tab").addClass("active"); // instead of this do the below 
-                                                                $(this).removeClass("btn-default").addClass("btn-warning");
-                                                            });
-                                                        });
-                                                    </script>
-
-
-
-
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-default" data-dismiss="modal">ยกเลิก</button>
                                                         <button type="button" class="btn btn-primary">บันทึก</button>
@@ -620,12 +595,22 @@ include '../dbconn.php';
 
     <!-- start footer -->
     <?php include '../template/footer.php'; ?>
-   
+
 
     <!-- ตารางรายการออเดอร์ -->
     <script src="/assets/js/OrderSearch.js"></script>
     <script src="/assets/js/ui-bootstrap-tpls-0.13.4.min.js"></script>
 
-    
+    <script>
+        $(document).ready(function () {
+            $(".btn-pref .btn").click(function () {
+                $(".btn-pref .btn").removeClass("btn-warning").addClass("btn-default");
+                // $(".tab").addClass("active"); // instead of this do the below 
+                $(this).removeClass("btn-default").addClass("btn-warning");
+            });
+        });
+    </script>
+
+
 </body>
 </html>
