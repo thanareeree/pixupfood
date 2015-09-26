@@ -21,19 +21,11 @@ include '../dbconn.php';
         <?php include '../template/restaurant-navbar.php'; ?>
 
         <!-- start profile -->
-        <section id="head">
-            <div id="myCarousel" class="carousel slide">
-                <!-- Indicators -->
-                <div class="item active">
-                    <img src="/assets/images/slide/aa.png" class="img-responsive" style="margin-top:0px;">
-                    <div class="container white">
-                        <div class="carousel-caption-new">
-                            <div class="RestaurantHeader" style="font-family:supermarket">
-                                ร้านนายใหญ่โภชนา
-                            </div>
-                        </div>
-                    </div>
-                </div> 
+       <section id="RestaurantHeader">
+            <div class="overlay">
+                <div class="container text-center">
+                    <h1><i class="glyphicon glyphicon-cutlery"></i>&nbsp;<?= $resdata["name"] ?></h1>
+                </div>
             </div>
         </section>
 

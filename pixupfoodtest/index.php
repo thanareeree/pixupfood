@@ -11,8 +11,14 @@ include './dbconn.php';
     </head>
     <body>
         <?php include 'template/customer-navbar.php'; ?>
+        <div id="slider-l" class="slider-l">
+            <a href="http://pixupfood.com/view/search_page.php">
+                <img src="http://neko-miku.com/upload/4d36ff0b95cbd128d642def23843c6b0png" class="img-responsive"></a>
+            <a onclick="parentNode.remove()" style="color: #0000ff;margin:0 0 0 15px ;">
+                <span>ปิดป้ายนี้</span></a> 
+        </div>
         <!-- start home -->
-               <section id="home">
+        <section id="home">            
             <!-- Carousel -->
             <div id="Carousel1" class="carousel slide">
                 <!-- Indicators -->
@@ -235,7 +241,7 @@ include './dbconn.php';
         <!-- end feature1 -->
 
         <!-- start pricing -->
-       <section id="pricing">
+        <section id="pricing">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 wow bounceIn" style="margin-bottom: 25px;">
@@ -316,7 +322,7 @@ include './dbconn.php';
         <!-- end pricing -->
 
         <!-- start contact -->
-       <section id="contact">
+        <section id="contact">
             <div class="overlay">
                 <div class="container">
                     <div class="row">
@@ -356,9 +362,17 @@ include './dbconn.php';
         </section>
         <!-- end contact -->
 
-        <?php include './template/footer-indexpage.php'; ?>
+        <?php include './template/footer-indexpage.php'; ?>    
+
         <script>
             $(document).ready(function () {
+                $(function () {
+
+                var $sidebar = $("#slider-l"),
+                        $window = $(window),
+                        offset = $sidebar.offset(),
+                        topPadding = 15;
+            });
                 //Handles menu drop down
                 $('.dropdown-menu').find('form').click(function (e) {
                     e.stopPropagation();

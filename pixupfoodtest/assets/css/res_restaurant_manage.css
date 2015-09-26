@@ -3,11 +3,20 @@
 /* Toggle Styles */
 
 /*Res Pic*/
-.RestaurantHeader{
-	color:#666;
-	text-align:left;
-	font-size:70px;
-	font-family:'supermarketregular';
+#RestaurantHeader
+{
+    background: url('../images/food-vegetables-italian-restaurant.png') no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    color: #fff;
+    font-family: 'supermarketregular';
+    margin-top: 70px;
+    height: 180px; 
+}
+#RestaurantHeader h1
+{
+    font-size: 55pt;
+    margin-top: 50px;
 }
 
 
@@ -837,9 +846,6 @@ box-shadow: 0px 3px 7px 0px rgba(203, 203, 203, 0.72);
     right: 0;
 }
 
-
-
-
 .file-preview-frame,.file-preview-image,.file-preview-other{height:160px;vertical-align:middle}
  .file-loading{top:0;right:0;width:25px;height:25px;font-size:999px;text-align:right;color:#fff;background:url(../img/loading.gif)top left no-repeat;border:none}
  .file-object{margin:0 0 -5px;padding:0}.btn-file{position:relative;overflow:hidden}
@@ -852,7 +858,23 @@ box-shadow: 0px 3px 7px 0px rgba(203, 203, 203, 0.72);
  .file-preview-frame:not(.file-preview-error):hover{box-shadow:3px 3px 5px 0 #333}
  .file-preview-text{text-align:left;width:160px;margin-bottom:2px;color:#428bca;background:#fff;overflow-x:hidden}
  .file-preview-other{display:table-cell;text-align:center;width:160px;border:2px solid #999;border-radius:30px;opacity:.8}
- .file-actions,.file-other-error{text-align:left}.file-icon-lg{font-size:1.2em}.file-icon-2x{font-size:2.4em}.file-icon-4x{font-size:4.8em}.file-input-ajax-new .fileinput-remove-button,.file-input-ajax-new .fileinput-upload-button,.file-input-new .close,.file-input-new .file-preview,.file-input-new .fileinput-remove-button,.file-input-new .fileinput-upload-button,.file-input-new .glyphicon-file{/* display:none */}.loading{background:url(../img/loading.gif)center center no-repeat content-box!important}.file-actions{margin-top:15px}.file-footer-buttons{float:right}.file-upload-indicator{padding-top:2px;cursor:default;opacity:.8;width:60%}.file-upload-indicator:hover{font-weight:700;opacity:1}.file-footer-caption{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:160px;text-align:center;padding-top:4px;font-size:11px;color:#777;margin:5px auto 10px}.file-preview-error{opacity:.65;box-shadow:none}.file-preview-frame:not(.file-preview-error) .file-footer-caption:hover{color:#000}.file-drop-zone{border:1px dashed #aaa;border-radius:4px;height:100%;text-align:center;vertical-align:middle;margin:12px 15px 12px 12px;padding:5px}.file-drop-zone-title{color:#aaa;font-size:40px;padding:85px 10px}.highlighted{border:2px dashed #999!important;background-color:#f0f0f0}.file-uploading{background:url(../img/loading-sm.gif)center bottom 10px no-repeat;opacity:.65}.file-error-message .close{margin-top:5px}.file-thumb-progress .progress,.file-thumb-progress .progress-bar{height:10px;font-size:9px;line-height:10px}.file-thumbnail-footer{position:relative}.file-thumb-progress{position:absolute;top:22px;left:0;right:0}
+ .file-actions,.file-other-error{text-align:left}.file-icon-lg{font-size:1.2em}.file-icon-2x{font-size:2.4em}.file-icon-4x{font-size:4.8em}
+ .file-input-ajax-new .fileinput-remove-button,.file-input-ajax-new .fileinput-upload-button,.file-input-new 
+ .close,.file-input-new .file-preview,.file-input-new .fileinput-remove-button,.file-input-new 
+ .fileinput-upload-button,.file-input-new .glyphicon-file{/* display:none */}
+ .loading{background:url(../img/loading.gif)center center no-repeat content-box!important}
+ .file-actions{margin-top:15px}.file-footer-buttons{float:right}
+ .file-upload-indicator{padding-top:2px;cursor:default;opacity:.8;width:60%}
+ .file-upload-indicator:hover{font-weight:700;opacity:1}
+ .file-footer-caption{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:160px;text-align:center;padding-top:4px;font-size:11px;color:#777;margin:5px auto 10px}
+ .file-preview-error{opacity:.65;box-shadow:none}.file-preview-frame:not(.file-preview-error) 
+ .file-footer-caption:hover{color:#000}.file-drop-zone{border:1px dashed #aaa;border-radius:4px;height:100%;text-align:center;vertical-align:middle;margin:12px 15px 12px 12px;padding:5px}
+ .file-drop-zone-title{color:#aaa;font-size:40px;padding:85px 10px}
+ .highlighted{border:2px dashed #999!important;background-color:#f0f0f0}
+ .file-uploading{background:url(../img/loading-sm.gif)center bottom 10px no-repeat;opacity:.65}
+ .file-error-message .close{margin-top:5px}.file-thumb-progress .progress,.file-thumb-progress 
+ .progress-bar{height:10px;font-size:9px;line-height:10px}.file-thumbnail-footer{position:relative}
+ .file-thumb-progress{position:absolute;top:22px;left:0;right:0}
  
  
  

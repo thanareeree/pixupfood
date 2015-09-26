@@ -11,9 +11,11 @@
 <!-- end footer -->
 
 <!-- script references -->
+<script src='http://fullcalendar.io/js/fullcalendar-2.1.1/lib/moment.min.js'></script>
 <script src="/assets/js/jquery-2.1.4.min.js"></script>
 <script src="/assets/bootstrap/js/bootstrap.min.js"></script> 
 <script src="/assets/js/jquery.plugin.js">
+<script src='http://fullcalendar.io/js/fullcalendar-2.1.1/fullcalendar.min.js'></script>
 <script src="/assets/js/wow.min.js"></script>
 <script src="/assets/js/custom.js"></script>
 <script src="/assets/js/login.js"></script>

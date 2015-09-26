@@ -30,19 +30,11 @@ include '../dbconn.php';
             <input type="hidden" id="resIdvalue" value="<?= $resid ?>">
         </form>
         <!-- start head -->
-        <section id="head">
-            <div id="myCarousel" class="carousel" style="margin-top:70px;">
-                <!-- Indicators -->
-                <div class="item">
-                    <img src="/assets/images/slide/aa.png" class="img-responsive">
-                    <div class="container">
-                        <div class="carousel-caption-new">
-                            <div class="RestaurantHeader">
-                                <?= $resdata["name"] ?>
-                            </div>
-                        </div>
-                    </div>
-                </div> 
+         <section id="RestaurantHeader">
+            <div class="overlay">
+                <div class="container text-center">
+                    <h1><i class="glyphicon glyphicon-cutlery"></i>&nbsp;<?= $resdata["name"] ?></h1>
+                </div>
             </div>
         </section>
         <!-- end head-->

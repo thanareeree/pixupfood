@@ -19,27 +19,22 @@ include '../dbconn.php';
 
     </head>
     <body>
-
+        <?php
+        $resid = $_SESSION["restdata"]["id"];
+        $result = $con->query("select * from restaurant where id = '$resid' ");
+        $resdata = $result->fetch_assoc();
+        ?>
         <?php include '../template/restaurant-navbar.php'; ?>
 
 
         <!-- start profile -->
-        <section id="head">
-            <div id="myCarousel" class="carousel slide">
-                <!-- Indicators -->
-                <div class="item active">
-                    <img src="../assets/images/slide/aa.png" class="img-responsive" style="margin-top:0px;">
-                    <div class="container">
-                        <div class="carousel-caption-new">
-                            <div class="RestaurantHeader" style="font-family:supermarket">
-                                ร้านนายใหญ่โภชนา
-                            </div>
-                        </div>
-                    </div>
-                </div> 
+        <section id="RestaurantHeader">
+            <div class="overlay">
+                <div class="container text-center">
+                    <h1><i class="glyphicon glyphicon-cutlery"></i>&nbsp;<?= $resdata["name"] ?></h1>
+                </div>
             </div>
         </section>
-
         <!-- Menu Bar-->
         <!--Menu Item-->
     <scetion id="menu">
@@ -471,377 +466,355 @@ include '../dbconn.php';
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <!-- End Content in today--> 
+    <!-- End Content in today--> 
 
-<!-- start footer -->
-<?php
-show_footer();
-?>
-<script src="../assets/js/jquery.singlePageNav.min.js"></script>
+    <!-- start footer -->
+    <?php
+    show_footer();
+    ?>
+  
+    <!--for old News-->
+    <script>
+        $(document).ready(function () {
 
-<script>
-                                                                                       $(document).ready(function () {
-                                                                                           $(".btn-pref .btn").click(function () {
-                                                                                               $(".btn-pref .btn").removeClass("btn-warning").addClass("btn-default");
-                                                                                               $(".tab").addClass("active"); // instead of this do the below 
-                                                                                               $(this).removeClass("btn-default").addClass("btn-warning");
-                                                                                           });
-                                                                                       });
-</script>
-
-
-<!--for old News-->
-<script>
-    $(document).ready(function () {
-        $('#pinBoot').pinterest_grid({
-            no_columns: 4,
-            padding_x: 10,
-            padding_y: 10,
-            margin_bottom: 50,
-            single_column_breakpoint: 700
-        });
-    });
-
-    /*
-     Ref:
-     Thanks to:
-     http://www.jqueryscript.net/layout/Simple-jQuery-Plugin-To-Create-Pinterest-Style-Grid-Layout-Pinterest-Grid.html
-     */
-
-
-    /*
-     Pinterest Grid Plugin
-     Copyright 2014 Mediademons
-     @author smm 16/04/2014
-     
-     usage:
-     
-     $(document).ready(function() {
-     
-     $('#blog-landing').pinterest_grid({
-     no_columns: 4
-     });
-     
-     });
-     
-     
-     */
-    ;
-    (function ($, window, document, undefined) {
-        var pluginName = 'pinterest_grid',
-                defaults = {
-                    padding_x: 10,
-                    padding_y: 10,
-                    no_columns: 3,
-                    margin_bottom: 50,
-                    single_column_breakpoint: 700
-                },
-        columns,
-                $article,
-                article_width;
-
-        function Plugin(element, options) {
-            this.element = element;
-            this.options = $.extend({}, defaults, options);
-            this._defaults = defaults;
-            this._name = pluginName;
-            this.init();
-        }
-
-        Plugin.prototype.init = function () {
-            var self = this,
-                    resize_finish;
-
-            $(window).resize(function () {
-                clearTimeout(resize_finish);
-                resize_finish = setTimeout(function () {
-                    self.make_layout_change(self);
-                }, 11);
+            $(".btn-pref .btn").click(function () {
+                $(".btn-pref .btn").removeClass("btn-warning").addClass("btn-default");
+                $(".tab").addClass("active"); // instead of this do the below 
+                $(this).removeClass("btn-default").addClass("btn-warning");
             });
+            $('#pinBoot').pinterest_grid({
+                no_columns: 4,
+                padding_x: 10,
+                padding_y: 10,
+                margin_bottom: 50,
+                single_column_breakpoint: 700
+            });
+        });
 
-            self.make_layout_change(self);
+        /*
+         Ref:
+         Thanks to:
+         http://www.jqueryscript.net/layout/Simple-jQuery-Plugin-To-Create-Pinterest-Style-Grid-Layout-Pinterest-Grid.html
+         */
 
-            setTimeout(function () {
-                $(window).resize();
-            }, 500);
-        };
 
-        Plugin.prototype.calculate = function (single_column_mode) {
-            var self = this,
-                    tallest = 0,
-                    row = 0,
-                    $container = $(this.element),
-                    container_width = $container.width();
-            $article = $(this.element).children();
+        /*
+         Pinterest Grid Plugin
+         Copyright 2014 Mediademons
+         @author smm 16/04/2014
+         
+         usage:
+         
+         $(document).ready(function() {
+         
+         $('#blog-landing').pinterest_grid({
+         no_columns: 4
+         });
+         
+         });
+         
+         
+         */
+        ;
+        (function ($, window, document, undefined) {
+            var pluginName = 'pinterest_grid',
+                    defaults = {
+                        padding_x: 10,
+                        padding_y: 10,
+                        no_columns: 3,
+                        margin_bottom: 50,
+                        single_column_breakpoint: 700
+                    },
+            columns,
+                    $article,
+                    article_width;
 
-            if (single_column_mode === true) {
-                article_width = $container.width() - self.options.padding_x;
-            } else {
-                article_width = ($container.width() - self.options.padding_x * self.options.no_columns) / self.options.no_columns;
+            function Plugin(element, options) {
+                this.element = element;
+                this.options = $.extend({}, defaults, options);
+                this._defaults = defaults;
+                this._name = pluginName;
+                this.init();
             }
 
-            $article.each(function () {
-                $(this).css('width', article_width);
-            });
+            Plugin.prototype.init = function () {
+                var self = this,
+                        resize_finish;
 
-            columns = self.options.no_columns;
-
-            $article.each(function (index) {
-                var current_column,
-                        left_out = 0,
-                        top = 0,
-                        $this = $(this),
-                        prevAll = $this.prevAll(),
-                        tallest = 0;
-
-                if (single_column_mode === false) {
-                    current_column = (index % columns);
-                } else {
-                    current_column = 0;
-                }
-
-                for (var t = 0; t < columns; t++) {
-                    $this.removeClass('c' + t);
-                }
-
-                if (index % columns === 0) {
-                    row++;
-                }
-
-                $this.addClass('c' + current_column);
-                $this.addClass('r' + row);
-
-                prevAll.each(function (index) {
-                    if ($(this).hasClass('c' + current_column)) {
-                        top += $(this).outerHeight() + self.options.padding_y;
-                    }
+                $(window).resize(function () {
+                    clearTimeout(resize_finish);
+                    resize_finish = setTimeout(function () {
+                        self.make_layout_change(self);
+                    }, 11);
                 });
+
+                self.make_layout_change(self);
+
+                setTimeout(function () {
+                    $(window).resize();
+                }, 500);
+            };
+
+            Plugin.prototype.calculate = function (single_column_mode) {
+                var self = this,
+                        tallest = 0,
+                        row = 0,
+                        $container = $(this.element),
+                        container_width = $container.width();
+                $article = $(this.element).children();
 
                 if (single_column_mode === true) {
-                    left_out = 0;
+                    article_width = $container.width() - self.options.padding_x;
                 } else {
-                    left_out = (index % columns) * (article_width + self.options.padding_x);
+                    article_width = ($container.width() - self.options.padding_x * self.options.no_columns) / self.options.no_columns;
                 }
 
-                $this.css({
-                    'left': left_out,
-                    'top': top
+                $article.each(function () {
+                    $(this).css('width', article_width);
                 });
-            });
 
-            this.tallest($container);
-            $(window).resize();
-        };
+                columns = self.options.no_columns;
 
-        Plugin.prototype.tallest = function (_container) {
-            var column_heights = [],
-                    largest = 0;
+                $article.each(function (index) {
+                    var current_column,
+                            left_out = 0,
+                            top = 0,
+                            $this = $(this),
+                            prevAll = $this.prevAll(),
+                            tallest = 0;
 
-            for (var z = 0; z < columns; z++) {
-                var temp_height = 0;
-                _container.find('.c' + z).each(function () {
-                    temp_height += $(this).outerHeight();
+                    if (single_column_mode === false) {
+                        current_column = (index % columns);
+                    } else {
+                        current_column = 0;
+                    }
+
+                    for (var t = 0; t < columns; t++) {
+                        $this.removeClass('c' + t);
+                    }
+
+                    if (index % columns === 0) {
+                        row++;
+                    }
+
+                    $this.addClass('c' + current_column);
+                    $this.addClass('r' + row);
+
+                    prevAll.each(function (index) {
+                        if ($(this).hasClass('c' + current_column)) {
+                            top += $(this).outerHeight() + self.options.padding_y;
+                        }
+                    });
+
+                    if (single_column_mode === true) {
+                        left_out = 0;
+                    } else {
+                        left_out = (index % columns) * (article_width + self.options.padding_x);
+                    }
+
+                    $this.css({
+                        'left': left_out,
+                        'top': top
+                    });
                 });
-                column_heights[z] = temp_height;
-            }
 
-            largest = Math.max.apply(Math, column_heights);
-            _container.css('height', largest + (this.options.padding_y + this.options.margin_bottom));
-        };
+                this.tallest($container);
+                $(window).resize();
+            };
 
-        Plugin.prototype.make_layout_change = function (_self) {
-            if ($(window).width() < _self.options.single_column_breakpoint) {
-                _self.calculate(true);
-            } else {
-                _self.calculate(false);
-            }
-        };
+            Plugin.prototype.tallest = function (_container) {
+                var column_heights = [],
+                        largest = 0;
 
-        $.fn[pluginName] = function (options) {
-            return this.each(function () {
-                if (!$.data(this, 'plugin_' + pluginName)) {
-                    $.data(this, 'plugin_' + pluginName,
-                            new Plugin(this, options));
+                for (var z = 0; z < columns; z++) {
+                    var temp_height = 0;
+                    _container.find('.c' + z).each(function () {
+                        temp_height += $(this).outerHeight();
+                    });
+                    column_heights[z] = temp_height;
                 }
-            });
-        };
 
-    })(jQuery, window, document);
-</script>
-<script>
-    $(document).ready(function () {
-        $('#characterLeft').text('140 characters left');
-        $('#message').keydown(function () {
-            var max = 140;
-            var len = $(this).val().length;
-            if (len >= max) {
-                $('#characterLeft').text('You have reached the limit');
-                $('#characterLeft').addClass('red');
-                $('#btnSubmit').addClass('disabled');
-            }
-            else {
-                var ch = max - len;
-                $('#characterLeft').text(ch + ' characters left');
-                $('#btnSubmit').removeClass('disabled');
-                $('#characterLeft').removeClass('red');
-            }
-        });
-    });
+                largest = Math.max.apply(Math, column_heights);
+                _container.css('height', largest + (this.options.padding_y + this.options.margin_bottom));
+            };
 
+            Plugin.prototype.make_layout_change = function (_self) {
+                if ($(window).width() < _self.options.single_column_breakpoint) {
+                    _self.calculate(true);
+                } else {
+                    _self.calculate(false);
+                }
+            };
 
-</script>
-
-<script>
-    +function ($) {
-        'use strict';
-        var uploadForm = document.getElementById('js-upload-form');
-
-        var startUpload = function (files) {
-            console.log(files)
-        }
-
-        uploadForm.addEventListener('submit', function (e) {
-            var uploadFiles = document.getElementById('js-upload-files').files;
-            e.preventDefault()
-
-            startUpload(uploadFiles)
-        })
-    }(jQuery);
-</script>
-
-<!-- Compost Button-->
-<script>
-    $('.fab').hover(function () {
-        $(this).toggleClass('active');
-    });
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    })
-</script>
-
-<script>
-            /**
-             *   I don't recommend using this plugin on large tables, I just wrote it to make the demo useable. It will work fine for smaller tables 
-             *   but will likely encounter performance issues on larger tables.
-             *
-             *		<input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Filter Developers" />
-             *		$(input-element).filterTable()
-             *		
-             *	The important attributes are 'data-action="filter"' and 'data-filters="#table-selector"'
-             */
-                    (function () {
-                        'use strict';
-                        var $ = jQuery;
-                        $.fn.extend({
-                            filterTable: function () {
-                                return this.each(function () {
-                                    $(this).on('keyup', function (e) {
-                                        $('.filterTable_no_results').remove();
-                                        var $this = $(this),
-                                                search = $this.val().toLowerCase(),
-                                                target = $this.attr('data-filters'),
-                                                $target = $(target),
-                                                $rows = $target.find('tbody tr');
-
-                                        if (search == '') {
-                                            $rows.show();
-                                        } else {
-                                            $rows.each(function () {
-                                                var $this = $(this);
-                                                $this.text().toLowerCase().indexOf(search) === -1 ? $this.hide() : $this.show();
-                                            })
-                                            if ($target.find('tbody tr:visible').size() === 0) {
-                                                var col_count = $target.find('tr').first().find('td').size();
-                                                var no_results = $('<tr class="filterTable_no_results"><td colspan="' + col_count + '">No results found</td></tr>')
-                                                $target.find('tbody').append(no_results);
-                                            }
-                                        }
-                                    });
-                                });
-                            }
-                        });
-                        $('[data-action="filter"]').filterTable();
-                    })(jQuery);
-
-            $(function () {
-                // attach table filter plugin to inputs
-                $('[data-action="filter"]').filterTable();
-
-                $('.container').on('click', '.panel-heading span.filter', function (e) {
-                    var $this = $(this),
-                            $panel = $this.parents('.panel');
-
-                    $panel.find('.panel-body').slideToggle();
-                    if ($this.css('display') != 'none') {
-                        $panel.find('.panel-body input').focus();
+            $.fn[pluginName] = function (options) {
+                return this.each(function () {
+                    if (!$.data(this, 'plugin_' + pluginName)) {
+                        $.data(this, 'plugin_' + pluginName,
+                                new Plugin(this, options));
                     }
                 });
-                $('[data-toggle="tooltip"]').tooltip();
-            })
-                    /* Calendar Table */
+            };
 
-                            /**
-                             *   I don't recommend using this plugin on large tables, I just wrote it to make the demo useable. It will work fine for smaller tables 
-                             *   but will likely encounter performance issues on larger tables.
-                             *
-                             *		<input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Filter Developers" />
-                             *		$(input-element).filterTable()
-                             *		
-                             *	The important attributes are 'data-action="filter"' and 'data-filters="#table-selector"'
-                             */
-                                    (function () {
-                                        'use strict';
-                                        var $ = jQuery;
-                                        $.fn.extend({
-                                            filterTable: function () {
-                                                return this.each(function () {
-                                                    $(this).on('keyup', function (e) {
-                                                        $('.filterTable_no_results').remove();
-                                                        var $this = $(this),
-                                                                search = $this.val().toLowerCase(),
-                                                                target = $this.attr('data-filters'),
-                                                                $target = $(target),
-                                                                $rows = $target.find('tbody tr');
+        })(jQuery, window, document);
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#characterLeft').text('140 characters left');
+            $('#message').keydown(function () {
+                var max = 140;
+                var len = $(this).val().length;
+                if (len >= max) {
+                    $('#characterLeft').text('You have reached the limit');
+                    $('#characterLeft').addClass('red');
+                    $('#btnSubmit').addClass('disabled');
+                }
+                else {
+                    var ch = max - len;
+                    $('#characterLeft').text(ch + ' characters left');
+                    $('#btnSubmit').removeClass('disabled');
+                    $('#characterLeft').removeClass('red');
+                }
+            });
+        });
 
-                                                        if (search == '') {
-                                                            $rows.show();
-                                                        } else {
-                                                            $rows.each(function () {
-                                                                var $this = $(this);
-                                                                $this.text().toLowerCase().indexOf(search) === -1 ? $this.hide() : $this.show();
-                                                            })
-                                                            if ($target.find('tbody tr:visible').size() === 0) {
-                                                                var col_count = $target.find('tr').first().find('td').size();
-                                                                var no_results = $('<tr class="filterTable_no_results"><td colspan="' + col_count + '">No results found</td></tr>')
-                                                                $target.find('tbody').append(no_results);
-                                                            }
-                                                        }
-                                                    });
-                                                });
+
+    </script>
+
+    <!-- Compost Button-->
+    <script>
+        $('.fab').hover(function () {
+            $(this).toggleClass('active');
+        });
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+
+    <script>
+                /**
+                 *   I don't recommend using this plugin on large tables, I just wrote it to make the demo useable. It will work fine for smaller tables 
+                 *   but will likely encounter performance issues on larger tables.
+                 *
+                 *		<input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Filter Developers" />
+                 *		$(input-element).filterTable()
+                 *		
+                 *	The important attributes are 'data-action="filter"' and 'data-filters="#table-selector"'
+                 */
+                        (function () {
+                            'use strict';
+                            var $ = jQuery;
+                            $.fn.extend({
+                                filterTable: function () {
+                                    return this.each(function () {
+                                        $(this).on('keyup', function (e) {
+                                            $('.filterTable_no_results').remove();
+                                            var $this = $(this),
+                                                    search = $this.val().toLowerCase(),
+                                                    target = $this.attr('data-filters'),
+                                                    $target = $(target),
+                                                    $rows = $target.find('tbody tr');
+
+                                            if (search == '') {
+                                                $rows.show();
+                                            } else {
+                                                $rows.each(function () {
+                                                    var $this = $(this);
+                                                    $this.text().toLowerCase().indexOf(search) === -1 ? $this.hide() : $this.show();
+                                                })
+                                                if ($target.find('tbody tr:visible').size() === 0) {
+                                                    var col_count = $target.find('tr').first().find('td').size();
+                                                    var no_results = $('<tr class="filterTable_no_results"><td colspan="' + col_count + '">No results found</td></tr>')
+                                                    $target.find('tbody').append(no_results);
+                                                }
                                             }
                                         });
-                                        $('[data-action="filter"]').filterTable();
-                                    })(jQuery);
+                                    });
+                                }
+                            });
+                            $('[data-action="filter"]').filterTable();
+                        })(jQuery);
 
-                            $(function () {
-                                // attach table filter plugin to inputs
-                                $('[data-action="filter"]').filterTable();
+                $(function () {
+                    // attach table filter plugin to inputs
+                    $('[data-action="filter"]').filterTable();
 
-                                $('.container').on('click', '.panel-heading span.filter', function (e) {
-                                    var $this = $(this),
-                                            $panel = $this.parents('.panel');
+                    $('.container').on('click', '.panel-heading span.filter', function (e) {
+                        var $this = $(this),
+                                $panel = $this.parents('.panel');
 
-                                    $panel.find('.panel-body').slideToggle();
-                                    if ($this.css('display') != 'none') {
-                                        $panel.find('.panel-body input').focus();
-                                    }
-                                });
-                                $('[data-toggle="tooltip"]').tooltip();
-                            })
+                        $panel.find('.panel-body').slideToggle();
+                        if ($this.css('display') != 'none') {
+                            $panel.find('.panel-body input').focus();
+                        }
+                    });
+                    $('[data-toggle="tooltip"]').tooltip();
+                })
+                        /* Calendar Table */
+
+                                /**
+                                 *   I don't recommend using this plugin on large tables, I just wrote it to make the demo useable. It will work fine for smaller tables 
+                                 *   but will likely encounter performance issues on larger tables.
+                                 *
+                                 *		<input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Filter Developers" />
+                                 *		$(input-element).filterTable()
+                                 *		
+                                 *	The important attributes are 'data-action="filter"' and 'data-filters="#table-selector"'
+                                 */
+                                        (function () {
+                                            'use strict';
+                                            var $ = jQuery;
+                                            $.fn.extend({
+                                                filterTable: function () {
+                                                    return this.each(function () {
+                                                        $(this).on('keyup', function (e) {
+                                                            $('.filterTable_no_results').remove();
+                                                            var $this = $(this),
+                                                                    search = $this.val().toLowerCase(),
+                                                                    target = $this.attr('data-filters'),
+                                                                    $target = $(target),
+                                                                    $rows = $target.find('tbody tr');
+
+                                                            if (search == '') {
+                                                                $rows.show();
+                                                            } else {
+                                                                $rows.each(function () {
+                                                                    var $this = $(this);
+                                                                    $this.text().toLowerCase().indexOf(search) === -1 ? $this.hide() : $this.show();
+                                                                })
+                                                                if ($target.find('tbody tr:visible').size() === 0) {
+                                                                    var col_count = $target.find('tr').first().find('td').size();
+                                                                    var no_results = $('<tr class="filterTable_no_results"><td colspan="' + col_count + '">No results found</td></tr>')
+                                                                    $target.find('tbody').append(no_results);
+                                                                }
+                                                            }
+                                                        });
+                                                    });
+                                                }
+                                            });
+                                            $('[data-action="filter"]').filterTable();
+                                        })(jQuery);
+
+                                $(function () {
+                                    // attach table filter plugin to inputs
+                                    $('[data-action="filter"]').filterTable();
+
+                                    $('.container').on('click', '.panel-heading span.filter', function (e) {
+                                        var $this = $(this),
+                                                $panel = $this.parents('.panel');
+
+                                        $panel.find('.panel-body').slideToggle();
+                                        if ($this.css('display') != 'none') {
+                                            $panel.find('.panel-body input').focus();
+                                        }
+                                    });
+                                    $('[data-toggle="tooltip"]').tooltip();
+                                })
 
 
-</script>
+    </script>
 
 </body>
 </html>

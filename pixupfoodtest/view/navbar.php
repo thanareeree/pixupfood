@@ -68,7 +68,7 @@ function show_navbar() { ?>
                                                                 <img src="/assets/images/bar/userl.png" style="width:60px; height:60px;margin-top: 10px;">
                                                             </a>
                                                             <a href="cus_register.php">
-                                                                <p style="font-weight:bold"> CUSTOMERS </p>
+                                                                <p style="font-size: 14px;"> CUSTOMERS </p>
                                                             </a>
                                                         </div>
                                                         <div class="col-md-5">
@@ -76,7 +76,7 @@ function show_navbar() { ?>
                                                                 <img src="/assets/images/bar/restaurant.png" style="width:60px; height:60px;margin-top: 10px;">
                                                             </a>
                                                             <a href="res_register.php">
-                                                                <p style="font-weight:bold"> RESTAURANTS </p>
+                                                                <p style="font-size: 14px;"> RESTAURANTS </p>
                                                             </a>
                                                         </div>
                                                         <div class="col-md-1"></div>
