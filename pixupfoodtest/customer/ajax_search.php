@@ -5,7 +5,7 @@ $foodtype = $con->real_escape_string(@$_POST["foodtype"]);
 $searchtxt = $con->real_escape_string(@$_POST["searchtxt"]);
 $lat = @$_POST["lat"];
 $long = @$_POST["long"];
-$islogin = $_SESSION["islogin"];
+//$islogin = $_SESSION["islogin"];
 
 
 if ($foodtype == "all") {
@@ -113,27 +113,7 @@ if ($searchby == "foodname") {
                 </a>
             </td>
         </tr>
-        <?php
-        if (isset($_SESSION["islogin"])) {
-            ?>
-            <script>
-                $('.tooltip-r').removeAttr("title");
-            </script>
-            <?php
-        } else {
-            ?>
-            <script>
-
-                $('a').click(function (e) {
-                    e.preventDefault()
-                });
-                $(function () {
-                    $('[data-toggle="tooltip"]').tooltip()
-                })
-            </script>
-            <?php
-        }
-        ?>
+        
         <?php
     }
 } else if ($searchby == "nearbyfood") {
@@ -145,7 +125,7 @@ if ($searchby == "foodname") {
                 . "* cos( radians( x ) ) * cos( radians( y ) - radians(" . $long . ") ) "
                 . "+ sin( radians(" . $lat . ") ) * sin( radians( x ) ) ) ) AS distance "
                 . "FROM restaurant JOIN zone ON zone.id = restaurant.zone_id "
-                . " WHERE restaurant.available = 1 "
+                . " WHERE restaurant.available = 1 and restaurant.close = 0 "
                 . "AND zone.name IN (SELECT zone.name FROM zone WHERE id = restaurant.zone_id)"
                 . "HAVING distance < 25 ORDER BY distance LIMIT 0 , 20");
         $numrow = $res->num_rows;
@@ -180,27 +160,7 @@ if ($searchby == "foodname") {
                 </a>
             </td>
         </tr>
-        <?php
-        if (isset($_SESSION["islogin"])) {
-            ?>
-            <script>
-                $('.tooltip-r').removeAttr("title");
-            </script>
-            <?php
-        } else {
-            ?>
-            <script>
-
-                $('a').click(function (e) {
-                    e.preventDefault()
-                });
-                $(function () {
-                    $('[data-toggle="tooltip"]').tooltip()
-                })
-            </script>
-            <?php
-        }
-        ?>
+        
         <?php
     }
 }

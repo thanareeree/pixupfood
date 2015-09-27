@@ -32,6 +32,10 @@ include '../api/islogin.php';
                 max-width: 900px;
                 margin: 0 auto;
             }
+            #restaurant_view .form-group {
+                margin-bottom: 0px;
+            }
+
         </style>
 
 
@@ -55,6 +59,8 @@ include '../api/islogin.php';
                 . "from customer "
                 . "where id = '$cusid' ");
         $customerData = $customerRes->fetch_assoc();
+
+        $orderMenu_id = @$_GET["menuId"];
         ?>
         <?php include '../template/customer-navbar.php'; ?>
 
@@ -170,121 +176,142 @@ include '../api/islogin.php';
                                         </ul>
                                     </div>
 
+                                    <form action="/customer/order-request-save.php?cusId<?= $cusid?>&resId<?= $resid?>" method="post">
+                                        <input type="hidden" name="selectMenuFromCustomer" value="<?= $orderMenu_id ?>" >
+                                        <div class="tab-content">
 
-                                    <div class="tab-content">
-                                        <!-- เลือกกล่อง -------------------------------------------------------------->
-                                        <div class="tab-pane active" role="tabpanel" id="step1">
-                                            <div class="card">
-                                                <div class="card-content">
-                                                    <div class="page-header">
-                                                        ขั้นตอนที่ 1 : เลือกกล่องและจำนวนกล่อง
-                                                    </div>
-                                                    <div class="row">
-                                                        <?php
-                                                        $foodboxRes = $con->query("SELECT food_box.id, food_box.description, food_box.img_path,  "
-                                                                . "mapping_food_box.restaurant_id as resid "
-                                                                . "FROM mapping_food_box "
-                                                                . "LEFT JOIN food_box ON food_box.id = mapping_food_box.food_box_id "
-                                                                . "WHERE mapping_food_box.restaurant_id = '$resid' ");
+                                            <!-- เลือกกล่อง -------------------------------------------------------------->
+                                            <div class="tab-pane active" role="tabpanel" id="step1">
 
-                                                        while ($foodboxData = $foodboxRes->fetch_assoc()) {
-                                                            ?>
-                                                            <div class="col-md-3">
-                                                                <div class="thumbnail">
-                                                                    <a href="#"><img class="menu_img" src="<?= $foodboxData["img_path"] ?>"></a>
-                                                                    <div class="caption">
-
-                                                                        <p><?= $foodboxData["description"] ?>&nbsp;บาท</p>
-                                                                        <p style="text-align: right">
-                                                                            <input type="radio" name="foodboxtype" id="foodboxtype" value="box<?= $foodboxData["id"] ?>">
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                        <?php } ?>
-                                                    </div>
-                                                    <div class="row">
-                                                        <h4>จำนวนกล่อง: &nbsp;<input type="number" name="boxamount" id="boxamount" value="" ></h4>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <ul class="list-inline pull-right" style="margin-top: 20px;">
-                                                <li><button type="button" class="btn btn-primary next-step" id="nextstep1">Save and continue</button></li>
-                                            </ul>
-                                        </div>
-
-                                        <!-- เลือกชนิดข้าวข้าว -------------------------------------------------------------->
-                                        <div class="tab-pane" role="tabpanel" id="step2">
-                                            <div class="card">
-                                                <div class="card-content">
-                                                    <div class="page-header">
-                                                        ขั้นตอนที่ 2 : เลือกข้าว
-                                                    </div>
-                                                    <?php
-                                                    $riceListRes = $con->query("SELECT main_menu.name, menu.price   "
-                                                            . "FROM `menu` LEFT JOIN main_menu on main_menu.id = menu.main_menu_id "
-                                                            . "LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
-                                                            . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
-                                                            . "WHERE main_menu.type = 'ชนิดข้าว' "
-                                                            . "and menu.restaurant_id = '$resid'");
-
-                                                    while ($riceData = $riceListRes->fetch_assoc()) {
-                                                        ?>
-                                                        <input type="radio" name="ricetype" id="ricetype" value="<?= $riceData["name"] ?>">&nbsp;<?= $riceData["name"] ?>&nbsp;&nbsp;(<?= $riceData["price"] ?>&nbsp;บาท)<br>
-                                                    <?php } ?>
-
-                                                </div>
-                                            </div>
-                                            <ul class="list-inline pull-right"  style="margin-top: 20px">
-                                                <li><button type="button" class="btn btn-default prev-step" id="prevstep2">Previous</button></li>
-                                                <li><button type="button" class="btn btn-primary next-step" id="nextstep2">Save and continue</button></li>
-                                            </ul>
-                                        </div>
-                                        <div class="tab-pane" role="tabpanel" id="step3" >
-                                            <div class="card">
-                                                <div class="card-content">
-                                                    <div class="page-header">
-                                                        ขั้นตอนที่ 3 : เลือกรายการอาหาร
-                                                    </div>
-                                                    <h3>ลำดับที่ 1</h3>
-                                                    <div class="row">
-                                                        <?php
-                                                        $foodListRes = $con->query("SELECT DISTINCT main_menu.name, menu.price, menu.img_path   "
-                                                                . "FROM `menu` LEFT JOIN main_menu on main_menu.id = menu.main_menu_id "
-                                                                . "LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
-                                                                . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
-                                                                . "WHERE main_menu.type = 'กับข้าว' "
-                                                                . "and menu.restaurant_id = '$resid'");
-
-                                                        while ($foddListData = $foodListRes->fetch_assoc()) {
-                                                            ?>
-                                                            <div class="col-md-3">
-                                                                <div class="thumbnail">
-                                                                    <a href="#"><img class="menu_img" src="<?= ($foddListData["img_path"] == "") ? '/assets/images/default-img360.png' : $foddListData["img_path"] ?>"></a>
-                                                                    <div class="caption">
-                                                                        <h4><?= $foddListData["name"] ?></h4>
-                                                                        <p><?= $foddListData["price"] ?>&nbsp;บาท</p>
-                                                                        <p style="text-align: right">
-                                                                            <button type="button" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i></button>
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
+                                                <div class="card">
+                                                    <div class="card-content">
+                                                        <div class="page-header">
+                                                            ขั้นตอนที่ 1 : เลือกกล่องและจำนวนกล่อง
+                                                        </div>
+                                                        <div class="row">
                                                             <?php
-                                                        }
-                                                        ?>
-                                                    </div> <!--<hr class="hrs">-->
-                                                </div>
-                                            </div>
-                                            <ul class="list-inline pull-right"  style="margin-top: 20px">
-                                                <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
-                                                <li><button type="button" class="btn btn-primary btn-info-full next-step">Save and continue</button></li>
-                                            </ul>
-                                        </div>
+                                                            $foodboxRes = $con->query("SELECT food_box.id, food_box.description, food_box.img_path,  "
+                                                                    . "mapping_food_box.restaurant_id as resid "
+                                                                    . "FROM mapping_food_box "
+                                                                    . "LEFT JOIN food_box ON food_box.id = mapping_food_box.food_box_id "
+                                                                    . "WHERE mapping_food_box.restaurant_id = '$resid' ");
 
-                                        <div class="tab-pane" role="tabpanel" id="step4">
+                                                            while ($foodboxData = $foodboxRes->fetch_assoc()) {
+                                                                ?>
+                                                                <div class="col-md-3">
+                                                                    <div class="thumbnail">
+                                                                        <a href="#"><img class="menu_img" src="<?= $foodboxData["img_path"] ?>"></a>
+                                                                        <div class="caption">
+
+                                                                            <p><?= $foodboxData["description"] ?>&nbsp;บาท</p>
+                                                                            <p style="text-align: right">
+                                                                                <input type="radio" name="foodboxtype" class="foodboxtype" id="foodboxtype<?= $foodboxData["id"] ?>" value="<?= $foodboxData["id"] ?>">
+                                                                                <input type="hidden" class="boxtypedata" name="boxtype<?= $foodboxData["id"] ?>" value="<?= $foodboxData["description"] ?>">
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            <?php } ?>
+                                                        </div>
+                                                        <div >
+                                                            <h4>จำนวนกล่อง: &nbsp;<input type="number" name="boxamount" id="boxamount" value="" ></h4>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <ul class="list-inline pull-right" style="margin-top: 20px;">
+                                                    <li><button type="button" class="btn btn-primary next-step" id="submitStep1">Save and continue</button></li>
+                                                </ul>
+
+                                            </div>
+
+                                            <!-- เลือกชนิดข้าวข้าว -------------------------------------------------------------->
+                                            <div class="tab-pane" role="tabpanel" id="step2">
+                                                <div class="card">
+                                                    <div class="card-content">
+                                                        <div class="page-header">
+                                                            ขั้นตอนที่ 2 : เลือกข้าว
+                                                        </div>
+                                                        <div class="row">
+                                                            <?php
+                                                            $riceListRes = $con->query("SELECT main_menu.name, menu.price , menu.img_path,menu.id  "
+                                                                    . "FROM `menu` LEFT JOIN main_menu on main_menu.id = menu.main_menu_id "
+                                                                    . "LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
+                                                                    . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
+                                                                    . "WHERE main_menu.type = 'ชนิดข้าว' "
+                                                                    . "and menu.restaurant_id = '$resid'");
+
+                                                            while ($riceData = $riceListRes->fetch_assoc()) {
+                                                                ?>
+                                                                <div class="col-md-3">
+                                                                    <div class="thumbnail">
+                                                                        <a href="#"><img class="menu_img" src="<?= ($riceData["img_path"] == "") ? '/assets/images/default-img360.png' : $riceData["img_path"] ?>"></a>
+                                                                        <div class="caption">
+                                                                            <h4><?= $riceData["name"] ?></h4>
+                                                                            <p><?= $riceData["price"] ?>&nbsp;บาท</p>
+                                                                            <p style="text-align: right">
+                                                                                <input type="radio" name="ricetype" class="ricetype" id="ricetype<?= $riceData["id"] ?>" value="<?= $riceData["name"] ?>">
+                                                                                <input type="hidden" class="ricetypedata" id="ricetypedata<?= $riceData["id"] ?>" value="<?= $riceData["price"] ?>"> 
+
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            <?php } ?>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <ul class="list-inline pull-right"  style="margin-top: 20px">
+                                                    <li><button type="button" class="btn btn-default prev-step" id="prevstep2">Previous</button></li>
+                                                    <li><button type="button" class="btn btn-primary next-step" id="nextstep2">Save and continue</button></li>
+                                                </ul>
+                                            </div>
+                                            <div class="tab-pane" role="tabpanel" id="step3" >
+                                                <div class="card">
+                                                    <div class="card-content">
+                                                        <div class="page-header">
+                                                            ขั้นตอนที่ 3 : เลือกรายการอาหาร
+                                                        </div>
+                                                        <h3>ลำดับที่ 1</h3>
+                                                        <div class="row">
+                                                            <?php
+                                                            $foodListRes = $con->query("SELECT DISTINCT main_menu.name, menu.price, menu.img_path, menu.id   "
+                                                                    . "FROM `menu` LEFT JOIN main_menu on main_menu.id = menu.main_menu_id "
+                                                                    . "LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
+                                                                    . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
+                                                                    . "WHERE main_menu.type = 'กับข้าว' "
+                                                                    . "and menu.restaurant_id = '$resid'");
+
+                                                            while ($foddListData = $foodListRes->fetch_assoc()) {
+                                                              
+                                                                ?>
+                                                                <div class="col-md-3">
+                                                                    <div class="thumbnail">
+                                                                        <a href="#"><img class="menu_img" src="<?= ($foddListData["img_path"] == "") ? '/assets/images/default-img360.png' : $foddListData["img_path"] ?>"></a>
+                                                                        <div class="caption">
+                                                                            <h4><?= $foddListData["name"] ?></h4>
+                                                                            <p><?= $foddListData["price"] ?>&nbsp;</p>
+                                                                            <p style="text-align: right">
+                                                                                <input type="checkbox" name="foodlist[]" class="foodlist" id="foodlist<?= $foddListData["id"] ?>" value="<?= $foddListData["name"] ?>">
+                                                                                <input type="hidden" name="foodprice[]" class="foodprice" id="foodprice<?= $foddListData["id"] ?>" value="<?= $foddListData["price"] ?>">
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <?php
+                                                            }
+                                                            ?>
+                                                        </div> <!--<hr class="hrs">-->
+                                                    </div>
+                                                </div>
+                                                <ul class="list-inline pull-right"  style="margin-top: 20px">
+                                                    <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
+                                                    <li><button type="button" class="btn btn-primary btn-info-full next-step">Save and continue</button></li>
+                                                </ul>
+                                            </div>
+
+
                                             <div class="tab-pane" role="tabpanel" id="step4">
                                                 <div class="card">
                                                     <div class="card-content">
@@ -293,14 +320,30 @@ include '../api/islogin.php';
                                                         </div>
                                                         <div>
                                                             <h4>ส่งวันที่:     
-                                                                <input type="date" name="senddate">
+                                                                <span id="datetext"></span><input type="date" name="delivery_date" required="">
+                                                                <input type="text" name="date" id="datepick" style="display: none" >
                                                             </h4>
                                                         </div>
                                                         <div>
-                                                            <h4>เวลาประมาณ:     
-                                                                <input type="time" name="sendtime">
+                                                            <h4>เวลา:<br>
+                                                                <select name="delivery_time" id="delivery_time" class="col-md-3" >
+                                                                    <option value="0">--เวลาจัดส่ง--</option>
+                                                                    <option value="06:30:00">06:30 น.</option>
+                                                                    <option value="07:30:00">07:30 น.</option>
+                                                                    <option value="08:30:00">08:30 น.</option>
+                                                                    <option value="09:30:00">09:30 น.</option>
+                                                                    <option value="10:30:00">10:30 น.</option>
+                                                                    <option value="11:30:00">06:30 น.</option>
+                                                                    <option value="12:30:00">12:30 น.</option>
+                                                                    <option value="13:30:00">13:30 น.</option>
+                                                                    <option value="14:30:00">14:30 น.</option>
+                                                                    <option value="15:30:00">15:30 น.</option>
+                                                                    <option value="16:30:00">16:30 น.</option>
+                                                                    <option value="17:30:00">17:30 น.</option>
+                                                                    <option value="18:30:00">18:30 น.</option>
+                                                                </select>
                                                             </h4>
-                                                        </div>
+                                                        </div><br>
                                                         <h3>สถานที่จัดส่ง:</h3>
                                                         <div class="content2">
                                                             <table class="table table-hover" id="task-table">
@@ -320,7 +363,6 @@ include '../api/islogin.php';
                                                                     while ($shipAddressData = $shipAddressRes->fetch_assoc()) {
                                                                         ?>
                                                                         <tr>
-
                                                                             <td colspan="3"><?= ($shipAddressData['ship_address'] == "" ? $shipAddressData["address"] : $shipAddressData['ship_address']) ?></td>
                                                                             <td><input type="radio"  name="shipAddress" value="<?= $shipAddressData["id"] ?>"> </td>
                                                                         </tr>
@@ -354,33 +396,53 @@ include '../api/islogin.php';
                                                 </div>
                                                 <ul class="list-inline pull-right"  style="margin-top: 20px">
                                                     <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
-                                                    <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
+                                                    <li><button type="button" class="btn btn-primary next-step" id="hidecalendarbtn">Save and continue</button></li>
                                                 </ul>
                                             </div>                                   
-                                        </div>
 
 
-                                        <div class="tab-pane" role="tabpanel" id="step5">
-                                            <div class="card">
-                                                <div class="card-content">
-                                                    <div class="row">         
+
+                                            <div class="tab-pane" role="tabpanel" id="step5">
+                                                <div class="card">
+                                                    <div class="card-content">
                                                         <div class="page-header">
                                                             ขั้นตอนที่ 5 : เลือกวิธีชำระเงิน
                                                         </div>
-                                                        <div class="col-md-6">
-                                                            <input type="checkbox" name="sex" value="male">&nbsp;เงินสด&nbsp;&nbsp;
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <input type="checkbox" name="sex" value="female">&nbsp;โอนเงินผ่านบัญชีธนาคาร&nbsp;&nbsp;
-                                                            <p>เลขที่บัญชี:_____________</p>
-                                                            <p>ชื่อบัญชี:_______________</p>
-                                                            <p>ธนาคาร:________สาขา_______</p>
+
+                                                        <?php
+                                                        $bankRes = $con->query("SELECT `id`, `accname`, `accNo`, `bank`, `restaurant_id` "
+                                                                . "FROM `bank_account` WHERE restaurant_id = '$resid' ");
+
+                                                        $resPaymentRes = $con->query("select payment_type.id, payment_type.description "
+                                                                . "FROM mapping_payment_type "
+                                                                . "LEFT JOIN payment_type ON mapping_payment_type.payment_type_id = payment_type.id "
+                                                                . "where mapping_payment_type.restaurant_id = '$resid' ");
+                                                        $paymentRes = $con->query("SELECT payment_type.id, payment_type.description FROM payment_type ");
+                                                        while ($paymentData = $paymentRes->fetch_assoc()) {
+                                                            ?>
+                                                            <div class="input-group col-md-12" style="margin: 10px 120px;"  >
+                                                                <input type="radio"  name="paymentData" value="<?= $paymentData["id"] ?>"><?= $paymentData["description"] ?>
+                                                            </div>
+                                                        <?php } ?>
+                                                        <hr>
+                                                        <div >
+                                                            *สามารถโอนเงินผ่านบัญชีธนาคาร&nbsp;&nbsp;<br>
+                                                            <?php
+                                                            while ($bankData = $bankRes->fetch_assoc()) {
+                                                                ?>
+                                                                <p>ชื่อบัญชี: &nbsp;<?= $bankData["accname"] ?>&nbsp;เลขที่บัญชี &nbsp;<?= $bankData["accNo"] ?>&nbsp;<?= $bankData["bank"] ?></p>
+
+                                                            <?php } ?>
+
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <ul class="list-inline pull-right" style="margin-top: 20px">
+                                                    <li><button type="submit" class="btn btn-primary next-step">Order</button></li>
+                                                </ul>
                                             </div>
                                         </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
 
@@ -440,21 +502,92 @@ include '../api/islogin.php';
 
                     </div>
                     <div class="col-md-4">
-                        <div class="card">
+                        <div class="card" id="showcalendar">
                             <div class="card-content">
                                 <div id="calendar"></div>
-                            </div></div><br><hr>
+                            </div>  
+                        </div>
+                        <br>
                         <div class="card">
                             <div class="card-content">
                                 <div class="page-header">
                                     Order & Price
                                 </div>
-                                <p>บอกรายละเอียดรายการ พร้อมราคาที่ลูกค้าเลือก</p>
+                                <div>
+
+                                    <table class="table table-hover" id="task-table">
+                                        <thead>
+                                            <tr>
+                                                <th>รายการอาหารที่เลือก</th>
+                                                <th>
+                                        <div class="col-md-6"></div>
+                                        <div class="form-group col-md-6">
+                                            <input type="number" name="amountbox" id="amountbox" class="form-control" value="">
+                                        </div>
+
+                                        </th>
+                                        <th>กล่อง</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="menuOrderList">
+                                            <tr>
+                                                <td>ข้าว </td>
+                                                <td>10</td>
+                                                <td>บาท</td>
+                                            </tr>
+                                            <tr>
+                                                <td>หมูกระเทียม </td>
+                                                <td>20</td>
+                                                <td>บาท</td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+
+                                    <table class="table table-hover" id="task-table">
+                                        <thead>
+                                            <tr>
+                                                <th>ราคาทั้งหมด</th>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="priceOfOrder">
+                                            <tr>
+                                                <td>ราคา: </td>
+                                                <td>10000</td>
+                                                <td>บาท</td>
+                                            </tr>
+                                            <tr>
+                                                <td>ค่าจัดส่ง: </td>
+                                                <td>100</td>
+                                                <td>บาท</td>
+                                            </tr>
+                                            <tr>
+                                                <td>ราคารวม: </td>
+                                                <td>10100</td>
+                                                <td>บาท</td>
+                                            </tr>
+                                            <tr>
+                                                <td>ค่ามัดจำ 20%: </td>
+                                                <td>200</td>
+                                                <td>บาท</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="color: red">ราคาส่วนที่เหลือ*</td>
+                                                <td>900</td>
+                                                <td>บาท</td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                    <hr style="border: solid 1px">
+                                    <p>*ราคาส่วนที่เหลือนั้น ลูกค้าจะต้องชำระด้วยเงินสดเมื่อได้รับสินค้า</p>
+                                </div>
+
                             </div>
                         </div>
-                        <ul class="list-inline pull-right" style="margin-top: 20px">
-                            <li><button type="button" class="btn btn-primary next-step">Order</button></li>
-                        </ul>
+
                     </div>
                 </div>
             </div>
@@ -503,6 +636,35 @@ include '../api/islogin.php';
 
         <script>
             $(document).ready(function () {
+                $('#datepick').datepick({
+                    minDate: new Date(),
+                    dateFormat: 'd M yyyy'
+                });
+
+                $('#hidecalendarbtn').on('click', function (e) {
+                    $('#showcalendar').hide();
+                });
+
+                $(".foodboxtype").click(function () {
+                    var editid = $(this).attr("id");
+                    var boxid = editid.replace("foodboxtype", "");
+                    if (boxid == "1") {
+
+                    } else if (boxid == "2") {
+
+                    } else if (boxid == "3") {
+
+                    } else if (boxid == "4") {
+
+                    }
+
+
+                });
+
+
+
+
+
                 //Initialize tooltips
                 $('.nav-tabs > li a[title]').tooltip();
 
@@ -541,19 +703,19 @@ include '../api/islogin.php';
 
         <script>
             $(document).ready(function () {
-               /* $('#pinBoot').pinterest_grid({
-                    no_columns: 4,
-                    padding_x: 10,
-                    padding_y: 10,
-                    margin_bottom: 50,
-                    single_column_breakpoint: 700
+                /* $('#pinBoot').pinterest_grid({
+                 no_columns: 4,
+                 padding_x: 10,
+                 padding_y: 10,
+                 margin_bottom: 50,
+                 single_column_breakpoint: 700
+                 });
+                 });*/
+
+
+                $('#info').click(function (e) {
+                    alert('ccccc');
                 });
-            });*/
-
-
-            $('#info').click(function (e) {
-                alert('ccccc');
-            });
             });
             /*
              Ref:
@@ -561,145 +723,145 @@ include '../api/islogin.php';
              http://www.jqueryscript.net/layout/Simple-jQuery-Plugin-To-Create-Pinterest-Style-Grid-Layout-Pinterest-Grid.html
              */
 
-           /* (function ($, window, document, undefined) {
-                var pluginName = 'pinterest_grid',
-                        defaults = {
-                            padding_x: 10,
-                            padding_y: 10,
-                            no_columns: 3,
-                            margin_bottom: 50,
-                            single_column_breakpoint: 700
-                        },
-                columns,
-                        $article,
-                        article_width;
-                function Plugin(element, options) {
-                    this.element = element;
-                    this.options = $.extend({}, defaults, options);
-                    this._defaults = defaults;
-                    this._name = pluginName;
-                    this.init();
-                }
+            /* (function ($, window, document, undefined) {
+             var pluginName = 'pinterest_grid',
+             defaults = {
+             padding_x: 10,
+             padding_y: 10,
+             no_columns: 3,
+             margin_bottom: 50,
+             single_column_breakpoint: 700
+             },
+             columns,
+             $article,
+             article_width;
+             function Plugin(element, options) {
+             this.element = element;
+             this.options = $.extend({}, defaults, options);
+             this._defaults = defaults;
+             this._name = pluginName;
+             this.init();
+             }
+             
+             Plugin.prototype.init = function () {
+             var self = this,
+             resize_finish;
+             
+             $(window).resize(function () {
+             clearTimeout(resize_finish);
+             resize_finish = setTimeout(function () {
+             self.make_layout_change(self);
+             }, 11);
+             });
+             
+             self.make_layout_change(self);
+             
+             setTimeout(function () {
+             $(window).resize();
+             }, 500);
+             };
+             
+             Plugin.prototype.calculate = function (single_column_mode) {
+             var self = this,
+             tallest = 0,
+             row = 0,
+             $container = $(this.element), container_width = $container.width();
+             $article = $(this.element).children();
+             
+             if (single_column_mode === true) {
+             article_width = $container.width() - self.options.padding_x;
+             } else {
+             article_width = ($container.width() - self.options.padding_x * self.options.no_columns) / self.options.no_columns;
+             }
+             
+             $article.each(function () {
+             $(this).css('width', article_width);
+             });
+             
+             columns = self.options.no_columns;
+             
+             $article.each(function (index) {
+             var current_column,
+             left_out = 0,
+             top = 0,
+             $this = $(this),
+             prevAll = $this.prevAll(),
+             tallest = 0;
+             
+             if (single_column_mode === false) {
+             current_column = (index % columns);
+             } else {
+             current_column = 0;
+             }
+             
+             for (var t = 0; t < columns; t++) {
+             $this.removeClass('c' + t);
+             }
+             
+             if (index % columns === 0) {
+             row++;
+             }
+             
+             $this.addClass('c' + current_column);
+             $this.addClass('r' + row);
+             
+             prevAll.each(function (index) {
+             if ($(this).hasClass('c' + current_column)) {
+             top += $(this).outerHeight() + self.options.padding_y;
+             }
+             });
+             
+             if (single_column_mode === true) {
+             left_out = 0;
+             } else {
+             left_out = (index % columns) * (article_width + self.options.padding_x);
+             }
+             
+             $this.css({
+             'left': left_out,
+             'top': top
+             });
+             });
+             
+             this.tallest($container);
+             $(window).resize();
+             };
+             
+             Plugin.prototype.tallest = function (_container) {
+             var column_heights = [],
+             largest = 0;
+             
+             for (var z = 0; z < columns; z++) {
+             var temp_height = 0;
+             _container.find('.c' + z).each(function () {
+             temp_height += $(this).outerHeight();
+             });
+             column_heights[z] = temp_height;
+             }
+             
+             largest = Math.max.apply(Math, column_heights);
+             _container.css('height', largest + (this.options.padding_y + this.options.margin_bottom));
+             };
+             
+             Plugin.prototype.make_layout_change = function (_self) {
+             if ($(window).width() < _self.options.single_column_breakpoint) {
+             _self.calculate(true);
+             } else {
+             _self.calculate(false);
+             }
+             };
+             
+             $.fn[pluginName] = function (options) {
+             return this.each(function () {
+             if (!$.data(this, 'plugin_' + pluginName)) {
+             $.data(this, 'plugin_' + pluginName,
+             new Plugin(this, options));
+             }
+             });
+             }
+             
+             })(jQuery, window, document);*/
 
-                Plugin.prototype.init = function () {
-                    var self = this,
-                            resize_finish;
-
-                    $(window).resize(function () {
-                        clearTimeout(resize_finish);
-                        resize_finish = setTimeout(function () {
-                            self.make_layout_change(self);
-                        }, 11);
-                    });
-
-                    self.make_layout_change(self);
-
-                    setTimeout(function () {
-                        $(window).resize();
-                    }, 500);
-                };
-
-                Plugin.prototype.calculate = function (single_column_mode) {
-                    var self = this,
-                            tallest = 0,
-                            row = 0,
-                            $container = $(this.element), container_width = $container.width();
-                    $article = $(this.element).children();
-
-                    if (single_column_mode === true) {
-                        article_width = $container.width() - self.options.padding_x;
-                    } else {
-                        article_width = ($container.width() - self.options.padding_x * self.options.no_columns) / self.options.no_columns;
-                    }
-
-                    $article.each(function () {
-                        $(this).css('width', article_width);
-                    });
-
-                    columns = self.options.no_columns;
-
-                    $article.each(function (index) {
-                        var current_column,
-                                left_out = 0,
-                                top = 0,
-                                $this = $(this),
-                                prevAll = $this.prevAll(),
-                                tallest = 0;
-
-                        if (single_column_mode === false) {
-                            current_column = (index % columns);
-                        } else {
-                            current_column = 0;
-                        }
-
-                        for (var t = 0; t < columns; t++) {
-                            $this.removeClass('c' + t);
-                        }
-
-                        if (index % columns === 0) {
-                            row++;
-                        }
-
-                        $this.addClass('c' + current_column);
-                        $this.addClass('r' + row);
-
-                        prevAll.each(function (index) {
-                            if ($(this).hasClass('c' + current_column)) {
-                                top += $(this).outerHeight() + self.options.padding_y;
-                            }
-                        });
-
-                        if (single_column_mode === true) {
-                            left_out = 0;
-                        } else {
-                            left_out = (index % columns) * (article_width + self.options.padding_x);
-                        }
-
-                        $this.css({
-                            'left': left_out,
-                            'top': top
-                        });
-                    });
-
-                    this.tallest($container);
-                    $(window).resize();
-                };
-
-                Plugin.prototype.tallest = function (_container) {
-                    var column_heights = [],
-                            largest = 0;
-
-                    for (var z = 0; z < columns; z++) {
-                        var temp_height = 0;
-                        _container.find('.c' + z).each(function () {
-                            temp_height += $(this).outerHeight();
-                        });
-                        column_heights[z] = temp_height;
-                    }
-
-                    largest = Math.max.apply(Math, column_heights);
-                    _container.css('height', largest + (this.options.padding_y + this.options.margin_bottom));
-                };
-
-                Plugin.prototype.make_layout_change = function (_self) {
-                    if ($(window).width() < _self.options.single_column_breakpoint) {
-                        _self.calculate(true);
-                    } else {
-                        _self.calculate(false);
-                    }
-                };
-
-                $.fn[pluginName] = function (options) {
-                    return this.each(function () {
-                        if (!$.data(this, 'plugin_' + pluginName)) {
-                            $.data(this, 'plugin_' + pluginName,
-                                    new Plugin(this, options));
-                        }
-                    });
-                }
-
-            })(jQuery, window, document);*/
-            
         </script>
 
     </body>

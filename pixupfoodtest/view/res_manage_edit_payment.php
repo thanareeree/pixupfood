@@ -145,7 +145,8 @@ include '../dbconn.php';
                                                                 <?php } ?>
                                                                 <span class="input-group" style="margin-left: 250px;">
                                                                     <button class="btn btn-success" id="savebtn" type="submit">บันทึก</button>
-                                                                </span>
+                                                                </span><hr>
+                                                                *ค่ามัดจำ 20% ต่อรายยการสั่งซื้อนั้น จำเป็นต้องมีเพื่อรักษาผลประโยชน์ของท่านเอง
                                                             </form>
                                                         </div>
 
@@ -168,7 +169,10 @@ include '../dbconn.php';
                                                                         </ul>
                                                                     </div>
                                                                 <?php } ?>
+                                                                
                                                             </div>
+                                                            <hr>
+                                                                *ค่ามัดจำ 20% ต่อรายยการสั่งซื้อนั้น จำเป็นต้องมีเพื่อรักษาผลประโยชน์ของท่านเอง
                                                         </div>
                                                     <?php } ?>
 

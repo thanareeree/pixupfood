@@ -67,6 +67,7 @@
 {
     padding-top: 40px;
 }
+/*
 #restaurant_view .form-control
 {
     border-radius: 0px;
@@ -79,7 +80,7 @@
 #restaurant_view select
 {
     height: 45px;
-}
+}*/
 #restaurant_view input[type="submit"]
 {
     background: #28a7e9;
