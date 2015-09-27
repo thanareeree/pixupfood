@@ -80,6 +80,7 @@ include '../api/islogin.php';
                             <li role="presentation"><a href="#promo" aria-controls="promo" role="tab" data-toggle="tab">Promotions</a></li>
                             <li role="presentation"><a href="#order" aria-controls="order" role="tab" data-toggle="tab">สั่งอาหาร</a></li>
                             <li role="presentation"><a href="#info" aria-controls="info" role="tab" data-toggle="tab">ข้อมูลร้าน</a></li>
+                            <li role="presentation"><a href="#review" aria-controls="review" role="tab" data-toggle="tab">รีวิว / คอมเม้นท์</a></li>
                         </ul>
                         <!-- Tab panes -->
                         <div class="tab-content">
@@ -205,7 +206,9 @@ include '../api/islogin.php';
                                                         <?php } ?>
                                                     </div>
                                                     <div class="row">
-                                                        <h4>จำนวนกล่อง: &nbsp;<input type="number" name="boxamount" id="boxamount" value="" ></h4>
+                                                        <div class="col-md-12">
+                                                            <h4>จำนวนกล่อง: &nbsp;<input type="number" name="boxamount" id="boxamount" value="" ></h4>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -384,10 +387,132 @@ include '../api/islogin.php';
                                 </div>
                             </div>
 
-                            <!-- Promotion -->
+                            <!-- ข้อมูลร้าน -->
                             <div role="tabpanel" class="tab-pane" id="info">
                                 <br><div class="row">
 
+                                </div>
+                            </div>
+
+                            <!-- review -->
+                            <div role="tabpanel" class="tab-pane" id="review">
+                                <br><div class="row">
+                                    <div class="col-md-12">
+                                        <h3 class="page-header" style="margin: 0 0 10px 0;">คอมเม้นต์จากลูกค้า</h3>
+                                        <section class="comment-list">
+                                            <!-- Comment1 -->
+                                            <article class="row">
+                                                <div class="col-md-2 col-sm-2 hidden-xs">
+                                                    <figure class="thumbnail">
+                                                        <img class="img-responsive" src="http://www.keita-gaming.com/assets/profile/default-avatar-c5d8ec086224cb6fc4e395f4ba3018c2.jpg" />
+                                                        <figcaption class="text-center">มานี</figcaption> <!-- ชื่อจริง -->
+                                                    </figure>
+                                                </div>
+                                                <div class="col-md-10 col-sm-10">
+                                                    <div class="panel panel-default arrow left">
+                                                        <div class="panel-body">
+                                                            <header class="text-left">
+                                                                <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> Dec 16, 2014</time>
+                                                            </header>
+                                                            <div class="comment-post">
+                                                                <p>
+                                                                    อร่อยมากๆ ค่ะ ><
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </article>
+
+                                            <!-- Comment2 -->
+                                            <article class="row">
+                                                <div class="col-md-2 col-sm-2 hidden-xs">
+                                                    <figure class="thumbnail">
+                                                        <img class="img-responsive" src="http://www.keita-gaming.com/assets/profile/default-avatar-c5d8ec086224cb6fc4e395f4ba3018c2.jpg" />
+                                                        <figcaption class="text-center">มานะ</figcaption>
+                                                    </figure>
+                                                </div>
+                                                <div class="col-md-10 col-sm-10">
+                                                    <div class="panel panel-default arrow left">
+                                                        <div class="panel-body">
+                                                            <header class="text-left">
+                                                                <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> Dec 16, 2014</time>
+                                                            </header>
+                                                            <div class="comment-post">
+                                                                <p>
+                                                                    เมนูข้าวผัดร้านนี้อร่อยมากครับ !!
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </article>
+
+                                            <!-- Comment3 -->
+                                            <article class="row">
+                                                <div class="col-md-2 col-sm-2 hidden-xs">
+                                                    <figure class="thumbnail">
+                                                        <img class="img-responsive" src="http://www.keita-gaming.com/assets/profile/default-avatar-c5d8ec086224cb6fc4e395f4ba3018c2.jpg" />
+                                                        <figcaption class="text-center">ปิติ</figcaption>
+                                                    </figure>
+                                                </div>
+                                                <div class="col-md-10 col-sm-10">
+                                                    <div class="panel panel-default arrow left">
+                                                        <div class="panel-body">
+                                                            <header class="text-left">
+                                                                <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> Dec 16, 2014</time>
+                                                            </header>
+                                                            <div class="comment-post">
+                                                                <p>
+                                                                    คนส่งอาหารมาช้าไปหน่อยครับ
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </article>
+
+                                            <!-- Comment4 -->
+                                            <article class="row">
+                                                <div class="col-md-2 col-sm-2 hidden-xs">
+                                                    <figure class="thumbnail">
+                                                        <img class="img-responsive" src="http://www.keita-gaming.com/assets/profile/default-avatar-c5d8ec086224cb6fc4e395f4ba3018c2.jpg" />
+                                                        <figcaption class="text-center">ชูใจ</figcaption>
+                                                    </figure>
+                                                </div>
+                                                <div class="col-md-10 col-sm-10">
+                                                    <div class="panel panel-default arrow left">
+                                                        <div class="panel-body">
+                                                            <header class="text-left">
+                                                                <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> Dec 16, 2014</time>
+                                                            </header>
+                                                            <div class="comment-post">
+                                                                <p>
+                                                                    ผัดกระเพราเค็มไปนิดนึงค่ะ แต่บริการดี มั่นใจได้ค่ะ
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </section>
+                                    </div>
+                                </div>
+                                <!-- คอมเม้นลูกค้าเขียน -->
+                                <hr class="hrs">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <form>
+                                            <div class="card">
+                                                <div class="card-content" style="padding: 10px 10px 0 10px">
+                                                    <textarea class="form-control input-sm " type="textarea" id="recom" placeholder="เขียนข้อความของคุณที่นี่" rows="5"></textarea><br>
+                                                </div>
+                                            </div>
+                                            <div class="pull-right" style="margin: 10px 0 0 0">
+                                                <button class="btn btn-primary" type="submit" value="ส่งข้อความ">ส่งข้อความ</button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -541,19 +666,19 @@ include '../api/islogin.php';
 
         <script>
             $(document).ready(function () {
-               /* $('#pinBoot').pinterest_grid({
-                    no_columns: 4,
-                    padding_x: 10,
-                    padding_y: 10,
-                    margin_bottom: 50,
-                    single_column_breakpoint: 700
+                /* $('#pinBoot').pinterest_grid({
+                 no_columns: 4,
+                 padding_x: 10,
+                 padding_y: 10,
+                 margin_bottom: 50,
+                 single_column_breakpoint: 700
+                 });
+                 });*/
+
+
+                $('#info').click(function (e) {
+                    alert('ccccc');
                 });
-            });*/
-
-
-            $('#info').click(function (e) {
-                alert('ccccc');
-            });
             });
             /*
              Ref:
@@ -561,145 +686,145 @@ include '../api/islogin.php';
              http://www.jqueryscript.net/layout/Simple-jQuery-Plugin-To-Create-Pinterest-Style-Grid-Layout-Pinterest-Grid.html
              */
 
-           /* (function ($, window, document, undefined) {
-                var pluginName = 'pinterest_grid',
-                        defaults = {
-                            padding_x: 10,
-                            padding_y: 10,
-                            no_columns: 3,
-                            margin_bottom: 50,
-                            single_column_breakpoint: 700
-                        },
-                columns,
-                        $article,
-                        article_width;
-                function Plugin(element, options) {
-                    this.element = element;
-                    this.options = $.extend({}, defaults, options);
-                    this._defaults = defaults;
-                    this._name = pluginName;
-                    this.init();
-                }
+            /* (function ($, window, document, undefined) {
+             var pluginName = 'pinterest_grid',
+             defaults = {
+             padding_x: 10,
+             padding_y: 10,
+             no_columns: 3,
+             margin_bottom: 50,
+             single_column_breakpoint: 700
+             },
+             columns,
+             $article,
+             article_width;
+             function Plugin(element, options) {
+             this.element = element;
+             this.options = $.extend({}, defaults, options);
+             this._defaults = defaults;
+             this._name = pluginName;
+             this.init();
+             }
+             
+             Plugin.prototype.init = function () {
+             var self = this,
+             resize_finish;
+             
+             $(window).resize(function () {
+             clearTimeout(resize_finish);
+             resize_finish = setTimeout(function () {
+             self.make_layout_change(self);
+             }, 11);
+             });
+             
+             self.make_layout_change(self);
+             
+             setTimeout(function () {
+             $(window).resize();
+             }, 500);
+             };
+             
+             Plugin.prototype.calculate = function (single_column_mode) {
+             var self = this,
+             tallest = 0,
+             row = 0,
+             $container = $(this.element), container_width = $container.width();
+             $article = $(this.element).children();
+             
+             if (single_column_mode === true) {
+             article_width = $container.width() - self.options.padding_x;
+             } else {
+             article_width = ($container.width() - self.options.padding_x * self.options.no_columns) / self.options.no_columns;
+             }
+             
+             $article.each(function () {
+             $(this).css('width', article_width);
+             });
+             
+             columns = self.options.no_columns;
+             
+             $article.each(function (index) {
+             var current_column,
+             left_out = 0,
+             top = 0,
+             $this = $(this),
+             prevAll = $this.prevAll(),
+             tallest = 0;
+             
+             if (single_column_mode === false) {
+             current_column = (index % columns);
+             } else {
+             current_column = 0;
+             }
+             
+             for (var t = 0; t < columns; t++) {
+             $this.removeClass('c' + t);
+             }
+             
+             if (index % columns === 0) {
+             row++;
+             }
+             
+             $this.addClass('c' + current_column);
+             $this.addClass('r' + row);
+             
+             prevAll.each(function (index) {
+             if ($(this).hasClass('c' + current_column)) {
+             top += $(this).outerHeight() + self.options.padding_y;
+             }
+             });
+             
+             if (single_column_mode === true) {
+             left_out = 0;
+             } else {
+             left_out = (index % columns) * (article_width + self.options.padding_x);
+             }
+             
+             $this.css({
+             'left': left_out,
+             'top': top
+             });
+             });
+             
+             this.tallest($container);
+             $(window).resize();
+             };
+             
+             Plugin.prototype.tallest = function (_container) {
+             var column_heights = [],
+             largest = 0;
+             
+             for (var z = 0; z < columns; z++) {
+             var temp_height = 0;
+             _container.find('.c' + z).each(function () {
+             temp_height += $(this).outerHeight();
+             });
+             column_heights[z] = temp_height;
+             }
+             
+             largest = Math.max.apply(Math, column_heights);
+             _container.css('height', largest + (this.options.padding_y + this.options.margin_bottom));
+             };
+             
+             Plugin.prototype.make_layout_change = function (_self) {
+             if ($(window).width() < _self.options.single_column_breakpoint) {
+             _self.calculate(true);
+             } else {
+             _self.calculate(false);
+             }
+             };
+             
+             $.fn[pluginName] = function (options) {
+             return this.each(function () {
+             if (!$.data(this, 'plugin_' + pluginName)) {
+             $.data(this, 'plugin_' + pluginName,
+             new Plugin(this, options));
+             }
+             });
+             }
+             
+             })(jQuery, window, document);*/
 
-                Plugin.prototype.init = function () {
-                    var self = this,
-                            resize_finish;
-
-                    $(window).resize(function () {
-                        clearTimeout(resize_finish);
-                        resize_finish = setTimeout(function () {
-                            self.make_layout_change(self);
-                        }, 11);
-                    });
-
-                    self.make_layout_change(self);
-
-                    setTimeout(function () {
-                        $(window).resize();
-                    }, 500);
-                };
-
-                Plugin.prototype.calculate = function (single_column_mode) {
-                    var self = this,
-                            tallest = 0,
-                            row = 0,
-                            $container = $(this.element), container_width = $container.width();
-                    $article = $(this.element).children();
-
-                    if (single_column_mode === true) {
-                        article_width = $container.width() - self.options.padding_x;
-                    } else {
-                        article_width = ($container.width() - self.options.padding_x * self.options.no_columns) / self.options.no_columns;
-                    }
-
-                    $article.each(function () {
-                        $(this).css('width', article_width);
-                    });
-
-                    columns = self.options.no_columns;
-
-                    $article.each(function (index) {
-                        var current_column,
-                                left_out = 0,
-                                top = 0,
-                                $this = $(this),
-                                prevAll = $this.prevAll(),
-                                tallest = 0;
-
-                        if (single_column_mode === false) {
-                            current_column = (index % columns);
-                        } else {
-                            current_column = 0;
-                        }
-
-                        for (var t = 0; t < columns; t++) {
-                            $this.removeClass('c' + t);
-                        }
-
-                        if (index % columns === 0) {
-                            row++;
-                        }
-
-                        $this.addClass('c' + current_column);
-                        $this.addClass('r' + row);
-
-                        prevAll.each(function (index) {
-                            if ($(this).hasClass('c' + current_column)) {
-                                top += $(this).outerHeight() + self.options.padding_y;
-                            }
-                        });
-
-                        if (single_column_mode === true) {
-                            left_out = 0;
-                        } else {
-                            left_out = (index % columns) * (article_width + self.options.padding_x);
-                        }
-
-                        $this.css({
-                            'left': left_out,
-                            'top': top
-                        });
-                    });
-
-                    this.tallest($container);
-                    $(window).resize();
-                };
-
-                Plugin.prototype.tallest = function (_container) {
-                    var column_heights = [],
-                            largest = 0;
-
-                    for (var z = 0; z < columns; z++) {
-                        var temp_height = 0;
-                        _container.find('.c' + z).each(function () {
-                            temp_height += $(this).outerHeight();
-                        });
-                        column_heights[z] = temp_height;
-                    }
-
-                    largest = Math.max.apply(Math, column_heights);
-                    _container.css('height', largest + (this.options.padding_y + this.options.margin_bottom));
-                };
-
-                Plugin.prototype.make_layout_change = function (_self) {
-                    if ($(window).width() < _self.options.single_column_breakpoint) {
-                        _self.calculate(true);
-                    } else {
-                        _self.calculate(false);
-                    }
-                };
-
-                $.fn[pluginName] = function (options) {
-                    return this.each(function () {
-                        if (!$.data(this, 'plugin_' + pluginName)) {
-                            $.data(this, 'plugin_' + pluginName,
-                                    new Plugin(this, options));
-                        }
-                    });
-                }
-
-            })(jQuery, window, document);*/
-            
         </script>
 
     </body>
