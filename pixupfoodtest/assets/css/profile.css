@@ -38,6 +38,10 @@ http://www.templatemo.com/preview/templatemo_446_boxer
     }
 }
 
+h1,h2,h3,h4,h5,h6
+{
+    font-weight: normal;
+}
 /* modal edit profile*/
 #profile address
 {
