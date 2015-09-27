@@ -6,9 +6,9 @@ $newPrice = @$_POST["newPrice"];
 $closeMenu = @$_POST["closeMenu"];
 
 if($closeMenu == "0"){
-    $changeClose = "0" ;
-}  else {
     $changeClose = "1" ;
+}  else {
+    $changeClose = "0" ;
 }
 
 

@@ -130,7 +130,7 @@ include '../dbconn.php';
                                                         </div>
                                                         <form id="dataform_edit_bankaccount">
                                                             <div class="form-group" style="margin-bottom: 15px;">
-                                                                <label class="col-sm-2 control-label" for="textinput">ชื่อ-สกุล</label>
+                                                                <label class="col-sm-2 control-label" for="textinput">ชื่อผู้ใช้</label>
                                                                 <div class="col-sm-10" style="margin-bottom: 15px;">
                                                                     <input type="text" placeholder="ชื่อ-สกุล" class="form-control">
                                                                 </div>

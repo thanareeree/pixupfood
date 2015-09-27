@@ -42,16 +42,16 @@ include '../api/islogin.php';
     </head>
     <body>
         <?php
-        $resid = $_GET["resId"];
-        $restaurantres = $con->query("SELECT restaurant.id, restaurant.name as resname, "
-                . "restaurant.firstname,restaurant.lastname,restaurant.x, restaurant.y, "
-                . "restaurant.img_path, restaurant.star, restaurant.address,restaurant.amount_box_limit,"
-                . " restaurant.province, restaurant.has_restaurant, restaurant.restaurant_type,"
-                . " zone.name as zonename "
-                . "FROM `restaurant` "
-                . "JOIN zone ON zone.id = restaurant.zone_id "
-                . "where restaurant.id = '$resid'");
-        $restaurantdata = $restaurantres->fetch_assoc();
+        $menuSetId = $_GET["menuSetId"];
+        $menusetRes = $con->query("SELECT DISTINCT main_menu.id,  main_menu.name as menusetname, menu.price,main_menu.type,"
+                . " restaurant.id as resid, restaurant.name as resname, restaurant.img_path "
+                . "FROM menu "
+                . "JOIN restaurant ON menu.restaurant_id = restaurant.id "
+                . "JOIN main_menu ON main_menu.id = menu.main_menu_id "
+                . "JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
+                . "JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
+                . "WHERE main_menu.id = '$menuSetId'");
+        $menusetData = $menusetRes->fetch_assoc();
 
         $cusid = $_SESSION["userdata"]["id"];
         $customerRes = $con->query("select customer.id, customer.firstName, customer.lastName,"
@@ -272,7 +272,7 @@ include '../api/islogin.php';
                                                         <div class="page-header">
                                                             ขั้นตอนที่ 3 : เลือกรายการอาหาร
                                                         </div>
-                                                        <h3>ลำดับที่ 1</h3>
+                                                        <h3>สามารถเลือกรายการได้ตามรูปแบบของกล่อง (ไม่เกิน 3 รายการ)</h3>
                                                         <div class="row">
                                                             <?php
                                                             $foodListRes = $con->query("SELECT DISTINCT main_menu.name, menu.price, menu.img_path, menu.id   "

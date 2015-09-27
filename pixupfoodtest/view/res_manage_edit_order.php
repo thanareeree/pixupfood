@@ -132,26 +132,49 @@ include '../dbconn.php';
 
                                                     if ($foodboxRes->num_rows == null) {
                                                         ?>
+                                                    
                                                         <div class="card card-content" >
                                                             <div class="page-header" style="font-size: 25px; margin-top: 5px">
                                                                 รูปแบบกล่อง
 
                                                             </div>
                                                             <form  method="post" action="/restaurant/edit-foodbox-type.php">
+                                                                <div class="row">
                                                                 <?php
-                                                                $boxRes = $con->query("SELECT food_box.id, food_box.description FROM food_box ");
+                                                                $boxRes = $con->query("SELECT food_box.id, food_box.description, img_path FROM food_box ");
                                                                 while ($boxData = $boxRes->fetch_assoc()) {
                                                                     ?>
+                                                                    
                                                                     <input type="hidden"name="restiddata"value="<?= $resid ?>">
-                                                                    <div class="input-group col-md-6" style="margin: 10px 120px;"  >
-                                                                        <input type="checkbox" name="foodbox[]" value="<?= $boxData["id"] ?>"><?= $boxData["description"] ?>
+                                                                    
+                                                                    <div class="col-md-6">
+                                                                        <div class="card">
+                                                                            <div class="card-content">
+                                                                                <img src="<?= $boxData["img_path"]?>" style="width: 100px; height: auto; margin-bottom: 10px; margin-left: 23%">
+                                                                                <div class="card-action">
+                                                                                    <input type="checkbox"  name="foodbox[]"  value=" <?= $boxData["id"] ?>"> <?= $boxData["description"] ?> 
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
+                                                                        
+                                                                    
+                                                                    
                                                                 <?php } ?>
-                                                                <span class="input-group" style="margin-left: 250px;">
-                                                                    <button class="btn btn-success" id="savebtn" type="submit">บันทึก</button>
+                                                                    </div>
+                                                                
+                                                                    <div class="row" style="margin-top: 20px;">
+                                                                        <div class="col-md-12">
+                                                                        <hr>
+                                                                <span class="input-group">
+                                                                    <button class="btn btn-success" id="savebtn" type="submit" style="margin-left: 390%">บันทึก</button>
                                                                 </span>
+                                                                        </div>
+                                                                    </div>
                                                             </form>
-                                                        </div>
+                                                        
+                                                                 </div>   
+                                                    
                                                     <?php } else { ?>
                                                         <div class="card card-content" id="showdata_foodbox">
                                                             <div class="page-header" style="font-size: 25px; margin-top: 5px">
