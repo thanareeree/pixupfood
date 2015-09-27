@@ -856,7 +856,7 @@ include '../dbconn.php';
                                                                             <td>50</td>
                                                                             <td>ปรุงอาหาร</td>
                                                                             <td class="text-center"><button class="btn btn-info btn-xs" data-toggle="modal" data-target='#track' href="#track"><span class="glyphicon glyphicon-eye-open"></span> แสดง</button></td>
-                                                                            <td class="text-center"><button class="btn btn-info btn-xs" data-toggle="modal" data-target='#track' href="#track" disabled="disabled"><span class="glyphicon glyphicon-eye-open"></span> อัพโหลด</button></td>
+                                                                            <td class="text-center"><button class="btn btn-info btn-xs" data-toggle="modal" data-target='#transf' href="#transf" disabled="disabled"><span class="glyphicon glyphicon-eye-open"></span> อัพโหลด</button></td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>2</td>
@@ -865,7 +865,7 @@ include '../dbconn.php';
                                                                             <td>50</td>
                                                                             <td>ปรุงอาหาร</td>
                                                                             <td class="text-center"><a class="btn btn-info btn-xs" data-toggle="modal" data-target='#track' href="#track"><span class="glyphicon glyphicon-eye-open"></span> แสดง</a></td>
-                                                                            <td class="text-center"><a class="btn btn-info btn-xs" data-toggle="modal" data-target='#track' href="#track" disabled="disabled"><span class="glyphicon glyphicon-eye-open"></span> อัพโหลด</a></td>
+                                                                            <td class="text-center"><a class="btn btn-info btn-xs" data-toggle="modal" data-target='#transf' href="#transf" disabled="disabled"><span class="glyphicon glyphicon-eye-open"></span> อัพโหลด</a></td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>3</td>
@@ -874,7 +874,7 @@ include '../dbconn.php';
                                                                             <td>300</td>
                                                                             <td>ตอบรับ</td>
                                                                             <td class="text-center"><a class="btn btn-info btn-xs" data-toggle="modal" data-target='#track' href="#track"><span class="glyphicon glyphicon-eye-open"></span> แสดง</a></td>
-                                                                            <td class="text-center"><a class="btn btn-info btn-xs" data-toggle="modal" data-target='#track' href="#track"><span class="glyphicon glyphicon-eye-open"></span> อัพโหลด</a></td>
+                                                                            <td class="text-center"><a class="btn btn-info btn-xs" data-toggle="modal" data-target='#transf' href="#transf"><span class="glyphicon glyphicon-eye-open"></span> อัพโหลด</a></td>
                                                                         </tr>
                                                                     </tbody>
                                                                 </table>   
@@ -883,7 +883,7 @@ include '../dbconn.php';
                                                         <!-- จบตารางรายการติดตาม -->
                                                         <!-- อัพโหลดหลักฐานการโอนเงิน -->
                                                         <!-- tracking -->
-                                                        <div class="modal fade" id="track" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+                                                        <div class="modal fade" id="transf" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
                                                             <div class="modal-dialog">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
@@ -1115,7 +1115,7 @@ include '../dbconn.php';
 
                                     <?php
                                     $result = $con->query("SELECT * FROM `shippingAddress` where customer_id = '$cusid'");
-                                    $i = 2;
+                                    $i = 1;
                                     ?>
                                     <div class="row">
                                         <div class="col-md-12">

@@ -104,16 +104,16 @@ include '../dbconn.php';
                         <div class="tabbable-line">
                             <ul class="nav nav-tabs ">
                                 <li class="active">
-                                    <a href="#tab_default_1" data-toggle="tab">ทั่วไป </a>
+                                    <a href="/view/res_restaurant_manage_edit.php" >ทั่วไป </a>
+                                </li>
+                                <li >
+                                    <a href="/view/res_manage_edit_order.php" > เกี่ยวกับรายการสั่งซื้อ</a>
                                 </li>
                                 <li>
-                                    <a href="#tab_default_2" data-toggle="tab"> เกี่ยวกับรายการสั่งซื้อ</a>
+                                    <a href="/view/res_manage_edit_payment.php" >วิธีการชำระเงิน</a>
                                 </li>
                                 <li>
-                                    <a href="#tab_default_3" data-toggle="tab">วิธีการชำระเงิน</a>
-                                </li>
-                                <li>
-                                    <a href="#tab_default_4" data-toggle="tab"> พนักงานจัดส่ง</a>
+                                    <a href="/view/res_manage_edit_messenger.php" > พนักงานจัดส่ง</a>
                                 </li>
                             </ul>
 
@@ -144,33 +144,45 @@ include '../dbconn.php';
                                                         </div>
                                                         <div class="material-switch" style="margin-left: 27%">
                                                             <span style="font-size: 20px"> เปิดร้าน </span> &nbsp;
-                                                            <input id="switchClose" name="someSwitchOption001" type="checkbox" value="<?= $resdata["close"] ?>"  <?= ($resdata["close"] == 1 ? 'checked' : '') ?>/>
+                                                            <input id="switchClose" name="someSwitchOption001" type="checkbox" <?= ($resdata["close"] == 1 ? 'checked' : '') ?>/>
                                                             <label for="switchClose" class="label-success"></label>
                                                             &nbsp;  <span style="font-size: 20px">ปิดร้าน</span>
                                                         </div><hr>
-                                                        <p style="font-size: 20px">เวลาเปิด-ปิด: &nbsp;<?= ($resdata["opentime"] == "" ? '-' : $resdata["opentime"]) ?></p>
+                                                        <p style="font-size: 20px;">เวลาเปิด-ปิด:<span style="color: #FF9900"> &nbsp;<?= ($resdata["opentime"] == "" ? '-' : $resdata["opentime"]) ?></span></p>
                                                     </div>
+
+
+
 
                                                     <!-- modal สถานะร้านค้า-->
                                                     <div class="modal fade" id="StatusRes" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
                                                         <div class="modal-dialog">
                                                             <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                                    <h2 class="modal-title" id="myModalLabel" >สถานะร้านค้า</h2>
-                                                                </div>
                                                                 <form action="/restaurant/edit-opentime.php?resId=<?= $resid ?>" method="post">
+                                                                    <div class="modal-header">
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                                        <h2 class="modal-title" id="myModalLabel" >สถานะร้านค้า</h2>
+                                                                    </div>
+
                                                                     <div class="modal-body">
-                                                                        <div>
-                                                                            <label>
-                                                                                <span style="font-size: 20px"> &nbsp;เวลาเปิดร้านในระบบอัตโนมัติ 
-                                                                                    <input type="time" name="opentime"> ถึง <input type="time" name="closetime"> </span>
-                                                                            </label>
+
+                                                                        <div class="form-group col-sm-12" >
+                                                                            <label class="col-sm-2 control-label" for="textinput">เวลาเปิด:</label>
+                                                                            <div class="col-sm-4" style="margin-bottom: 15px;">
+                                                                                <input required="" type="time" class="form-control col-md-3" name="opentime" >
+                                                                            </div>
                                                                         </div>
+                                                                        <div class="form-group col-sm-12" >
+                                                                            <label class="col-sm-2 control-label" for="textinput">เวลาปิด:</label>
+                                                                            <div class="col-sm-4" style="margin-bottom: 15px;">
+                                                                                <input required=""type="time" class="form-control" name="closetime">
+                                                                            </div>
+                                                                        </div>
+
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
-                                                                        <button type="button" class="btn btn-primary">บันทึก</button>
+                                                                        <button type="submit" class="btn btn-primary">บันทึก</button>
                                                                     </div>
                                                                 </form>
                                                             </div>
@@ -192,61 +204,74 @@ include '../dbconn.php';
                                                                 </p>
                                                             </div>
                                                         </div>
+
+                                                        <?php
+                                                        if ($resdata["has_restaurant"] == 1) {
+                                                            $restype = "มี";
+                                                        } else {
+                                                            $restype = "ไม่มี";
+                                                        }
+                                                        ?>
+
                                                         &nbsp;   <span style="font-size: 20px">ชื่อร้าน: </span>
                                                         <span style="font-size: 20px; color: orange;"> <?= $resdata["name"] ?></span><br>
                                                         &nbsp;   <span style="font-size: 20px">ประเภทร้าน:</span>
                                                         <span style="font-size: 20px; color: orange;"> <?= ($resdata["restaurant_type"] == "" ? '-' : $resdata["restaurant_type"]) ?> </span><br>
                                                         &nbsp;   <span style="font-size: 20px">หน้าร้าน: </span>
-                                                        <span style="font-size: 20px; color: orange;"> <?= ($resdata["has_restaurant"] == "" ? '-' : $resdata["has_restaurant"]) ?> </span><br>
+                                                        <span style="font-size: 20px; color: orange;"> <?= ($resdata["has_restaurant"] == "" ? '-' : $restype) ?> </span><br>
                                                     </div>
 
                                                     <!-- modal ร้านค้าหมายเลข-->
                                                     <div class="modal fade" id="Resno" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
                                                         <div class="modal-dialog">
                                                             <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                                    <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px">ร้านค้าหมายเลข <span style="font-size: 30px; color: orange;"><?= $resdata["id"] ?></span></div></span>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <div class="row">
-                                                                        <div class="col-md-12">
-                                                                            <div class="col-md-3">
-                                                                                <span style="font-size: 25px">ชื่อร้าน: </span><br><br>
-                                                                                <span style="font-size: 25px">ประเภทร้าน: </span><br><br>
-                                                                                <span style="font-size: 25px">หน้าร้าน: </span>
-                                                                            </div>
+                                                                <form method="post" action="/restaurant/edit-info-res.php?resId=<?= $resid ?>">
+                                                                    <div class="modal-header">
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                                        <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px">ร้านค้าหมายเลข <span style="font-size: 30px; color: orange;"><?= $resdata["id"] ?></span></div></span>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
 
-                                                                            <div class="col-md-9">
-                                                                                <input type="text" style="width: 50%; margin-top: 3px;"><br><br>
-                                                                                <span class="form-group">
-                                                                                    <select class="form-control" id="sel1"style="width: 50%; margin-top: 4px;">
-                                                                                        <option>อาหารตามสั่ง</option>
-                                                                                        <option>อาหารคลีน</option>
-                                                                                        <option>อาหารเจ</option>
-                                                                                        <option>อาหารมังสวิรัต</option>
-                                                                                        <option>อาหารเหนือ</option>
-                                                                                        <option>อาหารอีสาน</option>
-                                                                                        <option>อาหารใต้</option>
-                                                                                        <option>ของหวาน/ของว่าง</option>
-                                                                                    </select>
-                                                                                </span><br>  
-                                                                                <span class="form-group">
-                                                                                    <select class="form-control" id="sel1"style="width: 50%; margin-top: 4px;">
-                                                                                        <option>มี</option>
-                                                                                        <option>ไม่มี</option>
-                                                                                        <option>ปิดปรับปรุง</option>
-                                                                                    </select>
-                                                                                </span>   
+                                                                                <div class="col-md-3">
+                                                                                    <span style="font-size: 25px">ชื่อร้าน: </span><br><br>
+                                                                                    <span style="font-size: 25px">ประเภทร้าน: </span><br><br>
+                                                                                    <span style="font-size: 25px">หน้าร้าน: </span>
+                                                                                </div>
+
+                                                                                <div class="col-md-9">
+                                                                                    <input type="text" style="width: 50%; margin-top: 3px;" name="resname" value="<?= $resdata["name"] ?>"><br><br>
+                                                                                    <span class="form-group">
+                                                                                        <select class="form-control" id="restaurant_type" name="restaurant_type"style="width: 50%; margin-top: 4px;" <?= ($resdata["restaurant_type"] == "") ? '' : $resdata["restaurant_type"] ?>>
+                                                                                            <option value="อาหารตามสั่ง">อาหารตามสั่ง</option>
+                                                                                            <option value="อาหารคลีน">อาหารคลีน</option>
+                                                                                            <option value="อาหารเจ">อาหารเจ</option>
+                                                                                            <option value="อาหารมังสวิรัต">อาหารมังสวิรัต</option>
+                                                                                            <option value="อาหารเหนือ">อาหารเหนือ</option>
+                                                                                            <option value="อาหารอีสาน">อาหารอีสาน</option>
+                                                                                            <option value="อาหารใต้">อาหารใต้</option>
+                                                                                        </select>
+                                                                                    </span><br>  
+                                                                                    <span class="form-group">
+
+                                                                                        <select class="form-control" style="width: 50%; margin-top: 4px;" id="has_rest" name="has_rest" <?= ($resdata["has_restaurant"] == "") ? '' : $resdata["has_restaurant"] ?>>
+                                                                                            <option value="1">มี</option>
+                                                                                            <option value="0">ไม่มี</option>
+
+                                                                                        </select>
+                                                                                    </span>   
+                                                                                </div>
+
                                                                             </div>
                                                                         </div>
-                                                                    </div>
 
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
-                                                                    <button type="button" class="btn btn-primary">บันทึก</button>
-                                                                </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                                                                        <button type="submit" class="btn btn-primary">บันทึก</button>
+                                                                    </div>
+                                                                </form>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -590,309 +615,6 @@ include '../dbconn.php';
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="tab-pane" id="tab_default_2"><!--รายการสั่งซื้อ-->
-                                    <div class="page-header"style="margin-top: 20px;">
-                                        <span style="font-size: 40px">เกี่ยวกับรายการสั่งซื้อของลูกค้า</span>
-                                    </div>
-
-                                    <div class="card">
-                                        <div class="card-content">
-                                            <span style="font-size: 35px;">ตั้งค่าทั่วไป</span>
-                                            <div class="row">
-
-                                                <div class="col-md-6">
-                                                    <div class="card card-content" id="showdata_foodbox">
-                                                        <div class="page-header" style="font-size: 25px; margin-top: 5px">
-                                                            รูปแบบกล่อง
-                                                            <div class="pull-right">
-                                                                <p class="text-center">
-                                                                    <a  href="#" id="editbtn">
-                                                                        <span class="glyphicon glyphicon-pencil"style="font-size: 20px; color: orange"></span> 
-                                                                        <span style="font-size: 20px; color: orange">แก้ไข</span>
-                                                                    </a>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <form id="dataform_edit_foodbox">
-                                                            <?php
-                                                            $foodboxRes = $con->query("SELECT food_box.id "
-                                                                    . "FROM mapping_food_box "
-                                                                    . "LEFT JOIN food_box ON food_box.id = mapping_food_box.food_box_id "
-                                                                    . "WHERE mapping_food_box.restaurant_id = '$resid' ");
-
-                                                            $boxRes = $con->query("SELECT food_box.id, food_box.description FROM food_box ");
-                                                            while ($boxData = $boxRes->fetch_assoc()) {
-                                                                ?>
-                                                                <div class="input-group col-md-6" style="margin: 10px 120px;"  >
-                                                                    <input type="checkbox" name="foodbox[]" value="<?= $boxData["id"] ?>"><?= $boxData["description"] ?>
-                                                                </div>
-                                                            <?php } ?>
-                                                            <span class="input-group" style="margin-left: 250px;">
-                                                                <button class="btn btn-success" id="savebtn" type="button">บันทึก</button>
-                                                            </span>
-                                                        </form>
-                                                    </div>
-                                                    <div class="card card-content" id="showdata_limitbox">
-                                                        <div class="page-header" style="font-size: 25px; margin-top: 5px">
-                                                            จำนวนกล่องที่สามารถรับรายการสั่งซื้อได้สูงสุด/วัน
-                                                            <div class="pull-right">
-                                                                <p class="text-center">
-                                                                    <a  href="#" id="editbtn">
-                                                                        <span class="glyphicon glyphicon-pencil"style="font-size: 20px; color: orange"></span> 
-                                                                        <span style="font-size: 20px; color: orange">แก้ไข</span>
-                                                                    </a>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <form id="dataform_edit_limitbox">
-                                                            <div class="input-group col-md-6" style="margin: 10px 120px;"  >
-                                                                <?php if ($resdata["amount_box_limit"] == "") { ?>
-                                                                    <div class="input-group col-md-12" id="edit-minimumbox">
-                                                                        <input type="number" class="form-control" id="minimumbox"  value="<?= $resdata["amount_box_limit"] ?>" placeholder="จำนวนกล่อง">
-                                                                        <span class="input-group-btn">
-                                                                            <button class="btn btn-success" id="savebtn" type="submit">บันทึก</button>
-                                                                        </span>
-                                                                    </div>
-                                                                <?php } else { ?>
-                                                                    <div>
-                                                                        <span style="font-size: 20px">จำนวนกล่อง: </span>
-                                                                        <span style="font-size: 20px; color: orange;"><?= $resdata["amount_box_limit"] ?>&nbsp;</span>
-                                                                        <span style="font-size: 20px">กล่อง</span><br>
-                                                                    </div>
-                                                                <?php } ?>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-
-                                                    <div class="card card-content" id="showdata_minimumbox">
-                                                        <div class="page-header" style="font-size: 25px; margin-top: 5px">
-                                                            จำนวนกล่องขั้นต่ำ/สั่งซื้อ
-                                                            <div class="pull-right">
-                                                                <p class="text-center">
-                                                                    <a  href="#" id="editbtn">
-                                                                        <span class="glyphicon glyphicon-pencil"style="font-size: 20px; color: orange"></span> 
-                                                                        <span style="font-size: 20px; color: orange">แก้ไข</span>
-                                                                    </a>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <form id="dataform_edit_minimumbox">
-                                                            <div class="input-group col-md-6" style="margin: 10px 120px;"  >
-                                                                <?php if ($resdata["amount_box_minimum"] == "") { ?>
-                                                                    <div class="input-group col-md-12" id="edit-minimumbox">
-                                                                        <input type="number" class="form-control" id="minimumbox"  value="<?= $resdata["amount_box_minimum"] ?>" placeholder="จำนวนกล่อง">
-                                                                        <span class="input-group-btn">
-                                                                            <button class="btn btn-success" id="savebtn" type="submit">บันทึก</button>
-                                                                        </span>
-                                                                    </div>
-                                                                <?php } else { ?>
-                                                                    <div>
-                                                                        <span style="font-size: 20px">จำนวนกล่อง: </span>
-                                                                        <span style="font-size: 20px; color: orange;"><?= $resdata["amount_box_minimum"] ?>&nbsp;</span>
-                                                                        <span style="font-size: 20px">กล่อง</span><br>
-                                                                    </div>
-                                                                <?php } ?>
-                                                            </div>
-
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="card card-content" id="showdata_deliveryfee">
-                                                        <div class="page-header" style="font-size: 25px; margin-top: 5px">
-                                                            กำหนดค่าจัดส่ง
-                                                            <div class="pull-right">
-                                                                <p class="text-center">
-                                                                    <a  href="#" id="editbtn">
-                                                                        <span class="glyphicon glyphicon-pencil"style="font-size: 20px; color: orange"></span> 
-                                                                        <span style="font-size: 20px; color: orange">แก้ไข</span>
-                                                                    </a>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <form id="dataform_edit_deliveryfee">
-                                                            <div class="input-group col-md-6" style="margin: 10px 120px;"  >
-                                                                <div id="showdata">
-                                                                    <span style="font-size: 20px"><?= $deliveryData["description"] ?>: </span>
-                                                                    <span style="font-size: 20px; color: orange;"><?= ($deliveryData["deliveryfee"] == "" ? '&nbsp;-' : $deliveryData["deliveryfee"]) ?>&nbsp;</span>
-                                                                    <span style="font-size: 20px">บาท</span><br>
-                                                                </div>
-                                                            </div>
-                                                            <div class="input-group col-md-6" style="margin: 10px 120px; display: none" id="edit-deliveryfee">
-                                                                <input type="text" class="form-control" id="deliveryfee"  value="<?= $deliveryData["deliveryfee"] ?>" placeholder="จำนวนกล่อง">
-                                                                <span class="input-group-btn">
-                                                                    <button class="btn btn-success" id="savebtn" type="submit">บันทึก</button>
-                                                                </span>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div class="tab-pane" id="tab_default_3"><!--การชำระเงิน-->
-                                    <div class="page-header"style="margin-top: 20px;">
-                                        <span style="font-size: 40px">เกี่ยวกับวิธีการชำระเงิน</span>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-content">
-                                            <span style="font-size: 35px;">ตั้งค่าทั่วไป</span>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="card card-content" id="showdata_payment">
-                                                        <div class="page-header" style="font-size: 25px; margin-top: 5px">
-                                                            รูปแบบการชำระเงิน
-                                                            <div class="pull-right">
-                                                                <p class="text-center">
-                                                                    <a  href="#" id="editbtn">
-                                                                        <span class="glyphicon glyphicon-pencil"style="font-size: 20px; color: orange"></span> 
-                                                                        <span style="font-size: 20px; color: orange">แก้ไข</span>
-                                                                    </a>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <form id="dataform_edit_payment">
-                                                            <?php
-                                                            $resPaymentRes = $con->query("SELECT payment_type.id, payment_type.description "
-                                                                    . "FROM restaurant "
-                                                                    . "LEFT JOIN mapping_payment_type ON mapping_payment_type.restaurant_id = restaurant.id "
-                                                                    . "LEFT JOIN payment_type ON payment_type.id = mapping_payment_type.payment_type_id"
-                                                                    . " WHERE restaurant.id = '$resid' ");
-                                                            $hasData = $resPaymentRes->fetch_assoc();
-
-
-                                                            if ($hasData["id"] == "") {
-                                                                $paymentRes = $con->query("SELECT payment_type.id, payment_type.description FROM payment_type");
-                                                                while ($paymentData = $paymentRes->fetch_assoc()) {
-                                                                    ?>
-                                                                    <div class="input-group col-md-6" style="margin: 10px 120px;"  >
-                                                                        <input type="checkbox" name="paymentData[]" value="<?= $paymentData["id"] ?>"><?= $paymentData["description"] ?>
-                                                                    </div>
-                                                                    <?php
-                                                                }
-                                                                echo '<span class="input-group" style="margin-left: 250px;"><button class="btn btn-success" id="savebtn" type="submit">บันทึก</button></span>';
-                                                            } else {
-                                                                while ($resPaymentData = $resPaymentRes->fetch_assoc()) {
-                                                                    ?>
-                                                                    <div class=" col-md-6" style="margin: 10px 120px;"  >
-                                                                        <p><?= $resPaymentData["description"] ?></p>
-                                                                    </div>
-                                                                    <?php
-                                                                }
-                                                            }
-                                                            ?>
-
-
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="card card-content" id="showdat_bankaccount">
-                                                        <div class="page-header" style="font-size: 25px; margin-top: 5px">
-                                                            ข้อมูลบัญชีธนาคาร
-                                                            <div class="pull-right">
-                                                                <p class="text-center">
-                                                                    <a  href="#" id="editbtn">
-                                                                        <span class="glyphicon glyphicon-pencil"style="font-size: 20px; color: orange"></span> 
-                                                                        <span style="font-size: 20px; color: orange">แก้ไข</span>
-                                                                    </a>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <form id="dataform_edit_bankaccount">
-                                                            <div class="form-group" style="margin-bottom: 15px;">
-                                                                <label class="col-sm-2 control-label" for="textinput">ธนาคาร</label>
-                                                                <div class="col-sm-10" style="margin-bottom: 15px;">
-                                                                    <input type="text" placeholder="ธนาคาร" class="form-control">
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group" style="margin-bottom: 15px;">
-                                                                <label class="col-sm-2 control-label" for="textinput">ชื่อบัญชี</label>
-                                                                <div class="col-sm-10" style="margin-bottom: 15px;">
-                                                                    <input type="text" placeholder="ชื่อบัญชี" class="form-control">
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group" >
-                                                                <label class="col-sm-2 control-label" for="textinput">เลขที่บัญชี</label>
-                                                                <div class="col-sm-10" style="margin-bottom: 15px;">
-                                                                    <input type="text" placeholder="เลขที่บัญชี" class="form-control">
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group" >
-                                                                <span class="input-group" style="margin-left: 250px;">
-                                                                    <button class="btn btn-success" id="savebtn" type="button" style="    margin-left: 175px;">บันทึก</button>
-                                                                </span>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="tab-pane" id="tab_default_4"><!--พนักงานส่ง-->
-                                    <div class="page-header"style="margin-top: 20px;">
-                                        <span style="font-size: 40px">ข้อมูลเกี่ยวกับพนักงานจัดส่ง</span>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-content">
-                                            <span style="font-size: 35px;">ตั้งค่าทั่วไป</span>
-                                            <div class="row">
-                                                <div class="col-md-7">
-                                                    <div class="card card-content" id="showdat_bankaccount">
-                                                        <div class="page-header" style="font-size: 25px; margin-top: 5px">
-                                                            เพิ่มข้อมูลของพนักงานจัดส่ง
-                                                            
-                                                        </div>
-                                                        <form id="dataform_edit_bankaccount">
-                                                            <div class="form-group" style="margin-bottom: 15px;">
-                                                                <label class="col-sm-2 control-label" for="textinput">ชื่อ-สกุล</label>
-                                                                <div class="col-sm-10" style="margin-bottom: 15px;">
-                                                                    <input type="text" placeholder="ชื่อ-สกุล" class="form-control">
-                                                                </div>
-                                                            </div>
-                                                             <div class="form-group" style="margin-bottom: 15px;">
-                                                                <label class="col-sm-2 control-label" for="textinput">ชื่อ(English)*</label>
-                                                                <div class="col-sm-10" style="margin-bottom: 15px;">
-                                                                    <input type="text" placeholder="ตัวอย่าง สมชาย-> Somchai" class="form-control">
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group" style="margin-bottom: 15px;">
-                                                                <label class="col-sm-2 control-label" for="textinput">เบอร์โทรศัพท์</label>
-                                                                <div class="col-sm-10" style="margin-bottom: 15px;">
-                                                                    <input type="text" placeholder="เบอร์โทรศัพท์" class="form-control">
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group" >
-                                                                <span class="input-group" style="margin-left: 250px;">
-                                                                    <button class="btn btn-success" id="savebtn" type="button" style="    margin-left: 260px;">บันทึก</button>
-                                                                </span>
-                                                            </div><hr>
-                                                            <p>*ข้อมูลนี้จำเป็นเพราะจะต้องนำไปเป็น username ในการเข้าสู่ระบบตอนพนักงานนำสินค้าไปส่งลูกค้า </p><br>
-                                                            <p>การใช้ Username ของพนักงานจัดส่ง คือ หมายเลขร้าน ตามด้วยชื่อ  </p><br>
-                                                            <p>ตัวอย่าง Username คือ 12Somchai และ Password คือ เบอร์โทศัพท์ของพนักงานจัดส่ง </p>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                                 <div class="col-md-5">
-                                                    <div class="card card-content" id="showdat_bankaccount">
-                                                        <div class="page-header" style="font-size: 25px; margin-top: 5px">
-                                                            ข้อมูลข้อมูลของพนักงานจัดส่ง
-                                                            
-                                                        </div>
-                                                        <p style="text-align: center;font-size: 20px">ยังไม่มีข้อมูล</p>
-                                                        
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -928,20 +650,25 @@ include '../dbconn.php';
             });
 
             $("#switchClose").click(function (e) {
+                if ($('#switchClose').is(":checked")) {
+                    var isClose = 0;
+                } else {
+                    isClose = 1;
+                }
                 $.ajax({
                     type: "POST",
                     url: "/restaurant/edit-close-restaurant.php",
                     data: {"resId": $("#resIdvalue").val(),
-                        "close": $("#switchClose").val()},
+                        "close": isClose},
                     dataType: "json",
                     success: function (data) {
-                        $("#switchClose").removeAttr("checked");
+                        // $("#switchClose").removeAttr("checked");
                         if (data.result == "1") {
-                            $("#switchClose").attr("checked");
-                            document.location.reload();
+                            $("#switchClose").attr('checked', true);
+                            //document.location.reload();
                         } else if (data.result == "0") {
                             $("#switchClose").removeAttr("checked");
-                            //document.location.reload();
+                            $("#switchClose").html()
                         } else {
                             alert("ไม่สามารถบันทึกข้อมูลได้\nError : " + data.error);
                         }

@@ -1,10 +1,10 @@
 <?php
 include '../dbconn.php';
-$cusid = $_GET["id"];
+$cusid = @$_POST["cusid"];
 
-$address = $con->real_escape_string($_POST["address"]);
-$addtype = $_POST["addtype"];
-$addnaming = $con->real_escape_string($_POST["addnaming"]);
+$address = $con->real_escape_string(@$_POST["address"]);
+$addtype = @$_POST["addtype"];
+$addnaming = $con->real_escape_string(@$_POST["addnaming"]);
 
 if($address!="" && $addtype!="" && $addnaming !=""){
     $con->query("INSERT INTO `shippingAddress`(`id`, `address`, `type`, `address_naming`, `customer_id`)"

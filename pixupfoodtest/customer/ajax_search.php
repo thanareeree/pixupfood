@@ -5,6 +5,8 @@ $foodtype = $con->real_escape_string(@$_POST["foodtype"]);
 $searchtxt = $con->real_escape_string(@$_POST["searchtxt"]);
 $lat = @$_POST["lat"];
 $long = @$_POST["long"];
+$islogin = $_SESSION["islogin"];
+
 
 if ($foodtype == "all") {
     $foodtypeq = "";
@@ -25,19 +27,19 @@ if ($searchby == "foodname") {
                 . "WHERE main_menu.name LIKE '%$searchtxt%' AND main_menu.type NOT LIKE '%ชนิดข้าว%'"
                 . "AND (restaurant.close = 0 AND restaurant.block = 0)  $foodtypeq ");
         $numrow = $res->num_rows;
-    } else if ($searchtxt == "") {
-        $res = $con->query("SELECT DISTINCT restaurant.id,menu.img_path, main_menu.name as menuname,"
-                . " menu.price, food_type.description as foodtype, main_menu.type, restaurant.name"
-                . " as resname, main_menu.id as menuid "
-                . "FROM menu "
-                . "LEFT JOIN restaurant ON menu.restaurant_id = restaurant.id "
-                . "JOIN main_menu ON main_menu.id = menu.main_menu_id "
-                . "JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
-                . "JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
-                . "WHERE main_menu.name LIKE '%' AND main_menu.type NOT LIKE '%ชนิดข้าว%'"
-                . "AND (restaurant.close = 0 AND restaurant.block = 0) $foodtypeq ");
-        $numrow = $res->num_rows;
-    }
+    } /* else if ($searchtxt == "") {
+      $res = $con->query("SELECT DISTINCT restaurant.id,menu.img_path, main_menu.name as menuname,"
+      . " menu.price, food_type.description as foodtype, main_menu.type, restaurant.name"
+      . " as resname, main_menu.id as menuid "
+      . "FROM menu "
+      . "LEFT JOIN restaurant ON menu.restaurant_id = restaurant.id "
+      . "JOIN main_menu ON main_menu.id = menu.main_menu_id "
+      . "JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
+      . "JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
+      . "WHERE main_menu.name LIKE '%' AND main_menu.type NOT LIKE '%ชนิดข้าว%'"
+      . "AND (restaurant.close = 0 AND restaurant.block = 0) $foodtypeq ");
+      $numrow = $res->num_rows;
+      } */
     if ($numrow == 0) {
         ?>
         <tr><td colspan="3" style="text-align: center;"><h2>No Result !</h2></td></tr>
@@ -60,7 +62,7 @@ if ($searchby == "foodname") {
                 <p style="font-size: 20px"><?= $data["price"] ?>&nbsp;บาท<br></p>
             </td>
             <td>
-                <a href="/view/cus_restaurant_view.php?menuId=<?= $data["menuid"]?>&resId=<?= $data["id"]?>">
+                <a href="/view/cus_restaurant_view.php?menuId=<?= $data["menuid"] ?>&resId=<?= $data["id"] ?>">
                     <span class="tooltip-r" data-toggle="tooltip" data-placement="top" title="log in to ordet this restaurant">
                         <button class="btn btn-success menu_order" id="menu_order<?= $data["menuid"] ?>"><i class="glyphicon glyphicon-plus"></i>&nbsp; สั่งรายการอาหารนี้</button>
                     </span>
@@ -111,7 +113,27 @@ if ($searchby == "foodname") {
                 </a>
             </td>
         </tr>
+        <?php
+        if (isset($_SESSION["islogin"])) {
+            ?>
+            <script>
+                $('.tooltip-r').removeAttr("title");
+            </script>
+            <?php
+        } else {
+            ?>
+            <script>
 
+                $('a').click(function (e) {
+                    e.preventDefault()
+                });
+                $(function () {
+                    $('[data-toggle="tooltip"]').tooltip()
+                })
+            </script>
+            <?php
+        }
+        ?>
         <?php
     }
 } else if ($searchby == "nearbyfood") {
@@ -158,7 +180,27 @@ if ($searchby == "foodname") {
                 </a>
             </td>
         </tr>
+        <?php
+        if (isset($_SESSION["islogin"])) {
+            ?>
+            <script>
+                $('.tooltip-r').removeAttr("title");
+            </script>
+            <?php
+        } else {
+            ?>
+            <script>
 
+                $('a').click(function (e) {
+                    e.preventDefault()
+                });
+                $(function () {
+                    $('[data-toggle="tooltip"]').tooltip()
+                })
+            </script>
+            <?php
+        }
+        ?>
         <?php
     }
 }

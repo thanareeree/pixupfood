@@ -108,7 +108,7 @@ include './dbconn.php';
         <!-- start nearby -->
         <section id="nearby" style="padding-bottom:5px">
             <div class="container wow fadeInUp">
-                <h2 style="text-align:left">ร้านไหนใกล้ๆคุณ</h2>
+                <h2 style="text-align:left">ร้านอาหารใกล้ๆคุณ</h2>
                 <div class="row">
                     <div class="carousel slide" id="rescarousel">
                         <div class="carousel-inner">
@@ -363,17 +363,16 @@ include './dbconn.php';
         <!-- end contact -->
 
         <?php include './template/footer-indexpage.php'; ?>    
+
         <script>
-            $(function () {
+            $(document).ready(function () {
+                $(function () {
 
                 var $sidebar = $("#slider-l"),
                         $window = $(window),
                         offset = $sidebar.offset(),
                         topPadding = 15;
             });
-        </script>
-        <script>
-            $(document).ready(function () {
                 //Handles menu drop down
                 $('.dropdown-menu').find('form').click(function (e) {
                     e.stopPropagation();

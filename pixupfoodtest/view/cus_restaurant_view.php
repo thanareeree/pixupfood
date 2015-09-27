@@ -1,6 +1,6 @@
 <?php
-session_start();
 include '../dbconn.php';
+include '../api/islogin.php';
 ?>
 
 <html>
@@ -13,7 +13,7 @@ include '../dbconn.php';
 
         <link href='/assets/css/fullcalendar.css' rel='stylesheet' />
         <link href='/assets/css/fullcalendar.print.css' rel='stylesheet' media='print' />
-        
+
         <style>
             #restaurant_view .fb-image-profile
             {
@@ -33,7 +33,7 @@ include '../dbconn.php';
                 margin: 0 auto;
             }
         </style>
-        
+
 
     </head>
     <body>
@@ -46,7 +46,7 @@ include '../dbconn.php';
                 . " zone.name as zonename "
                 . "FROM `restaurant` "
                 . "JOIN zone ON zone.id = restaurant.zone_id "
-                . "where restaurant.id = 33");
+                . "where restaurant.id = '$resid'");
         $restaurantdata = $restaurantres->fetch_assoc();
 
         $cusid = $_SESSION["userdata"]["id"];
@@ -85,14 +85,14 @@ include '../dbconn.php';
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="news">
                                 <br><div class="row">
-
-                                    <section id="pinBoot">
-                                        <article class="white-panel"><img src="/assets/images/res_resall/menuedit/FriedEgg.jpg" alt="">
-                                            <h4><a href="#">เมนูใหม่</a></h4>
-                                            <p>ทางร้านของเราได้เพิ่มเมนูอาหารใหม่ นั่นก็คือ สปาเก็ดดี้ไวท์ซอท สั่งได้แล้ววันนี้</p>
-                                        </article>
-                                    </section>
-
+                                    <div class="col-md-3">
+                                        <section id="pinBoot">
+                                            <article class="white-panel"><img src="/assets/images/res_resall/menuedit/FriedEgg.jpg" alt="">
+                                                <h4><a href="#">เมนูใหม่</a></h4>
+                                                <p>ทางร้านของเราได้เพิ่มเมนูอาหารใหม่ นั่นก็คือ สปาเก็ดดี้ไวท์ซอท สั่งได้แล้ววันนี้</p>
+                                            </article>
+                                        </section>
+                                    </div>
                                 </div>
                             </div>
                             <!-- Promotion -->
@@ -177,20 +177,36 @@ include '../dbconn.php';
                                             <div class="card">
                                                 <div class="card-content">
                                                     <div class="page-header">
-                                                        ขั้นตอนที่ 1 : เลือกกล่อง
+                                                        ขั้นตอนที่ 1 : เลือกกล่องและจำนวนกล่อง
                                                     </div>
-                                                    <?php
-                                                    $foodboxRes = $con->query("SELECT food_box.id, food_box.description, "
-                                                            . "mapping_food_box.restaurant_id as resid "
-                                                            . "FROM mapping_food_box "
-                                                            . "LEFT JOIN food_box ON food_box.id = mapping_food_box.food_box_id "
-                                                            . "WHERE mapping_food_box.restaurant_id = '$resid' ");
+                                                    <div class="row">
+                                                        <?php
+                                                        $foodboxRes = $con->query("SELECT food_box.id, food_box.description, food_box.img_path,  "
+                                                                . "mapping_food_box.restaurant_id as resid "
+                                                                . "FROM mapping_food_box "
+                                                                . "LEFT JOIN food_box ON food_box.id = mapping_food_box.food_box_id "
+                                                                . "WHERE mapping_food_box.restaurant_id = '$resid' ");
 
-                                                    while ($foodboxData = $foodboxRes->fetch_assoc()) {
-                                                        ?>
-                                                        <p><input type="radio" name="foodboxtype" id="foodboxtype" value="box<?= $foodboxData["id"] ?>"><?= $foodboxData["description"] ?></p><br>
-                                                    <?php } ?>
-                                                    <h5>จำนวนกล่อง: &nbsp;<input type="number" name="boxamount" id="boxamount" value="" ></h5>
+                                                        while ($foodboxData = $foodboxRes->fetch_assoc()) {
+                                                            ?>
+                                                            <div class="col-md-3">
+                                                                <div class="thumbnail">
+                                                                    <a href="#"><img class="menu_img" src="<?= $foodboxData["img_path"] ?>"></a>
+                                                                    <div class="caption">
+
+                                                                        <p><?= $foodboxData["description"] ?>&nbsp;บาท</p>
+                                                                        <p style="text-align: right">
+                                                                            <input type="radio" name="foodboxtype" id="foodboxtype" value="box<?= $foodboxData["id"] ?>">
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        <?php } ?>
+                                                    </div>
+                                                    <div class="row">
+                                                        <h4>จำนวนกล่อง: &nbsp;<input type="number" name="boxamount" id="boxamount" value="" ></h4>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <ul class="list-inline pull-right" style="margin-top: 20px;">
@@ -290,33 +306,34 @@ include '../dbconn.php';
                                                             <table class="table table-hover" id="task-table">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th>No.</th>
                                                                         <th colspan="3">Address</th>
                                                                         <th>Select</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    <tr>
-                                                                        <td>1</td>
-                                                                        <td colspan="3"><?= $customerData['address'] ?></td>
-                                                                        <td><input type="radio" value="<?= $customerData['address'] ?>" name="shipAddress"> </td>
-                                                                    </tr>
-                                                                    <?php
-                                                                    $i = 2;
 
-                                                                    $shipAddressRes = $con->query("SELECT CONCAT(shippingAddress.address,' ประเภท',shippingAddress.type,'(', shippingAddress.address_naming,')') AS ship_address, shippingAddress.id FROM `shippingAddress` WHERE customer_id = '$cusid'");
+                                                                    <?php
+                                                                    $i = 1;
+
+                                                                    $shipAddressRes = $con->query("SELECT CONCAT(shippingAddress.address,' ประเภท',shippingAddress.type,'(', shippingAddress.address_naming,')') AS ship_address, shippingAddress.id,shippingAddress.address  FROM `shippingAddress` WHERE customer_id = '$cusid'");
 
                                                                     while ($shipAddressData = $shipAddressRes->fetch_assoc()) {
                                                                         ?>
                                                                         <tr>
-                                                                            <td><?= $i++; ?></td>
-                                                                            <td colspan="3"><?= $shipAddressData['ship_address'] ?></td>
-                                                                            <td><input type="radio"  name="shipAddress" value="<?= $shipAddressData['ship_address'] ?>"> </td>
+
+                                                                            <td colspan="3"><?= ($shipAddressData['ship_address'] == "" ? $shipAddressData["address"] : $shipAddressData['ship_address']) ?></td>
+                                                                            <td><input type="radio"  name="shipAddress" value="<?= $shipAddressData["id"] ?>"> </td>
                                                                         </tr>
 
                                                                         <?php
                                                                     }
                                                                     ?>
+                                                                    <tr id="showdata">
+
+                                                                    </tr>
+                                                                    <tr id="showerror">
+
+                                                                    </tr>
                                                                 </tbody>
                                                             </table>
                                                             <div class="row">
@@ -341,6 +358,8 @@ include '../dbconn.php';
                                                 </ul>
                                             </div>                                   
                                         </div>
+
+
                                         <div class="tab-pane" role="tabpanel" id="step5">
                                             <div class="card">
                                                 <div class="card-content">
@@ -361,10 +380,6 @@ include '../dbconn.php';
                                                 </div>
                                             </div>
                                         </div>
-                                        <ul class="list-inline pull-right" style="margin-top: 20px">
-                                            <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
-                                            <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
-                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -377,29 +392,52 @@ include '../dbconn.php';
                             </div>
                         </div>
 
-                        <!-- Add Shipping address Modal -->
                         <div class="modal fade" id="add_address" tabindex="-1" role="dialog" aria-labelledby="shipping_address">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="mdrecl" name="mdrecl"><span aria-hidden="true">&times;</span></button>
-                                        <h4 class="modal-title" id="shipping_address">Add Other Address</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form action="#" id="addressform" name="addressform" method="post">
-
+                                    <form action="/customer/ajax-address-shipping.php" id="addressform" name="addressform" method="post">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="mdrecl" name="mdrecl"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="shipping_address">เพิ่มที่จัดส่งสินค้า</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <input type="hidden" value="<?= $cusid ?>" name="cusid">
+                                            <label for="address">รายละเอียดที่จัดส่งสินค้า:<span style="color: red;font-size: 20px;font-weight: normal">*</span></label>
                                             <div class="form-group">
-                                                <input name="address" type="text" required class="form-control input-lg" id="address" placeholder="Address">
+                                                <textarea required class="form-control" placeholder="ที่จัดส่งสินค้า" rows="3"  name="address" id="address"></textarea>
                                             </div>
-
-                                            <div class="modal-footer form-group">
-                                                <input type="submit" class="btn btn-primary" name="nextbutton" id="nextbutton" value="Update" >
+                                            <label for="addtype">ประเภทที่อยู่อาศัย:<span style="color: red;font-size: 20px;font-weight: normal">*</span></label>
+                                            <div class="form-group" >
+                                                <select name="addtype" id="addtype" class="col-sm-12" required>
+                                                    <option value="อพาร์ทเมนท์">อพาร์ทเมนท์</option>
+                                                    <option value="สถานที่ราชการ">สถานที่ราชการ</option>
+                                                    <option value="มหาวิทยาลัย">มหาวิทยาลัย</option>
+                                                    <option value="โรงพยาบาล">โรงพยาบาล</option>
+                                                    <option value="โรงแรม">โรงแรม</option>
+                                                    <option value="บ้าน">บ้าน</option>
+                                                    <option value="ตลาด">ตลาด</option>
+                                                    <option value="โรงเรียน">โรงเรียน</option>
+                                                    <option value="ร้านค้า">ร้านค้า</option>
+                                                    <option value="วัด">วัด</option>
+                                                    <option value="อื่นๆ">อื่นๆ</option>
+                                                </select>
                                             </div>
-                                        </form>
-                                    </div>
+                                            <label for="addnaming">กรุณาใส่ข้อมูลระบุที่จัดส่งเพื่อความรวดเร็ว:<span style="color: red;font-size: 20px;font-weight: normal">*</span></label>
+                                            <div class="form-group">
+                                                <input required class="form-control" placeholder="ชื่อเรียกที่จัดส่งเพื่อความรวดเร็ว"  name="addnaming" id="addnaming">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <div>
+                                                <input type="reset" class="btn btn-warning col-sm-3" name="resetbtn" value="Reset" >
+                                                <input type="submit" class="btn btn-primary col-sm-3" name="addbtn"  value="Add" >
+                                            </div>
+                                        </div> 
+                                    </form>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                     <div class="col-md-4">
                         <div class="card">
@@ -428,14 +466,35 @@ include '../dbconn.php';
         <script>
 
             $(document).ready(function () {
-
-
                 $('#calendar').fullCalendar({
                     defaultDate: '2015-02-12',
                     editable: true,
                     eventLimit: true // allow "more" link when too many events
 
                 });
+
+                $("#addressform").on("submit", function (e) {
+                    $.ajax({
+                        url: "/customer/ajax-address-shipping.php",
+                        type: "POST",
+                        data: $("#addressform").serializeArray(),
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.result == 1) {
+                                $("#add_address").modal('hide');
+                                $("#showdata").append('<td colspan="3">' + data.address + '</td>' +
+                                        '<td><input type="radio"  name="shipAddress" value="' + data.address + '"> </td>');
+                            } else {
+                                $("#showerror").html(data.error);
+                            }
+                        }
+                    });
+                    e.preventDefault();
+                    return false;
+                });
+
+
+
 
             });
 
@@ -482,27 +541,27 @@ include '../dbconn.php';
 
         <script>
             $(document).ready(function () {
-                $('#pinBoot').pinterest_grid({
+               /* $('#pinBoot').pinterest_grid({
                     no_columns: 4,
                     padding_x: 10,
                     padding_y: 10,
                     margin_bottom: 50,
                     single_column_breakpoint: 700
                 });
-            });
+            });*/
 
 
             $('#info').click(function (e) {
                 alert('ccccc');
             });
-
+            });
             /*
              Ref:
              Thanks to:
              http://www.jqueryscript.net/layout/Simple-jQuery-Plugin-To-Create-Pinterest-Style-Grid-Layout-Pinterest-Grid.html
              */
 
-            (function ($, window, document, undefined) {
+           /* (function ($, window, document, undefined) {
                 var pluginName = 'pinterest_grid',
                         defaults = {
                             padding_x: 10,
@@ -514,7 +573,6 @@ include '../dbconn.php';
                 columns,
                         $article,
                         article_width;
-
                 function Plugin(element, options) {
                     this.element = element;
                     this.options = $.extend({}, defaults, options);
@@ -545,8 +603,7 @@ include '../dbconn.php';
                     var self = this,
                             tallest = 0,
                             row = 0,
-                            $container = $(this.element),
-                            container_width = $container.width();
+                            $container = $(this.element), container_width = $container.width();
                     $article = $(this.element).children();
 
                     if (single_column_mode === true) {
@@ -641,7 +698,8 @@ include '../dbconn.php';
                     });
                 }
 
-            })(jQuery, window, document);
+            })(jQuery, window, document);*/
+            
         </script>
 
     </body>
