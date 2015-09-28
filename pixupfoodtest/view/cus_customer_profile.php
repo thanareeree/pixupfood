@@ -895,46 +895,46 @@ include '../dbconn.php';
                                                                     <div class="modal-body">
                                                                         <div class="row" style="margin-top: 0px;">
                                                                             <div class="col-md-12">
-                                                                                    <div class="card">
-                                                                                        <div class="card-content"> 
-                                                                                                <div class="thumbnails">
-                                                                                                    <div class="span4"><form>
-                                                                                                            <div class="thumbnail">
-                                                                                                                <img src="http://placehold.it/320x200" alt="ALT NAME">
-                                                                                                                <div class="caption">
-                                                                                                                    <p align="center"><button type="button" name="img" value="อัพโหลด" onClick="upload.click()" onMouseOut="uploadtext.value = upload.value" class="btn btn-primary btn-block" style="font-style:normal">อัพโหลด</button></p>
-                                                                                                                    <!-- Upload Function-->   
-                                                                                                                    <form action="uploadfile.php" 
-                                                                                                                          method="post" 
-                                                                                                                          enctype="multipart/form-data" 
-                                                                                                                          target="ifrm"
-                                                                                                                          >
-                                                                                                                        <input type="file"
-                                                                                                                               name="upload"
-                                                                                                                               style="display:none"
-                                                                                                                               />
+                                                                                <div class="card">
+                                                                                    <div class="card-content"> 
+                                                                                        <div class="thumbnails">
+                                                                                            <div class="span4"><form>
+                                                                                                    <div class="thumbnail">
+                                                                                                        <img src="http://placehold.it/320x200" alt="ALT NAME">
+                                                                                                        <div class="caption">
+                                                                                                            <p align="center"><button type="button" name="img" value="อัพโหลด" onClick="upload.click()" onMouseOut="uploadtext.value = upload.value" class="btn btn-primary btn-block" style="font-style:normal">อัพโหลด</button></p>
+                                                                                                            <!-- Upload Function-->   
+                                                                                                            <form action="uploadfile.php" 
+                                                                                                                  method="post" 
+                                                                                                                  enctype="multipart/form-data" 
+                                                                                                                  target="ifrm"
+                                                                                                                  >
+                                                                                                                <input type="file"
+                                                                                                                       name="upload"
+                                                                                                                       style="display:none"
+                                                                                                                       />
 
-                                                                                                                        <input type="button"
-                                                                                                                               name="uploadbutton" 
-                                                                                                                               value="choose file"
-                                                                                                                               onclick="upload.click()"
-                                                                                                                               onmouseout="uploadtext.value = upload.value"
-                                                                                                                               style="display:none"
-                                                                                                                               />
-                                                                                                                    </form>
-                                                                                                                    <iframe name="ifrm" style="display:none">
-                                                                                                                    </iframe>
-                                                                                                                    <div class="progress">
-                                                                                                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
-                                                                                                                            100% Complete 
-                                                                                                                        </div>
-                                                                                                                    </div>
+                                                                                                                <input type="button"
+                                                                                                                       name="uploadbutton" 
+                                                                                                                       value="choose file"
+                                                                                                                       onclick="upload.click()"
+                                                                                                                       onmouseout="uploadtext.value = upload.value"
+                                                                                                                       style="display:none"
+                                                                                                                       />
+                                                                                                            </form>
+                                                                                                            <iframe name="ifrm" style="display:none">
+                                                                                                            </iframe>
+                                                                                                            <div class="progress">
+                                                                                                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                                                                                                                    100% Complete 
                                                                                                                 </div>
                                                                                                             </div>
+                                                                                                        </div>
                                                                                                     </div>
-                                                                                                </div>
+                                                                                            </div>
                                                                                         </div>
-                                                                                    </div>                                                                                    
+                                                                                    </div>
+                                                                                </div>                                                                                    
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -1293,64 +1293,64 @@ include '../dbconn.php';
         <script src="/assets/js/cus_pro_search.js"></script>
         <script src="/assets/js/ui-bootstrap-tpls-0.13.4.min.js"></script>
         <script>
-                                                             (function () {
+                                                     (function () {
                                                          'use strict';
                                                          $.fn.extend({
-                                                     filterTable: function () {
-                                                         return this.each(function () {
-                                                         $(this).on('keyup', function (e) {
-                                                         $('.filterTable_no_results').remove();
+                                                             filterTable: function () {
+                                                                 return this.each(function () {
+                                                                     $(this).on('keyup', function (e) {
+                                                                         $('.filterTable_no_results').remove();
                                                                          var $this = $(this),
-                                                                     search = $this.val().toLowerCase(),
-                                                             target = $this.attr('data-filters'),
-                                                             $target = $(target),
-                                                                 $rows = $target.find('tbody tr');
+                                                                                 search = $this.val().toLowerCase(),
+                                                                                 target = $this.attr('data-filters'),
+                                                                                 $target = $(target),
+                                                                                 $rows = $target.find('tbody tr');
 
-                                                             if (search == '') {
-                                                         $rows.show();
+                                                                         if (search == '') {
+                                                                             $rows.show();
                                                                          } else {
-                                                     $rows.each(function () {
-                                                     var $this = $(this);
-                                                     $this.text().toLowerCase().indexOf(search) === -1 ? $this.hide() : $this.show();
-                                                             })
-                                                         if ($target.find('tbody tr:visible').size() === 0) {
-                                                                 var col_count = $target.find('tr').first().find('td').size();
-                                                                     var no_results = $('<tr class="filterTable_no_results"><td colspan="' + col_count + '">No results found</td></tr>')
-                                                                 $target.find('tbody').append(no_results);
-                                                                     }
-                                                                     }
-                                                                         });
-                                                                     });
+                                                                             $rows.each(function () {
+                                                                                 var $this = $(this);
+                                                                                 $this.text().toLowerCase().indexOf(search) === -1 ? $this.hide() : $this.show();
+                                                                             })
+                                                                             if ($target.find('tbody tr:visible').size() === 0) {
+                                                                                 var col_count = $target.find('tr').first().find('td').size();
+                                                                                 var no_results = $('<tr class="filterTable_no_results"><td colspan="' + col_count + '">No results found</td></tr>')
+                                                                                 $target.find('tbody').append(no_results);
+                                                                             }
                                                                          }
                                                                      });
+                                                                 });
+                                                             }
+                                                         });
                                                          $('[data-action="filter"]').filterTable();
-                                                             })(jQuery);
+                                                     })(jQuery);
 
-                                                                 $(function () {
-                                                                 // attach table filter plugin to inputs
-                                                                     $('[data-action="filter"]').filterTable();
+                                                     $(function () {
+                                                         // attach table filter plugin to inputs
+                                                         $('[data-action="filter"]').filterTable();
 
                                                          $('.container').on('click', '.panel-heading span.filter', function (e) {
                                                              var $this = $(this),
-                                                             $panel = $this.parents('.panel'); 
-                                                                 $panel.find('.panel-body').slideToggle();
-                                                                 if ($this.css('display') != 'none') {
-                                                                     $panel.find('.panel-body input').focus();
-                                                                     }
-                                                             });
-                                                                 $('[data-toggle="tooltip"]').tooltip();
-                                                                 });
+                                                                     $panel = $this.parents('.panel');
+                                                             $panel.find('.panel-body').slideToggle();
+                                                             if ($this.css('display') != 'none') {
+                                                                 $panel.find('.panel-body input').focus();
+                                                             }
+                                                         });
+                                                         $('[data-toggle="tooltip"]').tooltip();
+                                                     });
         </script>
         <script>
-                        $('.fab').hover(function () {
-                        $(this).toggleClass('active');
+            $('.fab').hover(function () {
+                $(this).toggleClass('active');
             });
             $(function () {
                 $('[data-toggle="tooltip"]').tooltip();
             });
         </script>
         <script>
-                    $(document).ready(function () {
+            $(document).ready(function () {
 
 
 
@@ -1359,55 +1359,56 @@ include '../dbconn.php';
                     //$("#add_address").modal('show');
                 });
 
-                    $("#saveaddbtn").on("click", function (e) {
+                $("#saveaddbtn").on("click", function (e) {
                     $.ajax({
                         url: "/customer/ajaxsave-address.php",
-                type: "POST",
-                    data: {"address": $("#addressinput").val(),
-                    "proid": $(".prolist").val(),
-                    "addnaming": $("#addressnaming").val(),
-                        "cusid": $("#shipcusid").val()},
+                        type: "POST",
+                        data: {"address": $("#addressinput").val(),
+                            "proid": $(".prolist").val(),
+                            "addnaming": $("#addressnaming").val(),
+                            "cusid": $("#shipcusid").val()},
                         dataType: "html",
                         success: function (returndata) {
-                        //$("#textinput").val("");
-                        if (returndata == "ok") {
-                            $("#add_address").modal('hide');
-                            // fetchdata();
+                            //$("#textinput").val("");
+                            if (returndata == "ok") {
+                                $("#add_address").modal('hide');
+                                // fetchdata();
                             } else {
-                    alert("start" + returndata + "พัง");
-                }
+                                alert("start" + returndata + "พัง");
+                            }
                         }
-                    //
-                    });                 });
-                    function fetchdata() {
+                        //
+                    });
+                });
+                function fetchdata() {
 
                     $.ajax({
-                    url: "/customer/shipaddresslist.php",
+                        url: "/customer/shipaddresslist.php",
                         type: "POST",
-                dataType: "html",
-                    success: function (returndata) {
-                    $(".shiplist").html(returndata);
+                        dataType: "html",
+                        success: function (returndata) {
+                            $(".shiplist").html(returndata);
                         }
                     });
                 }
-                        fetchdata();
+                fetchdata();
 
 
 
 
-                        $("#imgpro").on("change", function (e) {
-                        var imgsize = $("#imgpro")[0].files[0].size;
-                        var imgtype = $("#imgpro")[0].files[0].type;
-                            switch (imgtype) {
-                                case 'image/png':
+                $("#imgpro").on("change", function (e) {
+                    var imgsize = $("#imgpro")[0].files[0].size;
+                    var imgtype = $("#imgpro")[0].files[0].type;
+                    switch (imgtype) {
+                        case 'image/png':
                         case 'image/pjpeg':
-                                case 'image/jpeg':
-                                break;
+                        case 'image/jpeg':
+                            break;
                         default :
                             $("#output").html("Error: <b>" + imgtype + "</b>  Unsupport file type!! <br>");
-                    $("#sendbtn").attr("disabled", "disabled");
-                }
-            if (imgsize > 1048576) {
+                            $("#sendbtn").attr("disabled", "disabled");
+                    }
+                    if (imgsize > 1048576) {
                         $("#output").html("Size: <b>" + imgsize + "</b> too big file!!");
                         $("#updateprobtn").attr("disabled", "disabled");
                     } else {

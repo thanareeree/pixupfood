@@ -141,14 +141,12 @@ include '../dbconn.php';
                                                             <form  method="post" action="/restaurant/edit-foodbox-type.php">
                                                                 <div class="row">
                                                                 <?php
-                                                                $boxRes = $con->query("SELECT food_box.id, food_box.description FROM food_box ");
+                                                                $boxRes = $con->query("SELECT food_box.id, food_box.description, img_path FROM food_box ");
                                                                 while ($boxData = $boxRes->fetch_assoc()) {
                                                                     ?>
                                                                     
                                                                     <input type="hidden"name="restiddata"value="<?= $resid ?>">
                                                                     
-                                                                       
-                                                                            
                                                                     <div class="col-md-6">
                                                                         <div class="card">
                                                                             <div class="card-content">
