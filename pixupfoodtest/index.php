@@ -14,8 +14,8 @@ include './dbconn.php';
         <div id="slider-l" class="slider-l">
             <a href="/view/search_page.php?search=%">
                 <img src="/assets/images/search.png" class="img-responsive" width="100px">
-            <a onclick="parentNode.remove()" style="color: #0000ff;margin:0 0 0 15px ;">
-                <span>ปิดป้ายนี้</span></a> 
+                <a onclick="parentNode.remove()" style="color: #0000ff;margin:0 0 0 15px ;">
+                    <span>ปิดป้ายนี้</span></a> 
         </div>
         <!-- start home -->
         <section id="home">            
@@ -372,11 +372,11 @@ include './dbconn.php';
             $(document).ready(function () {
                 $(function () {
 
-                var $sidebar = $("#slider-l"),
-                        $window = $(window),
-                        offset = $sidebar.offset(),
-                        topPadding = 15;
-            });
+                    var $sidebar = $("#slider-l"),
+                            $window = $(window),
+                            offset = $sidebar.offset(),
+                            topPadding = 15;
+                });
                 //Handles menu drop down
                 $('.dropdown-menu').find('form').click(function (e) {
                     e.stopPropagation();
