@@ -42,16 +42,17 @@ include '../api/islogin.php';
     </head>
     <body>
         <?php
-        $menuSetId = $_GET["menuSetId"];
-        $menusetRes = $con->query("SELECT DISTINCT main_menu.id,  main_menu.name as menusetname, menu.price,main_menu.type,"
+        $menuSetId = @$_GET["menuId"];
+        $menusetRes = $con->query("SELECT menu.id,  main_menu.name as menusetname, menu.price,main_menu.type,"
                 . " restaurant.id as resid, restaurant.name as resname, restaurant.img_path "
                 . "FROM menu "
                 . "JOIN restaurant ON menu.restaurant_id = restaurant.id "
                 . "JOIN main_menu ON main_menu.id = menu.main_menu_id "
                 . "JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
                 . "JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
-                . "WHERE main_menu.id = '$menuSetId'");
+                . "WHERE menu.id = '$menuSetId'");
         $menusetData = $menusetRes->fetch_assoc();
+        print_r($menusetData);
 
         $cusid = $_SESSION["userdata"]["id"];
         $customerRes = $con->query("select customer.id, customer.firstName, customer.lastName,"
@@ -59,8 +60,11 @@ include '../api/islogin.php';
                 . "from customer "
                 . "where id = '$cusid' ");
         $customerData = $customerRes->fetch_assoc();
-
+        
         $orderMenu_id = @$_GET["menuId"];
+        $resid = @$_GET["resId"];
+        $con->query("select name from restaurant where id = '$resid'");
+        
         ?>
         <?php include '../template/customer-navbar.php'; ?>
 
@@ -68,7 +72,7 @@ include '../api/islogin.php';
         <section id="restaurant_view_head">
             <div class="overlay">
                 <div class="container text-center">
-                    <h1><i class="glyphicon glyphicon-cutlery"></i>&nbsp;<?= $restaurantdata["resname"] ?></h1>
+                    <h1><i class="glyphicon glyphicon-cutlery"></i>&nbsp;<?= $menusetData["resname"] ?></h1>
                     <div class="row lead">
                         <div id="stars-existing" class="starrr" data-rating='4'></div>
                     </div>

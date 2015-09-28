@@ -22,9 +22,7 @@ if (isset($_POST["cusemail"]) && $_POST["cusemail"] != "") {
             . "VALUES "
             . "('null','$fname','$lname','$email',"
             . "'$phone','$address','0',now(),null,'$en_password')");
-    $cusid = $con->insert_id;
-    $con->query("INSERT INTO `shippingAddress`(`id`, `address`, `type`, `address_naming`, `customer_id`) "
-            . "VALUES (null,'$address',null,null,'$cusid')");
+    
 
     if ($con->error == "") {
         $digits = 4;

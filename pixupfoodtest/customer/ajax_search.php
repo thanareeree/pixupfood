@@ -18,7 +18,7 @@ if ($searchby == "foodname") {
     if ($searchtxt != "") {
         $res = $con->query("SELECT DISTINCT restaurant.id,menu.img_path, main_menu.name as menuname,"
                 . " menu.price, food_type.description as foodtype, main_menu.type, restaurant.name"
-                . " as resname, main_menu.id as menuid "
+                . " as resname, menu.id as menuid "
                 . "FROM menu "
                 . "LEFT JOIN restaurant ON menu.restaurant_id = restaurant.id "
                 . "JOIN main_menu ON main_menu.id = menu.main_menu_id "

@@ -1,5 +1,75 @@
 @import url("../Supermarket/stylesheet.css");
 
+#map{
+    height:400px;
+    margin:0 auto;
+    border-radius: 5px;
+    margin-top:10px;
+}
+.address{
+    background: #ff8100;
+    color:white;
+    font-weight: 400;
+    padding:10px;
+    border-radius: 5px;
+    margin-top:10px;
+    font-size:20px;
+    line-height: 40px;
+    height:57px;
+}
+#addresstxt{
+    font-size:20px;
+    height:45px;
+}
+
+#addresstype, #oldaddress, #delivery_time{
+    font-size:20px;
+    height:45px;
+}
+#getlocation button{
+    margin:0;
+}
+
+#addressoverlay{
+    background-color:rgba(255,255,255,0.2);
+    width:100%;
+    height:580px;
+    position: absolute;
+    top:160px;
+    left:0;
+    z-index:10;
+}
+
+#addaddressbtn, #oldaddressbtn{
+    height:45px;
+    font-size:20px;
+    width:100%;
+}
+
+.foodboxselect{
+    float:left;
+    padding:20px;
+    margin-left:35px;
+    width:150px;
+    height:150px;
+    text-align:center;
+    margin:2px;
+    cursor:pointer;
+    padding-bottom:30px;
+    border-radius: 5px;
+}
+.foodboxselect.selected {
+    background:#ff8100;
+}
+.datepick-month-year, .datepick-nav, .datepick-month a, .datepick-month span {
+    font-family: 'supermarketregular';
+    font-size:30px;
+}
+.is-datepick{
+    font-family: 'supermarketregular';
+    font-size:30px !important;
+}
+
 
 #fast_head
 {
@@ -66,19 +136,6 @@
 #fast_order .contact-form
 {
     padding-top: 40px;
-}
-#fast_order .form-control
-{
-    border-radius: 0px;
-    box-shadow: none;
-}
-#fast_order input
-{
-    height: 45px;
-}
-#fast_order select
-{
-    height: 45px;
 }
 #fast_order input[type="submit"]
 {
@@ -235,7 +292,6 @@ span.round-tab:hover {
 
 .wizard .tab-pane {
     position: relative;
-    padding-top: 30px;
 }
 
 .wizard h3 {

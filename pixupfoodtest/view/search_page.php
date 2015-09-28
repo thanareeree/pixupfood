@@ -121,16 +121,15 @@ include '../dbconn.php';
                                         $search = $con->real_escape_string(@$_GET["search"]);
                                         $numrow = 0;
                                         if ($search != "") {
-                                            $res = $con->query("SELECT DISTINCT restaurant.id,restaurant.name, menu.img_path,  main_menu.name as menuname,"
-                                                    . " food_type.description as foodtype, restaurant.name as resname, main_menu.id as menuid, menu.price "
+                                            $res = $con->query("SELECT DISTINCT restaurant.id,restaurant.name, menu.img_path, main_menu.name as menuname,"
+                                                    . " food_type.description as foodtype, restaurant.name as resname, menu.id as menuid, menu.price "
                                                     . "FROM menu "
                                                     . "LEFT JOIN restaurant ON menu.restaurant_id = restaurant.id "
                                                     . "JOIN main_menu ON main_menu.id = menu.main_menu_id "
                                                     . "JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
                                                     . "JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
                                                     . "WHERE main_menu.name LIKE '%$search%' "
-                                                    . "AND (restaurant.close = 0 AND restaurant.block = 0) "
-                                                    . "AND food_type.description IN (SELECT food_type.description FROM food_type WHERE food_type.id = 15)");
+                                                    . "AND restaurant.close = 0 AND restaurant.block = 0 ");
                                             echo $con->error;
                                             $numrow = $res->num_rows;
                                         }

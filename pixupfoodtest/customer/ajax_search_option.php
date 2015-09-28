@@ -35,7 +35,7 @@ if($searchoption == 'orderFromMenu'){
                 <h4 style="color: #ffaa3e"><?= ($data["foodtype"] != '' ? "#" . $data["foodtype"] : '' ) ?></h4>
             </td>
             <td>
-                <a href="/view/cus_fast_order.php?menuSetId=<?= $data["id"]?>">
+                <a href="/order/fast/?menuSetId=<?= $data["id"]?>">
                     <span class="tooltip-r" data-toggle="tooltip" data-placement="top" title="log in to ordet this restaurant">
                         <button class="btn btn-success menu_order" id="menuset_order<?= $data["id"] ?>"><i class="glyphicon glyphicon-plus"></i>&nbsp; สั่งรายการอาหารนี้</button>
                     </span>
