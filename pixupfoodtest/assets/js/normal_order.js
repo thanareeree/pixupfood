@@ -4,26 +4,7 @@ $(document).ready(function (e) {
    // initFoodBox();
     initCalendar();
 
-    $("#addressform").on("submit", function (e) {
-        $.ajax({
-            url: "/customer/ajax-address-shipping.php",
-            type: "POST",
-            data: $("#addressform").serializeArray(),
-            dataType: "json",
-            success: function (data) {
-                if (data.result == 1) {
-                    $("#add_address").modal('hide');
-                    $("#showdata").append('<td colspan="3">' + data.address + '</td>' +
-                            '<td><input type="radio"  name="shipAddress" value="' + data.address + '"> </td>');
-                } else {
-                    $("#showerror").html(data.error);
-                }
-            }
-        });
-        e.preventDefault();
-        return false;
-
-    });
+ 
 
 });
 
@@ -37,7 +18,7 @@ function initMap() {
     geocoder = new google.maps.Geocoder();
 
     map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 12,
+        zoom: 5,
         center: defaultlatlng
     });
 
@@ -277,7 +258,7 @@ function initMap() {
     }
 }
 function initCalendar() {
-    $("#calendar").datepick({
+    $("#calendar_datepick").datepick({
         minDate: new Date(),
         onChangeMonthYear: function (year, month) {
             setTimeout(function () {

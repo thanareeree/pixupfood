@@ -14,6 +14,7 @@ include '../api/islogin.php';
         <link href='/assets/css/fullcalendar.css' rel='stylesheet' />
         <link href='/assets/css/fullcalendar.print.css' rel='stylesheet' media='print' />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/assets/css/normal_order.css">
 
         <style>
             #restaurant_view .fb-image-profile
@@ -29,66 +30,6 @@ include '../api/islogin.php';
                 max-width: 100%;
                 height: 100px;
             }
-            #calendar {
-                max-width: 900px;
-                margin: 0 auto;
-            }
-            #restaurant_view .form-group {
-                margin-bottom: 0px;
-            }
-            .info_res
-            {
-                font-size: 16px; 
-                margin: 5px 0 0 30px; 
-                color: orange;
-            }
-
-            #map{
-                height:400px;
-                margin:0 auto;
-                border-radius: 5px;
-                margin-top:10px;
-            }
-            .address{
-                background: #ff8100;
-                color:white;
-                font-weight: 400;
-                padding:10px;
-                border-radius: 5px;
-                margin-top:10px;
-                font-size:20px;
-                line-height: 40px;
-                height:57px;
-            }
-            #addresstxt{
-                font-size:20px;
-                height:45px;
-            }
-
-            #addresstype, #oldaddress, #delivery_time{
-                font-size:20px;
-                height:45px;
-            }
-            #getlocation button{
-                margin:0;
-            }
-
-            #addressoverlay{
-                background-color:rgba(255,255,255,0.2);
-                width:100%;
-                height:580px;
-                position: absolute;
-                top:160px;
-                left:0;
-                z-index:10;
-            }
-
-            #addaddressbtn, #oldaddressbtn{
-                height:45px;
-                font-size:20px;
-                width:100%;
-            }
-
         </style>
 
 
@@ -118,11 +59,14 @@ include '../api/islogin.php';
         $resid = @$_GET["resId"];
         $resNameRes = $con->query("select `name`, `email`, `tel`,`detail`, `img_path`, `star`, `address`,"
                 . " `opentime`, `amount_box_minimum`, `amount_box_limit`, `has_restaurant`, `restaurant_type`"
-                . " from restaurant where id = '$resid'");
+                . ", deliveryfee"
+                . " from restaurant "
+                . "join mapping_delivery_type on mapping_delivery_type.restaurant_id = restaurant.id  "
+                . " where id = '$resid'");
         $resNameData = $resNameRes->fetch_assoc();
         ?>
         <?php include '../template/customer-navbar.php'; ?>
-
+        <input type="hidden" value="<?= $resid ?>" class="getResId" >
         <!-- edit head -->
         <section id="restaurant_view_head">
             <div class="overlay">
@@ -236,260 +180,260 @@ include '../api/islogin.php';
                                         </ul>
                                     </div>
 
-                                    <form action="/customer/order-request-save.php?cusId<?= $cusid ?>&resId<?= $resid ?>" method="post">
-                                        <input type="hidden" name="selectMenuFromCustomer" value="<?= $orderMenu_id ?>" >
-                                        <div class="tab-content">
+                                    <!--<form action="/customer/order-request-save.php?cusId<?= $cusid ?>&resId<?= $resid ?>" method="post">-->
+                                    <input type="hidden" name="selectMenuFromCustomer" value="<?= $orderMenu_id ?>" >
+                                    <div class="tab-content">
 
-                                            <!-- เลือกกล่อง -------------------------------------------------------------->
-                                            <div class="tab-pane active" role="tabpanel" id="step1">
+                                        <!-- เลือกกล่อง -------------------------------------------------------------->
+                                        <div class="tab-pane active" role="tabpanel" id="step1">
 
-                                                <div class="card">
-                                                    <div class="card-content">
-                                                        <div class="page-header">
-                                                            ขั้นตอนที่ 1 : เลือกกล่องและจำนวนกล่อง
-                                                        </div>
-                                                        <div class="row">
-                                                            <?php
-                                                            $foodboxRes = $con->query("SELECT food_box.id, food_box.description, food_box.img_path,  "
-                                                                    . "mapping_food_box.restaurant_id as resid "
-                                                                    . "FROM mapping_food_box "
-                                                                    . "LEFT JOIN food_box ON food_box.id = mapping_food_box.food_box_id "
-                                                                    . "WHERE mapping_food_box.restaurant_id = '$resid' ");
-
-                                                            while ($foodboxData = $foodboxRes->fetch_assoc()) {
-                                                                ?>
-                                                                <div class="col-md-3">
-                                                                    <div class="thumbnail">
-                                                                        <a href="#"><img class="menu_img" src="<?= $foodboxData["img_path"] ?>"></a>
-                                                                        <div class="caption">
-
-                                                                            <p><?= $foodboxData["description"] ?>&nbsp;บาท</p>
-                                                                            <p style="text-align: right">
-                                                                                <input type="radio" name="foodboxtype" class="foodboxtype" id="foodboxtype<?= $foodboxData["id"] ?>" value="<?= $foodboxData["id"] ?>">
-                                                                                <input type="hidden" class="boxtypedata" name="boxtype<?= $foodboxData["id"] ?>" value="<?= $foodboxData["description"] ?>">
-                                                                            </p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                            <?php } ?>
-                                                        </div>
-                                                        <div >
-                                                            <h4>จำนวนกล่อง: &nbsp;<input type="number" name="boxamount" id="boxamount" value="" ></h4>
-                                                        </div>
+                                            <div class="card">
+                                                <div class="card-content">
+                                                    <div class="page-header">
+                                                        ขั้นตอนที่ 1 : เลือกกล่องและจำนวนกล่อง
                                                     </div>
-                                                </div>
-                                                <ul class="list-inline pull-right" style="margin-top: 20px;">
-                                                    <li><button type="button" class="btn btn-primary next-step" id="submitStep1">Save and continue</button></li>
-                                                </ul>
+                                                    <div class="row">
+                                                        <?php
+                                                        $foodboxRes = $con->query("SELECT food_box.id, food_box.description, food_box.img_path,  "
+                                                                . "mapping_food_box.restaurant_id as resid "
+                                                                . "FROM mapping_food_box "
+                                                                . "LEFT JOIN food_box ON food_box.id = mapping_food_box.food_box_id "
+                                                                . "WHERE mapping_food_box.restaurant_id = '$resid' ");
 
-                                            </div>
-
-                                            <!-- เลือกชนิดข้าวข้าว -------------------------------------------------------------->
-                                            <div class="tab-pane" role="tabpanel" id="step2">
-                                                <div class="card">
-                                                    <div class="card-content">
-                                                        <div class="page-header">
-                                                            ขั้นตอนที่ 2 : เลือกข้าว
-                                                        </div>
-                                                        <div class="row">
-                                                            <?php
-                                                            $riceListRes = $con->query("SELECT main_menu.name, menu.price , menu.img_path,menu.id  "
-                                                                    . "FROM `menu` LEFT JOIN main_menu on main_menu.id = menu.main_menu_id "
-                                                                    . "LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
-                                                                    . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
-                                                                    . "WHERE main_menu.type = 'ชนิดข้าว' "
-                                                                    . "and menu.restaurant_id = '$resid'");
-
-                                                            while ($riceData = $riceListRes->fetch_assoc()) {
-                                                                ?>
-                                                                <div class="col-md-3">
-                                                                    <div class="thumbnail">
-                                                                        <a href="#"><img class="menu_img" src="<?= ($riceData["img_path"] == "") ? '/assets/images/default-img360.png' : $riceData["img_path"] ?>"></a>
-                                                                        <div class="caption">
-                                                                            <h4><?= $riceData["name"] ?></h4>
-                                                                            <p><?= $riceData["price"] ?>&nbsp;บาท</p>
-                                                                            <p style="text-align: right">
-                                                                                <input type="radio" name="ricetype" class="ricetype" id="ricetype<?= $riceData["id"] ?>" value="<?= $riceData["name"] ?>">
-                                                                                <input type="hidden" class="ricetypedata" id="ricetypedata<?= $riceData["id"] ?>" value="<?= $riceData["price"] ?>"> 
-
-                                                                            </p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            <?php } ?>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <ul class="list-inline pull-right"  style="margin-top: 20px">
-                                                    <li><button type="button" class="btn btn-default prev-step" id="prevstep2">Previous</button></li>
-                                                    <li><button type="button" class="btn btn-primary next-step" id="nextstep2">Save and continue</button></li>
-                                                </ul>
-                                            </div>
-                                            <div class="tab-pane" role="tabpanel" id="step3" >
-                                                <div class="card">
-                                                    <div class="card-content">
-                                                        <div class="page-header">
-                                                            ขั้นตอนที่ 3 : เลือกรายการอาหาร
-                                                        </div>
-                                                        <h3>สามารถเลือกรายการได้ตามรูปแบบของกล่อง (ไม่เกิน 3 รายการ)</h3>
-                                                        <div class="row">
-                                                            <?php
-                                                            $foodListRes = $con->query("SELECT DISTINCT main_menu.name, menu.price, menu.img_path, menu.id   "
-                                                                    . "FROM `menu` LEFT JOIN main_menu on main_menu.id = menu.main_menu_id "
-                                                                    . "LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
-                                                                    . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
-                                                                    . "WHERE main_menu.type = 'กับข้าว' "
-                                                                    . "and menu.restaurant_id = '$resid'");
-
-                                                            while ($foddListData = $foodListRes->fetch_assoc()) {
-                                                                ?>
-                                                                <div class="col-md-3">
-                                                                    <div class="thumbnail">
-                                                                        <a href="#"><img class="menu_img" src="<?= ($foddListData["img_path"] == "") ? '/assets/images/default-img360.png' : $foddListData["img_path"] ?>"></a>
-                                                                        <div class="caption">
-                                                                            <h4><?= $foddListData["name"] ?></h4>
-                                                                            <p><?= $foddListData["price"] ?>&nbsp;</p>
-                                                                            <p style="text-align: right">
-                                                                                <input type="checkbox" name="foodlist[]" class="foodlist" id="foodlist<?= $foddListData["id"] ?>" value="<?= $foddListData["name"] ?>">
-                                                                                <input type="hidden" name="foodprice[]" class="foodprice" id="foodprice<?= $foddListData["id"] ?>" value="<?= $foddListData["price"] ?>">
-                                                                            </p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <?php
-                                                            }
+                                                        while ($foodboxData = $foodboxRes->fetch_assoc()) {
                                                             ?>
-                                                        </div> <!--<hr class="hrs">-->
-                                                    </div>
-                                                </div>
-                                                <ul class="list-inline pull-right"  style="margin-top: 20px">
-                                                    <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
-                                                    <li><button type="button" class="btn btn-primary btn-info-full next-step">Save and continue</button></li>
-                                                </ul>
-                                            </div>
+                                                            <div class="col-md-3">
+                                                                <div class="thumbnail">
+                                                                    <a href="#"><img class="menu_img" src="<?= $foodboxData["img_path"] ?>"></a>
+                                                                    <div class="caption">
 
-
-                                            <div class="tab-pane" role="tabpanel" id="step4">
-                                                <div class="card">
-                                                    <div class="card-content" style="height:750px;">
-                                                        <div class="page-header" style="margin-left:16px;">
-                                                            ขั้นตอนที่ 1 : ระบุตำแหน่งที่อยู่จัดส่ง
-                                                        </div>
-                                                        <div id="addressoverlay"></div>
-
-                                                        <div class="col-sm-10">
-                                                            ที่อยู่ที่บันทึกไว้ : 
-                                                            <select class="form-control" id="oldaddress">
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-sm-2">
-                                                            <button id="addaddressbtn" class="btn btn-warning" style="margin-top:20px">
-                                                                <span class="glyphicon glyphicon-plus"></span> 
-                                                                เพิ่มที่อยู่ใหม่
-                                                            </button>
-                                                            <button id="oldaddressbtn" class="btn btn-warning" style="margin-top:20px; display:none;">
-                                                                <span class="glyphicon glyphicon-remove"></span> 
-                                                                ใช้ที่อยู่เก่า
-                                                            </button>
-                                                        </div>
-
-                                                        <div class="col-sm-12"><br></div>
-
-                                                        <div class="col-sm-10">
-                                                            ชื่อสถานที่ / จุดสังเกต : 
-                                                            <input class="form-control" placeholder="กรอกจุดสังเกต เช่น ชื่อสถานที่ อาคาร" name="address" id="addresstxt">
-                                                        </div>
-                                                        <div class="col-sm-2">
-                                                            ประเภทสถานที่ : 
-                                                            <select class="form-control" id="addresstype">
-                                                                <option value="0" selected disabled>เลือกประเภท</option>
-                                                                <option value="อพาร์ทเมนท์">อพาร์ทเมนท์</option>
-                                                                <option value="สถานที่ราชการ">สถานที่ราชการ</option>
-                                                                <option value="มหาวิทยาลัย">มหาวิทยาลัย</option>
-                                                                <option value="โรงพยาบาล">โรงพยาบาล</option>
-                                                                <option value="โรงแรม">โรงแรม</option>
-                                                                <option value="บ้าน">บ้าน</option>
-                                                                <option value="ตลาด">ตลาด</option>
-                                                                <option value="โรงเรียน">โรงเรียน</option>
-                                                                <option value="ร้านค้า">ร้านค้า</option>
-                                                                <option value="วัด">วัด</option>
-                                                                <option value="อื่นๆ">อื่นๆ</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class='col-sm-12'>
-                                                            <div class="address">
-                                                                <div id='showaddress' class='col-sm-8'>
-                                                                    ลากและวางหมุดตรงที่อยู่ในการจัดส่งของคุณ
-                                                                </div>
-                                                                <div class='col-sm-4' style="text-align: right;">
-                                                                    <button id="getlocationbtn" class="btn btn-warning" style="display:none;">
-                                                                        <span class="glyphicon glyphicon-map-marker"></span>
-                                                                        ดึงตำแหน่งปัจจุบันของคุณ
-                                                                    </button>
-                                                                    <button id="savenewaddressbtn" class="btn btn-success" style="display: none;">
-                                                                        <span class="glyphicon glyphicon-ok-circle"></span>
-                                                                        บันทึกที่อยู่
-                                                                    </button>
+                                                                        <p><?= $foodboxData["description"] ?>&nbsp;บาท</p>
+                                                                        <p style="text-align: right">
+                                                                            <input type="radio" name="foodboxtype" class="foodboxtype" id="foodboxtype<?= $foodboxData["id"] ?>" value="<?= $foodboxData["id"] ?>">
+                                                                            <input type="hidden" class="boxtypedata" name="boxtype<?= $foodboxData["id"] ?>" value="<?= $foodboxData["description"] ?>">
+                                                                        </p>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
 
-                                                        <div class="col-sm-12">
-                                                            <div id="map"></div>
-                                                        </div>
+                                                        <?php } ?>
+                                                    </div>
+                                                    <div >
+                                                        <h4>จำนวนกล่อง: &nbsp;<input type="number" name="boxamount" id="boxamount" value="" ></h4>
                                                     </div>
                                                 </div>
-                                                <ul class="list-inline pull-right"  style="margin-top: 20px">
-                                                    <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
-                                                    <li><button type="button" class="btn btn-primary next-step" id="hidecalendarbtn">Save and continue</button></li>
-                                                </ul>
-                                            </div>                                   
+                                            </div>
+                                            <ul class="list-inline pull-right" style="margin-top: 20px;">
+                                                <li><button type="button" class="btn btn-primary next-step" id="submitStep1">continue</button></li>
+                                            </ul>
 
+                                        </div>
 
-
-                                            <div class="tab-pane" role="tabpanel" id="step5">
-                                                <div class="card">
-                                                    <div class="card-content">
-                                                        <div class="page-header">
-                                                            ขั้นตอนที่ 5 : เลือกวิธีชำระเงิน
-                                                        </div>
-
+                                        <!-- เลือกชนิดข้าวข้าว -------------------------------------------------------------->
+                                        <div class="tab-pane" role="tabpanel" id="step2">
+                                            <div class="card">
+                                                <div class="card-content">
+                                                    <div class="page-header">
+                                                        ขั้นตอนที่ 2 : เลือกข้าว
+                                                    </div>
+                                                    <div class="row">
                                                         <?php
-                                                        $bankRes = $con->query("SELECT `id`, `accname`, `accNo`, `bank`, `restaurant_id` "
-                                                                . "FROM `bank_account` WHERE restaurant_id = '$resid' ");
+                                                        $riceListRes = $con->query("SELECT main_menu.name, menu.price , menu.img_path,menu.id, main_menu.img_path as img  "
+                                                                . "FROM `menu` LEFT JOIN main_menu on main_menu.id = menu.main_menu_id "
+                                                                . "LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
+                                                                . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
+                                                                . "WHERE main_menu.type = 'ชนิดข้าว' "
+                                                                . "and menu.restaurant_id = '$resid'");
 
-                                                        $resPaymentRes = $con->query("select payment_type.id, payment_type.description "
-                                                                . "FROM mapping_payment_type "
-                                                                . "LEFT JOIN payment_type ON mapping_payment_type.payment_type_id = payment_type.id "
-                                                                . "where mapping_payment_type.restaurant_id = '$resid' ");
-                                                        $paymentRes = $con->query("SELECT payment_type.id, payment_type.description FROM payment_type ");
-                                                        while ($paymentData = $paymentRes->fetch_assoc()) {
+                                                        while ($riceData = $riceListRes->fetch_assoc()) {
                                                             ?>
-                                                            <div class="input-group col-md-12" style="margin: 10px 120px;"  >
-                                                                <input type="radio"  name="paymentData" value="<?= $paymentData["id"] ?>"><?= $paymentData["description"] ?>
+                                                            <div class="col-md-3">
+                                                                <div class="thumbnail">
+                                                                    <a href="#"><img class="menu_img" src="<?= ($riceData["img_path"] == "") ? $riceData["img"] : $riceData["img_path"] ?>"></a>
+                                                                    <div class="caption">
+                                                                        <h4><?= $riceData["name"] ?></h4>
+                                                                        <p><?= $riceData["price"] ?>&nbsp;บาท</p>
+                                                                        <p style="text-align: right">
+                                                                            <input type="radio" name="ricetype" class="ricetype" id="ricetype<?= $riceData["id"] ?>" value="<?= $riceData["name"] ?>">
+                                                                            <input type="hidden" class="ricetypedata" id="ricetypedata<?= $riceData["id"] ?>" value="<?= $riceData["price"] ?>"> 
+
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         <?php } ?>
-                                                        <hr>
-                                                        <div >
-                                                            *สามารถโอนเงินผ่านบัญชีธนาคาร&nbsp;&nbsp;<br>
-                                                            <?php
-                                                            while ($bankData = $bankRes->fetch_assoc()) {
-                                                                ?>
-                                                                <p>ชื่อบัญชี: &nbsp;<?= $bankData["accname"] ?>&nbsp;เลขที่บัญชี &nbsp;<?= $bankData["accNo"] ?>&nbsp;<?= $bankData["bank"] ?></p>
-
-                                                            <?php } ?>
-
-                                                        </div>
                                                     </div>
                                                 </div>
-                                                <ul class="list-inline pull-right" style="margin-top: 20px">
-                                                    <li><button type="submit" class="btn btn-primary next-step">Order</button></li>
-                                                </ul>
                                             </div>
+                                            <ul class="list-inline pull-right"  style="margin-top: 20px">
+                                                <li><button type="button" class="btn btn-default prev-step" id="prevstep2">Previous</button></li>
+                                                <li><button type="button" class="btn btn-primary next-step" id="nextstep2"> continue</button></li>
+                                            </ul>
                                         </div>
-                                    </form>
+                                        <div class="tab-pane" role="tabpanel" id="step3" >
+                                            <div class="card">
+                                                <div class="card-content">
+                                                    <div class="page-header">
+                                                        ขั้นตอนที่ 3 : เลือกรายการอาหาร
+                                                    </div>
+                                                    <h3>สามารถเลือกรายการได้ตามรูปแบบของกล่อง (ไม่เกิน 3 รายการ)</h3>
+                                                    <div class="row">
+                                                        <?php
+                                                        $foodListRes = $con->query("SELECT DISTINCT main_menu.name, menu.price, menu.img_path, menu.id, main_menu.img_path as img   "
+                                                                . "FROM `menu` LEFT JOIN main_menu on main_menu.id = menu.main_menu_id "
+                                                                . "LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
+                                                                . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
+                                                                . "WHERE main_menu.type = 'กับข้าว' "
+                                                                . "and menu.restaurant_id = '$resid'");
+
+                                                        while ($foddListData = $foodListRes->fetch_assoc()) {
+                                                            ?>
+                                                            <div class="col-md-3">
+                                                                <div class="thumbnail">
+                                                                    <a href="#"><img class="menu_img" src="<?= ($foddListData["img_path"] == "") ? $foddListData["img"] : $foddListData["img_path"] ?>"></a>
+                                                                    <div class="caption">
+                                                                        <h4><?= $foddListData["name"] ?></h4>
+                                                                        <p><?= $foddListData["price"] ?>&nbsp;</p>
+                                                                        <p style="text-align: right">
+                                                                            <input type="checkbox" name="foodlist[]" class="foodlist" id="foodlist<?= $foddListData["id"] ?>" value="<?= $foddListData["name"] ?>">
+                                                                            <input type="hidden" name="foodprice[]" class="foodprice" id="foodprice<?= $foddListData["id"] ?>" value="<?= $foddListData["price"] ?>">
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <?php
+                                                        }
+                                                        ?>
+                                                    </div> <!--<hr class="hrs">-->
+                                                </div>
+                                            </div>
+                                            <ul class="list-inline pull-right"  style="margin-top: 20px">
+                                                <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
+                                                <li><button type="button" class="btn btn-primary btn-info-full next-step"> continue</button></li>
+                                            </ul>
+                                        </div>
+
+
+                                        <div class="tab-pane" role="tabpanel" id="step4">
+                                            <div class="card">
+                                                <div class="card-content" style="height:750px;">
+                                                    <div class="page-header" style="margin-left:16px;">
+                                                        ขั้นตอนที่ 4 : เลือกวัน เวลา และสถานที่จัดส่ง
+                                                    </div>
+                                                    <div id="addressoverlay"></div>
+
+                                                    <div class="col-sm-9">
+                                                        ที่อยู่ที่บันทึกไว้ : 
+                                                        <select class="form-control" id="oldaddress">
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <button id="addaddressbtn" class="btn btn-warning" style="margin-top:20px">
+                                                            <span class="glyphicon glyphicon-plus"></span> 
+                                                            เพิ่มที่อยู่ใหม่
+                                                        </button>
+                                                        <button id="oldaddressbtn" class="btn btn-warning" style="margin-top:20px; display:none;">
+                                                            <span class="glyphicon glyphicon-remove"></span> 
+                                                            ใช้ที่อยู่เก่า
+                                                        </button>
+                                                    </div>
+
+                                                    <div class="col-sm-12"><br></div>
+
+                                                    <div class="col-sm-9">
+                                                        ชื่อสถานที่ / จุดสังเกต : 
+                                                        <input class="form-control" placeholder="กรอกจุดสังเกต เช่น ชื่อสถานที่ อาคาร" name="address" id="addresstxt">
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        ประเภทสถานที่ : 
+                                                        <select class="form-control" id="addresstype">
+                                                            <option value="0" selected disabled>เลือกประเภท</option>
+                                                            <option value="อพาร์ทเมนท์">อพาร์ทเมนท์</option>
+                                                            <option value="สถานที่ราชการ">สถานที่ราชการ</option>
+                                                            <option value="มหาวิทยาลัย">มหาวิทยาลัย</option>
+                                                            <option value="โรงพยาบาล">โรงพยาบาล</option>
+                                                            <option value="โรงแรม">โรงแรม</option>
+                                                            <option value="บ้าน">บ้าน</option>
+                                                            <option value="ตลาด">ตลาด</option>
+                                                            <option value="โรงเรียน">โรงเรียน</option>
+                                                            <option value="ร้านค้า">ร้านค้า</option>
+                                                            <option value="วัด">วัด</option>
+                                                            <option value="อื่นๆ">อื่นๆ</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class='col-sm-12'>
+                                                        <div class="address">
+                                                            <div id='showaddress' class='col-sm-6'>
+                                                                ลากและวางหมุดตรงที่อยู่ในการจัดส่งของคุณ
+                                                            </div>
+                                                            <div class='col-sm-6' style="text-align: right;">
+                                                                <button id="getlocationbtn" class="btn btn-warning" style="display:none;">
+                                                                    <span class="glyphicon glyphicon-map-marker"></span>
+                                                                    ดึงตำแหน่งปัจจุบันของคุณ
+                                                                </button>
+                                                                <button id="savenewaddressbtn" class="btn btn-success" style="display: none;">
+                                                                    <span class="glyphicon glyphicon-ok-circle"></span>
+                                                                    บันทึกที่อยู่
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-12">
+                                                        <div id="map"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <ul class="list-inline pull-right"  style="margin-top: 20px">
+                                                <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
+                                                <li><button type="button" class="btn btn-primary next-step" id="hidecalendarbtn"> continue</button></li>
+                                            </ul>
+                                        </div>                                   
+
+
+
+                                        <div class="tab-pane" role="tabpanel" id="step5">
+                                            <div class="card">
+                                                <div class="card-content">
+                                                    <div class="page-header">
+                                                        ขั้นตอนที่ 5 : เลือกวิธีชำระเงิน
+                                                    </div>
+
+                                                    <?php
+                                                    $bankRes = $con->query("SELECT `id`, `accname`, `accNo`, `bank`, `restaurant_id` "
+                                                            . "FROM `bank_account` WHERE restaurant_id = '$resid' ");
+
+                                                    $resPaymentRes = $con->query("select payment_type.id, payment_type.description "
+                                                            . "FROM mapping_payment_type "
+                                                            . "LEFT JOIN payment_type ON mapping_payment_type.payment_type_id = payment_type.id "
+                                                            . "where mapping_payment_type.restaurant_id = '$resid' ");
+                                                    $paymentRes = $con->query("SELECT payment_type.id, payment_type.description FROM payment_type ");
+                                                    while ($paymentData = $paymentRes->fetch_assoc()) {
+                                                        ?>
+                                                        <div class="input-group col-md-12" style="margin: 10px 120px;"  >
+                                                            <input type="radio"  name="paymentData" value="<?= $paymentData["id"] ?>"><?= $paymentData["description"] ?>
+                                                        </div>
+                                                    <?php } ?>
+                                                    <hr>
+                                                    <div >
+                                                        *สามารถโอนเงินผ่านบัญชีธนาคาร&nbsp;&nbsp;<br>
+                                                        <?php
+                                                        while ($bankData = $bankRes->fetch_assoc()) {
+                                                            ?>
+                                                            <p>ชื่อบัญชี: &nbsp;<?= $bankData["accname"] ?>&nbsp;เลขที่บัญชี &nbsp;<?= $bankData["accNo"] ?>&nbsp;<?= $bankData["bank"] ?></p>
+
+                                                        <?php } ?>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <ul class="list-inline pull-right" style="margin-top: 20px">
+                                                <li><button type="button" class="btn btn-primary next-step">Order</button></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!--</form>-->
                                 </div>
                             </div>
 
@@ -572,7 +516,7 @@ include '../api/islogin.php';
                                                         <div class="row">
                                                             <div class="col-md-12">
                                                                 <span style="font-size: 22px;"><i class="fa fa-motorcycle "></i> ค่าจัดส่ง</span><br>
-                                                                <span class="info_res"> 100 บาท </span>   
+                                                                <span class="info_res"> <?= $resNameData["deliveryfee"]?> บาท </span>   
                                                             </div>
                                                         </div><hr>
                                                         <div class="row">
@@ -607,7 +551,7 @@ include '../api/islogin.php';
                                             <article class="row">
                                                 <div class="col-md-2 col-sm-2 hidden-xs">
                                                     <figure class="thumbnail">
-                                                        <img class="img-responsive" src="http://www.keita-gaming.com/assets/profile/default-avatar-c5d8ec086224cb6fc4e395f4ba3018c2.jpg" />
+                                                        <img class="img-responsive" src="/assets/images/default-avatar.jpg"  />
                                                         <figcaption class="text-center">มานี</figcaption> <!-- ชื่อจริง -->
                                                     </figure>
                                                 </div>
@@ -631,7 +575,7 @@ include '../api/islogin.php';
                                             <article class="row">
                                                 <div class="col-md-2 col-sm-2 hidden-xs">
                                                     <figure class="thumbnail">
-                                                        <img class="img-responsive" src="http://www.keita-gaming.com/assets/profile/default-avatar-c5d8ec086224cb6fc4e395f4ba3018c2.jpg" />
+                                                        <img class="img-responsive" src="/assets/images/default-avatar.jpg" />
                                                         <figcaption class="text-center">มานะ</figcaption>
                                                     </figure>
                                                 </div>
@@ -655,7 +599,7 @@ include '../api/islogin.php';
                                             <article class="row">
                                                 <div class="col-md-2 col-sm-2 hidden-xs">
                                                     <figure class="thumbnail">
-                                                        <img class="img-responsive" src="http://www.keita-gaming.com/assets/profile/default-avatar-c5d8ec086224cb6fc4e395f4ba3018c2.jpg" />
+                                                        <img class="img-responsive"src="/assets/images/default-avatar.jpg"  />
                                                         <figcaption class="text-center">ปิติ</figcaption>
                                                     </figure>
                                                 </div>
@@ -679,7 +623,7 @@ include '../api/islogin.php';
                                             <article class="row">
                                                 <div class="col-md-2 col-sm-2 hidden-xs">
                                                     <figure class="thumbnail">
-                                                        <img class="img-responsive" src="http://www.keita-gaming.com/assets/profile/default-avatar-c5d8ec086224cb6fc4e395f4ba3018c2.jpg" />
+                                                        <img class="img-responsive" src="/assets/images/default-avatar.jpg" />
                                                         <figcaption class="text-center">ชูใจ</figcaption>
                                                     </figure>
                                                 </div>
@@ -719,58 +663,11 @@ include '../api/islogin.php';
                                 </div>
                             </div>
                         </div>
-
-                        <div class="modal fade" id="add_address" tabindex="-1" role="dialog" aria-labelledby="shipping_address">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <form action="/customer/ajax-address-shipping.php" id="addressform" name="addressform" method="post">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="mdrecl" name="mdrecl"><span aria-hidden="true">&times;</span></button>
-                                            <h4 class="modal-title" id="shipping_address">เพิ่มที่จัดส่งสินค้า</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <input type="hidden" value="<?= $cusid ?>" name="cusid">
-                                            <label for="address">รายละเอียดที่จัดส่งสินค้า:<span style="color: red;font-size: 20px;font-weight: normal">*</span></label>
-                                            <div class="form-group">
-                                                <textarea required class="form-control" placeholder="ที่จัดส่งสินค้า" rows="3"  name="address" id="address"></textarea>
-                                            </div>
-                                            <label for="addtype">ประเภทที่อยู่อาศัย:<span style="color: red;font-size: 20px;font-weight: normal">*</span></label>
-                                            <div class="form-group" >
-                                                <select name="addtype" id="addtype" class="col-sm-12" required>
-                                                    <option value="อพาร์ทเมนท์">อพาร์ทเมนท์</option>
-                                                    <option value="สถานที่ราชการ">สถานที่ราชการ</option>
-                                                    <option value="มหาวิทยาลัย">มหาวิทยาลัย</option>
-                                                    <option value="โรงพยาบาล">โรงพยาบาล</option>
-                                                    <option value="โรงแรม">โรงแรม</option>
-                                                    <option value="บ้าน">บ้าน</option>
-                                                    <option value="ตลาด">ตลาด</option>
-                                                    <option value="โรงเรียน">โรงเรียน</option>
-                                                    <option value="ร้านค้า">ร้านค้า</option>
-                                                    <option value="วัด">วัด</option>
-                                                    <option value="อื่นๆ">อื่นๆ</option>
-                                                </select>
-                                            </div>
-                                            <label for="addnaming">กรุณาใส่ข้อมูลระบุที่จัดส่งเพื่อความรวดเร็ว:<span style="color: red;font-size: 20px;font-weight: normal">*</span></label>
-                                            <div class="form-group">
-                                                <input required class="form-control" placeholder="ชื่อเรียกที่จัดส่งเพื่อความรวดเร็ว"  name="addnaming" id="addnaming">
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <div>
-                                                <input type="reset" class="btn btn-warning col-sm-3" name="resetbtn" value="Reset" >
-                                                <input type="submit" class="btn btn-primary col-sm-3" name="addbtn"  value="Add" >
-                                            </div>
-                                        </div> 
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                     <div class="col-md-4">
                         <div class="card" id="showcalendar">
                             <div class="card-content">
-                                <div id="calendar"></div>
+                                <div id="calendar" style="color: #FF9900"></div>
                             </div>  
                         </div>
                         <br>
@@ -785,63 +682,55 @@ include '../api/islogin.php';
                                         <thead>
                                             <tr>
                                                 <th>รายการอาหารที่เลือก</th>
-                                                <th>
-                                        <div class="col-md-6"></div>
-                                        <div class="form-group col-md-6">
-                                            <input type="number" name="amountbox" id="amountbox" class="form-control" value="">
-                                        </div>
-
-                                        </th>
-                                        <th>กล่อง</th>
-                                        </tr>
+                                                <th ></th>
+                                                <th></th>
+                                            </tr>
                                         </thead>
                                         <tbody id="menuOrderList">
                                             <tr>
-                                                <td>ข้าว </td>
-                                                <td>10</td>
+                                                <td> </td>
+                                                <td style="color: #FF9900"></td>
                                                 <td>บาท</td>
                                             </tr>
-                                            <tr>
-                                                <td>หมูกระเทียม </td>
-                                                <td>20</td>
-                                                <td>บาท</td>
-                                            </tr>
-
                                         </tbody>
                                     </table>
-
+                                    <div class="col-md-6" style="text-align: left;font-size: 16px; font: bold">จำนวน</div>
+                                    <div class="form-group col-md-4" style="margin-top: -8;    margin-left: -50;">
+                                        <input type="number" name="amountbox" id="amountbox" class="form-control" value="">
+                                    </div>
+                                    
                                     <table class="table table-hover" id="task-table">
                                         <thead>
                                             <tr>
                                                 <th>ราคาทั้งหมด</th>
-                                                <th></th>
+                                                <th style="color: #FF9900"  ></th>
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody id="priceOfOrder">
                                             <tr>
                                                 <td>ราคา: </td>
-                                                <td>10000</td>
+                                                <td style="color: #FF9900" id="showqty"></td>
                                                 <td>บาท</td>
                                             </tr>
                                             <tr>
                                                 <td>ค่าจัดส่ง: </td>
-                                                <td>100</td>
+                                                <td style="color: #FF9900"><?= $resNameData["deliveryfee"]?></td>
                                                 <td>บาท</td>
                                             </tr>
                                             <tr>
                                                 <td>ราคารวม: </td>
-                                                <td>10100</td>
+                                                <td style="color: #FF9900" id="showtotal"></td>
                                                 <td>บาท</td>
                                             </tr>
                                             <tr>
                                                 <td>ค่ามัดจำ 20%: </td>
-                                                <td>200</td>
+                                                <td style="color: #FF9900" id="showprepay"></td>
                                                 <td>บาท</td>
                                             </tr>
                                             <tr>
-                                                <td style="color: red">ราคาส่วนที่เหลือ*</td>
-                                                <td>900</td>
+                                                <td style="color: red" id="totalprice">ราคาส่วนที่เหลือ*</td>
+                                                <td  id="totalprice" style="color: #FF9900"></td>
                                                 <td>บาท</td>
                                             </tr>
 
@@ -862,41 +751,27 @@ include '../api/islogin.php';
 
         <?php include '../template/footer.php'; ?>
         <script src="/assets/js/normal_order.js"></script>
-        
+
 
         <script>
 
             $(document).ready(function () {
                 $('#calendar').fullCalendar({
-                    defaultDate: '2015-02-12',
-                    editable: true,
-                    eventLimit: true // allow "more" link when too many events
-
-                });
-
-                $("#addressform").on("submit", function (e) {
-                    $.ajax({
-                        url: "/customer/ajax-address-shipping.php",
-                        type: "POST",
-                        data: $("#addressform").serializeArray(),
-                        dataType: "json",
-                        success: function (data) {
-                            if (data.result == 1) {
-                                $("#add_address").modal('hide');
-                                $("#showdata").append('<td colspan="3">' + data.address + '</td>' +
-                                        '<td><input type="radio"  name="shipAddress" value="' + data.address + '"> </td>');
-                            } else {
-                                $("#showerror").html(data.error);
-                            }
+                    header: {
+                        left: 'prev',
+                        center: 'title',
+                        right: 'next today'
+                    },
+                    events: {
+                        url: '/customer/showcalendar.php',
+                        type: 'POST',
+                        data: {resid: $(".getResId").val()}, 
+                        error: function () {
+                            alert('there was an error!');
                         }
-                    });
-                    e.preventDefault();
-                    return false;
+                    },
+                    eventColor: 'orange'
                 });
-
-
-
-
             });
 
         </script>
@@ -904,12 +779,9 @@ include '../api/islogin.php';
 
         <script>
             $(document).ready(function () {
-               
-
                 $('#hidecalendarbtn').on('click', function (e) {
                     $('#showcalendar').hide();
                 });
-
                 $(".foodboxtype").click(function () {
                     var editid = $(this).attr("id");
                     var boxid = editid.replace("foodboxtype", "");
@@ -925,39 +797,28 @@ include '../api/islogin.php';
 
 
                 });
-
-
-
-
-
                 //Initialize tooltips
                 $('.nav-tabs > li a[title]').tooltip();
-
                 //Wizard
                 $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
 
                     var $target = $(e.target);
-
                     if ($target.parent().hasClass('disabled')) {
                         return false;
                     }
                 });
-
                 $(".next-step").click(function (e) {
 
                     var $active = $('.wizard .nav-tabs li.active');
                     $active.next().removeClass('disabled');
                     nextTab($active);
-
                 });
                 $(".prev-step").click(function (e) {
 
                     var $active = $('.wizard .nav-tabs li.active');
                     prevTab($active);
-
                 });
             });
-
             function nextTab(elem) {
                 $(elem).next().find('a[data-toggle="tab"]').click();
             }
