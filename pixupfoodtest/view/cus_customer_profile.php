@@ -146,7 +146,7 @@ include '../dbconn.php';
                                         <a href="#tracking" data-toggle="tab" id="navtracking">
                                             <img class="img-responsive imgsize" src="/assets/images/profile/menu_list/tracking_b_c.png" title="ตรวจสถานะสินค้า" onmouseover="this.src = '/assets/images/profile/menu_list/tracking_a_c.png';"
                                                  onmouseout="this.src = '/assets/images/profile/menu_list/tracking_b_c.png';" style="margin: 0 0 0 15px">
-                                            <p class="elt" style="margin: 0">ออเดอร์ปัจจุบัน</p>
+                                            <p class="elt" style="margin: 0">ตรวจสถานะสินค้า</p>
                                         </a>
                                     </div>
                                     <div class="col-md-2 templatemo-box fadeInUp">

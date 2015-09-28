@@ -42,13 +42,60 @@ include '../api/islogin.php';
                 margin: 5px 0 0 30px; 
                 color: orange;
             }
+
+            #map{
+                height:400px;
+                margin:0 auto;
+                border-radius: 5px;
+                margin-top:10px;
+            }
+            .address{
+                background: #ff8100;
+                color:white;
+                font-weight: 400;
+                padding:10px;
+                border-radius: 5px;
+                margin-top:10px;
+                font-size:20px;
+                line-height: 40px;
+                height:57px;
+            }
+            #addresstxt{
+                font-size:20px;
+                height:45px;
+            }
+
+            #addresstype, #oldaddress, #delivery_time{
+                font-size:20px;
+                height:45px;
+            }
+            #getlocation button{
+                margin:0;
+            }
+
+            #addressoverlay{
+                background-color:rgba(255,255,255,0.2);
+                width:100%;
+                height:580px;
+                position: absolute;
+                top:160px;
+                left:0;
+                z-index:10;
+            }
+
+            #addaddressbtn, #oldaddressbtn{
+                height:45px;
+                font-size:20px;
+                width:100%;
+            }
+
         </style>
 
 
     </head>
     <body>
         <?php
-        $menuSetId = @$_GET["menuId"];
+        $orderMenu_id = @$_GET["menuId"];
         $menusetRes = $con->query("SELECT menu.id,  main_menu.name as menusetname, menu.price,main_menu.type,"
                 . " restaurant.id as resid, restaurant.name as resname, restaurant.img_path "
                 . "FROM menu "
@@ -56,7 +103,7 @@ include '../api/islogin.php';
                 . "JOIN main_menu ON main_menu.id = menu.main_menu_id "
                 . "JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
                 . "JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
-                . "WHERE menu.id = '$menuSetId'");
+                . "WHERE menu.id = '$orderMenu_id'");
         $menusetData = $menusetRes->fetch_assoc();
         print_r($menusetData);
 
@@ -69,7 +116,9 @@ include '../api/islogin.php';
 
         $orderMenu_id = @$_GET["menuId"];
         $resid = @$_GET["resId"];
-        $resNameRes = $con->query("select name from restaurant where id = '$resid'");
+        $resNameRes = $con->query("select `name`, `email`, `tel`,`detail`, `img_path`, `star`, `address`,"
+                . " `opentime`, `amount_box_minimum`, `amount_box_limit`, `has_restaurant`, `restaurant_type`"
+                . " from restaurant where id = '$resid'");
         $resNameData = $resNameRes->fetch_assoc();
         ?>
         <?php include '../template/customer-navbar.php'; ?>
@@ -78,7 +127,7 @@ include '../api/islogin.php';
         <section id="restaurant_view_head">
             <div class="overlay">
                 <div class="container text-center">
-                    <h1><i class="glyphicon glyphicon-cutlery"></i>&nbsp;<?= ($menusetData["resname"]==""? $resNameData["name"]:$menusetData["resname"]) ?></h1>
+                    <h1><i class="glyphicon glyphicon-cutlery"></i>&nbsp;<?= ($menusetData["resname"] == "" ? $resNameData["name"] : $menusetData["resname"]) ?></h1>
                     <div class="row lead">
                         <div id="stars-existing" class="starrr" data-rating='4'></div>
                     </div>
@@ -92,8 +141,8 @@ include '../api/islogin.php';
                     <div class="col-md-8">
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation" class="active"><a href="#news" aria-controls="news" role="tab" data-toggle="tab">News</a></li>
-                            <li role="presentation"><a href="#promo" aria-controls="promo" role="tab" data-toggle="tab">Promotions</a></li>
+                            <li role="presentation" class="active"><a href="#news" aria-controls="news" role="tab" data-toggle="tab">ข่าวประกาศ</a></li>
+                            <li role="presentation"><a href="#promo" aria-controls="promo" role="tab" data-toggle="tab">โปรโมชั่น</a></li>
                             <li role="presentation"><a href="#order" aria-controls="order" role="tab" data-toggle="tab">สั่งอาหาร</a></li>
                             <li role="presentation"><a href="#info" aria-controls="info" role="tab" data-toggle="tab">ข้อมูลร้าน</a></li>
                             <li role="presentation"><a href="#review" aria-controls="review" role="tab" data-toggle="tab">รีวิว / คอมเม้นท์</a></li>
@@ -324,81 +373,71 @@ include '../api/islogin.php';
 
                                             <div class="tab-pane" role="tabpanel" id="step4">
                                                 <div class="card">
-                                                    <div class="card-content">
-                                                        <div class="page-header">
-                                                            ขั้นตอนที่ 4 : เลือกวัน เวลา และสถานที่จัดส่ง
+                                                    <div class="card-content" style="height:750px;">
+                                                        <div class="page-header" style="margin-left:16px;">
+                                                            ขั้นตอนที่ 1 : ระบุตำแหน่งที่อยู่จัดส่ง
                                                         </div>
-                                                        <div>
-                                                            <h4>ส่งวันที่:     
-                                                                <span id="datetext"></span><input type="date" name="delivery_date" required="">
-                                                                <input type="text" name="date" id="datepick" style="display: none" >
-                                                            </h4>
+                                                        <div id="addressoverlay"></div>
+
+                                                        <div class="col-sm-10">
+                                                            ที่อยู่ที่บันทึกไว้ : 
+                                                            <select class="form-control" id="oldaddress">
+                                                            </select>
                                                         </div>
-                                                        <div>
-                                                            <h4>เวลา:<br>
-                                                                <select name="delivery_time" id="delivery_time" class="col-md-3" >
-                                                                    <option value="0">--เวลาจัดส่ง--</option>
-                                                                    <option value="06:30:00">06:30 น.</option>
-                                                                    <option value="07:30:00">07:30 น.</option>
-                                                                    <option value="08:30:00">08:30 น.</option>
-                                                                    <option value="09:30:00">09:30 น.</option>
-                                                                    <option value="10:30:00">10:30 น.</option>
-                                                                    <option value="11:30:00">06:30 น.</option>
-                                                                    <option value="12:30:00">12:30 น.</option>
-                                                                    <option value="13:30:00">13:30 น.</option>
-                                                                    <option value="14:30:00">14:30 น.</option>
-                                                                    <option value="15:30:00">15:30 น.</option>
-                                                                    <option value="16:30:00">16:30 น.</option>
-                                                                    <option value="17:30:00">17:30 น.</option>
-                                                                    <option value="18:30:00">18:30 น.</option>
-                                                                </select>
-                                                            </h4>
-                                                        </div><br>
-                                                        <h3>สถานที่จัดส่ง:</h3>
-                                                        <div class="content2">
-                                                            <table class="table table-hover" id="task-table">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th colspan="3">Address</th>
-                                                                        <th>Select</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
+                                                        <div class="col-sm-2">
+                                                            <button id="addaddressbtn" class="btn btn-warning" style="margin-top:20px">
+                                                                <span class="glyphicon glyphicon-plus"></span> 
+                                                                เพิ่มที่อยู่ใหม่
+                                                            </button>
+                                                            <button id="oldaddressbtn" class="btn btn-warning" style="margin-top:20px; display:none;">
+                                                                <span class="glyphicon glyphicon-remove"></span> 
+                                                                ใช้ที่อยู่เก่า
+                                                            </button>
+                                                        </div>
 
-                                                                    <?php
-                                                                    $i = 1;
+                                                        <div class="col-sm-12"><br></div>
 
-//$shipAddressRes = $con->query("SELECT CONCAT(shippingAddress.address,' ประเภท',shippingAddress.type,'(', shippingAddress.address_naming,')') AS ship_address, shippingAddress.id,shippingAddress.address  FROM `shippingAddress` WHERE customer_id = '$cusid'");
-//while ($shipAddressData = $shipAddressRes->fetch_assoc()) {
-                                                                    ?>
-                                                                    <tr>
-
-                                                                    </tr>
-
-                                                                    <?php
-// }
-                                                                    ?>
-                                                                    <tr id="showdata">
-
-                                                                    </tr>
-                                                                    <tr id="showerror">
-
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                            <div class="row">
-                                                                <div id="inbox" style="margin:15% 0 0 0;">
-                                                                    <div class="fab btn-group show-on-hover dropup" id="add_sa" data-toggle="modal" data-target="#add_address">
-                                                                        <button type="button" class="btn btn-danger glyphicon glyphicon-plus btn-io">
-                                                                            <span class="fa-stack fa-2x">
-                                                                                <i class="fa fa-circle fa-stack-2x fab-backdrop"></i>
-                                                                                <i class="fa fa-plus fa-stack-1x fa-inverse fab-primary"></i>
-                                                                                <i class="fa fa-plus fa-stack-1x fa-inverse fab-secondary"></i>
-                                                                            </span>
-                                                                        </button>
-                                                                    </div>
+                                                        <div class="col-sm-10">
+                                                            ชื่อสถานที่ / จุดสังเกต : 
+                                                            <input class="form-control" placeholder="กรอกจุดสังเกต เช่น ชื่อสถานที่ อาคาร" name="address" id="addresstxt">
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            ประเภทสถานที่ : 
+                                                            <select class="form-control" id="addresstype">
+                                                                <option value="0" selected disabled>เลือกประเภท</option>
+                                                                <option value="อพาร์ทเมนท์">อพาร์ทเมนท์</option>
+                                                                <option value="สถานที่ราชการ">สถานที่ราชการ</option>
+                                                                <option value="มหาวิทยาลัย">มหาวิทยาลัย</option>
+                                                                <option value="โรงพยาบาล">โรงพยาบาล</option>
+                                                                <option value="โรงแรม">โรงแรม</option>
+                                                                <option value="บ้าน">บ้าน</option>
+                                                                <option value="ตลาด">ตลาด</option>
+                                                                <option value="โรงเรียน">โรงเรียน</option>
+                                                                <option value="ร้านค้า">ร้านค้า</option>
+                                                                <option value="วัด">วัด</option>
+                                                                <option value="อื่นๆ">อื่นๆ</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class='col-sm-12'>
+                                                            <div class="address">
+                                                                <div id='showaddress' class='col-sm-8'>
+                                                                    ลากและวางหมุดตรงที่อยู่ในการจัดส่งของคุณ
                                                                 </div>
-                                                            </div>  
+                                                                <div class='col-sm-4' style="text-align: right;">
+                                                                    <button id="getlocationbtn" class="btn btn-warning" style="display:none;">
+                                                                        <span class="glyphicon glyphicon-map-marker"></span>
+                                                                        ดึงตำแหน่งปัจจุบันของคุณ
+                                                                    </button>
+                                                                    <button id="savenewaddressbtn" class="btn btn-success" style="display: none;">
+                                                                        <span class="glyphicon glyphicon-ok-circle"></span>
+                                                                        บันทึกที่อยู่
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-sm-12">
+                                                            <div id="map"></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -469,7 +508,7 @@ include '../api/islogin.php';
                                                         <div class="row">
                                                             <div class="col-md-12">
                                                                 <span style="font-size: 22px;"><i class="fa fa-commenting "></i> เกี่ยวกับร้าน</span><br>
-                                                                <span class="info_res">ร้านอาหารตามสั่งแสนอร่อย ลองแล้วจะติดใจ บริการดี อาหารหลากหลาย สั่งเลย รับประกันความอร่อย </span>
+                                                                <span class="info_res"><?= $resNameData["detail"] ?></span>
                                                             </div>
                                                         </div><hr>
                                                         <div class="row">
@@ -479,31 +518,31 @@ include '../api/islogin.php';
                                                                     <tbody class="info_res">
                                                                         <tr>
                                                                             <td> วันจันทร์ </td>
-                                                                            <td class="pull-right"> 07.00น. - 18.30น.</td>
+                                                                            <td class="pull-right"> 06.30น. - 18.30น.</td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td> วันอังคาร </td>
-                                                                            <td class="pull-right"> 07.00น. - 18.30น.</td>
+                                                                            <td class="pull-right"> 06.30น. - 18.30น.</td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td> วันพุธ </td>
-                                                                            <td class="pull-right"> 07.00น. - 18.30น.</td>
+                                                                            <td class="pull-right"> 06.30น. - 18.30น.</td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td> วันพฤหัสบดี </td>
-                                                                            <td class="pull-right"> 07.00น. - 18.30น.</td>
+                                                                            <td class="pull-right"> 06.30น. - 18.30น.</td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td> วันศุกร์ </td>
-                                                                            <td class="pull-right"> 07.00น. - 18.30น.</td>
+                                                                            <td class="pull-right"> 06.30น. - 18.30น.</td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td> วันเสาร์ </td>
-                                                                            <td class="pull-right"> 07.00น. - 18.30น.</td>
+                                                                            <td class="pull-right"> 06.30น. - 18.30น.</td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td> วันอาทิตย์ </td>
-                                                                            <td class="pull-right"> 07.00น. - 18.30น.</td>
+                                                                            <td class="pull-right"> 06.30น. - 18.30น.</td>
                                                                         </tr>
                                                                     </tbody>
                                                                 </table>
@@ -512,7 +551,7 @@ include '../api/islogin.php';
                                                         <div class="row">
                                                             <div class="col-md-12">
                                                                 <span style="font-size: 22px;"><i class="fa fa-map-marker "></i> ที่ตั้งร้าน</span><br>
-                                                                <span class="info_res">365/1167 ซ.พุทธบูชา 47 แขวงบางมด เขตทุ่งครุ กรุงเทพมหานคร 10140 </span>
+                                                                <span class="info_res"><?= $resNameData["address"] ?></span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -521,13 +560,13 @@ include '../api/islogin.php';
                                                             <div class="col-md-12">
                                                                 <span style="font-size: 22px;"><i class="fa fa-bell "></i> วัน/เวลาทำการ</span><br>
                                                                 <span class="info_res"> จันทร์ - อาทิตย์ </span><br>
-                                                                <span class="info_res"> 8.00น. - 22.00น. </span>   
+                                                                <span class="info_res"> <?= $resNameData["opentime"] ?> </span>   
                                                             </div>
                                                         </div><hr>
                                                         <div class="row">
                                                             <div class="col-md-12">
                                                                 <span style="font-size: 22px;"><i class="fa fa-users "></i> สั่งขั้นต่ำ</span><br>
-                                                                <span class="info_res"> 30 กล่อง </span>   
+                                                                <span class="info_res"> <?= $resNameData["amount_box_minimum"] ?> กล่อง </span>   
                                                             </div>
                                                         </div><hr>
                                                         <div class="row">
@@ -547,7 +586,7 @@ include '../api/islogin.php';
                                                                 <span style="font-size: 22px;"><i class="fa fa-money "></i> รูปแบบการชำระเงิน</span><br>
                                                                 <span class="info_res"> เงินสดเมื่อได้รับอาหาร </span><br>
                                                                 <span class="info_res"> โอนเงินผ่านบัญชีธนาคาร </span><br>
-                                                                <span style="font-size: 12px; margin: 5px 0 0 30px; color: red"> *อาจมีการเรียกเก็บค่ามัดจำ </span>
+                                                                <span style="font-size: 12px; margin: 5px 0 0 30px; color: red"> *ค่ามัดจำ 20%ต่อหนึ่งรายการ </span>
                                                             </div>
                                                         </div><hr>
                                                     </div>
@@ -737,7 +776,7 @@ include '../api/islogin.php';
                         <br>
                         <div class="card">
                             <div class="card-content">
-                                <div class="page-header">
+                                <div class="page-header" style="color: #FF9900">
                                     Order & Price
                                 </div>
                                 <div>
@@ -822,6 +861,8 @@ include '../api/islogin.php';
 
 
         <?php include '../template/footer.php'; ?>
+        <script src="/assets/js/normal_order.js"></script>
+        
 
         <script>
 
@@ -863,10 +904,7 @@ include '../api/islogin.php';
 
         <script>
             $(document).ready(function () {
-                $('#datepick').datepick({
-                    minDate: new Date(),
-                    dateFormat: 'd M yyyy'
-                });
+               
 
                 $('#hidecalendarbtn').on('click', function (e) {
                     $('#showcalendar').hide();
@@ -927,15 +965,5 @@ include '../api/islogin.php';
                 $(elem).prev().find('a[data-toggle="tab"]').click();
             }
         </script>
-
-        <script>
-            $(document).ready(function () {
-
-                $('#info').click(function (e) {
-                    alert('ccccc');
-                });
-            });
-        </script>
-
     </body>
 </html>
