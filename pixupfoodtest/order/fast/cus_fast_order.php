@@ -1,39 +1,20 @@
 <?php
-include '../api/islogin.php';
-include '../dbconn.php';
+include '../../api/islogin.php';
+include '../../dbconn.php';
 ?>
-
 <html>
     <head>
         <meta charset="UTF-8">
         <title>Pixupfood - Order</title>
-        <?php include '../template/customer-title.php'; ?>
-        <!-- custom css -->
+        <?php include '../../template/customer-title.php'; ?>
         <link rel="stylesheet" href="/assets/css/fast_order.css">
     </head>
     <body>
         <?php
-        /* $resid = $_GET["resId"];
-          $restaurantres = $con->query("SELECT restaurant.id, restaurant.name as resname, "
-          . "restaurant.firstname,restaurant.lastname,restaurant.x, restaurant.y, "
-          . "restaurant.img_path, restaurant.star, restaurant.address,restaurant.amount_box_limit,"
-          . " restaurant.province, restaurant.has_restaurant, restaurant.restaurant_type,"
-          . " zone.name as zonename "
-          . "FROM `restaurant` "
-          . "JOIN zone ON zone.id = restaurant.zone_id "
-          . "where restaurant.id = '$resid'");
-          $restaurantdata = $restaurantres->fetch_assoc(); */
-
-        $cusid = $_SESSION["userdata"]["id"];
-        $customerRes = $con->query("select customer.id, customer.firstName, customer.lastName,"
-                . " customer.email, customer.tel, customer.address   "
-                . "from customer "
-                . "where id = '$cusid' ");
-        $customerData = $customerRes->fetch_assoc();
-
+        $customerData = $_SESSION["userdata"];
         $orderMenu_id = @$_GET["menuId"];
         ?>
-        <?php include '../template/customer-navbar.php'; ?>
+        <?php include '../../template/customer-navbar.php'; ?>
 
         <!-- start profile -->
         <section id="fast_head">
@@ -118,10 +99,9 @@ include '../dbconn.php';
                                                             <a href="#"><img class="menu_img" src="<?= $foodboxData["img_path"] ?>"></a>
                                                             <div class="caption">
 
-                                                                <p><?= $foodboxData["description"] ?>&nbsp;บาท</p>
+                                                                <p><?= $foodboxData["description"] ?></p>
                                                                 <p style="text-align: right">
                                                                     <input type="radio" name="foodboxtype" class="foodboxtype" id="foodboxtype<?= $foodboxData["id"] ?>" value="<?= $foodboxData["id"] ?>">
-                                                                    <input type="hidden" class="boxtypedata" name="boxtype<?= $foodboxData["id"] ?>" value="<?= $foodboxData["description"] ?>">
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -152,7 +132,6 @@ include '../dbconn.php';
                                                             <a href="#"><img class="menu_img" src=""></a>
                                                             <div class="caption">
                                                                 <h4><?= $riceData["name"] ?></h4>
-
                                                                 <p style="text-align: right">
                                                                     <input type="radio" name="ricetype" class="ricetype" id="ricetype<?= $riceData["id"] ?>" value="<?= $riceData["name"] ?>">
                                                                     <input type="hidden" class="ricetypedata" id="ricetypedata<?= $riceData["id"] ?>" value="<?= $riceData["price"] ?>"> 
@@ -182,7 +161,7 @@ include '../dbconn.php';
                                             <div class="row">
                                                 <?php
                                                 $foodListRes = $con->query("SELECT DISTINCT main_menu.id, menu.img_path,  main_menu.name as menuname, "
-                                                        . "food_type.description as foodtype, main_menu.type, main_menu as img  "
+                                                        . "food_type.description as foodtype, main_menu.type, main_menu.img_path as img  "
                                                         . "FROM menu JOIN restaurant ON menu.restaurant_id = restaurant.id "
                                                         . "JOIN main_menu ON main_menu.id = menu.main_menu_id "
                                                         . "JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
@@ -429,11 +408,11 @@ include '../dbconn.php';
                         </div>
                     </div>
                 </div>
-                
+
                 <!-------modal add address------------------------------>
                 <div class="modal fade" id="add_address" tabindex="-1" role="dialog" aria-labelledby="shipping_address">
                     <div class="modal-dialog" role="document"><img src="/assets/images/allnews/news03.jpg"
-                        <div class="modal-content">
+                                                                   <div class="modal-content">
                             <form action="/customer/ajax-address-shipping.php" id="addressform" name="addressform" method="post">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="mdrecl" name="mdrecl"><span aria-hidden="true">&times;</span></button>
@@ -478,119 +457,6 @@ include '../dbconn.php';
                 </div>
             </div>
         </section> 
-
-
-        <?php include '../template/footer.php'; ?>
-
-        <script>
-            (function () {
-                'use strict';
-                $.fn.extend({filterTable: function () {
-                        return this.each(function () {
-                            $(this).on('keyup', function (e) {
-                                $('.filterTable_no_results').remove();
-                                var $this = $(this),
-                                        search = $this.val().toLowerCase(),
-                                        target = $this.attr('data-filters'),
-                                        $target = $(target),
-                                        $rows = $target.find('tbody tr');
-
-                                if (search == '') {
-                                    $rows.show();
-                                } else {
-                                    $rows.each(function () {
-                                        var $this = $(this);
-                                        $this.text().toLowerCase().indexOf(search) === -1 ? $this.hide() : $this.show();
-                                    })
-                                    if ($target.find('tbody tr:visible').size() === 0) {
-                                        var col_count = $target.find('tr').first().find('td').size();
-                                        var no_results = $('<tr class="filterTable_no_results"><td colspan="' + col_count + '">No results found</td></tr>')
-                                        $target.find('tbody').append(no_results);
-                                    }
-                                }
-                            });
-                        });
-                    }
-                });
-                $('[data-action="filter"]').filterTable();
-            })(jQuery);
-
-            $(function () {
-                // attach table filter plugin to inputs
-                $('[data-action="filter"]').filterTable();
-                $('.container').on('click', '.panel-heading span.filter', function (e) {
-                    var $this = $(this),
-                            $panel = $this.parents('.panel');
-
-                    $panel.find('.panel-body').slideToggle();
-                    if ($this.css('display') != 'none') {
-                        $panel.find('.panel-body input').focus();
-                    }
-                });
-                $('[data-toggle="tooltip"]').tooltip();
-            });
-        </script>
-        <script>
-            $(document).ready(function (e) {
-                $('#datepick').datepick({
-                    minDate: new Date(),
-                    dateFormat: 'd M yyyy'
-                });
-$("#addressform").on("submit", function (e) {
-                    $.ajax({
-                        url: "/customer/ajax-address-shipping.php",
-                        type: "POST",
-                        data: $("#addressform").serializeArray(),
-                        dataType: "json",
-                        success: function (data) {
-                            if (data.result == 1) {
-                                $("#add_address").modal('hide');
-                                $("#showdata").append('<td colspan="3">' + data.address + '</td>' +
-                                        '<td><input type="radio"  name="shipAddress" value="' + data.address + '"> </td>');
-                            } else {
-                                $("#showerror").html(data.error);
-                            }
-                        }
-                    });
-                    e.preventDefault();
-                    return false;
-                });
-
-
-            });
-        </script>
-        <script>
-            $(document).ready(function () {
-                //Initialize tooltips
-                $('.nav-tabs > li a[title]').tooltip();
-                //Wizard
-                $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
-
-                    var $target = $(e.target);
-                    if ($target.parent().hasClass('disabled')) {
-                        return false;
-                    }
-                });
-                $(".next-step").click(function (e) {
-
-                    var $active = $('.wizard .nav-tabs li.active');
-                    $active.next().removeClass('disabled');
-                    nextTab($active);
-                });
-                $(".prev-step").click(function (e) {
-
-                    var $active = $('.wizard .nav-tabs li.active');
-                    prevTab($active);
-                });
-            });
-            function nextTab(elem) {
-                $(elem).next().find('a[data-toggle="tab"]').click();
-            }
-            function prevTab(elem) {
-                $(elem).prev().find('a[data-toggle="tab"]').click();
-            }
-        </script>
-
-
+        <?php include '../../template/footer.php'; ?>
     </body>
 </html>

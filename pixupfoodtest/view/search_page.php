@@ -66,7 +66,7 @@ include '../dbconn.php';
                                 </div>
                                 <div class="col-md-8">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="searchtxt" placeholder="ชื่อร้านอาหาร | ชื่อรายการอาหาร">
+                                        <input type="text" class="form-control" id="searchtxt"  placeholder="ชื่อร้านอาหาร | ชื่อรายการอาหาร">
                                         <span class="input-group-btn">
                                             <button class="btn btn-default" id="searchbtn" type="button">
                                                 <i class="glyphicon glyphicon-search"></i>
@@ -99,13 +99,13 @@ include '../dbconn.php';
                             <form>
                                 <div class="form-group">
                                     <input  type="checkbox" name="searchOption" value="orderFromMenu">&nbsp;&nbsp;<span style="font-size: 18px">สั่งอาหารจากรายการอาหาร</span><br>
-                                    
+
                                 </div>
                             </form>
                         </div>
                     </div>
                     <div class="col-md-9" style="padding-left:0px; ">
-                        <h2>ผลการค้นหาคำว่า: &nbsp;<span id="showsearchtext"  style="color: #FF9F00"><?=@$_GET["search"]?></span></h2>
+                        <h2>ผลการค้นหาคำว่า: &nbsp;<span id="showsearchtext"  style="color: #FF9F00"><?= @$_GET["search"] ?></span></h2>
                         <div class="content2" style="padding-bottom:15px">
                             <div class="fresh-table" style="font-family: 'supermarketregular';">
                                 <table id="fresh-table" class="table">
@@ -121,16 +121,15 @@ include '../dbconn.php';
                                         $search = $con->real_escape_string(@$_GET["search"]);
                                         $numrow = 0;
                                         if ($search != "") {
-                                            $res = $con->query("SELECT DISTINCT restaurant.id,restaurant.name, menu.img_path,  main_menu.name as menuname,"
-                                                    . " food_type.description as foodtype, restaurant.name as resname, main_menu.id as menuid, menu.price "
+                                            $res = $con->query("SELECT DISTINCT restaurant.id,restaurant.name, menu.img_path, main_menu.name as menuname,"
+                                                    . " food_type.description as foodtype, restaurant.name as resname, menu.id as menuid, menu.price "
                                                     . "FROM menu "
                                                     . "LEFT JOIN restaurant ON menu.restaurant_id = restaurant.id "
                                                     . "JOIN main_menu ON main_menu.id = menu.main_menu_id "
                                                     . "JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
                                                     . "JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
                                                     . "WHERE main_menu.name LIKE '%$search%' "
-                                                    . "AND (restaurant.close = 0 AND restaurant.block = 0) "
-                                                    . "AND food_type.description IN (SELECT food_type.description FROM food_type WHERE food_type.id = 15)");
+                                                    . "AND restaurant.close = 0 AND restaurant.block = 0 ");
                                             echo $con->error;
                                             $numrow = $res->num_rows;
                                         }
@@ -198,7 +197,7 @@ include '../dbconn.php';
         } else {
             ?>
             <script>
-              
+
                 $('a').click(function (e) {
                     e.preventDefault()
                 });
@@ -254,7 +253,7 @@ include '../dbconn.php';
                         $("#searchbtn").click();
                     }
                 });
-
+                $("input[type=checkbox]").removeAttr("checked");
 
                 $("#searchbtn").on("click", function (e) {
                     $("#result").html('<tr><td colspan="3" style="text-align: center;"><h2>Searching...</h2></td></tr>');
@@ -271,7 +270,7 @@ include '../dbconn.php';
                             $("#showsearchtext").html(searchtxt);
                             $("#result").html(data);
                             $('[data-toggle="tooltip"]').tooltip();
-                            
+
                         }
                     });
                 });
@@ -288,7 +287,7 @@ include '../dbconn.php';
                         success: function (data, textStatus, jqXHR) {
                             $("#result").html(data);
                             $('[data-toggle="tooltip"]').tooltip();
-                            
+
                         }
                     });
                 });

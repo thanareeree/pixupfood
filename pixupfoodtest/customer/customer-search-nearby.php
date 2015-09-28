@@ -4,10 +4,15 @@ $lat = $_POST["lat"];
 $long = $_POST["long"];
 
 if ($lat != "" && $long != "") {
-    $res = $con->query("SELECT *, ( 3959 * acos( cos( radians(" . $lat . ") ) "
-            . "* cos( radians( x ) ) * cos( radians( y ) - radians(" . $long . ") ) "
-            . "+ sin( radians(" . $lat . ") ) * sin( radians( x ) ) ) ) AS distance "
-            . "FROM restaurant where available = 1 HAVING distance < 25 ORDER BY distance LIMIT 0 , 8");
+   $res = $con->query("SELECT DISTINCT restaurant.id, restaurant.name ,restaurant.address, "
+                . "restaurant.detail,  restaurant.tel,restaurant.img_path, restaurant.zone_id,"
+                . " zone.name as zone_name, restaurant.province, ( 3959 * acos( cos( radians(" . $lat . ") ) "
+                . "* cos( radians( x ) ) * cos( radians( y ) - radians(" . $long . ") ) "
+                . "+ sin( radians(" . $lat . ") ) * sin( radians( x ) ) ) ) AS distance "
+                . "FROM restaurant JOIN zone ON zone.id = restaurant.zone_id "
+                . " WHERE restaurant.available = 1 and restaurant.close = 0 "
+                . "AND zone.name IN (SELECT zone.name FROM zone WHERE id = restaurant.zone_id)"
+                . "HAVING distance < 25 ORDER BY distance LIMIT 0 , 8");
     while ($data = $res->fetch_assoc()) {
         ?>
         <li class = "col-sm-3">

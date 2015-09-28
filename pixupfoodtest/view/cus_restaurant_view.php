@@ -13,6 +13,7 @@ include '../api/islogin.php';
 
         <link href='/assets/css/fullcalendar.css' rel='stylesheet' />
         <link href='/assets/css/fullcalendar.print.css' rel='stylesheet' media='print' />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
         <style>
             #restaurant_view .fb-image-profile
@@ -35,23 +36,29 @@ include '../api/islogin.php';
             #restaurant_view .form-group {
                 margin-bottom: 0px;
             }
-
+.info_res
+{
+    font-size: 16px; 
+    margin: 5px 0 0 30px; 
+    color: orange;
+}
         </style>
 
 
     </head>
     <body>
         <?php
-        $menuSetId = $_GET["menuSetId"];
-        $menusetRes = $con->query("SELECT DISTINCT main_menu.id,  main_menu.name as menusetname, menu.price,main_menu.type,"
+        $menuSetId = @$_GET["menuId"];
+        $menusetRes = $con->query("SELECT menu.id,  main_menu.name as menusetname, menu.price,main_menu.type,"
                 . " restaurant.id as resid, restaurant.name as resname, restaurant.img_path "
                 . "FROM menu "
                 . "JOIN restaurant ON menu.restaurant_id = restaurant.id "
                 . "JOIN main_menu ON main_menu.id = menu.main_menu_id "
                 . "JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
                 . "JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
-                . "WHERE main_menu.id = '$menuSetId'");
+                . "WHERE menu.id = '$menuSetId'");
         $menusetData = $menusetRes->fetch_assoc();
+        print_r($menusetData);
 
         $cusid = $_SESSION["userdata"]["id"];
         $customerRes = $con->query("select customer.id, customer.firstName, customer.lastName,"
@@ -61,6 +68,8 @@ include '../api/islogin.php';
         $customerData = $customerRes->fetch_assoc();
 
         $orderMenu_id = @$_GET["menuId"];
+        $resid = @$_GET["resId"];
+        $con->query("select name from restaurant where id = '$resid'");
         ?>
         <?php include '../template/customer-navbar.php'; ?>
 
@@ -68,7 +77,7 @@ include '../api/islogin.php';
         <section id="restaurant_view_head">
             <div class="overlay">
                 <div class="container text-center">
-                    <h1><i class="glyphicon glyphicon-cutlery"></i>&nbsp;<?= $restaurantdata["resname"] ?></h1>
+                    <h1><i class="glyphicon glyphicon-cutlery"></i>&nbsp;<?= $menusetData["resname"] ?></h1>
                     <div class="row lead">
                         <div id="stars-existing" class="starrr" data-rating='4'></div>
                     </div>
@@ -86,6 +95,7 @@ include '../api/islogin.php';
                             <li role="presentation"><a href="#promo" aria-controls="promo" role="tab" data-toggle="tab">Promotions</a></li>
                             <li role="presentation"><a href="#order" aria-controls="order" role="tab" data-toggle="tab">สั่งอาหาร</a></li>
                             <li role="presentation"><a href="#info" aria-controls="info" role="tab" data-toggle="tab">ข้อมูลร้าน</a></li>
+                            <li role="presentation"><a href="#review" aria-controls="review" role="tab" data-toggle="tab">รีวิว / คอมเม้นท์</a></li>
                         </ul>
                         <!-- Tab panes -->
                         <div class="tab-content">
@@ -176,7 +186,7 @@ include '../api/islogin.php';
                                         </ul>
                                     </div>
 
-                                    <form action="/customer/order-request-save.php?cusId<?= $cusid?>&resId<?= $resid?>" method="post">
+                                    <form action="/customer/order-request-save.php?cusId<?= $cusid ?>&resId<?= $resid ?>" method="post">
                                         <input type="hidden" name="selectMenuFromCustomer" value="<?= $orderMenu_id ?>" >
                                         <div class="tab-content">
 
@@ -283,7 +293,6 @@ include '../api/islogin.php';
                                                                     . "and menu.restaurant_id = '$resid'");
 
                                                             while ($foddListData = $foodListRes->fetch_assoc()) {
-                                                              
                                                                 ?>
                                                                 <div class="col-md-3">
                                                                     <div class="thumbnail">
@@ -358,17 +367,15 @@ include '../api/islogin.php';
                                                                     <?php
                                                                     $i = 1;
 
-                                                                    $shipAddressRes = $con->query("SELECT CONCAT(shippingAddress.address,' ประเภท',shippingAddress.type,'(', shippingAddress.address_naming,')') AS ship_address, shippingAddress.id,shippingAddress.address  FROM `shippingAddress` WHERE customer_id = '$cusid'");
+//$shipAddressRes = $con->query("SELECT CONCAT(shippingAddress.address,' ประเภท',shippingAddress.type,'(', shippingAddress.address_naming,')') AS ship_address, shippingAddress.id,shippingAddress.address  FROM `shippingAddress` WHERE customer_id = '$cusid'");
+//while ($shipAddressData = $shipAddressRes->fetch_assoc()) {
+                                                                    ?>
+                                                                    <tr>
 
-                                                                    while ($shipAddressData = $shipAddressRes->fetch_assoc()) {
-                                                                        ?>
-                                                                        <tr>
-                                                                            <td colspan="3"><?= ($shipAddressData['ship_address'] == "" ? $shipAddressData["address"] : $shipAddressData['ship_address']) ?></td>
-                                                                            <td><input type="radio"  name="shipAddress" value="<?= $shipAddressData["id"] ?>"> </td>
-                                                                        </tr>
+                                                                    </tr>
 
-                                                                        <?php
-                                                                    }
+                                                                    <?php
+// }
                                                                     ?>
                                                                     <tr id="showdata">
 
@@ -446,10 +453,229 @@ include '../api/islogin.php';
                                 </div>
                             </div>
 
-                            <!-- Promotion -->
+                            <!-- ข้อมูลร้าน -->
                             <div role="tabpanel" class="tab-pane" id="info">
-                                <br><div class="row">
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card">
+                                            <div class="card-content">
+                                                <div class="page-header">
+                                                    <h3>ข้อมูลทั่วไป</h3>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <span style="font-size: 22px;"><i class="fa fa-commenting "></i> เกี่ยวกับร้าน</span><br>
+                                                                <span class="info_res">ร้านอาหารตามสั่งแสนอร่อย ลองแล้วจะติดใจ บริการดี อาหารหลากหลาย สั่งเลย รับประกันความอร่อย </span>
+                                                            </div>
+                                                        </div><hr>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <span style="font-size: 22px;"><i class="fa fa-clock-o "></i> ชั่วโมงการจัดส่ง</span><br>
+                                                                <table style="margin: 5px 0 0 90px;width: 440px">
+                                                                    <tbody class="info_res">
+                                                                        <tr>
+                                                                            <td> วันจันทร์ </td>
+                                                                            <td class="pull-right"> 07.00น. - 18.30น.</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td> วันอังคาร </td>
+                                                                            <td class="pull-right"> 07.00น. - 18.30น.</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td> วันพุธ </td>
+                                                                            <td class="pull-right"> 07.00น. - 18.30น.</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td> วันพฤหัสบดี </td>
+                                                                            <td class="pull-right"> 07.00น. - 18.30น.</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td> วันศุกร์ </td>
+                                                                            <td class="pull-right"> 07.00น. - 18.30น.</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td> วันเสาร์ </td>
+                                                                            <td class="pull-right"> 07.00น. - 18.30น.</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td> วันอาทิตย์ </td>
+                                                                            <td class="pull-right"> 07.00น. - 18.30น.</td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div><hr>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <span style="font-size: 22px;"><i class="fa fa-map-marker "></i> ที่ตั้งร้าน</span><br>
+                                                                <span class="info_res">365/1167 ซ.พุทธบูชา 47 แขวงบางมด เขตทุ่งครุ กรุงเทพมหานคร 10140 </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <span style="font-size: 22px;"><i class="fa fa-bell "></i> วัน/เวลาทำการ</span><br>
+                                                                <span class="info_res"> จันทร์ - อาทิตย์ </span><br>
+                                                                <span class="info_res"> 8.00น. - 22.00น. </span>   
+                                                            </div>
+                                                        </div><hr>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <span style="font-size: 22px;"><i class="fa fa-users "></i> สั่งขั้นต่ำ</span><br>
+                                                                <span class="info_res"> 30 กล่อง </span>   
+                                                            </div>
+                                                        </div><hr>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <span style="font-size: 22px;"><i class="fa fa-motorcycle "></i> ค่าจัดส่ง</span><br>
+                                                                <span class="info_res"> 100 บาท </span>   
+                                                            </div>
+                                                        </div><hr>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <span style="font-size: 22px;"><i class="fa fa-clock-o "></i> ถึงมือประมาณ</span><br>
+                                                                <span class="info_res"> 1 ชั่วโมง </span>   
+                                                            </div>
+                                                        </div><hr>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <span style="font-size: 22px;"><i class="fa fa-money "></i> รูปแบบการชำระเงิน</span><br>
+                                                                <span class="info_res"> เงินสดเมื่อได้รับอาหาร </span><br>
+                                                                <span class="info_res"> โอนเงินผ่านบัญชีธนาคาร </span><br>
+                                                                <span style="font-size: 12px; margin: 5px 0 0 30px; color: red"> *อาจมีการเรียกเก็บค่ามัดจำ </span>
+                                                            </div>
+                                                        </div><hr>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
+                            <!-- review -->
+                            <div role="tabpanel" class="tab-pane" id="review">
+                                <br><div class="row">
+                                    <div class="col-md-12">
+                                        <h3 class="page-header" style="margin: 0 0 10px 0;">คอมเม้นต์จากลูกค้า</h3>
+                                        <section class="comment-list">
+                                            <!-- Comment1 -->
+                                            <article class="row">
+                                                <div class="col-md-2 col-sm-2 hidden-xs">
+                                                    <figure class="thumbnail">
+                                                        <img class="img-responsive" src="http://www.keita-gaming.com/assets/profile/default-avatar-c5d8ec086224cb6fc4e395f4ba3018c2.jpg" />
+                                                        <figcaption class="text-center">มานี</figcaption> <!-- ชื่อจริง -->
+                                                    </figure>
+                                                </div>
+                                                <div class="col-md-10 col-sm-10">
+                                                    <div class="panel panel-default arrow left">
+                                                        <div class="panel-body">
+                                                            <header class="text-left">
+                                                                <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> Dec 16, 2014</time>
+                                                            </header>
+                                                            <div class="comment-post">
+                                                                <p>
+                                                                    อร่อยมากๆ ค่ะ ><
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </article>
+
+                                            <!-- Comment2 -->
+                                            <article class="row">
+                                                <div class="col-md-2 col-sm-2 hidden-xs">
+                                                    <figure class="thumbnail">
+                                                        <img class="img-responsive" src="http://www.keita-gaming.com/assets/profile/default-avatar-c5d8ec086224cb6fc4e395f4ba3018c2.jpg" />
+                                                        <figcaption class="text-center">มานะ</figcaption>
+                                                    </figure>
+                                                </div>
+                                                <div class="col-md-10 col-sm-10">
+                                                    <div class="panel panel-default arrow left">
+                                                        <div class="panel-body">
+                                                            <header class="text-left">
+                                                                <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> Dec 16, 2014</time>
+                                                            </header>
+                                                            <div class="comment-post">
+                                                                <p>
+                                                                    เมนูข้าวผัดร้านนี้อร่อยมากครับ !!
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </article>
+
+                                            <!-- Comment3 -->
+                                            <article class="row">
+                                                <div class="col-md-2 col-sm-2 hidden-xs">
+                                                    <figure class="thumbnail">
+                                                        <img class="img-responsive" src="http://www.keita-gaming.com/assets/profile/default-avatar-c5d8ec086224cb6fc4e395f4ba3018c2.jpg" />
+                                                        <figcaption class="text-center">ปิติ</figcaption>
+                                                    </figure>
+                                                </div>
+                                                <div class="col-md-10 col-sm-10">
+                                                    <div class="panel panel-default arrow left">
+                                                        <div class="panel-body">
+                                                            <header class="text-left">
+                                                                <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> Dec 16, 2014</time>
+                                                            </header>
+                                                            <div class="comment-post">
+                                                                <p>
+                                                                    คนส่งอาหารมาช้าไปหน่อยครับ
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </article>
+
+                                            <!-- Comment4 -->
+                                            <article class="row">
+                                                <div class="col-md-2 col-sm-2 hidden-xs">
+                                                    <figure class="thumbnail">
+                                                        <img class="img-responsive" src="http://www.keita-gaming.com/assets/profile/default-avatar-c5d8ec086224cb6fc4e395f4ba3018c2.jpg" />
+                                                        <figcaption class="text-center">ชูใจ</figcaption>
+                                                    </figure>
+                                                </div>
+                                                <div class="col-md-10 col-sm-10">
+                                                    <div class="panel panel-default arrow left">
+                                                        <div class="panel-body">
+                                                            <header class="text-left">
+                                                                <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> Dec 16, 2014</time>
+                                                            </header>
+                                                            <div class="comment-post">
+                                                                <p>
+                                                                    ผัดกระเพราเค็มไปนิดนึงค่ะ แต่บริการดี มั่นใจได้ค่ะ
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </section>
+                                    </div>
+                                </div>
+                                <!-- คอมเม้นลูกค้าเขียน -->
+                                <hr class="hrs">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <form>
+                                            <div class="card">
+                                                <div class="card-content" style="padding: 10px 10px 0 10px">
+                                                    <textarea class="form-control input-sm " type="textarea" id="recom" placeholder="เขียนข้อความของคุณที่นี่" rows="5"></textarea><br>
+                                                </div>
+                                            </div>
+                                            <div class="pull-right" style="margin: 10px 0 0 0">
+                                                <button class="btn btn-primary" type="submit" value="ส่งข้อความ">ส่งข้อความ</button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -12,7 +12,7 @@ include './dbconn.php';
     <body>
         <?php include 'template/customer-navbar.php'; ?>
         <div id="slider-l" class="slider-l">
-            <a href="http://pixupfood.com/view/search_page.php">
+            <a href="http://pixupfood.com/view/search_page.php?search=%">
                 <img src="http://neko-miku.com/upload/4d36ff0b95cbd128d642def23843c6b0png" class="img-responsive"></a>
             <a onclick="parentNode.remove()" style="color: #0000ff;margin:0 0 0 15px ;">
                 <span>ปิดป้ายนี้</span></a> 

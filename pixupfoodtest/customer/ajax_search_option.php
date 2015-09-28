@@ -6,7 +6,7 @@ if($searchoption == 'orderFromMenu'){
     $numrow = 0;
     
         $res = $con->query("SELECT DISTINCT main_menu.id, menu.img_path,  main_menu.name as menuname, "
-                . "food_type.description as foodtype, main_menu.type "
+                . "food_type.description as foodtype, main_menu.type, main_menu.img_path as img "
                 . "FROM menu JOIN restaurant ON menu.restaurant_id = restaurant.id "
                 . "JOIN main_menu ON main_menu.id = menu.main_menu_id "
                 . "JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
@@ -24,7 +24,7 @@ if($searchoption == 'orderFromMenu'){
         <tr>
             <td style="text-align: center;">
                 <a class="" href="#">
-                    <img src="<?= ($data["img_path"] == "" ? "/assets/images/default-img150.png" : $data["img_path"]) ?>" style="max-width: 150px; max-height:90px;">
+                    <img src="<?= ($data["img_path"] == "" ? $data["img"] : $data["img_path"]) ?>" style="max-width: 150px; max-height:90px;">
                 </a>
             </td>
             <td>
@@ -35,7 +35,7 @@ if($searchoption == 'orderFromMenu'){
                 <h4 style="color: #ffaa3e"><?= ($data["foodtype"] != '' ? "#" . $data["foodtype"] : '' ) ?></h4>
             </td>
             <td>
-                <a href="/view/cus_fast_order.php?menuSetId=<?= $data["id"]?>">
+                <a href="/order/fast/?menuSetId=<?= $data["id"]?>">
                     <span class="tooltip-r" data-toggle="tooltip" data-placement="top" title="log in to ordet this restaurant">
                         <button class="btn btn-success menu_order" id="menuset_order<?= $data["id"] ?>"><i class="glyphicon glyphicon-plus"></i>&nbsp; สั่งรายการอาหารนี้</button>
                     </span>
