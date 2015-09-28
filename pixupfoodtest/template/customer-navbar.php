@@ -16,12 +16,15 @@ if (isset($_SESSION["islogin"])) {
     <nav class="navbar navbar-default navbar-fixed-top templatemo-nav" role="navigation">
         <div class="container" style="margin-left:100px;margin-right:40px;height:70px;width:auto;">
             <div class="navbar-header">
-                <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon icon-bar"></span>
-                </button>
-
-                <a href="/index.php" class="navbar-brand">Pixup</a>
-                <a href="/index.php" class="navbar-brand" style="color:rgba(0,0,32,1);padding-left: 0px;">Food</a>
+                <ul class="nav navbar-nav navbar-left">
+                    <li>
+                        <a href="/index.php">
+                            <img src="/assets/images/bar/logo PXF.png" width="42px" height="42px">
+                        </a>
+                    </li>
+                </ul>
+                <a href="/index.php" class="navbar-brand" style="padding: 20px 15px 15px 15px;" >Pixup</a>
+                <a href="/index.php" class="navbar-brand" style="color:rgba(0,0,32,1);padding: 20px 15px 15px 0;">Food</a>
                 <div class="col-md-4" style="margin:7px 0 0 15%;">
                     <form action="/view/search_page.php" method="get">
                         <div id="custom-search-input">
@@ -54,7 +57,7 @@ if (isset($_SESSION["islogin"])) {
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <a href="/view/cus_customer_profile.php">
-                                                                <img src="<?= ($data["img_path"]=="" ? '/assets/images/defaulf-profile.png':$data["img_path"]) ?>" style="max-width: 110px; max-height: 110px">
+                                                                <img src="<?= ($data["img_path"] == "" ? '/assets/images/defaulf-profile.png' : $data["img_path"]) ?>" style="max-width: 110px; max-height: 110px">
                                                             </a>
                                                         </div>
                                                     </div>
@@ -62,7 +65,7 @@ if (isset($_SESSION["islogin"])) {
                                                 <div class="col-md-7">
                                                     <form class="form-horizontal">
                                                         <fieldset>
-                                                           <br><br> <br><br>
+                                                            <br><br> <br><br>
                                                             <a href="/api/logout.php">
                                                                 <button id="logoutbutton" type="button" class="btn btn-danger btn-sm pull-right" style="margin-left: 15px;">Logout</button>
                                                             </a>
@@ -97,11 +100,15 @@ if (isset($_SESSION["islogin"])) {
     <nav class="navbar navbar-default navbar-fixed-top templatemo-nav" role="navigation">
         <div class="container" style="margin-left:100px;margin-right:40px;height:70px;width:auto;">
             <div class="navbar-header">
-                <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon icon-bar"></span>
-                </button>
-                <a href="/index.php" style="color:rgba(255,127,0,1)" class="navbar-brand">Pixup</a>
-                <a href="/index.php" class="navbar-brand" style="color:black;padding-left: 0px;">Food</a>
+                <ul class="nav navbar-nav navbar-left">
+                    <li>
+                        <a href="/index.php">
+                            <img src="/assets/images/bar/logo PXF.png">
+                        </a>
+                    </li>
+                </ul>
+                <a href="/index.php" class="navbar-brand" style="padding: 20px 15px 15px 15px;" >Pixup</a>
+                <a href="/index.php" class="navbar-brand" style="color:rgba(0,0,32,1);padding: 20px 15px 15px 0;">Food</a>
                 <div class="col-md-4" style="margin:7px 0 0 15%;">
                     <form action="/view/search_page.php" method="get">
                         <div id="custom-search-input">
