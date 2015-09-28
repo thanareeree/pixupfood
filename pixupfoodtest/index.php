@@ -12,8 +12,8 @@ include './dbconn.php';
     <body>
         <?php include 'template/customer-navbar.php'; ?>
         <div id="slider-l" class="slider-l">
-            <a href="http://pixupfood.com/view/search_page.php?search=%">
-                <img src="http://neko-miku.com/upload/4d36ff0b95cbd128d642def23843c6b0png" class="img-responsive"></a>
+            <a href="/view/search_page.php?search=%">
+                <img src="/assets/images/search.png" class="img-responsive" width="100px">
             <a onclick="parentNode.remove()" style="color: #0000ff;margin:0 0 0 15px ;">
                 <span>ปิดป้ายนี้</span></a> 
         </div>
@@ -26,32 +26,36 @@ include './dbconn.php';
                     <li data-target="#Carousel1" data-slide-to="0" class="active"></li>
                     <li data-target="#Carousel1" data-slide-to="1"></li>
                     <li data-target="#Carousel1" data-slide-to="2"></li>
+                    <li data-target="#Carousel1" data-slide-to="3"></li>
                 </ol>
                 <div class="carousel-inner">
                     <div class="item active">
-                        <img src="assets/images/slide/aa.png" class="img-responsive" style="margin-top:0px;">
+                        <img src="assets/images/slide/nn.jpg" class="img-responsive" style="margin-top:0px;">
+                    </div>
+                    <div class="item">
+                        <img src="assets/images/slide/dd.jpg" class="img-responsive" style="margin-top:0px;">
                         <div class="container">
                             <div class="carousel-caption">
-                                <h1>ข้าวผัดทะเล</h1>
-                                <p>ร้านอาหารป้าลมัย</p>
+                                <h1>ร้านโฮมเรส</h1>
+                                <p>ข้าวกล่องหลากหลาย อร่อยชัวร์</p>
                             </div>
                         </div>
                     </div>
                     <div class="item">
-                        <img src="assets/images/slide/bb.png" class="img-responsive" style="margin-top:0px">
+                        <img src="assets/images/slide/ee.jpg" class="img-responsive" style="margin-top:0px">
                         <div class="container">
                             <div class="carousel-caption">
-                                <h1>กระเพราหมูสับรสเด็ด</h1>
-                                <p>ป้าหน้า ม.</p>
+                                <h1>ป้าหน้า มอ</h1>
+                                <p>ข้าวกล่องราคาประหยัด</p>
                             </div>
                         </div>
                     </div>
                     <div class="item">
-                        <img src="assets/images/slide/cc.png" class="img-responsive" style="margin-top:0px">
+                        <img src="assets/images/slide/ff.jpg" class="img-responsive" style="margin-top:0px">
                         <div class="container">
                             <div class="carousel-caption">
-                                <h1>หมูกระเทียม</h1>
-                                <p>ร้านอาหารหอมหวล</p>
+                                <h1>ร้านลมัยโภชนา</h1>
+                                <p>ข้าวกล่องรสเด็ด</p>
                             </div>
                         </div>
                     </div>

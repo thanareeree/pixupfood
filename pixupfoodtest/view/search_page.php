@@ -122,14 +122,16 @@ include '../dbconn.php';
                                         $numrow = 0;
                                         if ($search != "") {
                                             $res = $con->query("SELECT DISTINCT restaurant.id,restaurant.name, menu.img_path, main_menu.name as menuname,"
-                                                    . " food_type.description as foodtype, restaurant.name as resname, menu.id as menuid, menu.price "
+                                                    . " food_type.description as foodtype, restaurant.name as resname, menu.id as menuid, menu.price,"
+                                                    . "main_menu.img_path as img "
                                                     . "FROM menu "
                                                     . "LEFT JOIN restaurant ON menu.restaurant_id = restaurant.id "
                                                     . "JOIN main_menu ON main_menu.id = menu.main_menu_id "
                                                     . "JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
                                                     . "JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
                                                     . "WHERE main_menu.name LIKE '%$search%' "
-                                                    . "AND restaurant.close = 0 AND restaurant.block = 0 ");
+                                                    . "AND restaurant.close = 0 AND restaurant.block = 0  "
+                                                    . "order by main_menu.name ");
                                             echo $con->error;
                                             $numrow = $res->num_rows;
                                         }
@@ -144,7 +146,7 @@ include '../dbconn.php';
                                                 <td style="text-align: center;">
                                                     <a class="" href="#">
                                                         <img 
-                                                            src="<?= ($data["img_path"] == "" ? "/assets/images/default-img150.png" : $data["img_path"]) ?>"
+                                                            src="<?= ($data["img_path"] == "" ? $data["img"] : $data["img_path"]) ?>"
                                                             style="max-width: 150px; max-height:90px;">
                                                     </a>
                                                 </td>

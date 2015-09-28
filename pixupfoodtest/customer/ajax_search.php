@@ -18,7 +18,7 @@ if ($searchby == "foodname") {
     if ($searchtxt != "") {
         $res = $con->query("SELECT DISTINCT restaurant.id,menu.img_path, main_menu.name as menuname,"
                 . " menu.price, food_type.description as foodtype, main_menu.type, restaurant.name"
-                . " as resname, menu.id as menuid "
+                . " as resname, menu.id as menuid, main_menu.img_path as img "
                 . "FROM menu "
                 . "LEFT JOIN restaurant ON menu.restaurant_id = restaurant.id "
                 . "JOIN main_menu ON main_menu.id = menu.main_menu_id "
@@ -50,7 +50,7 @@ if ($searchby == "foodname") {
         <tr>
             <td style="text-align: center;">
                 <a class="" href="#">
-                    <img src="<?= ($data["img_path"] == "" ? "/assets/images/default-img150.png" : $data["img_path"]) ?>" style="max-width: 150px; max-height:90px; min-height: 90px; min-width: 150px">
+                    <img src="<?= ($data["img_path"] == "" ? $data["img"] : $data["img_path"]) ?>" style="max-width: 150px; max-height:90px; min-height: 90px; min-width: 150px">
                 </a>
             </td>
             <td>
@@ -141,8 +141,7 @@ if ($searchby == "foodname") {
             <td style="text-align: center;">
                 <a class="" href="#">
                     <img 
-                        src="<?= ($data["img_path"] == "" ? "/assets/images/default-img150.png" : $data["img_path"]) ?>"
-                        style="max-width: 150px; max-height:90px;">
+                        src="<?= ($data["img_path"] == "" ? "/assets/images/default-img150.png" : $data["img_path"]) ?>"  style="max-width: 150px; max-height:90px; min-height: 90px; min-width: 150px">
                 </a>
             </td>
             <td>

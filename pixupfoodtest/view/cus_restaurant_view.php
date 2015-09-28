@@ -69,7 +69,8 @@ include '../api/islogin.php';
 
         $orderMenu_id = @$_GET["menuId"];
         $resid = @$_GET["resId"];
-        $con->query("select name from restaurant where id = '$resid'");
+        $resNameRes = $con->query("select name from restaurant where id = '$resid'");
+        $resNameData = $resNameRes->fetch_assoc();
         ?>
         <?php include '../template/customer-navbar.php'; ?>
 
@@ -77,7 +78,7 @@ include '../api/islogin.php';
         <section id="restaurant_view_head">
             <div class="overlay">
                 <div class="container text-center">
-                    <h1><i class="glyphicon glyphicon-cutlery"></i>&nbsp;<?= $menusetData["resname"] ?></h1>
+                    <h1><i class="glyphicon glyphicon-cutlery"></i>&nbsp;<?= ($menusetData["resname"]==""? $resNameData["name"]:$menusetData["resname"]) ?></h1>
                     <div class="row lead">
                         <div id="stars-existing" class="starrr" data-rating='4'></div>
                     </div>
