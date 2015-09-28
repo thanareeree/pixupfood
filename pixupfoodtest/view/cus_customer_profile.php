@@ -34,7 +34,7 @@ include '../dbconn.php';
                     <img align="left" class="fb-image-profile thumbnail" src="<?= ($data2["img_path"] == "" ? '/assets/images/defaulf-profile.png' : $data2["img_path"]) ?>" id="imgprofile" style="max-width: 175px;" height="175px"/>
                     <div class="fb-profile-text">
 
-                        <h1><?= $data2["firstName"] ?>  <?= $data2["lastName"] ?></h1>
+                        <h1><?= $data2["firstName"] ?>  <?= $data2["lastName"] ?> | หมายเลขสมาชิก: <?= $data2["id"] ?></h1>
                         <span style="color: white"></span>
                         <a href="#" data-toggle="modal" data-target="#editprofilemodal"style="color:orange;">
                             <i class="fa fa-pencil"></i> แก้ไขข้อมูลส่วนตัว
@@ -142,11 +142,11 @@ include '../dbconn.php';
                         <div class="card">
                             <div class="card-content">
                                 <div class="row">
-                                    <div class="col-md-2 templatemo-box fadeInUp">
+                                    <div class="col-md-2 templatemo-box fadeInUp" style="padding-right: 0;">
                                         <a href="#tracking" data-toggle="tab" id="navtracking">
                                             <img class="img-responsive imgsize" src="/assets/images/profile/menu_list/tracking_b_c.png" title="ตรวจสถานะสินค้า" onmouseover="this.src = '/assets/images/profile/menu_list/tracking_a_c.png';"
                                                  onmouseout="this.src = '/assets/images/profile/menu_list/tracking_b_c.png';" style="margin: 0 0 0 15px">
-                                            <p class="elt" style="margin: 0">ตรวจสถานะสินค้า</p>
+                                            <p class="elt" style="margin: 0;padding: 0 0 0 2px;">ตรวจสถานะสินค้า</p>
                                         </a>
                                     </div>
                                     <div class="col-md-2 templatemo-box fadeInUp">
@@ -640,7 +640,7 @@ include '../dbconn.php';
                                                                             <td>50</td>
                                                                             <td>ปรุงอาหาร</td>
                                                                             <td class="text-center"><button class="btn btn-info btn-xs" data-toggle="modal" data-target='#track' href="#track"><span class="glyphicon glyphicon-eye-open"></span> แสดง</button></td>
-                                                                            <td class="text-center"><button class="btn btn-info btn-xs" data-toggle="modal" data-target='#transf' href="#transf" disabled="disabled"><span class="glyphicon glyphicon-eye-open"></span> อัพโหลด</button></td>
+                                                                            <td class="text-center"><button class="btn btn-warning btn-xs" data-toggle="modal" data-target='#transf' href="#transf" disabled="disabled"><span class="glyphicon glyphicon-eye-open"></span> อัพโหลด</button></td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>2</td>
@@ -649,7 +649,7 @@ include '../dbconn.php';
                                                                             <td>50</td>
                                                                             <td>ปรุงอาหาร</td>
                                                                             <td class="text-center"><a class="btn btn-info btn-xs" data-toggle="modal" data-target='#track' href="#track"><span class="glyphicon glyphicon-eye-open"></span> แสดง</a></td>
-                                                                            <td class="text-center"><a class="btn btn-info btn-xs" data-toggle="modal" data-target='#transf' href="#transf" disabled="disabled"><span class="glyphicon glyphicon-eye-open"></span> อัพโหลด</a></td>
+                                                                            <td class="text-center"><a class="btn btn-warning btn-xs" data-toggle="modal" data-target='#transf' href="#transf" disabled="disabled"><span class="glyphicon glyphicon-eye-open"></span> อัพโหลด</a></td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>3</td>
@@ -658,7 +658,7 @@ include '../dbconn.php';
                                                                             <td>300</td>
                                                                             <td>ตอบรับ</td>
                                                                             <td class="text-center"><a class="btn btn-info btn-xs" data-toggle="modal" data-target='#track' href="#track"><span class="glyphicon glyphicon-eye-open"></span> แสดง</a></td>
-                                                                            <td class="text-center"><a class="btn btn-info btn-xs" data-toggle="modal" data-target='#transf' href="#transf"><span class="glyphicon glyphicon-eye-open"></span> อัพโหลด</a></td>
+                                                                            <td class="text-center"><a class="btn btn-warning btn-xs" data-toggle="modal" data-target='#transf' href="#transf"><span class="glyphicon glyphicon-eye-open"></span> อัพโหลด</a></td>
                                                                         </tr>
                                                                     </tbody>
                                                                 </table>   

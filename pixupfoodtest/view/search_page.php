@@ -158,12 +158,16 @@ include '../dbconn.php';
                                                 <td>
                                                     <p style="font-size: 20px"><?= $data["price"] ?>&nbsp;บาท<br></p>
                                                 </td>
-                                                <td>
+                                                <td style="padding-left: 50px">
                                                     <a href="/view/cus_restaurant_view.php?menuId=<?= $data["menuid"] ?>&resId=<?= $data["id"] ?>">
-                                                        <span class="tooltip-r" data-toggle="tooltip" data-placement="top" title="log in to ordet this restaurant">
-                                                            <button class="btn btn-success menu_order" id="menu_order<?= $data["menuid"] ?>"><i class="glyphicon glyphicon-plus"></i>&nbsp; สั่งรายการอาหารนี้</button>
+                                                        <span class="tooltip-r " data-toggle="tooltip" data-placement="top" title="log in to ordet this restaurant">
+                                                            <button class="btn btn-success menu_order " id="menu_order<?= $data["menuid"] ?>"><i class="glyphicon glyphicon-plus"></i>&nbsp; สั่งรายการอาหารนี้</button>
                                                         </span>
                                                     </a>
+                                                    <span class="pull-right">
+                                                        <button class="btn"  id="lovelove"><i class="glyphicon glyphicon-heart" style="color: red;"></i>&nbsp;<span style="color: black;"> ชื่นชอบ</span></button>
+                                                        <button class="btn btn-danger"  id="lovelove2" style="display: none;"><i class="glyphicon glyphicon-heart"></i>&nbsp; ชื่นชอบ</button>
+                                                    </span>
                                                 </td>
                                             </tr>
 
@@ -175,7 +179,6 @@ include '../dbconn.php';
                             </div>                                
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>
@@ -296,6 +299,18 @@ include '../dbconn.php';
 
 
 
+            });
+        </script>
+        <script>
+            $(document).ready(function () {
+                $("#lovelove").click(function () {
+                    $("#lovelove2").show();
+                    $("#lovelove").hide();
+                });
+                $("#lovelove2").click(function () {
+                    $("#lovelove").show();
+                    $("#lovelove2").hide();
+                });
             });
         </script>
     </body>
