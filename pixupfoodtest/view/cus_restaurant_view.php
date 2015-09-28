@@ -13,6 +13,7 @@ include '../api/islogin.php';
 
         <link href='/assets/css/fullcalendar.css' rel='stylesheet' />
         <link href='/assets/css/fullcalendar.print.css' rel='stylesheet' media='print' />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
         <style>
             #restaurant_view .fb-image-profile
@@ -42,16 +43,17 @@ include '../api/islogin.php';
     </head>
     <body>
         <?php
-        $menuSetId = @$_GET["menuSetId"];
-        $menusetRes = $con->query("SELECT DISTINCT main_menu.id,  main_menu.name as menusetname, menu.price,main_menu.type,"
+        $menuSetId = @$_GET["menuId"];
+        $menusetRes = $con->query("SELECT menu.id,  main_menu.name as menusetname, menu.price,main_menu.type,"
                 . " restaurant.id as resid, restaurant.name as resname, restaurant.img_path "
                 . "FROM menu "
                 . "JOIN restaurant ON menu.restaurant_id = restaurant.id "
                 . "JOIN main_menu ON main_menu.id = menu.main_menu_id "
                 . "JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
                 . "JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
-                . "WHERE main_menu.id = '$menuSetId'");
+                . "WHERE menu.id = '$menuSetId'");
         $menusetData = $menusetRes->fetch_assoc();
+        print_r($menusetData);
 
         $cusid = $_SESSION["userdata"]["id"];
         $customerRes = $con->query("select customer.id, customer.firstName, customer.lastName,"
@@ -61,6 +63,8 @@ include '../api/islogin.php';
         $customerData = $customerRes->fetch_assoc();
 
         $orderMenu_id = @$_GET["menuId"];
+        $resid = @$_GET["resId"];
+        $con->query("select name from restaurant where id = '$resid'");
         ?>
         <?php include '../template/customer-navbar.php'; ?>
 
@@ -68,7 +72,10 @@ include '../api/islogin.php';
         <section id="restaurant_view_head">
             <div class="overlay">
                 <div class="container text-center">
-                    <h1><i class="glyphicon glyphicon-cutlery"></i>&nbsp;<?= $restaurantdata["resname"] ?></h1>
+                    <h1><i class="glyphicon glyphicon-cutlery"></i>&nbsp;<?= $menusetData["resname"] ?></h1>
+                    <div class="row lead">
+                        <div id="stars-existing" class="starrr" data-rating='4'></div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -209,235 +216,234 @@ include '../api/islogin.php';
                                                                         </div>
                                                                     </div>
                                                                 </div>
+
                                                             <?php } ?>
+                                                        </div>
+                                                        <div >
+                                                            <h4>จำนวนกล่อง: &nbsp;<input type="number" name="boxamount" id="boxamount" value="" ></h4>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <ul class="list-inline pull-right" style="margin-top: 20px;">
+                                                    <li><button type="button" class="btn btn-primary next-step" id="submitStep1">Save and continue</button></li>
+                                                </ul>
+
+                                            </div>
+
+                                            <!-- เลือกชนิดข้าวข้าว -------------------------------------------------------------->
+                                            <div class="tab-pane" role="tabpanel" id="step2">
+                                                <div class="card">
+                                                    <div class="card-content">
+                                                        <div class="page-header">
+                                                            ขั้นตอนที่ 2 : เลือกข้าว
                                                         </div>
                                                         <div class="row">
-                                                            <div class="col-md-12">
-                                                                <h4>จำนวนกล่อง: &nbsp;<input type="number" name="boxamount" id="boxamount" value="" ></h4>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <ul class="list-inline pull-right" style="margin-top: 20px;">
-                                                        <li><button type="button" class="btn btn-primary next-step" id="submitStep1">Save and continue</button></li>
-                                                    </ul>
-                                                </div>
-
-                                                <!-- เลือกชนิดข้าวข้าว -------------------------------------------------------------->
-                                                <div class="tab-pane" role="tabpanel" id="step2">
-                                                    <div class="card">
-                                                        <div class="card-content">
-                                                            <div class="page-header">
-                                                                ขั้นตอนที่ 2 : เลือกข้าว
-                                                            </div>
-                                                            <div class="row">
-                                                                <?php
-                                                                $riceListRes = $con->query("SELECT main_menu.name, menu.price , menu.img_path,menu.id  "
-                                                                        . "FROM `menu` LEFT JOIN main_menu on main_menu.id = menu.main_menu_id "
-                                                                        . "LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
-                                                                        . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
-                                                                        . "WHERE main_menu.type = 'ชนิดข้าว' "
-                                                                        . "and menu.restaurant_id = '$resid'");
-
-                                                                while ($riceData = $riceListRes->fetch_assoc()) {
-                                                                    ?>
-                                                                    <div class="col-md-3">
-                                                                        <div class="thumbnail">
-                                                                            <a href="#"><img class="menu_img" src="<?= ($riceData["img_path"] == "") ? '/assets/images/default-img360.png' : $riceData["img_path"] ?>"></a>
-                                                                            <div class="caption">
-                                                                                <h4><?= $riceData["name"] ?></h4>
-                                                                                <p><?= $riceData["price"] ?>&nbsp;บาท</p>
-                                                                                <p style="text-align: right">
-                                                                                    <input type="radio" name="ricetype" class="ricetype" id="ricetype<?= $riceData["id"] ?>" value="<?= $riceData["name"] ?>">
-                                                                                    <input type="hidden" class="ricetypedata" id="ricetypedata<?= $riceData["id"] ?>" value="<?= $riceData["price"] ?>"> 
-
-                                                                                </p>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                <?php } ?>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <ul class="list-inline pull-right"  style="margin-top: 20px">
-                                                        <li><button type="button" class="btn btn-default prev-step" id="prevstep2">Previous</button></li>
-                                                        <li><button type="button" class="btn btn-primary next-step" id="nextstep2">Save and continue</button></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="tab-pane" role="tabpanel" id="step3" >
-                                                    <div class="card">
-                                                        <div class="card-content">
-                                                            <div class="page-header">
-                                                                ขั้นตอนที่ 3 : เลือกรายการอาหาร
-                                                            </div>
-                                                            <h3>สามารถเลือกรายการได้ตามรูปแบบของกล่อง (ไม่เกิน 3 รายการ)</h3>
-                                                            <div class="row">
-                                                                <?php
-                                                                $foodListRes = $con->query("SELECT DISTINCT main_menu.name, menu.price, menu.img_path, menu.id   "
-                                                                        . "FROM `menu` LEFT JOIN main_menu on main_menu.id = menu.main_menu_id "
-                                                                        . "LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
-                                                                        . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
-                                                                        . "WHERE main_menu.type = 'กับข้าว' "
-                                                                        . "and menu.restaurant_id = '$resid'");
-
-                                                                while ($foddListData = $foodListRes->fetch_assoc()) {
-                                                                    ?>
-                                                                    <div class="col-md-3">
-                                                                        <div class="thumbnail">
-                                                                            <a href="#"><img class="menu_img" src="<?= ($foddListData["img_path"] == "") ? '/assets/images/default-img360.png' : $foddListData["img_path"] ?>"></a>
-                                                                            <div class="caption">
-                                                                                <h4><?= $foddListData["name"] ?></h4>
-                                                                                <p><?= $foddListData["price"] ?>&nbsp;</p>
-                                                                                <p style="text-align: right">
-                                                                                    <input type="checkbox" name="foodlist[]" class="foodlist" id="foodlist<?= $foddListData["id"] ?>" value="<?= $foddListData["name"] ?>">
-                                                                                    <input type="hidden" name="foodprice[]" class="foodprice" id="foodprice<?= $foddListData["id"] ?>" value="<?= $foddListData["price"] ?>">
-                                                                                </p>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <?php
-                                                                }
-                                                                ?>
-                                                            </div> <!--<hr class="hrs">-->
-                                                        </div>
-                                                    </div>
-                                                    <ul class="list-inline pull-right"  style="margin-top: 20px">
-                                                        <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
-                                                        <li><button type="button" class="btn btn-primary btn-info-full next-step">Save and continue</button></li>
-                                                    </ul>
-                                                </div>
-
-
-                                                <div class="tab-pane" role="tabpanel" id="step4">
-                                                    <div class="card">
-                                                        <div class="card-content">
-                                                            <div class="page-header">
-                                                                ขั้นตอนที่ 4 : เลือกวัน เวลา และสถานที่จัดส่ง
-                                                            </div>
-                                                            <div>
-                                                                <h4>ส่งวันที่:     
-                                                                    <span id="datetext"></span><input type="date" name="delivery_date" required="">
-                                                                    <input type="text" name="date" id="datepick" style="display: none" >
-                                                                </h4>
-                                                            </div>
-                                                            <div>
-                                                                <h4>เวลา:<br>
-                                                                    <select name="delivery_time" id="delivery_time" class="col-md-3" >
-                                                                        <option value="0">--เวลาจัดส่ง--</option>
-                                                                        <option value="06:30:00">06:30 น.</option>
-                                                                        <option value="07:30:00">07:30 น.</option>
-                                                                        <option value="08:30:00">08:30 น.</option>
-                                                                        <option value="09:30:00">09:30 น.</option>
-                                                                        <option value="10:30:00">10:30 น.</option>
-                                                                        <option value="11:30:00">06:30 น.</option>
-                                                                        <option value="12:30:00">12:30 น.</option>
-                                                                        <option value="13:30:00">13:30 น.</option>
-                                                                        <option value="14:30:00">14:30 น.</option>
-                                                                        <option value="15:30:00">15:30 น.</option>
-                                                                        <option value="16:30:00">16:30 น.</option>
-                                                                        <option value="17:30:00">17:30 น.</option>
-                                                                        <option value="18:30:00">18:30 น.</option>
-                                                                    </select>
-                                                                </h4>
-                                                            </div><br>
-                                                            <h3>สถานที่จัดส่ง:</h3>
-                                                            <div class="content2">
-                                                                <table class="table table-hover" id="task-table">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th colspan="3">Address</th>
-                                                                            <th>Select</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-
-                                                                        <?php
-                                                                        $i = 1;
-
-                                                                        $shipAddressRes = $con->query("SELECT CONCAT(shippingAddress.address,' ประเภท',shippingAddress.type,'(', shippingAddress.address_naming,')') AS ship_address, shippingAddress.id,shippingAddress.address  FROM `shippingAddress` WHERE customer_id = '$cusid'");
-
-                                                                        while ($shipAddressData = $shipAddressRes->fetch_assoc()) {
-                                                                            ?>
-                                                                            <tr>
-                                                                                <td colspan="3"><?= ($shipAddressData['ship_address'] == "" ? $shipAddressData["address"] : $shipAddressData['ship_address']) ?></td>
-                                                                                <td><input type="radio"  name="shipAddress" value="<?= $shipAddressData["id"] ?>"> </td>
-                                                                            </tr>
-
-                                                                            <?php
-                                                                        }
-                                                                        ?>
-                                                                        <tr id="showdata">
-
-                                                                        </tr>
-                                                                        <tr id="showerror">
-
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                                <div class="row">
-                                                                    <div id="inbox" style="margin:15% 0 0 0;">
-                                                                        <div class="fab btn-group show-on-hover dropup" id="add_sa" data-toggle="modal" data-target="#add_address">
-                                                                            <button type="button" class="btn btn-danger glyphicon glyphicon-plus btn-io">
-                                                                                <span class="fa-stack fa-2x">
-                                                                                    <i class="fa fa-circle fa-stack-2x fab-backdrop"></i>
-                                                                                    <i class="fa fa-plus fa-stack-1x fa-inverse fab-primary"></i>
-                                                                                    <i class="fa fa-plus fa-stack-1x fa-inverse fab-secondary"></i>
-                                                                                </span>
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>  
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <ul class="list-inline pull-right"  style="margin-top: 20px">
-                                                        <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
-                                                        <li><button type="button" class="btn btn-primary next-step" id="hidecalendarbtn">Save and continue</button></li>
-                                                    </ul>
-                                                </div>                                   
-
-
-
-                                                <div class="tab-pane" role="tabpanel" id="step5">
-                                                    <div class="card">
-                                                        <div class="card-content">
-                                                            <div class="page-header">
-                                                                ขั้นตอนที่ 5 : เลือกวิธีชำระเงิน
-                                                            </div>
-
                                                             <?php
-                                                            $bankRes = $con->query("SELECT `id`, `accname`, `accNo`, `bank`, `restaurant_id` "
-                                                                    . "FROM `bank_account` WHERE restaurant_id = '$resid' ");
+                                                            $riceListRes = $con->query("SELECT main_menu.name, menu.price , menu.img_path,menu.id  "
+                                                                    . "FROM `menu` LEFT JOIN main_menu on main_menu.id = menu.main_menu_id "
+                                                                    . "LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
+                                                                    . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
+                                                                    . "WHERE main_menu.type = 'ชนิดข้าว' "
+                                                                    . "and menu.restaurant_id = '$resid'");
 
-                                                            $resPaymentRes = $con->query("select payment_type.id, payment_type.description "
-                                                                    . "FROM mapping_payment_type "
-                                                                    . "LEFT JOIN payment_type ON mapping_payment_type.payment_type_id = payment_type.id "
-                                                                    . "where mapping_payment_type.restaurant_id = '$resid' ");
-                                                            $paymentRes = $con->query("SELECT payment_type.id, payment_type.description FROM payment_type ");
-                                                            while ($paymentData = $paymentRes->fetch_assoc()) {
+                                                            while ($riceData = $riceListRes->fetch_assoc()) {
                                                                 ?>
-                                                                <div class="input-group col-md-12" style="margin: 10px 120px;"  >
-                                                                    <input type="radio"  name="paymentData" value="<?= $paymentData["id"] ?>"><?= $paymentData["description"] ?>
+                                                                <div class="col-md-3">
+                                                                    <div class="thumbnail">
+                                                                        <a href="#"><img class="menu_img" src="<?= ($riceData["img_path"] == "") ? '/assets/images/default-img360.png' : $riceData["img_path"] ?>"></a>
+                                                                        <div class="caption">
+                                                                            <h4><?= $riceData["name"] ?></h4>
+                                                                            <p><?= $riceData["price"] ?>&nbsp;บาท</p>
+                                                                            <p style="text-align: right">
+                                                                                <input type="radio" name="ricetype" class="ricetype" id="ricetype<?= $riceData["id"] ?>" value="<?= $riceData["name"] ?>">
+                                                                                <input type="hidden" class="ricetypedata" id="ricetypedata<?= $riceData["id"] ?>" value="<?= $riceData["price"] ?>"> 
+
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             <?php } ?>
-                                                            <hr>
-                                                            <div >
-                                                                *สามารถโอนเงินผ่านบัญชีธนาคาร&nbsp;&nbsp;<br>
-                                                                <?php
-                                                                while ($bankData = $bankRes->fetch_assoc()) {
-                                                                    ?>
-                                                                    <p>ชื่อบัญชี: &nbsp;<?= $bankData["accname"] ?>&nbsp;เลขที่บัญชี &nbsp;<?= $bankData["accNo"] ?>&nbsp;<?= $bankData["bank"] ?></p>
-
-                                                                <?php } ?>
-
-                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <ul class="list-inline pull-right" style="margin-top: 20px">
-                                                        <li><button type="submit" class="btn btn-primary next-step">Order</button></li>
-                                                    </ul>
                                                 </div>
+                                                <ul class="list-inline pull-right"  style="margin-top: 20px">
+                                                    <li><button type="button" class="btn btn-default prev-step" id="prevstep2">Previous</button></li>
+                                                    <li><button type="button" class="btn btn-primary next-step" id="nextstep2">Save and continue</button></li>
+                                                </ul>
                                             </div>
+                                            <div class="tab-pane" role="tabpanel" id="step3" >
+                                                <div class="card">
+                                                    <div class="card-content">
+                                                        <div class="page-header">
+                                                            ขั้นตอนที่ 3 : เลือกรายการอาหาร
+                                                        </div>
+                                                        <h3>สามารถเลือกรายการได้ตามรูปแบบของกล่อง (ไม่เกิน 3 รายการ)</h3>
+                                                        <div class="row">
+                                                            <?php
+                                                            $foodListRes = $con->query("SELECT DISTINCT main_menu.name, menu.price, menu.img_path, menu.id   "
+                                                                    . "FROM `menu` LEFT JOIN main_menu on main_menu.id = menu.main_menu_id "
+                                                                    . "LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
+                                                                    . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
+                                                                    . "WHERE main_menu.type = 'กับข้าว' "
+                                                                    . "and menu.restaurant_id = '$resid'");
+
+                                                            while ($foddListData = $foodListRes->fetch_assoc()) {
+                                                                ?>
+                                                                <div class="col-md-3">
+                                                                    <div class="thumbnail">
+                                                                        <a href="#"><img class="menu_img" src="<?= ($foddListData["img_path"] == "") ? '/assets/images/default-img360.png' : $foddListData["img_path"] ?>"></a>
+                                                                        <div class="caption">
+                                                                            <h4><?= $foddListData["name"] ?></h4>
+                                                                            <p><?= $foddListData["price"] ?>&nbsp;</p>
+                                                                            <p style="text-align: right">
+                                                                                <input type="checkbox" name="foodlist[]" class="foodlist" id="foodlist<?= $foddListData["id"] ?>" value="<?= $foddListData["name"] ?>">
+                                                                                <input type="hidden" name="foodprice[]" class="foodprice" id="foodprice<?= $foddListData["id"] ?>" value="<?= $foddListData["price"] ?>">
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <?php
+                                                            }
+                                                            ?>
+                                                        </div> <!--<hr class="hrs">-->
+                                                    </div>
+                                                </div>
+                                                <ul class="list-inline pull-right"  style="margin-top: 20px">
+                                                    <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
+                                                    <li><button type="button" class="btn btn-primary btn-info-full next-step">Save and continue</button></li>
+                                                </ul>
+                                            </div>
+
+
+                                            <div class="tab-pane" role="tabpanel" id="step4">
+                                                <div class="card">
+                                                    <div class="card-content">
+                                                        <div class="page-header">
+                                                            ขั้นตอนที่ 4 : เลือกวัน เวลา และสถานที่จัดส่ง
+                                                        </div>
+                                                        <div>
+                                                            <h4>ส่งวันที่:     
+                                                                <span id="datetext"></span><input type="date" name="delivery_date" required="">
+                                                                <input type="text" name="date" id="datepick" style="display: none" >
+                                                            </h4>
+                                                        </div>
+                                                        <div>
+                                                            <h4>เวลา:<br>
+                                                                <select name="delivery_time" id="delivery_time" class="col-md-3" >
+                                                                    <option value="0">--เวลาจัดส่ง--</option>
+                                                                    <option value="06:30:00">06:30 น.</option>
+                                                                    <option value="07:30:00">07:30 น.</option>
+                                                                    <option value="08:30:00">08:30 น.</option>
+                                                                    <option value="09:30:00">09:30 น.</option>
+                                                                    <option value="10:30:00">10:30 น.</option>
+                                                                    <option value="11:30:00">06:30 น.</option>
+                                                                    <option value="12:30:00">12:30 น.</option>
+                                                                    <option value="13:30:00">13:30 น.</option>
+                                                                    <option value="14:30:00">14:30 น.</option>
+                                                                    <option value="15:30:00">15:30 น.</option>
+                                                                    <option value="16:30:00">16:30 น.</option>
+                                                                    <option value="17:30:00">17:30 น.</option>
+                                                                    <option value="18:30:00">18:30 น.</option>
+                                                                </select>
+                                                            </h4>
+                                                        </div><br>
+                                                        <h3>สถานที่จัดส่ง:</h3>
+                                                        <div class="content2">
+                                                            <table class="table table-hover" id="task-table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th colspan="3">Address</th>
+                                                                        <th>Select</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+
+                                                                    <?php
+                                                                    $i = 1;
+
+//$shipAddressRes = $con->query("SELECT CONCAT(shippingAddress.address,' ประเภท',shippingAddress.type,'(', shippingAddress.address_naming,')') AS ship_address, shippingAddress.id,shippingAddress.address  FROM `shippingAddress` WHERE customer_id = '$cusid'");
+//while ($shipAddressData = $shipAddressRes->fetch_assoc()) {
+                                                                    ?>
+                                                                    <tr>
+
+                                                                    </tr>
+
+                                                                    <?php
+// }
+                                                                    ?>
+                                                                    <tr id="showdata">
+
+                                                                    </tr>
+                                                                    <tr id="showerror">
+
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <div class="row">
+                                                                <div id="inbox" style="margin:15% 0 0 0;">
+                                                                    <div class="fab btn-group show-on-hover dropup" id="add_sa" data-toggle="modal" data-target="#add_address">
+                                                                        <button type="button" class="btn btn-danger glyphicon glyphicon-plus btn-io">
+                                                                            <span class="fa-stack fa-2x">
+                                                                                <i class="fa fa-circle fa-stack-2x fab-backdrop"></i>
+                                                                                <i class="fa fa-plus fa-stack-1x fa-inverse fab-primary"></i>
+                                                                                <i class="fa fa-plus fa-stack-1x fa-inverse fab-secondary"></i>
+                                                                            </span>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>  
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <ul class="list-inline pull-right"  style="margin-top: 20px">
+                                                    <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
+                                                    <li><button type="button" class="btn btn-primary next-step" id="hidecalendarbtn">Save and continue</button></li>
+                                                </ul>
+                                            </div>                                   
+
+
+
+                                            <div class="tab-pane" role="tabpanel" id="step5">
+                                                <div class="card">
+                                                    <div class="card-content">
+                                                        <div class="page-header">
+                                                            ขั้นตอนที่ 5 : เลือกวิธีชำระเงิน
+                                                        </div>
+
+                                                        <?php
+                                                        $bankRes = $con->query("SELECT `id`, `accname`, `accNo`, `bank`, `restaurant_id` "
+                                                                . "FROM `bank_account` WHERE restaurant_id = '$resid' ");
+
+                                                        $resPaymentRes = $con->query("select payment_type.id, payment_type.description "
+                                                                . "FROM mapping_payment_type "
+                                                                . "LEFT JOIN payment_type ON mapping_payment_type.payment_type_id = payment_type.id "
+                                                                . "where mapping_payment_type.restaurant_id = '$resid' ");
+                                                        $paymentRes = $con->query("SELECT payment_type.id, payment_type.description FROM payment_type ");
+                                                        while ($paymentData = $paymentRes->fetch_assoc()) {
+                                                            ?>
+                                                            <div class="input-group col-md-12" style="margin: 10px 120px;"  >
+                                                                <input type="radio"  name="paymentData" value="<?= $paymentData["id"] ?>"><?= $paymentData["description"] ?>
+                                                            </div>
+                                                        <?php } ?>
+                                                        <hr>
+                                                        <div >
+                                                            *สามารถโอนเงินผ่านบัญชีธนาคาร&nbsp;&nbsp;<br>
+                                                            <?php
+                                                            while ($bankData = $bankRes->fetch_assoc()) {
+                                                                ?>
+                                                                <p>ชื่อบัญชี: &nbsp;<?= $bankData["accname"] ?>&nbsp;เลขที่บัญชี &nbsp;<?= $bankData["accNo"] ?>&nbsp;<?= $bankData["bank"] ?></p>
+
+                                                            <?php } ?>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <ul class="list-inline pull-right" style="margin-top: 20px">
+                                                    <li><button type="submit" class="btn btn-primary next-step">Order</button></li>
+                                                </ul>
+                                            </div>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -447,70 +453,99 @@ include '../api/islogin.php';
                                 <br>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <div class="page-header">
-                                            <h3>ข้อมูลทั่วไป</h3>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-8">
+                                        <div class="card">
+                                            <div class="card-content">
+                                                <div class="page-header">
+                                                    <h3>ข้อมูลทั่วไป</h3>
+                                                </div>
                                                 <div class="row">
-                                                    <div class="col-md-12">
-                                                        <span style="font-size: 25px;"><i class="fa fa-commenting "></i> เกี่ยวกับร้าน</span><br>
-                                                        <span style="font-size: 18px; margin: 5px 0 0 30px; color: orange">ร้านอาหารตามสั่งแสนอร่อย ลองแล้วจะติดใจ บริการดี อาหารหลากหลาย สั่งเลย รับประกันความอร่อย </span>
+                                                    <div class="col-md-8">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <span style="font-size: 22px;"><i class="fa fa-commenting "></i> เกี่ยวกับร้าน</span><br>
+                                                                <span class="info_res">ร้านอาหารตามสั่งแสนอร่อย ลองแล้วจะติดใจ บริการดี อาหารหลากหลาย สั่งเลย รับประกันความอร่อย </span>
+                                                            </div>
+                                                        </div><hr>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <span style="font-size: 22px;"><i class="fa fa-clock-o "></i> ชั่วโมงการจัดส่ง</span><br>
+                                                                <table style="margin: 5px 0 0 90px;width: 440px">
+                                                                    <tbody class="info_res">
+                                                                        <tr>
+                                                                            <td> วันจันทร์ </td>
+                                                                            <td class="pull-right"> 07.00น. - 18.30น.</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td> วันอังคาร </td>
+                                                                            <td class="pull-right"> 07.00น. - 18.30น.</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td> วันพุธ </td>
+                                                                            <td class="pull-right"> 07.00น. - 18.30น.</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td> วันพฤหัสบดี </td>
+                                                                            <td class="pull-right"> 07.00น. - 18.30น.</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td> วันศุกร์ </td>
+                                                                            <td class="pull-right"> 07.00น. - 18.30น.</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td> วันเสาร์ </td>
+                                                                            <td class="pull-right"> 07.00น. - 18.30น.</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td> วันอาทิตย์ </td>
+                                                                            <td class="pull-right"> 07.00น. - 18.30น.</td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div><hr>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <span style="font-size: 22px;"><i class="fa fa-map-marker "></i> ที่ตั้งร้าน</span><br>
+                                                                <span class="info_res">365/1167 ซ.พุทธบูชา 47 แขวงบางมด เขตทุ่งครุ กรุงเทพมหานคร 10140 </span>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div><hr>
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <span style="font-size: 25px;"><i class="fa fa-clock-o "></i> ชั่วโมงการจัดส่ง</span><br>
-                                                        <span class="info_res" >วันจันทร์ </span><span class="pull-right info_res">07.00น. - 18.30น.</span><br>
-                                                        <span class="info_res" >วันอังคาร </span><span class="pull-right info_res">07.00น. - 18.30น.</span><br>
-                                                        <span class="info_res" >วันพุธ </span><span class="pull-right info_res">07.00น. - 18.30น.</span><br>
-                                                        <span class="info_res" >วันพฤหัสบดี </span><span class="pull-right info_res">07.00น. - 18.30น.</span><br>
-                                                        <span class="info_res" >วันศุกร์ </span><span class="pull-right info_res">07.00น. - 18.30น.</span><br>
-                                                        <span class="info_res" >วันเสาร์ </span><span class="pull-right info_res">06.00น. - 19.30น.</span><br>
-                                                        <span class="info_res" >วันอาทิตย์ </span><span class="pull-right info_res">06.00น. - 19.30น.</span>
-                                                    </div>
-                                                </div><hr>
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <span style="font-size: 25px;"><i class="fa fa-map-marker "></i> ที่ตั้งร้าน</span><br>
-                                                        <span style="font-size: 18px; margin: 5px 0 0 20px; color: orange">365/1167 ซ.พุทธบูชา 47 แขวงบางมด เขตทุ่งครุ กรุงเทพมหานคร 10140 </span>
+                                                    <div class="col-md-4">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <span style="font-size: 22px;"><i class="fa fa-bell "></i> วัน/เวลาทำการ</span><br>
+                                                                <span class="info_res"> จันทร์ - อาทิตย์ </span><br>
+                                                                <span class="info_res"> 8.00น. - 22.00น. </span>   
+                                                            </div>
+                                                        </div><hr>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <span style="font-size: 22px;"><i class="fa fa-users "></i> สั่งขั้นต่ำ</span><br>
+                                                                <span class="info_res"> 30 กล่อง </span>   
+                                                            </div>
+                                                        </div><hr>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <span style="font-size: 22px;"><i class="fa fa-motorcycle "></i> ค่าจัดส่ง</span><br>
+                                                                <span class="info_res"> 100 บาท </span>   
+                                                            </div>
+                                                        </div><hr>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <span style="font-size: 22px;"><i class="fa fa-clock-o "></i> ถึงมือประมาณ</span><br>
+                                                                <span class="info_res"> 1 ชั่วโมง </span>   
+                                                            </div>
+                                                        </div><hr>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <span style="font-size: 22px;"><i class="fa fa-money "></i> รูปแบบการชำระเงิน</span><br>
+                                                                <span class="info_res"> เงินสดเมื่อได้รับอาหาร </span><br>
+                                                                <span class="info_res"> โอนเงินผ่านบัญชีธนาคาร </span><br>
+                                                                <span style="font-size: 12px; margin: 5px 0 0 30px; color: red"> *อาจมีการเรียกเก็บค่ามัดจำ </span>
+                                                            </div>
+                                                        </div><hr>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <span style="font-size: 25px;"><i class="fa fa-bell "></i> วัน/เวลาทำการ</span><br>
-                                                        <span style="font-size: 18px; margin: 5px 0 0 30px; color: orange"> จันทร์ - อาทิตย์ </span><br>
-                                                        <span style="font-size: 18px; margin: 5px 0 0 30px; color: orange"> 8.00น. - 22.00น. </span>   
-                                                    </div>
-                                                </div><hr>
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <span style="font-size: 25px;"><i class="fa fa-users "></i> สั่งขั้นต่ำ</span><br>
-                                                        <span style="font-size: 18px; margin: 5px 0 0 30px; color: orange"> 30 กล่อง </span>   
-                                                    </div>
-                                                </div><hr>
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <span style="font-size: 25px;"><i class="fa fa-motorcycle "></i> ค่าจัดส่ง</span><br>
-                                                        <span style="font-size: 18px; margin: 5px 0 0 30px; color: orange"> 100 บาท </span>   
-                                                    </div>
-                                                </div><hr>
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <span style="font-size: 25px;"><i class="fa fa-clock-o "></i> ถึงมือประมาณ</span><br>
-                                                        <span style="font-size: 18px; margin: 5px 0 0 30px; color: orange"> 1 ชั่วโมง </span>   
-                                                    </div>
-                                                </div><hr>
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <span style="font-size: 25px;"><i class="fa fa-money "></i> รูปแบบการชำระเงิน</span><br>
-                                                        <span style="font-size: 18px; margin: 5px 0 0 30px; color: orange"> เงินสดเมื่อได้รับอาหาร </span><br>
-                                                        <span style="font-size: 18px; margin: 5px 0 0 30px; color: orange"> โอนเงินผ่านบัญชีธนาคาร </span><br>
-                                                        <span style="font-size: 12px; margin: 5px 0 0 30px; color: red"> *อาจมีการเรียกเก็บค่ามัดจำ </span>
-                                                    </div>
-                                                </div><hr>
                                             </div>
                                         </div>
                                     </div>
