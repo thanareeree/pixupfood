@@ -30,8 +30,8 @@ include '../dbconn.php';
         $deliveryData = $deliveryRes->fetch_assoc();
         ?>
         <?php include '../template/restaurant-navbar.php'; ?>
-
-       <!-- start head -->
+        <input type="hidden" id="residValue" value="<?= $resid ?>">
+        <!-- start head -->
         <section id="RestaurantHeader">
             <div class="overlay">
                 <div class="container text-center">
@@ -88,8 +88,8 @@ include '../dbconn.php';
         </div>
     </scetion>
     <!--End Menu Item-->
-    
-    
+
+
     <div class="well white">
         <div class="tab-content">
             <!-- Start Content in Order List--> 
@@ -158,44 +158,8 @@ include '../dbconn.php';
 
                                                                     </tr>
                                                                 </thead>
-                                                                <tbody class="table table-condensed table-hover">
-                                                                    <tr class="danger">
-                                                                        <td style="text-align: center">1</td>
-                                                                        <td>102458</td>                         
-                                                                        <td>คุณธิติ มหาโยธารักษ์</td>
-                                                                        <td>ข้าวกล้อง+ผัดกระเพราหมู+ไข่ดาว</td>
-                                                                        <td style="text-align: center">50</td>
-                                                                        <td>12-11-2015 12:30</td>
-                                                                        <td style="text-align: center">30</td>
-                                                                        <td class="text-center"><a class="btn btn-info btn-xs" data-toggle="modal" data-target='#detail' href="#detail"><span class="glyphicon glyphicon-eye-open"></span> แสดง</a></td>
-                                                                        <td class="text-center"><a class="btn btn-success btn-xs" data-toggle="modal" data-target='#accept' href="#accept"><span class="glyphicon glyphicon-check"></span> รับ</a></td>
-                                                                        <td class="text-center"><a class="btn btn-danger btn-xs" data-toggle="modal" data-target='#ignore' href="#ignore"><span class="glyphicon glyphicon-trash"></span> ปฏิเสธ</a></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td style="text-align: center">2</td>
-                                                                        <td>158642</td>
-                                                                        <td>คุณเอนก อนงค์พงศ์ไพร</td>
-                                                                        <td>ข้าวหอมมะลิ+หมูกระเทียม+ผัดผักรวม</td>
-                                                                        <td style="text-align: center">30</td>
-                                                                        <td>30-9-2015 13:30</td>
-                                                                        <td style="text-align: center">25</td>
-                                                                        <td class="text-center"><a class="btn btn-info btn-xs" data-toggle="modal" data-target='#detail' href="#detail"><span class="glyphicon glyphicon-eye-open"></span> แสดง</a></td>
-                                                                        <td class="text-center"><a class="btn btn-success btn-xs" data-toggle="modal" data-target='#accept' href="#accept"><span class="glyphicon glyphicon-check"></span> รับ</a></td>
-                                                                        <td class="text-center"><a class="btn btn-danger btn-xs" data-toggle="modal" data-target='#ignore' href="#ignore"><span class="glyphicon glyphicon-trash"></span> ปฏิเสธ</a></td>
-                                                                    </tr>
+                                                                <tbody class="table table-condensed table-hover" id="showdataFastOrder">
 
-                                                                    <tr>
-                                                                        <td style="text-align: center">3</td>
-                                                                        <td>123456</td>
-                                                                        <td>คุณปัญชลี สิริวัฒนชัยฉัตรบริรักษ์</td>
-                                                                        <td>ข้าวหอมมะลิ+หมูผัดกะปิ+คั่วกลิ้ง</td>
-                                                                        <td style="text-align: center">300</td>
-                                                                        <td>30-10-2015 14:30</td>
-                                                                        <td style="text-align: center">5</td>
-                                                                        <td class="text-center"><a class="btn btn-info btn-xs" data-toggle="modal" data-target='#detail' href="#detail"><span class="glyphicon glyphicon-eye-open"></span> แสดง</a></td>
-                                                                        <td class="text-center"><a class="btn btn-success btn-xs" data-toggle="modal" data-target='#accept' href="#accept"><span class="glyphicon glyphicon-check"></span> รับ</a></td>
-                                                                        <td class="text-center"><a class="btn btn-danger btn-xs" data-toggle="modal" data-target='#ignore' href="#ignore"><span class="glyphicon glyphicon-trash"></span> ปฏิเสธ</a></td>
-                                                                    </tr>
 
                                                                 </tbody>
                                                             </table>   
@@ -204,13 +168,17 @@ include '../dbconn.php';
                                                     <!-- จบตารางรายการด่วน -->
                                                 </div>
                                             </div>
+
+
                                             <div class="card">
                                                 <div class="card-content">
                                                     <div class="page-header" style="font-size: 30px; margin-top: 5px">รายการใหม่
                                                         <div class="pull-right">
                                                             <p class="text-center">
-                                                                <span style="font-size: 20px;">1 รายการ</span></p>
+                                                                <span style="font-size: 20px;">1 รายการ</span>
+                                                            </p>
                                                         </div>
+
                                                         <!-- ตารางรายการใหม่ -->
                                                         <div class="row">
                                                             <div class="col-md-12">
@@ -241,45 +209,8 @@ include '../dbconn.php';
 
                                                                         </tr>
                                                                     </thead>
-                                                                    <tbody class="table table-condensed table-hover">
-                                                                        <tr class="warning">
-                                                                            <td style="text-align: center">1</td>
-                                                                            <td>102458</td>                         
-                                                                            <td>คุณธิติ มหาโยธารักษ์</td>
-                                                                            <td>ข้าวกล้อง+ผัดกระเพราหมู+ไข่ดาว</td>
-                                                                            <td style="text-align: center">50</td>
-                                                                            <td>12-11-2015 12:30</td>
-                                                                            <td style="text-align: center">3</td>
-                                                                            <td class="text-center"><a class="btn btn-info btn-xs" data-toggle="modal" data-target='#detail' href="#detail"><span class="glyphicon glyphicon-eye-open"></span> แสดง</a></td>
-                                                                            <td class="text-center"><a class="btn btn-success btn-xs" data-toggle="modal" data-target='#accept' href="#accept"><span class="glyphicon glyphicon-check"></span> รับ</a></td>
-                                                                            <td class="text-center"><a class="btn btn-danger btn-xs" data-toggle="modal" data-target='#ignore' href="#ignore"><span class="glyphicon glyphicon-trash"></span> ปฏิเสธ</a></td>
-                                                                        </tr>
-
-                                                                        <tr>
-                                                                            <td style="text-align: center">2</td>
-                                                                            <td>158642</td>
-                                                                            <td>คุณเอนก อนงค์พงศ์ไพร</td>
-                                                                            <td>ข้าวหอมมะลิ+หมูกระเทียม+ผัดผักรวม</td>
-                                                                            <td style="text-align: center">30</td>
-                                                                            <td>30-9-2015 13:30</td>
-                                                                            <td style="text-align: center">2</td>
-                                                                            <td class="text-center"><a class="btn btn-info btn-xs" data-toggle="modal" data-target='#detail' href="#detail"><span class="glyphicon glyphicon-eye-open"></span> แสดง</a></td>
-                                                                            <td class="text-center"><a class="btn btn-success btn-xs" data-toggle="modal" data-target='#accept' href="#accept"><span class="glyphicon glyphicon-check"></span> รับ</a></td>
-                                                                            <td class="text-center"><a class="btn btn-danger btn-xs" data-toggle="modal" data-target='#ignore' href="#ignore"><span class="glyphicon glyphicon-trash"></span> ปฏิเสธ</a></td>
-                                                                        </tr>
-
-                                                                        <tr>
-                                                                            <td style="text-align: center">3</td>
-                                                                            <td>123456</td>
-                                                                            <td>คุณปัญชลี สิริวัฒนชัยฉัตรบริรักษ์</td>
-                                                                            <td>ข้าวหอมมะลิ+หมูผัดกะปิ+คั่วกลิ้ง</td>
-                                                                            <td style="text-align: center">300</td>
-                                                                            <td>30-10-2015 14:30</td>
-                                                                            <td style="text-align: center">2</td>
-                                                                            <td class="text-center"><a class="btn btn-info btn-xs" data-toggle="modal" data-target='#detail' href="#detail"><span class="glyphicon glyphicon-eye-open"></span> แสดง</a></td>
-                                                                            <td class="text-center"><a class="btn btn-success btn-xs" data-toggle="modal" data-target='#accept' href="#accept"><span class="glyphicon glyphicon-check"></span> รับ</a></td>
-                                                                            <td class="text-center"><a class="btn btn-danger btn-xs" data-toggle="modal" data-target='#ignore' href="#ignore"><span class="glyphicon glyphicon-trash"></span> ปฏิเสธ</a></td>
-                                                                        </tr>
+                                                                    <tbody class="table table-condensed table-hover" id="showdataNormalOrder">
+                                                                        
                                                                     </tbody>
                                                                 </table>   
                                                             </div>
@@ -288,14 +219,12 @@ include '../dbconn.php';
                                                     </div>
                                                 </div>  
                                             </div>
-
-
                                         </div>
 
 
                                         <!-- modal ตารางนะยูวว  -->
                                         <!-- ignore -->
-                                        <div class="modal fade" id="ignore" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+                                        <div class="modal fade" id="ignoreOrderModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -315,7 +244,7 @@ include '../dbconn.php';
                                         <!-- End ignore --> 
 
                                         <!-- accept -->
-                                        <div class="modal fade" id="accept" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+                                        <div class="modal fade" id="acceptOrderModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -335,7 +264,7 @@ include '../dbconn.php';
                                         <!-- End accept --> 
 
                                         <!-- Detial -->
-                                        <div class="modal fade" id="detail" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+                                        <div class="modal fade" id="detailOrderModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -343,171 +272,11 @@ include '../dbconn.php';
                                                         <span class="modal-title" id="myModalLabel">
 
                                                             <span style="font-size: 30px; margin-top: 5px;">รายละเอียดของรายการหมายเลข: </span>
-                                                            <span style="font-size: 30px; margin-top: 5px; color: orange">102458 </span>     
+                                                            <span style="font-size: 30px; margin-top: 5px; color: orange" id="showorderid"> </span>     
 
                                                         </span>
                                                     </div>
-                                                    <div class="modal-body">
-
-                                                        <div class="row" style="margin-top: 0px;">
-                                                            <div class="col-md-12">
-                                                                <div class="col-md-7">
-                                                                    <div class="card">
-                                                                        <div class="card-content">
-                                                                            <span style="font-size: 20px">หมายเลขสมาชิกลูกค้า: </span>
-                                                                            <span style="font-size: 20px; color: orange;"> 26143 </span><br>
-
-                                                                            <span style="font-size: 20px">ชื่อ: </span>
-                                                                            <span style="font-size: 20px; color: orange;"> คุณธิติ มหาโยธารักษ์ </span><br>
-
-                                                                            <span style="font-size: 20px">โทรศัพท์: </span>
-                                                                            <span style="font-size: 20px; color: orange;"> 0812345678 </span><br>
-
-                                                                            <span style="font-size: 20px">อีเมล: </span>
-                                                                            <span style="font-size: 20px; color: orange;"> bank.thiti@gmail.com </span><br>
-
-
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-5">
-                                                                    <div class="card">
-                                                                        <div class="card-content">
-
-                                                                            <span style="font-size: 20px">วันที่ลูกค้านัดรับสินค้า: </span><br>
-                                                                            <span style="font-size: 20px; color: orange;"> 12-11-2015</span><br>
-
-                                                                            <span style="font-size: 20px">เวลาที่ลูกค้านัดรับสินค้า: </span><br>
-                                                                            <span style="font-size: 20px; color: orange;"> 12:30 </span><br>
-
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row" style="margin-top: 5px;">
-                                                            <div class="col-md-12">
-                                                                <div class="col-md-12">
-                                                                    <div class="card">
-                                                                        <div class="card-content">
-                                                                            <span style="font-size: 20px">สถานที่ส่งสินค้า </span>
-                                                                            <hr style="margin-top: 5px;margin-bottom: 10px;">
-                                                                            <span style="font-size: 17px">บริษัท นาดาว บางกอก จำกัด 92/14 ซอยสุขุมวิท 31 (สวัสดี) แขวงคลองตันเหนือ เขตวัฒนา กทม. 10110</span>
-                                                                            <hr>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="row" style="margin-top: 5px;">
-                                                            <div class="col-md-12">
-                                                                <div class="col-md-12">
-                                                                    <div class="card">
-                                                                        <div class="card-content">
-                                                                            <span style="font-size: 20px">รายการสินค้า </span>
-                                                                            <hr style="margin-top: 5px;margin-bottom: 10px;">
-                                                                            <div class="row">
-                                                                                <div class="col-md-12">
-                                                                                    <table class="table table-list-search">
-                                                                                        <thead>
-                                                                                            <tr>
-                                                                                                <th>ลำดับ</th>
-                                                                                                <th>รายการ</th>
-                                                                                                <th>ราคาต่อหน่วย/บาท</th>
-                                                                                                <th>จำนวน</th>
-                                                                                                <th>ราคารวม/บาท</th>
-                                                                                            </tr>
-                                                                                        </thead>
-                                                                                        <tbody class="table table-condensed table-hover">
-                                                                                            <tr>
-                                                                                                <td>1</td>                     
-                                                                                                <td>ข้าวกล้อง</td>
-                                                                                                <td style="text-align: center">10.00</td>
-                                                                                                <td style="text-align: center">50</td>
-                                                                                                <td style="text-align: center">500.00</td>
-
-                                                                                            </tr>
-                                                                                            <tr>
-                                                                                                <td>2</td>                     
-                                                                                                <td>ผัดกระเพราหมู</td>
-                                                                                                <td style="text-align: center">15.00</td>
-                                                                                                <td style="text-align: center">50</td>
-                                                                                                <td style="text-align: center">750.00</td>
-                                                                                            </tr>
-                                                                                            <tr>
-                                                                                                <td>3</td>                     
-                                                                                                <td>ไข่ดาว</td>
-                                                                                                <td style="text-align: center">5.00</td>
-                                                                                                <td style="text-align: center">50</td>
-                                                                                                <td style="text-align: center">250.00</td>
-                                                                                            </tr>
-                                                                                            <tr>
-                                                                                                <td>4</td>                     
-                                                                                                <td>ค่าจัดส่ง</td>
-                                                                                                <td style="text-align: center">100.00</td>
-                                                                                                <td style="text-align: center">1</td>
-                                                                                                <td style="text-align: center">100.00</td>
-                                                                                            </tr>
-                                                                                            <tr class="success">
-                                                                                                <td></td>                     
-                                                                                                <td>ราคารวม</td>
-                                                                                                <td style="text-align: center"></td>
-                                                                                                <td style="text-align: center"></td>
-                                                                                                <td style="text-align: center">1,600.00</td>
-                                                                                            </tr>
-                                                                                            <tr class="warning">
-                                                                                                <td></td>                     
-                                                                                                <td>ส่วนลด10% 1D23A5</td>
-                                                                                                <td style="text-align: center"></td>
-                                                                                                <td style="text-align: center">1</td>
-                                                                                                <td style="text-align: center">-160.00</td>
-                                                                                            </tr>
-                                                                                            <tr class="danger">
-                                                                                                <td></td>                     
-                                                                                                <td>ราคารวมหลังหักส่วนลด</td>
-                                                                                                <td style="text-align: center"></td>
-                                                                                                <td style="text-align: center"></td>
-                                                                                                <td style="text-align: center">1,440.00</td>
-                                                                                            </tr>
-                                                                                        </tbody>
-                                                                                    </table>   
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row" style="margin-top: 5px;">
-                                                            <div class="col-md-12">
-                                                                <div class="col-md-6">
-                                                                    <div class="card">
-                                                                        <div class="card-content">
-                                                                            <span style="font-size: 20px">เพิ่มเติม </span>
-                                                                            <hr style="margin-top: 5px;margin-bottom: 10px;">
-                                                                            <span style="font-size: 15px; color: red;"> กระเพราไม่ใส่ถั่วฝักยาว </span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <div class="card">
-                                                                        <div class="card-content">
-                                                                            <span style="font-size: 20px">การชำระเงิน </span>
-                                                                            <hr style="margin-top: 5px;margin-bottom: 10px;">
-                                                                            <span style="font-size: 15px"> โอนเงินมัดจำผ่านธนาคาร: <br><span style="font-size: 15px; color: orange;"> กสิกรไทย เลขที่ 12-1231212-1 <br> 400.00 บาท</span> </span> &nbsp; 
-
-                                                                            <a href="#" class="btn btn-warning btn-xs "data-toggle="modal" data-target='.pop-up-2' href=".pop-up-2" style="margin-left: 90px;">แสดงสลิป</a><br>
-
-                                                                            <span style="font-size: 15px"> ชำระเงินด้วยเงินสด: <br><span style="font-size: 15px; color: red;"> ต้องชำระเพิ่ม ณ ที่รับสินค้า 1040.00 บาท </span> </span> &nbsp; 
-
-
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                    <div id="fastOrderViewBody">
 
                                                     </div>
 
@@ -519,7 +288,7 @@ include '../dbconn.php';
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
                                         <!-- End Detail --> 
 
                                         <!-- จบ modal ตารางนะยูวว -->
@@ -535,12 +304,80 @@ include '../dbconn.php';
     </div>
 
     <!-- start footer -->
-    <?php include '../template/footer.php'; ?>
-
-
+<?php include '../template/footer.php'; ?>
     <!-- ตารางรายการออเดอร์ -->
     <script src="/assets/js/OrderSearch.js"></script>
-    <script src="/assets/js/ui-bootstrap-tpls-0.13.4.min.js"></script>
+  <!--  <script src="/assets/js/ui-bootstrap-tpls-0.13.4.min.js"></script>-->
+    <script>
+        $(document).ready(function () {
+
+
+            function fetchdataShowFastOrder() {
+                $.ajax({
+                    url: "/restaurant/ajax_fetchdataFastOrder.php",
+                    type: "POST",
+                    data: {"resid": $('#residValue').val()},
+                    dataType: "html",
+                    success: function (returndata) {
+                        $("#showdataFastOrder").html(returndata);
+                    }
+                });
+            }
+            fetchdataShowFastOrder();
+            
+             function fetchdataShowNormalOrder() {
+                $.ajax({
+                    url: "/restaurant/ajax_fetchdataNormalOrder.php",
+                    type: "POST",
+                    data: {"resid": $('#residValue').val()},
+                    dataType: "html",
+                    success: function (returndata) {
+                        $("#showdataNormalOrder").html(returndata);
+                    }
+                });
+            }
+            fetchdataShowNormalOrder();
+
+
+            $('#showdataFastOrder').on("click", ".fastOrderView", function (e) {
+                var viewid = $(this).attr("id");
+                var id = viewid.replace("fastOrderView", "");
+                $("#showorderid").html(id);
+
+                $.ajax({
+                    url: "/restuarant/ajax-detailOrder-modal.php",
+                    type: "POST",
+                    data: {"id": id},
+                    dataType: "html",
+                    success: function (returndata) {
+                        $("#fastOrderViewBody").html(returndata);
+                        $("#detailOrderModal").modal("show");
+                    }
+                });
+            });
+
+            $('#showdataNormalOrder').on("click", ".normalOrderView", function (e) {
+                var viewid = $(this).attr("id");
+                var id = viewid.replace("normalOrderView", "");
+                $("#showorderid").html(id);
+
+                $.ajax({
+                    url: "/restuarant/ajax-detailOrder-modal.php",
+                    type: "POST",
+                    data: {"id": id},
+                    dataType: "html",
+                    success: function (returndata) {
+                        $("#fastOrderViewBody").html(returndata);
+                        $("#detailOrderModal").modal("show");
+                    }
+                });
+            });
+
+
+        });
+
+    </script>
+
 
 
 </body>

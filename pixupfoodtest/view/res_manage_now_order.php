@@ -149,7 +149,7 @@ include '../dbconn.php';
 
                                                                     </tr>
                                                                 </thead>
-                                                                <tbody class="table table-condensed table-hover">
+                                                                <tbody class="table table-condensed table-hover" >
                                                                     <tr>
                                                                         <td>1</td>
                                                                         <td>102458</td>                         
@@ -599,7 +599,7 @@ include '../dbconn.php';
 
     <!-- ตารางรายการออเดอร์ -->
     <script src="/assets/js/OrderSearch.js"></script>
-    <script src="/assets/js/ui-bootstrap-tpls-0.13.4.min.js"></script>
+  <!--  <script src="/assets/js/ui-bootstrap-tpls-0.13.4.min.js"></script>-->
 
     <script>
         $(document).ready(function () {

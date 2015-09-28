@@ -131,6 +131,8 @@ include '../dbconn.php';
 
                                     <!--- Add Menu-->
                                     <div class="row" id="addMenuForm" style="display: none">
+                                       
+                                      
                                         <!-- Card Projects -->
                                         <div class="col-md-12">
                                             <div class="col-md-12">
@@ -210,7 +212,7 @@ include '../dbconn.php';
                                                 <div class="card">
                                                     <div class="card-content"> 
                                                         <h3>เพิ่มชื่อเมนูใหม่</h3>
-                                                        <form action="#" method="get" id="addNewMenu">
+                                                        <form action="/restaurant/" method="post" id="addNewMenu">
                                                             <div class="row" style="margin-left: 25px;margin-top: 50px;">
                                                                 <span style="font-size: 18px;"> หมวดหมู่ </span>&nbsp;
                                                                 <select style="width: 150px;font-size: 18px;" id="typefood-add">
@@ -528,7 +530,7 @@ include '../dbconn.php';
                                                                         </div>
                                                                     </div>
                                                                 </div>
-<div class="col-md-6">
+                                                                <div class="col-md-6">
                                                                     <div class="card" style="margin-top: 1px;">
                                                                         <div class="card-action">
                                                                             <div class="page-header" style="font-size:18px;margin-top: 0px;">สถานะ</div>
@@ -536,15 +538,15 @@ include '../dbconn.php';
 
                                                                             <div class="material-switch ">
                                                                                 <span style="margin-left: 33px;"> สินค้าหมด </span> &nbsp;
-                                                                                <input id="closeMenu<?= $data2["menuResId"]?>" name="closeMenu" type="checkbox" <?= ($data2["status"] == 0 ? 'checked' : '') ?>/>
-                                                                                <label for="closeMenu<?= $data2["menuResId"]?>" class="label-success"></label>
+                                                                                <input id="closeMenu<?= $data2["menuResId"] ?>" name="closeMenu" type="checkbox" <?= ($data2["status"] == 0 ? 'checked' : '') ?>/>
+                                                                                <label for="closeMenu<?= $data2["menuResId"] ?>" class="label-success"></label>
                                                                                 &nbsp; <span>มีสินค้า</span>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            
+
                                                         </div>
 
                                                         <div class="modal-footer">
@@ -709,10 +711,37 @@ include '../dbconn.php';
                     dataType: "html",
                     data: {"resid": resid, "searchname": searchmenuname},
                     success: function (data, textStatus, jqXHR) {
-                        $("#showmenudata").html(data);
+                        $("#show").html(data);
                     }
                 });
             });
+
+            $('#searchtext').on('blur', function (e) {
+                 $('#searchtext').val("");
+                $("#showmenudata").html("");
+            });
+            /*
+            $("#searchNewMenu").on("keyup", function (e) {
+                if (e.keyCode == 13) {
+                    $("#searchAddBtn").click();
+                }
+            });
+            
+              $("#searchNewMenu").on("keyup", function (e) {
+                var searchmenuname = $("#searchNewMenu").val();
+                var resid = $("#resid").val();
+
+                $.ajax({
+                    url: "/restaurant/menu-search-add-menu.php",
+                    type: "POST",
+                    dataType: "html",
+                    data: {"resid": resid, "searchname": searchmenuname},
+                    success: function (data, textStatus, jqXHR) {
+                        $("#showdatamenu").html(data);
+                    }
+                });
+            });*/
+            
             /*$("#searchtext").(function (e){
              $("#showmenudata").remove();
              });*/
@@ -723,7 +752,7 @@ include '../dbconn.php';
                 var name = "File: " + fname;
                 $("#uploadtext").html(name);
             });
-            
+
             $("input[type=checkbox]").click(function (e) {
                 if ($(this).is(":checked")) {
                     $(this).value("1");
