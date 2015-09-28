@@ -10,7 +10,7 @@ $type = $data5["type"];
 
     <label for="address">รายละเอียดที่จัดส่งสินค้า:<span style="color: red;font-size: 20px;font-weight: normal">*</span></label>
     <div class="form-group">
-        <textarea required class="form-control" placeholder="ที่จัดส่งสินค้า" rows="3"  name="address" id="address"><?= $data5["address"]?></textarea>
+        <textarea required class="form-control" placeholder="ที่จัดส่งสินค้า" rows="3"  name="address" id="address"><?= $data5["full_address"]?></textarea>
     </div>
     <label for="addtype">ประเภทที่อยู่อาศัย:<span style="color: red;font-size: 20px;font-weight: normal">*</span></label>
     <div class="form-group" >

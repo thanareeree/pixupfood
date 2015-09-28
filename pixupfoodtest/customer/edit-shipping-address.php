@@ -7,7 +7,7 @@ $addtype = $_POST["addtype"];
 $addnaming = $con->real_escape_string($_POST["addnaming"]);
 
 if($address!="" && $addtype!="" && $addnaming !=""){
-    $con->query("UPDATE `shippingAddress` SET `address`='$address',`type`='$addtype',"
+    $con->query("UPDATE `shippingAddress` SET `full_address`='$address',`type`='$addtype',"
             . "`address_naming`='$addnaming' WHERE id = '$id' and customer_id = '$cusid'");
     if ($con->error == "") {
         ?>

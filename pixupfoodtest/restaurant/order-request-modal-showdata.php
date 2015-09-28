@@ -75,25 +75,11 @@ $con->query("select * from fastorder");
                                     <tbody class="table table-condensed table-hover">
                                         <tr>
                                             <td>1</td>                     
-                                            <td>ข้าวกล้อง</td>
+                                            <td>ข้าวกล้อง+กระเพรา</td>
                                             <td style="text-align: center">10.00</td>
                                             <td style="text-align: center">50</td>
                                             <td style="text-align: center">500.00</td>
 
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>                     
-                                            <td>ผัดกระเพราหมู</td>
-                                            <td style="text-align: center">15.00</td>
-                                            <td style="text-align: center">50</td>
-                                            <td style="text-align: center">750.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>                     
-                                            <td>ไข่ดาว</td>
-                                            <td style="text-align: center">5.00</td>
-                                            <td style="text-align: center">50</td>
-                                            <td style="text-align: center">250.00</td>
                                         </tr>
                                         <tr>
                                             <td>4</td>                     
@@ -109,20 +95,20 @@ $con->query("select * from fastorder");
                                             <td style="text-align: center"></td>
                                             <td style="text-align: center">1,600.00</td>
                                         </tr>
-                                        <tr class="warning">
+                                        <!--<tr class="warning">
                                             <td></td>                     
                                             <td>ส่วนลด10% 1D23A5</td>
                                             <td style="text-align: center"></td>
                                             <td style="text-align: center">1</td>
                                             <td style="text-align: center">-160.00</td>
-                                        </tr>
-                                        <tr class="danger">
+                                        </tr>-->
+                                        <!--<tr class="danger">
                                             <td></td>                     
                                             <td>ราคารวมหลังหักส่วนลด</td>
                                             <td style="text-align: center"></td>
                                             <td style="text-align: center"></td>
                                             <td style="text-align: center">1,440.00</td>
-                                        </tr>
+                                        </tr>-->
                                     </tbody>
                                 </table>   
                             </div>

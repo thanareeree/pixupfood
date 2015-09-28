@@ -175,18 +175,7 @@ include '../dbconn.php';
 
                                                                         <td>ขอยกเลิกรายการ</td>
                                                                     </tr>
-                                                                    <tr>
-                                                                        <td>3</td>
-                                                                        <td>101121</td>
-                                                                        <td>คุณปัญชลี สิริวัฒนชัยฉัตรบริรักษ์</td>
-                                                                        <td>ข้าวหอมมะลิ+หมูผัดกะปิ+คั่วกลิ้ง</td>
-                                                                        <td>300</td>
-                                                                        <td>30-10-2015 14:30</td>
-                                                                        <td>เตรียมวัตถุดิบ</td>
-                                                                        <td class="text-center"><a class="btn btn-info btn-xs" data-toggle="modal" data-target='#detail' href="#detail"><span class="glyphicon glyphicon-eye-open"></span> แสดง</a></td>
-                                                                        <td class="text-center"><a class="btn btn-warning btn-xs" data-toggle="modal" data-target='#changestatus' href="#changestatus"><span class="glyphicon glyphicon-refresh"></span> เปลี่ยน</a></td>
-                                                                        <td>-</td>
-                                                                    </tr>
+                                                                   
                                                                 </tbody>
                                                             </table>   
                                                         </div>
@@ -200,25 +189,7 @@ include '../dbconn.php';
                                         <!-- End Tab 2 -->
 
                                         <!-- modal ตารางนะยูวว  -->
-                                        <!-- ignore -->
-                                        <div class="modal fade" id="ignore" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                        <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px; color: red">เตือน!!</div></span>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <span style="font-size: 20px;">ต้องการปฏิเสธรายการ ? </span>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default" data-dismiss="modal">ยกเลิก</button>
-                                                        <button type="button" class="btn btn-danger">ยืนยัน</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- End ignore --> 
+                                      
 
 
 
