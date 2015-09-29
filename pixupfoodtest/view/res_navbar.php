@@ -8,7 +8,15 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="#" class="navbar-brand" style="margin-left: 20px; ">Pixup</a>
+             <ul class="nav navbar-nav navbar-left">
+                    <li>
+                        <a href="/index.php">
+                            <img src="/assets/images/bar/logo PXF.png" style="margin-left: 100px">
+                        </a>
+                    </li>
+                </ul>
+                
+            <a href="#" class="navbar-brand">Pixup</a>
             <a href="#" class="navbar-brand" style="color:rgba(0,0,32,1);padding-left: 0px;">Food</a>
         </div>
 

@@ -13,6 +13,7 @@ include '../dbconn.php';
         ?>
         <!-- custom css -->
         <link rel="stylesheet" href="/assets/css/res_restaurant_manage.css">
+        <link rel="stylesheet" href="/assets/css/normal_order.css">
         
 
     </head>

@@ -1,0 +1,55 @@
+@import url("../Supermarket/stylesheet.css");
+
+#map{
+    height:400px;
+    margin:0 auto;
+    border-radius: 5px;
+    margin-top:10px;
+}
+.address{
+    background: #ff8100;
+    color:white;
+    font-weight: 400;
+    padding:10px;
+    border-radius: 5px;
+    margin-top:10px;
+    font-size:16px;
+    line-height: 40px;
+    height:57px;
+}
+#addresstype, #oldaddress, #delivery_time{
+    font-size:16px;
+    height:45px;
+}
+#getlocation button{
+    margin:0;
+}
+
+#addressoverlay{
+    background-color:rgba(255,255,255,0.2);
+    width:100%;
+    height:580px;
+    position: absolute;
+    top:160px;
+    left:0;
+    z-index:0;
+}
+
+#addaddressbtn, #oldaddressbtn{
+    height:45px;
+    font-size:20px;
+    width:100%;
+}
+
+.foodboxselect{
+    float:left;
+    padding:20px;
+    margin-left:35px;
+    width:150px;
+    height:150px;
+    text-align:center;
+    margin:2px;
+    cursor:pointer;
+    padding-bottom:30px;
+    border-radius: 5px;
+}

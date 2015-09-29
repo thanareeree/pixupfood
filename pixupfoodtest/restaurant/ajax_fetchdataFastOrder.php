@@ -2,8 +2,7 @@
 include '../dbconn.php';
 $resid = @$_POST["resid"];
 
-$fastOrderRes = $con->query("SELECT * FROM `order` where restaurant_id = '$resid'");
-$i = 1;
+$fastOrderRes = $con->query("SELECT * FROM `normal_order` where restaurant_id = '$resid'");
 
 if ($fastOrderRes->num_rows == 0) {
     ?>

@@ -180,7 +180,7 @@ include '../api/islogin.php';
                                         </ul>
                                     </div>
 
-                                    <!--<form action="/customer/order-request-save.php?cusId<?= $cusid ?>&resId<?= $resid ?>" method="post">-->
+                                    <form action="/customer/order-request-save.php?cusId<?= $cusid ?>&resId<?= $resid ?>" method="post" id="normalOrderForm">
                                     <input type="hidden" name="selectMenuFromCustomer" value="<?= $orderMenu_id ?>" >
                                     <div class="tab-content">
 
@@ -207,7 +207,7 @@ include '../api/islogin.php';
                                                                     <a href="#"><img class="menu_img" src="<?= $foodboxData["img_path"] ?>"></a>
                                                                     <div class="caption">
 
-                                                                        <p><?= $foodboxData["description"] ?>&nbsp;บาท</p>
+                                                                        <p><?= $foodboxData["description"] ?></p>
                                                                         <p style="text-align: right">
                                                                             <input type="radio" name="foodboxtype" class="foodboxtype" id="foodboxtype<?= $foodboxData["id"] ?>" value="<?= $foodboxData["id"] ?>">
                                                                             <input type="hidden" class="boxtypedata" name="boxtype<?= $foodboxData["id"] ?>" value="<?= $foodboxData["description"] ?>">
@@ -219,12 +219,12 @@ include '../api/islogin.php';
                                                         <?php } ?>
                                                     </div>
                                                     <div >
-                                                        <h4>จำนวนกล่อง: &nbsp;<input type="number" name="boxamount" id="boxamount" value="" ></h4>
+                                                        <h4>จำนวนกล่อง: &nbsp;<input type="number" name="boxamount" id="boxamount"  ></h4>
                                                     </div>
                                                 </div>
                                             </div>
                                             <ul class="list-inline pull-right" style="margin-top: 20px;">
-                                                <li><button type="button" class="btn btn-primary next-step" id="submitStep1">continue</button></li>
+                                                <li><button type="button" class="btn btn-primary next-step" id="nextStep1">continue</button></li>
                                             </ul>
 
                                         </div>
@@ -247,12 +247,12 @@ include '../api/islogin.php';
 
                                                         while ($riceData = $riceListRes->fetch_assoc()) {
                                                             ?>
-                                                            <div class="col-md-3">
+                                                        <div class="col-md-3" id="ricedatalist">
                                                                 <div class="thumbnail">
                                                                     <a href="#"><img class="menu_img" src="<?= ($riceData["img_path"] == "") ? $riceData["img"] : $riceData["img_path"] ?>"></a>
                                                                     <div class="caption">
                                                                         <h4><?= $riceData["name"] ?></h4>
-                                                                        <p><?= $riceData["price"] ?>&nbsp;บาท</p>
+                                                                        <p><?= $riceData["price"] ?>&nbsp;</p>
                                                                         <p style="text-align: right">
                                                                             <input type="radio" name="ricetype" class="ricetype" id="ricetype<?= $riceData["id"] ?>" value="<?= $riceData["name"] ?>">
                                                                             <input type="hidden" class="ricetypedata" id="ricetypedata<?= $riceData["id"] ?>" value="<?= $riceData["price"] ?>"> 
@@ -262,12 +262,15 @@ include '../api/islogin.php';
                                                                 </div>
                                                             </div>
                                                         <?php } ?>
+                                                        <div class="col-md-12" id="skip" style="display: none">
+                                                              <h3>ข้ามขั้นตอนนี้</h3>
+                                                            </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <ul class="list-inline pull-right"  style="margin-top: 20px">
                                                 <li><button type="button" class="btn btn-default prev-step" id="prevstep2">Previous</button></li>
-                                                <li><button type="button" class="btn btn-primary next-step" id="nextstep2"> continue</button></li>
+                                                <li><button type="button" class="btn btn-primary next-step" id="nextStep2"> continue</button></li>
                                             </ul>
                                         </div>
                                         <div class="tab-pane" role="tabpanel" id="step3" >
@@ -277,7 +280,7 @@ include '../api/islogin.php';
                                                         ขั้นตอนที่ 3 : เลือกรายการอาหาร
                                                     </div>
                                                     <h3>สามารถเลือกรายการได้ตามรูปแบบของกล่อง (ไม่เกิน 3 รายการ)</h3>
-                                                    <div class="row">
+                                                    <div class="row" id="foodListdata">
                                                         <?php
                                                         $foodListRes = $con->query("SELECT DISTINCT main_menu.name, menu.price, menu.img_path, menu.id, main_menu.img_path as img   "
                                                                 . "FROM `menu` LEFT JOIN main_menu on main_menu.id = menu.main_menu_id "
@@ -305,12 +308,41 @@ include '../api/islogin.php';
                                                             <?php
                                                         }
                                                         ?>
-                                                    </div> <!--<hr class="hrs">-->
+                                                    </div>
+                                                     <div class="row" style="display: none" id="singleMenuList">
+                                                        <?php
+                                                        $foodListRes = $con->query("SELECT  main_menu.name, menu.price, menu.img_path, menu.id, main_menu.img_path as img   "
+                                                                . "FROM `menu` LEFT JOIN main_menu on main_menu.id = menu.main_menu_id "
+                                                                . "LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
+                                                                . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
+                                                                . "WHERE main_menu.type = 'อาหารจานเดียว'"
+                                                                . "and menu.restaurant_id = '$resid'");
+
+                                                        while ($foddListData = $foodListRes->fetch_assoc()) {
+                                                            ?>
+                                                            <div class="col-md-3">
+                                                                <div class="thumbnail">
+                                                                    <a href="#"><img class="menu_img" src="<?= ($foddListData["img_path"] == "") ? $foddListData["img"] : $foddListData["img_path"] ?>"></a>
+                                                                    <div class="caption">
+                                                                        <h4><?= $foddListData["name"] ?></h4>
+                                                                        <p><?= $foddListData["price"] ?>&nbsp;</p>
+                                                                        <p style="text-align: right">
+                                                                            <input type="checkbox" name="foodlist[]" class="foodlist" id="foodlist<?= $foddListData["id"] ?>" value="<?= $foddListData["name"] ?>">
+                                                                            <input type="hidden" name="foodprice[]" class="foodprice" id="foodprice<?= $foddListData["id"] ?>" value="<?= $foddListData["price"] ?>">
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <?php
+                                                        }
+                                                        ?>
+                                                    </div> <!--<hr class="hrs">--><!--<hr class="hrs">-->
                                                 </div>
                                             </div>
                                             <ul class="list-inline pull-right"  style="margin-top: 20px">
                                                 <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
-                                                <li><button type="button" class="btn btn-primary btn-info-full next-step"> continue</button></li>
+                                                <li><button type="button" class="btn btn-primary btn-info-full next-step" id="nextStep3"> continue</button></li>
                                             </ul>
                                         </div>
 
@@ -320,6 +352,33 @@ include '../api/islogin.php';
                                                 <div class="card-content" style="height:750px;">
                                                     <div class="page-header" style="margin-left:16px;">
                                                         ขั้นตอนที่ 4 : เลือกวัน เวลา และสถานที่จัดส่ง
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <div class="col-sm-5">
+                                                            <h3>ส่งวันที่ :</h3>
+                                                           <!-- <div id="calendar_datepick"></div>-->
+                                                           <input type="date">
+                                                        </div>
+                                                        <div class="col-sm-7">
+                                                            <h3>เวลาจัดส่ง :</h3>
+                                                            <select name="delivery_time" id="delivery_time" class="form-control" >
+                                                                <option value="0" disabled selected>--เวลาจัดส่ง--</option>
+                                                                <option value="06:30:00">06:30 น.</option>
+                                                                <option value="07:30:00">07:30 น.</option>
+                                                                <option value="08:30:00">08:30 น.</option>
+                                                                <option value="09:30:00">09:30 น.</option>
+                                                                <option value="10:30:00">10:30 น.</option>
+                                                                <option value="11:30:00">06:30 น.</option>
+                                                                <option value="12:30:00">12:30 น.</option>
+                                                                <option value="13:30:00">13:30 น.</option>
+                                                                <option value="14:30:00">14:30 น.</option>
+                                                                <option value="15:30:00">15:30 น.</option>
+                                                                <option value="16:30:00">16:30 น.</option>
+                                                                <option value="17:30:00">17:30 น.</option>
+                                                                <option value="18:30:00">18:30 น.</option>
+                                                            </select>
+                                                            </h4>
+                                                        </div>
                                                     </div>
                                                     <div id="addressoverlay"></div>
 
@@ -387,7 +446,7 @@ include '../api/islogin.php';
                                             </div>
                                             <ul class="list-inline pull-right"  style="margin-top: 20px">
                                                 <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
-                                                <li><button type="button" class="btn btn-primary next-step" id="hidecalendarbtn"> continue</button></li>
+                                                <li><button type="button" class="btn btn-primary next-step nextStep4" id="hidecalendarbtn"> continue</button></li>
                                             </ul>
                                         </div>                                   
 
@@ -429,11 +488,11 @@ include '../api/islogin.php';
                                                 </div>
                                             </div>
                                             <ul class="list-inline pull-right" style="margin-top: 20px">
-                                                <li><button type="button" class="btn btn-primary next-step">Order</button></li>
+                                                <li><button type="submit" class="btn btn-primary next-step" >Order</button></li>
                                             </ul>
                                         </div>
                                     </div>
-                                    <!--</form>-->
+                                    </form>
                                 </div>
                             </div>
 
@@ -516,7 +575,7 @@ include '../api/islogin.php';
                                                         <div class="row">
                                                             <div class="col-md-12">
                                                                 <span style="font-size: 22px;"><i class="fa fa-motorcycle "></i> ค่าจัดส่ง</span><br>
-                                                                <span class="info_res"> <?= $resNameData["deliveryfee"]?> บาท </span>   
+                                                                <span class="info_res"> <?= $resNameData["deliveryfee"] ?> บาท </span>   
                                                             </div>
                                                         </div><hr>
                                                         <div class="row">
@@ -698,7 +757,7 @@ include '../api/islogin.php';
                                     <div class="form-group col-md-4" style="margin-top: -8;    margin-left: -50;">
                                         <input type="number" name="amountbox" id="amountbox" class="form-control" value="">
                                     </div>
-                                    
+
                                     <table class="table table-hover" id="task-table">
                                         <thead>
                                             <tr>
@@ -715,7 +774,7 @@ include '../api/islogin.php';
                                             </tr>
                                             <tr>
                                                 <td>ค่าจัดส่ง: </td>
-                                                <td style="color: #FF9900"><?= $resNameData["deliveryfee"]?></td>
+                                                <td style="color: #FF9900"><?= $resNameData["deliveryfee"] ?></td>
                                                 <td>บาท</td>
                                             </tr>
                                             <tr>
@@ -751,80 +810,5 @@ include '../api/islogin.php';
 
         <?php include '../template/footer.php'; ?>
         <script src="/assets/js/normal_order.js"></script>
-
-
-        <script>
-
-            $(document).ready(function () {
-                $('#calendar').fullCalendar({
-                    header: {
-                        left: 'prev',
-                        center: 'title',
-                        right: 'next today'
-                    },
-                    events: {
-                        url: '/customer/showcalendar.php',
-                        type: 'POST',
-                        data: {resid: $(".getResId").val()}, 
-                        error: function () {
-                            alert('there was an error!');
-                        }
-                    },
-                    eventColor: 'orange'
-                });
-            });
-
-        </script>
-
-
-        <script>
-            $(document).ready(function () {
-                $('#hidecalendarbtn').on('click', function (e) {
-                    $('#showcalendar').hide();
-                });
-                $(".foodboxtype").click(function () {
-                    var editid = $(this).attr("id");
-                    var boxid = editid.replace("foodboxtype", "");
-                    if (boxid == "1") {
-
-                    } else if (boxid == "2") {
-
-                    } else if (boxid == "3") {
-
-                    } else if (boxid == "4") {
-
-                    }
-
-
-                });
-                //Initialize tooltips
-                $('.nav-tabs > li a[title]').tooltip();
-                //Wizard
-                $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
-
-                    var $target = $(e.target);
-                    if ($target.parent().hasClass('disabled')) {
-                        return false;
-                    }
-                });
-                $(".next-step").click(function (e) {
-
-                    var $active = $('.wizard .nav-tabs li.active');
-                    $active.next().removeClass('disabled');
-                    nextTab($active);
-                });
-                $(".prev-step").click(function (e) {
-
-                    var $active = $('.wizard .nav-tabs li.active');
-                    prevTab($active);
-                });
-            });
-            function nextTab(elem) {
-                $(elem).next().find('a[data-toggle="tab"]').click();
-            }
-            function prevTab(elem) {
-                $(elem).prev().find('a[data-toggle="tab"]').click();
-            }
-        </script>
     </body>
 </html>

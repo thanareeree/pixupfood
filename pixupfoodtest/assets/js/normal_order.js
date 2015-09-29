@@ -1,12 +1,83 @@
 $(document).ready(function (e) {
 
     initMap();
-   // initFoodBox();
-    initCalendar();
+    // initFoodBox();
+    //  initCalendar();
 
- 
+    $('#calendar').fullCalendar({
+        header: {
+            left: 'prev',
+            center: 'title',
+            right: 'next today'
+        },
+        events: {
+            url: '/customer/showcalendar.php',
+            type: 'POST',
+            data: {resid: $(".getResId").val()},
+        },
+        eventColor: 'orange'
+    });
 
+    $('#hidecalendarbtn').on('click', function (e) {
+        $('#showcalendar').hide();
+    });
+    $(".foodboxtype").click(function () {
+        var editid = $(this).attr("id");
+        var boxid = editid.replace("foodboxtype", "");
+        if (boxid == "1") {
+            $('#singleMenuList').hide();
+            $('#foodListdata').show();
+        } else if (boxid == "2") {
+          $('#singleMenuList').hide();
+            $('#foodListdata').show();
+        } else if (boxid == "3") {
+           $('#singleMenuList').hide();
+            $('#foodListdata').show();
+        } else if (boxid == "4") {
+            $('#singleMenuList').show();
+            $('#foodListdata').hide();
+            $('#ricedatalist').hide();
+            $('#skip').show();
+        }
+
+
+    });
+    $('#boxamount').change(function (e){
+        
+    });
+    
+    
+    //Initialize tooltips
+    $('.nav-tabs > li a[title]').tooltip();
+    //Wizard
+    $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
+
+        var $target = $(e.target);
+        if ($target.parent().hasClass('disabled')) {
+            return false;
+        }
+    });
+    $(".next-step").click(function (e) {
+
+        var $active = $('.wizard .nav-tabs li.active');
+        $active.next().removeClass('disabled');
+        nextTab($active);
+    });
+    $(".prev-step").click(function (e) {
+
+        var $active = $('.wizard .nav-tabs li.active');
+        prevTab($active);
+    });
 });
+function nextTab(elem) {
+    $(elem).next().find('a[data-toggle="tab"]').click();
+}
+function prevTab(elem) {
+    $(elem).prev().find('a[data-toggle="tab"]').click();
+}
+
+
+
 
 
 
@@ -18,7 +89,7 @@ function initMap() {
     geocoder = new google.maps.Geocoder();
 
     map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 5,
+        zoom: 13,
         center: defaultlatlng
     });
 
@@ -108,14 +179,14 @@ function initMap() {
         var loc = {lat: location.coords.latitude, lng: location.coords.longitude};
         $("#getlocationbtn").removeAttr("disabled");
         processLocation(loc);
-        map.setZoom(16);
+        map.setZoom(10);
     }
 
     function resetMap() {
         $("#showaddress").html("ลากและวางหมุดตรงที่อยู่ในการจัดส่งของคุณ");
         $("#addresstype").val("0");
         $("#addresstxt").val("");
-        map.setZoom(12);
+        map.setZoom(5);
         marker.setPosition(defaultlatlng);
         map.setCenter(defaultlatlng);
         $("#savenewaddressbtn").attr("disabled", "disabled");
@@ -257,20 +328,24 @@ function initMap() {
         });
     }
 }
-function initCalendar() {
-    $("#calendar_datepick").datepick({
-        minDate: new Date(),
-        onChangeMonthYear: function (year, month) {
-            setTimeout(function () {
-                $(".datepick").css("width", "407px");
-            }, 0);
-        },
-        onSelect: function (dates) {
-            setTimeout(function () {
-                $(".datepick").css("width", "407px");
-            }, 0);
-        }
-    });
-    $(".datepick").css("width", "407px");
-}
+
+
+
+/*
+ function initCalendar() {
+ $("#calendar_datepick").datepick({
+ minDate: new Date(),
+ onChangeMonthYear: function (year, month) {
+ setTimeout(function () {
+ $(".datepick").css("width", "407px");
+ }, 0);
+ },
+ onSelect: function (dates) {
+ setTimeout(function () {
+ $(".datepick").css("width", "407px");
+ }, 0);
+ }
+ });
+ $(".datepick").css("width", "407px");
+ }*/
 

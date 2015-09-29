@@ -2,19 +2,18 @@
 
 include '../dbconn.php';
 
-$name = $_POST["foodname"];
-$type = $_POST["select_type"];
-$price = $_POST["price"];
-
-$resid = $_GET["id"];
+$name = @$_POST["foodname"];
+$type = @$_POST["typefood-add"];
 
 
-$target_dir = "../upload/restaurant/menu/";
 
-$filename = $_FILES["imagesnewmenu"]["name"];
+
+$target_dir = "../upload/menu/";
+
+$filename = @$_FILES["imagerest"]["name"];
 $file_basename = substr($filename, 0, strripos($filename, '.')); // get file extention
 $file_ext = substr($filename, strripos($filename, '.')); // get file name
-$newfliename =  "img".$resid."-". uniqid().$file_ext;
+$newfliename = "img-menu-" . uniqid() . $file_ext;
 $target_file = $target_dir . $newfliename;
 $path_img = substr($target_file, 2);
 //$target_file = $target_dir . basename(@$_FILES["imagesnewmenu"]["name"]);
@@ -23,53 +22,13 @@ $path_img = substr($target_file, 2);
 
 
 
-if ($_FILES['imagesnewmenu']['name'] != "" && ($type == "กับข้าว" || $type == "อาหารจานเดียว")) {  //มีรูป เป็นกับข้าว
-    $food_type = $_POST["foodtypelist"];
+if ($_FILES['imagerest']['name'] != "" && ($type == "กับข้าว" || $type == "อาหารจานเดียว")) {  //มีรูป เป็นกับข้าว
+    $food_type = @$_POST["foodtypelist"];
 
 
-    move_uploaded_file(@$_FILES["imagesnewmenu"]["tmp_name"], $target_file);
-    $con->query("INSERT INTO `menu`(`id`, `name`, `type`, `price`, `img_path`, `restaurant_id`) "
-            . "VALUES ('null','$name','$type','$price','$path_img','$resid')");
-
-    $menu_id = $con->insert_id;
-
-    if (!empty($menu_id)) {
-        $con->query("INSERT INTO `mapping_food_type`(`menu_id`, `food_type_id`) "
-                . "VALUES ('$menu_id','$food_type')");
-
-        if ($con->error == "") {
-            ?>
-            <script>
-                document.location = "/view/res_restaurant_manage_menulist.php";
-            </script>
-            <?php
-
-        } else {
-            echo $con->error;
-        }
-    } else {
-        echo $con->error;
-    }
-} else if ($_FILES['imagesnewmenu']['name'] != "" && ($type != "กับข้าว" || $type != "อาหารจานเดียว")) {  //มีรูป ไม่ใช่กับข้าว ไม่มี foodtype
-    move_uploaded_file(@$_FILES["imagesnewmenu"]["tmp_name"], $target_file);
-    $con->query("INSERT INTO `menu`(`id`, `name`, `type`, `price`, `img_path`, `restaurant_id`) "
-            . "VALUES ('null','$name','$type','$price','$path_img','$resid')");
-
-    if ($con->error == "") {
-        ?>
-        <script>
-            document.location = "/view/res_restaurant_manage_menulist.php";
-        </script>
-        <?php
-
-    } else {
-        echo $con->error;
-    }
-} else if ($_FILES['imagesnewmenu']['name'] == "" && ($type == "กับข้าว" || $type == "อาหารจานเดียว")) {  //ไม่มีรูป แต่เป็นกับข้าว เลยมี foodtype
-    $food_type = $_POST["foodtypelist"];
-
-    $con->query("INSERT INTO `menu`(`id`, `name`, `type`, `price`, `img_path`, `restaurant_id`) "
-            . "VALUES ('null','$name','$type','$price',null,'$resid')");
+    move_uploaded_file(@$_FILES["imagerest"]["tmp_name"], $target_file);
+    $con->query("INSERT INTO `main_menu`(`id`, `name`, `type`, `img_path`)"
+            . " VALUES (null,'$name','$type','$path_img')");
 
     $menu_id = $con->insert_id;
 
@@ -88,24 +47,22 @@ if ($_FILES['imagesnewmenu']['name'] != "" && ($type == "กับข้าว" 
             echo $con->error;
         }
     } else {
-        echo "ไม่เจอ menu id";
-    }
-} else if ($_FILES['imagesnewmenu']['name'] == "" && ($type != "กับข้าว" || $type != "อาหารจานเดียว")) {  //ไม่มีรูป ไม่ใช่กับข้าว
-    $con->query("INSERT INTO `menu`(`id`, `name`, `type`, `price`, `img_path`, `restaurant_id`) "
-            . "VALUES ('null','$name','$type','$price',null,'$resid')");
-
-    if ($con->error == "") {
-        ?>
-        <script>
-            document.location = "/view/res_restaurant_manage_menulist.php";
-        </script>
-        <?php
-
-    } else {
         echo $con->error;
     }
-}
+} else if ($_FILES['imagerest']['name'] != "" && $type == 'ชนิดข้าว') {  //มีรูป ไม่ใช่กับข้าว ไม่มี foodtype
+    move_uploaded_file(@$_FILES["imagerest"]["tmp_name"], $target_file);
+    $con->query("INSERT INTO `main_menu`(`id`, `name`, `type`, `img_path`)"
+            . " VALUES (null,'$name','$type','$path_img')");
 
 
+    if ($con->error == "") {
+            ?>
+            <script>
+                document.location = "/view/res_restaurant_manage_menulist.php";
+            </script>
+            <?php
 
-
+    } else {
+            echo $con->error;
+    }
+} 

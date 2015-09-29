@@ -131,8 +131,8 @@ include '../dbconn.php';
 
                                     <!--- Add Menu-->
                                     <div class="row" id="addMenuForm" style="display: none">
-                                       
-                                      
+
+
                                         <!-- Card Projects -->
                                         <div class="col-md-12">
                                             <div class="col-md-12">
@@ -212,18 +212,18 @@ include '../dbconn.php';
                                                 <div class="card">
                                                     <div class="card-content"> 
                                                         <h3>เพิ่มชื่อเมนูใหม่</h3>
-                                                        <form action="/restaurant/" method="post" id="addNewMenu">
+                                                        <form action="/restaurant/menu-add-old.php" method="post" id="addNewMenu" enctype="multipart/form-data">
                                                             <div class="row" style="margin-left: 25px;margin-top: 50px;">
                                                                 <span style="font-size: 18px;"> หมวดหมู่ </span>&nbsp;
-                                                                <select style="width: 150px;font-size: 18px;" id="typefood-add">
+                                                                <select required="" style="width: 150px;font-size: 18px;" id="typefood-add" name="typefood-add">
                                                                     <option value="0">--ตัวเลือก--</option>
                                                                     <option value="ชนิดข้าว">ชนิดข้าว</option>
                                                                     <option value="กับข้าว">กับข้าว</option>
                                                                     <option value="อาหารจานเดียว">อาหารจานเดียว</option>
 
                                                                 </select>
-                                                                <span style="margin-left: 25px;font-size: 18px;" id="typeselect"> หมวดหมู่ </span>&nbsp;&nbsp;
-                                                                <select class="foodtypelist" name="foodtypelist" style="width: 150px;  margin-left: 5px;font-size: 18px">
+                                                                <span style="margin-left: 25px;font-size: 18px;" id="typeselect" > หมวดหมู่ </span>&nbsp;&nbsp;
+                                                                <select class="foodtypelist" name="foodtypelist" required="" style="width: 150px;  margin-left: 5px;font-size: 18px">
                                                                     <option>--ตัวเลือก--</option>
                                                                     <?php
                                                                     $res1 = $con->query("SELECT * FROM `food_type`");
@@ -233,8 +233,13 @@ include '../dbconn.php';
                                                                     <?php } ?>
                                                                 </select>
                                                                 <span style="margin-left: 24px;font-size: 18px;"> ชื่ออาหาร </span> 
-                                                                &nbsp;<input type="text" style="font-size: 18px;" id="foodname">
-                                                                <button type="submit" class="btn btn-success" style="margin-left: 25px;" id="addNewMenubtn"><i class="glyphicon glyphicon-plus"></i></button>
+                                                                &nbsp;<input type="text" style="font-size: 18px;" id="foodname" name="foodname"  required="">
+                                                               
+                                                                <div> <span id="uploadtext"style="display: none" ></span>
+                                                                    <p align="center" ><button type="button" name="img" id="chooseimgbtn"  onClick="imagerest.click()" onMouseOut="uploadtext.value = imagerest.value" class="btn btn-primary btn-block" style="font-style:normal;width: 100; margin-left: 650; margin-top: -35px;">เลือกรูป</button></p>
+                                                                    <input type="file" id="imagerest" name="imagerest" style="display:none" required="" accept="image/jpeg,image/pjpeg,image/png"  />
+                                                                </div>
+                                                                <button type="submit" class="btn btn-success" style="margin-left: 25px; margin-left: 930px;margin-top: -35;" id="addNewMenubtn"><i class="glyphicon glyphicon-plus"></i></button>
                                                             </div>
                                                         </form>
                                                     </div>
@@ -291,7 +296,7 @@ include '../dbconn.php';
                                                         <?php
                                                         $resid = $_SESSION["restdata"]["id"];
                                                         $res2 = $con->query("SELECT DISTINCT restaurant.id,menu.img_path, menu.price, menu.id as menuResId, menu.status, "
-                                                                . "main_menu.name as menuname, restaurant.name as resname "
+                                                                . "main_menu.name as menuname, restaurant.name as resname, main_menu.img_path as img "
                                                                 . "FROM restaurant "
                                                                 . "LEFT JOIN menu ON menu.restaurant_id = restaurant.id "
                                                                 . "LEFT JOIN main_menu ON main_menu.id = menu.main_menu_id "
@@ -304,7 +309,7 @@ include '../dbconn.php';
                                                                 <div class="card">
                                                                     <div class="maxheight">
                                                                         <div class="card-image" >
-                                                                            <img src="<?= ($data2["img_path"] == "") ? '/assets/images/default-img360.png' : $data2["img_path"] ?>" >
+                                                                            <img src="<?= ($data2["img_path"] == "") ? $data2["img"] : $data2["img_path"] ?>" >
                                                                         </div>
                                                                         <div class="card-content height">
                                                                             <div class="product-name"><?= $data2["menuname"] ?></div>
@@ -352,7 +357,7 @@ include '../dbconn.php';
                                                         <?php
                                                         $resid = $_SESSION["restdata"]["id"];
                                                         $res2 = $con->query("SELECT DISTINCT restaurant.id,menu.img_path, menu.price, menu.id as menuResId, menu.status, "
-                                                                . "main_menu.name as menuname, restaurant.name as resname "
+                                                                . "main_menu.name as menuname, restaurant.name as resname, main_menu.img_path as img "
                                                                 . "FROM restaurant "
                                                                 . "LEFT JOIN menu ON menu.restaurant_id = restaurant.id "
                                                                 . "LEFT JOIN main_menu ON main_menu.id = menu.main_menu_id "
@@ -366,7 +371,7 @@ include '../dbconn.php';
                                                                 <div class="card">
                                                                     <div class="maxheight">
                                                                         <div class="card-image">
-                                                                            <img src="<?= ($data2["img_path"] == "") ? '/assets/images/default-img360.png' : $data2["img_path"] ?>" >
+                                                                            <img src="<?= ($data2["img_path"] == "") ? $data2["img"] : $data2["img_path"] ?>" >
                                                                         </div>
                                                                         <div class="card-content height">
                                                                             <div class="product-name"><?= $data2["menuname"] ?></div>
@@ -415,7 +420,7 @@ include '../dbconn.php';
                                                         <?php
                                                         $resid = $_SESSION["restdata"]["id"];
                                                         $res2 = $con->query("SELECT DISTINCT restaurant.id,menu.img_path, menu.price, menu.id as menuResId, menu.status, "
-                                                                . "main_menu.name as menuname, restaurant.name as resname "
+                                                                . "main_menu.name as menuname, restaurant.name as resname, main_menu.img_path as img "
                                                                 . "FROM restaurant "
                                                                 . "LEFT JOIN menu ON menu.restaurant_id = restaurant.id "
                                                                 . "LEFT JOIN main_menu ON main_menu.id = menu.main_menu_id "
@@ -428,7 +433,7 @@ include '../dbconn.php';
                                                                 <div class="card">
                                                                     <div class="maxheight">
                                                                         <div class="card-image">
-                                                                            <img src="<?= ($data2["img_path"] == "") ? '/assets/images/default-img360.png' : $data2["img_path"] ?>">
+                                                                            <img src="<?= ($data2["img_path"] == "") ? $data2["img"] : $data2["img_path"] ?>">
                                                                         </div>
                                                                         <div class="card-content height">
                                                                             <div class="product-name"><?= $data2["menuname"] ?></div>
@@ -589,11 +594,17 @@ include '../dbconn.php';
                 $("#closebtn").hide();
                 document.location.reload();
             });
+            function checkFile() {
+                if ($('#imagerest').val() == "") {
+                    $('#addNewMenubtn').attr("disabled");
+                } else {
+                    $('#addNewMenubtn').removeAttr("disabled");
+                }
+            }
+            checkFile();
 
-
-
-            $('#imagesnewmenu').on('change', function (e) {
-                var filename = $('#imagesnewmenu').val();
+            $('#imagerest').on('change', function (e) {
+                var filename = $('#imagerest').val();
                 var fname = filename.substring(12);
                 var name = "File: " + fname;
                 $("#uploadtext").html(name);
@@ -670,29 +681,29 @@ include '../dbconn.php';
             });
 
 
-            $("#ryhryryu").on("submit", function (e) {
-                var type = $("#typefood-add").val();
-                var foodtype = $(".foodtypelist").val();
-                var foodname = $("#foodname").val();
-
-                $("#show_error").html("");
-                $("#addNewMenubtn").attr("disabled");
-
-                $.ajax({
-                    url: "/restaurant/menu-add.php",
-                    type: "post",
-                    data: {"menuid": menuid, "riceid": riceid, "singleid": singleid, "menusetid": menuid},
-                    dataType: "json",
-                    success: function (data) {
-                        $("#savebtn").removeAttr("disabled");
-                        if (data.result == 1) { //สำเร็จ
-
-                        } else {
-
-                        }
-                    }
-                });
-            });
+            /* $("#addNewMenu").on("submit", function (e) {
+             var type = $("#typefood-add").val();
+             var foodtype = $(".foodtypelist").val();
+             var foodname = $("#foodname").val();
+             
+             $("#show_error").html("");
+             $("#addNewMenubtn").attr("disabled");
+             
+             $.ajax({
+             url: "/restaurant/menu-add.php",
+             type: "post",
+             data: {"menuid": menuid, "riceid": riceid, "singleid": singleid, "menusetid": menuid},
+             dataType: "json",
+             success: function (data) {
+             $("#savebtn").removeAttr("disabled");
+             if (data.result == 1) { //สำเร็จ
+             
+             } else {
+             
+             }
+             }
+             });
+             });*/
 
             $("#searchtext").on("keyup", function (e) {
                 if (e.keyCode == 13) {
@@ -717,41 +728,41 @@ include '../dbconn.php';
             });
 
             $('#searchtext').on('blur', function (e) {
-                 $('#searchtext').val("");
+                $('#searchtext').val("");
                 $("#showmenudata").html("");
             });
             /*
-            $("#searchNewMenu").on("keyup", function (e) {
-                if (e.keyCode == 13) {
-                    $("#searchAddBtn").click();
-                }
-            });
-            
-              $("#searchNewMenu").on("keyup", function (e) {
-                var searchmenuname = $("#searchNewMenu").val();
-                var resid = $("#resid").val();
+             $("#searchNewMenu").on("keyup", function (e) {
+             if (e.keyCode == 13) {
+             $("#searchAddBtn").click();
+             }
+             });
+             
+             $("#searchNewMenu").on("keyup", function (e) {
+             var searchmenuname = $("#searchNewMenu").val();
+             var resid = $("#resid").val();
+             
+             $.ajax({
+             url: "/restaurant/menu-search-add-menu.php",
+             type: "POST",
+             dataType: "html",
+             data: {"resid": resid, "searchname": searchmenuname},
+             success: function (data, textStatus, jqXHR) {
+             $("#showdatamenu").html(data);
+             }
+             });
+             });*/
 
-                $.ajax({
-                    url: "/restaurant/menu-search-add-menu.php",
-                    type: "POST",
-                    dataType: "html",
-                    data: {"resid": resid, "searchname": searchmenuname},
-                    success: function (data, textStatus, jqXHR) {
-                        $("#showdatamenu").html(data);
-                    }
-                });
-            });*/
-            
             /*$("#searchtext").(function (e){
              $("#showmenudata").remove();
              });*/
 
-            $('input[type=file]').on('change', function (e) {
-                var filename = $('.imagerest').val();
-                var fname = filename.substring(12);
-                var name = "File: " + fname;
-                $("#uploadtext").html(name);
-            });
+            /*$('input[type=file]').on('change', function (e) {
+             var filename = $('.imagerest').val();
+             var fname = filename.substring(12);
+             var name = "File: " + fname;
+             $("#uploadtext").html(name);
+             });*/
 
             $("input[type=checkbox]").click(function (e) {
                 if ($(this).is(":checked")) {
@@ -760,8 +771,7 @@ include '../dbconn.php';
                     $(this).value("0");
                 }
             });
-
-
+          
 
 
         });
