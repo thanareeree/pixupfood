@@ -298,6 +298,8 @@ include '../dbconn.php';
                                                 </div>
                                                 <!------ ค่าจัดส่งข ----->
                                                 <div class="col-md-6">
+                                                    
+                                                    
                                                     <?php
                                                     $deliveryRes = $con->query("SELECT delivery_type.id, delivery_type.description, "
                                                             . "mapping_delivery_type.deliveryfee "

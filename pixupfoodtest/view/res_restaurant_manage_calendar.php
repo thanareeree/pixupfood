@@ -107,7 +107,7 @@ include '../dbconn.php';
                                 <div class="tabbable-line">
                                     <ul class="nav nav-tabs ">
                                         <li class="active">
-                                            <a href="/view/res_restaurant_manage_calendar.php" >ตารางเวลา </a>
+                                            <a href="/view/res_restaurant_manage_calendar.php" >ตารางงาน </a>
                                         </li>
 
                                     </ul>
