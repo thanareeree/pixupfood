@@ -71,7 +71,7 @@ include '../api/islogin.php';
         <section id="restaurant_view_head">
             <div class="overlay">
                 <div class="container text-center">
-                    <h1><i class="glyphicon glyphicon-cutlery"></i>&nbsp;<?= ($menusetData["resname"] == "" ? $resNameData["name"] : $menusetData["resname"]) ?></h1>
+                    <h1><i class="glyphicon glyphicon-cutlery"></i>&nbsp;<?= ($resNameData["name"] == "" ? $resNameData["name"] : $resNameData["name"]) ?></h1>
                     <div class="row lead">
                         <div id="stars-existing" class="starrr" data-rating='4'></div>
                     </div>
@@ -180,7 +180,7 @@ include '../api/islogin.php';
                                         </ul>
                                     </div>
 
-                                    <form action="/customer/order-request-save.php?cusId<?= $cusid ?>&resId<?= $resid ?>" method="post" id="normalOrderForm">
+                                    <!--<form action="/customer/order-request-save.php?cusId<?= $cusid ?>&resId<?= $resid ?>" method="post" id="normalOrderForm">-->
                                     <input type="hidden" name="selectMenuFromCustomer" value="<?= $orderMenu_id ?>" >
                                     <div class="tab-content">
 
@@ -492,7 +492,7 @@ include '../api/islogin.php';
                                             </ul>
                                         </div>
                                     </div>
-                                    </form>
+                                    <!--</form>-->
                                 </div>
                             </div>
 

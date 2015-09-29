@@ -274,8 +274,6 @@ include '../dbconn.php';
                                                     </div>
                                                     <!-- Menu 1 Row -->
                                                     <div class="row" id="showmenudata">
-
-
                                                     </div>
                                                 </div>
                                             </div>
@@ -594,24 +592,7 @@ include '../dbconn.php';
                 $("#closebtn").hide();
                 document.location.reload();
             });
-            function checkFile() {
-                if ($('#imagerest').val() == "") {
-                    $('#addNewMenubtn').attr("disabled");
-                } else {
-                    $('#addNewMenubtn').removeAttr("disabled");
-                }
-            }
-            checkFile();
-
-            $('#imagerest').on('change', function (e) {
-                var filename = $('#imagerest').val();
-                var fname = filename.substring(12);
-                var name = "File: " + fname;
-                $("#uploadtext").html(name);
-            });
-
-
-
+           
             $('#select_type').on('change', function (e) {
                 $("#type").show();
                 if ($("#select_type").val() == 'ชนิดข้าว') {
