@@ -46,7 +46,7 @@
     width:100%;
 }
 
-.foodboxselect{
+.foodboxselect, .riceselect{
     float:left;
     padding:20px;
     margin-left:35px;
@@ -58,7 +58,7 @@
     padding-bottom:30px;
     border-radius: 5px;
 }
-.foodboxselect.selected {
+.foodboxselect.selected ,.riceselect.selected{
     background:#ff8100;
 }
 .datepick-month-year, .datepick-nav, .datepick-month a, .datepick-month span {

@@ -341,7 +341,6 @@ include '../../dbconn.php';
                                                 ขั้นตอนที่ 6 : เลือกร้านอาหาร
                                             </div>
                                             <div class="row">
-                                                <form action="#" >
                                                     <?php
                                                     $resfromMenuRes = $con->query("SELECT DISTINCT main_menu.id,  main_menu.name as menuname, menu.price,main_menu.type,"
                                                             . " restaurant.id as resid, restaurant.name as resname, restaurant.img_path "
@@ -388,7 +387,6 @@ include '../../dbconn.php';
                                                             </table>
                                                         </div>
                                                     <?php } ?>
-                                                </form>
 
                                                 <a href="#" >
                                                     <span class="pull-right" style="color: #0016b0;margin-right: 10px;">

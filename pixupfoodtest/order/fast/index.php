@@ -74,6 +74,7 @@ include '../../dbconn.php';
                                 </a>
                             </li>
                         </ul>
+                        <div class="block" style="position: absolute; top:0; left:0; width:100%; height:100px; background-color:rgba(0,0,0,0); z-index:2;"></div>
                     </div>
                     <div class="tab-content">
                         <div class="tab-pane active" role="tabpanel" id="step1">
@@ -155,6 +156,10 @@ include '../../dbconn.php';
                                 </li>
                             </ul>
                         </div>
+
+
+
+
                         <div class="tab-pane" role="tabpanel" id="step2">
                             <div class="card">
                                 <div class="card-content" style="height:550px;">
@@ -167,32 +172,46 @@ include '../../dbconn.php';
                                     </div>
                                     <div class="col-sm-7">
                                         <h3>เวลาจัดส่ง :</h3>
-                                            <select name="delivery_time" id="delivery_time" class="form-control" >
-                                                <option value="0" disabled selected>--เวลาจัดส่ง--</option>
-                                                <option value="06:30:00">06:30 น.</option>
-                                                <option value="07:30:00">07:30 น.</option>
-                                                <option value="08:30:00">08:30 น.</option>
-                                                <option value="09:30:00">09:30 น.</option>
-                                                <option value="10:30:00">10:30 น.</option>
-                                                <option value="11:30:00">06:30 น.</option>
-                                                <option value="12:30:00">12:30 น.</option>
-                                                <option value="13:30:00">13:30 น.</option>
-                                                <option value="14:30:00">14:30 น.</option>
-                                                <option value="15:30:00">15:30 น.</option>
-                                                <option value="16:30:00">16:30 น.</option>
-                                                <option value="17:30:00">17:30 น.</option>
-                                                <option value="18:30:00">18:30 น.</option>
-                                            </select>
+                                        <select name="delivery_time" id="delivery_time" class="form-control" >
+                                            <option value="0" disabled selected>--เวลาจัดส่ง--</option>
+                                            <option value="06:30:00">06:30 น.</option>
+                                            <option value="07:30:00">07:30 น.</option>
+                                            <option value="08:30:00">08:30 น.</option>
+                                            <option value="09:30:00">09:30 น.</option>
+                                            <option value="10:30:00">10:30 น.</option>
+                                            <option value="11:30:00">06:30 น.</option>
+                                            <option value="12:30:00">12:30 น.</option>
+                                            <option value="13:30:00">13:30 น.</option>
+                                            <option value="14:30:00">14:30 น.</option>
+                                            <option value="15:30:00">15:30 น.</option>
+                                            <option value="16:30:00">16:30 น.</option>
+                                            <option value="17:30:00">17:30 น.</option>
+                                            <option value="18:30:00">18:30 น.</option>
+                                        </select>
                                         </h4>
                                     </div>
                                     <br>
                                 </div>
                             </div>
                             <ul class="list-inline pull-right" style="margin-top: 20px;">
-                                <li><button type="button" class="btn btn-lg btn-default prev-step">Previous</button></li>
-                                <li><button type="button" class="btn btn-lg btn-warning next-step">Continue</button></li>
+                                <li>
+                                    <button type="button" class="btn btn-lg btn-default prev-step">
+                                        <span class="glyphicon glyphicon glyphicon-chevron-left"></span>
+                                        Previous
+                                    </button>
+                                </li>
+                                <li>
+                                    <button type="button" class="btn btn-lg btn-warning next-step">
+                                        Continue
+                                        <span class="glyphicon glyphicon glyphicon-chevron-right"></span>
+                                    </button>
+                                </li>
                             </ul>
                         </div>
+
+
+
+
                         <div class="tab-pane" role="tabpanel" id="step3">
                             <div class="card">
                                 <div class="card-content">
@@ -218,14 +237,160 @@ include '../../dbconn.php';
                                 </div>
                             </div>
                             <ul class="list-inline pull-right" style="margin-top: 20px;">
-                                <li><button type="button" class="btn btn-lg btn-default prev-step">Previous</button></li>
-                                <li><button type="button" class="btn btn-lg btn-warning next-step">Continue</button></li>
+                                <li>
+                                    <button type="button" class="btn btn-lg btn-default prev-step">
+                                        <span class="glyphicon glyphicon glyphicon-chevron-left"></span>
+                                        Previous
+                                    </button>
+                                </li>
+                                <li>
+                                    <button type="button" class="btn btn-lg btn-warning next-step">
+                                        Continue
+                                        <span class="glyphicon glyphicon glyphicon-chevron-right"></span>
+                                    </button>
+                                </li>
                             </ul>
                         </div>
+
+
+
+                        <div class="tab-pane" role="tabpanel" id="step4">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="page-header" style="margin-left:16px;">
+                                        ขั้นตอนที่ 4 : เลือกข้าว
+                                    </div>
+                                    <div class="row" style="width:650px; margin:0 auto; padding-bottom:30px;">
+                                        <?php
+                                        $riceListRes = $con->query("SELECT main_menu.name, main_menu.id FROM  main_menu WHERE main_menu.type = 'ชนิดข้าว'");
+                                        while ($riceData = $riceListRes->fetch_assoc()) {
+                                            ?>
+                                            <div class="riceselect">
+                                                <h4><?= $riceData["name"] ?></h4>
+                                                <input type="radio" name="ricetype" class="rice" value="<?= $riceData["id"] ?>">
+                                            </div>
+                                        <?php } ?>
+                                    </div>
+                                    <div id="norice" style="background-color:rgba(255,255,255,0.6); text-align: center; position: absolute; left:0; top:0; width:100%; height:300px;">
+                                        <h1 style="font-size:100px; margin-top:50px;"><span class="glyphicon glyphicon-ok-circle"></span></h1>
+                                        <h2>คุณได้เลือกอาหารจานเดี่ยว กรุณาไปขั้นตอนถัดไป</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="list-inline pull-right" style="margin-top: 20px;">
+                                <li>
+                                    <button type="button" class="btn btn-lg btn-default prev-step">
+                                        <span class="glyphicon glyphicon glyphicon-chevron-left"></span>
+                                        Previous
+                                    </button>
+                                </li>
+                                <li>
+                                    <button type="button" class="btn btn-lg btn-warning next-step">
+                                        Continue
+                                        <span class="glyphicon glyphicon glyphicon-chevron-right"></span>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+
+
+
+                        <div class="tab-pane" role="tabpanel" id="step5">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="page-header" style="margin-left:16px;">
+                                        ขั้นตอนที่ 5 : เลือกกับข้าว
+                                    </div>
+                                    <h4 style="color: #FF5F00; margin-left:15px;">รูปแบบของกล่องท่านสามารถเลือกได้ไม่เกิน <span id="showcount"></span> รายการ</h4>
+                                    <div class="row" id="showfood">
+                                    </div> <!--<hr class="hrs">-->
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="page-header">
+                                                เพิ่มเติม
+                                            </div>
+                                            <textarea id="moretext" rows="3" placeholder="หมายเหตุเพิ่มเติม เช่น ไม่เผ็ด ไม่ใส่ผัก" style="width: 100%"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="list-inline pull-right" style="margin-top: 20px;">
+                                <li>
+                                    <button type="button" class="btn btn-lg btn-default prev-step">
+                                        <span class="glyphicon glyphicon glyphicon-chevron-left"></span>
+                                        Previous
+                                    </button>
+                                </li>
+                                <li>
+                                    <button type="button" class="btn btn-lg btn-warning next-step">
+                                        Continue
+                                        <span class="glyphicon glyphicon glyphicon-chevron-right"></span>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+
+
+
+                        <div class="tab-pane" role="tabpanel" id="step6">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="page-header" style="margin-left:16px;">
+                                        ขั้นตอนที่ 6 : เลือกร้านอาหาร
+                                    </div>
+                                    <div class="row" id="showrest">
+                                    </div>   
+                                </div>
+                            </div>
+                            <ul class="list-inline pull-right" style="margin-top: 20px;">
+                                <li>
+                                    <button type="button" class="btn btn-lg btn-default prev-step">
+                                        <span class="glyphicon glyphicon glyphicon-chevron-left"></span>
+                                        Previous
+                                    </button>
+                                </li>
+                                <li>
+                                    <button type="button" id="placeorderbtn" class="btn btn-lg btn-warning next-step">
+                                        Place Order
+                                        <span class="glyphicon glyphicon glyphicon-chevron-right"></span>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+
                     </div>
                 </div>
             </div>
         </section>
+
+        <div id="paymentmodal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">เลือกวิธีชำระเงิน</h4>
+                    </div>
+                    <div class="modal-body">
+                        <?php
+                        $paymentRes = $con->query("SELECT payment_type.id, payment_type.description FROM payment_type ");
+                        while ($paymentData = $paymentRes->fetch_assoc()) {
+                            ?>
+                            <div class="input-group col-md-12" style="margin: 10px 80px;"  >
+                                <input type="radio" name="paymentData" value="<?= $paymentData["id"] ?>">&nbsp;&nbsp;<?= $paymentData["description"] ?>
+                            </div>
+                        <?php } ?>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">Back</button>
+                        <button type="button" class="btn btn-success" id="confirmorderbtn">Place Order</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
         <?php include '../../template/footer.php'; ?>
         <script src="/assets/js/fast_order.js" type="text/javascript"></script>
     </body>
