@@ -349,7 +349,8 @@ include '../api/islogin.php';
 
                                         <div class="tab-pane" role="tabpanel" id="step4">
                                             <div class="card">
-                                                <div class="card-content" style="height:750px;">
+                                                <div class="card-content">
+                                                    <div class="row">
                                                     <div class="page-header" style="margin-left:16px;">
                                                         ขั้นตอนที่ 4 : เลือกวัน เวลา และสถานที่จัดส่ง
                                                     </div>
@@ -380,7 +381,7 @@ include '../api/islogin.php';
                                                             </h4>
                                                         </div>
                                                     </div>
-                                                    <div id="addressoverlay"></div>
+                                                    <div class="col-sm-12" id="addressoverlay"></div>
 
                                                     <div class="col-sm-9">
                                                         ที่อยู่ที่บันทึกไว้ : 
@@ -442,6 +443,7 @@ include '../api/islogin.php';
                                                     <div class="col-sm-12">
                                                         <div id="map"></div>
                                                     </div>
+                                                </div>
                                                 </div>
                                             </div>
                                             <ul class="list-inline pull-right"  style="margin-top: 20px">

@@ -4,9 +4,9 @@ include '../dbconn.php';
 
 $id = $_GET["id"];
 
-$target_dir = "/upload/restaurant/cofirm-image/";
+$target_dir = "../upload/restaurant/cofirm-image/";
 
-$filename = $_FILES["imgpro"]["name"];
+$filename = $_FILES["imgfile"]["name"];
 $file_basename = substr($filename, 0, strripos($filename, '.')); // get file extention
 $file_ext = substr($filename, strripos($filename, '.')); // get file name
 $newfliename =  "img".$id."-". uniqid().$file_ext;

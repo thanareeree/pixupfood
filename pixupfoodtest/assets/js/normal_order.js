@@ -1,5 +1,10 @@
-$(document).ready(function (e) {
 
+var map, geocoder, marker;
+var address = new Array();
+var defaultlatlng = {lat: 13.6524931, lng: 100.4938914};
+var nearbymarker = [];
+
+$(document).ready(function (e) {
     initMap();
     // initFoodBox();
     //  initCalendar();
@@ -28,10 +33,10 @@ $(document).ready(function (e) {
             $('#singleMenuList').hide();
             $('#foodListdata').show();
         } else if (boxid == "2") {
-          $('#singleMenuList').hide();
+            $('#singleMenuList').hide();
             $('#foodListdata').show();
         } else if (boxid == "3") {
-           $('#singleMenuList').hide();
+            $('#singleMenuList').hide();
             $('#foodListdata').show();
         } else if (boxid == "4") {
             $('#singleMenuList').show();
@@ -42,11 +47,11 @@ $(document).ready(function (e) {
 
 
     });
-    $('#boxamount').change(function (e){
-        
+    $('#boxamount').change(function (e) {
+
     });
-    
-    
+
+
     //Initialize tooltips
     $('.nav-tabs > li a[title]').tooltip();
     //Wizard
@@ -60,8 +65,19 @@ $(document).ready(function (e) {
     $(".next-step").click(function (e) {
 
         var $active = $('.wizard .nav-tabs li.active');
+        var a = $active.find("a");
         $active.next().removeClass('disabled');
         nextTab($active);
+        if (a.attr("aria-controls") == "step3") {
+            var center = map.getCenter();
+            google.maps.event.trigger(map, 'resize');
+            map.panTo(center)
+            var zoom = map.getZoom();
+            map.setZoom(20);
+            setTimeout(function () {
+                map.setZoom(zoom);
+            }, 100);
+        }
     });
     $(".prev-step").click(function (e) {
 
@@ -81,10 +97,6 @@ function prevTab(elem) {
 
 
 
-var map, geocoder, marker;
-var address = new Array();
-var defaultlatlng = {lat: 13.6524931, lng: 100.4938914};
-var nearbymarker = [];
 function initMap() {
     geocoder = new google.maps.Geocoder();
 
@@ -94,7 +106,7 @@ function initMap() {
     });
 
     marker = new google.maps.Marker({
-        position: map.getCenter(),
+        position: defaultlatlng,
         map: map,
         draggable: true,
         icon: "/assets/images/pin.png"
