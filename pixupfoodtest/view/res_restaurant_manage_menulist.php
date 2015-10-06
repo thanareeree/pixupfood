@@ -234,7 +234,7 @@ include '../dbconn.php';
                                                                 </select>
                                                                 <span style="margin-left: 24px;font-size: 18px;"> ชื่ออาหาร </span> 
                                                                 &nbsp;<input type="text" style="font-size: 18px;" id="foodname" name="foodname"  required="">
-                                                               
+
                                                                 <div> <span id="uploadtext"style="display: none" ></span>
                                                                     <p align="center" ><button type="button" name="img" id="chooseimgbtn"  onClick="imagerest.click()" onMouseOut="uploadtext.value = imagerest.value" class="btn btn-primary btn-block" style="font-style:normal;width: 100; margin-left: 650; margin-top: -35px;">เลือกรูป</button></p>
                                                                     <input type="file" id="imagerest" name="imagerest" style="display:none" required="" accept="image/jpeg,image/pjpeg,image/png"  />
@@ -248,7 +248,7 @@ include '../dbconn.php';
                                         </div>
                                     </div>
 
-                                    <!-- จบค้นหา -->
+
 
 
                                     <!-- ค้นหา -->
@@ -258,19 +258,27 @@ include '../dbconn.php';
                                             <div class="card">
                                                 <div class="card-content">
                                                     <div class="col-md-12" style="margin-bottom: 50px">
-                                                        <h2>ค้นหา</h2>
-                                                        <form action="#" method="post" >
-                                                            <input type="hidden" name="restaurantid" id="restaurantid" value="<?= $resid; ?>" >
-                                                            <div class="col-md-6">
-
-                                                                <div class="input-group">
-                                                                    <input type="text" class="form-control input-lg" id="searchtext" placeholder="ชื่อรายการอาหาร">
-                                                                    <span class="input-group-btn ">
-                                                                        <button class="btn btn-default input-lg" type="button" id="searchbyname"><i class="glyphicon glyphicon-search"></i></button>
-                                                                    </span>
-                                                                </div>
+                                                        <div class="col-md-12">
+                                                            <h2>ค้นหา </h2>
+                                                        </div>
+                                                        <input type="hidden" name="restaurantid" id="restaurantid" value="<?= $resid; ?>" >
+                                                        <div class="col-md-6">
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control input-lg" id="searchtext" placeholder="ชื่อรายการอาหาร">
+                                                                <span class="input-group-btn ">
+                                                                    <button class="btn btn-default input-lg" type="button" id="searchbyname"><i class="glyphicon glyphicon-search"></i></button>
+                                                                </span>
                                                             </div>
-                                                        </form>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <p>
+                                                                <a class="btn icon-btn btn-danger" id="close-searchbtn" style="display: none">
+                                                                    <span class="glyphicon btn-glyphicon glyphicon-triangle-top img-circle text-warning">
+                                                                    </span>ปิด</a>
+                                                            </p>
+                                                        </div>
+
+
                                                     </div>
                                                     <!-- Menu 1 Row -->
                                                     <div class="row" id="showmenudata">
@@ -592,7 +600,7 @@ include '../dbconn.php';
                 $("#closebtn").hide();
                 document.location.reload();
             });
-           
+
             $('#select_type').on('change', function (e) {
                 $("#type").show();
                 if ($("#select_type").val() == 'ชนิดข้าว') {
@@ -692,8 +700,7 @@ include '../dbconn.php';
                 }
             });
 
-
-            $("#searchtext").on("keyup", function (e) {
+            $("#searchbyname").on("click", function (e) {
                 var searchmenuname = $("#searchtext").val();
                 var resid = $("#restaurantid").val();
 
@@ -703,15 +710,35 @@ include '../dbconn.php';
                     dataType: "html",
                     data: {"resid": resid, "searchname": searchmenuname},
                     success: function (data, textStatus, jqXHR) {
-                        $("#show").html(data);
+                        $("#showmenudata").html(data);
+                        $('#close-searchbtn').show();
                     }
                 });
             });
 
-            $('#searchtext').on('blur', function (e) {
+            $('#close-searchbtn').on('click', function (e) {
                 $('#searchtext').val("");
                 $("#showmenudata").html("");
+                $('#close-searchbtn').hide();
             });
+            /*$("#searchtext").on("keyup", function (e) {
+             var searchmenuname = $("#searchtext").val();
+             var resid = $("#restaurantid").val();
+             
+             $.ajax({
+             url: "/restaurant/menu-searchbyname.php",
+             type: "POST",
+             dataType: "html",
+             data: {"resid": resid, "searchname": searchmenuname},
+             success: function (data, textStatus, jqXHR) {
+             $("#showmenudata").html(data);
+             }
+             });*/
+
+            /* $('#searchbyname').on('blur', function (e) {
+             $('#searchtext').val("");
+             $("#showmenudata").html("");
+             });*/
             /*
              $("#searchNewMenu").on("keyup", function (e) {
              if (e.keyCode == 13) {
@@ -752,7 +779,7 @@ include '../dbconn.php';
                     $(this).value("0");
                 }
             });
-          
+
 
 
         });
