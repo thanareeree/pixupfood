@@ -8,7 +8,7 @@ $resid = @$_POST["resid"];
 $numrow = 0;
 if ($searchtxt != "") {
     $res = $con->query("SELECT DISTINCT restaurant.id,menu.img_path, menu.price, "
-        . "main_menu.name as menuname "
+        . "main_menu.name as menuname, main_menu.img_path as img "
         . "FROM restaurant "
         . "LEFT JOIN menu ON menu.restaurant_id = restaurant.id "
         . "LEFT JOIN main_menu ON main_menu.id = menu.main_menu_id "
@@ -30,7 +30,7 @@ if ($numrow == 0) {
             <div class="card">
                 <div class="maxheight">
                     <div class="card-image">
-                        <img src="<?= ($data2["img_path"] == "") ? '/assets/images/default-img360.png' : $data2["img_path"] ?>" >
+                        <img src="<?= ($data2["img_path"] == "") ? $data2["img"] : $data2["img_path"] ?>" >
                     </div>
                     <div class="card-content height">
                         <div class="product-name"><?= $data2["menuname"] ?></div>
