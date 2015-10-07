@@ -49,7 +49,7 @@ if ($_FILES['imagerest']['name'] != "" && ($type == "กับข้าว" || $
     } else {
         echo $con->error;
     }
-} else if ($_FILES['imagerest']['name'] != "" && $type == 'ชนิดข้าว') {  //มีรูป ไม่ใช่กับข้าว ไม่มี foodtype
+} else if ($_FILES['imagerest']['name'] != "" && ($type == 'ชนิดข้าว' || $type == 'ขนม' || $type == 'เครื่องดื่ม' )) {  //มีรูป ไม่ใช่กับข้าว ไม่มี foodtype
     move_uploaded_file(@$_FILES["imagerest"]["tmp_name"], $target_file);
     $con->query("INSERT INTO `main_menu`(`id`, `name`, `type`, `img_path`)"
             . " VALUES (null,'$name','$type','$path_img')");
