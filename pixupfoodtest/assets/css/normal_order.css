@@ -53,3 +53,14 @@
     padding-bottom:30px;
     border-radius: 5px;
 }
+.riceselect{
+   // text-align:center;
+    border-radius: 5px;
+}
+
+.foodboxselect.selected ,.riceselect.selected, .foodlistselect.selected{
+    background:#ff8100;
+}
+
+
+
