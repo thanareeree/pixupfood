@@ -4,6 +4,9 @@ $(document).ready(function (e) {
     initMap();
     initFoodBox();
     initCalendar();
+    initRice();
+    initFood();
+
 
     $("#addressform").on("submit", function (e) {
         $.ajax({
@@ -50,6 +53,28 @@ $(document).ready(function (e) {
         prevTab($active);
     });
 
+
+
+    $("#placeorderbtn").on("click", function (e) {
+        if ($(".restselect:checked").length == 0) {
+            alert("กรุณาเลือกร้านอาหารอย่างน้อย 1 ร้าน");
+            return false;
+        } else {
+            $("#paymentmodal").modal("show");
+        }
+    });
+
+    $("#confirmorderbtn").on("click", function (e) {
+        if ($("input[name=paymentData]:checked").length == 0) {
+            alert("กรุณาเลือกวิธีชำระเงิน");
+            return false;
+        } else {
+            saveOrder();
+        }
+    });
+
+
+
 });
 function nextTab(elem) {
     $(elem).next().find('a[data-toggle="tab"]').click();
@@ -87,8 +112,24 @@ function validateTab(tab) {
             alert("กรุณากรอกจำนวนกล่อง");
             return false;
         }
+        checkRice();
+    } else if (tab == "step4") {
+        var foodbox = $("input[name=foodboxtype]:checked").val();
+        if (foodbox != 4) {
+            var ricetype = $("input[name=ricetype]:checked").val();
+            if (ricetype == undefined) {
+                alert("กรุณาเลือกชนิดข้าวก่อนไปขั้นตอนถัดไป");
+                return false;
+            }
+        }
+        checkFood();
+    } else if (tab == "step5") {
+        if ($(".foodlist:checked").length == 0) {
+            alert("กรุณาเลือกกับข้าวอย่างน้อย 1 รายการ");
+            return false;
+        }
+        checkRest();
     }
-
     return true;
 }
 
@@ -370,3 +411,156 @@ function initCalendar() {
     });
     $(".datepick").css("width", "407px");
 }
+
+
+function initRice() {
+    $(".rice").hide().on("click", function (e) {
+        e.stopPropagation();
+    });
+    $(".riceselect").on("click", function (e) {
+        $(".riceselect").removeClass("selected");
+        $(this).addClass("selected").find(".rice").click();
+    });
+
+    var foodboxtype = $("input[name=rice]:checked").val();
+}
+
+function checkRice() {
+    var foodboxtype = $("input[name=foodboxtype]:checked").val();
+    if (foodboxtype == 4) {
+        $("#norice").show();
+    } else {
+        $("#norice").hide();
+    }
+}
+
+function initFood() {
+    //:(
+}
+
+function checkFood() {
+    $("#showfood").html("<h3 style='margin:0 auto;'>กำลังดึงข้อมูลรายการอาหาร</h3>");
+    $.ajax({
+        url: "/order/api/getFood.php",
+        type: "POST",
+        dataType: "json",
+        data: {"boxtype": $("input[name=foodboxtype]:checked").val()},
+        success: function (data) {
+            $("#showfood").html("");
+            $.each(data, function (i, food) {
+                var output = '<div class="col-md-2"><div class="thumbnail"><a href="#">';
+                output += '<img class="menu_img" src="' + food.img + '" style="max-height: 101px;min-height: 101px"></a>';
+                output += '<div class="caption"><h4>' + food.name + '</h4>';
+                output += '<p style="text-align: right"><input type="checkbox" name="foodlist[]" class="foodlist" value="' + food.id + '"></p>';
+                output += '</div></div></div>';
+                $("#showfood").append(output);
+            });
+
+            $('.foodlist[value="' + getUrlParameter("menuSetId") + '"]').attr('checked', 'checked');
+
+            $(".foodlist").on("change", function (e) {
+                var foodboxtype = $("input[name=foodboxtype]:checked").val();
+                if (foodboxtype == 4) {
+                    foodboxtype = 1;
+                }
+                if ($(".foodlist:checked").length > foodboxtype) {
+                    alert("คุณเลือกกับข้าวเกินจำนวนรายการของกล่อง");
+                    $(this).removeAttr('checked');
+                    return false;
+                }
+            });
+
+            $.each($(".foodlist:checked"), function (i, item) {
+                if (getUrlParameter("menuSetId") != $(item).val()) {
+                    $(item).removeAttr("checked");
+                }
+            });
+        }
+    });
+
+    var foodboxtype = $("input[name=foodboxtype]:checked").val();
+    if (foodboxtype == 4) {
+        $("#showcount").html("1");
+    } else {
+        $("#showcount").html(foodboxtype);
+    }
+}
+
+
+function initRest() {
+
+}
+
+function checkRest() {
+    $("#showrest").html("<h2 style='margin:0 auto; margin-top:50px; margin-bottom:50px;'>กำลังค้นหาร้านอาหาร...</h2>");
+    var data = {'food[]': []};
+    $(".foodlist:checked").each(function () {
+        data['food[]'].push($(this).val());
+    });
+    data['boxtype'] = $("input[name=foodboxtype]:checked").val();
+    if (data['boxtype'] != 4) {
+        data['ricetype'] = $("input[name=ricetype]:checked").val();
+    }
+    data['amtbox'] = $("#boxamount").val();
+    data['address'] = $("#oldaddress").val();
+    $.ajax({
+        url: "/order/api/getRest.php",
+        type: "POST",
+        dataType: "html",
+        data: data,
+        success: function (data) {
+            $("#showrest").html(data);
+        }
+    });
+}
+
+function saveOrder() {
+    var data = {'food[]': [], 'rest[]': []};
+    $(".foodlist:checked").each(function () {
+        data['food[]'].push($(this).val());
+    });
+    $(".restselect:checked").each(function () {
+        data['rest[]'].push($(this).val());
+    });
+    data['boxtype'] = $("input[name=foodboxtype]:checked").val();
+    if (data['boxtype'] != 4) {
+        data['ricetype'] = $("input[name=ricetype]:checked").val();
+    }
+    data['amtbox'] = $("#boxamount").val();
+    data['address'] = $("#oldaddress").val();
+    data['date'] = $('#calendar').datepick('getDate')[0];
+    data['time'] = $("#delivery_time").val();
+    data['moretext'] = $("#moretext").val();
+    data['payment'] = $("input[name=paymentData]:checked").val();
+    
+    $.ajax({
+        url: "/order/api/saveOrder.php",
+        type: "POST",
+        dataType: "html",
+        data: data,
+        success: function (data) {
+            alert(data);
+            document.location = "/";
+        }
+    });
+}
+
+
+
+
+
+
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+};
