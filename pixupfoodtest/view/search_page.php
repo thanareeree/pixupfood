@@ -36,7 +36,6 @@ include '../dbconn.php';
                                 </div>
                                 <div class="col-md-8">
                                     <select class="form-control" id="searchby">
-                                        <option value="foodname">รายการอาหาร</option>
                                         <option value="rest">ร้านอาหาร</option>
                                         <option value="nearbyfood">ร้านอาหารบริเวณใกล้คุณ</option>
                                     </select>
@@ -151,7 +150,7 @@ include '../dbconn.php';
                                                     </a>
                                                 </td>
                                                 <td>
-                                                    <h4 class="media-heading"><?= $data["name"] ?> / <?= $data["menuname"] ?></h4><br>
+                                                    <h4 class="media-heading "><?= $data["name"] ?> / <?= $data["menuname"] ?></h4><br>
                                                     <!-- ($data["menu_name"] != "" ? '&nbsp;/&nbsp;' . $data["menu_name"] : '')  -->
 
                                                 </td>
@@ -165,8 +164,8 @@ include '../dbconn.php';
                                                         </span>
                                                     </a>
                                                     <span class="pull-right">
-                                                        <button class="btn"  id="lovelove"><i class="glyphicon glyphicon-heart" style="color: red;"></i>&nbsp;<span style="color: black;"> ชื่นชอบ</span></button>
-                                                        <button class="btn btn-danger"  id="lovelove2" style="display: none;"><i class="glyphicon glyphicon-heart"></i>&nbsp; ชื่นชอบ</button>
+                                                        <button class="btn lovelovebtn"  id="lovelove<?= $data["menuid"] ?>"><i class="glyphicon glyphicon-heart" style="color: red;"></i>&nbsp;<span style="color: black;"> ชื่นชอบ</span></button>
+                                                        <button class="btn btn-danger unlovebtn"  id="lovelove2<?= $data["menuid"] ?>" style="display: none;"><i class="glyphicon glyphicon-heart"></i>&nbsp; ชื่นชอบ</button>
                                                     </span>
                                                 </td>
                                             </tr>
@@ -312,6 +311,28 @@ include '../dbconn.php';
                     $("#lovelove2").hide();
                 });
             });
+
+            $("#result").on("click", ".lovelovebtn", function (e) {
+                var loveid = $(this).attr("id");
+                var id = loveid.replace("lovelove", "");
+                
+                $.ajax({
+                        url: "/customer/cus_favmenu.php",
+                        type: "POST",
+                        data: {"id": $("#showblockedid").html()},
+                        dataType: "html",
+                        success: function (returndata) {
+                            if (returndata == "ok") {
+                                $("#blockedmodal").modal("hide");
+                                //fetchdataShowall();
+                                document.location.reload();
+                            } else {
+                                alert("error");
+                            }
+                        }
+                    });
+            });
+            
         </script>
     </body>
 </html>
