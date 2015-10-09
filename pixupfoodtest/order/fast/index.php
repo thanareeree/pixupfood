@@ -220,7 +220,7 @@ include '../../dbconn.php';
                                     </div>
                                     <div class="row" style="width:650px; margin:0 auto; padding-bottom:30px;">
                                         <?php
-                                        $foodboxRes = $con->query("SELECT food_box.id, food_box.description, food_box.img_path FROM food_box");
+                                        $foodboxRes = $con->query("SELECT food_box.id, food_box.description, food_box.img_path FROM food_box where type = '1'");
                                         while ($foodboxData = $foodboxRes->fetch_assoc()) {
                                             ?>
                                             <div class="foodboxselect">
@@ -231,7 +231,7 @@ include '../../dbconn.php';
                                         <?php } ?>
                                     </div>
                                     <div class="row" style="text-align: center;">
-                                        จำนวน : <input type="number" class="form-inline" id="boxamount" style="width:100px"> กล่อง
+                                        จำนวน : <input type="number" class="form-inline" id="boxamount" style="width:100px"> ชุด
                                         <br><br>
                                     </div>
                                 </div>

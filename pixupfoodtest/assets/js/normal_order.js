@@ -1,29 +1,173 @@
-$(document).ready(function (e) {
-
-    initMap();
-   // initFoodBox();
-    initCalendar();
-
- 
-
-});
-
-
-
+var currentTab = 1;
 var map, geocoder, marker;
 var address = new Array();
 var defaultlatlng = {lat: 13.6524931, lng: 100.4938914};
 var nearbymarker = [];
+
+$(document).ready(function (e) {
+    initMap();
+    initFoodBox();
+    //initCalendar();
+    initRice();
+    initFood();
+
+    $('#calendar').fullCalendar({
+        header: {
+            left: 'prev',
+            center: 'title',
+            right: 'next today'
+        },
+        events: {
+            url: '/customer/showcalendar.php',
+            type: 'POST',
+            data: {resid: $(".getResId").val()},
+        },
+        eventColor: 'orange'
+    });
+
+    /* $('#hidecalendarbtn').on('click', function (e) {
+     $('#showcalendar').hide();
+     });*/
+    $(".foodboxtype").click(function () {
+        var editid = $(this).attr("id");
+        var boxid = editid.replace("foodboxtype", "");
+        if (boxid == "1") {
+            $('#singleMenuList').hide();
+            $('#foodListdata').show();
+        } else if (boxid == "2") {
+            $('#singleMenuList').hide();
+            $('#foodListdata').show();
+        } else if (boxid == "3") {
+            $('#singleMenuList').hide();
+            $('#foodListdata').show();
+        } else if (boxid == "4") {
+            $('#singleMenuList').show();
+            $('#foodListdata').hide();
+            $('#ricedatalist').hide();
+            $('#skip').show();
+        }
+
+
+    });
+    $('#boxamount').change(function (e) {
+
+    });
+
+//Initialize tooltips
+    $('.nav-tabs > li a[title]').tooltip();
+    //Wizard
+    $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
+        var $target = $(e.target);
+        if ($target.parent().hasClass('disabled')) {
+            //return false;
+        } else {
+            currentTab++;
+        }
+    });
+
+    $(".next-step").click(function (e) {
+
+        var $active = $('.wizard .nav-tabs li.active');
+        var a = $active.find("a");
+        if (validateTab(a.attr("aria-controls"))) {
+            $active.next().removeClass('disabled');
+            nextTab($active);
+        }
+        /*if (a.attr("aria-controls") == "step3") {
+         var center = map.getCenter();
+         google.maps.event.trigger(map, 'resize');
+         map.panTo(center)
+         var zoom = map.getZoom();
+         map.setZoom(20);
+         setTimeout(function () {
+         map.setZoom(zoom);
+         }, 100);
+         }*/
+    });
+    $(".prev-step").click(function (e) {
+
+        var $active = $('.wizard .nav-tabs li.active');
+        prevTab($active);
+    });
+});
+function nextTab(elem) {
+    $(elem).next().find('a[data-toggle="tab"]').click();
+}
+function prevTab(elem) {
+    $(elem).prev().find('a[data-toggle="tab"]').click();
+}
+
+function validateTab(tab) {
+    if (tab == "step1") {
+        var foodbox = $("input[name=foodboxtype]:checked").val();
+        var boxamount = $("#boxamount").val();
+        if (foodbox == undefined) {
+            alert("กรุณาเลือกชนิดกล่องก่อนไปขั้นตอนถัดไป");
+            return false;
+        }
+        if (boxamount.length == 0) {
+            alert("กรุณากรอกจำนวนกล่อง");
+            return false;
+        }
+        checkRice();
+    } else if (tab == "step2") {
+        var foodbox = $("input[name=foodboxtype]:checked").val();
+        if (foodbox < 4) {
+            var ricetype = $("input[name=ricetype]:checked").val();
+            if (ricetype == undefined) {
+                alert("กรุณาเลือกชนิดข้าวก่อนไปขั้นตอนถัดไป");
+                return false;
+            }
+        }
+        checkFood();
+    } else if (tab == "step3") {
+        if ($(".foodlist:checked").length == 0) {
+            alert("กรุณาเลือกกับข้าวอย่างน้อย 1 รายการ");
+            return false;
+        }
+        checkRest();
+    } else if (tab == "step4") {
+        //var date = $('#calendar').datepick('getDate');
+        var time = $("#delivery_time").val();
+        if (date == "") {
+            alert("กรุณาเลือกวันที่จัดส่งก่อนไปขั้นตอนถัดไป");
+            return false;
+        }
+        if (time == null) {
+            alert("กรุณาเลือกเวลาจัดส่งก่อนไปขั้นตอนถัดไป");
+            return false;
+        }
+        var center = map.getCenter();
+        google.maps.event.trigger(map, 'resize');
+        map.panTo(center)
+        var zoom = map.getZoom();
+        map.setZoom(20);
+        setTimeout(function () {
+            map.setZoom(zoom);
+        }, 100);
+    } else if (tab == "step5") {
+        if ($(".foodlist:checked").length == 0) {
+            alert("กรุณาเลือกกับข้าวอย่างน้อย 1 รายการ");
+            return false;
+        }
+        checkRest();
+    }
+    return true;
+}
+
+
+
+
 function initMap() {
     geocoder = new google.maps.Geocoder();
 
     map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 5,
+        zoom: 13,
         center: defaultlatlng
     });
 
     marker = new google.maps.Marker({
-        position: map.getCenter(),
+        position: defaultlatlng,
         map: map,
         draggable: true,
         icon: "/assets/images/pin.png"
@@ -108,14 +252,14 @@ function initMap() {
         var loc = {lat: location.coords.latitude, lng: location.coords.longitude};
         $("#getlocationbtn").removeAttr("disabled");
         processLocation(loc);
-        map.setZoom(16);
+        map.setZoom(10);
     }
 
     function resetMap() {
         $("#showaddress").html("ลากและวางหมุดตรงที่อยู่ในการจัดส่งของคุณ");
         $("#addresstype").val("0");
         $("#addresstxt").val("");
-        map.setZoom(12);
+        map.setZoom(5);
         marker.setPosition(defaultlatlng);
         map.setCenter(defaultlatlng);
         $("#savenewaddressbtn").attr("disabled", "disabled");
@@ -257,20 +401,147 @@ function initMap() {
         });
     }
 }
-function initCalendar() {
-    $("#calendar_datepick").datepick({
-        minDate: new Date(),
-        onChangeMonthYear: function (year, month) {
-            setTimeout(function () {
-                $(".datepick").css("width", "407px");
-            }, 0);
-        },
-        onSelect: function (dates) {
-            setTimeout(function () {
-                $(".datepick").css("width", "407px");
-            }, 0);
+
+function initFoodBox() {
+    $(".foodbox").hide().on("click", function (e) {
+        e.stopPropagation();
+    });
+    $(".foodboxselect").on("click", function (e) {
+        $(".foodboxselect").removeClass("selected");
+        $(this).addClass("selected").find(".foodbox").click();
+    });
+
+    var foodboxtype = $("input[name=foodboxtype]:checked").val();
+}
+
+function initRice() {
+    $(".rice").hide().on("click", function (e) {
+        e.stopPropagation();
+    });
+    $(".riceselect").on("click", function (e) {
+        $(".riceselect").removeClass("selected");
+        $(this).addClass("selected").find(".rice").click();
+    });
+
+    var foodboxtype = $("input[name=rice]:checked").val();
+}
+
+function checkRice() {
+    var foodboxtype = $("input[name=foodboxtype]:checked").val();
+    if (foodboxtype >= 4) {
+        $("#norice").show();
+        $(".riceselect").removeClass("selected");
+    } else {
+        $("#norice").hide();
+    }
+}
+
+function initFood() {
+    //:(
+}
+
+function checkFood() {
+    $("#showfood").html("<h3 style='margin:0 auto;'>กำลังดึงข้อมูลรายการอาหาร</h3>");
+    var resid = $(".getResId").val();
+    $.ajax({
+        url: "/order/normal/getFoodList.php",
+        type: "POST",
+        dataType: "html",
+        data: {"boxtype": $("input[name=foodboxtype]:checked").val(), "resid": resid},
+        success: function (data) {
+            $("#showfood").html("");
+            $("#showfood").append(data);
+
+
+            $('.foodlist[value="' + getUrlParameter("menuId") + '"]').attr('checked', 'checked');
+
+            $(".foodlist").on("change", function (e) {
+                var foodboxtype = $("input[name=foodboxtype]:checked").val();
+                if (foodboxtype >= 4) {
+                    foodboxtype = 1;
+                }
+                if ($(".foodlist:checked").length > foodboxtype) {
+                    alert("คุณเลือกกับข้าวเกินจำนวนรายการของกล่อง");
+                    $(this).removeAttr('checked');
+                    return false;
+                }
+            });
+
+            $.each($(".foodlist:checked"), function (i, item) {
+                if (getUrlParameter("menuId") != $(item).val()) {
+                    $(item).removeAttr("checked");
+                }
+            });
         }
     });
-    $(".datepick").css("width", "407px");
+
+    var foodboxtype = $("input[name=foodboxtype]:checked").val();
+    if (foodboxtype >= 4) {
+        $("#showcount").html("1");
+    } else {
+        $("#showcount").html(foodboxtype);
+    }
 }
+
+
+function initRest() {
+
+}
+
+function checkRest() {
+    $("#showrest").html("<h2 style='margin:0 auto; margin-top:50px; margin-bottom:50px;'>กำลังค้นหาร้านอาหาร...</h2>");
+    var data = {'food[]': []};
+    $(".foodlist:checked").each(function () {
+        data['food[]'].push($(this).val());
+    });
+    data['boxtype'] = $("input[name=foodboxtype]:checked").val();
+    if (data['boxtype'] != 4) {
+        data['ricetype'] = $("input[name=ricetype]:checked").val();
+    }
+    data['amtbox'] = $("#boxamount").val();
+    data['address'] = $("#oldaddress").val();
+    $.ajax({
+        url: "/order/api/getRest.php",
+        type: "POST",
+        dataType: "html",
+        data: data,
+        success: function (data) {
+            $("#showrest").html(data);
+        }
+    });
+}
+
+
+
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+};
+/*
+ function initCalendar() {
+ $("#calendar_datepick").datepick({
+ minDate: new Date(),
+ onChangeMonthYear: function (year, month) {
+ setTimeout(function () {
+ $(".datepick").css("width", "407px");
+ }, 0);
+ },
+ onSelect: function (dates) {
+ setTimeout(function () {
+ $(".datepick").css("width", "407px");
+ }, 0);
+ }
+ });
+ $(".datepick").css("width", "407px");
+ }*/
 

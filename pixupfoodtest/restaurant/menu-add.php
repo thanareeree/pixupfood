@@ -5,9 +5,12 @@ include '../dbconn.php';
 $menuid = $con->real_escape_string(@$_POST["menuid"]);
 $riceid = $con->real_escape_string(@$_POST["riceid"]);
 $singleid = $con->real_escape_string(@$_POST["singleid"]);
-//$menusetid = $con->real_escape_string(@$_POST["menusetid"]);
+$snackid = $con->real_escape_string(@$_POST["snackid"]);
+$drinkid = $con->real_escape_string(@$_POST["drinkid"]);
 $price = $con->real_escape_string(@$_POST["price"]);
 $resid = $con->real_escape_string(@$_POST["resid"]);
+
+
 
 $response = array(
     "result" => 0,
@@ -46,6 +49,34 @@ if ($menuid != "0") {
     $con->query("INSERT INTO `menu`(`id`, `price`, `img_path`, "
             . " `main_menu_id`, `restaurant_id`)"
             . " VALUES (null,'$price',null,'$singleid','$resid')");
+    if ($con->error == "") {
+        $response = array(
+            "result" => 1
+        );
+    } else {
+        $response = array(
+            "result" => 0,
+            "reason" => $con->error
+        );
+    }
+}else if ($snackid != "0") {
+    $con->query("INSERT INTO `menu`(`id`, `price`, `img_path`, "
+            . " `main_menu_id`, `restaurant_id`)"
+            . " VALUES (null,'$price',null,'$snackid','$resid')");
+    if ($con->error == "") {
+        $response = array(
+            "result" => 1
+        );
+    } else {
+        $response = array(
+            "result" => 0,
+            "reason" => $con->error
+        );
+    }
+}else if ($drinkid != "0") {
+    $con->query("INSERT INTO `menu`(`id`, `price`, `img_path`, "
+            . " `main_menu_id`, `restaurant_id`)"
+            . " VALUES (null,'$price',null,'$drinkid','$resid')");
     if ($con->error == "") {
         $response = array(
             "result" => 1

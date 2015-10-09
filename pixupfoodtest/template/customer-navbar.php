@@ -57,7 +57,7 @@ if (isset($_SESSION["islogin"])) {
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <a href="/view/cus_customer_profile.php">
-                                                                <img src="<?= ($data["img_path"] == "" ? '/assets/images/defaulf-profile.png' : $data["img_path"]) ?>" style="max-width: 110px; max-height: 110px">
+                                                                <img src="<?= ($data["img_path"] == "" ? '/assets/images/default-avatar.jpg' : $data["img_path"]) ?>" style="max-width: 110px; max-height: 110px">
                                                             </a>
                                                         </div>
                                                     </div>
@@ -93,7 +93,8 @@ if (isset($_SESSION["islogin"])) {
 <?php } else { ?>
     <!-- start preloader
     <div class="preloader">
-        <div class="loader"></div>
+        <div class="loader"></div> 
+    
     </div> -->
     <!-- end preloader -->
     <!-- start navigation -->

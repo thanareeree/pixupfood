@@ -13,7 +13,7 @@ include '../dbconn.php';
         <?php include '../template/customer-title.php'; ?>
         <!-- custom css -->
         <link rel="stylesheet" href="/assets/css/profile.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
     </head>
     <body>
@@ -1113,7 +1113,7 @@ include '../dbconn.php';
                                     </div>
                                     <!-- จบตารางรายการติดตาม -->
 
-                                    <div class="row">
+                                    <!--<div class="row">
                                         <div id="inbox" style="margin:15% 0 0 0;">
                                             <div class="fab btn-group show-on-hover dropup" id="add_sa" data-toggle="modal" data-target="#add_address">
                                                 <button type="button" class="btn btn-danger  btn-io">
@@ -1125,7 +1125,7 @@ include '../dbconn.php';
                                                 </button>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>-->
 
                                     <!-- Add Shipping address Modal -->
                                     <div class="modal fade" id="add_address" tabindex="-1" role="dialog" aria-labelledby="shipping_address">

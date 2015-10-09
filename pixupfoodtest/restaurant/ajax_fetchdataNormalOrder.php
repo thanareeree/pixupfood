@@ -1,7 +1,7 @@
 <?php
 include '../dbconn.php';
 $resid = @$_POST["resid"];
-$normalOrderRes = $con->query("SELECT * FROM `order` where restaurant_id = '$resid'");
+$normalOrderRes = $con->query("SELECT * FROM `normal_order` where restaurant_id = '$resid'");
 $i = 1;
 
 if ($normalOrderRes->num_rows == 0) {
