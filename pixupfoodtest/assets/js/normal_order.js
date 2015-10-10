@@ -1,17 +1,14 @@
 var currentTab = 1;
-var map, geocoder, marker;
-var address = new Array();
-var defaultlatlng = {lat: 13.6524931, lng: 100.4938914};
-var nearbymarker = [];
 
 $(document).ready(function (e) {
     initMap();
     initFoodBox();
-    //initCalendar();
+    initCalendar();
     initRice();
     initFood();
+    showOrderDatail();
 
-    $('#calendar').fullCalendar({
+    $('.calendar').fullCalendar({
         header: {
             left: 'prev',
             center: 'title',
@@ -24,10 +21,20 @@ $(document).ready(function (e) {
         },
         eventColor: 'orange'
     });
+    $("#nextstep5").on('click', function (e) {
+        $('#showcalendar').hide();
+    });
+    $("#add_order").on('click', function (e){
+        if ($(".foodlist:checked").length == 0) {
+            alert("กรุณาเลือกอย่างน้อย 1 รายการ");
+            return false;
+        }else{
+            saveOrderDetail();
+        }
+        
+    });
 
-    /* $('#hidecalendarbtn').on('click', function (e) {
-     $('#showcalendar').hide();
-     });*/
+
     $(".foodboxtype").click(function () {
         var editid = $(this).attr("id");
         var boxid = editid.replace("foodboxtype", "");
@@ -73,16 +80,6 @@ $(document).ready(function (e) {
             $active.next().removeClass('disabled');
             nextTab($active);
         }
-        /*if (a.attr("aria-controls") == "step3") {
-         var center = map.getCenter();
-         google.maps.event.trigger(map, 'resize');
-         map.panTo(center)
-         var zoom = map.getZoom();
-         map.setZoom(20);
-         setTimeout(function () {
-         map.setZoom(zoom);
-         }, 100);
-         }*/
     });
     $(".prev-step").click(function (e) {
 
@@ -119,15 +116,16 @@ function validateTab(tab) {
                 return false;
             }
         }
-        checkFood();
+        checkFood();  
+        checkOrder();
     } else if (tab == "step3") {
-        if ($(".foodlist:checked").length == 0) {
-            alert("กรุณาเลือกกับข้าวอย่างน้อย 1 รายการ");
-            return false;
-        }
-        checkRest();
+      
+       
     } else if (tab == "step4") {
-        //var date = $('#calendar').datepick('getDate');
+
+
+    } else if (tab == "step5") {
+        var date = $('#calendar').datepick('getDate');
         var time = $("#delivery_time").val();
         if (date == "") {
             alert("กรุณาเลือกวันที่จัดส่งก่อนไปขั้นตอนถัดไป");
@@ -137,26 +135,21 @@ function validateTab(tab) {
             alert("กรุณาเลือกเวลาจัดส่งก่อนไปขั้นตอนถัดไป");
             return false;
         }
-        var center = map.getCenter();
-        google.maps.event.trigger(map, 'resize');
-        map.panTo(center)
-        var zoom = map.getZoom();
-        map.setZoom(20);
-        setTimeout(function () {
-            map.setZoom(zoom);
-        }, 100);
-    } else if (tab == "step5") {
-        if ($(".foodlist:checked").length == 0) {
-            alert("กรุณาเลือกกับข้าวอย่างน้อย 1 รายการ");
+    } else if (tab == "step6") {
+        if ($("input[name=paymentData]:checked").length == 0) {
+            alert("กรุณาเลือกวิธีชำระเงิน");
             return false;
         }
-        checkRest();
     }
     return true;
 }
 
 
 
+var map, geocoder, marker;
+var address = new Array();
+var defaultlatlng = {lat: 13.6524931, lng: 100.4938914};
+var nearbymarker = [];
 
 function initMap() {
     geocoder = new google.maps.Geocoder();
@@ -443,6 +436,7 @@ function initFood() {
 function checkFood() {
     $("#showfood").html("<h3 style='margin:0 auto;'>กำลังดึงข้อมูลรายการอาหาร</h3>");
     var resid = $(".getResId").val();
+    var moretext = $("input[name=foodboxtype]:checked").val();
     $.ajax({
         url: "/order/normal/getFoodList.php",
         type: "POST",
@@ -451,7 +445,7 @@ function checkFood() {
         success: function (data) {
             $("#showfood").html("");
             $("#showfood").append(data);
-
+            
 
             $('.foodlist[value="' + getUrlParameter("menuId") + '"]').attr('checked', 'checked');
 
@@ -472,6 +466,12 @@ function checkFood() {
                     $(item).removeAttr("checked");
                 }
             });
+            
+            if(moretext <= 4 ){
+                $("#showMoretext").show();
+            }else{
+                 $("#showMoretext").hide();
+            }
         }
     });
 
@@ -484,29 +484,23 @@ function checkFood() {
 }
 
 
-function initRest() {
 
-}
 
-function checkRest() {
-    $("#showrest").html("<h2 style='margin:0 auto; margin-top:50px; margin-bottom:50px;'>กำลังค้นหาร้านอาหาร...</h2>");
-    var data = {'food[]': []};
-    $(".foodlist:checked").each(function () {
-        data['food[]'].push($(this).val());
-    });
-    data['boxtype'] = $("input[name=foodboxtype]:checked").val();
-    if (data['boxtype'] != 4) {
-        data['ricetype'] = $("input[name=ricetype]:checked").val();
-    }
-    data['amtbox'] = $("#boxamount").val();
-    data['address'] = $("#oldaddress").val();
+
+function checkOrder() {
+    var resid = $(".getResId").val();
+    var cusid = $(".getCusId").val();
     $.ajax({
-        url: "/order/api/getRest.php",
+        url: "/order/normal/check_cart_order.php",
         type: "POST",
-        dataType: "html",
-        data: data,
+        dataType: "json",
+        data: {"cusid": cusid, "resid": resid},
         success: function (data) {
-            $("#showrest").html(data);
+            if(data.result == "0"){
+                $("#checkout").attr("disabled","disabled");
+            }else{
+                 $("#checkout").removeAttr("disabled");
+            }
         }
     });
 }
@@ -527,21 +521,66 @@ var getUrlParameter = function getUrlParameter(sParam) {
         }
     }
 };
-/*
- function initCalendar() {
- $("#calendar_datepick").datepick({
- minDate: new Date(),
- onChangeMonthYear: function (year, month) {
- setTimeout(function () {
- $(".datepick").css("width", "407px");
- }, 0);
- },
- onSelect: function (dates) {
- setTimeout(function () {
- $(".datepick").css("width", "407px");
- }, 0);
- }
- });
- $(".datepick").css("width", "407px");
- }*/
+
+function showOrderDatail() {
+    var resid = $(".getResId").val();
+    var cusid = $(".getCusId").val();
+    $.ajax({
+        url: "/order/normal/cart_order.php",
+        type: "POST",
+        dataType: "html",
+        data: {"cusid": cusid, "resid": resid},
+        success: function (data) {
+            $("#showOrderDetail").html(data);
+        }
+    });
+}
+
+function initCalendar() {
+
+    $("#calendar").datepick({
+        minDate: new Date(),
+        onChangeMonthYear: function (year, month) {
+            setTimeout(function () {
+                $(".datepick").css("width", "245px");
+            }, 0);
+        },
+        onSelect: function (dates) {
+            setTimeout(function () {
+                $(".datepick").css("width", "245px");
+            }, 0);
+        }
+    });
+    $(".datepick").css("width", "245px");
+}
+
+function saveOrderDetail(){
+     var data = {'food[]': []};
+    $(".foodlist:checked").each(function () {
+        data['food[]'].push($(this).val());
+    });
+    data['boxtype'] = $("input[name=foodboxtype]:checked").val();
+    if (data['boxtype'] < 4) {
+        data['ricetype'] = $("input[name=ricetype]:checked").val();
+    }
+    data['amtbox'] = $("#boxamount").val();
+    data['resid'] = $(".getResId").val();
+    data['moretext'] = $("#moretext").val();
+    $.ajax({
+        url: "/order/normal/saveOrderDetail.php",
+        type: "POST",
+        dataType: "json",
+        data: data,
+        success: function (data) {
+            
+            if(data.result == "1"){
+                showOrderDatail();
+            }else{
+                alert(data.error);
+                
+            }
+        }
+    });
+    
+}
 

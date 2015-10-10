@@ -532,7 +532,7 @@ function saveOrder() {
     data['time'] = $("#delivery_time").val();
     data['moretext'] = $("#moretext").val();
     data['payment'] = $("input[name=paymentData]:checked").val();
-    
+
     $.ajax({
         url: "/order/api/saveOrder.php",
         type: "POST",
