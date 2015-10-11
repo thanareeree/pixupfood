@@ -93,8 +93,7 @@ include '../api/islogin.php';
                                     <div class="wizard-inner">
                                         <div class="connecting-line"></div>
                                         <ul class="nav nav-tabs" role="tablist">
-
-                                            <li role="presentation" class="active">
+                                            <li role="presentation" class="disabled">
                                                 <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="Step 1">
                                                     <span class="round-tab">
                                                         <i class="glyphicon glyphicon-folder-open"></i>
@@ -116,7 +115,7 @@ include '../api/islogin.php';
                                                     </span>
                                                 </a>
                                             </li>
-                                            <li role="presentation" class="disabled">
+                                            <li role="presentation" class="active">
                                                 <a href="#step4" data-toggle="tab" aria-controls="step4" role="tab" title="Step 4">
                                                     <span class="round-tab">
                                                         <i class="glyphicon glyphicon-map-marker"></i>
@@ -143,128 +142,7 @@ include '../api/islogin.php';
 
 
                                     <div class="tab-content">
-
-                                        <!-- เลือกกล่อง -------------------------------------------------------------->
-                                        <div class="tab-pane active" role="tabpanel" id="step1">
-
-                                            <div class="card">
-                                                <div class="card-content">
-                                                    <div class="page-header">
-                                                        ขั้นตอนที่ 1 : เลือกกล่องและจำนวนกล่อง 
-                                                        <span style="color: gray; font-size: 20px;">(ขั้นต่ำ&nbsp;<?= $resNameData["amount_box_minimum"]?>&nbsp;ชุด/รายการอาหาร)</span>
-                                                    </div>
-                                                    <div class="row" style="width:650px; margin:0 auto; padding-bottom:30px;">
-                                                        <?php
-                                                        $foodboxRes = $con->query("SELECT food_box.id, food_box.description, food_box.img_path,  "
-                                                                . "mapping_food_box.restaurant_id as resid "
-                                                                . "FROM mapping_food_box "
-                                                                . "LEFT JOIN food_box ON food_box.id = mapping_food_box.food_box_id "
-                                                                . "WHERE mapping_food_box.restaurant_id = '$resid' ");
-
-                                                        while ($foodboxData = $foodboxRes->fetch_assoc()) {
-                                                            ?>
-                                                            <div class="foodboxselect">
-                                                                <img class="menu_img" src="<?= $foodboxData["img_path"] ?>">
-                                                                <p st><?= $foodboxData["description"] ?></p>
-                                                                <input type="radio" name="foodboxtype" class="foodbox" value="<?= $foodboxData["id"] ?>">
-                                                            </div>
-
-                                                        <?php } ?>
-                                                    </div><br><br>
-                                                    <div class="row" style="text-align: center;font-size: 20px">
-                                                        จำนวน : <input type="number" class="form-inline" id="boxamount" style="width:100px"> ชุด 
-                                                        <br><br>
-                                                    </div>
-                                                    <div id="errorStep1"></div>
-                                                </div>
-                                            </div>
-                                            <ul class="list-inline pull-right" style="margin-top: 20px;">
-                                                <li><button type="button" class="btn btn-warning next-step" >ดำเนินการต่อ <span class="glyphicon glyphicon glyphicon-chevron-right"></span></button></li>
-                                            </ul>
-
-                                        </div>
-
-                                        <!-- เลือกชนิดข้าวข้าว -------------------------------------------------------------->
-                                        <div class="tab-pane" role="tabpanel" id="step2">
-                                            <div class="card">
-                                                <div class="card-content">
-                                                    <div class="page-header">
-                                                        ขั้นตอนที่ 2 : เลือกข้าว
-                                                    </div>
-                                                    <div class="row">
-                                                        <?php
-                                                        $riceListRes = $con->query("SELECT main_menu.name, menu.price , menu.img_path,menu.id, main_menu.img_path as img  "
-                                                                . "FROM `menu` LEFT JOIN main_menu on main_menu.id = menu.main_menu_id "
-                                                                . "LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
-                                                                . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
-                                                                . "WHERE main_menu.type = 'ชนิดข้าว' "
-                                                                . "and menu.restaurant_id = '$resid'");
-
-                                                        while ($riceData = $riceListRes->fetch_assoc()) {
-                                                            ?>
-                                                            <div class="col-md-3" id="ricedatalist">
-                                                                <div class="thumbnail riceselect">
-                                                                    <div class="caption ">
-                                                                        <img class="menu_img" src="<?= ($riceData["img_path"] == "") ? $riceData["img"] : $riceData["img_path"] ?>">
-                                                                        <h4><?= $riceData["name"] ?></h4>
-                                                                        <p><?= $riceData["price"] ?>&nbsp;บาท</p>
-                                                                        <p style="text-align: right">
-                                                                            <input type="radio" name="ricetype" class="rice" value="<?= $riceData["id"] ?>">
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        <?php } ?>
-                                                        <div id="norice" style="background-color:rgba(255,255,255,0.6); text-align: center; position: absolute; left:0; top:0; width:100%; height:300px;">
-                                                            <h1 style="font-size:100px; margin-top:50px;"><span class="glyphicon glyphicon-ok-circle"></span></h1>
-                                                            <h2>กรุณาไปขั้นตอนถัดไป</h2>
-                                                        </div>
-                                                    </div>
-                                                     <div id="errorStep2"></div>
-                                                </div>
-                                            </div>
-                                            <ul class="list-inline pull-right"  style="margin-top: 20px">
-                                                <li><button type="button" class="btn btn-default prev-step"> <span class="glyphicon glyphicon glyphicon-chevron-left"></span>ย้อนกลับ</button></li>
-                                                <li><button type="button" class="btn btn-warning next-step " >ดำเนินการต่อ <span class="glyphicon glyphicon glyphicon-chevron-right"></span></button></li>
-                                            </ul>
-                                        </div>
-
-
-                                        <div class="tab-pane" role="tabpanel" id="step3" >
-                                            <div class="card">
-                                                <div class="card-content">
-                                                    <div class="page-header">
-                                                        ขั้นตอนที่ 3 : เลือกรายการอาหาร
-                                                    </div>
-                                                    <h3 style="color: #FF5F00; margin-left:15px;">รูปแบบของกล่องท่านสามารถเลือกได้ไม่เกิน <span id="showcount"></span> รายการ</h3>
-                                                    <div class="row" id="showfood">
-                                                    </div> <!--<hr class="hrs">-->
-                                                    <div class="row">
-                                                        <div id="showMoretext" style="display: none">
-                                                            <div class="col-md-12">
-                                                                <div class="page-header">
-                                                                    เพิ่มเติม
-                                                                </div>
-                                                                <textarea id="moretext" rows="3" placeholder="หมายเหตุเพิ่มเติม เช่น ไม่เผ็ด ไม่ใส่ผัก" style="width: 100%"></textarea>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div id="errorStep3" style="    margin-top: 20px;"></div>
-                                                </div>
-                                            </div>
-                                            <ul class="list-inline pull-right"  style="margin-top: 20px">
-                                                <li><button type="button" class="btn btn-default prev-step" id="prevstep3"> <span class="glyphicon  glyphicon-chevron-left"></span>ย้อนกลับ</button></li>
-                                                <li><button type="button" class="btn btn-success " id="add_order"  ><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;เพิ่มรายการ</button></li>
-                                                 <li><button type="button" class="btn btn-warning next-step " id="checkout" >ดำเนินการต่อ <span class="glyphicon  glyphicon-chevron-right"></span></button></li>
-                                            </ul>
-                                            <ul class="list-inline"  style="margin-top: 20px">
-                                                <li><button type="button" class="btn btn-danger " id="addNewOrder" style="display: none"> <span class=" glyphicon glyphicon-plus-sign"></span>&nbsp;สั่งซื้อต่อไป</button></li>
-                                                
-                                            </ul>
-                                        </div>
-
-
-                                        <div class="tab-pane" role="tabpanel" id="step4">
+                                        <div class="tab-pane active" role="tabpanel" id="step4">
                                             <div class="card">
                                                 <div class="card-content">
                                                     <div class="row">
@@ -339,8 +217,17 @@ include '../api/islogin.php';
                                                 </div>
                                             </div>
                                             <ul class="list-inline pull-right"  style="margin-top: 20px">
-                                                <li><button type="button" class="btn btn-default prev-step"> <span class="glyphicon glyphicon glyphicon-chevron-left"></span>ย้อนกลับ</button></li>
                                                 <li><button type="button" class="btn btn-warning next-step " >ดำเนินการต่อ <span class="glyphicon glyphicon glyphicon-chevron-right"></span></button></li>
+                                            </ul>
+                                             <ul class="list-inline"  style="margin-top: 20px">
+                                                 <li>
+                                                     <a href="/view/cus_restaurant_view.php?resId=<?= $resid?>">
+                                                         <button type="button" class="btn btn-danger " id="addNewOrder" > 
+                                                             <span class=" glyphicon glyphicon-plus-sign"></span>&nbsp;สั่งซื้อต่อไป
+                                                         </button>
+                                                     </a>
+                                                 </li>
+                                                
                                             </ul>
                                         </div>                                   
 

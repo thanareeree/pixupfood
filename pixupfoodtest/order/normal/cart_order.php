@@ -33,8 +33,9 @@ if ($orderDetailRes->num_rows == 0) {
     <table class="table table-hover" id="task-table">
         <thead>
             <tr>
+                <th></th>
                 <th>รายการอาหารที่เลือก</th>
-                <th ></th>
+                <th></th>
                 <th></th>
             </tr>
         </thead>
@@ -63,9 +64,15 @@ if ($orderDetailRes->num_rows == 0) {
                   }
                   } */
                 ?> 
-                <tr>
+            <tr>
+                    <td>
+                        <p class="remove_cart"  id="remove_cart<?= $orderDetailData["id"]?>" style="color: red" data-toggle="tooltip" data-placement="top" title="ลบรายการอาหารนี้?">
+                            <i class="glyphicon glyphicon-remove-sign"></i>
+                        </p>
+                    </td>
                     <td> 
                         <ul style="list-style: none; padding: 0;">
+                            <!--<span style="font-size: 12px; color: gray">(&nbsp;บาท/ชุด)</span>-->
                             <?php
                             $menuid = $orderDetailData["menu_id"];
                             $menuid = "(" . $menuid . ")";
@@ -76,7 +83,7 @@ if ($orderDetailRes->num_rows == 0) {
 
                             while ($dataName = $resName->fetch_assoc()) {
 
-                                echo '<li>' . $dataName["name"] . '</li>';
+                                echo '<li>' . $dataName["name"] .'</li>';
                             }
                             ?>
                         </ul>
@@ -86,13 +93,14 @@ if ($orderDetailRes->num_rows == 0) {
                             <input type="number" id="qty<?= $orderDetailData["id"] ?>" class="qty form-control"  value="<?= $orderDetailData["quantity"] ?>" style="width: 60px">
                         </div>
                     </td> 
-                    <td><?= $orderDetailData["price"] ?>&nbsp;บาท</td>
+                    <td><?= $orderDetailData["price"]  * $orderDetailData["quantity"] ?>&nbsp;บาท</td>
 
                 </tr>
             <?php } ?>
 
         </tbody>
     </table>
+    <div id="errorChangeQty"></div>
     <table class="table table-hover" id="task-table">
         <thead>
             <tr>

@@ -21,17 +21,30 @@ $(document).ready(function (e) {
         },
         eventColor: 'orange'
     });
+
     $("#nextstep5").on('click', function (e) {
         $('#showcalendar').hide();
     });
-    $("#add_order").on('click', function (e){
+
+    $("#add_order").on('click', function (e) {
         if ($(".foodlist:checked").length == 0) {
-            alert("กรุณาเลือกอย่างน้อย 1 รายการ");
+            $("#errorStep3").html(' <div class="alert alert-danger" role="alert">' +
+                    '<p style="color: red"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
+                    '&nbsp;กรุณาเลือกอย่างน้อย 1 รายการ</p></div>');
+
             return false;
-        }else{
+        } else {
+            $("#errorStep3").html("");
             saveOrderDetail();
+            $('#addNewOrder').show();
+            $("#checkout").removeAttr("disabled");
+            $('#prevstep3').hide();
         }
-        
+
+    });
+
+    $("#prevstep3").click(function (e) {
+        $("#errorStep3").html("");
     });
 
 
@@ -53,12 +66,14 @@ $(document).ready(function (e) {
             $('#ricedatalist').hide();
             $('#skip').show();
         }
-
-
     });
-    $('#boxamount').change(function (e) {
 
+    $("#addNewOrder").click( function (e){
+        document.location.reload();
     });
+
+
+
 
 //Initialize tooltips
     $('.nav-tabs > li a[title]').tooltip();
@@ -86,7 +101,11 @@ $(document).ready(function (e) {
         var $active = $('.wizard .nav-tabs li.active');
         prevTab($active);
     });
+
+
+
 });
+
 function nextTab(elem) {
     $(elem).next().find('a[data-toggle="tab"]').click();
 }
@@ -99,28 +118,53 @@ function validateTab(tab) {
         var foodbox = $("input[name=foodboxtype]:checked").val();
         var boxamount = $("#boxamount").val();
         if (foodbox == undefined) {
-            alert("กรุณาเลือกชนิดกล่องก่อนไปขั้นตอนถัดไป");
+            $("#errorStep1").html(' <div class="alert alert-danger" role="alert">' +
+                    '<p style="color: red"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
+                    '&nbsp;กรุณาเลือกชนิดกล่องก่อนไปขั้นตอนถัดไป</p></div>');
             return false;
         }
         if (boxamount.length == 0) {
-            alert("กรุณากรอกจำนวนกล่อง");
+            $("#errorStep1").html(' <div class="alert alert-danger" role="alert">' +
+                    '<p style="color: red"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
+                    '&nbsp;กรุณากรอกจำนวนกล่อง</p></div>');
+
             return false;
         }
+        var minimum = $('.getBoxMinimum').val();
+        var boxamt = $('#boxamount').val();
+        if (parseInt(boxamt) < parseInt(minimum)) {
+            $("#errorStep1").html(' <div class="alert alert-danger" role="alert">' +
+                    '<p style="color: red"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
+                    '&nbsp;จำนวนชุดน้อยกว่าจำนวนขั้นต่ำที่ร้านกำหนดไว้</p></div>');
+            return false;
+        }
+        $("#errorStep1").html("");
         checkRice();
     } else if (tab == "step2") {
         var foodbox = $("input[name=foodboxtype]:checked").val();
         if (foodbox < 4) {
             var ricetype = $("input[name=ricetype]:checked").val();
             if (ricetype == undefined) {
-                alert("กรุณาเลือกชนิดข้าวก่อนไปขั้นตอนถัดไป");
+                $("#errorStep2").html(' <div class="alert alert-danger" role="alert">' +
+                        '<p style="color: red"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
+                        '&nbsp;กรุณาเลือกชนิดข้าวก่อนไปขั้นตอนถัดไป</p></div>');
+
                 return false;
             }
+            $("#errorStep2").html("");
         }
-        checkFood();  
+        $('#addNewOrder').hide();
+        checkFood();
         checkOrder();
     } else if (tab == "step3") {
-      
-       
+        if ($(".foodlist:checked").length > 0) {
+            $("#errorStep3").html(' <div class="alert alert-warning" role="alert">' +
+                    '<p ><i class="glyphicon glyphicon-exclamation-sign"></i>' +
+                    '&nbsp;คุณยังไม่ได้เพิ่มรายการอาหารที่คุณเลือกค้างไว้</p></div>');
+
+            return false;
+        }
+        $("#errorStep3").html("");
     } else if (tab == "step4") {
 
 
@@ -407,6 +451,24 @@ function initFoodBox() {
     var foodboxtype = $("input[name=foodboxtype]:checked").val();
 }
 
+function checkAmtboxMinimum() {
+    var resid = $(".getResId").val();
+
+    $.ajax({
+        url: "/order/normal/check_cart_order.php",
+        type: "POST",
+        dataType: "json",
+        data: {"resid": resid},
+        success: function (data) {
+            if (data.result == "0") {
+
+            } else {
+
+            }
+        }
+    });
+}
+
 function initRice() {
     $(".rice").hide().on("click", function (e) {
         e.stopPropagation();
@@ -445,7 +507,7 @@ function checkFood() {
         success: function (data) {
             $("#showfood").html("");
             $("#showfood").append(data);
-            
+
 
             $('.foodlist[value="' + getUrlParameter("menuId") + '"]').attr('checked', 'checked');
 
@@ -455,6 +517,7 @@ function checkFood() {
                     foodboxtype = 1;
                 }
                 if ($(".foodlist:checked").length > foodboxtype) {
+
                     alert("คุณเลือกกับข้าวเกินจำนวนรายการของกล่อง");
                     $(this).removeAttr('checked');
                     return false;
@@ -466,11 +529,11 @@ function checkFood() {
                     $(item).removeAttr("checked");
                 }
             });
-            
-            if(moretext <= 4 ){
+
+            if (moretext <= 4) {
                 $("#showMoretext").show();
-            }else{
-                 $("#showMoretext").hide();
+            } else {
+                $("#showMoretext").hide();
             }
         }
     });
@@ -484,9 +547,6 @@ function checkFood() {
 }
 
 
-
-
-
 function checkOrder() {
     var resid = $(".getResId").val();
     var cusid = $(".getCusId").val();
@@ -496,10 +556,10 @@ function checkOrder() {
         dataType: "json",
         data: {"cusid": cusid, "resid": resid},
         success: function (data) {
-            if(data.result == "0"){
-                $("#checkout").attr("disabled","disabled");
-            }else{
-                 $("#checkout").removeAttr("disabled");
+            if (data.result == "0") {
+                $("#checkout").attr("disabled", "disabled");
+            } else {
+                $("#checkout").removeAttr("disabled");
             }
         }
     });
@@ -532,8 +592,64 @@ function showOrderDatail() {
         data: {"cusid": cusid, "resid": resid},
         success: function (data) {
             $("#showOrderDetail").html(data);
+            $('[data-toggle="tooltip"]').tooltip();
+            blindDelete();
+            changeQuantity();
         }
     });
+}
+
+function blindDelete() {
+    $('#menuOrderList').on('click', '.remove_cart', function (e) {
+        var orderDetailId = $(this).attr("id");
+        var id = orderDetailId.replace("remove_cart", "");
+        $.ajax({
+            url: "/order/normal/removeOrderDetail.php",
+            type: "POST",
+            data: {"id": id},
+            dataType: "json",
+            success: function (data) {
+                if (data.result == "1") {
+                    showOrderDatail();
+                } else {
+                    alert(data.error);
+                }
+            }
+        });
+    });
+}
+
+function changeQuantity(){
+    $('#menuOrderList').on('change', '.qty', function (e) {
+        var orderDetailId = $(this).attr("id");
+        var id = orderDetailId.replace("qty", "");
+        var newqty = $(this).val();
+        var minimum = $('.getBoxMinimum').val();
+        
+        if(parseInt(newqty) < parseInt(minimum)){
+             $("#errorChangeQty").html(' <div class="alert alert-danger" role="alert">' +
+                    '<p style="color: red"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
+                    '&nbsp;จำนวนชุดน้อยกว่าจำนวนขั้นต่ำที่ร้านกำหนดไว้</p></div>');
+            return false;
+        }
+        
+        $.ajax({
+            url: "/order/normal/changeQuantity.php",
+            type: "POST",
+            data: {"id": id, "newqty": newqty},
+            dataType: "json",
+            success: function (data) {
+                if (data.result == "1") {
+                    showOrderDatail();
+                    $('#errorChangeQty').html("");
+                } else {
+                    alert(data.error);
+                }
+            }
+        });
+    });
+
+
 }
 
 function initCalendar() {
@@ -554,8 +670,8 @@ function initCalendar() {
     $(".datepick").css("width", "245px");
 }
 
-function saveOrderDetail(){
-     var data = {'food[]': []};
+function saveOrderDetail() {
+    var data = {'food[]': []};
     $(".foodlist:checked").each(function () {
         data['food[]'].push($(this).val());
     });
@@ -572,15 +688,19 @@ function saveOrderDetail(){
         dataType: "json",
         data: data,
         success: function (data) {
-            
-            if(data.result == "1"){
+
+            if (data.result == "1") {
                 showOrderDatail();
-            }else{
+                $(".foodlist:checked").removeAttr('checked');
+                $(".riceselect").removeClass("selected");
+                $(".foodboxselect").removeClass("selected");
+                $("#boxamount").val("");
+                $("#moretext").val("");
+            } else {
                 alert(data.error);
-                
+
             }
         }
     });
-    
-}
 
+}

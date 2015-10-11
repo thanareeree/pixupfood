@@ -62,7 +62,7 @@ if (isset($_SESSION["islogin"])) {
     } else {
         echo json_encode(array(
             "result" => 2,
-            "error" => $con->error . $menustr
+            "error" => $con->error 
         ));
     }
 }
