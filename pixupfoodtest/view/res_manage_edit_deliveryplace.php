@@ -101,10 +101,10 @@ include '../dbconn.php';
                                 <li >
                                     <a href="/view/res_manage_edit_order.php" > เกี่ยวกับรายการสั่งซื้อ</a>
                                 </li>
-                                <li class="active">
+                                <li >
                                     <a href="/view/res_manage_edit_payment.php" >วิธีการชำระเงิน</a>
                                 </li>
-                                 <li>
+                                <li class="active">
                                     <a href="/view/res_manage_edit_deliveryplace.php" >พื้นที่จัดส่งสินค้า</a>
                                 </li>
                                 <li>
@@ -115,106 +115,45 @@ include '../dbconn.php';
                             <div class="tab-content">
                                 <div class="tab-pane active" id="tab_default_3"><!--การชำระเงิน-->
                                     <div class="page-header"style="margin-top: 20px;">
-                                        <span style="font-size: 40px">เกี่ยวกับวิธีการชำระเงิน</span>
+                                        <span style="font-size: 40px">เกี่ยวกับพื้นที่จัดส่งสินค้า</span>
                                     </div>
                                     <div class="card">
                                         <div class="card-content">
                                             <span style="font-size: 35px;">ตั้งค่าทั่วไป</span>
                                             <div class="row">
                                                 <div class="col-md-6">
-
-                                                    <?php
-                                                    $resPaymentRes = $con->query("select payment_type.id, payment_type.description "
-                                                            . "FROM mapping_payment_type "
-                                                            . "LEFT JOIN payment_type ON mapping_payment_type.payment_type_id = payment_type.id "
-                                                            . "where mapping_payment_type.restaurant_id = '$resid' ");
-
-
-                                                    if ($resPaymentRes->num_rows == null) {
-                                                        ?>
-                                                        <div class="card card-content" >
-                                                            <div class="page-header" style="font-size: 25px; margin-top: 5px">
-                                                                รูปแบบการชำระเงิน
-
-                                                            </div>
-                                                            <form id="dataform_edit_payment" action="/restaurant/add-payment-type.php?resId=<?= $resid ?>" method="post">
-                                                                <?php
-                                                                $paymentRes = $con->query("SELECT payment_type.id, payment_type.description FROM payment_type ");
-                                                                while ($paymentData = $paymentRes->fetch_assoc()) {
-                                                                    ?>
-                                                                    <div class="input-group col-md-6" style="margin: 10px 120px;"  >
-                                                                        <input type="checkbox" name="paymentData[]" value="<?= $paymentData["id"] ?>"><?= $paymentData["description"] ?>
-                                                                    </div>
-                                                                <?php } ?>
-                                                                <span class="input-group" style="margin-left: 250px;">
-                                                                    <button class="btn btn-success" id="savebtn" type="submit">บันทึก</button>
-                                                                </span><hr>
-                                                                *ค่ามัดจำ 20% ต่อรายยการสั่งซื้อนั้น จำเป็นต้องมีเพื่อรักษาผลประโยชน์ของท่านเอง
-                                                            </form>
-                                                        </div>
-
-
-                                                    <?php } else { ?>
-                                                        <div class="card card-content">
-                                                            <div class="page-header" style="font-size: 25px; margin-top: 5px">
-                                                                รูปแบบการชำระเงิน
-                                                                <div class="pull-right">
-
-                                                                </div>
-                                                            </div>
-                                                            <div id="dataform_foodbox">
-                                                                <?php
-                                                                while ($resPaymentData = $resPaymentRes->fetch_assoc()) {
-                                                                    ?>
-                                                                    <div class="input-group col-md-6" style="margin: 10px 120px;" id="foodboxtypeShow" >
-                                                                        <ul>
-                                                                            <li style="font-size: 18px"> <?= $resPaymentData["description"] ?></li>
-                                                                        </ul>
-                                                                    </div>
-                                                                <?php } ?>
-
-                                                            </div>
-                                                            <hr>
-                                                            *ค่ามัดจำ 20% ต่อรายยการสั่งซื้อนั้น จำเป็นต้องมีเพื่อรักษาผลประโยชน์ของท่านเอง
-                                                        </div>
-                                                    <?php } ?>
-
-
                                                     <div class="card card-content" id="showdat_bankaccount" >
                                                         <div class="page-header" style="font-size: 25px; margin-top: 5px">
-                                                            เพิ่มข้อมูลบัญชีธนาคาร
+                                                            เพิ่มข้อมูลพื้นที่จัดส่งสินค้า
                                                             <div class="pull-right">
                                                             </div>
                                                         </div>
-                                                        <form id="dataform_add_bankaccount" method="post" >
+                                                        <form id="deliveryplace" method="post" >
                                                             <input type="hidden" id="resIdvalue" name="resIdvalue" value="<?= $resid ?>">
 
                                                             <div class="form-group" style="margin-bottom: 15px;">
-                                                                <label class="col-sm-2 control-label" for="textinput">ชื่อบัญชี</label>
+                                                                <label class="col-sm-2 control-label" for="textinput">จังหวัด</label>
                                                                 <div class="col-sm-10" style="margin-bottom: 15px;">
-                                                                    <input type="text" placeholder="ชื่อบัญชี" class="form-control" id="accountname" name="accountname" required="">
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group" >
-                                                                <label class="col-sm-2 control-label" for="textinput">เลขที่บัญชี</label>
-                                                                <div class="col-sm-10" style="margin-bottom: 15px;">
-                                                                    <input type="text" placeholder="เลขที่บัญชี xxx-xxxxxx-x" class="form-control" id="accountid" name="accountid" maxlength="10" required="">
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group" style="margin-bottom: 15px;">
-                                                                <label class="col-sm-2 control-label" for="textinput">ธนาคาร</label>
-                                                                <div class="col-sm-10" style="margin-bottom: 15px;">
-                                                                    <select class="form-control"id="bankname" name="bankname" required="">
-                                                                        <option value="ธนาคารไทยพาณิชย์">ธนาคารไทยพาณิชย์</option>
-                                                                        <option value="ธนาคารกสิกรไทย">ธนาคารกสิกรไทย</option>
-                                                                        <option value="ธนาคารกรุงไทย">ธนาคารกรุงไทย</option>
-                                                                        <option value="ธนาคารกรุงเทพ">ธนาคารกรุงเทพ</option>
-                                                                        <option value="ธนาคารกรุงศรีอยุธยา">ธนาคารกรุงศรีอยุธยา</option>
-                                                                        <option value="ธนาคารธนชาต">ธนาคารธนชาต</option>
-                                                                        <option value="ธนาคารทหารไทย">ธนาคารทหารไทย </option>
+                                                                    <select class="form-control"id="provincelist" name="provincelist" required="">
+                                                                         <option value="0">-- เลือกจังหวัด --</option>
+                                                                        <?php
+                                                                        $res = $con->query("SELECT PROVINCE_ID, PROVINCE_NAME FROM `data_province` ");
+                                                                        while ($data = $res->fetch_assoc()) {
+                                                                            ?>
+                                                                            <option value="<?= $data['PROVINCE_ID'] ?>"> <?= $data['PROVINCE_NAME'] ?> </option>
+                                                                        <?php } ?>
+
 
                                                                     </select>
 
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group" style="margin-bottom: 15px;">
+                                                                <label class="col-sm-2 control-label" for="textinput">เขต/อำเภอ</label>
+                                                                <div class="col-sm-10" style="margin-bottom: 15px;">
+                                                                    <select class="form-control"id="districtlist" name="districtlist" required="">
+                                                                         <option value="0">-- เลือกเขต/อำเภอ --</option>
+                                                                    </select>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group" >
@@ -231,18 +170,12 @@ include '../dbconn.php';
                                                             </div>
                                                         </form>
                                                     </div>
-
-
-
                                                 </div>
-
-
-
 
                                                 <div class="col-md-6">
                                                     <div class="card card-content" id="showdat_bankaccount">
                                                         <div class="page-header" style="font-size: 25px; margin-top: 5px">
-                                                            ข้อมูลบัญชีธนาคาร
+                                                            ข้อมูลพื้นที่จัดส่งสินค้า
                                                             <div class="pull-right">
                                                                 <p class="text-center">
                                                                     <a  href="#" id="editbtn">
@@ -254,28 +187,24 @@ include '../dbconn.php';
                                                         </div>
                                                         <form id="showdata">
                                                             <?php
-                                                            $bankRes = $con->query("select * from bank_account where restaurant_id = '$resid'");
-                                                            if ($bankRes->num_rows == 0) {
+                                                            $placeRes = $con->query("SELECT data_district.district_name "
+                                                                    . "FROM data_district "
+                                                                    . "RIGHT JOIN delivery_place ON delivery_place.district_id = data_district.district_id "
+                                                                    . "WHERE delivery_place.restaurant_id = '$resid'");
+                                                            if ($placeRes->num_rows == 0) {
                                                                 ?>
                                                                 <h4 style="    text-align: center;" id="nodata">ยังไม่ได้บัญทึกข้อมูล</h4>
                                                                 <?php
                                                             } else {
-                                                                while ($bankData = $bankRes->fetch_assoc()) {
+                                                                while ($placeData = $placeRes->fetch_assoc()) {
                                                                     ?>
-                                                                    &nbsp;   <span style="font-size: 20px">ชื่อบัญชี: </span>
-                                                                    <span style="font-size: 20px; color: orange;"> <?= $bankData["accname"] ?></span><br>
-                                                                    &nbsp;   <span style="font-size: 20px">เลขที่บัญชี:</span>
-                                                                    <span style="font-size: 20px; color: orange;"><?= $bankData["accNo"] ?> </span><br>
-                                                                    &nbsp;   <span style="font-size: 20px">ธนาคาร: </span>
-                                                                    <span style="font-size: 20px; color: orange;"><?= $bankData["bank"] ?></span><br>
-                                                                    <hr>
+                                                                <p style="font-size: 16px;font-weight: normal; color: orange;"><?= $placeData["district_name"]?></p>
+                                                                
                                                                     <?php
                                                                 }
                                                             }
                                                             ?>
                                                         </form>
-                                                        
-                                                        <span id="showinfo">*เพื่อเป็นประโยชน์สำหรับการชำระค่าสินค้า</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -290,7 +219,6 @@ include '../dbconn.php';
         </div>
     </section>
 
-
     <!-- start footer -->
     <?php include '../template/footer.php'; ?>
 
@@ -302,42 +230,43 @@ include '../dbconn.php';
                 $(".tab").addClass("active"); // instead of this do the below 
                 $(this).removeClass("btn-default").addClass("btn-warning");
             });
-
-            $('#imagerest').on('change', function (e) {
-                var filename = $('#imagerest').val();
-                var fname = filename.substring(12);
-                var name = "File: " + fname;
-                $("#uploadtext").html(name);
-                $("#chooseimgbtn").hide();
-                $("#uploadimgbtn").show();
+            
+            $("#provincelist").change(function () {
+                 $.ajax({
+                    url: "/restaurant-setting/districtList.php",
+                    type: "POST",
+                    data: {"province_id": $("#provincelist").val()},
+                    dataType: "html",
+                    success: function (data) {
+                        $("#districtlist").html(data);
+                    }
+                });
             });
 
-            $("#dataform_add_bankaccount").on('submit', function (e) {
-                $.ajax({
-                    url: "/restaurant/add-bankaccount.php",
+
+             $("#savebtn").on("click", function (e){
+                 $.ajax({
+                    url: "/restaurant-setting/add-delivery-place.php",
                     type: "POST",
-                    data: $("#dataform_add_bankaccount").serializeArray(),
+                    data: {"province_id": $("#provincelist").val(), "district_id": $("#districtlist").val()},
                     dataType: "json",
                     success: function (data) {
                         if (data.result == 1) {
-                            $("#dataform_add_bankaccount").trigger("reset");
+                            $("#deliveryplace").trigger("reset");
+                            $("#districtlist").html('<option value="0">-- เลือกเขต/อำเภอ --</option>');
                             $("#nodata").hide();
-                            $("#showdata").append('&nbsp;   <span style="font-size: 20px">ชื่อบัญชี: </span>' +
-                                    '<span style="font-size: 20px; color: orange;"> ' + data.accname + '</span><br>' +
-                                    ' &nbsp;   <span style="font-size: 20px">เลขที่บัญชี:</span> ' +
-                                    '<span style="font-size: 20px; color: orange;">' + data.accid + ' </span><br>' +
-                                    '&nbsp;   <span style="font-size: 20px">ธนาคาร: </span>' +
-                                    ' <span style="font-size: 20px; color: orange;">' + data.bankname + '</span><br><hr>');
+                            $("#showdata").append(' <p style="font-size: 16px;font-weight: normal; color: orange;"">'+data.name+'</p>');
                         } else {
-                            $("#showerror").html(data.error);
+                           alert(data.error)
                         }
                     }
                 });
-                e.preventDefault();
+                  e.preventDefault();
                 return false;
-            });
+             });
         });
     </script>
+
 
 </body>
 </html>

@@ -104,6 +104,9 @@ include '../dbconn.php';
                                 <li>
                                     <a href="/view/res_manage_edit_payment.php" >วิธีการชำระเงิน</a>
                                 </li>
+                                 <li>
+                                    <a href="/view/res_manage_edit_deliveryplace.php" >พื้นที่จัดส่งสินค้า</a>
+                                </li>
                                 <li>
                                     <a href="/view/res_manage_edit_messenger.php" > พนักงานจัดส่ง</a>
                                 </li>
