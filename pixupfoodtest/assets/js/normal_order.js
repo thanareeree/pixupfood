@@ -1,5 +1,8 @@
 var currentTab = 1;
-
+var map, geocoder, marker;
+var address = new Array();
+var defaultlatlng = {lat: 13.6524931, lng: 100.4938914};
+var nearbymarker = [];
 $(document).ready(function (e) {
     initMap();
     initFoodBox();
@@ -135,7 +138,7 @@ function validateTab(tab) {
         if (parseInt(boxamt) < parseInt(minimum)) {
             $("#errorStep1").html(' <div class="alert alert-danger" role="alert">' +
                     '<p style="color: red"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
-                    '&nbsp;จำนวนชุดน้อยกว่าจำนวนขั้นต่ำที่ร้านกำหนดไว้</p></div>');
+                    '&nbsp;จำนวนชุดน้อยกว่าจำนวนขั้นต่ำ '+minimum+' ชุดตามที่ร้านกำหนดไว้</p></div>');
             return false;
         }
         $("#errorStep1").html("");
@@ -165,6 +168,14 @@ function validateTab(tab) {
             return false;
         }
         $("#errorStep3").html("");
+          var center = map.getCenter();
+            google.maps.event.trigger(map, 'resize');
+            map.panTo(center)
+            var zoom = map.getZoom();
+            map.setZoom(20);
+            setTimeout(function () {
+                map.setZoom(zoom);
+            }, 100);
     } else if (tab == "step4") {
 
 
@@ -188,12 +199,6 @@ function validateTab(tab) {
     return true;
 }
 
-
-
-var map, geocoder, marker;
-var address = new Array();
-var defaultlatlng = {lat: 13.6524931, lng: 100.4938914};
-var nearbymarker = [];
 
 function initMap() {
     geocoder = new google.maps.Geocoder();
