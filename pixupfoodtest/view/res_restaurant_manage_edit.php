@@ -14,7 +14,21 @@ include '../dbconn.php';
         <!-- custom css -->
         <link rel="stylesheet" href="/assets/css/res_restaurant_manage.css">
         <link rel="stylesheet" href="/assets/css/Maps.css">
+        <style>
 
+            .address{
+                background: #ff8100;
+                color:white;
+                font-weight: 400;
+                padding:10px;
+                border-radius: 5px;
+                margin-top:10px;
+                margin-bottom: 30px;
+                font-size:16px;
+                line-height: 40px;
+                height:57px;
+            }
+        </style>
 
 
 
@@ -359,7 +373,7 @@ include '../dbconn.php';
                                                                             </div>
                                                                         </div> 
                                                                     </div>
-                                                                    
+
                                                                     <label class="control-label">Select File</label>
                                                                     <div class="file-input file-input-new">
                                                                         <div class="file-preview ">
@@ -489,8 +503,13 @@ include '../dbconn.php';
                                                     <div class="card card-content">
                                                         <span style="font-size: 18px;">*จำเป็นต้องอยู่ในบริเวณที่ตั้งร้านของท่าน เพื่อเป็นประโยชน์ในการค้นหาของลูกค้า</span>
                                                         <div class="card-action">
+                                                            <div class="address">
+                                                                <div id="showaddress" class='col-sm-6'>
+                                                                   ไม่สามารถหาที่อยู่ได้
+                                                                </div>
+                                                            </div>
                                                             <p class="text-center">
-                                                                <button type="button" class="btn-default">
+                                                                <button type="button" class="btn-default btn" id="savenewaddressbtn">
                                                                     <span class="glyphicon glyphicon-refresh"style="font-size: 20px; color: orange"></span> 
                                                                     <span style="font-size: 20px; color: orange">อัพเดท</span>
                                                                 </button>
@@ -632,127 +651,7 @@ include '../dbconn.php';
     <script src="/assets/bootstrap-fileinput-master/js/plugins/canvas-to-blob.js"></script>
     <script src="/assets/bootstrap-fileinput-master/js/plugins/canvas-to-blob.min.js"></script>-->
 
-    <script>
-        $(document).ready(function () {
-            $(".btn-pref .btn").click(function () {
-                $(".btn-pref .btn").removeClass("btn-warning").addClass("btn-default");
-                $(".tab").addClass("active"); // instead of this do the below 
-                $(this).removeClass("btn-default").addClass("btn-warning");
-            });
+    <script src="/assets/js/restaurant-setting.js"></script>
 
-            $('#imagerest').on('change', function (e) {
-                var filename = $('#imagerest').val();
-                var fname = filename.substring(12);
-                var name = "File: " + fname;
-                $("#uploadtext").html(name);
-                $("#chooseimgbtn").hide();
-                $("#uploadimgbtn").show();
-            });
-
-            $("#switchClose").click(function (e) {
-                if ($('#switchClose').is(":checked")) {
-                    var isClose = 0;
-                } else {
-                    isClose = 1;
-                }
-                $.ajax({
-                    type: "POST",
-                    url: "/restaurant/edit-close-restaurant.php",
-                    data: {"resId": $("#resIdvalue").val(),
-                        "close": isClose},
-                    dataType: "json",
-                    success: function (data) {
-                        // $("#switchClose").removeAttr("checked");
-                        if (data.result == "1") {
-                            $("#switchClose").attr('checked', true);
-                            //document.location.reload();
-                        } else if (data.result == "0") {
-                            $("#switchClose").removeAttr("checked");
-                            $("#switchClose").html()
-                        } else {
-                            alert("ไม่สามารถบันทึกข้อมูลได้\nError : " + data.error);
-                        }
-                    }
-                });
-            });
-        });
-    </script>
-
-    <!--maps--> 
-    <script>
-        // Primary function for the Geo location app
-        function success(position) {
-            // create a simple variable for the ID
-            var s = document.querySelector('#geostatus');
-
-            if (s.className == 'success') {
-                return;
-            }
-
-            // Replaces text with new message
-            s.innerHTML = "พบตำแหน่งของคุณแล้ว!";
-            // Adds new class to the ID status block
-            s.className = 'success';
-
-            // creates map wrapper for responsiveness
-            var mapwrapper = document.createElement('div');
-            mapwrapper.className = 'mapwrapper';
-
-            // creates the block element at sets the width and height
-            var mapcanvas = document.createElement('div');
-            // Adds ID to the new div
-            mapcanvas.id = 'mapcanvas';
-
-            // Adds the new block element as the last thing within the article block
-            document.querySelector('.map').appendChild(mapwrapper);
-
-            // Adds the new block element as the last thing within the mapwrapper block
-            document.querySelector('.mapwrapper').appendChild(mapcanvas);
-
-
-            // creates a new variable 'latlng' off of the google maps object
-            var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
-            // create new variable that contains options in key:value pairs
-            var myOptions = {
-                zoom: 15,
-                center: latlng,
-                // ROADMAP is set by default, other options are HYBRID, SATELLITE and TERRAIN
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-            };
-
-            // creates the new 'map' variable using the google object
-            // then using the 'mapcanvas' ID appending the options
-            var map = new google.maps.Map(document.getElementById("mapcanvas"), myOptions);
-
-            // creates new 'marker' variable
-            var marker = new google.maps.Marker({
-                position: latlng,
-                map: map,
-                title: "You are here! (at least within a " + position.coords.accuracy + " meter radius)"
-            });
-        }
-
-        // Function that displays the error message
-        function error(msg) {
-
-            // sets simple variable to the status ID
-            var s = document.querySelector('#geostatus');
-            // designates typ eof message and passes in value                         s.innerHTML = typeof msg == 'string' ? msg : "ไม่สามารถค้นหาตำแหน่งได้";
-            s.className = 'fail';
-        }
-
-
-        // statement that tests for device functionality
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(success, error);
-        } else {
-            error('not supported');
-        }
-
-        var mapwrapper = document.createElement('div');
-        mapwrapper.className = 'mapwrapper';
-
-    </script>
 </body>
 </html>

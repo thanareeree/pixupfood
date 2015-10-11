@@ -205,7 +205,7 @@ function initMap() {
     geocoder = new google.maps.Geocoder();
 
     map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 13,
+        zoom: 15,
         center: defaultlatlng
     });
 
