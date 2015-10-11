@@ -3,6 +3,7 @@ var map, geocoder, marker;
 var address = new Array();
 var defaultlatlng = {lat: 13.6524931, lng: 100.4938914};
 var nearbymarker = [];
+
 $(document).ready(function (e) {
     initMap();
     initFoodBox();
@@ -227,7 +228,7 @@ function initMap() {
     });
 
     function processLocation(position) {
-        $("#showaddress").html('<img src="/assets/images/loader.gif" style="height:30px;">&nbsp;&nbsp;กำลังระบุที่อยู่...');
+        $("#showaddress").html('<img src="/assets/images/loader.gif" style="width: 20px;height:20px;">&nbsp;&nbsp;กำลังระบุที่อยู่...');
         marker.setPosition(position);
         map.panTo(position);
 
