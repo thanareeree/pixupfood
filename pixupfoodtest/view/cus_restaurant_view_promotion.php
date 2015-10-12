@@ -93,16 +93,6 @@ include '../api/islogin.php';
                                                     </article>
                                                 </section>
                                             </div>
-                                            <!--<div class="col-md-3">
-                                                <div class="thumbnail">
-                                                    <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                                    <div class="caption">
-                                                        <h3>Thumbnail label</h3>
-                                                        <p>...</p>
-                                                        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                                    </div>
-                                                </div>
-                                            </div>     -->                    
                                         </div>
                                     </section>
                                 </div>

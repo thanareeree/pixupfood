@@ -3,7 +3,7 @@ include '../dbconn.php';
 $resid = @$_POST["resid"];
 
 $fastOrderRes = $con->query("SELECT * FROM `normal_order` where restaurant_id = '$resid'");
-
+$i = 1;
 if ($fastOrderRes->num_rows == 0) {
     ?>
     <tr><td colspan="10" class="warning" style="text-align: center;"><h4>ยังไม่มีรายการใหม่</h4></td></tr>
@@ -44,12 +44,12 @@ if ($fastOrderRes->num_rows == 0) {
 
           } */
         ?>
-        <tr>
-            <td style="text-align: center">$i++;</td>
+        <tr >
+            <td style="text-align: center"><?=$i++;?></td>
             <td><?= $fastOrderData["id"] ?></td>                         
-            <td><?= $$fastOrderData["cusname"] ?></td>
-            <td><?= $fastOrderData["foodsetname"] ?></td>
-            <td style="text-align: center"><?= $fastOrderData["amountbox"] ?></td>
+            <td><?= $fastOrderData["id"] ?></td>
+            <td><?= $fastOrderData["id"] ?></td>
+            <td style="text-align: center"><?= $fastOrderData["id"] ?></td>
             <td><?= $fastOrderData["delivery_date"] ?>&nbsp;<?= $fastOrderData["delivery_time"] ?> </td>
             <td style="text-align: center">----- </td>
             <td class="text-center">

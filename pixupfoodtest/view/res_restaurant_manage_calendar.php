@@ -133,7 +133,7 @@ include '../dbconn.php';
     include '../template/footer.php';
     ?>
 
-
+ 
     <script>
         $(document).ready(function () {
             $(".btn-pref .btn").click(function () {
@@ -142,9 +142,22 @@ include '../dbconn.php';
                 $(this).removeClass("btn-default").addClass("btn-warning");
             });
             $('#calendar').fullCalendar({
-               
-                editable: true,
-                eventLimit: true // allow "more" link when too many events
+                header: {
+                left: 'prev',
+                center: 'title',
+                right: 'next today'
+            },
+             events: {
+              url: '/api/showcalendar.php',
+              type: 'POST',
+              data: {
+                resid: $("#residValue").val()
+              },error: function () {
+            alert('there was an error while fetching events!');
+            }
+           },
+             eventColor: 'orange'
+        });
 
             });
         });

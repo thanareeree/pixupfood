@@ -8,7 +8,7 @@ $detailRes = $con->query("SELECT order_detail.id, order_detail.quantity, "
         . " restaurant.name as resname "
         . "FROM `order_detail` "
         . "left join restaurant on restaurant.id = order_detail.restaurant_id"
-        . " WHERE customer_id = '$cusid'"
+        . " WHERE customer_id = '$cusid' and status = '0'"
         . "order by restaurant.name");
 if ($detailRes->num_rows == 0) {
     ?>

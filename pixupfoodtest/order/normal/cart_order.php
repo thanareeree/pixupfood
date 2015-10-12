@@ -6,7 +6,7 @@ $orderDetailRes = $con->query("SELECT `id`, `quantity`, `price`, `set_type`, "
         . "`menu_id`, `created_time`, `status`,  `customer_id`,"
         . " `restaurant_id`"
         . " FROM `order_detail` "
-        . "WHERE customer_id = '$cusid' and restaurant_id ='$resid' ");
+        . "WHERE customer_id = '$cusid' and restaurant_id ='$resid' and status = '0' ");
 $resNameRes = $con->query("select  deliveryfee"
         . " from restaurant "
         . "join mapping_delivery_type on mapping_delivery_type.restaurant_id = restaurant.id  "

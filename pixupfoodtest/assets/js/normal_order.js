@@ -26,25 +26,7 @@ $(document).ready(function (e) {
         eventColor: 'orange'
     });
 
-    $("#addressform").on("submit", function (e) {
-        $.ajax({
-            url: "/customer/ajax-address-shipping.php",
-            type: "POST",
-            data: $("#addressform").serializeArray(),
-            dataType: "json",
-            success: function (data) {
-                if (data.result == 1) {
-                    $("#add_address").modal('hide');
-                    $("#showdata").append('<td colspan="3">' + data.address + '</td>' +
-                            '<td><input type="radio"  name="shipAddress" value="' + data.address + '"> </td>');
-                } else {
-                    $("#showerror").html(data.error);
-                }
-            }
-        });
-        e.preventDefault();
-        return false;
-    });
+
 
     $("#nextstep5").on('click', function (e) {
         $('#showcalendar').hide();
@@ -95,33 +77,6 @@ $(document).ready(function (e) {
     $("#addNewOrder").click(function (e) {
         document.location.reload();
     });
-
-    $("#nextstep4").click(function (e) {
-        var resid = $(".getResId").val();
-        var cusid = $(".getCusId").val();
-        var shippingid = $("#oldaddress").val();
-        $.ajax({
-            url: "/order/normal/check_delivery_place.php",
-            type: "POST",
-            dataType: "json",
-            data: {"cusid": cusid, "resid": resid, "shippingid": shippingid},
-            success: function (data) {
-                if (data.result == "0") {
-                  /*  $("#errorStep4").html(' <div class="alert alert-danger" role="alert" style="margin-top: 30px;">' +
-                            '<p style="color: red;"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
-                            '&nbsp;' + data.name + '&nbsp;อยู่นอกเขตพื้นที่จัดส่งของร้าน</p></div>');
-
-                    return false;*/
-                     alert(data.error);
-                    
-                } else {
-                    alert(data.error);
-                   // $("#errorStep4").html("");
-                }
-            }
-        });
-    });
-
     $("#confirm_orderbtn").on("click", function (e) {
         if ($("input[name=paymentData]:checked").length == 0) {
             $("#errorStep6").html(' <div class="alert alert-danger" role="alert">' +
@@ -131,6 +86,7 @@ $(document).ready(function (e) {
             return false;
         }
         $("#errorStep6").html("");
+        saveOrder();
     });
 
 
@@ -163,6 +119,9 @@ $(document).ready(function (e) {
         prevTab($active);
     });
 
+    $('#calendar').click(function (e) {
+        checkCalendarOrder();
+    });
 
 
 });
@@ -244,7 +203,7 @@ function validateTab(tab) {
             return false;
         }
         $("#errorStep4").html("");
-        checkDeliveryPlace();
+        $("#nextstep4").removeAttr("disabled");
     } else if (tab == "step5") {
         var date = $('#calendar').datepick('getDate');
         var time = $("#delivery_time").val();
@@ -467,13 +426,13 @@ function initMap() {
             nearbymarker[i].setMap(null);
         }
         nearbymarker.length = 0;
-
+        var resid = $(".getResId").val();
         var id = $(this).val();
         $.ajax({
-            url: "/order/api/address.php",
+            url: "/order/api/addressNormalOrder.php",
             type: "POST",
             dataType: "json",
-            data: {"cmd": "getDetail", "id": id},
+            data: {"cmd": "getDetail", "id": id, "resid": resid},
             success: function (data) {
                 if (data.result == "1") {
                     var loc = {lat: parseFloat(data.data.latitude), lng: parseFloat(data.data.longitude)};
@@ -497,6 +456,38 @@ function initMap() {
                         bindInfoWindow(marker, map, infowindow, '<b>' + data.name + "</b><br>" + data.detail);
                         nearbymarker.push(marker);
                     });
+                    $("#errorStep4").html("");
+                    $("#errorStep4").html(' <div class="alert alert-danger" role="alert" style="margin-top: 30px;">' +
+                            '<p style="color: red;"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
+                            '&nbsp;' + data.districtName + '&nbsp;อยู่นอกเขตพื้นที่จัดส่งของร้าน</p></div>');
+
+                    $("#nextstep4").attr("disabled", "disabled");
+
+
+                } else if (data.result == "2") {
+                    var loc = {lat: parseFloat(data.data.latitude), lng: parseFloat(data.data.longitude)};
+                    $("#addresstype").val(data.data.type);
+                    $("#addresstxt").val(data.data.address_naming);
+                    $("#showaddress").html(data.data.full_address);
+                    marker.setPosition(loc);
+                    map.setCenter(loc);
+                    map.setZoom(16);
+                    $.each(data.nearby, function (i, item) {
+                        var loca = {lat: parseFloat(item.x), lng: parseFloat(item.y)};
+                        var marker = new google.maps.Marker({
+                            map: map,
+                            position: loca,
+                            title: item.name,
+                            icon: "/assets/images/pin_res.png"
+                        });
+                        var infowindow = new google.maps.InfoWindow({
+                            content: ''
+                        });
+                        bindInfoWindow(marker, map, infowindow, '<b>' + data.name + "</b><br>" + data.detail);
+                        nearbymarker.push(marker);
+                    });
+                    $("#errorStep4").html("");
+                    $("#nextstep4").removeAttr("disabled");
                 } else {
                     alert("Error at get Detail");
                 }
@@ -741,9 +732,12 @@ function initCalendar() {
         }
     });
     $(".datepick").css("width", "245px");
+
+
 }
 
-function checkDeliveryPlace() {
+function checkCalendarOrder() {
+    //  var date = $('#calendar').datepick('getDate');
 
 }
 
@@ -793,10 +787,10 @@ function saveOrder() {
     $.ajax({
         url: "/order/api/saveNormalOrder.php",
         type: "POST",
-        dataType: "json",
+        dataType: "html",
         data: data,
         success: function (data) {
-            alert(data.reason);
+            alert(data);
             // document.location = "/";
         }
     });

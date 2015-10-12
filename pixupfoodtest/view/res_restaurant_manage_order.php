@@ -144,9 +144,9 @@ include '../dbconn.php';
                                                             </form>
                                                         </div>
                                                         <div class="col-md-12">
-                                                            <table class="table table-list-search">
+                                                            <table class="table table-list-search table-hover">
                                                                 <thead>
-                                                                    <tr>
+                                                                    <tr >
                                                                         <th>ลำดับ</th>
                                                                         <th>เลขที่รายการ</th>
                                                                         <th>ชื่อลูกค้า</th>
@@ -195,8 +195,8 @@ include '../dbconn.php';
                                                                 </form>
                                                             </div>
                                                             <div class="col-md-12">
-                                                                <table class="table table-list-search2">
-                                                                    <thead>
+                                                                <table class="table table-list-search2 table-hover">
+                                                                    <thead >
                                                                         <tr>
                                                                             <th>ลำดับ</th>
                                                                             <th>เลขที่รายการ</th>

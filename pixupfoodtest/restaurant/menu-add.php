@@ -22,7 +22,7 @@ $count = 0;
 
 if ($menuid != "0") {
     while ($data = $res->fetch_assoc()) {
-        if ($data["main_menu_id"] != $menuid) {
+        if ($data["main_menu_id"] == $menuid) {
             $response = array(
                 "result" => 2
             );
