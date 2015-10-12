@@ -340,7 +340,7 @@ include '../api/islogin.php';
                                             </div>
                                             <ul class="list-inline pull-right"  style="margin-top: 20px">
                                                 <li><button type="button" class="btn btn-default prev-step"> <span class="glyphicon glyphicon glyphicon-chevron-left"></span>ย้อนกลับ</button></li>
-                                                <li><button type="button" class="btn btn-warning next-step " >ดำเนินการต่อ <span class="glyphicon glyphicon glyphicon-chevron-right"></span></button></li>
+                                                <li><button type="button" class="btn btn-warning next-step " id="nextstep4">ดำเนินการต่อ <span class="glyphicon glyphicon glyphicon-chevron-right"></span></button></li>
                                             </ul>
                                         </div>                                   
 
@@ -383,7 +383,7 @@ include '../api/islogin.php';
                                             </div>
                                             <ul class="list-inline pull-right"  style="margin-top: 20px">
                                                 <li><button type="button" class="btn btn-default prev-step"> <span class="glyphicon glyphicon glyphicon-chevron-left"></span>ย้อนกลับ</button></li>
-                                                <li><button type="button" class="btn btn-warning next-step nextStep4" id="nextstep5">ดำเนินการต่อ <span class="glyphicon glyphicon glyphicon-chevron-right"></span></button></li>
+                                                <li><button type="button" class="btn btn-warning next-step " id="nextstep5">ดำเนินการต่อ <span class="glyphicon glyphicon glyphicon-chevron-right"></span></button></li>
                                             </ul>
                                         </div>                                   
 

@@ -26,6 +26,26 @@ $(document).ready(function (e) {
         eventColor: 'orange'
     });
 
+    $("#addressform").on("submit", function (e) {
+        $.ajax({
+            url: "/customer/ajax-address-shipping.php",
+            type: "POST",
+            data: $("#addressform").serializeArray(),
+            dataType: "json",
+            success: function (data) {
+                if (data.result == 1) {
+                    $("#add_address").modal('hide');
+                    $("#showdata").append('<td colspan="3">' + data.address + '</td>' +
+                            '<td><input type="radio"  name="shipAddress" value="' + data.address + '"> </td>');
+                } else {
+                    $("#showerror").html(data.error);
+                }
+            }
+        });
+        e.preventDefault();
+        return false;
+    });
+
     $("#nextstep5").on('click', function (e) {
         $('#showcalendar').hide();
     });
@@ -72,8 +92,45 @@ $(document).ready(function (e) {
         }
     });
 
-    $("#addNewOrder").click( function (e){
+    $("#addNewOrder").click(function (e) {
         document.location.reload();
+    });
+
+    $("#nextstep4").click(function (e) {
+        var resid = $(".getResId").val();
+        var cusid = $(".getCusId").val();
+        var shippingid = $("#oldaddress").val();
+        $.ajax({
+            url: "/order/normal/check_delivery_place.php",
+            type: "POST",
+            dataType: "json",
+            data: {"cusid": cusid, "resid": resid, "shippingid": shippingid},
+            success: function (data) {
+                if (data.result == "0") {
+                  /*  $("#errorStep4").html(' <div class="alert alert-danger" role="alert" style="margin-top: 30px;">' +
+                            '<p style="color: red;"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
+                            '&nbsp;' + data.name + '&nbsp;อยู่นอกเขตพื้นที่จัดส่งของร้าน</p></div>');
+
+                    return false;*/
+                     alert(data.error);
+                    
+                } else {
+                    alert(data.error);
+                   // $("#errorStep4").html("");
+                }
+            }
+        });
+    });
+
+    $("#confirm_orderbtn").on("click", function (e) {
+        if ($("input[name=paymentData]:checked").length == 0) {
+            $("#errorStep6").html(' <div class="alert alert-danger" role="alert">' +
+                    '<p style="color: red"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
+                    '&nbsp;กรุณาเลือกวิธีชำระเงิน</p></div>');
+
+            return false;
+        }
+        $("#errorStep6").html("");
     });
 
 
@@ -139,7 +196,7 @@ function validateTab(tab) {
         if (parseInt(boxamt) < parseInt(minimum)) {
             $("#errorStep1").html(' <div class="alert alert-danger" role="alert">' +
                     '<p style="color: red"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
-                    '&nbsp;จำนวนชุดน้อยกว่าจำนวนขั้นต่ำ '+minimum+' ชุดตามที่ร้านกำหนดไว้</p></div>');
+                    '&nbsp;จำนวนชุดน้อยกว่าจำนวนขั้นต่ำ ' + minimum + ' ชุดตามที่ร้านกำหนดไว้</p></div>');
             return false;
         }
         $("#errorStep1").html("");
@@ -169,33 +226,43 @@ function validateTab(tab) {
             return false;
         }
         $("#errorStep3").html("");
-          var center = map.getCenter();
-            google.maps.event.trigger(map, 'resize');
-            map.panTo(center)
-            var zoom = map.getZoom();
-            map.setZoom(20);
-            setTimeout(function () {
-                map.setZoom(zoom);
-            }, 100);
+        var center = map.getCenter();
+        google.maps.event.trigger(map, 'resize');
+        map.panTo(center)
+        var zoom = map.getZoom();
+        map.setZoom(20);
+        setTimeout(function () {
+            map.setZoom(zoom);
+        }, 100);
     } else if (tab == "step4") {
+        var addressid = $("#oldaddress").val();
+        if (addressid == null) {
+            $("#errorStep4").html(' <div class="alert alert-danger" role="alert" style="margin-top: 30px;">' +
+                    '<p style="color: red;"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
+                    '&nbsp;กรุณาเลือกที่อยู่ก่อนไปขั้นตอนถัดไป</p></div>');
 
-
+            return false;
+        }
+        $("#errorStep4").html("");
+        checkDeliveryPlace();
     } else if (tab == "step5") {
         var date = $('#calendar').datepick('getDate');
         var time = $("#delivery_time").val();
         if (date == "") {
-            alert("กรุณาเลือกวันที่จัดส่งก่อนไปขั้นตอนถัดไป");
+            $("#errorStep5").html(' <div class="alert alert-danger" role="alert" style="margin-top: 30px;">' +
+                    '<p style="color: red;"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
+                    '&nbsp;กรุณาเลือกวันที่จัดส่งก่อนไปขั้นตอนถัดไป</p></div>');
             return false;
         }
         if (time == null) {
-            alert("กรุณาเลือกเวลาจัดส่งก่อนไปขั้นตอนถัดไป");
+            $("#errorStep5").html(' <div class="alert alert-danger" role="alert" style="margin-top: 30px;">' +
+                    '<p style="color: red;"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
+                    '&nbsp;กรุณาเลือกเวลาจัดส่งก่อนไปขั้นตอนถัดไป</p></div>');
             return false;
         }
+        $("#errorStep5").html("");
     } else if (tab == "step6") {
-        if ($("input[name=paymentData]:checked").length == 0) {
-            alert("กรุณาเลือกวิธีชำระเงิน");
-            return false;
-        }
+
     }
     return true;
 }
@@ -625,20 +692,20 @@ function blindDelete() {
     });
 }
 
-function changeQuantity(){
+function changeQuantity() {
     $('#menuOrderList').on('change', '.qty', function (e) {
         var orderDetailId = $(this).attr("id");
         var id = orderDetailId.replace("qty", "");
         var newqty = $(this).val();
         var minimum = $('.getBoxMinimum').val();
-        
-        if(parseInt(newqty) < parseInt(minimum)){
-             $("#errorChangeQty").html(' <div class="alert alert-danger" role="alert">' +
+
+        if (parseInt(newqty) < parseInt(minimum)) {
+            $("#errorChangeQty").html(' <div class="alert alert-danger" role="alert">' +
                     '<p style="color: red"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
                     '&nbsp;จำนวนชุดน้อยกว่าจำนวนขั้นต่ำที่ร้านกำหนดไว้</p></div>');
             return false;
         }
-        
+
         $.ajax({
             url: "/order/normal/changeQuantity.php",
             type: "POST",
@@ -676,6 +743,10 @@ function initCalendar() {
     $(".datepick").css("width", "245px");
 }
 
+function checkDeliveryPlace() {
+
+}
+
 function saveOrderDetail() {
     var data = {'food[]': []};
     $(".foodlist:checked").each(function () {
@@ -709,4 +780,24 @@ function saveOrderDetail() {
         }
     });
 
+}
+
+function saveOrder() {
+    var data = {'payment[]': []};
+    data['resid'] = $(".getResId").val();
+    data['address'] = $("#oldaddress").val();
+    data['date'] = $('#calendar').datepick('getDate')[0];
+    data['time'] = $("#delivery_time").val();
+    data['payment[]'] = $("input[name=paymentData]:checked").val();
+
+    $.ajax({
+        url: "/order/api/saveNormalOrder.php",
+        type: "POST",
+        dataType: "json",
+        data: data,
+        success: function (data) {
+            alert(data.reason);
+            // document.location = "/";
+        }
+    });
 }
