@@ -159,7 +159,7 @@ function validateTab(tab) {
         if (parseInt(boxamt) < parseInt(minimum)) {
             $("#errorStep1").html(' <div class="alert alert-danger" role="alert">' +
                     '<p style="color: red"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
-                    '&nbsp;จำนวนชุดน้อยกว่าจำนวนขั้นต่ำ ' + minimum + ' ชุดตามที่ร้านกำหนดไว้</p></div>');
+                    '&nbsp;ขั้นต่ำ ' + minimum + ' ชุด/รายการอาหาร</p></div>');
             return false;
         }
         $("#errorStep1").html("");

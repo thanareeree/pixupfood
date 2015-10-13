@@ -18,11 +18,12 @@ $findDistanct = $con->query("SELECT *,
                      * cos( radians(restaurant.y) - radians('$lng')) + sin(radians('$lat')) 
                      * sin( radians(restaurant.x)))) AS distance 
                   FROM restaurant 
-                  WHERE available = 1 AND close = 0 
+                  WHERE available = 1 AND close = 0 AND block = 0 and  
                   ORDER BY distance");
 while ($near = $findDistanct->fetch_assoc()) {
     $rest_id = $near["id"];
     $name = $near["name"];
+    $minimum = $near["amount_box_minimum"];
     //check if rest have selected food
     $menustr = "(";
     foreach ($foodarr as $i => $value) {
@@ -69,13 +70,17 @@ foreach ($restok as $key => $rest) {
     $sumprice = $totalfoodprice+$deliveryprice;
     ?>
     <div class="col-md-4">
-        <h1><?=$rest["name"]?>&nbsp;&nbsp;<input type="checkbox" name="rest[]" class="restselect" value="<?=$rest["id"]?>"></h1>
+        <h2><?=$rest["name"]?></h2>
         <hr class="hrs">
         <table class="table table-hover" id="task-table">
             <thead>
                 <tr>
-                    <th>Order List</th>
-                    <th></th>
+                    <th>ลำดับการส่งรีเควส</th>
+                    <th>
+                        <input type="checkbox" name="rest[]" class="restselect priority1" value="1<?=$rest["id"]?>">&nbsp;1 &nbsp;
+                        <input type="checkbox" name="rest[]" class="restselect priority2" value="2<?=$rest["id"]?>">&nbsp;2 &nbsp;
+                        <input type="checkbox" name="rest[]" class="restselect priority3" value="3<?=$rest["id"]?>">&nbsp;3
+                    </th>
                     <th></th>
                 </tr>
             </thead>

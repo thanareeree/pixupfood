@@ -10,7 +10,7 @@ $delivery_date = $_POST["date"];
 $delivery_time = $_POST["time"];
 $payid = $_POST["payment"];
 $date = date("Y-m-d", strtotime(str_replace(" GMT+0700 (SE Asia Standard Time)", "", $delivery_date)));
-$digits = 6;
+$digits = 8;
 $shippingCode = rand(pow(10, $digits - 1), pow(10, $digits) - 1);
 
 $orderDetailRes = $con->query("SELECT `id`, `quantity`, `price`, `set_type`, "

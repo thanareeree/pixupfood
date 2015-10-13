@@ -101,7 +101,7 @@ include '../api/islogin.php';
                             $place = "";
                             $i = 0;
                             while ($placeData = $placeRes->fetch_assoc()) {
-                                $place .= $placeData["district_name"];
+                                $place = $placeData["district_name"];
                                 $i++;
                                 if ($i < $placeRes->num_rows) {
                                     $place .= "," . " ";

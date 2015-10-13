@@ -146,11 +146,12 @@ include '../../dbconn.php';
                                         <div id="map"></div>
                                     </div>
                                 </div>
+                                <div id="errorStep1"></div>
                             </div>
                             <ul class="list-inline pull-right" style="margin-top: 20px;">
                                 <li>
                                     <button type="button" class="btn btn-lg btn-warning next-step">
-                                        Continue
+                                        ดำเนินการต่อ
                                         <span class="glyphicon glyphicon glyphicon-chevron-right"></span>
                                     </button>
                                 </li>
@@ -192,17 +193,18 @@ include '../../dbconn.php';
                                     </div>
                                     <br>
                                 </div>
+                                <div id="errorStep2"></div>
                             </div>
                             <ul class="list-inline pull-right" style="margin-top: 20px;">
                                 <li>
                                     <button type="button" class="btn btn-lg btn-default prev-step">
                                         <span class="glyphicon glyphicon glyphicon-chevron-left"></span>
-                                        Previous
+                                        ย้อนกลับ
                                     </button>
                                 </li>
                                 <li>
                                     <button type="button" class="btn btn-lg btn-warning next-step">
-                                        Continue
+                                        ดำเนินการต่อ
                                         <span class="glyphicon glyphicon glyphicon-chevron-right"></span>
                                     </button>
                                 </li>
@@ -235,17 +237,18 @@ include '../../dbconn.php';
                                         <br><br>
                                     </div>
                                 </div>
+                                <div id="errorStep3"></div>
                             </div>
                             <ul class="list-inline pull-right" style="margin-top: 20px;">
                                 <li>
                                     <button type="button" class="btn btn-lg btn-default prev-step">
                                         <span class="glyphicon glyphicon glyphicon-chevron-left"></span>
-                                        Previous
+                                        ย้อนกลับ
                                     </button>
                                 </li>
                                 <li>
                                     <button type="button" class="btn btn-lg btn-warning next-step">
-                                        Continue
+                                        ดำเนินการต่อ
                                         <span class="glyphicon glyphicon glyphicon-chevron-right"></span>
                                     </button>
                                 </li>
@@ -276,17 +279,18 @@ include '../../dbconn.php';
                                         <h2>คุณได้เลือกอาหารจานเดี่ยว กรุณาไปขั้นตอนถัดไป</h2>
                                     </div>
                                 </div>
+                                <div id="errorStep4"></div>
                             </div>
                             <ul class="list-inline pull-right" style="margin-top: 20px;">
                                 <li>
                                     <button type="button" class="btn btn-lg btn-default prev-step">
                                         <span class="glyphicon glyphicon glyphicon-chevron-left"></span>
-                                        Previous
+                                        ย้อนกลับ
                                     </button>
                                 </li>
                                 <li>
                                     <button type="button" class="btn btn-lg btn-warning next-step">
-                                        Continue
+                                        ดำเนินการต่อ
                                         <span class="glyphicon glyphicon glyphicon-chevron-right"></span>
                                     </button>
                                 </li>
@@ -313,17 +317,18 @@ include '../../dbconn.php';
                                         </div>
                                     </div>
                                 </div>
+                                <div id="errorStep5"></div>
                             </div>
                             <ul class="list-inline pull-right" style="margin-top: 20px;">
                                 <li>
                                     <button type="button" class="btn btn-lg btn-default prev-step">
                                         <span class="glyphicon glyphicon glyphicon-chevron-left"></span>
-                                        Previous
+                                        ย้อนกลับ
                                     </button>
                                 </li>
                                 <li>
                                     <button type="button" class="btn btn-lg btn-warning next-step">
-                                        Continue
+                                        ดำเนินการต่อ
                                         <span class="glyphicon glyphicon glyphicon-chevron-right"></span>
                                     </button>
                                 </li>
@@ -341,12 +346,13 @@ include '../../dbconn.php';
                                     <div class="row" id="showrest">
                                     </div>   
                                 </div>
+                                <div id="errorStep6"></div>
                             </div>
                             <ul class="list-inline pull-right" style="margin-top: 20px;">
                                 <li>
                                     <button type="button" class="btn btn-lg btn-default prev-step">
                                         <span class="glyphicon glyphicon glyphicon-chevron-left"></span>
-                                        Previous
+                                        ย้อนกลับ
                                     </button>
                                 </li>
                                 <li>
@@ -389,6 +395,28 @@ include '../../dbconn.php';
             </div>
         </div>
 
+        <div id="saveOrderSuccessModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">สั่งสำเร็จแล้ว T^T</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-success" role="alert">
+                            <p> 
+                                SMS ตอบรับรายการสั่งซื้อจะส่งกลับมาภายในเวลา....สามารถ &nbsp; <a href="/view/cus_customer_profile.php" class="alert-link">ตรวจสอบสถานะสินค้า</a>&nbsp;ได้ทีลิ้งนี้ <br>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                        <a href="/view/cus_customer_profile.php" ><button type="button" class="btn btn-success" >ตกลง</button></a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
 
 
         <?php include '../../template/footer.php'; ?>
