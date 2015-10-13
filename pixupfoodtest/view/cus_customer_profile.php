@@ -66,7 +66,7 @@ include '../dbconn.php';
                                                                 </form>
                                                             </div>
                                                             <div class="col-md-12">
-                                                                <table class="table table-list-search">
+                                                                <table class="table table-list-search  table-hover">
                                                                     <thead>
                                                                         <tr>
                                                                             <th>ลำดับ</th>
@@ -102,7 +102,7 @@ include '../dbconn.php';
                                                                 <form action="#" method="get">
                                                                     <div class="input-group">
                                                                         <!-- USE TWITTER TYPEAHEAD JSON WITH API TO SEARCH -->
-                                                                        <input class="form-control" id="system-search" name="q" placeholder="ค้นหาข้อมูลในตารางนี้" required style="height: 34px;">
+                                                                        <input class="form-control" id="system-search2" name="q" placeholder="ค้นหาข้อมูลในตารางนี้" required style="height: 34px;">
                                                                         <span class="input-group-btn">
                                                                             <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
                                                                         </span>
@@ -110,13 +110,13 @@ include '../dbconn.php';
                                                                 </form>
                                                             </div>
                                                             <div class="col-md-12">
-                                                                <table class="table table-list-search">
+                                                                <table class="table table-list-search2  table-hover">
                                                                     <thead>
                                                                         <tr>
                                                                             <th>ลำดับ</th>
                                                                             <th>เลขที่รายการ</th>
-                                                                            <th>รายการอาหาร</th>
-                                                                            <th>จำนวน(ขุด)</th>
+                                                                            <th>จำนวน(ชุด)</th>
+                                                                             <th>ร้านอาหาร</th>
                                                                             <th>สถานะ</th>
                                                                             <th>รายละเอียด</th>
                                                                             <th>หลักฐานการโอนเงิน</th>
@@ -369,7 +369,7 @@ include '../dbconn.php';
 
         <?php include '../template/footer.php'; ?>
         <!-- ตารางรายการออเดอร์ -->
-        <script src="/assets/js/cus_pro_search.js"></script>
+        <script src="/assets/js/OrderSearch.js"></script>
         <script src="/assets/js/customer-profile-change.js"></script>
         <script src="/assets/js/customer-profile.js"></script>
 

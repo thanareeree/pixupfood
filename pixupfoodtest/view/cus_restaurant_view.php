@@ -60,7 +60,7 @@ include '../api/islogin.php';
         <?php include '../template/customer-navbar.php'; ?>
         <input type="hidden" value="<?= $resid ?>" class="getResId" >
         <input type="hidden" value="<?= $cusid ?>" class="getCusId" >
-         <input type="hidden" value="<?= $resNameData["amount_box_minimum"] ?>" class="getBoxMinimum" >
+        <input type="hidden" value="<?= $resNameData["amount_box_minimum"] ?>" class="getBoxMinimum" >
         <!-- edit head -->
         <section id="restaurant_view_head">
             <div class="overlay">
@@ -151,7 +151,7 @@ include '../api/islogin.php';
                                                 <div class="card-content">
                                                     <div class="page-header">
                                                         ขั้นตอนที่ 1 : เลือกกล่องและจำนวนกล่อง 
-                                                        <span style="color: gray; font-size: 20px;">(ขั้นต่ำ&nbsp;<?= $resNameData["amount_box_minimum"]?>&nbsp;ชุด/รายการอาหาร)</span>
+                                                        <span style="color: gray; font-size: 20px;">(ขั้นต่ำ&nbsp;<?= $resNameData["amount_box_minimum"] ?>&nbsp;ชุด/รายการอาหาร)</span>
                                                     </div>
                                                     <div class="row" style="width:650px; margin:0 auto; padding-bottom:30px;">
                                                         <?php
@@ -220,7 +220,7 @@ include '../api/islogin.php';
                                                             <h2>กรุณาไปขั้นตอนถัดไป</h2>
                                                         </div>
                                                     </div>
-                                                     <div id="errorStep2"></div>
+                                                    <div id="errorStep2"></div>
                                                 </div>
                                             </div>
                                             <ul class="list-inline pull-right"  style="margin-top: 20px">
@@ -248,6 +248,11 @@ include '../api/islogin.php';
                                                                 <textarea id="moretext" rows="3" placeholder="หมายเหตุเพิ่มเติม เช่น ไม่เผ็ด ไม่ใส่ผัก" style="width: 100%"></textarea>
                                                             </div>
                                                         </div>
+                                                        <div id="addMenuSuccess" style="background-color:rgba(255,255,255,0.6); text-align: center; position: absolute; left:0; top:0; width:100%; height:100%;">
+                                                            <h1 style="font-size:100px; margin-top:150px;"><span class="glyphicon glyphicon-ok-circle"></span></h1>
+                                                            <h2>บันทึกรายการอาหารเรียบร้อยเเล้ว</h2>
+                                                            <button type="button" class="btn btn-danger " id="addNewOrder" > <span class=" glyphicon glyphicon-plus-sign"></span>&nbsp;สั่งซื้อต่อไป</button>
+                                                        </div>
                                                     </div>
                                                     <div id="errorStep3" style="    margin-top: 20px;"></div>
                                                 </div>
@@ -255,11 +260,11 @@ include '../api/islogin.php';
                                             <ul class="list-inline pull-right"  style="margin-top: 20px">
                                                 <li><button type="button" class="btn btn-default prev-step" id="prevstep3"> <span class="glyphicon  glyphicon-chevron-left"></span>ย้อนกลับ</button></li>
                                                 <li><button type="button" class="btn btn-success " id="add_order"  ><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;เพิ่มรายการ</button></li>
-                                                 <li><button type="button" class="btn btn-warning next-step " id="checkout" >ดำเนินการต่อ <span class="glyphicon  glyphicon-chevron-right"></span></button></li>
+                                                <li><a href="/view/cus_order_shoplist.php?resId=<?= $resid ?>"><button type="button" class="btn btn-warning next-step " id="checkout" style="display: none" >ดำเนินการต่อ <span class="glyphicon  glyphicon-chevron-right"></span></button></a></li>
                                             </ul>
                                             <ul class="list-inline"  style="margin-top: 20px">
                                                 <li><button type="button" class="btn btn-danger " id="addNewOrder" style="display: none"> <span class=" glyphicon glyphicon-plus-sign"></span>&nbsp;สั่งซื้อต่อไป</button></li>
-                                                
+
                                             </ul>
                                         </div>
 
@@ -335,7 +340,7 @@ include '../api/islogin.php';
                                                             <div id="map"></div>
                                                         </div>
                                                     </div>
-                                                     <div id="errorStep4"></div>
+                                                    <div id="errorStep4"></div>
                                                 </div>
                                             </div>
                                             <ul class="list-inline pull-right"  style="margin-top: 20px">
@@ -378,7 +383,7 @@ include '../api/islogin.php';
                                                             </div>
                                                         </div>
                                                     </div>
-                                                     <div id="errorStep5"></div>
+                                                    <div id="errorStep5"></div>
                                                 </div>
                                             </div>
                                             <ul class="list-inline pull-right"  style="margin-top: 20px">
@@ -421,13 +426,13 @@ include '../api/islogin.php';
                                                         <?php } ?>
 
                                                     </div>
-                                                     <div id="errorStep6"></div>
+                                                    <div id="errorStep6"></div>
                                                 </div>
                                             </div>
-                                          
+
                                             <ul class="list-inline pull-right" style="margin-top: 20px">
                                                 <li><button type="button" class="btn btn-default prev-step" id="prevstep4" > <span class="glyphicon glyphicon glyphicon-chevron-left"></span>ย้อนกลับ</button></li>
-                                         
+
                                                 <li><button type="button" class="btn btn-warning " id="cancel_orderbtn"  >ยกเลิก</button></li>
                                                 <li><button type="button" class="btn btn-danger " id="confirm_orderbtn" >ยืนยันการสั่ง</button></li>
                                             </ul>
@@ -462,10 +467,31 @@ include '../api/islogin.php';
                 </div>
             </div>
         </section> 
+        <div id="saveOrderSuccessModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">สั่งสำเร็จแล้ว T^T</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-success" role="alert">
+                            <p> 
+                                SMS ตอบรับรายการสั่งซื้อจะส่งกลับมาภายในเวลา....สามารถ &nbsp; <a href="/view/cus_customer_profile.php" class="alert-link">ตรวจสอบสถานะสินค้า</a>&nbsp;ได้ทีลิ้งนี้ <br>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="/view/cus_restaurant_view.php?resId=<?= $resid ?>"><button type="button" class="btn btn-default">ปิด</button></a>
+                        <a href="/view/cus_customer_profile.php" ><button type="button" class="btn btn-success" >ตกลง</button></a>
+                    </div>
+                </div>
 
+            </div>
+        </div>
 
         <?php include '../template/footer.php'; ?>
         <script src="/assets/js/normal_order.js"></script>
-       
+
     </body>
 </html>

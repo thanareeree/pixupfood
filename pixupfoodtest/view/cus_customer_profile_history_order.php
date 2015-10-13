@@ -75,34 +75,8 @@ include '../dbconn.php';
                                                                             <th>รายละเอียด</th>
                                                                         </tr>
                                                                     </thead>
-                                                                    <tbody class="table table-condensed table-hover">
-                                                                        <tr>
-                                                                            <td>1</td>
-                                                                            <td>102458</td>                         
-                                                                            <td>ข้าวกล้อง+ผัดกระเพาหมู+ไข่ดาว</td>
-                                                                            <td>50</td>
-                                                                            <td>12-11-2015 12:40</td>
-                                                                            <td>108suchart</td>
-                                                                            <td class="text-center"><a class="btn btn-info btn-xs" data-toggle="modal" data-target='#hisde' href="#hisde"><span class="glyphicon glyphicon-eye-open"></span> แสดง</a></td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>2</td>
-                                                                            <td>158642</td>
-                                                                            <td>ข้าวหอมมะลิ+หมูกระเทียม+ผัดผักรวม</td>
-                                                                            <td>50</td>
-                                                                            <td>12-11-2015 12:40</td>
-                                                                            <td>108suchart</td>
-                                                                            <td class="text-center"><a class="btn btn-info btn-xs" data-toggle="modal" data-target='#hisde' href="#hisde"><span class="glyphicon glyphicon-eye-open"></span> แสดง</a></td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>3</td>
-                                                                            <td>101121</td>
-                                                                            <td>ข้าวหอมมะลิ+หมูผัดกะปิ+คั่วกลิ้ง</td>
-                                                                            <td>300</td>
-                                                                            <td>30-10-2015 14:35</td>
-                                                                            <td>108suchart</td>
-                                                                            <td class="text-center"><a class="btn btn-info btn-xs" data-toggle="modal" data-target='#hisde' href="#hisde"><span class="glyphicon glyphicon-eye-open"></span> แสดง</a></td>
-                                                                        </tr>
+                                                                    <tbody class="table table-condensed table-hover" id="showHistoryOrder">
+                                                                      
                                                                     </tbody>
                                                                 </table>   
                                                             </div>

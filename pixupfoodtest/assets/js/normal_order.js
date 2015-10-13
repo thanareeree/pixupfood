@@ -19,7 +19,7 @@ $(document).ready(function (e) {
             right: 'next today'
         },
         events: {
-            url: '/customer/showcalendar.php',
+            url: '/api/showcalendar.php',
             type: 'POST',
             data: {resid: $(".getResId").val()},
         },
@@ -40,11 +40,16 @@ $(document).ready(function (e) {
 
             return false;
         } else {
+            
             $("#errorStep3").html("");
             saveOrderDetail();
             $('#addNewOrder').show();
             $("#checkout").removeAttr("disabled");
+            $("#checkout").show();
+            $("#addMenuSuccess").show();
+            $("#add_order").hide();
             $('#prevstep3').hide();
+            //$('.foodlist').attr("disabled", "disabled");
         }
 
     });
@@ -174,25 +179,19 @@ function validateTab(tab) {
             $("#errorStep2").html("");
         }
         $('#addNewOrder').hide();
+         $("#addMenuSuccess").hide();
         checkFood();
         checkOrder();
     } else if (tab == "step3") {
-        if ($(".foodlist:checked").length > 0) {
-            $("#errorStep3").html(' <div class="alert alert-warning" role="alert">' +
-                    '<p ><i class="glyphicon glyphicon-exclamation-sign"></i>' +
-                    '&nbsp;คุณยังไม่ได้เพิ่มรายการอาหารที่คุณเลือกค้างไว้</p></div>');
-
-            return false;
-        }
-        $("#errorStep3").html("");
         var center = map.getCenter();
         google.maps.event.trigger(map, 'resize');
         map.panTo(center)
         var zoom = map.getZoom();
-        map.setZoom(20);
+        map.setZoom(15);
         setTimeout(function () {
             map.setZoom(zoom);
         }, 100);
+        
     } else if (tab == "step4") {
         var addressid = $("#oldaddress").val();
         if (addressid == null) {
@@ -790,7 +789,7 @@ function saveOrder() {
         dataType: "html",
         data: data,
         success: function (data) {
-            alert(data);
+            $("#saveOrderSuccessModal").modal('show');
             // document.location = "/";
         }
     });

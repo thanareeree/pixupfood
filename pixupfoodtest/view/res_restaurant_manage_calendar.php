@@ -133,7 +133,7 @@ include '../dbconn.php';
     include '../template/footer.php';
     ?>
 
- 
+
     <script>
         $(document).ready(function () {
             $(".btn-pref .btn").click(function () {
@@ -141,26 +141,46 @@ include '../dbconn.php';
                 $(".tab").addClass("active"); // instead of this do the below 
                 $(this).removeClass("btn-default").addClass("btn-warning");
             });
+            /*$('#calendar').fullCalendar({
+             header: {
+             left: 'prev',
+             center: 'title',
+             right: 'next today'
+             },
+             events: {
+             url: '/api/showcalendar.php',
+             type: 'POST',
+             data: {
+             resid: $("#residValue").val()
+             }, error: function () {
+             alert('there was an error while fetching events!');
+             }
+             },
+             eventColor: 'orange'
+             });*/
+
+
+
+
+
+
             $('#calendar').fullCalendar({
                 header: {
-                left: 'prev',
-                center: 'title',
-                right: 'next today'
-            },
-             events: {
-              url: '/api/showcalendar.php',
-              type: 'POST',
-              data: {
-                resid: $("#residValue").val()
-              },error: function () {
-            alert('there was an error while fetching events!');
-            }
-           },
-             eventColor: 'orange'
-        });
+                    left: 'prev',
+                    center: 'title',
+                    right: 'next today'
+                },
+                events: {
+                    url: '/api/showcalendar.php?gData=1',
+                    error: function () {
 
+                    }
+                },
+                eventLimit: true,
+                lang: 'th'
             });
         });
+
     </script>
 </body>
 </html>
