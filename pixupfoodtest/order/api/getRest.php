@@ -18,7 +18,7 @@ $findDistanct = $con->query("SELECT *,
                      * cos( radians(restaurant.y) - radians('$lng')) + sin(radians('$lat')) 
                      * sin( radians(restaurant.x)))) AS distance 
                   FROM restaurant 
-                  WHERE available = 1 AND close = 0 AND block = 0 and  
+                  WHERE available = 1 AND close = 0 AND block = 0  
                   ORDER BY distance");
 while ($near = $findDistanct->fetch_assoc()) {
     $rest_id = $near["id"];
