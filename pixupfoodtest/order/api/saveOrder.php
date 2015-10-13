@@ -74,35 +74,37 @@ if (isset($_SESSION["islogin"])) {
         $totalfoodprice = 0;
         $prepay = 0;
         $count = 0;
-        $priceRes = $con->query("SELECT SUM(price) as sumprice ,restaurant_id FROM menu  WHERE  restaurant_id IN $restaurantlist "
-                . "and menu.main_menu_id IN $menustr GROUP BY menu.restaurant_id");
 
-        while ($priceData = $priceRes->fetch_assoc()) {
+        foreach ($restarr as $i => $value) {
+            $res_id = $value;
+            $priceRes = $con->query("SELECT SUM(price) as sumprice ,restaurant_id FROM menu  "
+                    . "WHERE  restaurant_id = '$res_id' "
+                    . "and menu.main_menu_id IN $menustr GROUP BY menu.restaurant_id");
+            while ($priceData = $priceRes->fetch_assoc()) {
+                $foodprice = $priceData["sumprice"];
+                $totalfoodprice = $foodprice * $amtbox;
+                $prepay = $totalfoodprice * 0.2;
 
-            $rest_id = $priceData["restaurant_id"];
-            $foodprice = $priceData["sumprice"];
-            $totalfoodprice = $foodprice * $amtbox;
-            $prepay = $totalfoodprice * 0.2;
+                if ($count == 0) {
+                    $con->query("INSERT INTO `request_fast_order`(`id`, `fast_id`, `restaurant_id`, "
+                            . "`price`, `total`, `prepay`, `priority`) "
+                            . "VALUES (null,'$fast_id','$res_id','$foodprice','$totalfoodprice','$prepay','$priority[0]')");
+                } else if ($count == 1) {
+                    $con->query("INSERT INTO `request_fast_order`(`id`, `fast_id`, `restaurant_id`, "
+                            . "`price`, `total`, `prepay`, `priority`) "
+                            . "VALUES (null,'$fast_id','$res_id','$foodprice','$totalfoodprice','$prepay','$priority[1]')");
+                } else if ($count == 2) {
+                    $con->query("INSERT INTO `request_fast_order`(`id`, `fast_id`, `restaurant_id`, "
+                            . "`price`, `total`, `prepay`, `priority`) "
+                            . "VALUES (null,'$fast_id','$res_id','$foodprice','$totalfoodprice','$prepay','$priority[2]')");
+                }
 
-            if ($count == 0) {
-                $con->query("INSERT INTO `request_fast_order`(`id`, `fast_id`, `restaurant_id`, "
-                        . "`price`, `total`, `prepay`, `priority`) "
-                        . "VALUES (null,'$fast_id','$rest_id','$foodprice','$totalfoodprice','$prepay','$priority[0]')");
-            } else if ($count == 1) {
-                $con->query("INSERT INTO `request_fast_order`(`id`, `fast_id`, `restaurant_id`, "
-                        . "`price`, `total`, `prepay`, `priority`) "
-                        . "VALUES (null,'$fast_id','$rest_id','$foodprice','$totalfoodprice','$prepay','$priority[1]')");
-            } else if ($count == 2) {
-                $con->query("INSERT INTO `request_fast_order`(`id`, `fast_id`, `restaurant_id`, "
-                        . "`price`, `total`, `prepay`, `priority`) "
-                        . "VALUES (null,'$fast_id','$rest_id','$foodprice','$totalfoodprice','$prepay','$priority[2]')");
-            }
-
-            if ($con->error == "") {
-                $count++;
-                echo 'เรียบบบบบบบบบบบบบบบบบบบบบบบบ ร้องไห้ TT';
-            } else {
-                echo $con->error . 'บันทึก ตารางรีเควสฟาส ไม่ได้ #ร้องไห้หนักมาก';
+                if ($con->error == "") {
+                    $count++;
+                    echo 'เรียบบบบบบบบบบบบบบบบบบบบบบบบ ร้องไห้ TT';
+                } else {
+                    echo $con->error . 'บันทึก ตารางรีเควสฟาส ไม่ได้ #ร้องไห้หนักมาก';
+                }
             }
         }
     } else {
