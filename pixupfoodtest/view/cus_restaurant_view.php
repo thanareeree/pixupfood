@@ -22,6 +22,10 @@ include '../api/islogin.php';
                 max-width: 100%;
                 height: 100px;
             }
+            #showcalendar a span {
+                color: #ffffff;
+                font-size: 12.5px;
+            }
         </style>
 
 
@@ -51,7 +55,7 @@ include '../api/islogin.php';
         $resid = @$_GET["resId"];
         $resNameRes = $con->query("select `name`, `email`, `tel`,`detail`, `img_path`, `star`, `address`,"
                 . " `opentime`, `amount_box_minimum`, `amount_box_limit`, `has_restaurant`, `restaurant_type`"
-                . ", deliveryfee"
+                . ", deliveryfee, close"
                 . " from restaurant "
                 . "join mapping_delivery_type on mapping_delivery_type.restaurant_id = restaurant.id  "
                 . " where id = '$resid'");
@@ -75,6 +79,43 @@ include '../api/islogin.php';
         <!-- edit body -->
         <section id="restaurant_view">
             <div class="container">
+                <?php
+                $close = $resNameData["close"];
+                if ($close == '1') {
+                    ?>
+                    <div class="alert alert-info" role="alert">
+                        <p style="font-size: 16px"> 
+                            <i class="glyphicon glyphicon-info-sign"></i> &nbsp; ปิดรับออเดอร์ชั่วคราว
+                        </p>
+                    </div>
+                    <?php
+                } else {
+                    ?>
+                    <div class="alert alert-success" role="alert">
+                        <p style="font-size: 16px"><b>สถานที่จัดส่งสินค้า:</b> &nbsp;
+                            <?php
+                            $placeRes = $con->query("SELECT data_district.district_name "
+                                    . "FROM data_district "
+                                    . "RIGHT JOIN delivery_place ON delivery_place.district_id = data_district.district_id "
+                                    . "WHERE delivery_place.restaurant_id = '$resid'");
+                            $place = "";
+                            $i = 0;
+                            while ($placeData = $placeRes->fetch_assoc()) {
+                                $place .= $placeData["district_name"];
+                                $i++;
+                                if ($i < $placeRes->num_rows) {
+                                    $place .= "," . " ";
+                                }
+                                echo $place;
+                            }
+                            ?>
+                        </p>
+                    </div>
+                    <?php
+                }
+                ?>
+
+
                 <div class="row">
                     <div class="col-md-8">
                         <!-- Nav tabs -->

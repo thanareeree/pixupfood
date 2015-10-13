@@ -15,6 +15,13 @@ include '../api/islogin.php';
         <link href='/assets/css/fullcalendar.print.css' rel='stylesheet' media='print' />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
         
+        <style>
+            #showcalendar a span {
+                color: #ffffff;
+                font-size: 12.5px;
+            }
+        </style>
+
     </head>
     <body>
         <?php
@@ -41,7 +48,7 @@ include '../api/islogin.php';
         $resid = @$_GET["resId"];
         $resNameRes = $con->query("select `name`, `email`, `tel`,`detail`, `img_path`, `star`, `address`,"
                 . " `opentime`, `amount_box_minimum`, `amount_box_limit`, `has_restaurant`, `restaurant_type`"
-                . ", deliveryfee"
+                . ", deliveryfee, close"
                 . " from restaurant "
                 . "join mapping_delivery_type on mapping_delivery_type.restaurant_id = restaurant.id  "
                 . " where id = '$resid'");
@@ -63,6 +70,7 @@ include '../api/islogin.php';
         <!-- edit body -->
         <section id="restaurant_view">
             <div class="container">
+                <?php include '../customer-view-restaurant/status-close.php'; ?>
                 <div class="row">
                     <div class="col-md-8">
                         <!-- Nav tabs -->

@@ -95,7 +95,7 @@ include '../dbconn.php';
                     </div>
                     <div class="col-md-3">
                         <div class="col-md-10" style="padding-left:0px;">
-                            <h3>Order Options</h3>
+                            <h3>Fast Order Options</h3>
                             <form>
                                 <div class="form-group">
                                     <input  type="checkbox" name="searchOption" value="orderFromMenu">&nbsp;&nbsp;<span style="font-size: 18px">สั่งอาหารจากรายการอาหาร</span><br>
@@ -130,7 +130,21 @@ include '../dbconn.php';
                                                     . "JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
                                                     . "JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
                                                     . "WHERE main_menu.name LIKE '%$search%' "
-                                                    . "AND restaurant.close = 0 AND restaurant.block = 0  "
+                                                    . " AND restaurant.block = 0  "
+                                                    . "order by main_menu.name ");
+                                            echo $con->error;
+                                            $numrow = $res->num_rows;
+                                        }else{
+                                             $res = $con->query("SELECT DISTINCT restaurant.id,restaurant.name, menu.img_path, main_menu.name as menuname,"
+                                                    . " food_type.description as foodtype, restaurant.name as resname, menu.id as menuid, menu.price,"
+                                                    . "main_menu.img_path as img "
+                                                    . "FROM menu "
+                                                    . "LEFT JOIN restaurant ON menu.restaurant_id = restaurant.id "
+                                                    . "JOIN main_menu ON main_menu.id = menu.main_menu_id "
+                                                    . "JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
+                                                    . "JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
+                                                    . "WHERE main_menu.name LIKE '%' "
+                                                    . "AND restaurant.block = 0  "
                                                     . "order by main_menu.name ");
                                             echo $con->error;
                                             $numrow = $res->num_rows;

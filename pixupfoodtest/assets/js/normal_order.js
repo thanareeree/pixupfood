@@ -11,6 +11,7 @@ $(document).ready(function (e) {
     initRice();
     initFood();
     showOrderDatail();
+    fetchCalendar();
 
     $('.calendar').fullCalendar({
         header: {
@@ -18,12 +19,10 @@ $(document).ready(function (e) {
             center: 'title',
             right: 'next today'
         },
-        events: {
-            url: '/api/showcalendar.php',
-            type: 'POST',
-            data: {resid: $(".getResId").val()},
-        },
-        eventColor: 'orange'
+        events: JSON.parse(json_events),
+        lang: 'th',
+        eventColor: 'orange',
+        eventLimit: true
     });
 
 
@@ -40,7 +39,7 @@ $(document).ready(function (e) {
 
             return false;
         } else {
-            
+
             $("#errorStep3").html("");
             saveOrderDetail();
             $('#addNewOrder').show();
@@ -179,7 +178,7 @@ function validateTab(tab) {
             $("#errorStep2").html("");
         }
         $('#addNewOrder').hide();
-         $("#addMenuSuccess").hide();
+        $("#addMenuSuccess").hide();
         checkFood();
         checkOrder();
     } else if (tab == "step3") {
@@ -191,7 +190,7 @@ function validateTab(tab) {
         setTimeout(function () {
             map.setZoom(zoom);
         }, 100);
-        
+
     } else if (tab == "step4") {
         var addressid = $("#oldaddress").val();
         if (addressid == null) {
@@ -225,6 +224,17 @@ function validateTab(tab) {
     return true;
 }
 
+function  fetchCalendar() {
+    $.ajax({
+        url: '/api/showcalendar.php',
+        type: 'POST',
+        data: {"resid": $(".getResId").val(), "type": "fetch"},
+        async: false,
+        success: function (response) {
+            json_events = response;
+        }
+    });
+}
 
 function initMap() {
     geocoder = new google.maps.Geocoder();

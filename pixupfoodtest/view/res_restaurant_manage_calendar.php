@@ -159,25 +159,30 @@ include '../dbconn.php';
              eventColor: 'orange'
              });*/
 
+            function  fetchCalendar() {
+                $.ajax({
+                    url: '/api/calendar-restaurant.php',
+                    type: 'POST',
+                    data: 'type=fetch',
+                    async: false,
+                    success: function (response) {
+                        json_events = response;
+                    }
+                });
+            }
+            fetchCalendar();
 
-
-
-
-
+            //var zone = "05:30";
             $('#calendar').fullCalendar({
                 header: {
                     left: 'prev',
                     center: 'title',
                     right: 'next today'
                 },
-                events: {
-                    url: '/api/showcalendar.php?gData=1',
-                    error: function () {
-
-                    }
-                },
-                eventLimit: true,
-                lang: 'th'
+                events: JSON.parse(json_events),
+                lang: 'th',
+                eventColor: 'orange',
+                eventLimit: true
             });
         });
 

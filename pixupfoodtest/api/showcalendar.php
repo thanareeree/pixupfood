@@ -1,47 +1,37 @@
 <?php
 
 include '../dbconn.php';
-$resid = $_GET[""];
-$dataOrder = $con->query("SELECT delivery_date, SUM(order_detail.quantity) as qty, order_time "
+$resid = $_POST["resid"];
+$dataOrder = $con->query("SELECT delivery_date, SUM(order_detail.quantity) as qty, order_time,delivery_time "
         . "FROM `normal_order` "
         . "JOIN order_detail ON order_detail.order_id = normal_order.id "
-        . "WHERE normal_order.restaurant_id = '$resid' "
-        . "and normal_order.status != '6' "
+        . "WHERE normal_order.restaurant_id = '$resid' AND normal_order.status != 1 AND normal_order.status != 6  "
         . "GROUP BY normal_order.delivery_date");
 
-$limitRes = $con->query("SELECT amount_box_limit FROM `restaurant` WHERE id ='33'");
-$limitData = $limitRes->fetassoc();
+
+$limitRes = $con->query("SELECT amount_box_limit, amount_box_minimum  FROM `restaurant` WHERE id ='$resid'");
+$limitData = $limitRes->fetch_assoc();
 $limit = $limitData["amount_box_limit"];
+$minimum = $limitData["amount_box_minimum"];
 
+$events = array();
 
-if ($_GET['gData']) {
+$type = $_POST["type"];
+
+if ($type == 'fetch') {
     while ($data = $dataOrder->fetch_assoc()) {
         $allQty = $data["qty"];
-
-        $json_data[] = array(
-            "title" => "เต็ม",
-            "start" => $data["order_time"]
-        );
+       if ($allQty >= ($limit - $minimum)) {
+            $e = array();
+            $e['title'] = "เต็ม";
+            $e['start'] = $data['delivery_date'];
+            array_push($events, $e);
+        } else {
+            $e = array();
+            $e['title'] = $data['qty'] ." ". "ชุด";
+            $e['start'] = $data['delivery_date'];
+            array_push($events, $e);
+        }
     }
-}else{
-    while ($data = $dataOrder->fetch_assoc()) {
-        $allQty = $data["qty"];
-
-        $json_data[] = array(
-            "title" => "เต็ม",
-            "start" => $data["order_time"]
-        );
-    }
-}
-
-$json = json_encode($json_data);
-if (isset($_GET['callback']) && $_GET['callback'] != "") {
-    echo $_GET['callback'] . "(" . $json . ");";
-} else {
-    echo $json;
-}    
-
-/*  echo json_encode(array(
-                "title" => $limit - $allQty,
-                "start" => $data["order_time"]
-            )); */
+      echo json_encode($events);
+} 

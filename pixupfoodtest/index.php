@@ -12,7 +12,7 @@ include './dbconn.php';
     <body>
         <?php include 'template/customer-navbar.php'; ?>
         <div id="slider-l" class="slider-l">
-            <a href="/view/search_page.php?search=%">
+            <a href="/view/search_page.php?search=">
                 <img src="/assets/images/search.png" class="img-responsive" width="100px">
                 <a onclick="parentNode.remove()" style="color: #0000ff;margin:0 0 0 15px ;">
                     <span>ปิดป้ายนี้</span></a> 

@@ -34,6 +34,50 @@ include '../dbconn.php';
             <div class="container">
                 <div class="row" style="margin-top:50px">
                     <?php include '../customer-profile/list-icon.php'; ?>
+                    <div class="col-md-8">
+                        <!-- 4 element -->
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="row">
+                                    <div class="col-md-2 templatemo-box fadeInUp" style="padding-right: 0;">
+                                        <a href="/view/cus_customer_profile.php">
+                                            <img class="img-responsive imgsize" src="/assets/images/profile/menu_list/tracking_a_c.png" title="ตรวจสถานะสินค้า" onmouseover="this.src = '/assets/images/profile/menu_list/tracking_b_c.png';"
+                                                 onmouseout="this.src = '/assets/images/profile/menu_list/tracking_a_c.png';" style="margin: 0 0 0 15px">
+                                            <p class="elt" style="margin: 0;padding: 0 0 0 2px;">ตรวจสถานะสินค้า</p>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-2 templatemo-box fadeInUp">
+                                        <a href="/view/cus_customer_profile_history_order.php">
+                                            <img class="img-responsive imgsize" src="/assets/images/profile/menu_list/orderhis_b_c.png" title="ประวัติการสั่งซื้อ" onmouseover="this.src = '/assets/images/profile/menu_list/orderhis_a_c.png';"
+                                                 onmouseout="this.src = '/assets/images/profile/menu_list/orderhis_b_c.png';" style="margin: 0 0 0 20px">
+                                            <p class="elt" style="margin:0 0 0 8px">ประวัติการซื้อ</p>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-2 templatemo-box fadeInUp">
+                                        <a href="/view/cus_customer_profile_cart.php">
+                                            <img class="img-responsive imgsize" src="/assets/images/profile/menu_list/shoplist_b_c.png" title="ตะกร้า" onmouseover="this.src = '/assets/images/profile/menu_list/shoplist_a_c.png';"
+                                                 onmouseout="this.src = '/assets/images/profile/menu_list/shoplist_b_c.png';" style="margin: 0 0 0 10px">
+                                            <p class="elt" style="margin: 0 0 0 20px">ตะกร้า</p>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-2 templatemo-box fadeInUp" style="padding:0;">
+                                        <a href="/view/cus_customer_profile_favorite.php">
+                                            <img class="img-responsive imgsize" src="/assets/images/profile/menu_list/fav_b_c.png" title="ชื่นชอบ" onmouseover="this.src = '/assets/images/profile/menu_list/fav_a_c.png';"
+                                                 onmouseout="this.src = '/assets/images/profile/menu_list/fav_b_c.png';" style="margin: 0 0 0 15px">
+                                            <p class="elt" style="margin: 0 0 0 20px">ชื่นชอบ</p>
+                                        </a>       
+                                    </div>
+                                    <div class="col-md-2 templatemo-box fadeInUp" style="padding-left: 0;">
+                                        <a href="/view/cus_customer_profile_shippingAddress.php">
+                                            <img class="img-responsive imgsize" src="/assets/images/profile/menu_list/shipadd_b_c.png" title="ที่อยู่การจัดส่ง" onmouseover="this.src = '/assets/images/profile/menu_list/shipadd_a_c.png';"
+                                                 onmouseout="this.src = '/assets/images/profile/menu_list/shipadd_b_c.png';" style="margin: 0 0 0 15px">
+                                            <p class="elt" style="margin:0">ที่อยู่การจัดส่ง</p>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="row">
@@ -50,7 +94,7 @@ include '../dbconn.php';
                                                 <div class="card" style="margin:0;">
                                                     <div class="card-content">
                                                         <div class="page-header" style="font-size: 25px; margin-top: 5px;">
-                                                           รายการสั่งด่วน 
+                                                            รายการสั่งด่วน 
                                                         </div>
                                                         <!-- ตารางรายการติดตาม -->
                                                         <div class="row">
@@ -79,7 +123,7 @@ include '../dbconn.php';
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody class="table table-condensed table-hover" id="showFastOrder">
-                                                                        
+
 
                                                                     </tbody>
                                                                 </table>   
@@ -116,14 +160,14 @@ include '../dbconn.php';
                                                                             <th>ลำดับ</th>
                                                                             <th>เลขที่รายการ</th>
                                                                             <th>จำนวน(ชุด)</th>
-                                                                             <th>ร้านอาหาร</th>
+                                                                            <th>ร้านอาหาร</th>
                                                                             <th>สถานะ</th>
                                                                             <th>รายละเอียด</th>
                                                                             <th>หลักฐานการโอนเงิน</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody class="table table-condensed table-hover" id="showNormalOrder">
-                                                                        
+
 
                                                                     </tbody>
                                                                 </table>   
