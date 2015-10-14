@@ -182,14 +182,7 @@ function validateTab(tab) {
         checkFood();
         checkOrder();
     } else if (tab == "step3") {
-        var center = map.getCenter();
-        google.maps.event.trigger(map, 'resize');
-        map.panTo(center)
-        var zoom = map.getZoom();
-        map.setZoom(15);
-        setTimeout(function () {
-            map.setZoom(zoom);
-        }, 100);
+       
 
     } else if (tab == "step4") {
         var addressid = $("#oldaddress").val();
@@ -258,7 +251,7 @@ function initMap() {
     google.maps.event.addListener(marker, 'dragend', function () {
         var pos = marker.getPosition();
         console.log(pos);
-        var loca = {lat: pos.H, lng: pos.L};
+        var loca = {lat: pos.lat(), lng: pos.lng()};
         processLocation(loca);
     });
 
@@ -337,7 +330,7 @@ function initMap() {
         $("#showaddress").html("ลากและวางหมุดตรงที่อยู่ในการจัดส่งของคุณ");
         $("#addresstype").val("0");
         $("#addresstxt").val("");
-        map.setZoom(5);
+        map.setZoom(13);
         marker.setPosition(defaultlatlng);
         map.setCenter(defaultlatlng);
         $("#savenewaddressbtn").attr("disabled", "disabled");

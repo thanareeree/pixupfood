@@ -74,18 +74,18 @@ function validateTab(tab) {
                     '&nbsp;กรุณาเลือกที่อยู่ก่อนไปขั้นตอนถัดไป</p></div>');
             return false;
         }
-         $("#errorStep1").html("");
+        $("#errorStep1").html("");
     } else if (tab == "step2") {
         var date = $('#calendar').datepick('getDate');
         var time = $("#delivery_time").val();
         if (date == "") {
-          $("#errorStep2").html(' <div class="alert alert-danger" role="alert" style="margin-top: 30px;">' +
+            $("#errorStep2").html(' <div class="alert alert-danger" role="alert" style="margin-top: 30px;">' +
                     '<p style="color: red;"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
                     '&nbsp;กรุณาเลือกวันที่จัดส่งก่อนไปขั้นตอนถัดไป</p></div>');
             return false;
         }
         if (time == null) {
-             $("#errorStep2").html(' <div class="alert alert-danger" role="alert" style="margin-top: 30px;">' +
+            $("#errorStep2").html(' <div class="alert alert-danger" role="alert" style="margin-top: 30px;">' +
                     '<p style="color: red;"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
                     '&nbsp;กรุณาเลือกเวลาจัดส่งก่อนไปขั้นตอนถัดไป</p></div>');
             return false;
@@ -95,13 +95,13 @@ function validateTab(tab) {
         var foodbox = $("input[name=foodboxtype]:checked").val();
         var boxamount = $("#boxamount").val();
         if (foodbox == undefined) {
-           $("#errorStep3").html(' <div class="alert alert-danger" role="alert">' +
+            $("#errorStep3").html(' <div class="alert alert-danger" role="alert">' +
                     '<p style="color: red"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
                     '&nbsp;กรุณาเลือกชนิดกล่องก่อนไปขั้นตอนถัดไป</p></div>');
             return false;
         }
         if (boxamount.length == 0) {
-           $("#errorStep3").html(' <div class="alert alert-danger" role="alert">' +
+            $("#errorStep3").html(' <div class="alert alert-danger" role="alert">' +
                     '<p style="color: red"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
                     '&nbsp;กรุณากรอกจำนวนกล่อง</p></div>');
             return false;
@@ -119,7 +119,7 @@ function validateTab(tab) {
                 return false;
             }
         }
-         $("#errorStep4").html("");
+        $("#errorStep4").html("");
         checkFood();
     } else if (tab == "step5") {
         if ($(".foodlist:checked").length == 0) {
@@ -128,7 +128,7 @@ function validateTab(tab) {
                     '&nbsp;กรุณาเลือกอย่างน้อย 1 รายการ</p></div>');
             return false;
         }
-         $("#errorStep5").html("");
+        $("#errorStep5").html("");
         checkRest();
     }
     return true;
@@ -162,7 +162,7 @@ function initMap() {
     google.maps.event.addListener(marker, 'dragend', function () {
         var pos = marker.getPosition();
         console.log(pos);
-        var loca = {lat: pos.H, lng: pos.L};
+        var loca = {lat: pos.lat(), lng: pos.lng()};
         processLocation(loca);
     });
 
@@ -511,19 +511,20 @@ function checkRest() {
         data: data,
         success: function (data) {
             $("#showrest").html(data);
+            priority()
         }
     });
 }
 
 function saveOrder() {
-    var data = {'food[]': [], 'rest[]': [], 'priority[]':[], 'value[]':[]};
+    var data = {'food[]': [], 'rest[]': [], 'priority[]': [], 'value[]': []};
     $(".foodlist:checked").each(function () {
         data['food[]'].push($(this).val());
     });
     $(".restselect:checked").each(function () {
         var str = $(this).val();
         var restid = str.substring(1);
-        var pri = str.substring(0,1);
+        var pri = str.substring(0, 1);
         data['rest[]'].push(restid);
         data['priority[]'].push(pri);
     });
@@ -544,17 +545,35 @@ function saveOrder() {
         dataType: "html",
         data: data,
         success: function (data) {
-           // alert(data); 
+            // alert(data); 
             $("#paymentmodal").modal("hide");
-              $("#saveOrderSuccessModal").modal('show');
-             
-          
+            $("#saveOrderSuccessModal").modal('show');
+
+
         }
     });
 }
 
-function priority(){
-  //  $(".foodlist:checked")
+function priority() {
+    $(".priority2").attr("disabled", "disabled");
+    $(".priority3").attr("disabled", "disabled");
+    $('.restselect').on("change", function (e) {
+        if ($(".priority1:checked").length == 1) {
+            $(".priority1").attr("disabled", "disabled");
+            $(".priority2").removeAttr("disabled");
+           
+        }
+        if ($(".priority2:checked").length == 1) {
+            $(".priority2").attr("disabled", "disabled");
+            $(".priority3").removeAttr("disabled");
+        }
+        var restid = $(this).attr("rest-id");
+       $.each($(".restselect[rest-id="+restid+"]"), function (i,sel){
+          if(!$(sel).is(':checked')){
+              $(sel).parent("label").hide();
+          } 
+       });
+    });
 }
 
 

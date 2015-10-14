@@ -26,28 +26,69 @@ while ($near = $findDistanct->fetch_assoc()) {
     $rest_id = $near["id"];
     $name = $near["name"];
 
-    //check if rest have selected food
 
-    $menustr = "(";
-    foreach ($foodarr as $i => $value) {
-        $menustr.="'" . $value . "'";
-        if ($i != sizeof($foodarr) - 1) {
-            $menustr.=",";
+    //check delivery place
+    $restDeli = $con->query("SELECT * FROM delivery_place WHERE delivery_place.restaurant_id = '$rest_id'");
+    if ($restDeli->num_rows == 0) {
+        //check if rest have selected food
+
+        $menustr = "(";
+        foreach ($foodarr as $i => $value) {
+            $menustr.="'" . $value . "'";
+            if ($i != sizeof($foodarr) - 1) {
+                $menustr.=",";
+            }
+        }
+        $menustr.=")";
+        $res = $con->query("SELECT * FROM menu WHERE restaurant_id = '$rest_id' AND main_menu_id IN $menustr");
+        if ($res->num_rows == sizeof($foodarr)) {
+            $foods = array();
+            while ($food = $res->fetch_assoc()) {
+                array_push($foods, $food);
+            }
+            $near["food"] = $foods;
+            array_push($restok, $near);
+        }
+        if (sizeof($restok) == 3) {
+            break;
+        }
+    } else {
+        $postcodeRes = $con->query("SELECT data_postcode.postcode , data_district.district_name "
+                . "FROM delivery_place "
+                . "LEFT JOIN data_postcode ON data_postcode.district_ID = delivery_place.district_id "
+                . "LEFT JOIN data_district ON data_district.district_id = delivery_place.district_id "
+                . "WHERE delivery_place.restaurant_id = '$rest_id' "
+                . "AND data_postcode.postcode = '$code' "
+                . "GROUP BY data_postcode.postcode");
+        if ($postcodeRes->num_rows == 0) {
+            break;
+        } else if ($postcodeRes->num_rows > 0) {
+            //check if rest have selected food
+
+            $menustr = "(";
+            foreach ($foodarr as $i => $value) {
+                $menustr.="'" . $value . "'";
+                if ($i != sizeof($foodarr) - 1) {
+                    $menustr.=",";
+                }
+            }
+            $menustr.=")";
+            $res = $con->query("SELECT * FROM menu WHERE restaurant_id = '$rest_id' AND main_menu_id IN $menustr");
+            if ($res->num_rows == sizeof($foodarr)) {
+                $foods = array();
+                while ($food = $res->fetch_assoc()) {
+                    array_push($foods, $food);
+                }
+                $near["food"] = $foods;
+                array_push($restok, $near);
+            }
+            if (sizeof($restok) == 3) {
+                break;
+            }
         }
     }
-    $menustr.=")";
-    $res = $con->query("SELECT * FROM menu WHERE restaurant_id = '$rest_id' AND main_menu_id IN $menustr");
-    if ($res->num_rows == sizeof($foodarr)) {
-        $foods = array();
-        while ($food = $res->fetch_assoc()) {
-            array_push($foods, $food);
-        }
-        $near["food"] = $foods;
-        array_push($restok, $near);
-    }
-    if (sizeof($restok) == 3) {
-        break;
-    }
+
+    //check วันที่จัดส่ง
 }
 $amtbox = $_POST["amtbox"];
 
@@ -80,9 +121,9 @@ foreach ($restok as $key => $rest) {
                 <tr>
                     <th>ลำดับการส่งรีเควส</th>
                     <th>
-                        <input type="checkbox" name="rest[]" class="restselect priority1" value="1<?= $rest["id"] ?>">&nbsp;1 &nbsp;
-                        <input type="checkbox" name="rest[]" class="restselect priority2" value="2<?= $rest["id"] ?>">&nbsp;2 &nbsp;
-                        <input type="checkbox" name="rest[]" class="restselect priority3" value="3<?= $rest["id"] ?>">&nbsp;3
+                        <label><input type="checkbox" name="rest[]" class="restselect priority1 " rest-id="<?= $rest["id"] ?>" value="1<?= $rest["id"] ?>">&nbsp;1 &nbsp;</label>
+                        <label><input type="checkbox" name="rest[]" class="restselect priority2  " rest-id="<?= $rest["id"] ?>" value="2<?= $rest["id"] ?>">&nbsp;2 &nbsp;</label>
+                        <label><input type="checkbox" name="rest[]" class="restselect priority3 " rest-id="<?= $rest["id"] ?>" value="3<?= $rest["id"] ?>">&nbsp;3</label>
                     </th>
                     <th></th>
                 </tr>

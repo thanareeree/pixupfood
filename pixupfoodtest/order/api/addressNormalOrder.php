@@ -31,27 +31,36 @@ if (isset($_SESSION["islogin"])) {
             array_push($neardata, $near);
         }
 
-        $postcodeRes = $con->query("SELECT data_postcode.postcode , data_district.district_name "
-                . "FROM delivery_place "
-                . "LEFT JOIN data_postcode ON data_postcode.district_ID = delivery_place.district_id "
-                . "LEFT JOIN data_district ON data_district.district_id = delivery_place.district_id "
-                . "WHERE delivery_place.restaurant_id = '$resid' "
-                . "AND data_postcode.postcode = '$postcode' "
-                . "GROUP BY data_postcode.postcode");
-
-        if ($res->num_rows > 0 && $postcodeRes->num_rows == 0) {
-            $response = array(
-                "result" => 1,
-                "data" => $data,
-                "nearby" => $neardata,
-                  "districtName" => $name
-            );
-        } else if ($res->num_rows > 0 ) {
+        $restDeli = $con->query("SELECT * FROM delivery_place WHERE delivery_place.restaurant_id = '$resid'");
+        if ($restDeli->num_rows == 0) {
             $response = array(
                 "result" => 2,
                 "data" => $data,
                 "nearby" => $neardata
             );
+        } else {
+            $postcodeRes = $con->query("SELECT data_postcode.postcode , data_district.district_name "
+                    . "FROM delivery_place "
+                    . "LEFT JOIN data_postcode ON data_postcode.district_ID = delivery_place.district_id "
+                    . "LEFT JOIN data_district ON data_district.district_id = delivery_place.district_id "
+                    . "WHERE delivery_place.restaurant_id = '$resid' "
+                    . "AND data_postcode.postcode = '$postcode' "
+                    . "GROUP BY data_postcode.postcode");
+
+            if ($res->num_rows > 0 && $postcodeRes->num_rows == 0) {
+                $response = array(
+                    "result" => 1,
+                    "data" => $data,
+                    "nearby" => $neardata,
+                    "districtName" => $name
+                );
+            } else if ($res->num_rows > 0) {
+                $response = array(
+                    "result" => 2,
+                    "data" => $data,
+                    "nearby" => $neardata
+                );
+            }
         }
     }
 }
