@@ -1,12 +1,11 @@
 <?php 
 include '../dbconn.php';
 $fast_orderid = $_POST["fast_orderid"];
-$con->query("select * from fastorder");
+$con->query("");
 
 ?>
 
 <div class="modal-body">
-
     <div class="row" style="margin-top: 0px;">
         <div class="col-md-12">
             <div class="col-md-7">

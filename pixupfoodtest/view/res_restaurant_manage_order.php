@@ -14,7 +14,7 @@ include '../dbconn.php';
         <!-- custom css -->
         <link rel="stylesheet" href="/assets/css/res_restaurant_manage.css">
         <link rel="stylesheet" href="/assets/css/normal_order.css">
-        
+        <link href="/restaurant-order/request_order/modal-request.php"
 
     </head>
     <body>
@@ -231,14 +231,14 @@ include '../dbconn.php';
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                        <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px; color: red">เตือน!!</div></span>
+                                                        <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px; color: red">เตือน!!<span id="ignoreId"></span></div></span>
                                                     </div>
                                                     <div class="modal-body">
                                                         <span style="font-size: 20px;">ต้องการปฏิเสธรายการ ? </span>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default" data-dismiss="modal">ยกเลิก</button>
-                                                        <button type="button" class="btn btn-danger">ยืนยัน</button>
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                                                        <button type="button" class="btn btn-danger" id="ignoreBtn">ยืนยัน</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -251,14 +251,14 @@ include '../dbconn.php';
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                        <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px; color: red">เตือน!!</div></span>
+                                                        <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px; ">รับรายการหมายเลข:&nbsp;<span id="acceptId" style="color: orange;"></span></div></span>
                                                     </div>
                                                     <div class="modal-body">
                                                         <span style="font-size: 20px;">ต้องการยอมรับรายการ ? </span>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default" data-dismiss="modal">ยกเลิก</button>
-                                                        <button type="button" class="btn btn-success">ยืนยัน</button>
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                                                        <button type="button" class="btn btn-success" id="acceptBtn">ยืนยัน</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -278,14 +278,13 @@ include '../dbconn.php';
 
                                                         </span>
                                                     </div>
-                                                    <div id="fastOrderViewBody">
+                                                    <div id="OrderViewBody">
 
                                                     </div>
-
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-success" id="ignoreOrderBtn" >ยอมรับรายการ</button>
-                                                        <button type="button" class="btn btn-danger" id="acceptOrderBtn" >ปฏิเสธรายการ</button>
                                                         <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                                                        <button type="button" class="btn btn-danger" id="ignoreOrderBtn" >ปฏิเสธรายการ</button>
+                                                        <button type="button" class="btn btn-success" id="acceptOrderBtn" >ยอมรับรายการ</button>
                                                     </div>
                                                 </div>
                                             </div>
