@@ -17,20 +17,35 @@ $i = 1;
 
 if ($normalOrderRes->num_rows == 0) {
     ?>
+    <input type="hidden" id="normalordercount" value="0">
     <tr><td colspan="10" class="warning" style="text-align: center;"><h4>ยังไม่มีรายการใหม่</h4></td></tr>
     <?php
 } else {
     while ($normalOrderData = $normalOrderRes->fetch_assoc()) {
-      
+        $now = time();
+        $ordertime = strtotime($normalOrderData["order_time"]);
+        $diff = $now - $ordertime;
+        //echo "order at : " . $fastOrderData["order_time"];
+        //echo "\nnow : " . date("Y-m-d H:i:s");
+        //echo "\ndiff : " . ($diff / 60) . "\n";
+        $timeleft;
+        if ($diff > (60 * 60 * 24)) {
+            //echo "pri1: skip";
+            continue;
+        } else {
+            $timeleft = (60 * 60 * 24) - $diff;
+        }
         ?>
         <tr >
-            <td style="text-align: center"><?= $i++;?></td>
+            <td style="text-align: center"><?= $i++; ?></td>
             <td><?= $normalOrderData["order_id"] ?></td>                         
-            <td><?= $normalOrderData["firstName"].'&nbsp;'.$normalOrderData["lastName"] ?></td>
+            <td><?= $normalOrderData["firstName"] . '&nbsp;' . $normalOrderData["lastName"] ?></td>
             <td><?= $normalOrderData["foodlist"] ?></td>
             <td style="text-align: center"><?= $normalOrderData["qty"] ?></td>
             <td><?= $normalOrderData["delivery_date"] ?>&nbsp;<?= $normalOrderData["delivery_time"] ?> </td>
-            <td style="text-align: center">----- </td>
+            <td style="text-align: center">
+                <span class="timeleft" data-second="<?= $timeleft ?>"><?= printTime($timeleft); ?></span>
+            </td>
             <td class="text-center">
                 <button class="btn btn-info btn-xs normalOrderView" data-id="<?= $normalOrderData["order_id"] ?>" >
                     <span class="glyphicon glyphicon-eye-open"></span> 
@@ -50,7 +65,35 @@ if ($normalOrderRes->num_rows == 0) {
                 </button>
             </td>
         </tr>
-    <?php
+        <?php
     }
+    if ($i == 1) {
+        ?>
+        <input type="hidden" id="normalordercount" value="0">
+        <tr><td colspan="10" class="warning" style="text-align: center;"><h4>ยังไม่มีรายการใหม่</h4></td></tr>
+        <?php
+    }else{
+        ?>
+        <input type="hidden" id="normalordercount" value="<?=$i-1?>">
+        <?php
+    }
+}
+
+function printTime($timeleft) {
+    $output = "";
+    $hour = (gmdate("H", $timeleft) + 0);
+    $min = (gmdate("i", $timeleft) + 0);
+    $sec = gmdate("s", $timeleft);
+    if($sec < 10 & $timeleft>(60)){
+        $sec = $sec+0;
+    }
+    if($timeleft>(60*60)){
+        $output .= $hour.":";
+    }
+    if($timeleft>(60)){
+        $output .= $min.":";
+    }
+    $output .= $sec;
+    return $output;
 }
 ?>

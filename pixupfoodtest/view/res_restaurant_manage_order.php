@@ -119,7 +119,7 @@ include '../dbconn.php';
                                                 รายการสั่งซื้อใหม่  
                                                 <div class="pull-right">
                                                     <p class="text-center">
-                                                        <span style="font-size: 20px; color: orange">2 รายการใหม่ <span style="font-size: 20px; color: black">|</span> <span style="font-size: 20px; color: red">1 รายการด่วน</span></p>
+                                                        <span style="font-size: 20px; color: orange"><span class="countall"></span> รายการใหม่ <span style="font-size: 20px; color: black">|</span> <span style="font-size: 20px; color: red"><span class="countfast"></span> รายการด่วน</span></p>
                                                 </div>
                                             </div>
                                             <div class="card">
@@ -127,7 +127,7 @@ include '../dbconn.php';
                                                     <div class="page-header" style="font-size: 30px; margin-top: 5px">รายการใหม่<span style="color: red; font-size: 30px; "> (ด่วน)</span> 
                                                         <div class="pull-right">
                                                             <p class="text-center">
-                                                                <span style="font-size: 20px; color: red">1 รายการด่วน</span></p>
+                                                                <span style="font-size: 20px; color: red"><span class="countfast"></span> รายการด่วน</span></p>
                                                         </div>
                                                     </div>
                                                     <!-- ตารางรายการด่วน -->
@@ -153,7 +153,7 @@ include '../dbconn.php';
                                                                         <th>รายการอาหาร</th>
                                                                         <th>จำนวน(ขุด)</th>
                                                                         <th>วัน/เวลาที่ลูกค้านัดรับ</th>
-                                                                        <th>เวลาที่เหลือ(นาที)</th>
+                                                                        <th>เวลาที่เหลือ</th>
                                                                         <th>รายละเอียด</th>
                                                                         <th>รับรายการ</th>
                                                                         <th>ปฏิเสธรายการ</th>
@@ -177,7 +177,7 @@ include '../dbconn.php';
                                                     <div class="page-header" style="font-size: 30px; margin-top: 5px">รายการใหม่
                                                         <div class="pull-right">
                                                             <p class="text-center">
-                                                                <span style="font-size: 20px;">1 รายการ</span>
+                                                                <span style="font-size: 20px;"><span class="countnormal"></span> รายการ</span>
                                                             </p>
                                                         </div>
 
@@ -373,8 +373,5 @@ include '../dbconn.php';
     <script src="/assets/js/OrderSearch.js"></script>
   <!--  <script src="/assets/js/ui-bootstrap-tpls-0.13.4.min.js"></script>-->
     <script src="/assets/js/manage_order.js"></script>
-
-
-
 </body>
 </html>

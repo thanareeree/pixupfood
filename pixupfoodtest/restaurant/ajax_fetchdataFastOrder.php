@@ -1,29 +1,61 @@
 <?php
+date_default_timezone_set("Asia/Bangkok");
 include '../dbconn.php';
 $resid = @$_POST["resid"];
 
 $fastOrderRes = $con->query("SELECT fast_order.id as fast_id, fast_order.delivery_date, "
         . "fast_order.delivery_time, order_status.description,fast_order.shippingAddress_id, "
         . "fast_order.customer_id , quantity as qty , customer.firstName, customer.lastName , "
-        . "fast_order.main_menu_id "
+        . "fast_order.main_menu_id, request_fast_order.priority, fast_order.order_time "
         . "FROM `fast_order` "
         . "LEFT JOIN order_status ON order_status.id = fast_order.status"
         . " LEFT JOIN restaurant ON restaurant.id = fast_order.restaurant_id "
         . "LEFT JOIN request_fast_order ON request_fast_order.fast_id = fast_order.id "
         . "LEFT JOIN customer ON customer.id = fast_order.customer_id "
         . "WHERE request_fast_order.restaurant_id = '$resid' "
-        . "AND request_fast_order.priority = '1' "
         . "and fast_order.status != '7' "
+        . "and fast_order.restaurant_id IS NULL "
         . "ORDER BY fast_order.order_time DESC");
 $i = 1;
 if ($fastOrderRes->num_rows == 0) {
     ?>
+    <input type="hidden" id="fastordercount" value="0">
     <tr><td colspan="10" class="warning" style="text-align: center;"><h4>ยังไม่มีรายการใหม่</h4></td></tr>
     <?php
 } else {
     while ($fastOrderData = $fastOrderRes->fetch_assoc()) {
+        $now = time();
+        $ordertime = strtotime($fastOrderData["order_time"]);
+        $diff = $now - $ordertime;
+        //echo "order at : " . $fastOrderData["order_time"];
+        //echo "\nnow : " . date("Y-m-d H:i:s");
+        //echo "\ndiff : " . ($diff / 60) . "\n";
+        $timeleft;
+        $pri = $fastOrderData["priority"];
+        if ($pri == 1) {
+            if ($diff > (60 * 15)) {
+                //echo "pri1: skip";
+                continue;
+            } else {
+                $timeleft = (60 * 15) - $diff;
+            }
+        } else if ($pri == 2) {
+            if ($diff < (60 * 15) | $diff > (60 * 30)) {
+                //echo "pri2: skip";
+                continue;
+            } else {
+                $timeleft = (60 * 30) - $diff;
+            }
+        } else if ($pri == 3) {
+            if ($diff < (60 * 30) | $diff > (60 * 45)) {
+                //echo "pri3: skip";
+                continue;
+            } else {
+                $timeleft = (60 * 45) - $diff;
+            }
+        }
         ?>
-        <tr >
+        <tr>
             <td style="text-align: center"><?= $i++; ?></td>
             <td><?= $fastOrderData["fast_id"] ?></td>                         
             <td><?= $fastOrderData["firstName"] . '&nbsp;' . $fastOrderData["lastName"] ?></td>
@@ -32,7 +64,7 @@ if ($fastOrderRes->num_rows == 0) {
                 $menuid = $fastOrderData["main_menu_id"];
                 $menuid = "(" . $menuid . ")";
                 $name = "";
-                
+
                 $resName = $con->query("SELECT  main_menu.name FROM main_menu WHERE main_menu.id IN $menuid");
                 $count = 0;
                 while ($food = $resName->fetch_assoc()) {
@@ -48,7 +80,7 @@ if ($fastOrderRes->num_rows == 0) {
             </td>
             <td style="text-align: center"><?= $fastOrderData["qty"] ?></td>
             <td><?= $fastOrderData["delivery_date"] ?>&nbsp;<?= $fastOrderData["delivery_time"] ?> </td>
-            <td style="text-align: center">----- </td>
+            <td style="text-align: center"><span class="timeleft" data-second="<?= $timeleft ?>"><?= printTime($timeleft); ?></span></td>
             <td class="text-center">
                 <button class="btn btn-info btn-xs fastOrderView" data-id="<?= $fastOrderData["fast_id"] ?>" >
                     <span class="glyphicon glyphicon-eye-open"></span> 
@@ -68,6 +100,35 @@ if ($fastOrderRes->num_rows == 0) {
                 </button>
             </td>
         </tr>
-    <?php }
+        <?php
+    }
+    if ($i == 1) {
+        ?>
+        <input type="hidden" id="fastordercount" value="0">
+        <tr><td colspan="10" class="warning" style="text-align: center;"><h4>ยังไม่มีรายการใหม่</h4></td></tr>
+        <?php
+    } else {
+        ?>
+        <input type="hidden" id="fastordercount" value="<?= $i - 1 ?>">
+        <?php
+    }
+}
+
+function printTime($timeleft) {
+    $output = "";
+    $hour = (gmdate("H", $timeleft) + 0);
+    $min = (gmdate("i", $timeleft) + 0);
+    $sec = gmdate("s", $timeleft);
+    if ($sec < 10 & $timeleft < (60)) {
+        $sec = $sec + 0;
+    }
+    if ($timeleft > (60 * 60)) {
+        $output .= $hour . ":";
+    }
+    if ($timeleft > (60)) {
+        $output .= $min . ":";
+    }
+    $output .= $sec;
+    return $output;
 }
 ?>

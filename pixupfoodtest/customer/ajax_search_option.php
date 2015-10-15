@@ -1,4 +1,5 @@
 <?php
+session_start();
 include '../dbconn.php';
 $searchoption = $con->real_escape_string(@$_POST["searchoption"]);
 
