@@ -8,14 +8,14 @@ include '../dbconn.php';
 
 <html >
     <head>
-       
+
 
         <title>PixupFood - The Original Food Delivery</title>
         <?php include '../template/customer-title.php'; ?>
 
         <!-- custom css -->
         <link rel="stylesheet" href="/assets/css/register.css">
-
+        <link rel="stylesheet" href="/assets/css/regis_map.css">    
 
     </head>
     <body>
@@ -40,15 +40,15 @@ include '../dbconn.php';
                             <p>ยืนยันรหัสผ่าน </p>
                             <h3 class="text-uppercase">Name :</h3>
                             <p>ชื่อ - สกุล </p>
-                            <h3 class="text-uppercase">Address :</h3>
-                            <p>ที่อยู่ปัจจุบัน </p><br>
                             <h3 class="text-uppercase">Phone :</h3>
                             <p>โทรศัพท์ </p>
+                            <h3 class="text-uppercase">Address :</h3>
+                            <p>ที่อยู่ปัจจุบัน </p>
                         </div>
                         <div class="col-md-5 wow fadeInUp" data-wow-delay="0.6s" style="margin-top: 10px;">
                             <div>
                                 <form action="/register/customer-save.php" method="post">
-                                    <div class="col-md-12 form-group">
+                                    <div class="col-md-12 form-group" style="margin: 0;">
                                         <input required type="email" class="form-control" placeholder="Email" id="cusemail" name="cusemail">
                                     </div>
                                     <div class="col-md-12">
@@ -64,11 +64,35 @@ include '../dbconn.php';
                                         <input required type="text" class="form-control" placeholder="LastName" id="cuslname" name="cuslname">
                                     </div>
                                     <div class="col-md-12">
-                                        <textarea required class="form-control" placeholder="Address" rows="3" id="cusaddress" name="cusaddress"></textarea>
+                                        <input required type="tel" class="form-control" placeholder="Phone" id="cusphone" name="cusphone">
                                     </div>
                                     <div class="col-md-12">
-                                        <input required type="tel" class="form-control" placeholder="Phone" id="cusphone" name="cusphone">
-                                    </div><br>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <textarea required class="form-control" placeholder="Address" rows="3" id="cusaddress" name="cusaddress" style="margin: 0;"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="address">
+                                                    <div id='showaddress' class='col-sm-6'>
+                                                        ลากวางหมุดตรงที่อยู่ของคุณ
+                                                    </div>
+                                                    <div class='col-sm-6' style="text-align: right;">
+                                                        <button id="getlocationbtn" class="btn btn-warning">
+                                                            <span class="glyphicon glyphicon-map-marker"></span>
+                                                            ตำแหน่งปัจจุบัน
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-12" style="padding: 0 0 20px 0;">
+                                            <div id="map"></div>
+                                        </div>
+                                    </div>
+                                    <br>
                                     <div class="col-md-6 pull-right">
                                         <input type="submit" class="form-control text-uppercase" value="Registered">
                                     </div>
@@ -113,6 +137,7 @@ include '../dbconn.php';
         </div><!-- /.modal -->
 
         <?php include '../template/footer.php'; ?>
+        <script src="/assets/js/regis_map.js"></script>
         <script>
             $(document).ready(function () {
                 //Handles menu drop down

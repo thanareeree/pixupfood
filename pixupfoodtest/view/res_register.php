@@ -12,13 +12,7 @@ include '../dbconn.php';
         <link rel="stylesheet" href="/assets/css/register.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css">
-        <style>
-            #map {
-                height: 250px;
-                width: 50%;
-            }
-        </style>
-
+        <link rel="stylesheet" href="/assets/css/regis_map.css"> 
 
     </head>
     <body>
@@ -96,7 +90,7 @@ include '../dbconn.php';
                                     <p>รายละเอียดร้าน </p><br>
                                     <h3 class="text-uppercase">Address :</h3>
                                     <p>ที่อยู่ร้านอาหาร </p><br>
-                                    <h3 class="text-uppercase">Province :</h3>
+                                    <h3 class="text-uppercase" style="margin-top: 485px;">Province :</h3>
                                     <p>จังหวัด </p>
                                     <h3 class="text-uppercase">Zone :</h3>
                                     <p>เขต(เฉพาะกรุงเทพมหานคร) </p>
@@ -112,8 +106,31 @@ include '../dbconn.php';
                                             <textarea class="form-control" placeholder="Detail" rows="3" required id="detail" name="detail"></textarea>
                                         </div>
                                         <div class="col-md-12">
-                                            <textarea class="form-control" placeholder="Address" rows="3" required id="resaddress" name="resaddress"></textarea>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <textarea required class="form-control" placeholder="Address" rows="3" id="resaddress" name="resaddress" style="margin: 0;"></textarea>
+                                            </div>
                                         </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="address">
+                                                    <div id='showaddress' class='col-sm-6'>
+                                                        ลากวางหมุดตรงที่อยู่ของคุณ
+                                                    </div>
+                                                    <div class='col-sm-6' style="text-align: right;">
+                                                        <button id="getlocationbtn" class="btn btn-warning">
+                                                            <span class="glyphicon glyphicon-map-marker"></span>
+                                                            ตำแหน่งปัจจุบัน
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-12" style="padding: 0 0 20px 0;">
+                                            <div id="map"></div>
+                                        </div>
+                                    </div>
 
                                         <div class="col-md-12">
                                             <select class="form-control " id="provincelist" name="provincelist">
@@ -298,6 +315,7 @@ include '../dbconn.php';
 
 
         <?php include '../template/footer.php'; ?>
+        <script src="/assets/js/regis_map.js"></script>
         <script>
             $(document).ready(function () {
                 $('#termsmodal').modal({
