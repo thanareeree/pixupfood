@@ -2,7 +2,7 @@
 session_start();
 include '../../dbconn.php';
 $cusid = $_SESSION["userdata"]["id"];
-$orderRes = $con->query("SELECT fast_order.id as fast_id, order_status.description,"
+$orderRes = $con->query("SELECT fast_order.id as fast_id, order_status.description, order_status.id as status_id,"
         . " fast_order.quantity as qty, restaurant.name, fast_order.main_menu_id "
         . "FROM `fast_order` "
         . "LEFT JOIN order_status ON order_status.id = fast_order.status "
@@ -20,7 +20,7 @@ if ($orderRes->num_rows == 0) {
     $i = 1;
     while ($orderData = $orderRes->fetch_assoc()) {
         ?>
-        <tr>
+        <tr <?= ($orderData["status_id"]=="1")? "class=\"warning\"":""?>>
             <td><?= $i++; ?></td>
             <td><?= $orderData["fast_id"] ?></td>                         
             <td>

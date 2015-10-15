@@ -3,7 +3,7 @@
 session_start();
 include '../../dbconn.php';
 $cusid = $_SESSION["userdata"]["id"];
-$orderRes = $con->query(" SELECT DISTINCT normal_order.id as order_id, order_status.description, "
+$orderRes = $con->query(" SELECT DISTINCT normal_order.id as order_id, order_status.description, order_status.id as status_id, "
         . "restaurant.name, SUM(order_detail.quantity) as qty "
         . "FROM `normal_order` "
         . "LEFT JOIN order_detail ON order_detail.order_id = normal_order.id "
@@ -25,7 +25,7 @@ if ($orderRes->num_rows == 0) {
     $i = 1;
     while ($orderData = $orderRes->fetch_assoc()) {
         ?>
-        <tr>
+    <tr <?= ($orderData["status_id"]=="1")? "class=\"warning\"":""?> >
             <td><?= $i++;?></td>
             <td><?= $orderData["order_id"]?></td>    
             <td><?= $orderData["qty"]?></td>

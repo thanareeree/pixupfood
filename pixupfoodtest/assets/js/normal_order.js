@@ -12,7 +12,8 @@ $(document).ready(function (e) {
     initFood();
     showOrderDatail();
     fetchCalendar();
-
+    
+       $('[data-toggle="tooltip"]').tooltip();
     $('.calendar').fullCalendar({
         header: {
             left: 'prev',

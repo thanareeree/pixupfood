@@ -256,12 +256,17 @@ include '../api/islogin.php';
                                                 </div>
                                             </div>
                                             <ul class="list-inline pull-right"  style="margin-top: 20px">
-                                                <li><button type="button" class="btn btn-warning next-step " id="nextstep4" >ดำเนินการต่อ <span class="glyphicon glyphicon glyphicon-chevron-right"></span></button></li>
+                                                <li>
+                                                    <button type="button" class="btn btn-warning next-step " id="nextstep4" <?=( $resNameData["close"]== "0") ? "":" disabled"?>>
+                                                        ดำเนินการต่อ 
+                                                        <span class="glyphicon glyphicon glyphicon-chevron-right"></span>
+                                                    </button>
+                                                </li>
                                             </ul>
                                             <ul class="list-inline"  style="margin-top: 20px">
                                                 <li>
                                                     <a href="/view/cus_restaurant_view.php?resId=<?= $resid ?>">
-                                                        <button type="button" class="btn btn-danger " id="addNewOrder" > 
+                                                        <button type="button" class="btn btn-danger " id="addNewOrder" <?=( $resNameData["close"]== "0") ? "":" data-toggle=\"tooltip\" "?>  class="tooltip-r" data-placement="top" title="วันนี้ร้านปิดรับออเดอร์ชั่วคราว สามารถเพิ่มรายการอาหารเก็บไว้ในตะกร้าได้"> 
                                                             <span class=" glyphicon glyphicon-plus-sign"></span>&nbsp;สั่งซื้อต่อไป
                                                         </button>
                                                     </a>

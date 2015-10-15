@@ -1,7 +1,7 @@
 <?php 
-include '../dbconn.php';
-$fast_orderid = $_POST["fast_orderid"];
-$con->query("");
+include '../../dbconn.php';
+//$fast_orderid = $_POST["fast_orderid"];
+//$con->query("");
 
 ?>
 
@@ -64,45 +64,48 @@ $con->query("");
                                 <table class="table table-list-search">
                                     <thead>
                                         <tr>
-                                            <th>ลำดับ</th>
+                                       
                                             <th>รายการ</th>
-                                            <th>ราคาต่อหน่วย/บาท</th>
-                                            <th>จำนวน</th>
-                                            <th>ราคารวม/บาท</th>
+                                            <th  style="text-align: center">ราคาต่อหน่วย/บาท</th>
+                                            <th  style="text-align: center">จำนวน</th>
+                                            <th  style="text-align: center">ราคารวม/บาท</th>
                                         </tr>
                                     </thead>
                                     <tbody class="table table-condensed table-hover">
                                         <tr>
-                                            <td>1</td>                     
-                                            <td>ข้าวกล้อง+กระเพรา</td>
+                                                              
+                                            <td>เมนู: &nbsp;
+                                                
+                                               ข้าวกล้อง+กระเพรา
+                                            </td>
                                             <td style="text-align: center">10.00</td>
                                             <td style="text-align: center">50</td>
                                             <td style="text-align: center">500.00</td>
 
                                         </tr>
                                         <tr>
-                                            <td>4</td>                     
+                                                               
                                             <td>ค่าจัดส่ง</td>
                                             <td style="text-align: center">100.00</td>
                                             <td style="text-align: center">1</td>
                                             <td style="text-align: center">100.00</td>
                                         </tr>
                                         <tr class="success">
-                                            <td></td>                     
+                                                           
                                             <td>ราคารวม</td>
                                             <td style="text-align: center"></td>
                                             <td style="text-align: center"></td>
                                             <td style="text-align: center">1,600.00</td>
                                         </tr>
                                         <!--<tr class="warning">
-                                            <td></td>                     
+                                                            
                                             <td>ส่วนลด10% 1D23A5</td>
                                             <td style="text-align: center"></td>
                                             <td style="text-align: center">1</td>
                                             <td style="text-align: center">-160.00</td>
                                         </tr>-->
                                         <!--<tr class="danger">
-                                            <td></td>                     
+                                                             
                                             <td>ราคารวมหลังหักส่วนลด</td>
                                             <td style="text-align: center"></td>
                                             <td style="text-align: center"></td>
@@ -134,9 +137,6 @@ $con->query("");
                         <span style="font-size: 20px">การชำระเงิน </span>
                         <hr style="margin-top: 5px;margin-bottom: 10px;">
                         <span style="font-size: 15px"> โอนเงินมัดจำผ่านธนาคาร: <br><span style="font-size: 15px; color: orange;"> กสิกรไทย เลขที่ 12-1231212-1 <br> 400.00 บาท</span> </span> &nbsp; 
-
-                        <a href="#" class="btn btn-warning btn-xs "data-toggle="modal" data-target='.pop-up-2' href=".pop-up-2" style="margin-left: 90px;">แสดงสลิป</a><br>
-
                         <span style="font-size: 15px"> ชำระเงินด้วยเงินสด: <br><span style="font-size: 15px; color: red;"> ต้องชำระเพิ่ม ณ ที่รับสินค้า 1040.00 บาท </span> </span> &nbsp; 
 
 

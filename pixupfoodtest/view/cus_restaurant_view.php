@@ -292,7 +292,7 @@ include '../api/islogin.php';
                                                         <div id="addMenuSuccess" style="background-color:rgba(255,255,255,0.6); text-align: center; position: absolute; left:0; top:0; width:100%; height:100%;">
                                                             <h1 style="font-size:100px; margin-top:150px;"><span class="glyphicon glyphicon-ok-circle"></span></h1>
                                                             <h2>บันทึกรายการอาหารเรียบร้อยเเล้ว</h2>
-                                                            <button type="button" class="btn btn-danger " id="addNewOrder" > <span class=" glyphicon glyphicon-plus-sign"></span>&nbsp;สั่งซื้อต่อไป</button>
+                                                            <button type="button" class="btn btn-danger " id="addNewOrder" <?=( $resNameData["close"]== "0") ? "":" data-toggle=\"tooltip\" "?>  class="tooltip-r" data-placement="top" title="วันนี้ร้านปิดรับออเดอร์ชั่วคราว สามารถเพิ่มรายการอาหารเก็บไว้ในตะกร้าได้" > <span class=" glyphicon glyphicon-plus-sign"></span>&nbsp;สั่งซื้อต่อไป</button>
                                                         </div>
                                                     </div>
                                                     <div id="errorStep3" style="    margin-top: 20px;"></div>
@@ -301,7 +301,14 @@ include '../api/islogin.php';
                                             <ul class="list-inline pull-right"  style="margin-top: 20px">
                                                 <li><button type="button" class="btn btn-default prev-step" id="prevstep3"> <span class="glyphicon  glyphicon-chevron-left"></span>ย้อนกลับ</button></li>
                                                 <li><button type="button" class="btn btn-success " id="add_order"  ><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;เพิ่มรายการ</button></li>
-                                                <li><a href="/view/cus_order_shoplist.php?resId=<?= $resid ?>"><button type="button" class="btn btn-warning next-step " id="checkout" style="display: none" >ดำเนินการต่อ <span class="glyphicon  glyphicon-chevron-right"></span></button></a></li>
+                                                <li>
+                                                    <a href="/view/cus_order_shoplist.php?resId=<?= $resid ?>">
+                                                        <button type="button" class="btn btn-warning next-step " id="checkout" style="display: none" >
+                                                            ดำเนินการต่อ 
+                                                            <span class="glyphicon  glyphicon-chevron-right"></span>
+                                                        </button>
+                                                    </a>
+                                                </li>
                                             </ul>
                                             <ul class="list-inline"  style="margin-top: 20px">
                                                 <li><button type="button" class="btn btn-danger " id="addNewOrder" style="display: none"> <span class=" glyphicon glyphicon-plus-sign"></span>&nbsp;สั่งซื้อต่อไป</button></li>

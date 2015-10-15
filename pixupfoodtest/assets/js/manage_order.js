@@ -4,10 +4,10 @@ $(document).ready(function () {
 
 
 
-
+//view
     $('#showdataFastOrder').on("click", ".fastOrderView", function (e) {
         var id = $(this).attr("data-id");
-        $("#showorderid").html(id);
+        $("#showFastOrderId").html(id);
 
         $.ajax({
             url: "/restaurant-order/request_order/modal-request.php",
@@ -15,15 +15,15 @@ $(document).ready(function () {
             data: {"id": id, "type": "fast"},
             dataType: "html",
             success: function (returndata) {
-                $("#OrderViewBody").html(returndata);
-                $("#detailOrderModal").modal("show");
+                $("#fastOrderViewBody").html(returndata);
+                $("#detailFastOrderModal").modal("show");
             }
         });
     });
 
     $('#showdataNormalOrder').on("click", ".normalOrderView", function (e) {
         var id = $(this).attr("data-id");
-        $("#showorderid").html(id);
+        $("#showOrderId").html(id);
 
         $.ajax({
             url: "/restaurant-order/request_order/modal-request.php",
@@ -31,43 +31,51 @@ $(document).ready(function () {
             data: {"id": id, "type": "normal"},
             dataType: "html",
             success: function (returndata) {
-                $("#OrderViewBody").html(returndata);
-                $("#detailOrderModal").modal("show");
+                $("#normalOrderViewBody").html(returndata);
+                $("#detailNormalOrderModal").modal("show");
 
             }
         });
     });
-
+//accept
     $('#showdataFastOrder').on("click", ".acceptFastOrder", function (e) {
         var id = $(this).attr("data-id");
-        $("#acceptId").html(id);
-        $("#acceptOrderModal").modal("show");
+        $("#acceptFastId").html(id);
+        $("#acceptFastOrderModal").modal("show");
     });
+
 
     $('#showdataNormalOrder').on("click", ".acceptNormalOrder", function (e) {
         var id = $(this).attr("data-id");
-        $("#acceptId").html(id);
-        $("#acceptOrderModal").modal("show");
+        $("#acceptNormalId").html(id);
+        $("#acceptNormalOrderModal").modal("show");
         
     });
     
-    $("#acceptBtn").on("click", function (e){
+    $("#acceptNormalBtn").on("click", function (e){
         var type = "accept";
         actionNormalOrder(type);
     });
 
+//ignore
+    $('#showdataNormalOrder').on("click", ".ignoreNormalData", function (e) {
+        var id = $(this).attr("data-id");
+        $("#ignoreNormalId").html(id);
+        $("#ignoreNormalOrderModal").modal("show");
+    });
+    
+    $("#ignoreNormalBtn").on("click", function (e){
+        var type = "accept";
+        actionNormalOrder(type);
+    });
 
+    
     $('#showdataFastOrder').on("click", ".ignoreFastOrder", function (e) {
         var id = $(this).attr("data-id");
         $("#ignoreId").html(id);
         $("#ignoreOrderModal").modal("show");
     });
 
-    $('#showdataNormalOrder').on("click", ".ignoreNormalData", function (e) {
-        var id = $(this).attr("data-id");
-        $("#ignoreId").html(id);
-        $("#ignoreOrderModal").modal("show");
-    });
 
 
 });
@@ -102,11 +110,11 @@ function actionNormalOrder(type) {
     $.ajax({
         url: "/restaurant-order/request_order/api/actionNormalOrder.php",
         type: "POST",
-        data: {"orderid": $('#acceptId').html(), "cmd": type},
+        data: {"orderid": $('#acceptNormalId').html(), "cmd": type},
         dataType: "json",
         success: function (data) {
             if (data.result == "1") {
-                 $("#acceptOrderModal").modal("hide");
+                 $("#acceptNormalOrderModal").modal("hide");
                  fetchdataShowNormalOrder();
             } else {
                 alert(data.error);

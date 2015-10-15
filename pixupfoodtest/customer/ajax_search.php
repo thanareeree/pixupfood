@@ -1,5 +1,6 @@
 <?php
 include '../dbconn.php';
+session_start();
 $searchby = $con->real_escape_string(@$_POST["searchby"]);
 $foodtype = $con->real_escape_string(@$_POST["foodtype"]);
 $searchtxt = $con->real_escape_string(@$_POST["searchtxt"]);
@@ -62,8 +63,8 @@ if ($searchby == "foodname") {
                 <p style="font-size: 20px"><?= $data["price"] ?>&nbsp;บาท<br></p>
             </td>
             <td>
-                <a href="/view/cus_restaurant_view.php?menuId=<?= $data["menuid"] ?>&resId=<?= $data["id"] ?>">
-                    <span class="tooltip-r" data-toggle="tooltip" data-placement="top" title="log in to ordet this restaurant">
+                <a href="/view/cus_restaurant_view.php?menuId=<?= $data["menuid"] ?>&resId=<?= $data["id"] ?>" <?=(isset($_SESSION["islogin"])) ? "":"onclick=\"return false;\""?>>
+                    <span class="tooltip-r"<?=(isset($_SESSION["islogin"])) ? "":" data-toggle=\"tooltip\" "?>data-placement="top" title="log in to ordet this restaurant">
                         <button class="btn btn-success menu_order" id="menu_order<?= $data["menuid"] ?>"><i class="glyphicon glyphicon-plus"></i>&nbsp; สั่งรายการอาหารนี้</button>
                     </span>
                 </a>
@@ -81,7 +82,6 @@ if ($searchby == "foodname") {
                 . "JOIN zone ON zone.id = restaurant.zone_id "
                 . "RIGHT JOIN menu ON menu.restaurant_id = restaurant.id "
                 . "WHERE restaurant.name LIKE '%$searchtxt%' "
-                . "AND restaurant.close = 0 "
                 . "AND restaurant.block = 0");
         $numrow = $res->num_rows;
     }
@@ -106,8 +106,8 @@ if ($searchby == "foodname") {
 
             </td>
             <td>
-                <a href="/view/cus_restaurant_view.php?resId=<?= $data["id"] ?>">
-                    <span class="tooltip-r" data-toggle="tooltip" data-placement="top" title="log in to ordet this restaurant">
+                <a href="/view/cus_restaurant_view.php?resId=<?= $data["id"] ?>" <?=(isset($_SESSION["islogin"])) ? "":"onclick=\"return false;\""?>>
+                    <span class="tooltip-r"<?=(isset($_SESSION["islogin"])) ? "":" data-toggle=\"tooltip\" "?> data-placement="top" title="log in to ordet this restaurant">
                         <button class="btn btn-success restaurant_order" id="restaurant_order<?= $data["id"] ?>"><i class="glyphicon glyphicon-plus"></i>&nbsp; สั่งอาหารล่วงหน้า</button>
                     </span>
                 </a>
@@ -125,7 +125,7 @@ if ($searchby == "foodname") {
                 . "* cos( radians( x ) ) * cos( radians( y ) - radians(" . $long . ") ) "
                 . "+ sin( radians(" . $lat . ") ) * sin( radians( x ) ) ) ) AS distance "
                 . "FROM restaurant JOIN zone ON zone.id = restaurant.zone_id "
-                . " WHERE restaurant.available = 1 and restaurant.close = 0 "
+                . " WHERE restaurant.available = 1  "
                 . "AND zone.name IN (SELECT zone.name FROM zone WHERE id = restaurant.zone_id)"
                 . "HAVING distance < 25 ORDER BY distance LIMIT 0 , 20");
         $numrow = $res->num_rows;
@@ -152,9 +152,9 @@ if ($searchby == "foodname") {
                 <br><i class="glyphicon glyphicon-flag"></i>&nbsp;รัศมี&nbsp;<?= substr($data["distance"], 0, 5) ?>&nbsp;กิโลเมตร
             </td>
             <td>
-                <a href="/view/cus_restaurant_view.php?resId=<?= $data["id"] ?>">
-                    <span class="tooltip-r" data-toggle="tooltip" data-placement="top" title="log in to ordet this restaurant">
-                        <button class="btn btn-success restaurant_order" id="restaurant_order<?= $data["id"] ?>"><i class="glyphicon glyphicon-plus"></i>&nbsp; สั่งอาหารล่วงหน้า</button>
+                <a href="/view/cus_restaurant_view.php?resId=<?= $data["id"] ?>" <?=(isset($_SESSION["islogin"])) ? "":"onclick=\"return false;\""?>>
+                    <span class="tooltip-r" <?=(isset($_SESSION["islogin"])) ? "":" data-toggle=\"tooltip\" "?> data-placement="top" title="log in to ordet this restaurant">
+                        <button class="btn btn-success restaurant_order" id="restaurant_order<?= $data["id"] ?>"><i class="glyphicon glyphicon-plus" ></i>&nbsp; สั่งอาหารล่วงหน้า</button>
                     </span>
                 </a>
             </td>
