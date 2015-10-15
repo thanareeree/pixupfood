@@ -318,7 +318,7 @@ include '../dbconn.php';
 
 
                                                     <!-- ความน่าเชื่อถือ ------------------------------------------------------------------------------------------->
-                                                    <div class="card card-content">
+                                                   <!-- <div class="card card-content">
                                                         <div class="page-header" style="font-size: 30px; margin-top: 5px">
                                                             ระดับความน่าเชื่อถือ
                                                             <div class="pull-right">
@@ -333,7 +333,7 @@ include '../dbconn.php';
                                                         <div class="row">
                                                             <div class="col-md-5">
                                                                 <?php
-                                                                $level = $resdata["level"];
+                                                                /*$level = $resdata["level"];
                                                                 if ($level == "พื้นฐาน") {
                                                                     echo '<img src="/assets/images/ResClass/Standard.png">';
                                                                 } else if ($level == "กลาง") {
@@ -342,14 +342,14 @@ include '../dbconn.php';
                                                                     echo '<img src="/assets/images/ResClass/High.png">';
                                                                 } else {
                                                                     echo '<img src="/assets/images/ResClass/Premium.png">';
-                                                                }
+                                                                }*/
                                                                 ?>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div>-->
 
                                                     <!-- modal ความน่าเชื่อถือ-->
-                                                    <div class="modal fade" id="Turst" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+                                                   <!--<div class="modal fade" id="Turst" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
                                                         <div class="modal-dialog">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
@@ -419,7 +419,7 @@ include '../dbconn.php';
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div>-->
                                                     <!-- จบ modal ความน่าเชื่อถือ-->
                                                     <!-- จบความน่าเชื่อถือ -->
 
