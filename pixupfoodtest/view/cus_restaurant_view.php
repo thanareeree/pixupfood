@@ -42,7 +42,7 @@ include '../api/islogin.php';
                 . "JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
                 . "WHERE menu.id = '$orderMenu_id'");
         $menusetData = $menusetRes->fetch_assoc();
-        print_r($menusetData);
+       // print_r($menusetData);
 
         $cusid = $_SESSION["userdata"]["id"];
         $customerRes = $con->query("select customer.id, customer.firstName, customer.lastName,"

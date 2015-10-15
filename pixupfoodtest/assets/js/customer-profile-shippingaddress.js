@@ -15,27 +15,7 @@ $(document).ready(function () {
     }
     fetchdata();
 
-    $("#saveaddbtn").on("click", function (e) {
-        $.ajax({
-            url: "/customer/ajaxsave-address.php",
-            type: "POST",
-            data: {"address": $("#addressinput").val(),
-                "proid": $(".prolist").val(),
-                "addnaming": $("#addressnaming").val(),
-                "cusid": $("#shipcusid").val()},
-            dataType: "html",
-            success: function (returndata) {
-                //$("#textinput").val("");
-                if (returndata == "ok") {
-                    $("#add_address").modal('hide');
-                    // fetchdata();
-                } else {
-                    alert("start" + returndata + "พัง");
-                }
-            }
-            //
-        });
-    });
+  
 
     $(".deleteadd").click(function (e) {
         var delid = $(this).attr("id");
@@ -46,7 +26,7 @@ $(document).ready(function () {
     });
 
     $("#deleteaddyes").click(function (e) {
-        $("#deleteaddyes").attr("disabled", "disabled");
+        //$("#deleteaddyes").attr("disabled", "disabled");
         $.ajax({
             url: "/customer/delete-shipping-address.php",
             type: "POST",

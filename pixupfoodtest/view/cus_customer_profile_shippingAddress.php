@@ -146,52 +146,6 @@ include '../dbconn.php';
                                     </div>
                                     <!-- จบตารางรายการติดตาม -->
 
-                                    <!-- Add Shipping address Modal -->
-                                    <div class="modal fade" id="add_address" tabindex="-1" role="dialog" aria-labelledby="shipping_address">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <form action="/customer/add-shipping-address.php?id=<?= $cusid ?>" id="addressform" name="addressform" method="post">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="mdrecl" name="mdrecl"><span aria-hidden="true">&times;</span></button>
-                                                        <h4 class="modal-title" id="shipping_address">เพิ่มที่จัดส่งสินค้า</h4>
-                                                    </div>
-                                                    <div class="modal-body">
-
-                                                        <label for="address">รายละเอียดที่จัดส่งสินค้า:<span style="color: red;font-size: 20px;font-weight: normal">*</span></label>
-                                                        <div class="form-group">
-                                                            <textarea required class="form-control" placeholder="ที่จัดส่งสินค้า" rows="3"  name="address" id="address"></textarea>
-                                                        </div>
-                                                        <label for="addtype">ประเภทที่อยู่อาศัย:<span style="color: red;font-size: 20px;font-weight: normal">*</span></label>
-                                                        <div class="form-group" >
-                                                            <select name="addtype" id="addtype" class="col-sm-12" required>
-                                                                <option value="อพาร์ทเมนท์">อพาร์ทเมนท์</option>
-                                                                <option value="สถานที่ราชการ">สถานที่ราชการ</option>
-                                                                <option value="มหาวิทยาลัย">มหาวิทยาลัย</option>
-                                                                <option value="โรงพยาบาล">โรงพยาบาล</option>
-                                                                <option value="โรงแรม">โรงแรม</option>
-                                                                <option value="บ้าน">บ้าน</option>
-                                                                <option value="ตลาด">ตลาด</option>
-                                                                <option value="โรงเรียน">โรงเรียน</option>
-                                                                <option value="ร้านค้า">ร้านค้า</option>
-                                                                <option value="วัด">วัด</option>
-                                                                <option value="อื่นๆ">อื่นๆ</option>
-                                                            </select>
-                                                        </div>
-                                                        <label for="addnaming">กรุณาใส่ข้อมูลระบุที่จัดส่งเพื่อความรวดเร็ว:<span style="color: red;font-size: 20px;font-weight: normal">*</span></label>
-                                                        <div class="form-group">
-                                                            <input required class="form-control" placeholder="ชื่อเรียกที่จัดส่งเพื่อความรวดเร็ว"  name="addnaming" id="addnaming">
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <div>
-                                                            <input type="reset" class="btn btn-warning col-sm-3" name="resetbtn" value="Reset" >
-                                                            <input type="submit" class="btn btn-primary col-sm-3" name="addbtn"  value="Add" >
-                                                        </div>
-                                                    </div> 
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
 

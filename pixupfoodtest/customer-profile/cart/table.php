@@ -44,7 +44,7 @@ if ($detailRes->num_rows == 0) {
             <td><?= $detailData["resname"]?></td>
             <td><?= $detailData["quantity"]?></td>
             <td ><a href="/view/cus_order_shoplist.php?resId=<?= $detailData["restaurant_id"]?>" class="btn btn-success btn-xs sendOrder" style="font-size: 13px;font-weight: normal" ><span class="glyphicon glyphicon-check"></span> สั่ง</a></td>
-            <td ><p class="btn btn-danger btn-xs" style="font-size: 13px;font-weight: normal" ><span class="glyphicon glyphicon-trash"></span> นำออก</p></td>
+            <td ><p class="btn btn-danger btn-xs remove_cart" style="font-size: 13px;font-weight: normal"  id="remove_cart<?= $detailData["id"]?>"  data-toggle="tooltip" data-placement="top" title="ลบรายการอาหารนี้?" ><span class="glyphicon glyphicon-trash" ></span> นำออก</p></td>
         </tr>
         <?php
     }
