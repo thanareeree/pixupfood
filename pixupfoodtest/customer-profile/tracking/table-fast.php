@@ -20,7 +20,7 @@ if ($orderRes->num_rows == 0) {
     $i = 1;
     while ($orderData = $orderRes->fetch_assoc()) {
         ?>
-        <tr <?= ($orderData["status_id"]=="1")? "class=\"warning\"":""?>>
+        <tr <?= ($orderData["status_id"] == "1") ? "class=\"warning\"" : "" ?>>
             <td><?= $i++; ?></td>
             <td><?= $orderData["fast_id"] ?></td>                         
             <td>
@@ -44,8 +44,19 @@ if ($orderRes->num_rows == 0) {
             </td>
             <td><?= $orderData["qty"] ?></td>
             <td><?= $orderData["description"] ?></td>
-            <td class="text-center"><button class="btn btn-info btn-xs" data-toggle="modal" data-target='#track' href="#track"><span class="glyphicon glyphicon-eye-open"></span> แสดง</button></td>
-            <td class="text-center"><button class="btn btn-warning btn-xs" data-toggle="modal" data-target='#transf' href="#transf" disabled="disabled"><span class="glyphicon glyphicon-eye-open"></span> อัพโหลด</button></td>
+            <td class="text-center">
+                <button class="btn btn-info btn-xs fastOrderView" data-id="<?= $orderData["fast_id"] ?>" ><span class="glyphicon glyphicon-eye-open"></span> แสดง</button>
+            </td>
+            <td class="text-center">
+                <button class="btn btn-warning btn-xs uploadSlip1" data-id="<?= $orderData["fast_id"] ?>" <?= ($orderData["status_id"] == "2")? "": "disabled"?> <?= ($orderData["status_id"] == "5")? "style=\"display: none\"": ""?>>
+                    <span class="glyphicon glyphicon-eye-open"></span> 
+                    อัพโหลด
+                </button>
+                <button class="btn btn-warning btn-xs uploadSlip2" data-id="<?= $orderData["fast_id"] ?>" <?= ($orderData["status_id"] == "5")? "": "style=\"display: none\""?>  >
+                    <span class="glyphicon glyphicon-eye-open"></span> 
+                    อัพโหลด
+                </button>
+            </td>
         </tr>
         <?php
     }

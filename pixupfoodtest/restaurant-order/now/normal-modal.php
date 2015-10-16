@@ -1,16 +1,18 @@
 <?php
 session_start();
-include '../dbconn.php';
-$resid = $_SESSION["restdata"]["id"];
+include '../../dbconn.php';
+
 $order_id = $_POST["id"];
-$resNameRes = $con->query("select  deliveryfee"
-        . " from restaurant "
-        . "join mapping_delivery_type on mapping_delivery_type.restaurant_id = restaurant.id  "
-        . " where id = '$resid'");
-$delifeeData = $resNameRes->fetch_assoc();
+
 
 $orderRes = $con->query("SELECT * FROM `normal_order` LEFT JOIN customer ON customer.id = normal_order.customer_id WHERE normal_order.id ='$order_id'");
 $orderData = $orderRes->fetch_assoc();
+$resid = $orderData["restaurant_id"];
+$resNameRes = $con->query("select  deliveryfee, restaurant.name"
+        . " from restaurant "
+        . "join mapping_delivery_type on mapping_delivery_type.restaurant_id = restaurant.id  "
+        . " where restaurant.id = '$resid'");
+$delifeeData = $resNameRes->fetch_assoc();
 
 $shipAddressRes = $con->query("SELECT shippingAddress.address_naming, shippingAddress.type, "
         . "shippingAddress.full_address "
@@ -27,6 +29,9 @@ $statusRes = $con->query("SELECT order_status.id, order_status.description "
         . "WHERE normal_order.id = '$order_id'");
 $statusData = $statusRes->fetch_assoc();
 $statusid = $statusData["id"];
+
+$slip2res = $con->query("SELECT * FROM `transfer` WHERE order_id = '$order_id' AND type = 'n2'");
+$slip2Data = $slip2res->fetch_assoc();
 ?>
 
 <div class="modal-body">
@@ -42,7 +47,7 @@ $statusid = $statusData["id"];
                             <span style="font-size: 20px">สถานะของรายการ: </span>
                             <span style="font-size: 20px; color: orange;"> ปฏิเสธรายการ </span><br>
                             <span style="font-size: 20px">ปฏิเสธรายการโดย: </span>
-                            <span style="font-size: 20px; color: orange;"> <?= $_SESSION["restdata"]["name"] ?> </span><br>
+                            <span style="font-size: 20px; color: orange;"> <?= $delifeeData["name"] ?> </span><br>
                             <span style="font-size: 20px">ปฏิเสธรายการวันที่: </span>
                             <span style="font-size: 20px; color: orange;"><?= substr($orderData["updated_status_time"], 0, 11) ?></span><br>
                             <span style="font-size: 20px">ปฏิเสธรายการเวลา: </span>
@@ -55,7 +60,7 @@ $statusid = $statusData["id"];
                             <span style="font-size: 20px">สถานะของรายการ: </span>
                             <span style="font-size: 20px; color: orange;"> <?= $statusData["description"] ?></span><br>
                             <span style="font-size: 20px">ตอบรับรายการโดย: </span>
-                            <span style="font-size: 20px; color: orange;"> <?= $_SESSION["restdata"]["name"] ?>  </span><br>
+                            <span style="font-size: 20px; color: orange;"> <?= $delifeeData["name"] ?>  </span><br>
                             <span style="font-size: 20px">ตอบรับรายการวันที่: </span>
                             <span style="font-size: 20px; color: orange;"> <?= substr($orderData["updated_status_time"], 0, 11) ?></span><br>
                             <span style="font-size: 20px">ตอบรับรายการเวลา: </span>
@@ -68,19 +73,6 @@ $statusid = $statusData["id"];
 
                 </div>
                 <?php ?>
-
-                <div class="card">
-                    <div class="card-content">
-                        <span style="font-size: 20px">หมายเลขสมาชิกลูกค้า: </span>
-                        <span style="font-size: 20px; color: orange;"> <?= $orderData["id"] ?> </span><br>
-
-                        <span style="font-size: 20px">ชื่อ: </span>
-                        <span style="font-size: 20px; color: orange;"> <?= $orderData["firstName"] ?>&nbsp;<?= $orderData["lastName"] ?> </span><br>
-
-                        <span style="font-size: 20px">โทรศัพท์: </span>
-                        <span style="font-size: 20px; color: orange;"><?= $orderData["tel"] ?> </span>
-                    </div>
-                </div>
             </div>
             <div class="col-md-5">
                 <div class="card">
@@ -108,7 +100,7 @@ $statusid = $statusData["id"];
                     <div class="card-content">
 
                         <span style="font-size: 20px">วันที่ลูกค้านัดรับสินค้า: </span>
-                        <span style="font-size: 20px; color: orange;"> <?= $orderData["delivery_date"]?></span><br>
+                        <span style="font-size: 20px; color: orange;"> <?= $orderData["delivery_date"] ?></span><br>
                         <span style="font-size: 20px">เวลาที่ลูกค้านัดรับสินค้า: </span>
                         <span style="font-size: 20px; color: orange;"> <?= substr($orderData["delivery_time"], 0, 5) ?>&nbsp;น.  </span><br>
 
@@ -236,16 +228,13 @@ $statusid = $statusData["id"];
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-content">
-                        <span style="font-size: 20px">เพิ่มเติม </span>
+                        <span style="font-size: 20px">การชำระเงิน </span>
                         <hr style="margin-top: 5px;margin-bottom: 10px;">
-                        <span style="font-size: 15px; color: red;">
-                            <?php
-                            while ($orderDetailData = $orderDetailRes->fetch_assoc()) {
-                                $moretext = $orderDetailData["moretext"];
-                                echo "<p>" . $moretext . "</p><br>";
-                            }
-                            ?>
-                        </span>
+                        <span style="font-size: 15px"> โอนเงินมัดจำผ่านธนาคาร: <br><span style="font-size: 15px; color: orange;"> กสิกรไทย เลขที่ 12-1231212-1 <br> 400.00 บาท</span> </span> &nbsp; 
+
+                        <a href="#" class="btn btn-warning btn-xs "data-toggle="modal" data-target='.pop-up-2' href=".pop-up-2" style="margin-left: 90px;">แสดงสลิป</a><br>
+
+                        <span style="font-size: 15px"> ชำระเงินด้วยเงินสด: <br><span style="font-size: 15px; color: red;"> ต้องชำระเพิ่ม ณ ที่รับสินค้า 1040.00 บาท </span> </span> &nbsp; 
                     </div>
                 </div>
             </div>
@@ -265,6 +254,66 @@ $statusid = $statusData["id"];
                 </div>
             </div>
         </div>
+        <div class="col-md-12">
+            <div class="col-md-12">
+                <div class="card" >
+                    <div class="card-content">
+                        <span style="font-size: 20px">รูปสลิป </span>
+                        <hr style="margin-top: 5px;margin-bottom: 10px;">
+                        <span style="font-size: 15px; color: red;">
+                            <?php
+                            $slip1Res = $con->query("SELECT * FROM `transfer` WHERE order_id = '$order_id' AND type = 'n1'");
+                            $slip1Data = $slip1Res->fetch_assoc();
+
+                            if ($slip1res->num_rows == 0) {
+                                echo 'ยังไม่อัพ';
+                            } else {
+                                $path1 = $slip1Data["slip_path"];
+                                echo '<img src=\"' . $path1 . '\">';
+                            }
+                            ?>
+
+
+                        </span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <span style="font-size: 20px">รูปสลิป </span>
+                        <hr style="margin-top: 5px;margin-bottom: 10px;">
+                        <span style="font-size: 15px; color: red;">
+<?php
+if ($slip2res->num_rows == 0) {
+    echo 'ยังไม่อัพ';
+} else {
+    $path = $slip2Data["slip_path"];
+    echo "<img src=" . $path . ">";
+}
+?>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-content">
+                        <span style="font-size: 20px">เพิ่มเติม </span>
+                        <hr style="margin-top: 5px;margin-bottom: 10px;">
+                        <span style="font-size: 15px; color: red;">
+<?php
+while ($orderDetailData = $orderDetailRes->fetch_assoc()) {
+    $moretext = $orderDetailData["moretext"];
+    echo "<p>" . $moretext . "</p><br>";
+}
+?>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 
 </div>

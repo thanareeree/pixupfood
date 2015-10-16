@@ -1,16 +1,18 @@
 <?php
 session_start();
 include '../dbconn.php';
-$resid = $_SESSION["restdata"]["id"];
+
 $order_id = $_POST["id"];
-$resNameRes = $con->query("select  deliveryfee"
+
+
+$orderRes = $con->query("SELECT * FROM `normal_order` LEFT JOIN customer ON customer.id = normal_order.customer_id WHERE normal_order.id ='$order_id'");
+$orderData = $orderRes->fetch_assoc();
+$resid = $orderData["restaurant_id"];
+$resNameRes = $con->query("select  deliveryfee, restaurant.name"
         . " from restaurant "
         . "join mapping_delivery_type on mapping_delivery_type.restaurant_id = restaurant.id  "
         . " where id = '$resid'");
 $delifeeData = $resNameRes->fetch_assoc();
-
-$orderRes = $con->query("SELECT * FROM `normal_order` LEFT JOIN customer ON customer.id = normal_order.customer_id WHERE normal_order.id ='$order_id'");
-$orderData = $orderRes->fetch_assoc();
 
 $shipAddressRes = $con->query("SELECT shippingAddress.address_naming, shippingAddress.type, "
         . "shippingAddress.full_address "
@@ -42,7 +44,7 @@ $statusid = $statusData["id"];
                             <span style="font-size: 20px">สถานะของรายการ: </span>
                             <span style="font-size: 20px; color: orange;"> ปฏิเสธรายการ </span><br>
                             <span style="font-size: 20px">ปฏิเสธรายการโดย: </span>
-                            <span style="font-size: 20px; color: orange;"> <?= $_SESSION["restdata"]["name"] ?> </span><br>
+                            <span style="font-size: 20px; color: orange;"> <?= $delifeeData["name"] ?> </span><br>
                             <span style="font-size: 20px">ปฏิเสธรายการวันที่: </span>
                             <span style="font-size: 20px; color: orange;"><?= substr($orderData["updated_status_time"], 0, 11) ?></span><br>
                             <span style="font-size: 20px">ปฏิเสธรายการเวลา: </span>
@@ -55,7 +57,7 @@ $statusid = $statusData["id"];
                             <span style="font-size: 20px">สถานะของรายการ: </span>
                             <span style="font-size: 20px; color: orange;"> <?= $statusData["description"] ?></span><br>
                             <span style="font-size: 20px">ตอบรับรายการโดย: </span>
-                            <span style="font-size: 20px; color: orange;"> <?= $_SESSION["restdata"]["name"] ?>  </span><br>
+                            <span style="font-size: 20px; color: orange;"> <?= $delifeeData["name"] ?>  </span><br>
                             <span style="font-size: 20px">ตอบรับรายการวันที่: </span>
                             <span style="font-size: 20px; color: orange;"> <?= substr($orderData["updated_status_time"], 0, 11) ?></span><br>
                             <span style="font-size: 20px">ตอบรับรายการเวลา: </span>
@@ -68,19 +70,6 @@ $statusid = $statusData["id"];
 
                 </div>
                 <?php ?>
-
-                <div class="card">
-                    <div class="card-content">
-                        <span style="font-size: 20px">หมายเลขสมาชิกลูกค้า: </span>
-                        <span style="font-size: 20px; color: orange;"> <?= $orderData["id"] ?> </span><br>
-
-                        <span style="font-size: 20px">ชื่อ: </span>
-                        <span style="font-size: 20px; color: orange;"> <?= $orderData["firstName"] ?>&nbsp;<?= $orderData["lastName"] ?> </span><br>
-
-                        <span style="font-size: 20px">โทรศัพท์: </span>
-                        <span style="font-size: 20px; color: orange;"><?= $orderData["tel"] ?> </span>
-                    </div>
-                </div>
             </div>
             <div class="col-md-5">
                 <div class="card">

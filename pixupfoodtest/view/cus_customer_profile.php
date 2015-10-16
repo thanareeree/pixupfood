@@ -189,217 +189,34 @@ include '../dbconn.php';
 
                 <!-- อัพโหลดหลักฐานการโอนเงิน -->
                 <!-- tracking -->
-                <div class="modal fade" id="transf" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+                <div class="modal fade" id="transfSlip1" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                 <span class="modal-title" id="myModalLabel">
-                                    <span style="font-size: 30px; margin-top: 5px;">หลักฐานการโอนเงิน </span>     
+                                    <span style="font-size: 20px; margin-top: 5px;">แจ้งหลักฐานการโอนเงินของเลขที่รายการ: &nbsp;<span id="uploadOrderId"></span> </span>     
                                 </span>
                             </div>
-                            <div class="modal-body">
-                                <div class="row" style="margin-top: 0px;">
-                                    <div class="col-md-12">
-                                        <div class="card">
-                                            <div class="card-content"> 
-                                                <div class="thumbnails">
-                                                    <div class="span4">
-
-                                                        <div class="form-group" style="margin-bottom: 15px;">
-                                                            <label class="col-sm-3 control-label" for="textinput">แจ้งการโอนเงิน</label>
-                                                            <div class="col-sm-9" style="margin-bottom: 15px;">
-                                                                <textarea id="detailslip" rows="6"  name="detailslip" style="margin: 0px; width: 318px; height: 84px;"  placeholder="แจ้งหลักฐานการโอนเงิน ตัวอย่าง 25/05/2558 \nเวลาโอน\nธนาคาร\nและแจ้ง Order ID : xxxxx " ></textarea>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group" >
-                                                            <span class="input-group" style="margin-left: 150px;">
-                                                                <button class="btn btn-success" id="savebtn" type="button" style="    margin-left: 260px;">บันทึก</button>
-                                                            </span>
-                                                        </div><hr>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>   
-                                        <div class="card">
-                                            <div class="card-content"> 
-                                                <div class="thumbnails">
-                                                    <div class="span4">
-                                                        <div class="thumbnail">
-                                                            <img src="/assets/images/default-img360.png" alt="ALT NAME">
-                                                            <div class="caption">
-                                                                <form action="/id=<?= $cusid ?>" method="post" enctype="multipart/form-data">
-                                                                    <span id="uploadtext" ></span>
-                                                                    <input value="<?= $cusid ?>" id="cusidvalue" type="hidden">
-                                                                    <p align="center" ><button type="button" name="img" id="chooseimgbtn"  onClick="imagerest.click()" onMouseOut="uploadtext.value = imagerest.value" class="btn btn-primary btn-block" style="font-style:normal">เลือกรูป</button></p>
-                                                                    <input type="file" id="imagerest" name="imagerest" style="display:none" accept="image/jpeg,image/pjpeg,image/png"  />
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> 
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
-                            </div>
+                            <div id="upload"></div>
                         </div>
                     </div>
                 </div>
                 <!-- จบอัพโหลดหลักฐานการโอนเงิน -->
-                <!-- tracking -->
-                <div class="modal fade" id="track" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-                    <div class="modal-dialog">
+
+                <!-- Detial normal -->
+                <div class="modal fade bs-example-modal-lg" id="detailNormalOrderModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                 <span class="modal-title" id="myModalLabel">
-                                    <span style="font-size: 30px; margin-top: 5px;">รายการหมายเลข: </span>
-                                    <span style="font-size: 30px; margin-top: 5px; color: orange">102458 </span>     
+                                    <span style="font-size: 30px; margin-top: 5px;">รายละเอียดของรายการหมายเลข: </span>
+                                    <span style="font-size: 30px; margin-top: 5px; color: orange" id="showOrderId"> </span>     
                                 </span>
                             </div>
-                            <div class="modal-body">
-                                <div class="row" style="margin-top: 0px;">
-                                    <div class="col-md-12">
-                                        <div class="col-md-7">
-                                            <div class="card">
-                                                <div class="card-content">
-                                                    <span style="font-size: 20px">สถานะของรายการ: </span>
-                                                    <span style="font-size: 20px; color: orange;"> เสร็จสิ้น </span><br>
-                                                    <span style="font-size: 20px">ตอบรับรายการโดย: </span>
-                                                    <span style="font-size: 20px; color: orange;"> นายใหญ่โภชนา </span><br>
-                                                    <span style="font-size: 20px">ตอบรับวันที่: </span>
-                                                    <span style="font-size: 20px; color: orange;"> 12-11-2015 </span><br>
-                                                    <span style="font-size: 20px">ตอบรับเวลา: </span>
-                                                    <span style="font-size: 20px; color: orange;"> 12:30 </span><br>
-                                                </div>
-                                            </div>
-                                            <div class="card">
-                                                <div class="card-content">
-                                                    <span style="font-size: 20px">สถานที่ส่งสินค้า </span>
-                                                    <hr style="margin-top: 5px;margin-bottom: 10px;">
-                                                    <span style="font-size: 17px">บริษัท นาดาว บางกอก จำกัด 92/14 ซอยสุขุมวิท 31 (สวัสดี) แขวงคลองตันเหนือ เขตวัฒนา กทม. 10110</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <div class="card">
-                                                <div class="card-content">
-                                                    <span style="font-size: 20px">จัดส่งสินค้าโดย: </span><br>
-                                                    <span style="font-size: 20px; color: orange;"><!-- 108suchart สุชาติ ปานขำ --></span><br>
-                                                    <span style="font-size: 20px">โทรศัพท์: </span><br>
-                                                    <span style="font-size: 20px; color: orange;"><!--0812345678 --></span><br>
-                                                    <span style="font-size: 20px">นัดส่งสินค้าวันที่: </span><br>
-                                                    <span style="font-size: 20px; color: orange;"> 12-11-2015</span><br>
-                                                    <span style="font-size: 20px">นัดส่งสินค้าเวลา: </span><br>
-                                                    <span style="font-size: 20px; color: orange;"> 12:40 </span><br>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div id="normalOrderViewBody">
 
-                                <div class="row" style="margin-top: 5px;">
-                                    <div class="col-md-12">
-                                        <div class="col-md-12">
-                                            <div class="card">
-                                                <div class="card-content">
-                                                    <span style="font-size: 20px">รายการสินค้า </span>
-                                                    <hr style="margin-top: 5px;margin-bottom: 10px;">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <table class="table table-list-search">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>รายการ</th>
-                                                                        <th>ราคาต่อหน่วย/บาท</th>
-                                                                        <th>จำนวน</th>
-                                                                        <th>ราคารวม/บาท</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody class="table table-condensed table-hover">
-                                                                    <tr>                    
-                                                                        <td>ข้าวกล้อง</td>
-                                                                        <td style="text-align: center">10.00</td>
-                                                                        <td style="text-align: center">50</td>
-                                                                        <td style="text-align: center">500.00</td>
-
-                                                                    </tr>
-                                                                    <tr>                     
-                                                                        <td>ผัดกระเพราหมู</td>
-                                                                        <td style="text-align: center">15.00</td>
-                                                                        <td style="text-align: center">50</td>
-                                                                        <td style="text-align: center">750.00</td>
-                                                                    </tr>
-                                                                    <tr>                    
-                                                                        <td>ไข่ดาว</td>
-                                                                        <td style="text-align: center">5.00</td>
-                                                                        <td style="text-align: center">50</td>
-                                                                        <td style="text-align: center">250.00</td>
-                                                                    </tr>
-                                                                    <tr>                    
-                                                                        <td>ค่าจัดส่ง</td>
-                                                                        <td style="text-align: center">100.00</td>
-                                                                        <td style="text-align: center">1</td>
-                                                                        <td style="text-align: center">100.00</td>
-                                                                    </tr>
-                                                                    <tr class="success">                    
-                                                                        <td>ราคารวม</td>
-                                                                        <td style="text-align: center"></td>
-                                                                        <td style="text-align: center"></td>
-                                                                        <td style="text-align: center">1,600.00</td>
-                                                                    </tr>
-                                                                    <tr class="warning">                  
-                                                                        <td>ส่วนลด10% 1D23A5</td>
-                                                                        <td style="text-align: center"></td>
-                                                                        <td style="text-align: center">1</td>
-                                                                        <td style="text-align: center">-160.00</td>
-                                                                    </tr>
-                                                                    <tr class="danger">                  
-                                                                        <td>ราคารวมหลังหักส่วนลด</td>
-                                                                        <td style="text-align: center"></td>
-                                                                        <td style="text-align: center"></td>
-                                                                        <td style="text-align: center">1,440.00</td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>   
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row" style="margin-top: 5px;">
-                                    <div class="col-md-12">
-                                        <div class="col-md-6">
-                                            <div class="card">
-                                                <div class="card-content">
-                                                    <span style="font-size: 20px">เพิ่มเติม </span>
-                                                    <hr style="margin-top: 5px;margin-bottom: 10px;">
-                                                    <span style="font-size: 15px; color: red;"> กระเพราไม่ใส่ถั่วฝักยาว </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="card">
-                                                <div class="card-content">
-                                                    <span style="font-size: 20px">การชำระเงิน </span>
-                                                    <hr style="margin-top: 5px;margin-bottom: 10px;">
-                                                    <span style="font-size: 15px"> โอนเงินมัดจำผ่านธนาคาร: <br><span style="font-size: 15px; color: orange;"> กสิกรไทย เลขที่ 12-1231212-1 <br> 400.00 บาท</span> </span> &nbsp; 
-
-                                                    <a href="#" class="btn btn-warning btn-xs "data-toggle="modal" data-target='.pop-up-2' href=".pop-up-2" style="margin-left: 90px;">แสดงสลิป</a><br>
-
-                                                    <span style="font-size: 15px"> ชำระเงินด้วยเงินสด: <br><span style="font-size: 15px; color: red;"> 1040.00 บาท</span> </span> &nbsp; 
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
@@ -407,6 +224,29 @@ include '../dbconn.php';
                         </div>
                     </div>
                 </div>
+                <!-- End Detail --> 
+
+                <!-- Detial fasttt   -->
+                <div class="modal fade bs-example-modal-lg" id="detailFastOrderModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <span class="modal-title" id="myModalLabel">
+                                    <span style="font-size: 30px; margin-top: 5px;">รายละเอียดของรายการหมายเลข: </span>
+                                    <span style="font-size: 30px; margin-top: 5px; color: orange" id="showFastOrderId"> </span>     
+                                </span>
+                            </div>
+                            <div id="fastOrderViewBody">
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Detail --> 
             </div>
         </section> 
 

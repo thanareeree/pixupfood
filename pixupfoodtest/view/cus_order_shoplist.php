@@ -22,6 +22,10 @@ include '../api/islogin.php';
                 max-width: 100%;
                 height: 100px;
             }
+              #showcalendar a span {
+                color: #ffffff;
+                font-size: 12.5px;
+            }
         </style>
 
 

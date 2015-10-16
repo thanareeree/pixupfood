@@ -6,7 +6,8 @@ $resid = @$_POST["resid"];
 $fastOrderRes = $con->query("SELECT fast_order.id as fast_id, fast_order.delivery_date, "
         . "fast_order.delivery_time, order_status.description,fast_order.shippingAddress_id, "
         . "fast_order.customer_id , quantity as qty , customer.firstName, customer.lastName , "
-        . "fast_order.main_menu_id, request_fast_order.priority, fast_order.order_time "
+        . "fast_order.main_menu_id, request_fast_order.priority, fast_order.order_time,"
+        . "customer.tel, restaurant.name "
         . "FROM `fast_order` "
         . "LEFT JOIN order_status ON order_status.id = fast_order.status"
         . " LEFT JOIN restaurant ON restaurant.id = fast_order.restaurant_id "
@@ -16,6 +17,7 @@ $fastOrderRes = $con->query("SELECT fast_order.id as fast_id, fast_order.deliver
         . "and fast_order.status != '7' "
         . "and fast_order.restaurant_id IS NULL "
         . "ORDER BY fast_order.order_time DESC");
+
 $i = 1;
 if ($fastOrderRes->num_rows == 0) {
     ?>
@@ -31,6 +33,7 @@ if ($fastOrderRes->num_rows == 0) {
         //echo "\nnow : " . date("Y-m-d H:i:s");
         //echo "\ndiff : " . ($diff / 60) . "\n";
         $timeleft;
+        $fast_id = $fastOrderData["fast_id"];
         $pri = $fastOrderData["priority"];
         if ($pri == 1) {
             if ($diff > (60 * 15)) {
@@ -48,7 +51,17 @@ if ($fastOrderRes->num_rows == 0) {
             }
         } else if ($pri == 3) {
             if ($diff < (60 * 30) | $diff > (60 * 45)) {
-                //echo "pri3: skip";
+                $con->query("UPDATE `fast_order` SET `status`='7',`updated_status_time`= now(),`restaurant_id`= '$resid' WHERE id= '$fast_id'");
+                if ($con->error == "") {
+
+                  /*  include '../register/thsms.php';
+                    $sms = new thsms();
+                    $sms->username = 'thanaree';
+                    $sms->password = '58c60d';
+
+                    $b = $sms->send('0000', $fastOrderData["tel"], "เลขที่รายการ(สั่งด่วน): " . $fastOrderData["fast_id"] . " ถูกปฏิเสธรายการจากทุกร้านที่ลูกค้าส่งรีเคควสออเดอร์ไป ลูกค้าสามารถสั่งซื้ออาหารได้ที่ https://pixupfood.com");
+                    */
+                }
                 continue;
             } else {
                 $timeleft = (60 * 45) - $diff;

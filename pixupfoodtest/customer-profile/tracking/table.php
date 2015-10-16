@@ -11,7 +11,7 @@ $orderRes = $con->query(" SELECT DISTINCT normal_order.id as order_id, order_sta
         . " LEFT JOIN order_status ON order_status.id = normal_order.status "
         . "LEFT JOIN restaurant ON restaurant.id = normal_order.restaurant_id "
         . "WHERE normal_order.customer_id = '$cusid' "
-        . "and normal_order.status != '7' "
+        . "and normal_order.status != '10' "
         . "GROUP BY normal_order.id ORDER BY normal_order.status ASC, normal_order.order_time DESC");
 
 if ($orderRes->num_rows == 0) {
@@ -32,17 +32,20 @@ if ($orderRes->num_rows == 0) {
             <td><?= $orderData["name"]?></td>
             <td><?= $orderData["description"]?></td>
             <td class="text-center">
-                <button class="btn btn-info btn-xs" data-toggle="modal" data-target='#track' href="#track">
+                <button class="btn btn-info btn-xs normalOrderView" data-id="<?= $orderData["order_id"] ?>">
                     <span class="glyphicon glyphicon-eye-open"></span> 
                     แสดง
                 </button>
             </td>
             <td class="text-center">
-                <button class="btn btn-warning btn-xs" data-toggle="modal" data-target='#transf' href="#transf" disabled="disabled">
+                <button class="btn btn-warning btn-xs uploadSlip1" data-id="<?= $orderData["order_id"] ?>" <?= ($orderData["status_id"] == "2")? "": "disabled"?> <?= ($orderData["status_id"] == "5")? "style=\"display: none\"": ""?>>
                     <span class="glyphicon glyphicon-eye-open"></span> 
                     อัพโหลด
                 </button>
-            </td>
+                <button class="btn btn-warning btn-xs uploadSlip2" data-id="<?= $orderData["order_id"] ?>" <?= ($orderData["status_id"] == "5")? "": "style=\"display: none\""?> >
+                    <span class="glyphicon glyphicon-eye-open"></span> 
+                    อัพโหลด
+                </button>
         </tr>
         <?php
 

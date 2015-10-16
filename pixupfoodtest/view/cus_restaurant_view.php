@@ -418,7 +418,7 @@ include '../api/islogin.php';
                                                                     <option value="08:30:00">08:30 น.</option>
                                                                     <option value="09:30:00">09:30 น.</option>
                                                                     <option value="10:30:00">10:30 น.</option>
-                                                                    <option value="11:30:00">06:30 น.</option>
+                                                                    <option value="11:30:00">11:30 น.</option>
                                                                     <option value="12:30:00">12:30 น.</option>
                                                                     <option value="13:30:00">13:30 น.</option>
                                                                     <option value="14:30:00">14:30 น.</option>
