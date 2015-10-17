@@ -54,12 +54,13 @@ $statusid = $statusData["id"];
                         <div class="card-content">
                             <span style="font-size: 20px">สถานะของรายการ: </span>
                             <span style="font-size: 20px; color: orange;"> <?= $statusData["description"] ?></span><br>
-                            <span style="font-size: 20px">ตอบรับรายการโดย: </span>
-                            <span style="font-size: 20px; color: orange;"> <?= $_SESSION["restdata"]["name"] ?>  </span><br>
-                            <span style="font-size: 20px">ตอบรับรายการวันที่: </span>
-                            <span style="font-size: 20px; color: orange;"> <?= substr($orderData["updated_status_time"], 0, 11) ?></span><br>
-                            <span style="font-size: 20px">ตอบรับรายการเวลา: </span>
-                            <span style="font-size: 20px; color: orange;"> <?= substr($orderData["updated_status_time"], 11, 5) ?>&nbsp;น.</span><br>
+                            <?php if($orderData["status"] > 1) { ?>
+
+                                <span style="font-size: 20px">ตอบรับรายการวันที่: </span>
+                                <span style="font-size: 20px; color: orange;"> <?= substr($orderData["updated_status_time"], 0, 11) ?></span><br>
+                                <span style="font-size: 20px">ตอบรับรายการเวลา: </span>
+                                <span style="font-size: 20px; color: orange;"> <?= substr($orderData["updated_status_time"], 11, 5) ?>&nbsp;น.</span><br>
+                            <?php } ?>
                         </div>
                         <?php
                     }
@@ -108,7 +109,7 @@ $statusid = $statusData["id"];
                     <div class="card-content">
 
                         <span style="font-size: 20px">วันที่ลูกค้านัดรับสินค้า: </span>
-                        <span style="font-size: 20px; color: orange;"> <?= $orderData["delivery_date"]?></span><br>
+                        <span style="font-size: 20px; color: orange;"> <?= $orderData["delivery_date"] ?></span><br>
                         <span style="font-size: 20px">เวลาที่ลูกค้านัดรับสินค้า: </span>
                         <span style="font-size: 20px; color: orange;"> <?= substr($orderData["delivery_time"], 0, 5) ?>&nbsp;น.  </span><br>
 

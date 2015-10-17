@@ -30,8 +30,8 @@ $statusRes = $con->query("SELECT order_status.id, order_status.description "
 $statusData = $statusRes->fetch_assoc();
 $statusid = $statusData["id"];
 
-$slip1Res = $con->query("SELECT * FROM `transfer` WHERE order_id = '$order_id' AND type = 'n1'");
-$slip1Data = $slip1Res->fetch_assoc();
+$slip_pathRes = $con->query("SELECT * FROM `transfer` WHERE order_id = '$order_id' AND type = 'n1'");
+$slip1Data = $slip_pathRes->fetch_assoc();
 
 $slip2res = $con->query("SELECT * FROM `transfer` WHERE order_id = '$order_id' AND type = 'n2'");
 $slip2Data = $slip2res->fetch_assoc();
@@ -41,6 +41,19 @@ $slip2Data = $slip2res->fetch_assoc();
 
     <div class="row" style="margin-top: 0px;">
         <div class="col-md-12">
+            <?php if ($statusid == 2) {
+                ?>
+                <div class="col-md-12">
+                    <div class="alert alert-danger" style="font-size: 18px" role="alert">กรุณาโอนเงินค่ามัดจำสินค้าภายในเวลา 4 ชั่วโมง หลังจากร้านตอบรับรายการแล้ว</div>
+                </div>
+            <?php } ?>
+            <?php if ($statusid == 5) {
+                ?>
+                <div class="col-md-12">
+                    <div class="alert alert-danger" style="font-size: 18px"  role="alert">กรุณาโอนเงินในส่วนที่เหลือจำนวนก่อนวันจัดส่งสินค้า 1 วัน</div>
+                </div>
+            <?php } ?>
+
             <div class="col-md-7">
                 <div class="card">
                     <?php
@@ -60,14 +73,28 @@ $slip2Data = $slip2res->fetch_assoc();
                     } else {
                         ?>
                         <div class="card-content">
-                            <span style="font-size: 20px">สถานะของรายการ: </span>
-                            <span style="font-size: 20px; color: orange;"> <?= $statusData["description"] ?></span><br>
-                            <span style="font-size: 20px">ตอบรับรายการโดย: </span>
-                            <span style="font-size: 20px; color: orange;"> <?= $delifeeData["name"] ?>  </span><br>
-                            <span style="font-size: 20px">ตอบรับรายการวันที่: </span>
-                            <span style="font-size: 20px; color: orange;"> <?= substr($orderData["updated_status_time"], 0, 11) ?></span><br>
-                            <span style="font-size: 20px">ตอบรับรายการเวลา: </span>
-                            <span style="font-size: 20px; color: orange;"> <?= substr($orderData["updated_status_time"], 11, 5) ?>&nbsp;น.</span><br>
+                            <?php if ($statusid == 1) { ?>
+                                <span style="font-size: 20px">สถานะของรายการ: </span>
+                                <span style="font-size: 20px; color: orange;"> <?= $statusData["description"] ?></span><br>
+                                <span style="font-size: 20px">รอตอบรับรายการจากร้าน: </span>
+                                <span style="font-size: 20px; color: orange;"> <?= $delifeeData["name"] ?>  </span><br>
+                                <span style="font-size: 20px">วันที่สั่ง: </span>
+                                <span style="font-size: 20px; color: orange;"> <?= substr($orderData["updated_status_time"], 0, 11) ?></span><br>
+                                <span style="font-size: 20px">เวลาที่สั่ง: </span>
+                                <span style="font-size: 20px; color: orange;"> <?= substr($orderData["updated_status_time"], 11, 5) ?>&nbsp;น.</span><br>
+                                
+                            <?php } else {
+                                ?>
+                                <span style="font-size: 20px">สถานะของรายการ: </span>
+                                <span style="font-size: 20px; color: orange;"> <?= $statusData["description"] ?></span><br>
+                                <span style="font-size: 20px">ตอบรับรายการโดย: </span>
+                                <span style="font-size: 20px; color: orange;"> <?= $delifeeData["name"] ?>  </span><br>
+                                <span style="font-size: 20px">อัพเดตรายการวันที่: </span>
+                                <span style="font-size: 20px; color: orange;"> <?= substr($orderData["updated_status_time"], 0, 11) ?></span><br>
+                                <span style="font-size: 20px">อัพเดตรายการเวลา: </span>
+                                <span style="font-size: 20px; color: orange;"> <?= substr($orderData["updated_status_time"], 11, 5) ?>&nbsp;น.</span><br>
+                            <?php }
+                            ?>
                         </div>
                         <?php
                     }
@@ -97,11 +124,9 @@ $slip2Data = $slip2res->fetch_assoc();
                         <?php
                     }
                     ?>
-
                 </div>
                 <div class="card">
                     <div class="card-content">
-
                         <span style="font-size: 20px">วันที่ลูกค้านัดรับสินค้า: </span>
                         <span style="font-size: 20px; color: orange;"> <?= $orderData["delivery_date"] ?></span><br>
                         <span style="font-size: 20px">เวลาที่ลูกค้านัดรับสินค้า: </span>
@@ -193,12 +218,12 @@ $slip2Data = $slip2res->fetch_assoc();
                                             <td style="text-align: center"></td>
                                             <td style="text-align: right"><?= $orderData["total_nofee"] ?></td>
                                         </tr>
-                                        <!--<tr class="warning">
-                                            <td>ส่วนลด10% 1D23A5</td>
+                                        <tr>
+                                            <td>ส่วนลด</td>
                                             <td style="text-align: center"></td>
-                                            <td style="text-align: center">1</td>
-                                            <td style="text-align: center">-160.00</td>
-                                        </tr>-->
+                                            <td style="text-align: center"></td>
+                                            <td style="text-align: right">-160.00</td>
+                                        </tr>
                                         <tr class="warning">
                                             <td>ค่ามัดจำ 20%</td>
                                             <td style="text-align: center"></td>
@@ -212,10 +237,10 @@ $slip2Data = $slip2res->fetch_assoc();
                                             <td style="text-align: right"><?= $delifeeData["deliveryfee"] ?></td>
                                         </tr>
                                         <tr class="danger">              
-                                            <td>ราคารวมทั้งหมด</td>
+                                            <td>ราคาในส่วนที่เหลือ (รวมค่าจัดส่ง)</td>
                                             <td style="text-align: center"></td>
                                             <td style="text-align: center"></td>
-                                            <td style="text-align: right"><?= $orderData["total_nofee"] - $orderDetailData["prepay"] ?></td>
+                                            <td style="text-align: right"><?= $orderData["total_nofee"] - $orderDetailData["prepay"] + $delifeeData["deliveryfee"] ?></td>
                                         </tr>
                                     </tbody>
                                 </table>   
@@ -228,65 +253,67 @@ $slip2Data = $slip2res->fetch_assoc();
     </div>
     <div class="row" style="margin-top: 5px;">
         <div class="col-md-12">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-content">
-                        <span style="font-size: 20px">การชำระเงิน </span>
+                        <span style="font-size: 20px">การชำระเงินด้วย:  &nbsp;
+                            <?php
+                            if ($orderDetailData["payment_id"] == 2) {
+                                echo 'โอนเงินผ่านธนาคาร';
+                            }  else {
+                                 echo 'เงินสดเมื่อได้รับสินค้า';
+                            }
+                            ?>
+                        </span>
                         <hr style="margin-top: 5px;margin-bottom: 10px;">
-                        <span style="font-size: 15px"> โอนเงินมัดจำผ่านธนาคาร: <br><span style="font-size: 15px; color: orange;"> กสิกรไทย เลขที่ 12-1231212-1 <br> 400.00 บาท</span> </span> &nbsp; 
-
-                        <a href="#" class="btn btn-warning btn-xs "data-toggle="modal" data-target='.pop-up-2' href=".pop-up-2" style="margin-left: 90px;">แสดงสลิป</a><br>
-
-                        <span style="font-size: 15px"> ชำระเงินด้วยเงินสด: <br><span style="font-size: 15px; color: red;"> ต้องชำระเพิ่ม ณ ที่รับสินค้า 1040.00 บาท </span> </span> &nbsp; 
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-content">
-                        <span style="font-size: 20px">การชำระเงิน </span>
+                        <span style="font-size: 18px"> โอนเงินค่ามัดจำผ่าน: <span style="font-size: 18px; color: orange;"><?= ($slip1Data["detail"]) != null ? $slip1Data["detail"] : "ยังไม่มีการแจ้งข้อมูล" ?> </span> </span>
+                        <br><br>
+                        <span style="font-size: 20px">รูปภาพหลักฐานการโอน</span>
                         <hr style="margin-top: 5px;margin-bottom: 10px;">
-                        <span style="font-size: 15px"> โอนเงินมัดจำผ่านธนาคาร: <br><span style="font-size: 15px; color: orange;"> กสิกรไทย เลขที่ 12-1231212-1 <br> 400.00 บาท</span> </span> &nbsp; 
+                        <span style="font-size: 15px; color: red;">
+                            <?php
+                            $path1 = $slip1Data["slip_path"];
+                            if ($slip_pathRes->num_rows == 0) {
+                                echo 'ยังไม่มีการแจ้งข้อมูล';
+                            } else if ($path1 != null) {
+                                echo "<img src=\"" . $path1 . " \">";
+                            } else {
+                                echo 'ไม่มีการอัพโหลดรูปสลิปการโอนเงิน';
+                            }
+                            ?>
 
-                        <a href="#" class="btn btn-warning btn-xs "data-toggle="modal" data-target='.pop-up-2' href=".pop-up-2" style="margin-left: 90px;">แสดงสลิป</a><br>
-
-                        <span style="font-size: 15px"> ชำระเงินด้วยเงินสด: <br><span style="font-size: 15px; color: red;"> ต้องชำระเพิ่ม ณ ที่รับสินค้า 1040.00 บาท </span> </span> &nbsp; 
-
-
+                        </span>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-md-12">
             <div class="col-md-12">
-                <div class="card">
-                    <div class="card-content">
-                        <span style="font-size: 20px">รูปสลิป </span>
-                        <hr style="margin-top: 5px;margin-bottom: 10px;">
-                        <span style="font-size: 15px; color: red;">
-                            <?php
-                            $path1 = $slip1Data["slip_path"];
-                            echo "<img src=" . $path . ">";
-                            ?>
-                        </span>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-content">
-                        <span style="font-size: 20px">รูปสลิป </span>
-                        <hr style="margin-top: 5px;margin-bottom: 10px;">
-                        <span style="font-size: 15px; color: red;">
-                            <?php
-                            if ($slip2res->num_rows == 0) {
-                                echo 'ไม่อัพ';
-                            } else {
+                <?php if ($orderDetailData["payment_id"] == 2 && $statusid == 5 ) { ?>
+                    <div class="card">
+                        <div class="card-content">
+                            <span style="font-size: 20px">ชำระเงินด้วยการโอนเงินผ่านธนาคาร: &nbsp;</span>
+                            <hr style="margin-top: 5px;margin-bottom: 10px;">
+                            <span style="font-size: 18px"> โอนเงินผ่านธนาคาร: <span style="font-size: 18px; color: orange;"><?= ($slip2Data["detail"]) != null ? $slip1Data["detail"] : "ยังไม่มีการแจ้งข้อมูล" ?> </span> </span>
+                            <br><br>
+                            <span style="font-size: 20px">รูปภาพหลักฐานการโอน </span>
+                            <hr style="margin-top: 5px;margin-bottom: 10px;">
+                            <span style="font-size: 15px; color: red;">
+                                <?php
                                 $path = $slip2Data["slip_path"];
-                                echo "<img src=" . $path . ">";
-                            }
-                            ?>
-                        </span>
+                                if ($slip2res->num_rows == 0) {
+                                    echo 'ยังไม่มีการแจ้งข้อมูล';
+                                } else if ($path != null) {
+                                    echo "<img src=\"" . $path . " \">";
+                                } else {
+                                    echo 'ไม่มีการอัพโหลดรูปสลิปการโอนเงิน';
+                                }
+                                ?>
+
+                            </span>
+                        </div>
                     </div>
-                </div>
+                <?php } ?>
             </div>
         </div>
         <div class="col-md-12">

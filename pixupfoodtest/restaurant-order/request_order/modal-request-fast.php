@@ -5,7 +5,7 @@ include '../../dbconn.php';
 $order_id = $_POST["id"];
 
 
-$orderRes = $con->query("SELECT * FROM `normal_order` LEFT JOIN customer ON customer.id = normal_order.customer_id WHERE normal_order.id ='$order_id'");
+$orderRes = $con->query("SELECT * FROM `fast_order` LEFT JOIN customer ON customer.id = fast_order.customer_id WHERE fast_order.id ='$order_id'");
 $orderData = $orderRes->fetch_assoc();
 $resid = $_SESSION["restdata"]["id"];
 $resNameRes = $con->query("select  deliveryfee, restaurant.name"
@@ -16,24 +16,25 @@ $delifeeData = $resNameRes->fetch_assoc();
 
 $shipAddressRes = $con->query("SELECT shippingAddress.address_naming, shippingAddress.type, "
         . "shippingAddress.full_address "
-        . "FROM `normal_order` "
-        . "LEFT JOIN shippingAddress ON shippingAddress.id = normal_order.shippingAddress_id "
-        . "WHERE normal_order.id ='$order_id'");
+        . "FROM `fast_order` "
+        . "LEFT JOIN shippingAddress ON shippingAddress.id = fast_order.shippingAddress_id "
+        . "WHERE fast_order.id ='$order_id'");
 $shipAddressData = $shipAddressRes->fetch_assoc();
 
-$orderDetailRes = $con->query("SELECT * FROM `order_detail` WHERE order_detail.order_id = '$order_id'");
+$orderDetailRes = $con->query("SELECT * FROM `request_fast_order` WHERE request_fast_order.fast_id = '$order_id' and restaurant_id = '$resid'");
+$orderDetailData = $orderDetailRes->fetch_assoc();
 
 $statusRes = $con->query("SELECT order_status.id, order_status.description "
-        . "FROM `normal_order` "
-        . "LEFT JOIN order_status ON order_status.id = normal_order.status "
-        . "WHERE normal_order.id = '$order_id'");
+        . "FROM `fast_order` "
+        . "LEFT JOIN order_status ON order_status.id = fast_order.status "
+        . "WHERE fast_order.id = '$order_id'");
 $statusData = $statusRes->fetch_assoc();
 $statusid = $statusData["id"];
 
-$slip_pathRes = $con->query("SELECT * FROM `transfer` WHERE order_id = '$order_id' AND type = 'n1'");
+$slip_pathRes = $con->query("SELECT * FROM `transfer` WHERE order_id = '$order_id' AND type = 'f1'");
 $slip1Data = $slip_pathRes->fetch_assoc();
 
-$slip2res = $con->query("SELECT * FROM `transfer` WHERE order_id = '$order_id' AND type = 'n2'");
+$slip2res = $con->query("SELECT * FROM `transfer` WHERE order_id = '$order_id' AND type = 'f2'");
 $slip2Data = $slip2res->fetch_assoc();
 ?>
 
@@ -89,7 +90,18 @@ $slip2Data = $slip2res->fetch_assoc();
 
 
                 </div>
-                <?php ?>
+                 <div class="card">
+                    <div class="card-content">
+                        <span style="font-size: 20px">หมายเลขสมาชิกลูกค้า: </span>
+                        <span style="font-size: 20px; color: orange;"> <?= $orderData["id"] ?> </span><br>
+
+                        <span style="font-size: 20px">ชื่อ: </span>
+                        <span style="font-size: 20px; color: orange;"> <?= $orderData["firstName"] ?>&nbsp;<?= $orderData["lastName"] ?> </span><br>
+
+                        <span style="font-size: 20px">โทรศัพท์: </span>
+                        <span style="font-size: 20px; color: orange;"><?= $orderData["tel"] ?> </span>
+                    </div>
+                </div>
             </div>
             <div class="col-md-5">
                 <div class="card">
@@ -161,18 +173,17 @@ $slip2Data = $slip2res->fetch_assoc();
                                         </tr>
                                     </thead>
                                     <tbody class="table table-condensed table-hover">
-                                        <?php while ($orderDetailData = $orderDetailRes->fetch_assoc()) { ?>
                                             <tr>    
                                                 <td>
                                                     <?php
-                                                    $menuid = $orderDetailData["menu_id"];
+                                                    $menuid = $orderData["main_menu_id"];
                                                     $menuid = "(" . $menuid . ")";
                                                     $name = "";
-                                                    $resName = $con->query("SELECT main_menu.name FROM menu LEFT JOIN main_menu ON menu.main_menu_id = main_menu.id WHERE menu.id IN $menuid");
+                                                    $resName = $con->query("SELECT main_menu.name FROM  main_menu  WHERE main_menu.id IN $menuid");
                                                     $count = 0;
-                                                    $price = 0;
+                                                
                                                     while ($food = $resName->fetch_assoc()) {
-                                                        $price += $orderDetailData["price"];
+                                                       
                                                         $name = $food["name"];
                                                         // $menustr .= $name;
                                                         $count++;
@@ -183,20 +194,18 @@ $slip2Data = $slip2res->fetch_assoc();
                                                     }
                                                     ?>
                                                 </td>
-                                                <td style="text-align: center"><?= $price ?></td>
-                                                <td style="text-align: center"><?= $orderDetailData["quantity"] ?></td>
-                                                <td style="text-align: right"><?= $price * $orderDetailData["quantity"] ?></td>
+                                                <td style="text-align: center"><?= $orderDetailData["price"] ?></td>
+                                                <td style="text-align: center"><?= $orderData["quantity"] ?></td>
+                                                <td style="text-align: right"><?= $orderDetailData["price"] * $orderData["quantity"] ?></td>
                                             </tr>
-                                        <?php } ?>
                                         <tr>
                                             <td>
                                                 <span style="font-size: 20px">เพิ่มเติม: </span>
                                                 <span style="font-size: 15px; color: red;">
                                                     <?php
-                                                    while ($orderDetailData = $orderDetailRes->fetch_assoc()) {
-                                                        $moretext = $orderDetailData["moretext"];
+                                                        $moretext = $orderData["moretext"];
                                                         echo "<p>" . $moretext . "</p><br>";
-                                                    }
+                                                    
                                                     ?>
                                                 </span>
                                             </td>
@@ -221,19 +230,19 @@ $slip2Data = $slip2res->fetch_assoc();
                                             <td>ราคารวม</td>
                                             <td style="text-align: center"></td>
                                             <td style="text-align: center"></td>
-                                            <td style="text-align: right"><?= $orderData["total_nofee"] ?></td>
+                                            <td style="text-align: right"><?= $orderDetailData["total"] ?></td>
                                         </tr>
-                                        <!--<tr class="warning">
-                                            <td>ส่วนลด10% 1D23A5</td>
+                                        <tr>
+                                            <td>ส่วนลด10% </td>
                                             <td style="text-align: center"></td>
-                                            <td style="text-align: center">1</td>
-                                            <td style="text-align: center">-160.00</td>
-                                        </tr>-->
+                                            <td style="text-align: center"></td>
+                                            <td style="text-align: right">-160.00</td>
+                                        </tr>
                                         <tr class="warning">
                                             <td>ค่ามัดจำ 20%</td>
                                             <td style="text-align: center"></td>
                                             <td style="text-align: center"></td>
-                                            <td style="text-align: right"><?= $orderData["prepay"] ?></td>
+                                            <td style="text-align: right"><?= $orderDetailData["prepay"] ?></td>
                                         </tr>
                                         <tr>    
                                             <td>ค่าจัดส่ง</td>
@@ -245,7 +254,7 @@ $slip2Data = $slip2res->fetch_assoc();
                                             <td>ราคาในส่วนที่เหลือ (รวมค่าจัดส่ง)</td>
                                             <td style="text-align: center"></td>
                                             <td style="text-align: center"></td>
-                                            <td style="text-align: right"><?= $orderData["total_nofee"] - $orderDetailData["prepay"] + $delifeeData["deliveryfee"] ?></td>
+                                            <td style="text-align: right"><?= $orderDetailData["total"]  - $orderDetailData["prepay"] + $delifeeData["deliveryfee"] ?></td>
                                         </tr>
                                     </tbody>
                                 </table>   
@@ -263,7 +272,7 @@ $slip2Data = $slip2res->fetch_assoc();
                     <div class="card-content">
                         <span style="font-size: 20px">ชำระเงินด้วย:  &nbsp;
                             <?php
-                            if ($orderDetailData["payment_id"] == 2) {
+                            if ($orderData["payment_id"] == 2) {
                                 echo 'โอนเงินผ่านธนาคาร';
                             } else {
                                 echo 'เงินสดเมื่อได้รับสินค้า';
@@ -294,7 +303,7 @@ $slip2Data = $slip2res->fetch_assoc();
         </div>
         <div class="col-md-12">
             <div class="col-md-12">
-                <?php if ($orderDetailData["payment_id"] == 2 && $statusid == 5) { ?>
+                <?php if ($orderData["payment_id"] == 2 && $statusid == 5) { ?>
                     <div class="card">
                         <div class="card-content">
                             <span style="font-size: 20px">ชำระเงินด้วยการโอนเงินผ่านธนาคาร: &nbsp;</span>

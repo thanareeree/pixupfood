@@ -124,7 +124,7 @@ include '../dbconn.php';
                                             </div>
                                             <div class="card">
                                                 <div class="card-content">
-                                                    <div class="page-header" style="font-size: 30px; margin-top: 5px">รายการใหม่<span style="color: red; font-size: 30px; "> (ด่วน)</span> 
+                                                    <div class="page-header" style="font-size: 30px; margin-top: 5px">รายการใหม่<span style="color: red; font-size: 30px; "> (สั่งด่วน)</span> 
                                                         <div class="pull-right">
                                                             <p class="text-center">
                                                                 <span style="font-size: 20px; color: red"><span class="countfast"></span> รายการด่วน</span></p>
@@ -174,7 +174,7 @@ include '../dbconn.php';
 
                                             <div class="card">
                                                 <div class="card-content">
-                                                    <div class="page-header" style="font-size: 30px; margin-top: 5px">รายการใหม่
+                                                    <div class="page-header" style="font-size: 30px; margin-top: 5px">รายการใหม่<span style="color: red; font-size: 30px; "> (ปกติ)</span>
                                                         <div class="pull-right">
                                                             <p class="text-center">
                                                                 <span style="font-size: 20px;"><span class="countnormal"></span> รายการ</span>
@@ -222,140 +222,6 @@ include '../dbconn.php';
                                                 </div>  
                                             </div>
                                         </div>
-
-
-                                        <!-- modal ตารางนะยูวว  -->
-                                        <!-- ignore normal-->
-                                        <div class="modal fade" id="ignoreNormalOrderModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                        <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px;">ปฏิเสธรายการหมายเลข:&nbsp;<span id="ignoreNormalId"></span></div></span>
-                                                    </div>
-                                                    <div class="modal-body ">
-                                                        <div class="alert alert-danger" role="alert">
-                                                            <span style="font-size: 20px;">ต้องการปฏิเสธรายการ ? </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
-                                                        <button type="button" class="btn btn-danger" id="ignoreNormalBtn">ยืนยัน</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- End ignore --> 
-                                        
-                                           <!-- ignore fasttttttttttttttttttttttt -->
-                                        <div class="modal fade" id="ignoreFastOrderModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                        <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px; color: red">เตือน!!<span id="ignoreFastId"></span></div></span>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <span style="font-size: 20px;">ต้องการปฏิเสธรายการ ? </span>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
-                                                        <button type="button" class="btn btn-danger" id="ignoreFastBtn">ยืนยัน</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- End ignore --> 
-
-                                        <!-- accept fastttttt -->
-                                        <div class="modal fade" id="acceptFastOrderModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                        <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px; ">รับรายการหมายเลข:&nbsp;<span id="acceptFastId" style="color: orange;"></span></div></span>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <span style="font-size: 20px;">ต้องการยอมรับรายการ ? </span>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
-                                                        <button type="button" class="btn btn-success" id="acceptFastBtn">ยืนยัน</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- End accept --> 
-                                        
-                                          <!-- accept normallllllllll -->
-                                        <div class="modal fade" id="acceptNormalOrderModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                        <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px; ">รับรายการหมายเลข:&nbsp;<span id="acceptNormalId" style="color: orange;"></span></div></span>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <span style="font-size: 20px;">ต้องการยอมรับรายการ ? </span>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
-                                                        <button type="button" class="btn btn-success" id="acceptNormalBtn">ยืนยัน</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- End accept --> 
-
-                                        <!-- Detial fasttt   -->
-                                        <div class="modal fade" id="detailFastOrderModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                        <span class="modal-title" id="myModalLabel">
-                                                            <span style="font-size: 30px; margin-top: 5px;">รายละเอียดของรายการหมายเลข: </span>
-                                                            <span style="font-size: 30px; margin-top: 5px; color: orange" id="showFastOrderId"> </span>     
-                                                        </span>
-                                                    </div>
-                                                    <div id="fastOrderViewBody">
-
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
-                                                        <button type="button" class="btn btn-danger" id="ignoreFastOrderBtn" >ปฏิเสธรายการ</button>
-                                                        <button type="button" class="btn btn-success" id="acceptFastOrderBtn" >ยอมรับรายการ</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- End Detail --> 
-                                        
-                                          <!-- Detial normal -->
-                                        <div class="modal fade bs-example-modal-lg" id="detailNormalOrderModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-                                            <div class="modal-dialog modal-lg">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                        <span class="modal-title" id="myModalLabel">
-                                                            <span style="font-size: 30px; margin-top: 5px;">รายละเอียดของรายการหมายเลข: </span>
-                                                            <span style="font-size: 30px; margin-top: 5px; color: orange" id="showOrderId"> </span>     
-                                                        </span>
-                                                    </div>
-                                                    <div id="normalOrderViewBody">
-
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
-                                                        <button type="button" class="btn btn-danger" id="ignoreNormalOrderBtn" >ปฏิเสธรายการ</button>
-                                                        <button type="button" class="btn btn-success" id="acceptFastOrderBtn" >ยอมรับรายการ</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- End Detail --> 
-
-                                        <!-- จบ modal ตารางนะยูวว -->
                                     </div>
                                 </div>
                             </div>
@@ -366,6 +232,145 @@ include '../dbconn.php';
 
         </div>
     </div>
+    <!-- modal ตารางนะยูวว  -->
+    <!-- ignore normal-->
+    <div class="modal fade" id="ignoreNormalOrderModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px;">ปฏิเสธรายการหมายเลข:&nbsp;<span id="ignoreNormalId"></span></div></span>
+                </div>
+                <div class="modal-body ">
+                    <div class="alert alert-danger" role="alert">
+                        <span style="font-size: 20px;">ต้องการปฏิเสธรายการ ? </span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                    <button type="button" class="btn btn-danger" id="ignoreNormalBtn">ยืนยัน</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End ignore --> 
+
+    <!-- ignore fasttttttttttttttttttttttt -->
+    <div class="modal fade" id="ignoreFastOrderModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px; color: red">ปฏิเสธรายการหมายเลข:&nbsp;<span id="ignoreFastId"></span></div></span>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger" role="alert">
+                        <span style="font-size: 20px;">ต้องการปฏิเสธรายการ ? </span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                    <button type="button" class="btn btn-danger" id="ignoreFastBtn">ยืนยัน</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End ignore --> 
+
+    <!-- accept fastttttt -->
+    <div class="modal fade" id="acceptFastOrderModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px; ">รับรายการหมายเลข:&nbsp;<span id="acceptFastId" style="color: orange;"></span></div></span>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-success" role="alert">
+                        <span style="font-size: 20px;">ต้องการยอมรับรายการ ? </span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                    <button type="button" class="btn btn-success" id="acceptFastBtn">ยืนยัน</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End accept --> 
+
+    <!-- accept normallllllllll -->
+    <div class="modal fade" id="acceptNormalOrderModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px; ">รับรายการหมายเลข:&nbsp;<span id="acceptNormalId" style="color: orange;"></span></div></span>
+                </div>
+                <div class="modal-body">
+                   <div class="alert alert-success" role="alert">
+                        <span style="font-size: 20px;">ต้องการยอมรับรายการ ? </span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                    <button type="button" class="btn btn-success" id="acceptNormalBtn">ยืนยัน</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End accept --> 
+
+    <!-- Detial fasttt   -->
+    <div class="modal fade bs-example-modal-lg" id="detailFastOrderModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <span class="modal-title" id="myModalLabel">
+                        <span style="font-size: 30px; margin-top: 5px;">รายละเอียดของรายการหมายเลข: </span>
+                        <span style="font-size: 30px; margin-top: 5px; color: orange" id="showFastOrderId"> </span>     
+                    </span>
+                </div>
+                <div id="fastOrderViewBody">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                   <!-- <button type="button" class="btn btn-danger" id="ignoreFastOrderBtn" >ปฏิเสธรายการ</button>
+                    <button type="button" class="btn btn-success" id="acceptFastOrderBtn" >ยอมรับรายการ</button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Detail --> 
+
+    <!-- Detial normal -->
+    <div class="modal fade bs-example-modal-lg" id="detailNormalOrderModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <span class="modal-title" id="myModalLabel">
+                        <span style="font-size: 30px; margin-top: 5px;">รายละเอียดของรายการหมายเลข: </span>
+                        <span style="font-size: 30px; margin-top: 5px; color: orange" id="showOrderId"> </span>     
+                    </span>
+                </div>
+                <div id="normalOrderViewBody">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                  <!--  <button type="button" class="btn btn-danger" id="ignoreNormalOrderBtn" >ปฏิเสธรายการ</button>
+                    <button type="button" class="btn btn-success" id="acceptFastOrderBtn" >ยอมรับรายการ</button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Detail --> 
+
+    <!-- จบ modal ตารางนะยูวว -->
+
 
     <!-- start footer -->
     <?php include '../template/footer.php'; ?>

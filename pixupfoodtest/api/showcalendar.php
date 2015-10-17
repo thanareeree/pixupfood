@@ -5,7 +5,7 @@ $resid = $_POST["resid"];
 $dataOrder = $con->query("SELECT delivery_date, SUM(order_detail.quantity) as qty, order_time,delivery_time "
         . "FROM `normal_order` "
         . "JOIN order_detail ON order_detail.order_id = normal_order.id "
-        . "WHERE normal_order.restaurant_id = '$resid' AND normal_order.status != 1 AND normal_order.status != 6  "
+        . "WHERE normal_order.restaurant_id = '$resid' AND normal_order.status > 1 AND normal_order.status < 6    "
         . "GROUP BY normal_order.delivery_date");
 
 

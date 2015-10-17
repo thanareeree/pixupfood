@@ -20,7 +20,7 @@ $(document).ready(function () {
         $("#showFastOrderId").html(id);
 
         $.ajax({
-            url: "/restaurant-order/request_order/modal-request.php",
+            url: "/restaurant-order/request_order/modal-request-fast.php",
             type: "POST",
             data: {"id": id, "type": "fast"},
             dataType: "html",
@@ -36,7 +36,7 @@ $(document).ready(function () {
         $("#showOrderId").html(id);
 
         $.ajax({
-            url: "/api/normal-order-modal.php",
+            url: "/restaurant-order/request_order/modal-request.php",
             type: "POST",
             data: {"id": id, "type": "normal"},
             dataType: "html",
@@ -55,6 +55,10 @@ $(document).ready(function () {
         $("#acceptFastOrderModal").modal("show");
     });
 
+    $("#acceptFastBtn").on("click", function (e) {
+        var type = "accept";
+        acceptFastOrder(type);
+    });
 
     $('#showdataNormalOrder').on("click", ".acceptNormalOrder", function (e) {
         var id = $(this).attr("data-id");
@@ -83,8 +87,12 @@ $(document).ready(function () {
 
     $('#showdataFastOrder').on("click", ".ignoreFastOrder", function (e) {
         var id = $(this).attr("data-id");
-        $("#ignoreId").html(id);
-        $("#ignoreOrderModal").modal("show");
+        $("#ignoreFastId").html(id);
+        $("#ignoreFastOrderModal").modal("show");
+    });
+     $("#ignoreFastBtn").on("click", function (e) {
+        var type = "ignore";
+        ignoreFastOrder(type);
     });
 
 
@@ -126,7 +134,7 @@ function fetchdataShowNormalOrder() {
                 busyNormal = false;
                 var count = $("#normalordercount").val();
                 $(".countnormal").html(count);
-                var all = parseInt($("#normalordercount").val())+parseInt($("#fastordercount").val());
+                var all = parseInt($("#normalordercount").val()) + parseInt($("#fastordercount").val());
                 $(".countall").html(all);
             },
             error: function (data) {
@@ -134,6 +142,44 @@ function fetchdataShowNormalOrder() {
             }
         });
     }
+}
+
+function acceptFastOrder(type) {
+    $("#acceptFastBtn").html("<img src='/assets/images/loader.gif' style='width:100%;height:5px; margin:0 auto;'>");
+    $.ajax({
+        url: "/restaurant-order/request_order/api/actionFastOrder.php",
+        type: "POST",
+        data: {"orderid": $('#acceptFastId').html(), "cmd": type},
+        dataType: "json",
+        success: function (data) {
+            if (data.result == "1") {
+                $("#acceptFastOrderModal").modal("hide");
+                fetchdataShowFastOrder();
+                
+            } else {
+                alert(data.error);
+            }
+        }
+    });
+}
+
+
+function ignoreFastOrder(type) {
+    $("#ignoreFastBtn").html("<img src='/assets/images/loader.gif' style='height:5px; margin:0 auto;'>");
+    $.ajax({
+        url: "/restaurant-order/request_order/api/actionFastOrder.php",
+        type: "POST",
+        data: {"cmd": type, "ignoreNormalId": $('#ignoreFastId').html()},
+        dataType: "json",
+        success: function (data) {
+            if (data.result == "1") {
+                $("#ignoreFastOrderModal").modal("hide");
+                fetchdataShowFastOrder();
+            } else {
+                alert(data.error);
+            }
+        }
+    });
 }
 
 function acceptNormalOrder(type) {
@@ -187,24 +233,24 @@ function countdown() {
     setTimeout(countdown, 1000);
 }
 
-function seconds2time (seconds) {
-    var hours   = Math.floor(seconds / 3600);
+function seconds2time(seconds) {
+    var hours = Math.floor(seconds / 3600);
     var minutes = Math.floor((seconds - (hours * 3600)) / 60);
     var seconds = seconds - (hours * 3600) - (minutes * 60);
     var time = "";
 
     if (hours != 0) {
-      time = hours+":";
+        time = hours + ":";
     }
     if (minutes != 0 || time !== "") {
-      minutes = (minutes < 10 && time !== "") ? "0"+minutes : String(minutes);
-      time += minutes+":";
+        minutes = (minutes < 10 && time !== "") ? "0" + minutes : String(minutes);
+        time += minutes + ":";
     }
     if (time === "") {
-      time = seconds;
+        time = seconds;
     }
     else {
-      time += (seconds < 10) ? "0"+seconds : String(seconds);
+        time += (seconds < 10) ? "0" + seconds : String(seconds);
     }
     return time;
 }

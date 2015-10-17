@@ -89,7 +89,18 @@ $slip2Data = $slip2res->fetch_assoc();
 
 
                 </div>
-                <?php ?>
+                 <div class="card">
+                    <div class="card-content">
+                        <span style="font-size: 20px">หมายเลขสมาชิกลูกค้า: </span>
+                        <span style="font-size: 20px; color: orange;"> <?= $orderData["id"] ?> </span><br>
+
+                        <span style="font-size: 20px">ชื่อ: </span>
+                        <span style="font-size: 20px; color: orange;"> <?= $orderData["firstName"] ?>&nbsp;<?= $orderData["lastName"] ?> </span><br>
+
+                        <span style="font-size: 20px">โทรศัพท์: </span>
+                        <span style="font-size: 20px; color: orange;"><?= $orderData["tel"] ?> </span>
+                    </div>
+                </div>
             </div>
             <div class="col-md-5">
                 <div class="card">

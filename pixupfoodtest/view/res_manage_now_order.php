@@ -156,8 +156,6 @@ include '../dbconn.php';
                                                         </div>
                                                     </div>
                                                     <!-- จบตารางรายการอยู่ระหว่างดำเนินการ -->
-
-
                                                 </div>
                                             </div>
 
@@ -206,119 +204,11 @@ include '../dbconn.php';
                                                         </div>
                                                     </div>
                                                     <!-- จบตารางรายการอยู่ระหว่างดำเนินการ -->
-
-
                                                 </div>
                                             </div>
+
                                         </div>
                                         <!-- End Tab 2 -->
-
-                                        <!-- Detial fasttt   -->
-                                        <div class="modal fade" id="detailFastOrderModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                        <span class="modal-title" id="myModalLabel">
-                                                            <span style="font-size: 30px; margin-top: 5px;">รายละเอียดของรายการหมายเลข: </span>
-                                                            <span style="font-size: 30px; margin-top: 5px; color: orange" id="showFastOrderId"> </span>     
-                                                        </span>
-                                                    </div>
-                                                    <div id="fastOrderViewBody">
-
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- End Detail --> 
-
-                                        <!-- Detial normal -->
-                                        <div class="modal fade bs-example-modal-lg" id="detailNormalOrderModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-                                            <div class="modal-dialog modal-lg">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                        <span class="modal-title" id="myModalLabel">
-                                                            <span style="font-size: 30px; margin-top: 5px;">รายละเอียดของรายการหมายเลข: </span>
-                                                            <span style="font-size: 30px; margin-top: 5px; color: orange" id="showOrderId"> </span>     
-                                                        </span>
-                                                    </div>
-                                                    <div id="normalOrderViewBody">
-
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- End Detail --> 
-
-
-
-
-                                        <!-- รูปสลิป -->
-                                        <div class="modal fade pop-up-2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel-2" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                                        <span class="modal-title" id="myLargeModalLabel-2" style="font-size: 30px">สลิปประกอบรายการเลขที่</span>  <span style="font-size: 30px; color: orange"> 102458</span>
-                                                    </div>
-                                                    <div class="modal-body">           
-                                                        <span style="font-size: 15px; color: red;">ยอดเงินที่ปรากฎในระบบเป็นเพียงการคำนวณจากเงื่อนไขต่างๆในระบบอาจไม่ใช่ยอดเงินจริง กรุณาตรวจสอบข้อมูลภายในสลิปอีกครั้ง อย่างไรก็ตามหากพบปัญหากรุณาติดต่อ </span>  
-                                                        <a href="#" data-toggle="modal" data-target='#text' style="color: blue;" >support@pixupfood.com </a> 
-                                                        <hr>
-                                                        <span style="font-size: 20px"> โอนเงินมัดจำผ่านธนาคาร: </span>
-                                                        <span style="font-size: 15px; color: orange;"> กสิกรไทย เลขที่ 12-1231212-1</span>  <br> 
-                                                        <span style="font-size: 20px"> จำนวนเงิน:</span> <span style="font-size: 15px; color: orange;">400.00 บาท</span>  <br>
-                                                        <span style="font-size: 20px"> วัน/เวลาที่ระบบบันทึกสลิป:</span> <span style="font-size: 15px; color: orange;">12-10-2015 14:30</span>  <br>
-                                                        <hr>
-                                                        <img src="/assets/images/slip03.jpg" class="img-responsive img-rounded center-block" alt="">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- จบรูปสลิบ -->
-                                        <div class="modal fade" id="text" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                        <span class="modal-title" id="myModalLabel"><div style="font-size: 30px;">รายงาน</div></span>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <span style="font-size: 15px;">ส่งถึง: support@pixupfood.com </span><br>
-                                                        <span style="font-size: 15px;">เรื่อง: สลิปประกอบรายการเลขที่ 102458 </span>
-                                                        <hr>
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-
-                                                                <textarea name="message" placeholder="พิมพ์ข้อความของคุณที่นี่..." rows="5" style=" width: 100%"></textarea>
-
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default" data-dismiss="modal">ยกเลิก</button>
-                                                        <button type="button" class="btn btn-primary" >ส่ง</button>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- End Detail --> 
-
-
-
-
-
-                                        <!-- จบ modal ตารางนะยูวว -->
                                     </div>
                                 </div>
                             </div>
@@ -329,17 +219,75 @@ include '../dbconn.php';
 
         </div>
     </div>
+    <!-- Detial fasttt   -->
+    <div class="modal fade  bs-example-modal-lg" id="detailFastOrderModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog  modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <span class="modal-title" id="myModalLabel">
+                        <span style="font-size: 30px; margin-top: 5px;">รายละเอียดของรายการหมายเลข: </span>
+                        <span style="font-size: 30px; margin-top: 5px; color: orange" id="showFastOrderId"> </span>     
+                    </span>
+                </div>
+                <div id="fastOrderViewBody">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Detail --> 
+
+    <!-- Detial normal -->
+    <div class="modal fade bs-example-modal-lg" id="detailNormalOrderModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <span class="modal-title" id="myModalLabel">
+                        <span style="font-size: 30px; margin-top: 5px;">รายละเอียดของรายการหมายเลข: </span>
+                        <span style="font-size: 30px; margin-top: 5px; color: orange" id="showOrderId"> </span>     
+                    </span>
+                </div>
+                <div id="normalOrderViewBody">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Detail --> 
+    <!--  -->
+    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px;">เตือน!&nbsp;</div></span>
+                </div>
+                <div class="modal-body ">
+                    <div class="alert alert-danger" role="alert">
+                        <span style="font-size: 20px;" id="errorMessage"> </span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- start footer -->
     <?php include '../template/footer.php'; ?>
 
-
     <!-- ตารางรายการออเดอร์ -->
     <script src="/assets/js/OrderSearch.js"></script>
-  <!--  <script src="/assets/js/ui-bootstrap-tpls-0.13.4.min.js"></script>-->
-
     <script src="/assets/js/manage_now_order.js"></script>
-
-
 </body>
 </html>
