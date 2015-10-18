@@ -8,6 +8,8 @@ include '../../dbconn.php';
         <title>Pixupfood - Order</title>
         <?php include '../../template/customer-title.php'; ?>
         <link rel="stylesheet" href="/assets/css/fast_order.css">
+        <link rel="stylesheet" href="/assets/css/bootstrap-toggle.min.css">
+        
     </head>
     <body>
         <?php
@@ -420,6 +422,7 @@ include '../../dbconn.php';
 
 
         <?php include '../../template/footer.php'; ?>
+        <script src="/assets/js/bootstrap-toggle.min.js"></script>
         <script src="/assets/js/fast_order.js" type="text/javascript"></script>
     </body>
 </html>

@@ -511,7 +511,8 @@ function checkRest() {
         data: data,
         success: function (data) {
             $("#showrest").html(data);
-            priority()
+            $('.restselect').bootstrapToggle();
+            //spriority();
         }
     });
 }
@@ -523,10 +524,10 @@ function saveOrder() {
     });
     $(".restselect:checked").each(function () {
         var str = $(this).val();
-        var restid = str.substring(1);
-        var pri = str.substring(0, 1);
-        data['rest[]'].push(restid);
-        data['priority[]'].push(pri);
+        //var restid = str.substring(1);
+        //var pri = str.substring(0, 1);
+        data['rest[]'].push(str);
+        //data['priority[]'].push(pri);
     });
     data['boxtype'] = $("input[name=foodboxtype]:checked").val();
     if (data['boxtype'] != 4) {
@@ -545,9 +546,9 @@ function saveOrder() {
         dataType: "html",
         data: data,
         success: function (data) {
-            // alert(data); 
-            $("#paymentmodal").modal("hide");
-            $("#saveOrderSuccessModal").modal('show');
+          alert(data); 
+            //$("#paymentmodal").modal("hide");
+           // $("#saveOrderSuccessModal").modal('show');
 
 
         }

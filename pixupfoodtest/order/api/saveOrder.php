@@ -55,8 +55,7 @@ $delivery_date = date("Y-m-d", strtotime(str_replace(" GMT+0700 (SE Asia Standar
 $status = "1";
 $digits = 8;
 $shippingCode = rand(pow(10, $digits - 1), pow(10, $digits) - 1);
-
-
+ 
 
 if (isset($_SESSION["islogin"])) {
 
@@ -85,7 +84,7 @@ if (isset($_SESSION["islogin"])) {
                 $totalfoodprice = $foodprice * $amtbox;
                 $prepay = $totalfoodprice * 0.2;
 
-                if ($count == 0) {
+              /* if ($count == 0) {
                     $con->query("INSERT INTO `request_fast_order`(`id`, `fast_id`, `restaurant_id`, "
                             . "`price`, `total`, `prepay`, `priority`) "
                             . "VALUES (null,'$fast_id','$res_id','$foodprice','$totalfoodprice','$prepay','$priority[0]')");
@@ -98,10 +97,14 @@ if (isset($_SESSION["islogin"])) {
                             . "`price`, `total`, `prepay`, `priority`) "
                             . "VALUES (null,'$fast_id','$res_id','$foodprice','$totalfoodprice','$prepay','$priority[2]')");
                 }
+                */
+                 $con->query("INSERT INTO `request_fast_order`(`id`, `fast_id`, `restaurant_id`, "
+                            . "`price`, `total`, `prepay`, `priority`) "
+                            . "VALUES (null,'$fast_id','$res_id','$foodprice','$totalfoodprice','$prepay','1')");
 
                 if ($con->error == "") {
-                    $count++;
-                    echo 'เรียบบบบบบบบบบบบบบบบบบบบบบบบ ร้องไห้ TT';
+                   
+                    echo 'เรียบบบบบบบบบบบบบบ';
                 } else {
                     echo $con->error . 'บันทึก ตารางรีเควสฟาส ไม่ได้ #ร้องไห้หนักมาก';
                 }
@@ -110,4 +113,4 @@ if (isset($_SESSION["islogin"])) {
     } else {
         echo $con->error . 'บันทึกอะไรไม่ได้เลย เหี้ยยยยย !!';
     }
-}   
+}  

@@ -119,13 +119,16 @@ foreach ($restok as $key => $rest) {
         <table class="table table-hover" id="task-table">
             <thead>
                 <tr>
-                    <th>ลำดับการส่งรีเควส</th>
-                    <th>
-                        <label><input type="checkbox" name="rest[]" class="restselect priority1 " rest-id="<?= $rest["id"] ?>" value="1<?= $rest["id"] ?>">&nbsp;1 &nbsp;</label>
-                        <label><input type="checkbox" name="rest[]" class="restselect priority2  " rest-id="<?= $rest["id"] ?>" value="2<?= $rest["id"] ?>">&nbsp;2 &nbsp;</label>
-                        <label><input type="checkbox" name="rest[]" class="restselect priority3 " rest-id="<?= $rest["id"] ?>" value="3<?= $rest["id"] ?>">&nbsp;3</label>
-                    </th>
+                    <th>ส่งรีเควสออเดอร์</th>
                     <th></th>
+                    <th><input type="checkbox"  name="rest[]" class="restselect" value="<?= $rest["id"] ?>" checked data-toggle="toggle" data-on="ส่ง" data-off="ไม่ส่ง" data-onstyle="success" data-offstyle="danger"></th>
+                  <!--<th>ลำดับการส่งรีเควส</th>
+                  <th>
+                      <label><input type="checkbox" name="rest[]" class="restselect priority1 " rest-id="<?= $rest["id"] ?>" value="1<?= $rest["id"] ?>">&nbsp;1 &nbsp;</label>
+                      <label><input type="checkbox" name="rest[]" class="restselect priority2  " rest-id="<?= $rest["id"] ?>" value="2<?= $rest["id"] ?>">&nbsp;2 &nbsp;</label>
+                      <label><input type="checkbox" name="rest[]" class="restselect priority3 " rest-id="<?= $rest["id"] ?>" value="3<?= $rest["id"] ?>">&nbsp;3</label>
+                  </th>
+                  <th></th>-->
                 </tr>
             </thead>
             <tbody>
