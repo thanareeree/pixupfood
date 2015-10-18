@@ -13,6 +13,7 @@ include '../dbconn.php';
         <?php include '../template/customer-title.php'; ?>
         <!-- custom css -->
         <link rel="stylesheet" href="/assets/css/res_restaurant_manage.css">
+        <link rel="stylesheet" href="/assets/css/bootstrap-toggle.min.css">
         <style>
             .card .card-image img {
                 border-radius: 2px 2px 0 0;
@@ -132,146 +133,201 @@ include '../dbconn.php';
                                     <!--- Add Menu-->
                                     <div class="row" id="addMenuForm" style="display: none">
 
-
                                         <!-- Card Projects -->
                                         <div class="col-md-12">
-                                            <div class="col-md-12">
-                                                <div class="card">
-                                                    <div class="card-content"> 
-                                                        <h3 style="margin-bottom: 40px">เพิ่มเมนูของร้าน</h3>
-                                                        <form action="/restaurant/menu-add.php" method="post" id="addMenuRes">
-                                                            <div>
-                                                                <span style="font-size: 18px;"> หมวดหมู่ </span>&nbsp;
-                                                                <select style="width: 150px;font-size: 18px;" id="select_type" name="select_type" required="">
-                                                                    <option value="0">--ตัวเลือก--</option>
-                                                                    <option value="ชนิดข้าว">ชนิดข้าว</option>
-                                                                    <option value="กับข้าว">กับข้าว</option>
-                                                                    <option value="อาหารจานเดียว">อาหารจานเดียว</option>
-                                                                    <option value="ขนม">ขนม</option>
-                                                                    <option value="เครื่องดื่ม">เครื่องดื่ม</option>
 
-                                                                </select>
-                                                                <span style="margin-left: 25px;font-size: 18px;" id="type" > ชื่อรายการอาหาร </span>&nbsp;&nbsp;
-                                                                <select class="riceList" name="riceList" id="riceList"style="width: 150px; font-size: 18px; " >
-                                                                    <option value="0">--ตัวเลือก--</option>
-                                                                    <?php
-                                                                    $riceRes = $con->query("SELECT DISTINCT  main_menu.id, main_menu.name "
-                                                                            . "FROM main_menu"
-                                                                            . " LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
-                                                                            . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
-                                                                            . "WHERE main_menu.type = 'ชนิดข้าว'"
-                                                                            . "ORDER BY main_menu.name");
-                                                                    while ($riceData = $riceRes->fetch_assoc()) {
-                                                                        ?>
-                                                                        <option value="<?= $riceData['id'] ?>"> <?= $riceData['name'] ?> </option>
-                                                                    <?php } ?>
-                                                                </select>
-                                                                <select class="menuList" name="menuList" id="menuList"style="width: 150px; font-size: 18px; display: none"  >
-                                                                    <option value="0">--ตัวเลือก--</option>
-                                                                    <?php
-                                                                    $riceRes = $con->query("SELECT DISTINCT main_menu.id, main_menu.name "
-                                                                            . "FROM main_menu"
-                                                                            . " LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
-                                                                            . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
-                                                                            . "WHERE main_menu.type = 'กับข้าว'"
-                                                                            . "ORDER BY main_menu.name");
-                                                                    while ($riceData = $riceRes->fetch_assoc()) {
-                                                                        ?>
-                                                                        <option value="<?= $riceData['id'] ?>"> <?= $riceData['name'] ?> </option>
-                                                                    <?php } ?>
-                                                                </select>
-                                                                <select class="singleMenu" name="singleMenu" id="singleMenu"style="width: 150px; font-size: 18px;display: none " >
-                                                                    <option value="0">--ตัวเลือก--</option>
-                                                                    <?php
-                                                                    $riceRes = $con->query("SELECT DISTINCT main_menu.id, main_menu.name "
-                                                                            . "FROM main_menu"
-                                                                            . " LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
-                                                                            . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
-                                                                            . "WHERE main_menu.type = 'อาหารจานเดียว'"
-                                                                            . "ORDER BY main_menu.name");
-                                                                    while ($riceData = $riceRes->fetch_assoc()) {
-                                                                        ?>
-                                                                        <option value="<?= $riceData['id'] ?>"> <?= $riceData['name'] ?> </option>
-                                                                    <?php } ?>
-                                                                </select>
-                                                                <select class="snackList" name="snackList" id="snackList"style="width: 150px; font-size: 18px;display: none " >
-                                                                    <option value="0">--ตัวเลือก--</option>
-                                                                    <?php
-                                                                    $snackRes = $con->query("SELECT DISTINCT main_menu.id, main_menu.name "
-                                                                            . "FROM main_menu"
-                                                                            . " LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
-                                                                            . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
-                                                                            . "WHERE main_menu.type = 'ขนม'"
-                                                                            . "ORDER BY main_menu.name");
-                                                                    while ($snackData = $snackRes->fetch_assoc()) {
-                                                                        ?>
-                                                                        <option value="<?= $snackData['id'] ?>"> <?= $snackData['name'] ?> </option>
-                                                                    <?php } ?>
-                                                                </select>
-                                                                <select class="drinkList" name="drinkList" id="drinkList"style="width: 150px; font-size: 18px;display: none " >
-                                                                    <option value="0">--ตัวเลือก--</option>
-                                                                    <?php
-                                                                    $drinkRes = $con->query("SELECT DISTINCT main_menu.id, main_menu.name "
-                                                                            . "FROM main_menu"
-                                                                            . " LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
-                                                                            . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
-                                                                            . "WHERE main_menu.type = 'เครื่องดื่ม'"
-                                                                            . "ORDER BY main_menu.name");
-                                                                    while ($drinkData = $drinkRes->fetch_assoc()) {
-                                                                        ?>
-                                                                        <option value="<?= $drinkData['id'] ?>"> <?= $drinkData['name'] ?> </option>
-                                                                    <?php } ?>
-                                                                </select>
+                                            <div class="card">
+                                                <div class="card-content"> 
+                                                    <h3 style="margin-bottom: 20px">เพิ่มรายการอาหารใหม่ (เลือกจากส่วนกลาง)</h3>
+                                                    <hr>
+                                                    <form action="/restaurant/menu-add.php" method="post" id="addMenuRes">
 
-                                                                <span style="margin-left: 25px;font-size: 18px;" id="type"  > ราคา </span>&nbsp;&nbsp;
-                                                                <input type="text"  id="priceinput" style="font-size: 18px;" required="">
+                                                        <div class="row" style="margin-left: 140px">
+                                                            <span style="font-size: 18px;"> หมวดหมู่ </span>&nbsp;
+                                                            <select style="width: 150px;font-size: 18px;" id="select_type" name="select_type" required="">
+                                                                <option value="0">--ตัวเลือก--</option>
+                                                                <option value="ชนิดข้าว">ชนิดข้าว</option>
+                                                                <option value="กับข้าว">กับข้าว</option>
+                                                                <option value="อาหารจานเดียว">อาหารจานเดียว</option>
+                                                                <option value="ขนม">ขนม</option>
+                                                                <option value="เครื่องดื่ม">เครื่องดื่ม</option>
 
-                                                                <button type="submit" class="btn btn-success" style="margin-left: 25px;" id="savebtn"><i class="glyphicon glyphicon-plus"></i></button>
-                                                                <div id="duplicateMenu"></div>
-                                                            </div>
-                                                        </form>
+                                                            </select>
+                                                            <span style="margin-left: 25px;font-size: 18px;" id="type" > ชื่อรายการอาหาร </span>&nbsp;&nbsp;
+                                                            <select class="riceList" name="riceList" id="riceList"style="width: 150px; font-size: 18px; " >
+                                                                <option value="0">--ตัวเลือก--</option>
+                                                                <?php
+                                                                $riceRes = $con->query("SELECT DISTINCT  main_menu.id, main_menu.name "
+                                                                        . "FROM main_menu"
+                                                                        . " LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
+                                                                        . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
+                                                                        . "WHERE main_menu.type = 'ชนิดข้าว' "
+                                                                        . "ORDER BY main_menu.name");
+                                                                while ($riceData = $riceRes->fetch_assoc()) {
+                                                                    ?>
+                                                                    <option value="<?= $riceData['id'] ?>"> <?= $riceData['name'] ?> </option>
+                                                                <?php } ?>
+                                                            </select>
+                                                            <select class="menuList" name="menuList" id="menuList"style="width: 150px; font-size: 18px; display: none"  >
+                                                                <option value="0">--ตัวเลือก--</option>
+                                                                <?php
+                                                                $riceRes = $con->query("SELECT DISTINCT main_menu.id, main_menu.name "
+                                                                        . "FROM main_menu"
+                                                                        . " LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
+                                                                        . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
+                                                                        . "WHERE main_menu.type = 'กับข้าว'"
+                                                                        . "ORDER BY main_menu.name");
+                                                                while ($riceData = $riceRes->fetch_assoc()) {
+                                                                    ?>
+                                                                    <option value="<?= $riceData['id'] ?>"> <?= $riceData['name'] ?> </option>
+                                                                <?php } ?>
+                                                            </select>
+                                                            <select class="singleMenu" name="singleMenu" id="singleMenu"style="width: 150px; font-size: 18px;display: none " >
+                                                                <option value="0">--ตัวเลือก--</option>
+                                                                <?php
+                                                                $riceRes = $con->query("SELECT DISTINCT main_menu.id, main_menu.name "
+                                                                        . "FROM main_menu"
+                                                                        . " LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
+                                                                        . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
+                                                                        . "WHERE main_menu.type = 'อาหารจานเดียว'"
+                                                                        . "ORDER BY main_menu.name");
+                                                                while ($riceData = $riceRes->fetch_assoc()) {
+                                                                    ?>
+                                                                    <option value="<?= $riceData['id'] ?>"> <?= $riceData['name'] ?> </option>
+                                                                <?php } ?>
+                                                            </select>
+                                                            <select class="snackList" name="snackList" id="snackList"style="width: 150px; font-size: 18px;display: none " >
+                                                                <option value="0">--ตัวเลือก--</option>
+                                                                <?php
+                                                                $snackRes = $con->query("SELECT DISTINCT main_menu.id, main_menu.name "
+                                                                        . "FROM main_menu"
+                                                                        . " LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
+                                                                        . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
+                                                                        . "WHERE main_menu.type = 'ขนม'"
+                                                                        . "ORDER BY main_menu.name");
+                                                                while ($snackData = $snackRes->fetch_assoc()) {
+                                                                    ?>
+                                                                    <option value="<?= $snackData['id'] ?>"> <?= $snackData['name'] ?> </option>
+                                                                <?php } ?>
+                                                            </select>
+                                                            <select class="drinkList" name="drinkList" id="drinkList"style="width: 150px; font-size: 18px;display: none " >
+                                                                <option value="0">--ตัวเลือก--</option>
+                                                                <?php
+                                                                $drinkRes = $con->query("SELECT DISTINCT main_menu.id, main_menu.name "
+                                                                        . "FROM main_menu"
+                                                                        . " LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
+                                                                        . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
+                                                                        . "WHERE main_menu.type = 'เครื่องดื่ม'"
+                                                                        . "ORDER BY main_menu.name");
+                                                                while ($drinkData = $drinkRes->fetch_assoc()) {
+                                                                    ?>
+                                                                    <option value="<?= $drinkData['id'] ?>"> <?= $drinkData['name'] ?> </option>
+                                                                <?php } ?>
+                                                            </select>
+
+                                                            <span style="margin-left: 25px;font-size: 18px;" id="type"  > ราคา </span>&nbsp;&nbsp;
+                                                            <input type="text"  id="priceinput" style="font-size: 18px;" required="">
+
+                                                            <div id="duplicateMenu" ></div>
+                                                        </div>
+
+                                                    </form>
+                                                    <div class="card-action">
+                                                        <div class="col-md-10"> </div>
+                                                        <div class="col-md-2" style="padding-right: 0px;padding-left: 45px;">
+                                                            <button type="submit" class="btn btn-success" style="margin-left: 25px;width: 100;" id="savebtn"><i class="glyphicon glyphicon-plus"></i></button>
+                                                            <span style="color: red" id="showerror"></span>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                 
+
                                             </div>
                                         </div>
-                                        <div class="col-md-12" style="display: none" id="addNewMenuForm">
-                                            <div class="col-md-12">
-                                                <div class="card">
-                                                    <div class="card-content"> 
-                                                        <h3>เพิ่มชื่อเมนูใหม่</h3>
-                                                        <form action="/restaurant/menu-add-old.php" method="post" id="addNewMenu" enctype="multipart/form-data">
-                                                            <div class="row" style="margin-left: 25px;margin-top: 50px;">
-                                                                <span style="font-size: 18px;"> หมวดหมู่ </span>&nbsp;
-                                                                <select required="" style="width: 150px;font-size: 18px;" id="typefood-add" name="typefood-add">
-                                                                    <option value="0">--ตัวเลือก--</option>
-                                                                    <option value="ชนิดข้าว">ชนิดข้าว</option>
-                                                                    <option value="กับข้าว">กับข้าว</option>
-                                                                    <option value="อาหารจานเดียว">อาหารจานเดียว</option>
-                                                                    <option value="ขนม">ขนม</option>
-                                                                    <option value="เครื่องดื่ม">เครื่องดื่ม</option>
-                                                                </select>
-                                                                <span style="margin-left: 25px;font-size: 18px;" id="typeselect" > หมวดหมู่ </span>&nbsp;&nbsp;
-                                                                <select class="foodtypelist" name="foodtypelist" required="" style="width: 150px;  margin-left: 5px;font-size: 18px">
-                                                                    <option>--ตัวเลือก--</option>
-                                                                    <?php
-                                                                    $res1 = $con->query("SELECT * FROM `food_type`");
-                                                                    while ($data1 = $res1->fetch_assoc()) {
-                                                                        ?>
-                                                                        <option value="<?= $data1['id'] ?>"> <?= $data1['description'] ?> </option>
-                                                                    <?php } ?>
-                                                                </select>
-                                                                <span style="margin-left: 24px;font-size: 18px;"> ชื่อ </span> 
-                                                                &nbsp;<input type="text" style="font-size: 18px;" id="foodname" name="foodname"  required="">
 
-                                                                <div> <span id="uploadtext"style="display: none" ></span>
-                                                                    <p align="center" ><button type="button" name="img" id="chooseimgbtn"  onClick="imagerest.click()" onMouseOut="uploadtext.value = imagerest.value" class="btn btn-primary btn-block" style="font-style:normal;width: 100; margin-left: 650; margin-top: -35px;">เลือกรูป</button></p>
-                                                                    <input type="file" id="imagerest" name="imagerest" style="display:none" required="" accept="image/jpeg,image/pjpeg,image/png"  />
+                                        <div class="col-md-12" style="display: none" id="addNewMenuForm">
+                                            <div class="card">
+                                                <form action="/restaurant/menu-add-old.php" method="post" id="addNewMenu" enctype="multipart/form-data" style="margin-left: 100px;">
+                                                    <div class="card-content">
+                                                        <h3 style="margin-bottom: 20px">เพิ่มรายการอาหารใหม่ที่ไม่มีอยู่ในส่วนกลาง*</h3>
+                                                        <hr>
+                                                        <h5 style="margin-bottom: 20px; color: red">*รายการอาหารที่เพิ่มใหม่จะถูกบันทึกไปยังฐานข้อมูลเพื่อเก็บเป็นรายการอาหารของส่วนกลาง</h5>
+
+                                                        <div class="row" style="margin-bottom: 20px">
+
+                                                            <div class="col-md-6">
+                                                                <div class="card">
+                                                                    <div class="card-content"> 
+                                                                        <h3> ระบุรายละเอียด </h3>
+                                                                        <hr>
+
+                                                                        <div class="row" style="margin-left: 25px;margin-top: 50px; margin-top: 20px;">
+                                                                            <span style="font-size: 18px;"> หมวดหมู่ </span>&nbsp;
+                                                                            <select required="" style="width: 150px;font-size: 18px;" id="typefood-add" name="typefood-add">
+                                                                                <option value="0">--ตัวเลือก--</option>
+                                                                                <option value="ชนิดข้าว">ชนิดข้าว</option>
+                                                                                <option value="กับข้าว">กับข้าว</option>
+                                                                                <option value="อาหารจานเดียว">อาหารจานเดียว</option>
+                                                                                <option value="ขนม">ขนม</option>
+                                                                                <option value="เครื่องดื่ม">เครื่องดื่ม</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="row" style="margin-left: 25px;margin-top: 50px; margin-top: 20px;">
+
+                                                                            <span style="font-size: 18px;" id="typeselect" > หมวดหมู่ </span>&nbsp;
+                                                                            <select class="foodtypelist" name="foodtypelist" required="" style="width: 150px;  font-size: 18px">
+                                                                                <option>--ตัวเลือก--</option>
+                                                                                <?php
+                                                                                $res1 = $con->query("SELECT * FROM `food_type`");
+                                                                                while ($data1 = $res1->fetch_assoc()) {
+                                                                                    ?>
+                                                                                    <option value="<?= $data1['id'] ?>"> <?= $data1['description'] ?> </option>
+                                                                                <?php } ?>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="row" style="margin-left: 25px;margin-top: 50px; margin-top: 20px;">
+
+                                                                            <span style="font-size: 18px;"> ชื่อ </span> 
+                                                                            &nbsp;<input type="text" style="font-size: 18px;" id="foodname" name="foodname"  required="" placeholder="ระบุชื่ออาหาร">
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
-                                                                <button type="submit" class="btn btn-success" style="margin-left: 25px; margin-left: 930px;margin-top: -35;" id="addNewMenubtn"><i class="glyphicon glyphicon-plus"></i></button>
                                                             </div>
-                                                        </form>
+                                                            <div class="col-md-6">
+                                                                <div class="card">
+                                                                    <div class="card-content">
+                                                                        <h3> เลือกรูปภาพอาหาร </h3>
+                                                                        <hr>
+                                                                        <div >
+                                                                            <img src="/assets/images/default-img360.png" style="max-width: 250px;max-height: 260px; margin-left: 100px">
+                                                                        </div>
+                                                                        <br>
+                                                                    </div>
+                                                                    <div class="card-action">
+                                                                        <div class="row">
+                                                                            <div id="updateImg" style="" >
+                                                                                <input type="file" id="imagerest" name="imagerest"  accept="image/jpeg,image/pjpeg,image/png" required="" />
+                                                                                <!--</form>--> 
+
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="card-action">
+                                                            <div class="row">
+                                                                <div class="col-md-10"></div>
+                                                                <div class="col-md-2" style="padding-right: 0px;padding-left: 45px;">
+                                                                    <button type="submit" class="btn btn-success" style="width: 100;" id="addNewMenubtn"><i class="glyphicon glyphicon-plus"></i></button>
+                                                                </div>
+
+                                                            </div>
+                                                        </div> 
                                                     </div>
-                                                </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
@@ -280,7 +336,7 @@ include '../dbconn.php';
 
 
                                     <!-- ค้นหา -->
-                                    <div class="row">
+                                    <div class="row" style="display: none">
                                         <!-- Card Projects -->
                                         <div class="col-md-12">
                                             <div class="card">
@@ -290,7 +346,7 @@ include '../dbconn.php';
                                                             <h2>ค้นหา </h2>
                                                         </div>
                                                         <input type="hidden" name="restaurantid" id="restaurantid" value="<?= $resid; ?>" >
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-11">
                                                             <div class="input-group">
                                                                 <input type="text" class="form-control input-lg" id="searchtext" placeholder="ชื่อรายการอาหาร">
                                                                 <span class="input-group-btn ">
@@ -298,7 +354,7 @@ include '../dbconn.php';
                                                                 </span>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-1">
                                                             <p>
                                                                 <a class="btn icon-btn btn-danger" id="close-searchbtn" style="display: none">
                                                                     <span class="glyphicon btn-glyphicon glyphicon-triangle-top img-circle text-warning">
@@ -336,7 +392,7 @@ include '../dbconn.php';
                                                                 . "LEFT JOIN main_menu ON main_menu.id = menu.main_menu_id "
                                                                 . "left JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
                                                                 . "left JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
-                                                                . "WHERE restaurant.id = '$resid' and main_menu.type = 'ชนิดข้าว'");
+                                                                . "WHERE restaurant.id = '$resid' and main_menu.type = 'ชนิดข้าว' and menu.status = 0");
                                                         while ($data2 = $res2->fetch_assoc()) {
                                                             ?>
                                                             <div class="col-md-3">
@@ -505,6 +561,25 @@ include '../dbconn.php';
                                     <!-- จบรายการอาหารจานด่วน-->
 
 
+
+                                    <!-- ลบ? -->
+                                    <div class="modal fade" id="DeleteCon" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+
+                                                <div class="modal-body">
+                                                    ต้องการลบข้อมูล ?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">ยกเลิก</button>
+                                                    <button type="button" class="btn btn-danger">ยืนยัน</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- จบ ลบ? -->
+
                                     <!-- Modal แก้ไขเมนู ------------------------------------------------------------------------------>
                                     <!--EditMenu Modal-->
 
@@ -541,15 +616,13 @@ include '../dbconn.php';
                                                                                     <div class="span4">
                                                                                         <div class="thumbnail">
                                                                                                 <!-- <input type="file" name="img"> --->
-                                                                                            <img src="<?= ($data2["img_path"] == "") ? '/assets/images/default-img360.png' : $data2["img_path"] ?>" alt="ALT NAME">
+                                                                                            <img src="<?= ($data2["img_path"] == "") ? '/assets/images/default-img360.png' : $data2["img_path"] ?>" alt="ALT NAME" style="height: 160px">
                                                                                         </div>                                                                                    
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-md-6" style="margin-top: 60px;"> 
-                                                                                <span id="uploadtext" ></span>
-                                                                                <p align="center" ><button type="button" name="img" id="chooseimgbtn"  onClick="imagerest.click()" onMouseOut="uploadtext.value = imagerest.value" class="btn btn-primary btn-block" style="font-style:normal">เลือกรูป</button></p>
-                                                                                <input type="file" id="imagerest" name="imagerest" style="display:none" accept="image/jpeg,image/pjpeg,image/png"  />
+                                                                                <input type="file" id="imagerest" name="imagerest"  accept="image/jpeg,image/pjpeg,image/png"  />
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -563,29 +636,27 @@ include '../dbconn.php';
                                                                                     ทั่วไป
                                                                                 </div>
                                                                                 <div class="row" style="margin:10px 0 0 5px;">
-                                                                                    <span style="margin-left: 25px;"> ราคาอาหาร </span> &nbsp;<input type="text" name="newPrice" value="<?= $data2["price"] ?>">&nbsp; บาท 
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="row" style="margin-left: 5px">
+                                                                                            <span > ราคาอาหาร </span> &nbsp;<input type="text" style="width: 37%"name="newPrice" value="<?= $data2["price"] ?>">&nbsp; บาท 
+                                                                                        </div>
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-6">
+                                                                <div class="col-md-6" style="padding-left: 0px;padding-right: 10px;">
                                                                     <div class="card" style="margin-top: 1px;">
                                                                         <div class="card-action">
-                                                                            <div class="page-header" style="font-size:18px;margin-top: 0px;">สถานะ</div>
-
-
-                                                                            <div class="material-switch ">
-                                                                                <span style="margin-left: 33px;"> สินค้าหมด </span> &nbsp;
-                                                                                <input id="closeMenu<?= $data2["menuResId"] ?>" name="closeMenu" type="checkbox" <?= ($data2["status"] == 0 ? 'checked' : '') ?>/>
-                                                                                <label for="closeMenu<?= $data2["menuResId"] ?>" class="label-success"></label>
-                                                                                &nbsp; <span>มีสินค้า</span>
+                                                                            <div class="page-header" style="font-size:18px;margin-top: 0px;">สถานะ </div>
+                                                                            <div>
+                                                                                <input type="checkbox" name="closeMenu[]" value="<?= ($data2["status"] == 0 ? '1' : '0') ?>" data-toggle="toggle" id=" closeMenu<?= $data2["menuResId"] ?>"  data-on="มีสินค้า" <?= ($data2["status"] == 0 ? 'checked' : '') ?> data-off="หมด" data-onstyle="success" data-offstyle="danger">
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-
                                                         </div>
 
                                                         <div class="modal-footer">
@@ -886,10 +957,11 @@ include '../dbconn.php';
                                                                     <div class="card" style="margin-top: 1px;">
                                                                         <div class="card-action">
                                                                             <div class="page-header" style="font-size:18px;margin-top: 0px;">สถานะ</div>
-
+                                                                            <input type="checkbox"  data-toggle="toggle"id=" closeMenu<?= $data2["menuResId"] ?>" name="closeMenu" data-on="Ready" <?= ($data2["status"] == 0 ? 'checked' : '') ?> data-off="Not Ready" data-onstyle="success" data-offstyle="danger">
 
                                                                             <div class="material-switch ">
                                                                                 <span style="margin-left: 33px;"> สินค้าหมด </span> &nbsp;
+
                                                                                 <input id="closeMenu<?= $data2["menuResId"] ?>" name="closeMenu" type="checkbox" <?= ($data2["status"] == 0 ? 'checked' : '') ?>/>
                                                                                 <label for="closeMenu<?= $data2["menuResId"] ?>" class="label-success"></label>
                                                                                 &nbsp; <span>มีสินค้า</span>
@@ -926,6 +998,7 @@ include '../dbconn.php';
 
     <!-- start footer -->
     <?php include '../template/footer.php'; ?>
+    <script src="/assets/js/bootstrap-toggle.min.js"></script>
     <script type="text/javascript" src="/assets/js/restaurant-menu.js"></script>
 
 

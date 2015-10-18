@@ -123,71 +123,193 @@ include '../dbconn.php';
                                             </div>
                                         </div>
                                     </div>
+ <!-- ชนิดข้าว -->
 
-                                    <!-- ค้นหา -->
                                     <div class="row">
                                         <!-- Card Projects -->
                                         <div class="col-md-12">
                                             <div class="card">
                                                 <div class="card-content">
+                                                    <h2>ขนิดข้าว</h2>
                                                     <!-- Menu 1 Row -->
                                                     <div class="row">
-                                                        <div class="col-md-3">
-                                                            <div class="card maxheight">
-                                                                <div class="card-image">
-                                                                    <img src="/assets/images/res_resall/menuedit/FriedEgg.jpg">
-                                                                </div>
-                                                                <div class="card-content height">
-                                                                    <div class="product-name">ไข่ดาว</div>
-                                                                    <div class="product-price">7 บาท</div>
-                                                                </div>
-                                                                <div class="card-action">
-                                                                    <div class="row">
-                                                                        <div class="col-md-3" style="left: 13px;">
-                                                                            <p class="text-center">
-                                                                                <a class="btn icon-btn btn-success" data-toggle="modal" data-target='#'>
-                                                                                    <span class="glyphicon btn-glyphicon glyphicon-retweet img-circle text-success"> </span> 
-                                                                                    เปิดการจำหน่าย
-                                                                                </a>
-                                                                            </p>
+                                                        <?php
+                                                        $resid = $_SESSION["restdata"]["id"];
+                                                        $res2 = $con->query("SELECT DISTINCT restaurant.id,menu.img_path, menu.price, menu.id as menuResId, menu.status, "
+                                                                . "main_menu.name as menuname, restaurant.name as resname, main_menu.img_path as img "
+                                                                . "FROM restaurant "
+                                                                . "LEFT JOIN menu ON menu.restaurant_id = restaurant.id "
+                                                                . "LEFT JOIN main_menu ON main_menu.id = menu.main_menu_id "
+                                                                . "left JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
+                                                                . "left JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
+                                                                . "WHERE restaurant.id = '$resid' and main_menu.type = 'ชนิดข้าว' and menu.status = 0");
+                                                        while ($data2 = $res2->fetch_assoc()) {
+                                                            ?>
+                                                            <div class="col-md-3">
+                                                                <div class="card">
+                                                                    <div class="maxheight">
+                                                                        <div class="card-image" >
+                                                                            <img src="<?= ($data2["img_path"] == "") ? $data2["img"] : $data2["img_path"] ?>" >
                                                                         </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <div class="card">
-                                                                <div class="maxheight">
-                                                                    <div class="card-image">
-                                                                        <img src="/assets/images/res_resall/menuedit/pork.jpg">
-                                                                    </div>
-                                                                    <div class="card-content height">
-                                                                        <div class="product-name">กระดูกหมูกระเทียมพริกไทย</div>
-                                                                        <span class="promotion-discount">70 บาท</span>
+                                                                        <div class="card-content height">
+                                                                            <div class="product-name"><?= $data2["menuname"] ?></div>
+                                                                            <div class="product-price"><?= $data2["price"] ?>&nbsp;บาท</div>
+                                                                        </div>
 
-                                                                        <span class="promotion-price"> 56 บาท</span>
-                                                                        <span class="promotion-percent" style="margin-left:25px"> 20%</span>
-                                                                    </div>
-                                                                    <div class="card-action">
-                                                                        <div class="row">
-                                                                            <div class="col-md-3" style="left: 13px;">
-                                                                                <p class="text-center">
-                                                                                    <a class="btn icon-btn btn-success" data-toggle="modal" data-target='#'>
-                                                                                        <span class="glyphicon btn-glyphicon glyphicon-retweet img-circle text-success"> </span>
-                                                                                        เปิดการจำหน่าย
-                                                                                    </a>
-                                                                                </p>
+                                                                        <div class="card-action" style="margin-top: -10px">
+                                                                            <div class="row col-md-12" >
+                                                                                <div class="col-md-3 pull-left">
+                                                                                    <p class="text-center">
+                                                                                        <a class="btn icon-btn btn-primary" data-toggle="modal" data-target='#EditMenu<?= $data2["menuResId"] ?>'>
+                                                                                            <span class="glyphicon btn-glyphicon glyphicon-pencil img-circle text-warning">
+                                                                                            </span> แก้ไข</a></p>
+                                                                                </div>
+                                                                                <div class="col-md-4"></div>
+                                                                                <div class="col-md-3 pull-left">
+                                                                                    <p class="text-center">
+                                                                                        <a class="btn icon-btn btn-danger" data-toggle="modal" data-target='#'>
+                                                                                            <span class="glyphicon btn-glyphicon glyphicon-trash img-circle text-warning">
+                                                                                            </span> ลบทิ้ง</a>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
+
+                                                        <?php } ?>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>          
+                                    </div>
+                                    <!-- จบชนิดข้าว -->
+
+                                    <!-- เริ่มรายการกับข้าว -->
+                                    <div class="row">
+                                        <!-- Card Projects -->
+                                        <div class="col-md-12">
+                                            <div class="card">
+                                                <div class="card-content">
+                                                    <h2>รายการกับข้าว</h2>
+                                                    <!-- Menu 1 Row -->
+                                                    <div class="row">
+                                                        <?php
+                                                        $resid = $_SESSION["restdata"]["id"];
+                                                        $res2 = $con->query("SELECT DISTINCT restaurant.id,menu.img_path, menu.price, menu.id as menuResId, menu.status, "
+                                                                . "main_menu.name as menuname, restaurant.name as resname, main_menu.img_path as img "
+                                                                . "FROM restaurant "
+                                                                . "LEFT JOIN menu ON menu.restaurant_id = restaurant.id "
+                                                                . "LEFT JOIN main_menu ON main_menu.id = menu.main_menu_id "
+                                                                . "left JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
+                                                                . "left JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
+                                                                . "WHERE restaurant.id = '$resid' and main_menu.type = 'กับข้าว'");
+
+                                                        while ($data2 = $res2->fetch_assoc()) {
+                                                            ?>
+                                                            <div class="col-md-3">
+                                                                <div class="card">
+                                                                    <div class="maxheight">
+                                                                        <div class="card-image">
+                                                                            <img src="<?= ($data2["img_path"] == "") ? $data2["img"] : $data2["img_path"] ?>" >
+                                                                        </div>
+                                                                        <div class="card-content height">
+                                                                            <div class="product-name"><?= $data2["menuname"] ?></div>
+                                                                            <div class="product-price"><?= $data2["price"] ?>&nbsp;บาท</div>
+                                                                        </div>
+
+                                                                        <div class="card-action" style="margin-top: -10px">
+                                                                            <div class="row col-md-12" >
+                                                                                <div class="col-md-3 pull-left">
+                                                                                    <p class="text-center">
+                                                                                        <a class="btn icon-btn btn-primary editmenubtn" id="editbtn<?= $data2["menuResId"] ?>" data-toggle="modal" data-target='#EditMenu<?= $data2["menuResId"] ?>'>
+                                                                                            <span class="glyphicon btn-glyphicon glyphicon-pencil img-circle text-warning">
+                                                                                            </span> แก้ไข</a></p>
+                                                                                </div>
+                                                                                <div class="col-md-4"></div>
+                                                                                <div class="col-md-3 pull-left">
+                                                                                    <p class="text-center">
+                                                                                        <a class="btn icon-btn btn-danger deletemenubtn" id="deletebtn<?= $data2["menuResId"] ?>" data-toggle="modal" data-target='#'>
+                                                                                            <span class="glyphicon btn-glyphicon glyphicon-trash img-circle text-warning">
+                                                                                            </span> ลบทิ้ง</a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        <?php } ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- จบรายการกับข้าว-->
+
+                                    <!-- อาหารจานด่วน -->
+                                    <div class="row">
+                                        <!-- Card Projects -->
+                                        <div class="col-md-12">
+                                            <div class="card">
+                                                <div class="card-content">
+                                                    <h2>อาหารจานเดียว</h2>
+                                                    <!-- Menu 1 Row-->
+                                                    <div class="row">
+                                                        <?php
+                                                        $resid = $_SESSION["restdata"]["id"];
+                                                        $res2 = $con->query("SELECT DISTINCT restaurant.id,menu.img_path, menu.price, menu.id as menuResId, menu.status, "
+                                                                . "main_menu.name as menuname, restaurant.name as resname, main_menu.img_path as img "
+                                                                . "FROM restaurant "
+                                                                . "LEFT JOIN menu ON menu.restaurant_id = restaurant.id "
+                                                                . "LEFT JOIN main_menu ON main_menu.id = menu.main_menu_id "
+                                                                . "left JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
+                                                                . "left JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
+                                                                . "WHERE restaurant.id = '$resid' and main_menu.type = 'อาหารจานเดียว'");
+                                                        while ($data2 = $res2->fetch_assoc()) {
+                                                            ?>
+                                                            <div class="col-md-3">
+                                                                <div class="card">
+                                                                    <div class="maxheight">
+                                                                        <div class="card-image">
+                                                                            <img src="<?= ($data2["img_path"] == "") ? $data2["img"] : $data2["img_path"] ?>">
+                                                                        </div>
+                                                                        <div class="card-content height">
+                                                                            <div class="product-name"><?= $data2["menuname"] ?></div>
+                                                                            <div class="product-price"><?= $data2["price"] ?>&nbsp;บาท</div>
+                                                                        </div>
+
+                                                                        <div class="card-action" style="margin-top: -10px">
+                                                                            <div class="row col-md-12" >
+                                                                                <div class="col-md-3 pull-left">
+                                                                                    <p class="text-center">
+                                                                                        <a class="btn icon-btn btn-primary" data-toggle="modal" data-target='#EditMenu<?= $data2["menuResId"] ?>'>
+                                                                                            <span class="glyphicon btn-glyphicon glyphicon-pencil img-circle text-warning">
+                                                                                            </span> แก้ไข</a></p>
+                                                                                </div>
+                                                                                <div class="col-md-4"></div>
+                                                                                <div class="col-md-3 pull-left">
+                                                                                    <p class="text-center">
+                                                                                        <a class="btn icon-btn btn-danger" data-toggle="modal" data-target='#'>
+                                                                                            <span class="glyphicon btn-glyphicon glyphicon-trash img-circle text-warning">
+                                                                                            </span> ลบทิ้ง</a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        <?php } ?>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- จบรายการอาหารจานด่วน-->
+       
                                 </div>
                                 <!-- จบแทบ รายการอาหารที่หมดชั่วคราว -->
                             </div>

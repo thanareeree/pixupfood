@@ -41,7 +41,7 @@ if ($numrow == 0) {
                         <div class="row col-md-12" >
                             <div class="col-md-3 pull-left">
                                 <p class="text-center">
-                                    <a class="btn icon-btn btn-primary editmenubtn" id="editbtn<?= $data2["id"] ?>" data-toggle="modal" data-target='#EditMenu'>
+                                    <a class="btn icon-btn btn-primary "  data-toggle="modal" data-target='#EditMenu<?= $data2["id"] ?>'>
                                         <span class="glyphicon btn-glyphicon glyphicon-pencil img-circle text-warning">
                                         </span> แก้ไข</a></p>
                             </div>
