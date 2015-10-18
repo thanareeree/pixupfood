@@ -61,7 +61,7 @@ while ($near = $findDistanct->fetch_assoc()) {
                 . "AND data_postcode.postcode = '$code' "
                 . "GROUP BY data_postcode.postcode");
         if ($postcodeRes->num_rows == 0) {
-            break;
+            continue;
         } else if ($postcodeRes->num_rows > 0) {
             //check if rest have selected food
 
@@ -83,7 +83,7 @@ while ($near = $findDistanct->fetch_assoc()) {
                 array_push($restok, $near);
             }
             if (sizeof($restok) == 3) {
-                break;
+                continue;
             }
         }
     }

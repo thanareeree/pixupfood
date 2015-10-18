@@ -145,7 +145,7 @@ function fetchdataShowNormalOrder() {
 }
 
 function acceptFastOrder(type) {
-    $("#acceptFastBtn").html("<img src='/assets/images/loader.gif' style='width:100%;height:5px; margin:0 auto;'>");
+    $("#acceptFastBtn").html("<img src='/assets/images/loader.gif' style='height:20px; width:20px; margin:0 auto;'>");
     $.ajax({
         url: "/restaurant-order/request_order/api/actionFastOrder.php",
         type: "POST",
@@ -165,7 +165,7 @@ function acceptFastOrder(type) {
 
 
 function ignoreFastOrder(type) {
-    $("#ignoreFastBtn").html("<img src='/assets/images/loader.gif' style='height:5px; margin:0 auto;'>");
+    $("#ignoreFastBtn").html("<img src='/assets/images/loader.gif' style='height:20px; width:20px; margin:0 auto;'>");
     $.ajax({
         url: "/restaurant-order/request_order/api/actionFastOrder.php",
         type: "POST",
@@ -183,7 +183,7 @@ function ignoreFastOrder(type) {
 }
 
 function acceptNormalOrder(type) {
-    $("#acceptNormalBtn").html("<img src='/assets/images/loader.gif' style='width:100%;height:5px; margin:0 auto;'>");
+    $("#acceptNormalBtn").html("<img src='/assets/images/loader.gif' style='height:20px; width:20px; margin:0 auto;'>");
     $.ajax({
         url: "/restaurant-order/request_order/api/actionNormalOrder.php",
         type: "POST",

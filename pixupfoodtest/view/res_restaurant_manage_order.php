@@ -7,14 +7,12 @@ include '../dbconn.php';
 <html>
     <head>
         <title>Pixupfood - Restaurant Order Management</title>
-
         <?php
         include '../template/customer-title.php';
         ?>
         <!-- custom css -->
         <link rel="stylesheet" href="/assets/css/res_restaurant_manage.css">
         <link rel="stylesheet" href="/assets/css/normal_order.css">
-        <link href="/restaurant-order/request_order/modal-request.php"
 
     </head>
     <body>
@@ -376,7 +374,6 @@ include '../dbconn.php';
     <?php include '../template/footer.php'; ?>
     <!-- ตารางรายการออเดอร์ -->
     <script src="/assets/js/OrderSearch.js"></script>
-  <!--  <script src="/assets/js/ui-bootstrap-tpls-0.13.4.min.js"></script>-->
     <script src="/assets/js/manage_order.js"></script>
 </body>
 </html>

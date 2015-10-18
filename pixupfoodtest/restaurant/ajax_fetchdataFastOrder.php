@@ -9,13 +9,14 @@ $fastOrderRes = $con->query("SELECT fast_order.id as fast_id, fast_order.deliver
         . "fast_order.main_menu_id, request_fast_order.priority, fast_order.order_time,"
         . "customer.tel, restaurant.name "
         . "FROM `fast_order` "
-        . "LEFT JOIN order_status ON order_status.id = fast_order.status"
-        . " LEFT JOIN restaurant ON restaurant.id = fast_order.restaurant_id "
+        . "LEFT JOIN order_status ON order_status.id = fast_order.status "
+        . "LEFT JOIN restaurant ON restaurant.id = fast_order.restaurant_id "
         . "LEFT JOIN request_fast_order ON request_fast_order.fast_id = fast_order.id "
         . "LEFT JOIN customer ON customer.id = fast_order.customer_id "
         . "WHERE request_fast_order.restaurant_id = '$resid' "
         . "and fast_order.status = '1' "
         . "and fast_order.restaurant_id IS NULL "
+        . "AND request_fast_order.accepted = 0 "
         . "ORDER BY fast_order.order_time DESC");
 
 $i = 1;
@@ -35,38 +36,18 @@ if ($fastOrderRes->num_rows == 0) {
         $timeleft;
         $fast_id = $fastOrderData["fast_id"];
         $pri = $fastOrderData["priority"];
-        if ($pri == 1) {
-            if ($diff > (60 * 15)) {
-                //echo "pri1: skip";
-                continue;
-            } else {
-                $timeleft = (60 * 15) - $diff;
-            }
-        } else if ($pri == 2) {
-            if ($diff < (60 * 15) | $diff > (60 * 30)) {
-                //echo "pri2: skip";
-                continue;
-            } else {
-                $timeleft = (60 * 30) - $diff;
-            }
-        } else if ($pri == 3) {
-            if ($diff < (60 * 30) | $diff > (60 * 45)) {
-                $con->query("UPDATE `fast_order` SET `status`='7',`updated_status_time`= now(),`restaurant_id`= '$resid' WHERE id= '$fast_id'");
-                if ($con->error == "") {
+        $timeleft = (60 * 15) - $diff;
+        //$con->query("UPDATE `fast_order` SET `status`='7',`updated_status_time`= now(),`restaurant_id`= '$resid' WHERE id= '$fast_id'");
+        //if ($con->error == "") {
 
-                   /*include '../register/thsms.php';
-                    $sms = new thsms();
-                    $sms->username = 'thanaree';
-                    $sms->password = '58c60d';
+        /* include '../register/thsms.php';
+          $sms = new thsms();
+          $sms->username = 'thanaree';
+          $sms->password = '58c60d';
 
-                    $b = $sms->send('0000', $fastOrderData["tel"], "เลขที่รายการ(สั่งด่วน): " . $fastOrderData["fast_id"] . "\n ไม่มีร้านใดตอบรับรายการ"." "."\nลูกค้าสามารถสั่งซื้ออาหารได้ที่ www.pixupfood.com");
-                   */ 
-                }
-                continue;
-            } else {
-                $timeleft = (60 * 45) - $diff;
-            }
-        }
+          $b = $sms->send('0000', $fastOrderData["tel"], "เลขที่รายการ(สั่งด่วน): " . $fastOrderData["fast_id"] . "\n ไม่มีร้านใดตอบรับรายการ"." "."\nลูกค้าสามารถสั่งซื้ออาหารได้ที่ www.pixupfood.com");
+         */
+        //}
         ?>
         <tr>
             <td style="text-align: center"><?= $i++; ?></td>
