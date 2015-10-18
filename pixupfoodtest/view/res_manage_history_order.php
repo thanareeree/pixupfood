@@ -141,7 +141,7 @@ include '../dbconn.php';
                                                                         <th>เลขที่รายการ</th>
                                                                         <th>ชื่อลูกค้า</th>
                                                                         <th class="text-center">รายกาารอาหาร</th>
-                                                                        <th class="text-center">จำนวน(ขุด)</th>
+                                                                        <th class="text-center">จำนวน(ชุด)</th>
                                                                         <th class="text-center">วัน/เวลาที่ลูกค้าได้รับสินค้า</th>
                                                                         <th class="text-center">ผู้ส่งสินค้า</th>
                                                                         <th class="text-center">สถานะ</th>
@@ -189,7 +189,7 @@ include '../dbconn.php';
                                                                         <th>เลขที่รายการ</th>
                                                                         <th>ชื่อลูกค้า</th>
                                                                         <th class="text-center">รายกาารอาหาร</th>
-                                                                        <th class="text-center">จำนวน(ขุด)</th>
+                                                                        <th class="text-center">จำนวน(ชุด)</th>
                                                                         <th class="text-center">วัน/เวลาที่ลูกค้าได้รับสินค้า</th>
                                                                         <th class="text-center">ผู้ส่งสินค้า</th>
                                                                         <th class="text-center">สถานะ</th>

@@ -8,7 +8,7 @@ $fastOrderRes = $con->query("SELECT fast_order.id as fast_id, fast_order.deliver
         . "fast_order.delivery_time, order_status.description, order_status.id, fast_order.shippingAddress_id,"
         . " fast_order.customer_id , quantity as qty , customer.firstName, customer.lastName , "
         . "fast_order.main_menu_id, request_fast_order.priority, fast_order.order_time,customer.tel,"
-        . " restaurant.name, fast_order.updated_status_time "
+        . " restaurant.name, fast_order.updated_status_time, fast_order.messenger_id "
         . "FROM `fast_order` "
         . "LEFT JOIN order_status ON order_status.id = fast_order.status "
         . "LEFT JOIN restaurant ON restaurant.id = fast_order.restaurant_id "
@@ -19,6 +19,7 @@ $fastOrderRes = $con->query("SELECT fast_order.id as fast_id, fast_order.deliver
         . "GROUP by fast_order.id "
         . "ORDER BY fast_order.order_time DESC");
 
+
 $i = 1;
 if ($fastOrderRes->num_rows == 0) {
     ?>
@@ -27,13 +28,12 @@ if ($fastOrderRes->num_rows == 0) {
     <?php
 } else {
     while ($fastOrderData = $fastOrderRes->fetch_assoc()) {
-       
         ?>
         <tr>
-            <td style="text-align: center"><?= $i++; ?></td>
+            <td><?= $i++; ?></td>
             <td><?= $fastOrderData["fast_id"] ?></td>                         
             <td><?= $fastOrderData["firstName"] . '&nbsp;' . $fastOrderData["lastName"] ?></td>
-            <td>
+            <td class="text-center">
                 <?php
                 $menuid = $fastOrderData["main_menu_id"];
                 $menuid = "(" . $menuid . ")";
@@ -54,7 +54,14 @@ if ($fastOrderRes->num_rows == 0) {
             </td>
             <td style="text-align: center"><?= $fastOrderData["qty"] ?></td>
             <td class="text-center"><?= substr($fastOrderData["updated_status_time"], 0, 11) ?>&nbsp;<?= substr($fastOrderData["updated_status_time"], 11, 5) ?>&nbsp;น. </td>
-             <td class="text-center"> คนส่ง</td>
+            <td class="text-center"> 
+                <?php
+                $messid = $fastOrderData["messenger_id"];
+                $messengerNameRes = $con->query("select * from messenger where id = '$messid'");
+                $messData = $messengerNameRes->fetch_assoc();
+                echo $messData["username"];
+                ?>
+            </td>
             <td style="text-align: center"><?= $fastOrderData["description"] ?></td>
             <td class="text-center">
                 <button class="btn btn-info btn-xs fastOrderView" data-id="<?= $fastOrderData["fast_id"] ?>" >
@@ -62,7 +69,7 @@ if ($fastOrderRes->num_rows == 0) {
                     แสดง
                 </button>
             </td>
-            
+
         </tr>
         <?php
     }

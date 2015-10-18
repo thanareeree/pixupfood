@@ -6,7 +6,8 @@ $resid = $_SESSION["restdata"]["id"];
 $normalOrderRes = $con->query("SELECT normal_order.id as order_id, normal_order.order_time,delivery_date, "
         . "delivery_time, total_nofee,prepay, normal_order.status, normal_order.shippingAddress_id,"
         . " normal_order.customer_id , COUNT(order_detail.id) as foodlist, SUM(order_detail.quantity) as qty , "
-        . "customer.firstName, customer.lastName, customer.tel, order_status.description, normal_order.updated_status_time "
+        . "customer.firstName, customer.lastName, customer.tel, order_status.description, normal_order.updated_status_time,"
+        . "normal_order.messenger_id "
         . "FROM `normal_order` "
         . "LEFT JOIN order_detail ON order_detail.order_id = normal_order.id "
         . "LEFT JOIN customer ON customer.id = normal_order.customer_id "
@@ -34,6 +35,14 @@ if ($normalOrderRes->num_rows == 0) {
             <td class="text-center"><?= $normalOrderData["foodlist"] ?></td>
             <td style="text-align: center"><?= $normalOrderData["qty"] ?></td>
             <td class="text-center"><?= substr($normalOrderData["updated_status_time"], 0, 11) ?>&nbsp;<?= substr($normalOrderData["updated_status_time"], 11, 5) ?>&nbsp;น.</td>
+             <td class="text-center"> 
+                <?php
+                $messid = $normalOrderData["messenger_id"];
+                $messengerNameRes = $con->query("select * from messenger where id = '$messid'");
+                $messData = $messengerNameRes->fetch_assoc();
+                echo $messData["username"];
+                ?>
+            </td>
             <td style="text-align: center"><?= $normalOrderData["description"] ?></td>
             <td class="text-center">
                 <button class="btn btn-info btn-xs normalOrderView" data-id="<?= $normalOrderData["order_id"] ?>" >
@@ -41,7 +50,7 @@ if ($normalOrderRes->num_rows == 0) {
                     แสดง
                 </button>
             </td>
-            <td class="text-center"></td>
+          
            
         </tr>
         <?php
