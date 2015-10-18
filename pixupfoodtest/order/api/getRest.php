@@ -83,7 +83,7 @@ while ($near = $findDistanct->fetch_assoc()) {
                 array_push($restok, $near);
             }
             if (sizeof($restok) == 3) {
-                continue;
+                break;
             }
         }
     }
