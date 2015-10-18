@@ -8,7 +8,7 @@ $orderRes = $con->query("SELECT fast_order.id as fast_id, order_status.descripti
         . "LEFT JOIN order_status ON order_status.id = fast_order.status "
         . "LEFT JOIN restaurant ON restaurant.id = fast_order.restaurant_id "
         . "WHERE fast_order.customer_id = '$cusid' "
-        . "and fast_order.status != '7' "
+        . "and fast_order.status != '9' "
         . "GROUP by fast_order.id");
 if ($orderRes->num_rows == 0) {
     ?>
@@ -48,11 +48,11 @@ if ($orderRes->num_rows == 0) {
                 <button class="btn btn-info btn-xs fastOrderView" data-id="<?= $orderData["fast_id"] ?>" ><span class="glyphicon glyphicon-eye-open"></span> แสดง</button>
             </td>
             <td class="text-center">
-                <button class="btn btn-warning btn-xs uploadSlip1" data-id="<?= $orderData["fast_id"] ?>" <?= ($orderData["status_id"] == "2")? "": "disabled"?> <?= ($orderData["status_id"] == "5")? "style=\"display: none\"": ""?>>
+                <button class="btn btn-warning btn-xs uploadSlip1" data-id="<?= $orderData["fast_id"] ?>" <?= ($orderData["status_id"] == "2")? "": "disabled"?> <?= ($orderData["status_id"] == "4")? "style=\"display: none\"": ""?>>
                     <span class="glyphicon glyphicon-eye-open"></span> 
                     อัพโหลด
                 </button>
-                <button class="btn btn-warning btn-xs uploadSlip2" data-id="<?= $orderData["fast_id"] ?>" <?= ($orderData["status_id"] == "5")? "": "style=\"display: none\""?>  >
+                <button class="btn btn-warning btn-xs uploadSlip2" data-id="<?= $orderData["fast_id"] ?>" <?= ($orderData["status_id"] == "4")? "": "style=\"display: none\""?>  >
                     <span class="glyphicon glyphicon-eye-open"></span> 
                     อัพโหลด
                 </button>

@@ -10,7 +10,7 @@ $orderRes = $con->query(" SELECT normal_order.id as order_id, normal_order.updat
         . " LEFT JOIN order_status ON order_status.id = normal_order.status "
         . "LEFT JOIN restaurant ON restaurant.id = normal_order.restaurant_id "
         . "WHERE normal_order.customer_id = '$cusid' "
-        . "and normal_order.status = '8' "
+        . "and normal_order.status = '9' "
         . "GROUP BY normal_order.id ORDER BY normal_order.status ASC, normal_order.order_time DESC");
 
 if ($orderRes->num_rows == 0) {
