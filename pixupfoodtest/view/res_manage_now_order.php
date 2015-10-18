@@ -262,7 +262,7 @@ include '../dbconn.php';
         </div>
     </div>
     <!-- End Detail --> 
-    <!--  -->
+    <!-- errorModal -->
     <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -282,9 +282,86 @@ include '../dbconn.php';
         </div>
     </div>
 
+    <!-- messengerNormalModal -->
+    <div class="modal fade" id="messengerNormalModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px;">กรุณาเลือกพนักงานจัดส่ง&nbsp;<span id="messNormalId"></span></div></span>
+                </div>
+                <div class="modal-body ">
+                    <div class="form-group" >
+                        <label class="col-sm-2 control-label" for="textinput">พนักงานจัดส่ง</label>
+                        <div class="col-sm-10" style="margin-bottom: 15px;">
+                            <select class="form-control"id="messengerselect" required="">
+                                <?php
+                                $res = $con->query("select * from messenger where restaurant_id = '$resid'");
+                                if ($res->num_rows == 0) {
+                                    ?>
+                                    <option value="0">ไม่มีข้อมูล</option>
+                                    <?php
+                                } else {
+                                    while ($data = $res->fetch_assoc()) {
+                                        ?>
+                                        <option value="<?= $data["id"] ?>"><?= $data["username"] ?></option>
+                                    <?php
+                                    }
+                                }
+                                ?>
+                            </select>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="savemessengerNormal" >บันทึก</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+     <!-- messengerFastModal -->
+    <div class="modal fade" id="messengerFastModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px;">กรุณาเลือกพนักงานจัดส่ง&nbsp;<span id="messFastId"></span></div></span>
+                </div>
+                <div class="modal-body ">
+                    <div class="form-group" >
+                        <label class="col-sm-2 control-label" for="textinput">พนักงานจัดส่ง</label>
+                        <div class="col-sm-10" style="margin-bottom: 15px;">
+                            <select class="form-control"id="messengerselect" required="">
+                                <?php
+                                $res = $con->query("select * from messenger where restaurant_id = '$resid'");
+                                if ($res->num_rows == 0) {
+                                    ?>
+                                    <option value="0">ไม่มีข้อมูล</option>
+                                    <?php
+                                } else {
+                                    while ($data = $res->fetch_assoc()) {
+                                        ?>
+                                        <option value="<?= $data["id"] ?>"><?= $data["username"] ?></option>
+                                    <?php
+                                    }
+                                }
+                                ?>
+                            </select>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="savemessengerFast" >บันทึก</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
 
     <!-- start footer -->
-    <?php include '../template/footer.php'; ?>
+<?php include '../template/footer.php'; ?>
 
     <!-- ตารางรายการออเดอร์ -->
     <script src="/assets/js/OrderSearch.js"></script>

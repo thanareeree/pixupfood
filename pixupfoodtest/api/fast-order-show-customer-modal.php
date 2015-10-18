@@ -5,36 +5,59 @@ include '../dbconn.php';
 $order_id = $_POST["id"];
 
 
-$orderRes = $con->query("SELECT * FROM `normal_order` LEFT JOIN customer ON customer.id = normal_order.customer_id WHERE normal_order.id ='$order_id'");
+$orderRes = $con->query("SELECT * FROM `fast_order` LEFT JOIN customer ON customer.id = fast_order.customer_id WHERE fast_order.id ='$order_id'");
 $orderData = $orderRes->fetch_assoc();
 $resid = $orderData["restaurant_id"];
 $resNameRes = $con->query("select  deliveryfee, restaurant.name"
         . " from restaurant "
         . "join mapping_delivery_type on mapping_delivery_type.restaurant_id = restaurant.id  "
-        . " where id = '$resid'");
+        . " where restaurant.id = '$resid'");
 $delifeeData = $resNameRes->fetch_assoc();
 
 $shipAddressRes = $con->query("SELECT shippingAddress.address_naming, shippingAddress.type, "
         . "shippingAddress.full_address "
-        . "FROM `normal_order` "
-        . "LEFT JOIN shippingAddress ON shippingAddress.id = normal_order.shippingAddress_id "
-        . "WHERE normal_order.id ='$order_id'");
+        . "FROM `fast_order` "
+        . "LEFT JOIN shippingAddress ON shippingAddress.id = fast_order.shippingAddress_id "
+        . "WHERE fast_order.id ='$order_id'");
 $shipAddressData = $shipAddressRes->fetch_assoc();
 
-$orderDetailRes = $con->query("SELECT * FROM `order_detail` WHERE order_detail.order_id = '$order_id'");
+$orderDetailRes = $con->query("SELECT * FROM `request_fast_order` WHERE request_fast_order.fast_id = '$order_id' and restaurant_id = '$resid'");
+$orderDetailData = $orderDetailRes->fetch_assoc();
 
 $statusRes = $con->query("SELECT order_status.id, order_status.description "
-        . "FROM `normal_order` "
-        . "LEFT JOIN order_status ON order_status.id = normal_order.status "
-        . "WHERE normal_order.id = '$order_id'");
+        . "FROM `fast_order` "
+        . "LEFT JOIN order_status ON order_status.id = fast_order.status "
+        . "WHERE fast_order.id = '$order_id'");
 $statusData = $statusRes->fetch_assoc();
 $statusid = $statusData["id"];
+
+$slip_pathRes = $con->query("SELECT * FROM `transfer` WHERE order_id = '$order_id' AND type = 'f1'");
+$slip1Data = $slip_pathRes->fetch_assoc();
+
+$slip2res = $con->query("SELECT * FROM `transfer` WHERE order_id = '$order_id' AND type = 'f2'");
+$slip2Data = $slip2res->fetch_assoc();
+
+$messid = $orderData["messenger_id"];
+$messengerNameRes = $con->query("select * from messenger where id = '$messid'");
+$messData = $messengerNameRes->fetch_assoc();
 ?>
 
 <div class="modal-body">
 
     <div class="row" style="margin-top: 0px;">
         <div class="col-md-12">
+             <?php if ($statusid == 2) {
+                ?>
+                <div class="col-md-12">
+                    <div class="alert alert-danger" style="font-size: 18px" role="alert">กรุณาโอนเงินค่ามัดจำสินค้าภายในเวลา 4 ชั่วโมง หลังจากร้านตอบรับรายการแล้ว</div>
+                </div>
+            <?php } ?>
+            <?php if ($statusid == 5 && $orderData["payment_id"] == 2) {
+                ?>
+                <div class="col-md-12">
+                    <div class="alert alert-danger" style="font-size: 18px"  role="alert">กรุณาโอนเงินในส่วนที่เหลือจำนวนก่อนวันจัดส่งสินค้า 1 วัน</div>
+                </div>
+            <?php } ?>
             <div class="col-md-7">
                 <div class="card">
                     <?php
@@ -54,14 +77,28 @@ $statusid = $statusData["id"];
                     } else {
                         ?>
                         <div class="card-content">
-                            <span style="font-size: 20px">สถานะของรายการ: </span>
-                            <span style="font-size: 20px; color: orange;"> <?= $statusData["description"] ?></span><br>
-                            <span style="font-size: 20px">ตอบรับรายการโดย: </span>
-                            <span style="font-size: 20px; color: orange;"> <?= $delifeeData["name"] ?>  </span><br>
-                            <span style="font-size: 20px">ตอบรับรายการวันที่: </span>
-                            <span style="font-size: 20px; color: orange;"> <?= substr($orderData["updated_status_time"], 0, 11) ?></span><br>
-                            <span style="font-size: 20px">ตอบรับรายการเวลา: </span>
-                            <span style="font-size: 20px; color: orange;"> <?= substr($orderData["updated_status_time"], 11, 5) ?>&nbsp;น.</span><br>
+                            <?php if ($statusid == 1) { ?>
+                                <span style="font-size: 20px">สถานะของรายการ: </span>
+                                <span style="font-size: 20px; color: orange;"> <?= $statusData["description"] ?></span><br>
+                                <span style="font-size: 20px">รอตอบรับรายการจากร้าน: </span>
+                                <span style="font-size: 20px; color: orange;"> <?= $delifeeData["name"] ?>  </span><br>
+                                <span style="font-size: 20px">วันที่สั่ง: </span>
+                                <span style="font-size: 20px; color: orange;"> <?= substr($orderData["updated_status_time"], 0, 11) ?></span><br>
+                                <span style="font-size: 20px">เวลาที่สั่ง: </span>
+                                <span style="font-size: 20px; color: orange;"> <?= substr($orderData["updated_status_time"], 11, 5) ?>&nbsp;น.</span><br>
+
+                            <?php } else {
+                                ?>
+                                <span style="font-size: 20px">สถานะของรายการ: </span>
+                                <span style="font-size: 20px; color: orange;"> <?= $statusData["description"] ?></span><br>
+                                <span style="font-size: 20px">ตอบรับรายการโดย: </span>
+                                <span style="font-size: 20px; color: orange;"> <?= $delifeeData["name"] ?>  </span><br>
+                                <span style="font-size: 20px">อัพเดตรายการวันที่: </span>
+                                <span style="font-size: 20px; color: orange;"> <?= substr($orderData["updated_status_time"], 0, 11) ?></span><br>
+                                <span style="font-size: 20px">อัพเดตรายการเวลา: </span>
+                                <span style="font-size: 20px; color: orange;"> <?= substr($orderData["updated_status_time"], 11, 5) ?>&nbsp;น.</span><br>
+                            <?php }
+                            ?>
                         </div>
                         <?php
                     }
@@ -69,24 +106,36 @@ $statusid = $statusData["id"];
 
 
                 </div>
-                <?php ?>
             </div>
             <div class="col-md-5">
-                <div class="card">
+                   <div class="card">
                     <?php
                     if ($statusid == 9) {
                         ?>
                         <div class="card-content">
-                            <span style="font-size: 20px">จัดส่งสินค้าโดย: </span><br>
-                            <span style="font-size: 20px; color: orange;">108suchart สุชาติ ปานขำ</span><br>
-                            <span style="font-size: 20px">โทรศัพท์: </span><br>
-                            <span style="font-size: 20px; color: orange;">0812345678</span><br>
+                            <span style="font-size: 20px">จัดส่งสินค้าโดย: </span>
+                            <span style="font-size: 20px; color: orange;"><?= $messData["name"]?></span><br>
+                            <span style="font-size: 20px">โทรศัพท์: </span>
+                            <span style="font-size: 20px; color: orange;"><?= $messData["tel"]?></span><br>
 
-                            <span style="font-size: 20px">ส่งสินค้าถึงวันที่: </span><br>
+                            <span style="font-size: 20px">ส่งสินค้าถึงวันที่: </span>
                             <span style="font-size: 20px; color: orange;"><?= substr($orderData["updated_status_time"], 0, 11) ?></span><br>
 
-                            <span style="font-size: 20px">ส่งสินค้าถึงเวลา: </span><br>
+                            <span style="font-size: 20px">ส่งสินค้าถึงเวลา: </span>
                             <span style="font-size: 20px; color: orange;">  <?= substr($orderData["updated_status_time"], 11, 5) ?>&nbsp;น. </span><br>
+                        </div>
+                        <?php
+                    }
+                    ?>
+                    <?php
+                    if ($statusid == 5) {
+                        ?>
+                        <div class="card-content">
+                            <span style="font-size: 20px">จัดส่งสินค้าโดย: </span>
+                            <span style="font-size: 20px; color: orange;"><?= $messData["name"]?></span><br>
+                            <span style="font-size: 20px">โทรศัพท์: </span>
+                            <span style="font-size: 20px; color: orange;"><?= $messData["tel"]?></span><br>
+
                         </div>
                         <?php
                     }
@@ -97,7 +146,7 @@ $statusid = $statusData["id"];
                     <div class="card-content">
 
                         <span style="font-size: 20px">วันที่ลูกค้านัดรับสินค้า: </span>
-                        <span style="font-size: 20px; color: orange;"> <?= $orderData["delivery_date"]?></span><br>
+                        <span style="font-size: 20px; color: orange;"> <?= $orderData["delivery_date"] ?></span><br>
                         <span style="font-size: 20px">เวลาที่ลูกค้านัดรับสินค้า: </span>
                         <span style="font-size: 20px; color: orange;"> <?= substr($orderData["delivery_time"], 0, 5) ?>&nbsp;น.  </span><br>
 
@@ -141,18 +190,17 @@ $statusid = $statusData["id"];
                                         </tr>
                                     </thead>
                                     <tbody class="table table-condensed table-hover">
-                                        <?php while ($orderDetailData = $orderDetailRes->fetch_assoc()) { ?>
                                             <tr>    
                                                 <td>
                                                     <?php
-                                                    $menuid = $orderDetailData["menu_id"];
+                                                    $menuid = $orderData["main_menu_id"];
                                                     $menuid = "(" . $menuid . ")";
                                                     $name = "";
-                                                    $resName = $con->query("SELECT main_menu.name FROM menu LEFT JOIN main_menu ON menu.main_menu_id = main_menu.id WHERE menu.id IN $menuid");
+                                                    $resName = $con->query("SELECT main_menu.name FROM  main_menu  WHERE main_menu.id IN $menuid");
                                                     $count = 0;
-                                                    $price = 0;
+                                                
                                                     while ($food = $resName->fetch_assoc()) {
-                                                        $price += $orderDetailData["price"];
+                                                       
                                                         $name = $food["name"];
                                                         // $menustr .= $name;
                                                         $count++;
@@ -163,11 +211,25 @@ $statusid = $statusData["id"];
                                                     }
                                                     ?>
                                                 </td>
-                                                <td style="text-align: center"><?= $price ?></td>
-                                                <td style="text-align: center"><?= $orderDetailData["quantity"] ?></td>
-                                                <td style="text-align: right"><?= $price * $orderDetailData["quantity"] ?></td>
+                                                <td style="text-align: center"><?= $orderDetailData["price"] ?></td>
+                                                <td style="text-align: center"><?= $orderData["quantity"] ?></td>
+                                                <td style="text-align: right"><?= $orderDetailData["price"] * $orderData["quantity"] ?></td>
                                             </tr>
-                                        <?php } ?>
+                                        <tr>
+                                            <td>
+                                                <span style="font-size: 20px">เพิ่มเติม: </span>
+                                                <span style="font-size: 15px; color: red;">
+                                                    <?php
+                                                        $moretext = $orderData["moretext"];
+                                                        echo "<p>" . $moretext . "</p><br>";
+                                                    
+                                                    ?>
+                                                </span>
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
                                     </tbody>
                                 </table>   
 
@@ -185,19 +247,19 @@ $statusid = $statusData["id"];
                                             <td>ราคารวม</td>
                                             <td style="text-align: center"></td>
                                             <td style="text-align: center"></td>
-                                            <td style="text-align: right"><?= $orderData["total_nofee"] ?></td>
+                                            <td style="text-align: right"><?= $orderDetailData["total"] ?></td>
                                         </tr>
-                                        <!--<tr class="warning">
-                                            <td>ส่วนลด10% 1D23A5</td>
+                                        <tr>
+                                            <td>ส่วนลด10% </td>
                                             <td style="text-align: center"></td>
-                                            <td style="text-align: center">1</td>
-                                            <td style="text-align: center">-160.00</td>
-                                        </tr>-->
+                                            <td style="text-align: center"></td>
+                                            <td style="text-align: right">-160.00</td>
+                                        </tr>
                                         <tr class="warning">
                                             <td>ค่ามัดจำ 20%</td>
                                             <td style="text-align: center"></td>
                                             <td style="text-align: center"></td>
-                                            <td style="text-align: right"><?= $orderData["prepay"] ?></td>
+                                            <td style="text-align: right"><?= $orderDetailData["prepay"] ?></td>
                                         </tr>
                                         <tr>    
                                             <td>ค่าจัดส่ง</td>
@@ -206,10 +268,10 @@ $statusid = $statusData["id"];
                                             <td style="text-align: right"><?= $delifeeData["deliveryfee"] ?></td>
                                         </tr>
                                         <tr class="danger">              
-                                            <td>ราคารวมทั้งหมด</td>
+                                            <td>ราคาในส่วนที่เหลือ (รวมค่าจัดส่ง)</td>
                                             <td style="text-align: center"></td>
                                             <td style="text-align: center"></td>
-                                            <td style="text-align: right"><?= $orderData["total_nofee"] - $orderDetailData["prepay"] ?></td>
+                                            <td style="text-align: right"><?= $orderDetailData["total"]  - $orderDetailData["prepay"] + $delifeeData["deliveryfee"] ?></td>
                                         </tr>
                                     </tbody>
                                 </table>   
@@ -222,38 +284,70 @@ $statusid = $statusData["id"];
     </div>
     <div class="row" style="margin-top: 5px;">
         <div class="col-md-12">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-content">
-                        <span style="font-size: 20px">เพิ่มเติม </span>
+                        <span style="font-size: 20px">ชำระเงินด้วย:  &nbsp;
+                            <?php
+                            if ($orderData["payment_id"] == 2) {
+                                echo 'โอนเงินผ่านธนาคาร';
+                            } else {
+                                echo 'เงินสดเมื่อได้รับสินค้า';
+                            }
+                            ?>
+                        </span>
+                        <hr style="margin-top: 5px;margin-bottom: 10px;">
+                        <span style="font-size: 18px"> โอนเงินค่ามัดจำผ่าน: <span style="font-size: 18px; color: orange;"><?= ($slip1Data["detail"]) != null ? $slip1Data["detail"] : "ยังไม่มีการแจ้งข้อมูล" ?> </span> </span>
+                        <br><br>
+                        <span style="font-size: 20px">รูปภาพหลักฐานการโอน</span>
                         <hr style="margin-top: 5px;margin-bottom: 10px;">
                         <span style="font-size: 15px; color: red;">
                             <?php
-                            while ($orderDetailData = $orderDetailRes->fetch_assoc()) {
-                                $moretext = $orderDetailData["moretext"];
-                                echo "<p>" . $moretext . "</p><br>";
+                            $path1 = $slip1Data["slip_path"];
+                            if ($slip_pathRes->num_rows == 0) {
+                                echo 'ยังไม่มีการแจ้งข้อมูล';
+                            } else if ($path1 != null) {
+                                echo "<img src=\"" . $path1 . " \">";
+                            } else {
+                                echo 'ไม่มีการอัพโหลดรูปสลิปการโอนเงิน';
                             }
                             ?>
+
                         </span>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-content">
-                        <span style="font-size: 20px">การชำระเงิน </span>
-                        <hr style="margin-top: 5px;margin-bottom: 10px;">
-                        <span style="font-size: 15px"> โอนเงินมัดจำผ่านธนาคาร: <br><span style="font-size: 15px; color: orange;"> กสิกรไทย เลขที่ 12-1231212-1 <br> 400.00 บาท</span> </span> &nbsp; 
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-12">
+                <?php if ($orderData["payment_id"] == 2 && $statusid == 5) { ?>
+                    <div class="card">
+                        <div class="card-content">
+                            <span style="font-size: 20px">ชำระเงินด้วยการโอนเงินผ่านธนาคาร: &nbsp;</span>
+                            <hr style="margin-top: 5px;margin-bottom: 10px;">
+                            <span style="font-size: 18px"> โอนเงินผ่านธนาคาร: <span style="font-size: 18px; color: orange;"><?= ($slip2Data["detail"]) != null ? $slip1Data["detail"] : "ยังไม่มีการแจ้งข้อมูล" ?> </span> </span>
+                            <br><br>
+                            <span style="font-size: 20px">รูปภาพหลักฐานการโอน </span>
+                            <hr style="margin-top: 5px;margin-bottom: 10px;">
+                            <span style="font-size: 15px; color: red;">
+                                <?php
+                                $path = $slip2Data["slip_path"];
+                                if ($slip2res->num_rows == 0) {
+                                    echo 'ยังไม่มีการแจ้งข้อมูล';
+                                } else if ($path != null) {
+                                    echo "<img src=\"" . $path . " \">";
+                                } else {
+                                    echo 'ไม่มีการอัพโหลดรูปสลิปการโอนเงิน';
+                                }
+                                ?>
 
-                        <a href="#" class="btn btn-warning btn-xs "data-toggle="modal" data-target='.pop-up-2' href=".pop-up-2" style="margin-left: 90px;">แสดงสลิป</a><br>
-
-                        <span style="font-size: 15px"> ชำระเงินด้วยเงินสด: <br><span style="font-size: 15px; color: red;"> ต้องชำระเพิ่ม ณ ที่รับสินค้า 1040.00 บาท </span> </span> &nbsp; 
-
-
+                            </span>
+                        </div>
                     </div>
-                </div>
+                <?php } ?>
             </div>
         </div>
     </div>
+</div>
 
 </div>

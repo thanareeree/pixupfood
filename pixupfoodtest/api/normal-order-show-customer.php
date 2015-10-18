@@ -11,7 +11,7 @@ $resid = $orderData["restaurant_id"];
 $resNameRes = $con->query("select  deliveryfee, restaurant.name"
         . " from restaurant "
         . "join mapping_delivery_type on mapping_delivery_type.restaurant_id = restaurant.id  "
-        . " where id = '$resid'");
+        . " where restaurant.id = '$resid'");
 $delifeeData = $resNameRes->fetch_assoc();
 
 $shipAddressRes = $con->query("SELECT shippingAddress.address_naming, shippingAddress.type, "
@@ -35,6 +35,11 @@ $slip1Data = $slip_pathRes->fetch_assoc();
 
 $slip2res = $con->query("SELECT * FROM `transfer` WHERE order_id = '$order_id' AND type = 'n2'");
 $slip2Data = $slip2res->fetch_assoc();
+
+
+$messid = $orderData["messenger_id"];
+$messengerNameRes = $con->query("select * from messenger where id = '$messid'");
+$messData = $messengerNameRes->fetch_assoc();
 ?>
 
 <div class="modal-body">
@@ -47,7 +52,7 @@ $slip2Data = $slip2res->fetch_assoc();
                     <div class="alert alert-danger" style="font-size: 18px" role="alert">กรุณาโอนเงินค่ามัดจำสินค้าภายในเวลา 4 ชั่วโมง หลังจากร้านตอบรับรายการแล้ว</div>
                 </div>
             <?php } ?>
-            <?php if ($statusid == 5) {
+            <?php if ($statusid == 5 && $orderData["payment_id"] == 2 ) {
                 ?>
                 <div class="col-md-12">
                     <div class="alert alert-danger" style="font-size: 18px"  role="alert">กรุณาโอนเงินในส่วนที่เหลือจำนวนก่อนวันจัดส่งสินค้า 1 วัน</div>
@@ -82,7 +87,7 @@ $slip2Data = $slip2res->fetch_assoc();
                                 <span style="font-size: 20px; color: orange;"> <?= substr($orderData["updated_status_time"], 0, 11) ?></span><br>
                                 <span style="font-size: 20px">เวลาที่สั่ง: </span>
                                 <span style="font-size: 20px; color: orange;"> <?= substr($orderData["updated_status_time"], 11, 5) ?>&nbsp;น.</span><br>
-                                
+
                             <?php } else {
                                 ?>
                                 <span style="font-size: 20px">สถานะของรายการ: </span>
@@ -99,10 +104,7 @@ $slip2Data = $slip2res->fetch_assoc();
                         <?php
                     }
                     ?>
-
-
                 </div>
-                <?php ?>
             </div>
             <div class="col-md-5">
                 <div class="card">
@@ -110,26 +112,40 @@ $slip2Data = $slip2res->fetch_assoc();
                     if ($statusid == 9) {
                         ?>
                         <div class="card-content">
-                            <span style="font-size: 20px">จัดส่งสินค้าโดย: </span><br>
-                            <span style="font-size: 20px; color: orange;">108suchart สุชาติ ปานขำ</span><br>
-                            <span style="font-size: 20px">โทรศัพท์: </span><br>
-                            <span style="font-size: 20px; color: orange;">0812345678</span><br>
+                            <span style="font-size: 20px">จัดส่งสินค้าโดย: </span>
+                            <span style="font-size: 20px; color: orange;"><?= $messData["name"]?></span><br>
+                            <span style="font-size: 20px">โทรศัพท์: </span>
+                            <span style="font-size: 20px; color: orange;"><?= $messData["tel"]?></span><br>
 
-                            <span style="font-size: 20px">ส่งสินค้าถึงวันที่: </span><br>
+                            <span style="font-size: 20px">ส่งสินค้าถึงวันที่: </span>
                             <span style="font-size: 20px; color: orange;"><?= substr($orderData["updated_status_time"], 0, 11) ?></span><br>
 
-                            <span style="font-size: 20px">ส่งสินค้าถึงเวลา: </span><br>
+                            <span style="font-size: 20px">ส่งสินค้าถึงเวลา: </span>
                             <span style="font-size: 20px; color: orange;">  <?= substr($orderData["updated_status_time"], 11, 5) ?>&nbsp;น. </span><br>
                         </div>
                         <?php
                     }
                     ?>
+                    <?php
+                    if ($statusid == 5) {
+                        ?>
+                        <div class="card-content">
+                            <span style="font-size: 20px">จัดส่งสินค้าโดย: </span>
+                            <span style="font-size: 20px; color: orange;"><?= $messData["name"]?></span><br>
+                            <span style="font-size: 20px">โทรศัพท์: </span>
+                            <span style="font-size: 20px; color: orange;"><?= $messData["tel"]?></span><br>
+
+                        </div>
+                        <?php
+                    }
+                    ?>
+
                 </div>
                 <div class="card">
                     <div class="card-content">
-                        <span style="font-size: 20px">วันที่ลูกค้านัดรับสินค้า: </span>
+                        <span style="font-size: 20px">วันที่นัดรับสินค้า: </span>
                         <span style="font-size: 20px; color: orange;"> <?= $orderData["delivery_date"] ?></span><br>
-                        <span style="font-size: 20px">เวลาที่ลูกค้านัดรับสินค้า: </span>
+                        <span style="font-size: 20px">เวลาที่นัดรับสินค้า: </span>
                         <span style="font-size: 20px; color: orange;"> <?= substr($orderData["delivery_time"], 0, 5) ?>&nbsp;น.  </span><br>
 
                     </div>
@@ -199,6 +215,22 @@ $slip2Data = $slip2res->fetch_assoc();
                                                 <td style="text-align: right"><?= $price * $orderDetailData["quantity"] ?></td>
                                             </tr>
                                         <?php } ?>
+                                        <tr>
+                                            <td>
+                                                <span style="font-size: 20px">เพิ่มเติม: </span>
+                                                <span style="font-size: 15px; color: red;">
+                                                    <?php
+                                                    while ($orderDetailData = $orderDetailRes->fetch_assoc()) {
+                                                        $moretext = $orderDetailData["moretext"];
+                                                        echo "<p>" . $moretext . "</p><br>";
+                                                    }
+                                                    ?>
+                                                </span>
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
                                     </tbody>
                                 </table>   
 
@@ -218,12 +250,12 @@ $slip2Data = $slip2res->fetch_assoc();
                                             <td style="text-align: center"></td>
                                             <td style="text-align: right"><?= $orderData["total_nofee"] ?></td>
                                         </tr>
-                                        <tr>
-                                            <td>ส่วนลด</td>
+                                        <!--<tr class="warning">
+                                            <td>ส่วนลด10% 1D23A5</td>
                                             <td style="text-align: center"></td>
-                                            <td style="text-align: center"></td>
-                                            <td style="text-align: right">-160.00</td>
-                                        </tr>
+                                            <td style="text-align: center">1</td>
+                                            <td style="text-align: center">-160.00</td>
+                                        </tr>-->
                                         <tr class="warning">
                                             <td>ค่ามัดจำ 20%</td>
                                             <td style="text-align: center"></td>
@@ -256,12 +288,12 @@ $slip2Data = $slip2res->fetch_assoc();
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-content">
-                        <span style="font-size: 20px">การชำระเงินด้วย:  &nbsp;
+                        <span style="font-size: 20px">ชำระเงินด้วย:  &nbsp;
                             <?php
                             if ($orderDetailData["payment_id"] == 2) {
                                 echo 'โอนเงินผ่านธนาคาร';
-                            }  else {
-                                 echo 'เงินสดเมื่อได้รับสินค้า';
+                            } else {
+                                echo 'เงินสดเมื่อได้รับสินค้า';
                             }
                             ?>
                         </span>
@@ -289,7 +321,7 @@ $slip2Data = $slip2res->fetch_assoc();
         </div>
         <div class="col-md-12">
             <div class="col-md-12">
-                <?php if ($orderDetailData["payment_id"] == 2 && $statusid == 5 ) { ?>
+                <?php if ($orderDetailData["payment_id"] == 2 && $statusid == 5) { ?>
                     <div class="card">
                         <div class="card-content">
                             <span style="font-size: 20px">ชำระเงินด้วยการโอนเงินผ่านธนาคาร: &nbsp;</span>
@@ -314,24 +346,6 @@ $slip2Data = $slip2res->fetch_assoc();
                         </div>
                     </div>
                 <?php } ?>
-            </div>
-        </div>
-        <div class="col-md-12">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-content">
-                        <span style="font-size: 20px">เพิ่มเติม </span>
-                        <hr style="margin-top: 5px;margin-bottom: 10px;">
-                        <span style="font-size: 15px; color: red;">
-                            <?php
-                            while ($orderDetailData = $orderDetailRes->fetch_assoc()) {
-                                $moretext = $orderDetailData["moretext"];
-                                echo "<p>" . $moretext . "</p><br>";
-                            }
-                            ?>
-                        </span>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

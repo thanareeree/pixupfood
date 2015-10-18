@@ -23,7 +23,7 @@ $path_img = substr($target_file, 5);
 
 if (isset($_SESSION["islogin"])) {
     if (move_uploaded_file(@$_FILES["slip_path"]["tmp_name"], $target_file)) {
-        $con->query("INSERT INTO `transfer`(`id`, `order_id`, `customer_id`, `datail`, `slip_path`, `type`, `upload_time`)"
+        $con->query("INSERT INTO `transfer`(`id`, `order_id`, `customer_id`, `detail`, `slip_path`, `type`, `upload_time`)"
                 . " VALUES (null,'$order_id','$cusid','$detail','$path_img','$type',now())");
          if ($con->error == "") {
         ?>

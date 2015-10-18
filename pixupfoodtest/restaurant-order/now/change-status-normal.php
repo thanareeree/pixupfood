@@ -6,6 +6,9 @@ include '../../dbconn.php';
 $order_id = $_POST["id"];
 $resid = $_SESSION["restdata"]["id"];
 $statusid = (int) $_POST["statusid"];
+$orderRes = $con->query("SELECT * FROM `normal_order`  WHERE id ='$order_id'");
+$orderData = $orderRes->fetch_assoc();
+$payid = $orderData["payment_id"];
 
 if (isset($_SESSION["islogin"])) {
 
@@ -30,7 +33,7 @@ if (isset($_SESSION["islogin"])) {
                 ));
             }
         }
-    } else if ($statusid == 5) {
+    } else if ($statusid == 5 && $payid == 2) {
         $checkRes = $con->query("SELECT * FROM `transfer` WHERE type = 'n2' and order_id = '$order_id'");
 
         if ($checkRes->num_rows == 0) {
@@ -43,7 +46,8 @@ if (isset($_SESSION["islogin"])) {
 
             if ($con->error == "") {
                 echo json_encode(array(
-                    "result" => 1,
+                    "result" => 0,
+                    "orderid" => $order_id
                 ));
             } else {
                 echo json_encode(array(
@@ -56,9 +60,17 @@ if (isset($_SESSION["islogin"])) {
         $con->query("UPDATE `normal_order` SET `status`='$statusid',`updated_status_time`= now() WHERE id = '$order_id'");
 
         if ($con->error == "") {
-            echo json_encode(array(
-                "result" => 1,
-            ));
+
+            if ($statusid == 5) {
+                echo json_encode(array(
+                    "result" => 0,
+                    "orderid" => $order_id
+                ));
+            } else {
+                echo json_encode(array(
+                    "result" => 1,
+                ));
+            }
         } else {
             echo json_encode(array(
                 "result" => 2,

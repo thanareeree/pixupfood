@@ -35,6 +35,11 @@ $slip1Data = $slip_pathRes->fetch_assoc();
 
 $slip2res = $con->query("SELECT * FROM `transfer` WHERE order_id = '$order_id' AND type = 'n2'");
 $slip2Data = $slip2res->fetch_assoc();
+
+
+$messid = $orderData["messenger_id"];
+$messengerNameRes = $con->query("select * from messenger where id = '$messid'");
+$messData = $messengerNameRes->fetch_assoc();
 ?>
 
 <div class="modal-body">
@@ -89,7 +94,18 @@ $slip2Data = $slip2res->fetch_assoc();
 
 
                 </div>
-                <?php ?>
+               <div class="card">
+                    <div class="card-content">
+                        <span style="font-size: 20px">หมายเลขสมาชิกลูกค้า: </span>
+                        <span style="font-size: 20px; color: orange;"> <?= $orderData["id"] ?> </span><br>
+
+                        <span style="font-size: 20px">ชื่อ: </span>
+                        <span style="font-size: 20px; color: orange;"> <?= $orderData["firstName"] ?>&nbsp;<?= $orderData["lastName"] ?> </span><br>
+
+                        <span style="font-size: 20px">โทรศัพท์: </span>
+                        <span style="font-size: 20px; color: orange;"><?= $orderData["tel"] ?> </span>
+                    </div>
+                </div>
             </div>
             <div class="col-md-5">
                 <div class="card">
@@ -97,21 +113,33 @@ $slip2Data = $slip2res->fetch_assoc();
                     if ($statusid == 9) {
                         ?>
                         <div class="card-content">
-                            <span style="font-size: 20px">จัดส่งสินค้าโดย: </span><br>
-                            <span style="font-size: 20px; color: orange;">108suchart สุชาติ ปานขำ</span><br>
-                            <span style="font-size: 20px">โทรศัพท์: </span><br>
-                            <span style="font-size: 20px; color: orange;">0812345678</span><br>
+                            <span style="font-size: 20px">จัดส่งสินค้าโดย: </span>
+                            <span style="font-size: 20px; color: orange;"><?= $messData["name"]?></span><br>
+                            <span style="font-size: 20px">โทรศัพท์: </span>
+                            <span style="font-size: 20px; color: orange;"><?= $messData["tel"]?></span><br>
 
-                            <span style="font-size: 20px">ส่งสินค้าถึงวันที่: </span><br>
+                            <span style="font-size: 20px">ส่งสินค้าถึงวันที่: </span>
                             <span style="font-size: 20px; color: orange;"><?= substr($orderData["updated_status_time"], 0, 11) ?></span><br>
 
-                            <span style="font-size: 20px">ส่งสินค้าถึงเวลา: </span><br>
+                            <span style="font-size: 20px">ส่งสินค้าถึงเวลา: </span>
                             <span style="font-size: 20px; color: orange;">  <?= substr($orderData["updated_status_time"], 11, 5) ?>&nbsp;น. </span><br>
                         </div>
                         <?php
                     }
                     ?>
+                     <?php
+                    if ($statusid == 5) {
+                        ?>
+                        <div class="card-content">
+                            <span style="font-size: 20px">จัดส่งสินค้าโดย: </span>
+                            <span style="font-size: 20px; color: orange;"><?= $messData["name"]?></span><br>
+                            <span style="font-size: 20px">โทรศัพท์: </span>
+                            <span style="font-size: 20px; color: orange;"><?= $messData["tel"]?></span><br>
 
+                        </div>
+                        <?php
+                    }
+                    ?>
                 </div>
                 <div class="card">
                     <div class="card-content">

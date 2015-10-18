@@ -51,6 +51,40 @@ $(document).ready(function () {
             }
         });
     });
+    
+     //slip fast 1
+    $('#showFastOrder').on("click", ".uploadSlip1", function (e) {
+        var id = $(this).attr("data-id");
+        $("#uploadOrderId").html(id);
+        $.ajax({
+            url: "/customer-profile/tracking/upload-slip-f1-modal.php",
+            type: "POST",
+            data: {"id": id},
+            dataType: "html",
+            success: function (returndata) {
+                $("#upload").html(returndata);
+                $("#transfSlip1").modal("show");
+
+            }
+        });
+    });
+        //slip fast 2   
+     $('#showFastOrder').on("click", ".uploadSlip2", function (e) {
+        var id = $(this).attr("data-id");
+        $("#uploadOrderId").html(id);
+        $.ajax({
+            url: "/customer-profile/tracking/upload-slip-f2-modal.php",
+            type: "POST",
+            data: {"id": id},
+            dataType: "html",
+            success: function (returndata) {
+                $("#upload").html(returndata);
+                $("#transfSlip1").modal("show");
+
+            }
+        });
+    });
+
 
    $('#showFastOrder').on("click", ".fastOrderView", function (e) {
         var id = $(this).attr("data-id");

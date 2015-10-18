@@ -70,7 +70,7 @@ if ($normalOrderRes->num_rows == 0) {
                     <?php
                     $stataus_now_id = $normalOrderData["status"];
                     $statusid = $stataus_now_id + 1;
-                    if($stataus_now_id == 7 || $stataus_now_id == 6 ){
+                    if($stataus_now_id == 7 || $stataus_now_id == 6 || $stataus_now_id == 5){
                           $res = $con->query("SELECT * FROM `order_status` WHERE id = '$stataus_now_id' ");
                     }else{
                          $res = $con->query("SELECT * FROM `order_status` WHERE id >= '$stataus_now_id' and id <= '$statusid'");
