@@ -37,6 +37,9 @@ if ($fastOrderRes->num_rows == 0) {
         $fast_id = $fastOrderData["fast_id"];
         $pri = $fastOrderData["priority"];
         $timeleft = (60 * 15) - $diff;
+        if($timeleft<0){
+            continue;
+        }
         //$con->query("UPDATE `fast_order` SET `status`='7',`updated_status_time`= now(),`restaurant_id`= '$resid' WHERE id= '$fast_id'");
         //if ($con->error == "") {
 

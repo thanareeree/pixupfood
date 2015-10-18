@@ -223,14 +223,14 @@ function countdown() {
     $.each($(".timeleft"), function (i, timer) {
         var second = parseInt($(timer).attr("data-second"));
         $(timer).attr("data-second", --second);
-        $(timer).html(seconds2time(second));
+        $(timer).html(second);
         if (second < 0) {
             $(timer).parent().parent().remove();
             fetchdataShowFastOrder();
             fetchdataShowNormalOrder();
         }
     });
-    setTimeout(countdown, 1000);
+    //setTimeout(countdown, 1000);
 }
 
 function seconds2time(seconds) {
