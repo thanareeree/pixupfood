@@ -453,7 +453,7 @@ include '../dbconn.php';
                                                                 . "LEFT JOIN main_menu ON main_menu.id = menu.main_menu_id "
                                                                 . "left JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
                                                                 . "left JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
-                                                                . "WHERE restaurant.id = '$resid' and main_menu.type = 'กับข้าว'");
+                                                                . "WHERE restaurant.id = '$resid' and main_menu.type = 'กับข้าว' and menu.status = 0");
 
                                                         while ($data2 = $res2->fetch_assoc()) {
                                                             ?>
@@ -516,7 +516,7 @@ include '../dbconn.php';
                                                                 . "LEFT JOIN main_menu ON main_menu.id = menu.main_menu_id "
                                                                 . "left JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
                                                                 . "left JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
-                                                                . "WHERE restaurant.id = '$resid' and main_menu.type = 'อาหารจานเดียว'");
+                                                                . "WHERE restaurant.id = '$resid' and main_menu.type = 'อาหารจานเดียว' and menu.status = 0");
                                                         while ($data2 = $res2->fetch_assoc()) {
                                                             ?>
                                                             <div class="col-md-3">
@@ -687,7 +687,7 @@ include '../dbconn.php';
                                                                 . "LEFT JOIN main_menu ON main_menu.id = menu.main_menu_id "
                                                                 . "left JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
                                                                 . "left JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
-                                                                . "WHERE restaurant.id = '$resid' and main_menu.type = 'ขนม'");
+                                                                . "WHERE restaurant.id = '$resid' and main_menu.type = 'ขนม' and menu.status = 0");
                                                         while ($data2 = $res2->fetch_assoc()) {
                                                             ?>
                                                             <div class="col-md-3">
@@ -729,101 +729,7 @@ include '../dbconn.php';
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- จบรายการอาหารจานด่วน-->
-
-
-                                    <!-- Modal แก้ไขเมนู ------------------------------------------------------------------------------>
-                                    <!--EditMenu Modal-->
-
-                                    <?php
-                                    $resid = $_SESSION["restdata"]["id"];
-                                    $res2 = $con->query("SELECT DISTINCT restaurant.id,menu.img_path, menu.price, menu.id as menuResId, menu.status, "
-                                            . "main_menu.name as menuname, restaurant.name as resname "
-                                            . "FROM restaurant "
-                                            . "LEFT JOIN menu ON menu.restaurant_id = restaurant.id "
-                                            . "LEFT JOIN main_menu ON main_menu.id = menu.main_menu_id "
-                                            . "left JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
-                                            . "left JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
-                                            . "WHERE restaurant.id = '$resid' ");
-                                    while ($data2 = $res2->fetch_assoc()) {
-                                        ?>
-                                        <div class="modal fade" id="EditMenu<?= $data2["menuResId"] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <form action="/restaurant/menu-edit-image.php?menuresid=<?= $data2["menuResId"] ?>" method="post"  enctype="multipart/form-data">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                            <h4 class="modal-title" id="myModalLabel">แก้ไขข้อมูล</h4>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <div class="row" style="margin: 0px;">
-                                                                <div class="card">
-                                                                    <div class="card-action">
-                                                                        <div class="page-header" style="font-size:18px;margin-top: 0px;">
-                                                                            รูปภาพ
-                                                                        </div> 
-                                                                        <div class="row">
-                                                                            <div class="col-md-6"> 
-                                                                                <div class="thumbnails">
-                                                                                    <div class="span4">
-                                                                                        <div class="thumbnail">
-                                                                                                <!-- <input type="file" name="img"> --->
-                                                                                            <img src="<?= ($data2["img_path"] == "") ? '/assets/images/default-img360.png' : $data2["img_path"] ?>" alt="ALT NAME">
-                                                                                        </div>                                                                                    
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-md-6" style="margin-top: 60px;"> 
-                                                                                <span id="uploadtext" ></span>
-                                                                                <p align="center" ><button type="button" name="img" id="chooseimgbtn"  onClick="imagerest.click()" onMouseOut="uploadtext.value = imagerest.value" class="btn btn-primary btn-block" style="font-style:normal">เลือกรูป</button></p>
-                                                                                <input type="file" id="imagerest" name="imagerest" style="display:none" accept="image/jpeg,image/pjpeg,image/png"  />
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="row" style="margin:15px -15px;">
-                                                                    <div class="col-md-12">
-                                                                        <div class="card" style="margin-top: 1px;">
-                                                                            <div class="card-action">
-                                                                                <div class="page-header" style="font-size:18px;margin-top: 0px;">
-                                                                                    ทั่วไป
-                                                                                </div>
-                                                                                <div class="row" style="margin:10px 0 0 5px;">
-                                                                                    <span style="margin-left: 25px;"> ราคาอาหาร </span> &nbsp;<input type="text" name="newPrice" value="<?= $data2["price"] ?>">&nbsp; บาท 
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <div class="card" style="margin-top: 1px;">
-                                                                        <div class="card-action">
-                                                                            <div class="page-header" style="font-size:18px;margin-top: 0px;">สถานะ</div>
-
-
-                                                                            <div class="material-switch ">
-                                                                                <span style="margin-left: 33px;"> สินค้าหมด </span> &nbsp;
-                                                                                <input id="closeMenu<?= $data2["menuResId"] ?>" name="closeMenu" type="checkbox" <?= ($data2["status"] == 0 ? 'checked' : '') ?>/>
-                                                                                <label for="closeMenu<?= $data2["menuResId"] ?>" class="label-success"></label>
-                                                                                &nbsp; <span>มีสินค้า</span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
-                                                            <button type="submit" class="btn btn-primary">บันทึก</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    <?php } ?>
+                                   
                                     <!-- จบขนม -->
 
                                     <!-- เครื่องดื่ม -->
@@ -844,7 +750,7 @@ include '../dbconn.php';
                                                                 . "LEFT JOIN main_menu ON main_menu.id = menu.main_menu_id "
                                                                 . "left JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
                                                                 . "left JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
-                                                                . "WHERE restaurant.id = '$resid' and main_menu.type = 'เครื่องดื่ม'");
+                                                                . "WHERE restaurant.id = '$resid' and main_menu.type = 'เครื่องดื่ม' and menu.status = 0");
                                                         while ($data2 = $res2->fetch_assoc()) {
                                                             ?>
                                                             <div class="col-md-3">
@@ -889,101 +795,7 @@ include '../dbconn.php';
                                     <!-- จบรายการอาหารจานด่วน-->
 
 
-                                    <!-- Modal แก้ไขเมนู ------------------------------------------------------------------------------>
-                                    <!--EditMenu Modal-->
-
-                                    <?php
-                                    $resid = $_SESSION["restdata"]["id"];
-                                    $res2 = $con->query("SELECT DISTINCT restaurant.id,menu.img_path, menu.price, menu.id as menuResId, menu.status, "
-                                            . "main_menu.name as menuname, restaurant.name as resname "
-                                            . "FROM restaurant "
-                                            . "LEFT JOIN menu ON menu.restaurant_id = restaurant.id "
-                                            . "LEFT JOIN main_menu ON main_menu.id = menu.main_menu_id "
-                                            . "left JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
-                                            . "left JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
-                                            . "WHERE restaurant.id = '$resid' ");
-                                    while ($data2 = $res2->fetch_assoc()) {
-                                        ?>
-                                        <div class="modal fade" id="EditMenu<?= $data2["menuResId"] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <form action="/restaurant/menu-edit-image.php?menuresid=<?= $data2["menuResId"] ?>" method="post"  enctype="multipart/form-data">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                            <h4 class="modal-title" id="myModalLabel">แก้ไขข้อมูล</h4>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <div class="row" style="margin: 0px;">
-                                                                <div class="card">
-                                                                    <div class="card-action">
-                                                                        <div class="page-header" style="font-size:18px;margin-top: 0px;">
-                                                                            รูปภาพ
-                                                                        </div> 
-                                                                        <div class="row">
-                                                                            <div class="col-md-6"> 
-                                                                                <div class="thumbnails">
-                                                                                    <div class="span4">
-                                                                                        <div class="thumbnail">
-                                                                                                <!-- <input type="file" name="img"> --->
-                                                                                            <img src="<?= ($data2["img_path"] == "") ? '/assets/images/default-img360.png' : $data2["img_path"] ?>" alt="ALT NAME">
-                                                                                        </div>                                                                                    
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-md-6" style="margin-top: 60px;"> 
-                                                                                <span id="uploadtext" ></span>
-                                                                                <p align="center" ><button type="button" name="img" id="chooseimgbtn"  onClick="imagerest.click()" onMouseOut="uploadtext.value = imagerest.value" class="btn btn-primary btn-block" style="font-style:normal">เลือกรูป</button></p>
-                                                                                <input type="file" id="imagerest" name="imagerest" style="display:none" accept="image/jpeg,image/pjpeg,image/png"  />
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="row" style="margin:15px -15px;">
-                                                                    <div class="col-md-12">
-                                                                        <div class="card" style="margin-top: 1px;">
-                                                                            <div class="card-action">
-                                                                                <div class="page-header" style="font-size:18px;margin-top: 0px;">
-                                                                                    ทั่วไป
-                                                                                </div>
-                                                                                <div class="row" style="margin:10px 0 0 5px;">
-                                                                                    <span style="margin-left: 25px;"> ราคาอาหาร </span> &nbsp;<input type="text" name="newPrice" value="<?= $data2["price"] ?>">&nbsp; บาท 
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <div class="card" style="margin-top: 1px;">
-                                                                        <div class="card-action">
-                                                                            <div class="page-header" style="font-size:18px;margin-top: 0px;">สถานะ</div>
-                                                                            <input type="checkbox"  data-toggle="toggle"id=" closeMenu<?= $data2["menuResId"] ?>" name="closeMenu" data-on="Ready" <?= ($data2["status"] == 0 ? 'checked' : '') ?> data-off="Not Ready" data-onstyle="success" data-offstyle="danger">
-
-                                                                            <div class="material-switch ">
-                                                                                <span style="margin-left: 33px;"> สินค้าหมด </span> &nbsp;
-
-                                                                                <input id="closeMenu<?= $data2["menuResId"] ?>" name="closeMenu" type="checkbox" <?= ($data2["status"] == 0 ? 'checked' : '') ?>/>
-                                                                                <label for="closeMenu<?= $data2["menuResId"] ?>" class="label-success"></label>
-                                                                                &nbsp; <span>มีสินค้า</span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
-                                                            <button type="submit" class="btn btn-primary">บันทึก</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    <?php } ?>
-                                    <!-- จบเครื่องดื่ม -->
-
+                                    
                                 </div>
 
                             </div>
