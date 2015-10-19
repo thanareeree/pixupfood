@@ -145,44 +145,46 @@ include './dbconn.php';
                             <h2 class="text-uppercase">ข่าวสาร<<</h2>
                         </a>
                         <div class="featured-article">
+                            <?php
+                            $res = $con->query("SELECT news.id, news.img_path, news.title, news.detail, news.created_time, restaurant.name "
+                                    . "FROM `news` "
+                                    . "LEFT JOIN restaurant ON restaurant.id = news.restaurant_id "
+                                    . "ORDER BY news.created_time DESC LIMIT 1");
+                            $news = $res->fetch_assoc();
+                            $newfirstid = $news["id"];
+                            ?>
                             <a href="#">
-                                <img src="/assets/images/allnews/news01.jpg" alt="" class="thumb" >
+                                <img src="<?= $news["img_path"] ?>" alt="" class="thumb" >
                             </a>
                             <div class="block-title">
-                                <h2>เมนูใหม่ ต้องลอง!!</h2>
-                                <p class="by-author"><small>เพิ่ม 3 เมนูใหม่กับร้านลมัยโภชนา<br>ผัดพริกแกงทะเล / หมูผัดพริกเผา / ข้าวผัดปลาเค็ม</small></p>
+                                <h2><?= $news["title"] ?></h2>
+                                <p class="by-author"><?= $news["detail"] ?><br><br>
+                                    <?= $news["name"] ?>&nbsp;เมื่อวันที่: &nbsp;<?= substr($news["created_time"], 0, 11) . " " . substr($news["created_time"], 11, 5) ?>&nbsp;น.
+                                </p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-7 col-lg-7 wow fadeInRight" data-wow-delay="0.6s" style="padding:63px 15px 0 100px">
                         <ul class="media-list main-list">
-                            <li class="media" style="border-top:1px solid #e8e8e8; padding-top:1.1em">
-                                <a class="pull-left" href="#">
-                                    <img class="media-object" src="/assets/images/allnews/news02.jpg" alt="..." width="150px" style="max-height:90px;">
-                                </a>
-                                <div class="media-body">
-                                    <h4 class="media-heading">อร่อยแน่ ขอแนะนำ!</h4>
-                                    <p class="by-author">ข้าวผัดลูกชิ้น ร้านอาหารไทย</p>
-                                </div>
-                            </li>
-                            <li class="media">
-                                <a class="pull-left" href="#">
-                                    <img class="media-object" src="/assets/images/allnews/news03.jpg" alt="..." width="150px" style="max-height:90px;">
-                                </a>
-                                <div class="media-body">
-                                    <h4 class="media-heading">สปาเก็ตตี้ขี้เมา</h4>
-                                    <p class="by-author">สปาเก็ตตี้ผัดขี้เมา รสเด็ด ปรุงสดใหม่ด้วยแม่ครัวมืออาชีพ จาก ร้านหนึ่ง</p>
-                                </div>
-                            </li>
-                            <li class="media">
-                                <a class="pull-left" href="#">
-                                    <img class="media-object" src="/assets/images/allnews/news04.jpg" alt="..." width="150px" style="max-height:90px;">
-                                </a>
-                                <div class="media-body">
-                                    <h4 class="media-heading">สาขาใหม่ ถนนประชาอุทิศ</h4>
-                                    <p class="by-author">เปิดสาขาที่ 3 กับร้านป้าน้อย ขึ้นชื่อเรื่องรสชาติ และความสดใหม่ของอาหาร พบกับเมนูอาหารมากมายหลากหลาย จะตามไปชิม หรือจะสั่งผ่านเว็บไซต์ก็สะดวก</p>
-                                </div>
-                            </li>
+                            <?php
+                            $res = $con->query("SELECT news.img_path, news.title, news.detail, news.created_time, restaurant.name "
+                                    . "FROM `news` "
+                                    . "LEFT JOIN restaurant ON restaurant.id = news.restaurant_id "
+                                    . "WHERE news.id != '$newfirstid' ORDER BY RAND() DESC LIMIT 3");
+                            while ($data = $res->fetch_assoc()) {
+                                ?>
+                                <li class="media">
+                                    <a class="pull-left" href="#">
+                                        <img class="media-object" src="<?=$data["img_path"]?>" alt="..." width="150px" style="max-height:90px;">
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading"><?= $data["title"]?></h4>
+                                       <p class="by-author"><?= $data["detail"] ?><br><br>
+                                    <?= $data["name"] ?>&nbsp;เมื่อวันที่: &nbsp;<?= substr($data["created_time"], 0, 11) . " " . substr($data["created_time"], 11, 5) ?>&nbsp;น.
+                                </p>
+                                    </div>
+                                </li>
+                            <?php } ?>
                         </ul>
                     </div>
                 </div>

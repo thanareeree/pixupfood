@@ -45,7 +45,7 @@ include '../api/islogin.php';
                 . "where id = '$cusid' ");
         $customerData = $customerRes->fetch_assoc();
 
-        
+
         $resid = @$_GET["resId"];
         $resNameRes = $con->query("select `name`, `email`, `tel`,`detail`, `img_path`, `star`, `address`,"
                 . " `opentime`, `amount_box_minimum`, `amount_box_limit`, `has_restaurant`, `restaurant_type`"
@@ -71,29 +71,36 @@ include '../api/islogin.php';
         <!-- edit body -->
         <section id="restaurant_view">
             <div class="container">
-                  <?php include '../customer-view-restaurant/status-close.php'; ?>
+                <?php include '../customer-view-restaurant/status-close.php'; ?>
                 <div class="row">
                     <div class="col-md-8">
                         <!-- Nav tabs -->
-                       <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation" class="active"><a href="/view/cus_restaurant_view_news.php?resId=<?= $resid?>" >ข่าวประกาศ</a></li>
-                            <li role="presentation"><a href="/view/cus_restaurant_view_promotion.php?resId=<?= $resid?>" >โปรโมชั่น</a></li>
-                            <li role="presentation" ><a href="/view/cus_restaurant_view.php?resId=<?= $resid?>" >สั่งอาหาร</a></li>
-                            <li role="presentation"><a href="/view/cus_restaurant_view_info.php?resId=<?= $resid?>" >ข้อมูลร้าน</a></li>
-                            <li role="presentation"><a href="/view/cus_restaurant_view_comment.php?resId=<?= $resid?>" >รีวิว / คอมเม้นท์</a></li>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="/view/cus_restaurant_view_news.php?resId=<?= $resid ?>" >ข่าวประกาศ</a></li>
+                            <li role="presentation"><a href="/view/cus_restaurant_view_promotion.php?resId=<?= $resid ?>" >โปรโมชั่น</a></li>
+                            <li role="presentation" ><a href="/view/cus_restaurant_view.php?resId=<?= $resid ?>" >สั่งอาหาร</a></li>
+                            <li role="presentation"><a href="/view/cus_restaurant_view_info.php?resId=<?= $resid ?>" >ข้อมูลร้าน</a></li>
+                            <li role="presentation"><a href="/view/cus_restaurant_view_comment.php?resId=<?= $resid ?>" >รีวิว / คอมเม้นท์</a></li>
                         </ul>
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="news">
                                 <br><div class="row">
-                                    <div class="col-md-3">
+                                    
                                         <section id="pinBoot">
-                                            <article class="white-panel"><img src="/assets/images/res_resall/menuedit/FriedEgg.jpg" alt="">
-                                                <h4><a href="#">เมนูใหม่</a></h4>
-                                                <p>ทางร้านของเราได้เพิ่มเมนูอาหารใหม่ นั่นก็คือ สปาเก็ดดี้ไวท์ซอท สั่งได้แล้ววันนี้</p>
-                                            </article>
+                                            <?php
+                                            $res = $con->query("SELECT * FROM `news` WHERE restaurant_id = '$resid' order by created_time DESC");
+                                            while ($data = $res->fetch_assoc()) {
+                                                ?>
+                                                <article class="white-panel"><img src="<?= $data["img_path"] ?>" alt="">
+                                                    <h5>เมื่อวันที่: &nbsp;<?= substr($data["created_time"], 0, 11) .  " " . substr($data["created_time"], 11, 5) ?>&nbsp;น.</h5>
+                                                    <p style="font-size: 14px;">
+                                                        <b><?= $data["title"] ?>:</b>&nbsp;&nbsp;<?= $data["detail"] ?>
+                                                    </p>
+                                                </article>
+                                            <?php } ?>
                                         </section>
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -114,5 +121,6 @@ include '../api/islogin.php';
 
         <?php include '../template/footer.php'; ?>
         <script src="/assets/js/view_restaurant_news.js"></script>
+        <script src="/assets/js/plugin-image.js"></script>
     </body>
 </html>
