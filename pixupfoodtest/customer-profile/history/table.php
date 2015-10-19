@@ -3,7 +3,7 @@ session_start();
 include '../../dbconn.php';
 $cusid = $_SESSION["userdata"]["id"];
 $orderRes = $con->query(" SELECT normal_order.id as order_id, normal_order.updated_status_time, "
-        . "restaurant.name, SUM(order_detail.quantity) as qty , normal_order.messenger_id "
+        . "restaurant.name, SUM(order_detail.quantity) as qty , normal_order.messenger_id, normal_order.restaurant_id "
         . "FROM `normal_order` "
         . "LEFT JOIN order_detail ON order_detail.order_id = normal_order.id "
         . "LEFT JOIN customer ON customer.id = normal_order.customer_id"
@@ -39,6 +39,12 @@ if ($orderRes->num_rows == 0) {
                 <button class="btn btn-info btn-xs normalOrderView" data-id="<?= $orderData["order_id"] ?>">
                     <span class="glyphicon glyphicon-eye-open"></span> 
                     แสดง
+                </button>
+            </td>
+            <td class="text-center">
+                <button class="btn btn-success btn-xs normalReview" data-id="<?= $orderData["restaurant_id"] ?>" data-name="<?= $orderData["name"] ?>">
+                    <span class="glyphicon glyphicon-edit"></span> 
+                    รีวิว
                 </button>
             </td>
         </tr>

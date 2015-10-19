@@ -58,6 +58,12 @@ if ($orderRes->num_rows == 0) {
                     แสดง
                 </button>
             </td>
+             <td class="text-center">
+                <button class="btn btn-success btn-xs fastReview" data-id="<?= $orderData["order_id"] ?>">
+                    <span class="glyphicon glyphicon-edit"></span> 
+                    รีวิว
+                </button>
+            </td>
         </tr>
         <?php
     }

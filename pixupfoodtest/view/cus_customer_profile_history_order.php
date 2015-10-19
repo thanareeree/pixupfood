@@ -9,8 +9,9 @@ include '../dbconn.php';
         <?php include '../template/customer-title.php'; ?>
         <!-- custom css -->
         <link rel="stylesheet" href="/assets/css/profile.css">
+        <link rel="stylesheet" href="/assets/css/customer-comment.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-
+        
     </head>
     <body>
         <?php
@@ -112,11 +113,12 @@ include '../dbconn.php';
                                                                         <tr>
                                                                             <th>ลำดับ</th>
                                                                             <th>เลขที่รายการ</th>
-                                                                            <th>รายการอาหาร</th>
-                                                                            <th>จำนวน(ขุด)</th>
+                                                                            <th>จำนวน(ชุด)</th>
+                                                                            <th>ร้านอาหาร</th>
                                                                             <th>วัน/เวลาที่รับสินค้า</th>
                                                                             <th>ผู้ส่งสินค้า</th>
                                                                             <th>รายละเอียด</th>
+                                                                            <th>รีวิว</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody class="table table-condensed table-hover" id="showFastOrder">
@@ -156,11 +158,12 @@ include '../dbconn.php';
                                                                         <tr>
                                                                             <th>ลำดับ</th>
                                                                             <th>เลขที่รายการ</th>
-                                                                            <th>รายการอาหาร</th>
-                                                                            <th>จำนวน(ขุด)</th>
+                                                                            <th>จำนวน(ชุด)</th>
+                                                                            <th>ร้านอาหาร</th>
                                                                             <th>วัน/เวลาที่รับสินค้า</th>
                                                                             <th>ผู้ส่งสินค้า</th>
                                                                             <th>รายละเอียด</th>
+                                                                            <th>รีวิว</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody class="table table-condensed table-hover" id="showHistoryOrder">
@@ -227,7 +230,42 @@ include '../dbconn.php';
                 <!-- End Detail --> 
             </div>
         </section> 
-
+        <!-- อัพโหลดหลักฐานการโอนเงิน -->
+        <!-- tracking -->
+        <div class="modal fade" id="reviewNormalModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <span class="modal-title" id="myModalLabel">
+                            <span style="font-size: 20px; margin-top: 5px;">รีวิวและคะแนนความพึงพอใจ&nbsp; <span id="restaurantName"></span><span id="restId" style="display: none"></span> </span>     
+                        </span>
+                    </div>
+                    <div class="modal-body">
+                        <form id="ratingsForm">
+                            <div class="stars">
+                                <input type="radio" name="star[]" class="star-1" id="star-1" value="1"/>
+                                <label class="star-1" for="star-1">1</label>
+                                <input type="radio" name="star[]" class="star-2" id="star-2" value="2"/>
+                                <label class="star-2" for="star-2">2</label>
+                                <input type="radio" name="star[]" class="star-3" id="star-3" value="3"/>
+                                <label class="star-3" for="star-3">3</label>
+                                <input type="radio" name="star[]" class="star-4" id="star-4" value="4"/>
+                                <label class="star-4" for="star-4">4</label>
+                                <input type="radio" name="star[]" class="star-5" id="star-5" value="5" />
+                                <label class="star-5" for="star-5">5</label>
+                                <span></span>
+                            </div>
+                            <textarea style="margin-top: 20px; font-size: 16px" class="form-control input-sm " type="textarea" id="reviewinput" placeholder="เขียนข้อความของคุณที่นี่" rows="5"></textarea><br>
+                        </form>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                            <button class="btn btn-primary" type="button"  id="saveReviewBtn">ส่งข้อความ</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
         <?php include '../template/footer.php'; ?>
