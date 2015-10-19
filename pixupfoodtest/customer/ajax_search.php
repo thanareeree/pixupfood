@@ -125,6 +125,7 @@ if ($searchby == "foodname") {
                 . "* cos( radians( x ) ) * cos( radians( y ) - radians(" . $long . ") ) "
                 . "+ sin( radians(" . $lat . ") ) * sin( radians( x ) ) ) ) AS distance "
                 . "FROM restaurant JOIN zone ON zone.id = restaurant.zone_id "
+                . "RIGHT JOIN menu ON menu.restaurant_id = restaurant.id"
                 . " WHERE restaurant.available = 1  "
                 . "AND zone.name IN (SELECT zone.name FROM zone WHERE id = restaurant.zone_id)"
                 . "HAVING distance < 25 ORDER BY distance LIMIT 0 , 20");
