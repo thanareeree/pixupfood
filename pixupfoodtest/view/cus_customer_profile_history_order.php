@@ -87,6 +87,50 @@ include '../dbconn.php';
                                 <div class="content2">
                                     <div class="row">
                                         <div class="col-md-12">
+                                            <div class="panel" style="margin:10px 0 10px 0;">
+                                                <div class="card" style="margin:0;">
+                                                    <div class="card-content">
+                                                        <div class="page-header" style="font-size: 25px; margin-top: 5px;">
+                                                            รายการสั่งด่วน 
+                                                        </div>
+                                                        <!-- ตารางรายการติดตาม -->
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <form action="#" method="get">
+                                                                    <div class="input-group">
+                                                                        <!-- USE TWITTER TYPEAHEAD JSON WITH API TO SEARCH -->
+                                                                        <input class="form-control" id="system-search" name="q" placeholder="ค้นหาข้อมูลในตารางนี้" required style="height: 34px;">
+                                                                        <span class="input-group-btn">
+                                                                            <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+                                                                        </span>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <table class="table table-list-search  table-hover">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>ลำดับ</th>
+                                                                            <th>เลขที่รายการ</th>
+                                                                            <th>รายการอาหาร</th>
+                                                                            <th>จำนวน(ขุด)</th>
+                                                                            <th>วัน/เวลาที่รับสินค้า</th>
+                                                                            <th>ผู้ส่งสินค้า</th>
+                                                                            <th>รายละเอียด</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody class="table table-condensed table-hover" id="showFastOrder">
+
+
+                                                                    </tbody>
+                                                                </table>   
+                                                            </div>
+                                                        </div>
+                                                        <!-- จบตารางรายการติดตาม -->
+
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="panel " style="margin:10px 0 10px 0;">
                                                 <div class="card" style="margin:0;">
                                                     <div class="card-content">
@@ -138,8 +182,52 @@ include '../dbconn.php';
                         </div>
                     </div>
                 </div>
+                <!-- Detial normal -->
+                <div class="modal fade bs-example-modal-lg" id="detailNormalOrderModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <span class="modal-title" id="myModalLabel">
+                                    <span style="font-size: 30px; margin-top: 5px;">รายละเอียดของรายการหมายเลข: </span>
+                                    <span style="font-size: 30px; margin-top: 5px; color: orange" id="showOrderId"> </span>     
+                                </span>
+                            </div>
+                            <div id="normalOrderViewBody">
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Detail --> 
+
+                <!-- Detial fasttt   -->
+                <div class="modal fade bs-example-modal-lg" id="detailFastOrderModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <span class="modal-title" id="myModalLabel">
+                                    <span style="font-size: 30px; margin-top: 5px;">รายละเอียดของรายการหมายเลข: </span>
+                                    <span style="font-size: 30px; margin-top: 5px; color: orange" id="showFastOrderId"> </span>     
+                                </span>
+                            </div>
+                            <div id="fastOrderViewBody">
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Detail --> 
             </div>
         </section> 
+
 
 
         <?php include '../template/footer.php'; ?>

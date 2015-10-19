@@ -46,7 +46,7 @@ $messData = $messengerNameRes->fetch_assoc();
 
     <div class="row" style="margin-top: 0px;">
         <div class="col-md-12">
-             <?php if ($statusid == 2) {
+            <?php if ($statusid == 2) {
                 ?>
                 <div class="col-md-12">
                     <div class="alert alert-danger" style="font-size: 18px" role="alert">กรุณาโอนเงินค่ามัดจำสินค้าภายในเวลา 4 ชั่วโมง หลังจากร้านตอบรับรายการแล้ว</div>
@@ -67,7 +67,24 @@ $messData = $messengerNameRes->fetch_assoc();
                             <span style="font-size: 20px">สถานะของรายการ: </span>
                             <span style="font-size: 20px; color: orange;"> ปฏิเสธรายการ </span><br>
                             <span style="font-size: 20px">ปฏิเสธรายการโดย: </span>
-                            <span style="font-size: 20px; color: orange;"> <?= $delifeeData["name"] ?> </span><br>
+                            <span style="font-size: 20px; color: orange;"> 
+                                <?php
+                                $res = $con->query("SELECT name FROM restaurant WHERE id IN (SELECT restaurant_id FROM request_fast_order WHERE fast_id = '$order_id' and accepted = 9)");
+                                $count = 0;
+                                $name = "";
+                                while ($data = $res->fetch_assoc()) {
+
+                                    $name = $data["name"];
+                                    // $menustr .= $name;
+                                    $count++;
+                                    if ($count < $res->num_rows) {
+                                        $name.="," . " ";
+                                    }
+                                    echo $name;
+                                }
+                                ?>
+
+                            </span><br>
                             <span style="font-size: 20px">ปฏิเสธรายการวันที่: </span>
                             <span style="font-size: 20px; color: orange;"><?= substr($orderData["updated_status_time"], 0, 11) ?></span><br>
                             <span style="font-size: 20px">ปฏิเสธรายการเวลา: </span>
@@ -81,7 +98,24 @@ $messData = $messengerNameRes->fetch_assoc();
                                 <span style="font-size: 20px">สถานะของรายการ: </span>
                                 <span style="font-size: 20px; color: orange;"> <?= $statusData["description"] ?></span><br>
                                 <span style="font-size: 20px">รอตอบรับรายการจากร้าน: </span>
-                                <span style="font-size: 20px; color: orange;"> <?= $delifeeData["name"] ?>  </span><br>
+                                <span style="font-size: 20px; color: orange;"> 
+                                    <?php
+                                    $res = $con->query("SELECT name FROM restaurant WHERE id IN (SELECT restaurant_id FROM request_fast_order WHERE fast_id = '$order_id')");
+                                    $count = 0;
+                                    $name = "";
+                                    while ($data = $res->fetch_assoc()) {
+
+                                        $name = $data["name"];
+                                        // $menustr .= $name;
+                                        $count++;
+                                        if ($count < $res->num_rows) {
+                                            $name.="," . " ";
+                                        }
+                                        echo $name;
+                                    }
+                                    ?>
+
+                                </span><br>
                                 <span style="font-size: 20px">วันที่สั่ง: </span>
                                 <span style="font-size: 20px; color: orange;"> <?= substr($orderData["updated_status_time"], 0, 11) ?></span><br>
                                 <span style="font-size: 20px">เวลาที่สั่ง: </span>
@@ -108,15 +142,15 @@ $messData = $messengerNameRes->fetch_assoc();
                 </div>
             </div>
             <div class="col-md-5">
-                   <div class="card">
+                <div class="card">
                     <?php
                     if ($statusid == 9) {
                         ?>
                         <div class="card-content">
                             <span style="font-size: 20px">จัดส่งสินค้าโดย: </span>
-                            <span style="font-size: 20px; color: orange;"><?= $messData["name"]?></span><br>
+                            <span style="font-size: 20px; color: orange;"><?= $messData["name"] ?></span><br>
                             <span style="font-size: 20px">โทรศัพท์: </span>
-                            <span style="font-size: 20px; color: orange;"><?= $messData["tel"]?></span><br>
+                            <span style="font-size: 20px; color: orange;"><?= $messData["tel"] ?></span><br>
 
                             <span style="font-size: 20px">ส่งสินค้าถึงวันที่: </span>
                             <span style="font-size: 20px; color: orange;"><?= substr($orderData["updated_status_time"], 0, 11) ?></span><br>
@@ -132,9 +166,9 @@ $messData = $messengerNameRes->fetch_assoc();
                         ?>
                         <div class="card-content">
                             <span style="font-size: 20px">จัดส่งสินค้าโดย: </span>
-                            <span style="font-size: 20px; color: orange;"><?= $messData["name"]?></span><br>
+                            <span style="font-size: 20px; color: orange;"><?= $messData["name"] ?></span><br>
                             <span style="font-size: 20px">โทรศัพท์: </span>
-                            <span style="font-size: 20px; color: orange;"><?= $messData["tel"]?></span><br>
+                            <span style="font-size: 20px; color: orange;"><?= $messData["tel"] ?></span><br>
 
                         </div>
                         <?php
@@ -180,16 +214,17 @@ $messData = $messengerNameRes->fetch_assoc();
                         <hr style="margin-top: 5px;margin-bottom: 10px;">
                         <div class="row">
                             <div class="col-md-12">
-                                <table class="table table-list-search">
-                                    <thead>
-                                        <tr>
-                                            <th>รายการ</th>
-                                            <th style="text-align: center">ราคาต่อหน่วย/บาท</th>
-                                            <th style="text-align: center">จำนวน</th>
-                                            <th style="text-align: right">ราคารวม/บาท</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="table table-condensed table-hover">
+                                <?php if ($statusid == 1 || $statusid == 7) { ?>
+                                    <table class="table table-list-search">
+                                        <thead>
+                                            <tr>
+                                                <th>รายการ</th>
+                                                <th style="text-align: center"></th>
+                                                <th style="text-align: center">จำนวน</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody class="table table-condensed table-hover">
                                             <tr>    
                                                 <td>
                                                     <?php
@@ -198,9 +233,64 @@ $messData = $messengerNameRes->fetch_assoc();
                                                     $name = "";
                                                     $resName = $con->query("SELECT main_menu.name FROM  main_menu  WHERE main_menu.id IN $menuid");
                                                     $count = 0;
-                                                
+
                                                     while ($food = $resName->fetch_assoc()) {
-                                                       
+
+                                                        $name = $food["name"];
+                                                        // $menustr .= $name;
+                                                        $count++;
+                                                        if ($count < $resName->num_rows) {
+                                                            $name.="+";
+                                                        }
+                                                        echo $name;
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td style="text-align: center"></td>
+                                                <td style="text-align: center"><?= $orderData["quantity"] ?></td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span style="font-size: 20px">เพิ่มเติม: </span>
+                                                    <span style="font-size: 15px; color: red;">
+                                                        <?php
+                                                        $moretext = $orderData["moretext"];
+                                                        if ($moretext != "") {
+                                                            echo "<p>" . $moretext . "</p><br>";
+                                                        }
+                                                        ?>
+                                                    </span>
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>   
+                                <?php } else { ?>
+
+                                    <table class="table table-list-search">
+                                        <thead>
+                                            <tr>
+                                                <th>รายการ</th>
+                                                <th style="text-align: center">ราคาต่อหน่วย/บาท</th>
+                                                <th style="text-align: center">จำนวน</th>
+                                                <th style="text-align: right">ราคารวม/บาท</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="table table-condensed table-hover">
+                                            <tr>    
+                                                <td>
+                                                    <?php
+                                                    $menuid = $orderData["main_menu_id"];
+                                                    $menuid = "(" . $menuid . ")";
+                                                    $name = "";
+                                                    $resName = $con->query("SELECT main_menu.name FROM  main_menu  WHERE main_menu.id IN $menuid");
+                                                    $count = 0;
+
+                                                    while ($food = $resName->fetch_assoc()) {
+
                                                         $name = $food["name"];
                                                         // $menustr .= $name;
                                                         $count++;
@@ -215,66 +305,66 @@ $messData = $messengerNameRes->fetch_assoc();
                                                 <td style="text-align: center"><?= $orderData["quantity"] ?></td>
                                                 <td style="text-align: right"><?= $orderDetailData["price"] * $orderData["quantity"] ?></td>
                                             </tr>
-                                        <tr>
-                                            <td>
-                                                <span style="font-size: 20px">เพิ่มเติม: </span>
-                                                <span style="font-size: 15px; color: red;">
-                                                    <?php
+                                            <tr>
+                                                <td>
+                                                    <span style="font-size: 20px">เพิ่มเติม: </span>
+                                                    <span style="font-size: 15px; color: red;">
+                                                        <?php
                                                         $moretext = $orderData["moretext"];
                                                         echo "<p>" . $moretext . "</p><br>";
-                                                    
-                                                    ?>
-                                                </span>
-                                            </td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                    </tbody>
-                                </table>   
+                                                        ?>
+                                                    </span>
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>   
 
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>ราคาทั้งหมด</th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="table table-condensed table-hover">
-                                        <tr class="success">
-                                            <td>ราคารวม</td>
-                                            <td style="text-align: center"></td>
-                                            <td style="text-align: center"></td>
-                                            <td style="text-align: right"><?= $orderDetailData["total"] ?></td>
-                                        </tr>
-                                        <tr>
-                                            <td>ส่วนลด10% </td>
-                                            <td style="text-align: center"></td>
-                                            <td style="text-align: center"></td>
-                                            <td style="text-align: right">-160.00</td>
-                                        </tr>
-                                        <tr class="warning">
-                                            <td>ค่ามัดจำ 20%</td>
-                                            <td style="text-align: center"></td>
-                                            <td style="text-align: center"></td>
-                                            <td style="text-align: right"><?= $orderDetailData["prepay"] ?></td>
-                                        </tr>
-                                        <tr>    
-                                            <td>ค่าจัดส่ง</td>
-                                            <td style="text-align: center"></td>
-                                            <td style="text-align: center"></td>
-                                            <td style="text-align: right"><?= $delifeeData["deliveryfee"] ?></td>
-                                        </tr>
-                                        <tr class="danger">              
-                                            <td>ราคาในส่วนที่เหลือ (รวมค่าจัดส่ง)</td>
-                                            <td style="text-align: center"></td>
-                                            <td style="text-align: center"></td>
-                                            <td style="text-align: right"><?= $orderDetailData["total"]  - $orderDetailData["prepay"] + $delifeeData["deliveryfee"] ?></td>
-                                        </tr>
-                                    </tbody>
-                                </table>   
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>ราคาทั้งหมด</th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="table table-condensed table-hover">
+                                            <tr class="success">
+                                                <td>ราคารวม</td>
+                                                <td style="text-align: center"></td>
+                                                <td style="text-align: center"></td>
+                                                <td style="text-align: right"><?= $orderDetailData["total"] ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>ส่วนลด10% </td>
+                                                <td style="text-align: center"></td>
+                                                <td style="text-align: center"></td>
+                                                <td style="text-align: right">-160.00</td>
+                                            </tr>
+                                            <tr class="warning">
+                                                <td>ค่ามัดจำ 20%</td>
+                                                <td style="text-align: center"></td>
+                                                <td style="text-align: center"></td>
+                                                <td style="text-align: right"><?= $orderDetailData["prepay"] ?></td>
+                                            </tr>
+                                            <tr>    
+                                                <td>ค่าจัดส่ง</td>
+                                                <td style="text-align: center"></td>
+                                                <td style="text-align: center"></td>
+                                                <td style="text-align: right"><?= $delifeeData["deliveryfee"] ?></td>
+                                            </tr>
+                                            <tr class="danger">              
+                                                <td>ราคาในส่วนที่เหลือ (รวมค่าจัดส่ง)</td>
+                                                <td style="text-align: center"></td>
+                                                <td style="text-align: center"></td>
+                                                <td style="text-align: right"><?= $orderDetailData["total"] - $orderDetailData["prepay"] + $delifeeData["deliveryfee"] ?></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>   
+                                <?php } ?>
                             </div>
                         </div>
                     </div>
