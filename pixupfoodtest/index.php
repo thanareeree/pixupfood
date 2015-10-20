@@ -418,16 +418,17 @@ include './dbconn.php';
 
                 function showlist() {
                     $.ajax({
-                        url: 'customer/customer-search-nearby.php',
+                        url: '/customer/customer-search-nearby.php',
                         type: "POST",
                         data: {"lat": lat,
-                            "long": long},
+                            "long": long, "type":"nearby"},
                         dataType: "html",
                         success: function (returndata) {
                             if (returndata == "error") {
                                 alert("123459859859656");
                             } else {
                                 $("#shownearbylist").append(returndata);
+                                $('[data-toggle="tooltip"]').tooltip()
                             }
                         }
                     });

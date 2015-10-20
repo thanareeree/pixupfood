@@ -36,7 +36,17 @@ $(document).ready(function () {
             }
         });
     });
+    
 
+    $('#showFastOrder').on("click", ".fastReview", function (e) {
+        var id = $(this).attr("data-id");
+        $("#restId").html(id);
+        var name = $(this).attr("data-name");
+        $("#restaurantName").html(name);
+        $("#reviewNormalModal").modal("show");
+
+    });
+    
     $('#showHistoryOrder').on("click", ".normalReview", function (e) {
         var id = $(this).attr("data-id");
         $("#restId").html(id);
