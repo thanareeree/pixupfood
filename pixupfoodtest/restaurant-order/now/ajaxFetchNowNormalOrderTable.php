@@ -13,7 +13,7 @@ $normalOrderRes = $con->query("SELECT normal_order.id as order_id, normal_order.
         . "LEFT JOIN order_status ON order_status.id = normal_order.status"
         . " WHERE normal_order.restaurant_id = '$resid' and normal_order.status > 1 AND normal_order.status <= 7 "
         . "GROUP BY normal_order.id "
-        . "ORDER BY normal_order.order_time DESC");
+        . "ORDER BY  normal_order.status, normal_order.order_time DESC ");
 $i = 1;
 
 

@@ -4,12 +4,13 @@ include '../../dbconn.php';
 session_start();
 $cusid = $_SESSION["userdata"]["id"];
 $order_id = $_POST["orderid"];
-$date = $_POST["date"];
+
 $time = $_POST["time"];
 $bankname = $_POST["bankname"];
 $type = "n2";
+$d = $_POST["date"];
+$date = date("Y-m-d", strtotime( $d));
 $detail = $bankname."  "."วันที่ "." ".$date." ".$time."น.";
-
 
 $target_dir = "../../upload/customer/slip-tranfer/";
 $filename = @$_FILES["slip_path"]["name"];

@@ -546,9 +546,9 @@ function saveOrder() {
         dataType: "html",
         data: data,
         success: function (data) {
-          alert(data); 
-            //$("#paymentmodal").modal("hide");
-           // $("#saveOrderSuccessModal").modal('show');
+         // alert(data); 
+           $("#paymentmodal").modal("hide");
+           $("#saveOrderSuccessModal").modal('show');
 
 
         }

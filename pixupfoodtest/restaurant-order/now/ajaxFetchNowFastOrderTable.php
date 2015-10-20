@@ -16,7 +16,7 @@ $fastOrderRes = $con->query("SELECT fast_order.id as fast_id, fast_order.deliver
         . "LEFT JOIN customer ON customer.id = fast_order.customer_id "
         . "WHERE request_fast_order.restaurant_id = '$resid'"
         . "and fast_order.status <= '7' AND fast_order.status > 1 "
-        . "ORDER BY fast_order.order_time DESC");
+        . "ORDER BY fast_order.status, fast_order.order_time DESC");
 
 $i = 1;
 if ($fastOrderRes->num_rows == 0) {

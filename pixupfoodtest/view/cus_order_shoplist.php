@@ -421,12 +421,12 @@ include '../api/islogin.php';
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">สั่งสำเร็จแล้ว T^T</h4>
+                        <h4 class="modal-title">การสั่งซื้อสำเร็จเรียบร้อย</h4>
                     </div>
                     <div class="modal-body">
                         <div class="alert alert-success" role="alert">
                             <p>
-                                SMS ตอบรับรายการสั่งซื้อจะส่งกลับมาภายในเวลา....สามารถ &nbsp; <a href="/view/cus_customer_profile.php" class="alert-link">ตรวจสอบสถานะสินค้า</a>&nbsp;ได้ทีลิ้งนี้ <br>
+                                SMS ตอบรับรายการสั่งซื้อจะส่งกลับมาภายใน 24 ชั่วโมง และสามารถ &nbsp; <a href="/view/cus_customer_profile.php" class="alert-link">ตรวจสอบสถานะสินค้า</a>&nbsp;ได้ทีลิ้งนี้ <br>
                             </p>
                         </div>
                     </div>

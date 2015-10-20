@@ -11,7 +11,7 @@ $cusid = $_SESSION["userdata"];
         <div class="form-group" style="margin-bottom: 15px;">
             <label class="col-sm-3 control-label" for="textinput">โอนเงินวันที่</label>
             <div class="col-sm-9" style="margin-bottom: 15px;">
-                <input type="text" class="form-control" name="date" required="" placeholder="ตัวอย่าง 2015-10-15">
+                <input type="date" class="form-control" name="date" required="" placeholder="ตัวอย่าง 2015-10-15">
                 <input type="hidden" value="<?= $order_id?>" name="orderid">
             </div>
         </div>
