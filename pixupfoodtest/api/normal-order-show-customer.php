@@ -40,6 +40,14 @@ $slip2Data = $slip2res->fetch_assoc();
 $messid = $orderData["messenger_id"];
 $messengerNameRes = $con->query("select * from messenger where id = '$messid'");
 $messData = $messengerNameRes->fetch_assoc();
+
+
+$promoRes = $con->query("SELECT * FROM `promotion_use` WHERE order_id = '$order_id' and order_type = 'n'");
+if ($promoRes->num_rows > 0) {
+    $delivery = 0;
+} else {
+    $delivery = $delifeeData["deliveryfee"];
+}
 ?>
 
 <div class="modal-body">
@@ -52,7 +60,7 @@ $messData = $messengerNameRes->fetch_assoc();
                     <div class="alert alert-danger" style="font-size: 18px" role="alert">กรุณาโอนเงินค่ามัดจำสินค้าภายในเวลา 4 ชั่วโมง หลังจากร้านตอบรับรายการแล้ว</div>
                 </div>
             <?php } ?>
-            <?php if ($statusid == 5 && $orderData["payment_id"] == 2 ) {
+            <?php if ($statusid == 5 && $orderData["payment_id"] == 2) {
                 ?>
                 <div class="col-md-12">
                     <div class="alert alert-danger" style="font-size: 18px"  role="alert">กรุณาโอนเงินในส่วนที่เหลือจำนวนก่อนวันจัดส่งสินค้า 1 วัน</div>
@@ -113,9 +121,9 @@ $messData = $messengerNameRes->fetch_assoc();
                         ?>
                         <div class="card-content">
                             <span style="font-size: 20px">จัดส่งสินค้าโดย: </span>
-                            <span style="font-size: 20px; color: orange;"><?= $messData["name"]?></span><br>
+                            <span style="font-size: 20px; color: orange;"><?= $messData["name"] ?></span><br>
                             <span style="font-size: 20px">โทรศัพท์: </span>
-                            <span style="font-size: 20px; color: orange;"><?= $messData["tel"]?></span><br>
+                            <span style="font-size: 20px; color: orange;"><?= $messData["tel"] ?></span><br>
 
                             <span style="font-size: 20px">ส่งสินค้าถึงวันที่: </span>
                             <span style="font-size: 20px; color: orange;"><?= substr($orderData["updated_status_time"], 0, 11) ?></span><br>
@@ -131,9 +139,9 @@ $messData = $messengerNameRes->fetch_assoc();
                         ?>
                         <div class="card-content">
                             <span style="font-size: 20px">จัดส่งสินค้าโดย: </span>
-                            <span style="font-size: 20px; color: orange;"><?= $messData["name"]?></span><br>
+                            <span style="font-size: 20px; color: orange;"><?= $messData["name"] ?></span><br>
                             <span style="font-size: 20px">โทรศัพท์: </span>
-                            <span style="font-size: 20px; color: orange;"><?= $messData["tel"]?></span><br>
+                            <span style="font-size: 20px; color: orange;"><?= $messData["tel"] ?></span><br>
 
                         </div>
                         <?php
@@ -250,12 +258,6 @@ $messData = $messengerNameRes->fetch_assoc();
                                             <td style="text-align: center"></td>
                                             <td style="text-align: right"><?= $orderData["total_nofee"] ?></td>
                                         </tr>
-                                        <!--<tr class="warning">
-                                            <td>ส่วนลด10% 1D23A5</td>
-                                            <td style="text-align: center"></td>
-                                            <td style="text-align: center">1</td>
-                                            <td style="text-align: center">-160.00</td>
-                                        </tr>-->
                                         <tr class="warning">
                                             <td>ค่ามัดจำ 20%</td>
                                             <td style="text-align: center"></td>
@@ -266,13 +268,21 @@ $messData = $messengerNameRes->fetch_assoc();
                                             <td>ค่าจัดส่ง</td>
                                             <td style="text-align: center"></td>
                                             <td style="text-align: center"></td>
-                                            <td style="text-align: right"><?= $delifeeData["deliveryfee"] ?></td>
+                                            <td style="text-align: right">
+                                                <?php
+                                                if ($promoRes->num_rows > 0) {
+                                                    echo 'ฟรี';
+                                                } else {
+                                                    echo $delivery;
+                                                }
+                                                ?>
+                                            </td>
                                         </tr>
                                         <tr class="danger">              
                                             <td>ราคาในส่วนที่เหลือ (รวมค่าจัดส่ง)</td>
                                             <td style="text-align: center"></td>
                                             <td style="text-align: center"></td>
-                                            <td style="text-align: right"><?= $orderData["total_nofee"] - $orderDetailData["prepay"] + $delifeeData["deliveryfee"] ?></td>
+                                            <td style="text-align: right"><?= ($orderData["total_nofee"] - $orderData["prepay"]) + $delivery ?></td>
                                         </tr>
                                     </tbody>
                                 </table>   

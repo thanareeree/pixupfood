@@ -26,6 +26,10 @@ $(document).ready(function () {
             $("#updateprobtn").removeAttr("disabled");
         }
     });
-
+    
+    $("#canceleditpro").click(function (e){
+       $("#editprofilemodal").modal("hide");
+       $("#cuseditform").trigger("reset");
+    });
 
 });

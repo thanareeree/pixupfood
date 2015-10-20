@@ -13,11 +13,6 @@ include '../dbconn.php';
 
         <!-- custom css -->
         <link rel="stylesheet" href="/assets/css/res_restaurant_manage.css">
-
-
-
-
-
     </head>
     <body>
         <?php
@@ -104,7 +99,7 @@ include '../dbconn.php';
                                 <li >
                                     <a href="/view/res_manage_edit_payment.php" >วิธีการชำระเงิน</a>
                                 </li>
-                                 <li>
+                                <li>
                                     <a href="/view/res_manage_edit_deliveryplace.php" >พื้นที่จัดส่งสินค้า</a>
                                 </li>
                                 <li>
@@ -131,41 +126,33 @@ include '../dbconn.php';
                                                             <div class="pull-right">
                                                             </div>
                                                         </div>
-                                                        <form id="dataform_add_bankaccount" method="post" >
-                                                            <input type="hidden" id="resIdvalue" name="resIdvalue" value="<?= $resid ?>">
+                                                        <form id="promotion" method="post" action="/restaurant/add-promotion.php">
+                                                            <div class="form-group" style="margin-bottom: 15px;">
+                                                                <label class="col-sm-2 control-label" for="textinput">โปรโมชั่น</label>
+                                                                <div class="col-sm-10" style="margin-bottom: 15px;">
+                                                                    <select class="form-control"id="promotionselect" name="promotionselect" required="">
+                                                                        <option value="0">--ตัวเลือก--</option>
+                                                                        <?php
+                                                                        $promotionRes = $con->query("select * from promotion_main ");
 
-                                                            <div class="form-group" style="margin-bottom: 15px;">
-                                                                <label class="col-sm-2 control-label" for="textinput">ชื่อบัญชี</label>
-                                                                <div class="col-sm-10" style="margin-bottom: 15px;">
-                                                                    <input type="text" placeholder="ชื่อบัญชี" class="form-control" id="accountname" name="accountname" required="">
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group" >
-                                                                <label class="col-sm-2 control-label" for="textinput">เลขที่บัญชี</label>
-                                                                <div class="col-sm-10" style="margin-bottom: 15px;">
-                                                                    <input type="text" placeholder="เลขที่บัญชี xxx-xxxxxx-x" class="form-control" id="accountid" name="accountid" maxlength="10" required="">
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group" style="margin-bottom: 15px;">
-                                                                <label class="col-sm-2 control-label" for="textinput">ธนาคาร</label>
-                                                                <div class="col-sm-10" style="margin-bottom: 15px;">
-                                                                    <select class="form-control"id="bankname" name="bankname" required="">
-                                                                        <option value="ธนาคารไทยพาณิชย์">ธนาคารไทยพาณิชย์</option>
-                                                                        <option value="ธนาคารกสิกรไทย">ธนาคารกสิกรไทย</option>
-                                                                        <option value="ธนาคารกรุงไทย">ธนาคารกรุงไทย</option>
-                                                                        <option value="ธนาคารกรุงเทพ">ธนาคารกรุงเทพ</option>
-                                                                        <option value="ธนาคารกรุงศรีอยุธยา">ธนาคารกรุงศรีอยุธยา</option>
-                                                                        <option value="ธนาคารธนชาต">ธนาคารธนชาต</option>
-                                                                        <option value="ธนาคารทหารไทย">ธนาคารทหารไทย </option>
+                                                                        while ($promotionData = $promotionRes->fetch_assoc()) {
+                                                                            ?>
+                                                                            <option value="<?= $promotionData["id"] ?>"><?= $promotionData["name"] ?> </option>
+                                                                            <?php
+                                                                        }
+                                                                        ?>
 
                                                                     </select>
-
                                                                 </div>
                                                             </div>
                                                             <div class="form-group" >
                                                                 <label class="col-sm-2 control-label" for="textinput">
                                                                     <p style="color:  red;font-size: 20px" id="showerror"></p>
                                                                 </label>
+                                                            </div>
+
+                                                            <div class="col-md-12" id="showdetailpromotion">
+
                                                             </div>
 
                                                             <div class="form-group" >
@@ -189,30 +176,61 @@ include '../dbconn.php';
                                                         <div class="page-header" style="font-size: 25px; margin-top: 5px">
                                                             ข้อมูลโปรโมชั่นร้านทั้งหมด
                                                         </div>
-                                                        <form id="showdata">
-                                                            <?php
-                                                            $bankRes = $con->query("select * from bank_account where restaurant_id = '$resid'");
-                                                            if ($bankRes->num_rows == 0) {
-                                                                ?>
-                                                                <h4 style="    text-align: center;" id="nodata">ยังไม่ได้บัญทึกข้อมูล</h4>
+                                                        <table class="table" id="task-table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>ชื่อโปรโมชั่น</th>
+                                                                    <th>รายละเอียด</th>
+                                                                    <th>ลบ</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
                                                                 <?php
-                                                            } else {
-                                                                while ($bankData = $bankRes->fetch_assoc()) {
+                                                                $res = $con->query("select * from promotion where restaurant_id = '$resid'");
+                                                                if ($res->num_rows == 0) {
                                                                     ?>
-                                                                    &nbsp;   <span style="font-size: 20px">ชื่อบัญชี: </span>
-                                                                    <span style="font-size: 20px; color: orange;"> <?= $bankData["accname"] ?></span><br>
-                                                                    &nbsp;   <span style="font-size: 20px">เลขที่บัญชี:</span>
-                                                                    <span style="font-size: 20px; color: orange;"><?= $bankData["accNo"] ?> </span><br>
-                                                                    &nbsp;   <span style="font-size: 20px">ธนาคาร: </span>
-                                                                    <span style="font-size: 20px; color: orange;"><?= $bankData["bank"] ?></span><br>
-                                                                    <hr>
+                                                                    <tr>
+                                                                        <td colspan="3" class="warning">
+                                                                            <p style="text-align: center;font-size: 20px">ยังไม่มีข้อมูล</p>
+                                                                        </td>
+                                                                    </tr>
                                                                     <?php
+                                                                } else {
+                                                                    while ($data = $res->fetch_assoc()) {
+                                                                        ?>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <?php
+                                                                                $id = $data["promotion_main_id"];
+                                                                                $resName = $con->query("select * from promotion_main where id = '$id'");
+                                                                                while ($dataName = $resName->fetch_assoc()) {
+                                                                                    echo $dataName["name"];
+                                                                                }
+                                                                                ?> 
+                                                                            </td>
+                                                                            <td>
+                                                                                <ul style="list-style: none; padding: 0;">
+                                                                                    <?php
+                                                                                    echo '<li>'. $data["description"] . '</li>';
+                                                                                    echo '<li>เริ่ม:&nbsp;' . $data["start_time"] . '</li>';
+                                                                                      echo '<li>หมดเขต:&nbsp;' . $data["end_time"] . '</li>';
+                                                                                    ?>
+                                                                                </ul>
+                                                                            </td>
+                                                                            <td>
+                                                                                <p class="remove"  data-id="<?= $data["id"] ?>" style="color: red" data-toggle="tooltip" data-placement="top" title="ลบรายการนี้?">
+                                                                                    <i class="glyphicon glyphicon-trash"></i>
+                                                                                </p>
+                                                                            </td>
+
+                                                                        </tr>
+                                                                        <?php
+                                                                    }
                                                                 }
-                                                            }
-                                                            ?>
-                                                        </form>
-                                                        
-                                                        <span id="showinfo">*เพื่อเป็นประโยชน์สำหรับการชำระค่าสินค้า</span>
+                                                                ?>
+                                                            </tbody>
+                                                        </table>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -230,51 +248,7 @@ include '../dbconn.php';
 
     <!-- start footer -->
     <?php include '../template/footer.php'; ?>
-
-
-    <script>
-        $(document).ready(function () {
-            $(".btn-pref .btn").click(function () {
-                $(".btn-pref .btn").removeClass("btn-warning").addClass("btn-default");
-                $(".tab").addClass("active"); // instead of this do the below 
-                $(this).removeClass("btn-default").addClass("btn-warning");
-            });
-
-            $('#imagerest').on('change', function (e) {
-                var filename = $('#imagerest').val();
-                var fname = filename.substring(12);
-                var name = "File: " + fname;
-                $("#uploadtext").html(name);
-                $("#chooseimgbtn").hide();
-                $("#uploadimgbtn").show();
-            });
-
-            $("#dataform_add_bankaccount").on('submit', function (e) {
-                $.ajax({
-                    url: "/restaurant/add-bankaccount.php",
-                    type: "POST",
-                    data: $("#dataform_add_bankaccount").serializeArray(),
-                    dataType: "json",
-                    success: function (data) {
-                        if (data.result == 1) {
-                            $("#dataform_add_bankaccount").trigger("reset");
-                            $("#nodata").hide();
-                            $("#showdata").append('&nbsp;   <span style="font-size: 20px">ชื่อบัญชี: </span>' +
-                                    '<span style="font-size: 20px; color: orange;"> ' + data.accname + '</span><br>' +
-                                    ' &nbsp;   <span style="font-size: 20px">เลขที่บัญชี:</span> ' +
-                                    '<span style="font-size: 20px; color: orange;">' + data.accid + ' </span><br>' +
-                                    '&nbsp;   <span style="font-size: 20px">ธนาคาร: </span>' +
-                                    ' <span style="font-size: 20px; color: orange;">' + data.bankname + '</span><br><hr>');
-                        } else {
-                            $("#showerror").html(data.error);
-                        }
-                    }
-                });
-                e.preventDefault();
-                return false;
-            });
-        });
-    </script>
+    <script src="/assets/js/restaurant_promotion.js"></script>
 
 </body>
 </html>

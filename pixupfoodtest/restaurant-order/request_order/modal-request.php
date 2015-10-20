@@ -35,6 +35,14 @@ $slip1Data = $slip_pathRes->fetch_assoc();
 
 $slip2res = $con->query("SELECT * FROM `transfer` WHERE order_id = '$order_id' AND type = 'n2'");
 $slip2Data = $slip2res->fetch_assoc();
+
+
+$promoRes = $con->query("SELECT * FROM `promotion_use` WHERE order_id = '$order_id' and order_type = 'n'");
+if ($promoRes->num_rows > 0) {
+    $delivery = 0;
+} else {
+    $delivery = $delifeeData["deliveryfee"];
+}
 ?>
 
 <div class="modal-body">
@@ -223,29 +231,31 @@ $slip2Data = $slip2res->fetch_assoc();
                                             <td style="text-align: center"></td>
                                             <td style="text-align: right"><?= $orderData["total_nofee"] ?></td>
                                         </tr>
-                                        <!--<tr class="warning">
-                                            <td>ส่วนลด10% 1D23A5</td>
-                                            <td style="text-align: center"></td>
-                                            <td style="text-align: center">1</td>
-                                            <td style="text-align: center">-160.00</td>
-                                        </tr>-->
                                         <tr class="warning">
                                             <td>ค่ามัดจำ 20%</td>
                                             <td style="text-align: center"></td>
                                             <td style="text-align: center"></td>
                                             <td style="text-align: right"><?= $orderData["prepay"] ?></td>
                                         </tr>
-                                        <tr>    
+                                         <tr>    
                                             <td>ค่าจัดส่ง</td>
                                             <td style="text-align: center"></td>
                                             <td style="text-align: center"></td>
-                                            <td style="text-align: right"><?= $delifeeData["deliveryfee"] ?></td>
+                                            <td style="text-align: right">
+                                                <?php
+                                                if ($promoRes->num_rows > 0) {
+                                                    echo 'ฟรี';
+                                                } else {
+                                                    echo $delivery;
+                                                }
+                                                ?>
+                                            </td>
                                         </tr>
                                         <tr class="danger">              
                                             <td>ราคาในส่วนที่เหลือ (รวมค่าจัดส่ง)</td>
                                             <td style="text-align: center"></td>
                                             <td style="text-align: center"></td>
-                                            <td style="text-align: right"><?= $orderData["total_nofee"] - $orderDetailData["prepay"] + $delifeeData["deliveryfee"] ?></td>
+                                            <td style="text-align: right"><?= ($orderData["total_nofee"] - $orderData["prepay"]) + $delivery ?></td>
                                         </tr>
                                     </tbody>
                                 </table>   

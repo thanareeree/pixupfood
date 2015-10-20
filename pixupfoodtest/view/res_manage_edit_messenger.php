@@ -114,6 +114,9 @@ include '../dbconn.php';
                                 <li class="active">
                                     <a href="/view/res_manage_edit_messenger.php" > พนักงานจัดส่ง</a>
                                 </li>
+                                  <li >
+                                    <a href="/view/res_manage_edit_promotion.php" >โปรโมชั่น</a>
+                                </li>
                             </ul>
 
                             <div class="tab-content">
@@ -133,27 +136,27 @@ include '../dbconn.php';
                                                         </div>
                                                         <form action="/restaurant/add-messenger.php" method="post">
                                                             <div class="form-group" style="margin-bottom: 15px;">
-                                                                <label class="col-sm-2 control-label" for="textinput">ชื่อผู้ใช้</label>
+                                                                <label class="col-sm-2 control-label" for="textinput">ชื่อผู้ใช้ *,**</label>
                                                                 <div class="col-sm-10" style="margin-bottom: 15px;">
                                                                     <input type="text" placeholder="ชื่อผู้ใช้" class="form-control" name="username">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 15px;">
-                                                                <label class="col-sm-2 control-label" for="textinput">รหัสผ่าน</label>
+                                                                <label class="col-sm-2 control-label" for="textinput">รหัสผ่าน *</label>
                                                                 <div class="col-sm-10" style="margin-bottom: 15px;">
-                                                                    <input type="password" placeholder="********" class="form-control" name="password">
+                                                                    <input type="password" placeholder="กรุณาใส่ตัวเลข 6-8 หลัก" class="form-control" name="password">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 15px;">
-                                                                <label class="col-sm-2 control-label" for="textinput">ชื่อ-นามสกุล</label>
+                                                                <label class="col-sm-2 control-label" for="textinput">ชื่อ-นามสกุล *</label>
                                                                 <div class="col-sm-10" style="margin-bottom: 15px;">
-                                                                    <input type="text" placeholder="ชื่อ-นามสกุล" class="form-control" name="name">
+                                                                    <input type="text" placeholder="กรุณาระบุชื่อ-นามสกุล ตัวอย่าง สมชาย ขายอาหาร" class="form-control" name="name">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 15px;">
-                                                                <label class="col-sm-2 control-label" for="textinput">หมายเลขโทรศัพท์</label>
+                                                                <label class="col-sm-2 control-label" for="textinput">หมายเลขโทรศัพท์ *</label>
                                                                 <div class="col-sm-10" style="margin-bottom: 15px;">
-                                                                    <input type="text" placeholder="หมายเลขโทรศัพท์" class="form-control" name="tel">
+                                                                    <input type="text" placeholder="กรุณาระบุหมายเลขโทรศัพท์" class="form-control" name="tel">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group" >
@@ -161,9 +164,9 @@ include '../dbconn.php';
                                                                     <button class="btn btn-success" id="savebtn" type="submit" style="    margin-left: 260px;">บันทึก</button>
                                                                 </span>
                                                             </div><hr>
-                                                            <p>*ข้อมูลนี้จำเป็นเพราะจะต้องนำไปเป็น username ในการเข้าสู่ระบบตอนพนักงานนำสินค้าไปส่งลูกค้า </p><br>
-                                                            <p>การใช้ Username ของพนักงานจัดส่ง คือ หมายเลขร้าน ตามด้วยชื่อ  </p><br>
-                                                            <p>ตัวอย่าง Username คือ 12Somchai และ Password คือ เบอร์โทศัพท์ของพนักงานจัดส่ง </p>
+                                                            <p style="color: red">* จำเป็นต้องระบุข้อมูลในช่องนั้นๆ </p><br>
+                                                            <p>** ชื่อผู้ใช้จะถูกกำหนดด้วยหมายเลขร้านค้านำหน้าชื่อผู้ใช้ที่ตั้งเสมอ เช่น ตั้งชื่อผู้ใช้ว่า "somchai" และหมายเลขร้านค้าคือ 999</p><br>
+                                                            <p>&nbsp;&nbsp;&nbsp;&nbsp;จะได้ชื่อผู้ใช้คือ "999somchai" </p>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -174,14 +177,12 @@ include '../dbconn.php';
 
                                                         </div>
 
-
                                                         <table class="table" id="task-table">
                                                             <thead>
                                                                 <tr>
                                                                     <th>ชื่อผู้ใช้</th>
                                                                     <th>รายละเอียด</th>
                                                                     <th>ลบ</th>
-
                                                                 </tr>
                                                             </thead>
                                                             <tbody>

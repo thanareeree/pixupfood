@@ -13,10 +13,18 @@ $resNameRes = $con->query("select  deliveryfee"
         . " where id = '$resid'");
 $resNameData = $resNameRes->fetch_assoc();
 
-
+$promoRes = $con->query("select * from promotion "
+        . "LEFT JOIN promotion_main ON promotion_main.id = promotion.promotion_main_id "
+        . "where restaurant_id = '$resid' "
+        . "and end_time >= date(now()) and start_time <= date(now()) and promotion_main.id = 1");
+if ($promoRes->num_rows > 0) {
+    $delivery = 0;
+} else {
+    $delivery = $resNameData["deliveryfee"];
+}
 
 $totalprice = 0;
-$delivery = $resNameData["deliveryfee"];
+
 $sumprice = 0;
 $prepay = 0;
 $diffprice = 0;
@@ -64,9 +72,9 @@ if ($orderDetailRes->num_rows == 0) {
                   }
                   } */
                 ?> 
-            <tr>
+                <tr>
                     <td>
-                        <p class="remove_cart"  id="remove_cart<?= $orderDetailData["id"]?>" style="color: red" data-toggle="tooltip" data-placement="top" title="ลบรายการอาหารนี้?">
+                        <p class="remove_cart"  id="remove_cart<?= $orderDetailData["id"] ?>" style="color: red" data-toggle="tooltip" data-placement="top" title="ลบรายการอาหารนี้?">
                             <i class="glyphicon glyphicon-remove-sign"></i>
                         </p>
                     </td>
@@ -83,7 +91,7 @@ if ($orderDetailRes->num_rows == 0) {
 
                             while ($dataName = $resName->fetch_assoc()) {
 
-                                echo '<li>' . $dataName["name"] .'</li>';
+                                echo '<li>' . $dataName["name"] . '</li>';
                             }
                             ?>
                         </ul>
@@ -93,7 +101,7 @@ if ($orderDetailRes->num_rows == 0) {
                             <input type="number" id="qty<?= $orderDetailData["id"] ?>" class="qty form-control"  value="<?= $orderDetailData["quantity"] ?>" style="width: 60px">
                         </div>
                     </td> 
-                    <td><?= $orderDetailData["price"]  * $orderDetailData["quantity"] ?>&nbsp;บาท</td>
+                    <td><?= $orderDetailData["price"] * $orderDetailData["quantity"] ?>&nbsp;บาท</td>
 
                 </tr>
             <?php } ?>
@@ -119,26 +127,33 @@ if ($orderDetailRes->num_rows == 0) {
             </tr>
             <tr>
                 <td>ค่ามัดจำ 20%: </td>
-                <td style="color: #FF9900" ><?= $prepay = 0.2 * $totalprice?>
-                    <input type="hidden" id="showprepay" value="<?= $prepay = 0.2 * $totalprice?>"> 
+                <td style="color: #FF9900" ><?= $prepay = 0.2 * $totalprice ?>
+                    <input type="hidden" id="showprepay" value="<?= $prepay = 0.2 * $totalprice ?>"> 
                 </td>
                 <td>บาท</td>
             </tr>
             <tr>
                 <td>ค่าจัดส่ง: </td>
-                <td style="color: #FF9900" ><?= $delivery?>
-                    <input type="hidden" id="deliveryfee" value="<?= $delivery?>">
+                <td style="color: #FF9900" >
+                    <?php
+                    if ($promoRes->num_rows > 0) {
+                        echo 'ฟรี';
+                    } else {
+                        echo  $delivery;
+                    }
+                    ?>
+                    <input type="hidden" id="deliveryfee" value="<?= $delivery ?>">
                 </td>
                 <td>บาท</td>
             </tr>
-             <tr>
+            <tr>
                 <td style="color: red" >ราคาส่วนที่เหลือ*</td>
                 <td style="color: #FF9900" ><?= ($totalprice - $prepay) + $delivery ?>
                     <input type="hidden"id="sumprice" value="<?= ($totalprice - $prepay) + $delivery ?>">
                 </td>
                 <td>บาท</td>
             </tr>
-           
+
 
         </tbody>
     </table>

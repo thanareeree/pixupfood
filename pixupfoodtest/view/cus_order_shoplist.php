@@ -22,7 +22,7 @@ include '../api/islogin.php';
                 max-width: 100%;
                 height: 100px;
             }
-              #showcalendar a span {
+            #showcalendar a span {
                 color: #ffffff;
                 font-size: 12.5px;
             }
@@ -100,7 +100,7 @@ include '../api/islogin.php';
                                     . "WHERE delivery_place.restaurant_id = '$resid'");
                             $place = "";
                             $i = 0;
-                            if($placeRes->num_rows ==0) {
+                            if ($placeRes->num_rows == 0) {
                                 echo 'ทุกพื้นที่';
                             } else {
                                 while ($placeData = $placeRes->fetch_assoc()) {
@@ -261,7 +261,7 @@ include '../api/islogin.php';
                                             </div>
                                             <ul class="list-inline pull-right"  style="margin-top: 20px">
                                                 <li>
-                                                    <button type="button" class="btn btn-warning next-step " id="nextstep4" <?=( $resNameData["close"]== "0") ? "":" disabled"?>>
+                                                    <button type="button" class="btn btn-warning next-step " id="nextstep4" <?= ( $resNameData["close"] == "0") ? "" : " disabled" ?>>
                                                         ดำเนินการต่อ 
                                                         <span class="glyphicon glyphicon glyphicon-chevron-right"></span>
                                                     </button>
@@ -270,7 +270,7 @@ include '../api/islogin.php';
                                             <ul class="list-inline"  style="margin-top: 20px">
                                                 <li>
                                                     <a href="/view/cus_restaurant_view.php?resId=<?= $resid ?>">
-                                                        <button type="button" class="btn btn-danger " id="addNewOrder" <?=( $resNameData["close"]== "0") ? "":" data-toggle=\"tooltip\" "?>  class="tooltip-r" data-placement="top" title="วันนี้ร้านปิดรับออเดอร์ชั่วคราว สามารถเพิ่มรายการอาหารเก็บไว้ในตะกร้าได้"> 
+                                                        <button type="button" class="btn btn-danger " id="addNewOrder" <?= ( $resNameData["close"] == "0") ? "" : " data-toggle=\"tooltip\" " ?>  class="tooltip-r" data-placement="top" title="วันนี้ร้านปิดรับออเดอร์ชั่วคราว สามารถเพิ่มรายการอาหารเก็บไว้ในตะกร้าได้"> 
                                                             <span class=" glyphicon glyphicon-plus-sign"></span>&nbsp;สั่งซื้อต่อไป
                                                         </button>
                                                     </a>
@@ -342,16 +342,35 @@ include '../api/islogin.php';
                                                     while ($paymentData = $paymentRes->fetch_assoc()) {
                                                         ?>
                                                         <div class="input-group col-md-12" style="margin: 10px 120px;"  >
-                                                            <input type="radio"  name="paymentData" value="<?= $paymentData["id"] ?>"><?= $paymentData["description"] ?>
+                                                            <input type="radio"  name="paymentData" value="<?= $paymentData["id"] ?>"><?= $paymentData["description"] ?>*
                                                         </div>
                                                     <?php } ?>
+                                                    <hr><h4>โปรโมชั่นร้านตอนนี้</h4>
+                                                    <?php
+                                                    $res = $con->query("select * from promotion "
+                                                            . "LEFT JOIN promotion_main ON promotion_main.id = promotion.promotion_main_id "
+                                                            . "where restaurant_id = '$resid' and end_time >= date(now()) and start_time <= date(now()) "
+                                                            . "order by created_time DESC");
+                                                    
+                                                    while ($data = $res->fetch_assoc()) {
+                                                        ?>
+                                                        <div class="alert alert-info" role="alert">
+                                                            <p style="font-size: 14px;"><b><?= $data["name"] ?>:</b>&nbsp;<?= $data["description"] ?></p>
+                                                            <p style="font-size: 14px;">
+                                                                <b>เริ่ม:</b>&nbsp;<?= $data["start_time"] ?>&nbsp;&nbsp;
+                                                                <b>หมดเขต:</b>&nbsp;<?= $data["end_time"] ?>
+                                                            </p>
+                                                        </div>
+                                                    <?php } ?>
+
                                                     <hr>
-                                                    <div >
+                                                    <div>
+                                                        <p style="color: red">*เรียกเก็บค่ามัดจำ 20% และต้องชำระค่ามัดจำภายใน 4 ชั่วโมงหลังจากร้านตอบรับรายการ</p>
                                                         *สามารถโอนเงินผ่านบัญชีธนาคาร&nbsp;&nbsp;<br>
                                                         <?php
                                                         while ($bankData = $bankRes->fetch_assoc()) {
                                                             ?>
-                                                            <p>ชื่อบัญชี: &nbsp;<?= $bankData["accname"] ?>&nbsp;เลขที่บัญชี &nbsp;<?= $bankData["accNo"] ?>&nbsp;<?= $bankData["bank"] ?></p>
+                                                            ชื่อบัญชี: &nbsp;<?= $bankData["accname"] ?>&nbsp;เลขที่บัญชี &nbsp;<?= $bankData["accNo"] ?>&nbsp;<?= $bankData["bank"] ?><br>
 
                                                         <?php } ?>
 

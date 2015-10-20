@@ -179,8 +179,8 @@ include '../dbconn.php';
                                                         </span>
                                                     </a>
                                                     <span class="pull-right">
-                                                        <button class="btn"  id="lovelove"><i class="glyphicon glyphicon-heart" style="color: red;"></i>&nbsp;<span style="color: black;"> ชื่นชอบ</span></button>
-                                                        <button class="btn btn-danger"  id="lovelove2" style="display: none;"><i class="glyphicon glyphicon-heart"></i>&nbsp; ชื่นชอบ</button>
+                                                        <button class="btn fav"  ><i class="glyphicon glyphicon-heart" style="color: red;"></i>&nbsp;<span style="color: black;"> ชื่นชอบ</span></button>
+                                                        <button class="btn btn-danger faved"  id="lovelove2" style="display: none;"><i class="glyphicon glyphicon-heart"></i>&nbsp; ชื่นชอบ</button>
                                                     </span>
                                                 </td>
                                             </tr>

@@ -110,6 +110,9 @@ include '../dbconn.php';
                                 <li>
                                     <a href="/view/res_manage_edit_messenger.php" > พนักงานจัดส่ง</a>
                                 </li>
+                                 <li >
+                                    <a href="/view/res_manage_edit_promotion.php" >โปรโมชั่น</a>
+                                </li>
                             </ul>
 
                             <div class="tab-content">

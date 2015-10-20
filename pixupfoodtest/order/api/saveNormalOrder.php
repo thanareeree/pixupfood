@@ -27,6 +27,12 @@ while ($orderDetailData = $orderDetailRes->fetch_assoc()) {
     $total_nofee += $orderDetailData["price"] * $orderDetailData["quantity"];
 }
 
+$promoRes = $con->query("select * from promotion "
+        . "LEFT JOIN promotion_main ON promotion_main.id = promotion.promotion_main_id "
+        . "where restaurant_id = '$resid' "
+        . "and end_time >= date(now()) and start_time <= date(now()) and promotion_main.id = 1");
+
+
 $prepay = $total_nofee * 0.2;
 $status = "1";
 $coin = round($total_nofee / 500);
@@ -48,6 +54,12 @@ if (isset($_SESSION["islogin"])) {
         $con->query("UPDATE `order_detail` "
                 . "SET `status`= '1',`order_id`= '$orderid' "
                 . "WHERE customer_id = '$cusid' and restaurant_id ='$resid' and status = '0' ");
+
+        if ($promoRes->num_rows > 0) {
+              $con->query("INSERT INTO `promotion_use`(`order_id`, `promotion_id`, `used_timed`, `order_type`)"
+                      . " VALUES ('$orderid','1',now(),'n')");
+        }
+
         if ($con->error == "") {
             echo 'เรียบบบบบบบบบบบบบบบบบบบบบบบบ ร้องไห้ TT';
         } else {
