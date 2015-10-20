@@ -88,7 +88,7 @@ include '../dbconn.php';
 
                                     <?php
                                     $result = $con->query("SELECT `id`, `type`, `address_naming`, `full_address` FROM `shippingAddress` WHERE customer_id = '$cusid'");
-                                    $i = 2;
+                                    $i = 1;
                                     ?>
                                     <div class="row">
                                         <div class="col-md-12">
@@ -111,12 +111,12 @@ include '../dbconn.php';
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody class="table table-condensed table-hover">
-                                                                        <tr>
+                                                                        <!--<tr>
                                                                             <td>1</td>
                                                                             <td><?= $data2['address'] ?></td>                       
                                                                             <td><button class="btn btn-success btn-xs" disabled="disabled"><span class="glyphicon glyphicon-check"></span> แก้ไข</button></td>
                                                                             <td><button class="btn btn-danger btn-xs" disabled="disabled"><span class="glyphicon glyphicon-trash"></span> ลบ</button></td>
-                                                                        </tr>
+                                                                        </tr>-->
                                                                         <?php while ($data4 = $result->fetch_assoc()) { ?>
                                                                             <tr>
                                                                                 <td><?= $i++; ?></td>
@@ -155,15 +155,15 @@ include '../dbconn.php';
                                         <form action="/customer/edit-shipping-address.php?id=<?= $cusid ?>" method="post">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="mdrecl" name="mdrecl"><span aria-hidden="true">&times;</span></button>
-                                                <h3 class="modal-title" id="shipping_address">เปลี่ยนแปลงข้อมูลที่จัดส่งสินค้า<span id="showadd_id"></span></h3>
+                                                <h3 class="modal-title" id="shipping_address">เปลี่ยนแปลงข้อมูลที่จัดส่งสินค้า<span id="showadd_id" style="display: none"></span></h3>
                                             </div>
                                             <div id="formeditaddrsss">
 
                                             </div>
                                             <div class="modal-footer">
                                                 <div>
-                                                    <input type="reset" class="btn btn-warning col-sm-3" name="resetbtn" value="Reset" >
-                                                    <input type="submit" class="btn btn-primary col-sm-3" name="updateaddbtn"  value="Update" >
+                                                    <input type="button" class="btn btn-warning col-sm-3" style="margin-left: 270px" name="resetbtn" data-dismiss="modal" value="ยกเเลิก" >
+                                                    <input type="submit" class="btn btn-success col-sm-3" name="updateaddbtn"  value="ตกลง" >
                                                 </div>
                                             </div> 
                                         </form>
@@ -179,14 +179,14 @@ include '../dbconn.php';
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-                                            <h3 class="modal-title custom_align" id="Heading">ลบข้อมูลที่จัดส่ง<span id="showadddel_id" ></span></h3>
+                                            <h3 class="modal-title custom_align" id="Heading">ลบข้อมูลที่จัดส่ง<span id="showadddel_id" style="display: none" ></span></h3>
                                         </div>
                                         <div class="modal-body">
                                             <div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> คุณต้องการลบข้อมูลที่จัดส่งนี้ ?</div>
                                         </div>
                                         <div class="modal-footer ">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> No</button>
-                                            <button type="submit" class="btn btn-success" id="deleteaddyes"><span class="glyphicon glyphicon-ok-sign"></span> Yes</button>
+                                            <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> ยกเลิก</button>
+                                            <button type="submit" class="btn btn-success" id="deleteaddyes"><span class="glyphicon glyphicon-ok-sign"></span> ตกลง</button>
                                         </div>
                                     </div>
                                     <!-- /.modal-content --> 

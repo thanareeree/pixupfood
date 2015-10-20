@@ -151,7 +151,7 @@ function fetchdataShowNowOrder() {
             $("#showdataNowNormalOrder").html(returndata);
         }
     });
-    //setTimeout(fetchdataShowNowOrder, 1000);
+    setTimeout(fetchdataShowNowOrder, 10000);
 }
 
 function fetchdataShowFastNowOrder() {
@@ -165,5 +165,5 @@ function fetchdataShowFastNowOrder() {
            
         }
     });
-    //setTimeout(fetchdataShowFastNowOrder, 1000);
+    setTimeout(fetchdataShowFastNowOrder, 10000);
 }
