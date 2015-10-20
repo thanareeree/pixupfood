@@ -111,7 +111,8 @@ foreach ($restok as $key => $rest) {
         }
     }
     $totalfoodprice = $foodprice * $amtbox;
-    $sumprice = $totalfoodprice + $deliveryprice;
+    $prepay = $totalfoodprice * 0.2;
+    $sumprice = ($totalfoodprice - $prepay) + $deliveryprice;
     ?>
     <div class="col-md-4">
         <h2><?= $rest["name"] ?></h2>
@@ -138,8 +139,25 @@ foreach ($restok as $key => $rest) {
                     <td><?= $amtbox ?> กล่อง</td>
                 </tr>
                 <tr>
+                    <td>ราคา/หน่วย: </td>
+                    <td>
+                        <?php
+                        foreach ($rest["food"] as $key => $food) {
+                            $price = $food["price"];
+                            echo $price;
+                        }
+                        ?>
+                    </td>
+                    <td>บาท</td>
+                </tr>
+                <tr>
                     <td>ราคา: </td>
                     <td><?= $totalfoodprice ?></td>
+                    <td>บาท</td>
+                </tr>
+                <tr>
+                    <td>ค่ามัดจำ 20%: </td>
+                    <td><?= $prepay ?></td>
                     <td>บาท</td>
                 </tr>
                 <tr>
@@ -147,8 +165,8 @@ foreach ($restok as $key => $rest) {
                     <td><?= $deliveryprice ?></td>
                     <td>บาท</td>
                 </tr>
-                <tr>
-                    <td>ราคารวม: </td>
+                <tr class="danger">
+                    <td>ราคาในส่วนที่เหลือ: </td>
                     <td><?= $sumprice ?></td>
                     <td>บาท</td>
                 </tr>
@@ -160,11 +178,17 @@ foreach ($restok as $key => $rest) {
 
 function getDeliveryByRestId($rest_id, $con) {
     $res = $con->query("SELECT * FROM mapping_delivery_type WHERE restaurant_id = '$rest_id'");
-    if ($res->num_rows > 0) {
-        $data = $res->fetch_assoc();
-        return $data["deliveryfee"];
+    $data = $res->fetch_assoc();
+    $promoRes = $con->query("select * from promotion "
+            . "LEFT JOIN promotion_main ON promotion_main.id = promotion.promotion_main_id "
+            . "where restaurant_id = '$rest_id' "
+            . "and end_time >= date(now()) and start_time <= date(now()) and promotion_main.id = 1");
+    if ($promoRes->num_rows > 0) {
+        $delivery = "ฟรี";
+        return $delivery;
     } else {
-        return "0";
+        $delivery = $data["deliveryfee"];
+        return $delivery;
     }
 }
 

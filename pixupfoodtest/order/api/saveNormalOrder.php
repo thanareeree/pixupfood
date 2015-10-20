@@ -56,8 +56,8 @@ if (isset($_SESSION["islogin"])) {
                 . "WHERE customer_id = '$cusid' and restaurant_id ='$resid' and status = '0' ");
 
         if ($promoRes->num_rows > 0) {
-              $con->query("INSERT INTO `promotion_use`(`order_id`, `promotion_id`, `used_timed`, `order_type`)"
-                      . " VALUES ('$orderid','1',now(),'n')");
+              $con->query("INSERT INTO `promotion_use`(`id`, `order_id`, `promotion_id`, `used_timed`, `order_type`)"
+                      . " VALUES (null,'$orderid','1',now(),'n')");
         }
 
         if ($con->error == "") {
