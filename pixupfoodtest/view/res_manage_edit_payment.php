@@ -248,10 +248,10 @@ include '../dbconn.php';
                                                             ข้อมูลบัญชีธนาคาร
                                                             <div class="pull-right">
                                                                 <p class="text-center">
-                                                                    <a  href="#" id="editbtn">
+                                                                    <!--<a  href="#" id="editbtn">
                                                                         <span class="glyphicon glyphicon-pencil"style="font-size: 20px; color: orange"></span> 
                                                                         <span style="font-size: 20px; color: orange">แก้ไข</span>
-                                                                    </a>
+                                                                    </a>-->
                                                                 </p>
                                                             </div>
                                                         </div>

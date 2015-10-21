@@ -42,7 +42,7 @@ include '../api/islogin.php';
                 . "JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
                 . "WHERE menu.id = '$orderMenu_id'");
         $menusetData = $menusetRes->fetch_assoc();
-       // print_r($menusetData);
+        // print_r($menusetData);
 
         $cusid = $_SESSION["userdata"]["id"];
         $customerRes = $con->query("select customer.id, customer.firstName, customer.lastName,"
@@ -292,7 +292,7 @@ include '../api/islogin.php';
                                                         <div id="addMenuSuccess" style="background-color:rgba(255,255,255,0.6); text-align: center; position: absolute; left:0; top:0; width:100%; height:100%;">
                                                             <h1 style="font-size:100px; margin-top:150px;"><span class="glyphicon glyphicon-ok-circle"></span></h1>
                                                             <h2>บันทึกรายการอาหารเรียบร้อยเเล้ว</h2>
-                                                            <button type="button" class="btn btn-danger " id="addNewOrder" <?=( $resNameData["close"]== "0") ? "":" data-toggle=\"tooltip\" "?>  class="tooltip-r" data-placement="top" title="วันนี้ร้านปิดรับออเดอร์ชั่วคราว สามารถเพิ่มรายการอาหารเก็บไว้ในตะกร้าได้" > <span class=" glyphicon glyphicon-plus-sign"></span>&nbsp;สั่งซื้อต่อไป</button>
+                                                            <button type="button" class="btn btn-danger " id="addNewOrder" <?= ( $resNameData["close"] == "0") ? "" : " data-toggle=\"tooltip\" " ?>  class="tooltip-r" data-placement="top" title="วันนี้ร้านปิดรับออเดอร์ชั่วคราว สามารถเพิ่มรายการอาหารเก็บไว้ในตะกร้าได้" > <span class=" glyphicon glyphicon-plus-sign"></span>&nbsp;สั่งซื้อต่อไป</button>
                                                         </div>
                                                     </div>
                                                     <div id="errorStep3" style="    margin-top: 20px;"></div>
@@ -495,10 +495,12 @@ include '../api/islogin.php';
                     <div class="col-md-4">
                         <div class="card" id="showcalendar">
                             <div class="card-content">
+                                <div class="page-header" style="color: #FF9900 ; font-size: 26px">
+                                    รับรายการสั่งซื้อได้สูงสุด &nbsp;<?= $resNameData["amount_box_limit"] ?>&nbsp;ชุด/วัน
+                                </div>
                                 <div class="calendar" style="color: #FF9900"></div>
                             </div>  
-                        </div>
-                        <br>
+                        </div><br>
 
                         <div class="card" id="orderdetail">
                             <div class="card-content">

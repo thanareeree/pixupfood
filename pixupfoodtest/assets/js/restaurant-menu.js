@@ -103,6 +103,13 @@ $(document).ready(function () {
                             '<p style="color: red"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
                             '&nbsp;ร้านของท่านมีเมนูอาหารนี้เเล้ว กรุณาเลือกรายการใหม่อีกครั้ง</p></div>');
                     $("#addMenuRes").trigger("reset");
+                }else if (data.result == 3) {
+                     $("#duplicateMenu").html("");
+                    $("#addMenuRes").trigger("reset");
+                    $("#duplicateMenu").html(' <div class="alert alert-danger" role="alert" style="margin-top:25px;margin-right: 165px;">' +
+                            '<p style="color: red"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
+                            '&nbsp;'+data.reason+'</p></div>');
+                    $("#addMenuRes").trigger("reset");
                 }else{
                     $("#duplicateMenu").html(' <div class="alert alert-danger" role="alert" style="margin-top:25px;margin-right: 165px;">' +
                             '<p style="color: red"><i class="glyphicon glyphicon-exclamation-sign"></i>' +

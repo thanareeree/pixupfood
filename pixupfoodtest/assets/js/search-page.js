@@ -35,6 +35,52 @@ $(document).ready(function () {
                 $("#showsearchtext").html(searchtxt);
                 $("#result").html(data);
                 $('[data-toggle="tooltip"]').tooltip();
+                $(".favmenu").on("click", function (e) {
+                    var elem_span = $(this).find('span');
+                    var elem_i = $(this).find('i');
+                    var menuid = $(elem_i).attr("data-menuid");
+                    var favid = $(elem_i).attr("data-favid");
+                    if (favid == "") {
+                        $.ajax({
+                            url: "/customer/favorite.php?menuid=" + menuid,
+                            type: "GET",
+                            dataType: "json",
+                            success: function (data) {
+                                if (data.result == "1") {
+                                    $(elem_span).removeClass("unfav");
+                                    $(elem_i).removeClass("unfav");
+                                    $(elem_span).addClass("faved");
+                                    $(elem_i).addClass("faved");
+                                    $(elem_i).attr("data-favid", data.favid);
+                                    console.log(menuid);
+                                } else {
+
+
+                                }
+                            }
+                        });
+                    } else {
+                        $.ajax({
+                            url: "/customer/unfavorite.php?favid=" + favid,
+                            type: "GET",
+                            dataType: "json",
+                            success: function (data) {
+                                if (data.result == "1") {
+                                    $(elem_span).removeClass("faved");
+                                    $(elem_i).removeClass("faved");
+                                    $(elem_span).addClass("unfav");
+                                    $(elem_i).addClass("unfav");
+                                    $(elem_i).attr("data-favid", "");
+                                    console.log(menuid);
+                                } else {
+                                    alert(data.error);
+                                }
+
+                            }
+                        });
+                    }
+
+                });
             }
         });
     });
@@ -49,7 +95,7 @@ $(document).ready(function () {
             success: function (data, textStatus, jqXHR) {
                 $("#result").html(data);
                 $('[data-toggle="tooltip"]').tooltip();
-                
+
             }
         });
     });
@@ -72,7 +118,7 @@ $(document).ready(function () {
                         $(elem_i).attr("data-favid", data.favid);
                         console.log(menuid);
                     } else {
-                        
+
 
                     }
                 }

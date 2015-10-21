@@ -90,74 +90,41 @@ include '../dbconn.php';
                                                 รายการทั้งหมด 
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-6">
-                                                    <ul class="media-list main-list">
-                                                        <li class="media">
-                                                            <a class="pull-left" href="#">
-                                                                <img class="media-object" src="/assets/images/profile/fav list/ข้าวผัดกุ้ง.jpg" width="150px" >
-                                                            </a>
-                                                            <div class="media-body">
-                                                                <h3 class="media-heading">ข้าวผัดกุ้ง</h3>
-                                                                <p class="by-author">ร้านเจ๊พร</p>
-                                                                <p><button class="btn btn-danger btn-xs" data-toggle="modal" data-target='#delfav' href="#delfav"><span class="glyphicon glyphicon-trash"></span> ลบออกจากรายการโปรด</button></p>
+                                                <?php
+                                                $countRes = $con->query("SELECT * FROM `favorite_menu` WHERE customer_id = '$cusid'");
+
+                                                if ($countRes->num_rows == 0) {
+                                                    echo ' <li class="media">' . 'ยังไม่มีรายการ';
+                                                } else {
+                                                    while ($favData = $countRes->fetch_assoc()) {
+                                                        $menuid = $favData["menu_id"];
+                                                        $menuRes = $con->query("SELECT restaurant.name, menu.img_path, main_menu.img_path as main_img, "
+                                                                . "menu.id, restaurant.id as resid, main_menu.name as menuname "
+                                                                . "FROM `menu` "
+                                                                . "LEFT JOIN main_menu ON menu.main_menu_id = main_menu.id "
+                                                                . "LEFT JOIN restaurant ON restaurant.id = menu.restaurant_id "
+                                                                . "WHERE menu.id = '$menuid'");
+                                                        while ($menuData = $menuRes->fetch_assoc()) {
+                                                            ?>
+                                                            <div class="col-md-6">
+                                                                <ul class="media-list main-list">
+
+                                                                    <li class="media">
+                                                                        <a class="pull-left" href="/view/cus_restaurant_view.php?menuId=<?= $menuData["id"]?>&resId=<?= $menuData["resid"] ?>">
+                                                                            <img class="media-object" src="<?= ($menuData["img_path"]=="")? $menuData["main_img"]:$menuData["img_path"]?>" style="max-width: 160px;max-height: 100px">
+                                                                        </a>
+                                                                        <div class="media-body">
+                                                                            <h3 class="media-heading"><?= $menuData["menuname"] ?></h3>
+                                                                            <p class="by-author"><?= $menuData["name"] ?></p>
+                                                                            <p><button type="button" class="btn btn-danger btn-xs unfav" data-id="<?=$favData["id"] ?>"><span class="glyphicon glyphicon-trash"></span> ลบออกจากรายการโปรด</button></p>
+                                                                        </div>
+                                                                    </li><hr>
+                                                                </ul>
                                                             </div>
-                                                        </li><hr>
-                                                        <li class="media">
-                                                            <a class="pull-left" href="#">
-                                                                <img class="media-object" src="/assets/images/profile/fav list/ข้าวกระเพราไก่ไข่ดาว.jpg" width="150px">
-                                                            </a>
-                                                            <div class="media-body">
-                                                                <h4 class="media-heading">ข้าวผัดกระเพราไก่+ไข่ดาว</h4>
-                                                                <p class="by-author">ร้านโฮมเรส</p>
-                                                                <p><button class="btn btn-danger btn-xs" data-toggle="modal" data-target='#delfav' href="#delfav"><span class="glyphicon glyphicon-trash"></span> ลบออกจากรายการโปรด</button></p>
-                                                            </div>
-                                                        </li><hr>
-                                                        <li class="media">
-                                                            <a class="pull-left" href="#">
-                                                                <img class="media-object" src="/assets/images/profile/fav list/ข้าวปลาหมึกผัดพริก+ไข่ดาว.jpg" width="150px">
-                                                            </a>
-                                                            <div class="media-body">
-                                                                <h4 class="media-heading">ข้าวปลาหมึกผัดพริก+ไข่ดาว</h4>
-                                                                <p class="by-author">ร้านรสเด็ด ตลาดกลางเมือง</p>
-                                                                <p><button class="btn btn-danger btn-xs" data-toggle="modal" data-target='#delfav' href="#delfav"><span class="glyphicon glyphicon-trash"></span> ลบออกจากรายการโปรด</button></p>
-                                                            </div>
-                                                        </li><hr>
-                                                    </ul>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <ul class="media-list main-list">
-                                                        <li class="media">
-                                                            <a class="pull-left" href="#">
-                                                                <img class="media-object" src="/assets/images/profile/fav list/ข้าวหมูทอด.jpg" width="150px" >
-                                                            </a>
-                                                            <div class="media-body">
-                                                                <h3 class="media-heading">ข้าวหมูทอด</h3>
-                                                                <p class="by-author">ร้านป้านก</p>
-                                                                <p><button class="btn btn-danger btn-xs" data-toggle="modal" data-target='#delfav' href="#delfav"><span class="glyphicon glyphicon-trash"></span> ลบออกจากรายการโปรด</button></p>
-                                                            </div>
-                                                        </li><hr>
-                                                        <li class="media">
-                                                            <a class="pull-left" href="#">
-                                                                <img class="media-object" src="/assets/images/profile/fav list/ข้าวคลุกกะปิ.jpg" width="150px" >
-                                                            </a>
-                                                            <div class="media-body">
-                                                                <h4 class="media-heading">ข้าวคลุกกะปิ</h4>
-                                                                <p class="by-author">ร้านอาหารกลางเมือง</p>
-                                                                <p><button class="btn btn-danger btn-xs" data-toggle="modal" data-target='#delfav' href="#delfav"><span class="glyphicon glyphicon-trash"></span> ลบออกจากรายการโปรด</button></p>
-                                                            </div>
-                                                        </li><hr>
-                                                        <li class="media">
-                                                            <a class="pull-left" href="#">
-                                                                <img class="media-object" src="http://placehold.it/150x90" alt=".">
-                                                            </a>
-                                                            <div class="media-body">
-                                                                <h4 class="media-heading">Lorem ipsum dolor asit amet</h4>
-                                                                <p class="by-author">By Jhon Doe</p>
-                                                                <p><button class="btn btn-danger btn-xs" data-toggle="modal" data-target='#delfav' href="#delfav"><span class="glyphicon glyphicon-trash"></span> ลบออกจากรายการโปรด</button></p>
-                                                            </div>
-                                                        </li><hr>
-                                                    </ul>
-                                                </div>
+                                                        <?php }
+                                                    }
+                                                }
+                                                ?>
                                             </div>
                                         </div>
                                     </div>
@@ -192,7 +159,7 @@ include '../dbconn.php';
         </section> 
 
 
-        <?php include '../template/footer.php'; ?>
+<?php include '../template/footer.php'; ?>
 
 
         <script src="/assets/js/customer-profile-favorite.js"></script>

@@ -166,9 +166,12 @@ include '../dbconn.php';
                                                             <span style="font-size: 20px"> เปิดร้าน </span> &nbsp;
                                                             <input id="switchClose" name="someSwitchOption001" type="checkbox" <?= ($resdata["close"] == 1 ? 'checked' : '') ?>/>
                                                             <label for="switchClose" class="label-success"></label>
-                                                            &nbsp;  <span style="font-size: 20px">ปิดร้าน</span>
-                                                        </div><hr>
-                                                        <p style="font-size: 20px;">เวลาเปิด-ปิด:<span style="color: #FF9900"> &nbsp;<?= ($resdata["opentime"] == "" ? '-' : $resdata["opentime"]) ?></span></p>
+                                                            &nbsp;  <span style="font-size: 20px">ปิดร้าน*</span><br><br>
+                                                          
+                                                        </div> <hr>
+                                                        <p style="font-size: 20px;">เวลาเปิด-ปิด(รับรายการสั่งซื้อ):<span style="color: #FF9900"> &nbsp;<?= ($resdata["opentime"] == "" ? '-' : $resdata["opentime"]) ?></span></p>
+                                                        <hr>
+                                                         <span style="color: red">*กรณีวันที่ไม่สามารถรับรายการสั่งซื้อได้ อาทิ วันหยุดพักผ่อน</span>
                                                     </div>
 
 

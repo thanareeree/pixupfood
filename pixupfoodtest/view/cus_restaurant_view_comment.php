@@ -145,9 +145,11 @@ include '../api/islogin.php';
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="card" id="showcalendar">
+                       <div class="card" id="showcalendar">
                             <div class="card-content">
                                 <div id="calendar" style="color: #FF9900"></div>
+                                </div>
+                                <div class="calendar" style="color: #FF9900"></div>
                             </div>  
                         </div>
                         <br>

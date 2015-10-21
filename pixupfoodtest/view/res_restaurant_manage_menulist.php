@@ -115,7 +115,18 @@ include '../dbconn.php';
                                 <div class="tab-pane active" id="tab_default_1_4">
                                     <div class="page-header">
                                         <div class="row">
-                                            <div class="col-md-8"><h2>รายการอาหารปัจจุบัน</h2></div>
+                                            <div class="col-md-8"><h2>
+                                                    รายการอาหารปัจจุบัน ทั้งหมด&nbsp;
+                                                    <?php
+                                                    $res = $con->query("SELECT COUNT(id) as menu FROM `menu` WHERE restaurant_id = '$resid' GROUP BY restaurant_id");
+                                                    $data = $res->fetch_assoc();
+                                                    if ($res->num_rows == 0) {
+                                                        echo "0&nbsp;รายการ";
+                                                    } else {
+                                                        echo $data["menu"] . "&nbsp;รายการ";
+                                                    }
+                                                    ?>
+                                                </h2></div>
 
                                             <div class="col-md-2">
                                                 <p class="text-center pull-" style="margin-top: 20px; margin-left: 200px ">
@@ -729,7 +740,7 @@ include '../dbconn.php';
                                             </div>
                                         </div>
                                     </div>
-                                   
+
                                     <!-- จบขนม -->
 
                                     <!-- เครื่องดื่ม -->
@@ -795,7 +806,7 @@ include '../dbconn.php';
                                     <!-- จบรายการอาหารจานด่วน-->
 
 
-                                    
+
                                 </div>
 
                             </div>
