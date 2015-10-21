@@ -12,13 +12,7 @@ include '../dbconn.php';
         <link rel="stylesheet" href="/assets/css/register.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css">
-        <style>
-            #map {
-                height: 250px;
-                width: 50%;
-            }
-        </style>
-
+        <link rel="stylesheet" href="/assets/css/regis_map.css"> 
 
     </head>
     <body>
@@ -55,32 +49,39 @@ include '../dbconn.php';
                                 </div>
                                 <div class="col-md-5 wow fadeInUp" data-wow-delay="0.6s" style="margin-top: 10px;">
                                     <div>
-                                        <div class="col-md-12">
-                                            <input type="email" class="form-control" placeholder="Email" required id="resemail" name="resemail">
+                                        <div class="sidetip errorEmail" style="display: none">
+                                            <p style="color: red"><i class="glyphicon glyphicon-remove-sign"></i>&nbsp;อีเมลนี้เคยลงทะเบียนไว้ก่อนแล้ว</p>
+                                        </div>
+                                        <div class="sidetip errorEmailInvalid" style="display: none">
+                                            <p style="color: red"><i class="glyphicon glyphicon-remove-sign"></i>&nbsp;โปรดป้อนอีเมลที่ถูกต้อง</p>
                                         </div>
                                         <div class="col-md-12">
-                                            <input type="password" class="form-control" placeholder="Password" required id="respassword" name="respassword">
+                                            <input type="email" class="form-control" placeholder="อีเมลล์" required id="resemail" name="resemail">
                                         </div>
                                         <div class="col-md-12">
-                                            <input type="password" class="form-control" placeholder="Confirm Password" required id="resconfirmpwd" name="resconfirmpwd">
+
+                                            <input type="password" class="form-control" placeholder="รหัสผ่าน" required id="respassword" name="respassword">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="sidetip errorConfirmpwd"  style="display: none">
+                                                <p style="color: red"><i class="glyphicon glyphicon-remove-sign"></i>&nbsp;รหัสผ่านไม่ตรงกัน</p>
+                                            </div>
+                                            <input type="password" class="form-control" placeholder="ยืนยันรหัสผ่าน" required id="resconfirmpwd" name="resconfirmpwd">
                                         </div>
                                         <div class="col-md-6">
-                                            <input type="text" class="form-control" placeholder="FirstName" required id="resfname" name="resfname">
+                                            <input type="text" class="form-control" placeholder="ชื่อ" required id="resfname" name="resfname">
                                         </div>
                                         <div class="col-md-6">
-                                            <input type="text" class="form-control" placeholder="LastName" required id="reslname" name="reslname">
+                                            <input type="text" class="form-control" placeholder="สกุล" required id="reslname" name="reslname">
                                         </div>
                                         <div class="col-md-12">
-                                            <input type="hidden" class="form-control"   id="latinput" name="latinput"  >
+                                            <div class="sidetip errorPhoneInvalid" style="display: none">
+                                            <p style="color: red"><i class="glyphicon glyphicon-remove-sign"></i>&nbsp;โปรดป้อนหมายเลขโทรศัพท์ที่ถูกต้อง</p>
                                         </div>
-                                        <div class="col-md-12">
-                                            <input type="hidden" class="form-control"   id="longinput" name="longinput">
-                                        </div>
-                                        <div class="col-md-12">
-                                            <input type="tel" class="form-control" placeholder="Phone" required id="resphone" name="resphone">
+                                            <input type="tel" class="form-control" placeholder="หมายเลขโทรศัพท์" required id="resphone" name="resphone">
                                         </div><br>
                                         <div class="col-md-6 pull-right">
-                                            <input type="button" class="form-control text-uppercase btn-info" id="nextbtn" value="Next" >
+                                            <input type="button" class="form-control text-uppercase btn-info" id="nextbtn" value="ต่อไป" >
                                         </div>
                                     </div>
                                 </div>
@@ -96,47 +97,49 @@ include '../dbconn.php';
                                     <p>รายละเอียดร้าน </p><br>
                                     <h3 class="text-uppercase">Address :</h3>
                                     <p>ที่อยู่ร้านอาหาร </p><br>
-                                    <h3 class="text-uppercase">Province :</h3>
-                                    <p>จังหวัด </p>
-                                    <h3 class="text-uppercase">Zone :</h3>
-                                    <p>เขต(เฉพาะกรุงเทพมหานคร) </p>
-                                    <h3 class="text-uppercase">Plan :</h3>
-                                    <p>แผนการใช้งาน</p>
+                                    <h3 class="text-uppercase" style="margin-top: 485px;">Plan :</h3>
+                                    <p>แผนการใช้งาน </p>
+                                    <h3 class="text-uppercase"></h3>
+                                    <p> </p>
+                                    <h3 class="text-uppercase"></h3>
+                                    <p></p>
                                 </div>
                                 <div class="col-md-5 wow fadeInUp" data-wow-delay="0.6s" style="margin-top: 10px;">
                                     <div>
                                         <div class="col-md-12">
-                                            <input type="text" class="form-control" placeholder="RestaurantName" required id="restaurantname" name="restaurantname">
+                                            <input type="text" class="form-control" placeholder="ชื่อร้านอาหาร" required id="restaurantname" name="restaurantname">
                                         </div>
                                         <div class="col-md-12">
-                                            <textarea class="form-control" placeholder="Detail" rows="3" required id="detail" name="detail"></textarea>
+                                            <textarea class="form-control" placeholder="รายละเอียดร้าน" rows="3" required id="detail" name="detail"></textarea>
                                         </div>
                                         <div class="col-md-12">
-                                            <textarea class="form-control" placeholder="Address" rows="3" required id="resaddress" name="resaddress"></textarea>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <textarea required disabled="" class="form-control" placeholder="กรุณาลากวางมุดไปที่ตำแหน่งร้านของคุณก่อนจะแก้ไขที่อยู่ให้ถูกต้อง" rows="3" id="resaddress" name="resaddress" style="margin: 0;"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="address">
+                                                        <div id='showaddress' class='col-sm-6'>
+                                                            ลากวางหมุดตรงที่ตั้งร้านของคุณ
+                                                        </div>
+                                                        <div class='col-sm-6' style="text-align: right;">
+                                                            <button id="getlocationbtn" class="btn btn-warning">
+                                                                <span class="glyphicon glyphicon-map-marker"></span>
+                                                                ตำแหน่งปัจจุบัน
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-12" style="padding: 0 0 20px 0;">
+                                                <div id="map"></div>
+                                            </div>
                                         </div>
 
-                                        <div class="col-md-12">
-                                            <select class="form-control " id="provincelist" name="provincelist">
-                                                <?php
-                                                $res = $con->query("SELECT `id`, `name` FROM `province`");
-                                                while ($data = $res->fetch_assoc()) {
-                                                    ?>
-                                                    <option value="<?= $data['name'] ?>"> <?= $data['name'] ?> </option>
-                                                <?php } ?>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <select class="form-control " id="zonelist" name="zonelist">
-                                                <?php
-                                                $res = $con->query("SELECT `id`, `name` FROM `zone`");
-                                                while ($data = $res->fetch_assoc()) {
-                                                    ?>
 
-                                                    <option value="<?= $data['id'] ?>"> <?= $data['name'] ?> </option>
-
-                                                <?php } ?>
-                                            </select>
-                                        </div>
                                         <div class="col-md-11">
                                             <select class="form-control " id="planlist" name="planlist">
                                                 <?php
@@ -167,7 +170,6 @@ include '../dbconn.php';
                     </div>
                 </div>
             </div>
-            <div id="map" style="display: none"></div>
         </section>
 
         <!-- plan modal -->
@@ -296,116 +298,8 @@ include '../dbconn.php';
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
 
-
         <?php include '../template/footer.php'; ?>
-        <script>
-            $(document).ready(function () {
-                $('#termsmodal').modal({
-                    backdrop: 'static',
-                    keyboard: false
-                });
-                $("#termsmodal").modal('show');
+        <script src="/assets/js/res-register.js"></script>
 
-                $("input[type=checkbox]").on("click", function (e) {
-                    $("#nextregisbtn").removeAttr("disabled");
-                });
-                $("#nextregisbtn").click(function (e) {
-                    $("#termsmodal").modal('hide');
-                });
-
-                function startMap() {
-
-                    map = new google.maps.Map(document.getElementById("map"));
-                    if (navigator.geolocation) {
-                        navigator.geolocation.getCurrentPosition(getPosition);
-                        //navigator.geolocation.watchPosition(updatePosition);
-                    } else {
-                        alert("ffff");
-                        // document.getElementById("latinput").value = "---";
-                        // document.getElementById("longinput").value = "---";
-                    }
-                }
-
-                startMap();
-
-
-                function getPosition(pos) {
-                    globalPosition = pos;
-                    document.getElementById("latinput").value = pos.coords.latitude;
-                    document.getElementById("longinput").value = pos.coords.longitude;
-                    console.log(pos);
-
-                }
-
-
-                $("#nextbtn").on("click", function (e) {
-                    if ($("#resemail").val() == "" || $("#respassword").val() == "" ||
-                            $("#resconfirmpwd").val() == "" || $("#resphone").val() == "" ||
-                            $("#resfname").val() == "" || $("#reslname").val() == "") {
-                        //alert("กรอกข้อมูลไม่ครบ");
-                        $("#nextbtn").add("disabled");
-
-                    } else {
-
-                        $(".firststep").hide();
-                        $(".secondstep").fadeIn(500);
-                    }
-
-                });
-                $("#backbtn").on("click", function (e) {
-                    $(".firststep").fadeIn(500);
-                    $(".secondstep").hide();
-                });
-
-                $("#restaurantformregis").on("submit", function (e) {
-
-                    $.ajax({
-                        type: "POST",
-                        url: "/restaurant/restaurant-save.php",
-                        data: {"resemail": $("#resemail").val(),
-                            "respassword": $("#respassword").val(),
-                            "resfname": $("#resfname").val(),
-                            "reslname": $("#reslname").val(),
-                            "latinput": $("#latinput").val(),
-                            "longinput": $("#longinput").val(),
-                            "resphone": $("#resphone").val(),
-                            "restaurantname": $("#restaurantname").val(),
-                            "detail": $("#detail").val(),
-                            "resaddress": $("#resaddress").val(),
-                            "provincelist": $("#provincelist").val(),
-                            "zonelist": $("#zonelist").val(),
-                            "planlist": $("#planlist").val()},
-                        dataType: "json",
-                        success: function (data) {
-                            if (data.result == "1") {
-                                document.location = "/view/res_confirmform.php?id=" + data.id;
-                            } else {
-                                alert("ไม่สามารถบันทึกข้อมูลได้\nError : " + data.error + "\n" +
-                                        $("#resemail").val());
-
-                            }
-                        }
-                    });
-                    e.preventDefault();
-                    return false;
-                });
-
-
-                //Handles menu drop down
-                $('.dropdown-menu').find('form').click(function (e) {
-                    e.stopPropagation();
-                });
-                $("#backstep").click(function () {
-                    $("#firststep").fadeIn(500);
-                    $("#secondstep").hide();
-                });
-
-                $("#nextstep").click(function () {
-                    $("#firststep").hide();
-                    $("#secondstep").fadeIn(500);
-                });
-
-            });
-        </script>
     </body>
 </html>
