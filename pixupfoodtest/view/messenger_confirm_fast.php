@@ -16,7 +16,8 @@ include '../dbconn.php';
         <?php
         $orderid = @$_GET["orderid"];
         $res = $con->query("SELECT fast_order.id, customer.firstName, customer.lastName, customer.tel, "
-                . "shippingAddress.full_address, fast_order.payment_id FROM `fast_order` "
+                . "shippingAddress.full_address, fast_order.payment_id, fast_order.delivery_date, fast_order.delivery_time"
+                . " FROM `fast_order` "
                 . "JOIN customer ON customer.id = fast_order.customer_id "
                 . "JOIN shippingAddress ON shippingAddress.id = fast_order.shippingAddress_id"
                 . " WHERE fast_order.id = '$orderid'");
@@ -55,6 +56,8 @@ include '../dbconn.php';
                         <form action="#">                           
                             <h4>ชื่อผู้รับ: </h4><span><?= $data["firstName"] . "&nbsp;" . $data["lastName"] ?></span>
                             <h4>รหัสรายการ: </h4><span><?= $data["id"] ?></span>
+                             <h4>นัดรับวันที่: </h4><span><?= date("d-m-Y", strtotime($data["delivery_date"] )) ?></span>
+                            <h4>นัดรับเวลา: </h4><span><?= substr($data["delivery_time"], 0,5) ?>&nbsp;น.</span>
                             <h4>ที่อยู่จัดส่ง: </h4><span><?= $data["full_address"] ?></span>
                             <h4>โทร:</h4><span><?= $data["tel"] ?></span>
                             <h4>วิธีชำระเงิน:</h4><span><?= $payment ?></span>

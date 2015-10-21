@@ -38,13 +38,15 @@ if ($fastOrderRes->num_rows == 0) {
                 $con->query("UPDATE `fast_order` SET `status`='7',`updated_status_time`= now() WHERE id = '$orderid' ");
                 if ($con->error == "") {
 
-                    /* include '../../register/thsms.php';
+                include '../../register/thsms.php';
                       $sms = new thsms();
                       $sms->username = 'thanaree';
                       $sms->password = '58c60d';
 
-                      $b = $sms->send('0000', $fastOrderData["tel"], "เลขที่รายการ: " . $fastOrderData["fast_id"] . " \nถูกปฏิเสธรายการจากเนื่องจากลูกค้าไม่ได้ชำระค่ามัดจำสินค้าตามเวลาที่กำหนด".""." \nลูกค้าสามารถสั่งซื้ออาหารได้ที่ www.pixupfood.com");
-                     */
+                      $b = $sms->send('0000', $fastOrderData["tel"], "เลขที่รายการ: " . $fastOrderData["fast_id"] 
+                              . " \nถูกปฏิเสธรายการจากเนื่องจากลูกค้าไม่ได้ชำระค่ามัดจำสินค้าตามเวลาที่กำหนด"
+                              ." \nลูกค้าสามารถสั่งซื้ออาหารได้ที่ pixupfood.com");
+                   
                 }
                 continue;
             } else {

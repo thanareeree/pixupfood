@@ -20,7 +20,7 @@ include '../dbconn.php';
                     <a href="#" style="color:rgba(255,127,0,1);padding-right: 0px;" class="navbar-brand">Pixup</a>
                     <a href="#" class="navbar-brand" style="color:black;padding-left: 0px;">Food</a>
                     <ul class="nav navbar-nav navbar-right text-uppercase pull-right">
-                        <li><a <?= (!isset($_SESSION["islogin"])) ? 'href="#"' : 'href="/api/logout.php" class="nav-link"' ?> ><?= (!isset($_SESSION["islogin"])) ? ' สวัสดี ' : $_SESSION["userdata"]["firstName"] . " " . $_SESSION["userdata"]["lastName"] ?>
+                        <li><a href="#">
                                 <img src="/assets/images/bar/user.png" style="width:30px;height:30px;"/> 
                             </a>
                         </li>                                                 

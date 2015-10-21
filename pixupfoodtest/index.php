@@ -164,7 +164,7 @@ include './dbconn.php';
                         </div>
                     </div>
                     <div class="col-md-7 col-lg-7 wow fadeInRight" data-wow-delay="0.6s" style="padding:63px 15px 0 100px">
-                        <ul class="media-list main-list">
+                        <ul class="media-list main-list" style="border-top:1px solid #e8e8e8; padding-top:1.1em">
                             <?php
                             $res = $con->query("SELECT news.img_path, news.title, news.detail, news.created_time, restaurant.name "
                                     . "FROM `news` "
@@ -174,13 +174,13 @@ include './dbconn.php';
                                 ?>
                                 <li class="media">
                                     <a class="pull-left" href="#">
-                                        <img class="media-object" src="<?=$data["img_path"]?>" alt="..." width="150px" style="max-height:90px;">
+                                        <img class="media-object" src="<?= $data["img_path"] ?>" alt="..." width="150px" style="max-height:90px;">
                                     </a>
                                     <div class="media-body">
-                                        <h4 class="media-heading"><?= $data["title"]?></h4>
-                                       <p class="by-author"><?= $data["detail"] ?><br><br>
-                                    <?= $data["name"] ?>&nbsp;เมื่อวันที่: &nbsp;<?= substr($data["created_time"], 0, 11) . " " . substr($data["created_time"], 11, 5) ?>&nbsp;น.
-                                </p>
+                                        <h4 class="media-heading"><?= $data["title"] ?></h4>
+                                        <p class="by-author"><?= $data["detail"] ?><br><br>
+                                            <?= $data["name"] ?>&nbsp;เมื่อวันที่: &nbsp;<?= substr($data["created_time"], 0, 11) . " " . substr($data["created_time"], 11, 5) ?>&nbsp;น.
+                                        </p>
                                     </div>
                                 </li>
                             <?php } ?>
@@ -200,44 +200,54 @@ include './dbconn.php';
                             <h2 class="text-uppercase">โปรโมชั่น<<</h2>
                         </a>
                         <div class="featured-article">
+                            <?php
+                            $res = $con->query("select promotion.id, promotion_main.name, restaurant.name as restname, "
+                                    . "promotion.start_time, promotion.end_time, promotion.description, promotion_main.img_path  "
+                                    . "from promotion "
+                                    . "LEFT JOIN promotion_main ON promotion_main.id = promotion.promotion_main_id "
+                                    . "LEFT JOIN restaurant ON restaurant.id = promotion.restaurant_id "
+                                    . "order by promotion.created_time DESC LIMIT 1");
+                            $promotion = $res->fetch_assoc();
+                            $proid = $promotion["id"];
+                            ?>
                             <a href="#">
-                                <img src="assets/images/allpromo/promo01.jpg" alt="" class="thumb">
+                                <img src="<?= $promotion["img_path"] ?>" alt="" class="thumb" >
                             </a>
                             <div class="block-title">
-                                <h2>ลดสนั่นเมือง</h2>
-                                <p class="by-author"><small>ลดสูงสุดถึง 50% วันนี้ - 31 ธันวาคม 2558 ที่ร้านลุงอนันต์<br>เมื่อสั่งอาหารผ่านเว็บไซต์</small></p>
+                                <h2><?= $promotion["restname"] ?></h2>
+                                <p class="by-author"><?= $promotion["description"] ?><br><br>
+                                    เริ่มวันที่: &nbsp;<?= $promotion["start_time"] ?>&nbsp;
+                                    หมดเขต: &nbsp;<?= $promotion["end_time"] ?>&nbsp;
+
+                                </p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-7 col-lg-7 wow fadeInRight" data-wow-delay="0.6s" style="padding:60px 15px 0 100px">
                         <ul class="media-list main-list" style="border-top:1px solid #e8e8e8; padding-top:1.1em">
-                            <li class="media">
-                                <a class="pull-left" href="#">
-                                    <img class="media-object" src="assets/images/allpromo/promo02.jpg"  alt="..." width="150px" style="max-height:90px;">
-                                </a>
-                                <div class="media-body">
-                                    <h4 class="media-heading">ป้าลมัยใจดี!!</h4>
-                                    <p class="by-author">ป้าลมัยใจดี ลด 10% ทุกยอดการสั่งซื้อผ่านเว็บไซต์เท่านั้น!!!</p>
-                                </div>
-                            </li>
-                            <li class="media">
-                                <a class="pull-left" href="#">
-                                    <img class="media-object" src="assets/images/allpromo/promo03.jpg"  alt="..." width="150px" style="max-height:90px;">
-                                </a>
-                                <div class="media-body">
-                                    <h4 class="media-heading">ไม่มีอีกแล้ว กับโปรโมชั่นสุดพิเศษ!!!</h4>
-                                    <p class="by-author">ป้าน้อยใจปล้ำ เมื่อสั่งอาหารผ่านเว็บไซต์ ซื้อ 3 กล่องฟรี 1 กล่อง*<br>*จำกัดกล่องฟรีสูงสุดไม่เกิน 20 กล่อง</p>
-                                </div>
-                            </li>
-                            <li class="media">
-                                <a class="pull-left" href="#">
-                                    <img class="media-object" src="assets/images/allpromo/promo04.jpg"  alt="..." width="150px" style="max-height:90px;">
-                                </a>
-                                <div class="media-body">
-                                    <h4 class="media-heading">ฟรีน้ำกระป๋อง!!</h4>
-                                    <p class="by-author">เมื่อมียอดสั่งซื้อกับร้านลุงเอก ผ่านเว็บไซต์ ทุก 100.- รับน้ำอัดลมฟรี 2 กระป๋อง</p>
-                                </div>
-                            </li>
+                            <?php
+                            $res = $con->query("select promotion.id, promotion_main.name, restaurant.name as restname, "
+                                    . "promotion.start_time, promotion.end_time, promotion.description, promotion_main.img_path  "
+                                    . "from promotion "
+                                    . "LEFT JOIN promotion_main ON promotion_main.id = promotion.promotion_main_id "
+                                    . "LEFT JOIN restaurant ON restaurant.id = promotion.restaurant_id "
+                                    . "WHERE promotion.id != '$proid' ORDER BY RAND() DESC LIMIT 3");
+                            while ($data = $res->fetch_assoc()) {
+                                ?>
+                                <li class="media">
+                                    <a class="pull-left" href="#">
+                                        <img class="media-object" src="<?= $data["img_path"] ?>" alt="..." width="150px" style="max-height:90px;">
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading"><?= $data["restname"] ?></h4>
+                                        <p class="by-author"><?= $data["description"] ?><br><br>
+                                            เริ่มวันที่: &nbsp;<?= $data["start_time"] ?>&nbsp;
+                                            หมดเขต: &nbsp;<?= $data["end_time"] ?>&nbsp;
+
+                                        </p>
+                                    </div>
+                                </li>
+                            <?php } ?>
                         </ul>
                     </div>
                 </div>
@@ -246,7 +256,7 @@ include './dbconn.php';
         <!-- end feature1 -->
 
         <!-- start pricing -->
-       <section id="pricing">
+        <section id="pricing">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 wow bounceIn" style="margin-bottom: 25px;">
@@ -354,7 +364,7 @@ include './dbconn.php';
                         url: '/customer/customer-search-nearby.php',
                         type: "POST",
                         data: {"lat": lat,
-                            "long": long, "type":"nearby"},
+                            "long": long, "type": "nearby"},
                         dataType: "html",
                         success: function (returndata) {
                             if (returndata == "error") {

@@ -27,14 +27,17 @@ if (isset($_SESSION["islogin"])) {
                     . "WHERE normal_order.id = '$order_id' "
                     . "GROUP BY order_detail.order_id");
             $data = $res->fetch_assoc();
-           /* include '../../../register/thsms.php';
+           include '../../../register/thsms.php';
             $sms = new thsms();
             $sms->username = 'thanaree';
             $sms->password = '58c60d';
 
-            $b = $sms->send('0000', $data["tel"], "ร้านอาหาร:" . $data["name"] . "ตอบรับรายการสั่งซื้อเลขที่: " . $data["id"] . "แล้ว Shipping Code:" . $data["shipping_password"] . "และสามารถเช็คสถานะรายการได้ที่ https://pixupfood.com");
+            $b = $sms->send('0000', $data["tel"], "ร้านอาหาร:" . $data["name"] 
+                    . "\nตอบรับรายการสั่งซื้อเลขที่: " . $data["id"] 
+                    . "\nแล้ว Shipping Code:" . $data["shipping_password"] 
+                    . "\nสามารถเช็คสถานะได้ที่ pixupfood.com");
 
-*/
+
             $response = array(
                 "result" => 1
             );
@@ -59,14 +62,16 @@ if (isset($_SESSION["islogin"])) {
                     . "WHERE normal_order.id = '$ignoreNormalId' "
                     . "GROUP BY order_detail.order_id");
             $data = $res->fetch_assoc();
-           /* include '../../../register/thsms.php';
+            include '../../../register/thsms.php';
             $sms = new thsms();
             $sms->username = 'thanaree';
             $sms->password = '58c60d';
 
-            $b = $sms->send('0000', $data["tel"], "เลขที่รายการ: " . $data["id"] . " ถูกปฏิเสธรายการจากร้าน" . $data["name"] . " สามารถสั่งซื้ออาหารได้ที่ https://pixupfood.com");
+            $b = $sms->send('0000', $data["tel"], "เลขที่รายการ: " . $data["id"] 
+                    . " \nถูกปฏิเสธรายการจากร้าน" . $data["name"] 
+                    . " \nสามารถสั่งซื้ออาหารได้ที่ https://pixupfood.com");
 
-*/
+
             $response = array(
                 "result" => 1
             );
