@@ -8,6 +8,16 @@
     margin-top: 6px;
     margin-left: 80px;
 }
+
+#cusregisterform div.sidetip {
+    position: absolute;
+    left: 402px;
+    width: 300px;
+    display: table;
+    min-height: 32px;
+    margin-top: 6px;
+    margin-left: 80px;
+}
 #map{
     height:400px;
     margin:0 auto;

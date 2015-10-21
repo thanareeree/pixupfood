@@ -3,12 +3,12 @@ var map, geocoder, marker;
 var address = new Array();
 var defaultlatlng = {lat: 13.6524931, lng: 100.4938914};
 $(document).ready(function () {
-    //initMap();
-     $('#termsmodal').modal({
+    initMap();
+   /*  $('#termsmodal').modal({
      backdrop: 'static',
      keyboard: false
      });
-    $("#termsmodal").modal('show');
+    $("#termsmodal").modal('show');*/
 
     $("input[type=checkbox]").on("click", function (e) {
         $("#nextregisbtn").removeAttr("disabled");
@@ -17,16 +17,16 @@ $(document).ready(function () {
         $("#termsmodal").modal('hide');
     });
 
-    $("#resemail").on("keyup", function (e) {
+    $("#cusemail").on("keyup", function (e) {
         $.ajax({
             type: "POST",
-            url: "/register/check-mail-restaurant.php",
-            data: {"resemail": $("#resemail").val()},
+            url: "/register/check-mail-customer.php",
+            data: {"cusemail": $("#cusemail").val()},
             dataType: "json",
             success: function (data) {
                 if (data.result == "1") {
                     $(".errorEmail").show();
-                     $(".errorEmailInvalid").hide();
+                    $(".errorEmailInvalid").hide();
                     $("#nextbtn").attr("disabled", "disabled");
                 } else if (data.result == "0") {
                     $(".errorEmail").hide();
@@ -37,54 +37,29 @@ $(document).ready(function () {
     });
 
 
-    $("#resphone").on("keyup", function (e) {
+    $("#cusphone").on("keyup", function (e) {
         checkPhone();
     });
 
-    $("#resconfirmpwd").on("keyup", function (e) {
+    $("#cuspwdconfirm").on("keyup", function (e) {
         checkPasswordMatching();
     });
 
-    $("#nextbtn").on("click", function (e) {
-        checkPhone();
-        checkPasswordMatching();
-        checkValidEmail();
-        if ($("#resemail").val() == "" || $("#respassword").val() == "" ||
-                $("#resconfirmpwd").val() == "" || $("#resphone").val() == "" ||
-                $("#resfname").val() == "" || $("#reslname").val() == "") {
-            alert("กรอกข้อมูลไม่ครบ");
-            $("#nextbtn").add("disabled");
+  
 
-
-        } else {
-            initMap();
-            $(".firststep").hide();
-            $(".secondstep").fadeIn(500);
-        }
-
-    });
-    $("#backbtn").on("click", function (e) {
-        $(".firststep").fadeIn(500);
-        $(".secondstep").hide();
-    });
-
-    $("#restaurantformregis").on("submit", function (e) {
-
+    $("#cusregisterform").on("submit", function (e) {
         $.ajax({
             type: "POST",
-            url: "/restaurant/restaurant-save.php",
-            data: {"resemail": $("#resemail").val(),
-                "respassword": $("#respassword").val(),
-                "resfname": $("#resfname").val(),
-                "reslname": $("#reslname").val(),
-                "resphone": $("#resphone").val(),
-                "restaurantname": $("#restaurantname").val(),
-                "detail": $("#detail").val(),
-                "planlist": $("#planlist").val(),
+            url: "/register/customer-save.php",
+            data: {"cusemail": $("#cusemail").val(),
+                "cuspwd": $("#cuspwd").val(),
+                "cusfname": $("#cusfname").val(),
+                "cuslname": $("#cuslname").val(),
+                "cusphone": $("#cusphone").val(),
                 "administrative_area_level_1": address.administrative_area_level_1,
                 "sublocality_level_1": address.sublocality_level_1,
                 "sublocality_level_2": address.sublocality_level_2,
-                "full": $("#resaddress").val(),
+                "full": $("#cusaddress").val(),
                 "country": address.country,
                 "locality": address.locality,
                 "postal_code": address.postal_code,
@@ -94,13 +69,12 @@ $(document).ready(function () {
             },
             dataType: "json",
             success: function (data) {
-                if (data.result == "1") {
-                    document.location = "/view/res_confirmform.php?id=" + data.id;
+               if (data.result == "1") {
+                   $("#cusregisterform").trigger("reset");
+                    $("#resgisterSuccessModal").modal('show');
                 } else {
                     alert("ไม่สามารถบันทึกข้อมูลได้\nError : " + data.error);
-
-                }
-                alert(data);
+                } //alert(data);
             }
         });
         e.preventDefault();
@@ -112,17 +86,10 @@ $(document).ready(function () {
     $('.dropdown-menu').find('form').click(function (e) {
         e.stopPropagation();
     });
-    $("#backstep").click(function () {
-        $("#firststep").fadeIn(500);
-        $("#secondstep").hide();
-    });
-
-    $("#nextstep").click(function () {
-        $("#firststep").hide();
-        $("#secondstep").fadeIn(500);
-    });
+   
 
 });
+
 function initMap() {
     geocoder = new google.maps.Geocoder();
 
@@ -159,10 +126,10 @@ function initMap() {
         }, function (responses) {
             if (responses && responses.length > 0) {
                 setTimeout(function () {
-                    $("#resaddress").removeAttr("disabled");
-                    $("#resaddress").html("");
-                    $("#resaddress").val("");
-                    $("#resaddress").val(responses[0].formatted_address);
+                    $("#cusaddress").removeAttr("disabled");
+                    $("#cusaddress").html("");
+                    $("#cusaddress").val("");
+                    $("#cusaddress").val(responses[0].formatted_address);
                     $("#savenewaddressbtn").removeAttr("disabled");
                     $("#showaddress").html("");
                 }, 500);
@@ -227,40 +194,7 @@ function initMap() {
         marker.setAnimation(null);
     });
 
-    $("#savenewaddressbtn").on("click", function (e) {
-        var naming = $("#addresstxt").val();
-        var type = $("#addresstype").val();
-        if (naming.length > 0 & type != null) {
-            $("#addressoverlay").fadeIn(200);
-            $("#oldaddressbtn").attr("disabled", "disabled");
-            $.ajax({
-                url: "/order/api/address.php",
-                type: "POST",
-                dataType: "json",
-                data: {"cmd": "addAddress", "administrative_area_level_1": address.administrative_area_level_1,
-                    "sublocality_level_1": address.sublocality_level_1, "sublocality_level_2": address.sublocality_level_2,
-                    "full": address.full, "country": address.country,
-                    "locality": address.locality, "postal_code": address.postal_code, "route": address.route, "type": type,
-                    "address_naming": naming, "latitude": address.position.lat, "longitude": address.position.lng},
-                success: function (data) {
-                    if (data.result == "1") {
-                        $("#oldaddressbtn").removeAttr("disabled");
-                        $("#oldaddress").removeAttr("disabled");
-                        $("#oldaddressbtn").hide();
-                        $("#addaddressbtn").show();
-                        $("#getlocationbtn").hide();
-                        $("#savenewaddressbtn").hide();
-                        marker.setAnimation(null);
-                        getOldAddress(true);
-                    } else {
-                        alert("Error at save Address : " + data.errortext);
-                    }
-                }
-            });
-        } else {
-            alert("กรุณาเลือกประเภทสถานที่ และ กรุณากรอกชื่อสถานที่ / จุดสังเกต");
-        }
-    });
+
 
 
 
@@ -273,7 +207,7 @@ function initMap() {
 }
 
 function checkValidEmail() {
-    var emil = $('#resemail').val();
+    var emil = $('#cusemail').val();
     var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
     if (!emailReg.test(emil)) {
         $(".errorEmailInvalid").show();
@@ -286,7 +220,7 @@ function checkValidEmail() {
 
 function checkPhone() {
 
-    var emil = $('#resphone').val();
+    var emil = $('#cusphone').val();
     var emailReg = /^[0-9\+]{1,}[0-9\-]{9,15}$/;
     if (!emailReg.test(emil)) {
         $(".errorPhoneInvalid").show();
@@ -299,8 +233,8 @@ function checkPhone() {
 }
 
 function checkPasswordMatching() {
-    var pwd = $("#respassword").val();
-    var confirmpwd = $("#resconfirmpwd").val();
+    var pwd = $("#cuspwd").val();
+    var confirmpwd = $("#cuspwdconfirm").val();
     if (pwd != confirmpwd) {
         $(".errorConfirmpwd").show();
         $("#nextbtn").attr("disabled", "disabled");

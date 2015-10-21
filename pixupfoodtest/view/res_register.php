@@ -157,10 +157,10 @@ include '../dbconn.php';
                                         </div>
                                         <br>
                                         <div class="col-md-6">
-                                            <input type="button" class="form-control text-uppercase btn-info" id="backbtn" value="Back">
+                                            <input type="button" class="form-control text-uppercase btn-info" id="backbtn" value="ย้อนกลับ">
                                         </div>
                                         <div class="col-md-6">
-                                            <input type="submit" class="form-control text-uppercase" id="submitformbtn" value="Confirmed">
+                                            <input type="submit" class="form-control text-uppercase" id="submitformbtn" value="สมัครสมาชิก">
                                         </div>
                                     </div>
                                 </div>

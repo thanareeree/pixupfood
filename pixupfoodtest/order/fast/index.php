@@ -412,7 +412,6 @@ include '../../dbconn.php';
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
                         <a href="/view/cus_customer_profile.php" ><button type="button" class="btn btn-success" >ตกลง</button></a>
                     </div>
                 </div>
