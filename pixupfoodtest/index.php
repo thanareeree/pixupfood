@@ -203,8 +203,8 @@ include './dbconn.php';
                                 <img src="assets/images/allpromo/promo01.jpg" alt="" class="thumb">
                             </a>
                             <div class="block-title">
-                                <h2>ลดสนั่นเมือง</h2>
-                                <p class="by-author"><small>ลดสูงสุดถึง 50% วันนี้ - 31 ธันวาคม 2558 ที่ร้านลุงอนันต์<br>เมื่อสั่งอาหารผ่านเว็บไซต์</small></p>
+                                <h2>ฟรีขนมแสนอร่อย</h2>
+                                <p class="by-author"><small>เมื่อสั่งซื้ออาหารตั้งแต่ 50 กล่องขึ้นไปฟรี เค้กกล้วยหอม 10 ชุด(ชุดละ 1 ชิ้น)<br>เมื่อสั่งอาหารกับร้าน @home <br><span style="color: red">**ของแถมจะไม่ปรากฏตอนสั่งอาหาร แต่จะได้รับพร้อมกับอาหารที่สั่ง</span></small></p>
                             </div>
                         </div>
                     </div>
@@ -215,8 +215,8 @@ include './dbconn.php';
                                     <img class="media-object" src="assets/images/allpromo/promo02.jpg"  alt="..." width="150px" style="max-height:90px;">
                                 </a>
                                 <div class="media-body">
-                                    <h4 class="media-heading">ป้าลมัยใจดี!!</h4>
-                                    <p class="by-author">ป้าลมัยใจดี ลด 10% ทุกยอดการสั่งซื้อผ่านเว็บไซต์เท่านั้น!!!</p>
+                                    <h4 class="media-heading">ศศิกรุ๊ปฟู๊ดใจดี!!</h4>
+                                    <p class="by-author">ศศิกรุ๊ปฟู๊ดใจดี ฟรีค่าจัดส่งอาหารโดยไม่มียอดขั้นต่ำ<br><span style="color: red">**ภายในวันที่ 20 ตุลาคม - 5 ธันวาคมนี้</span></p>
                                 </div>
                             </li>
                             <li class="media">
@@ -225,7 +225,7 @@ include './dbconn.php';
                                 </a>
                                 <div class="media-body">
                                     <h4 class="media-heading">ไม่มีอีกแล้ว กับโปรโมชั่นสุดพิเศษ!!!</h4>
-                                    <p class="by-author">ป้าน้อยใจปล้ำ เมื่อสั่งอาหารผ่านเว็บไซต์ ซื้อ 3 กล่องฟรี 1 กล่อง*<br>*จำกัดกล่องฟรีสูงสุดไม่เกิน 20 กล่อง</p>
+                                    <p class="by-author">ป้าน้อยใจปล้ำ เมื่อสั่งอาหารผ่านเว็บไซต์ ซื้อ 3 กล่องฟรี 1 กล่อง*<br>*จำกัดกล่องฟรีสูงสุดไม่เกิน 20 กล่อง<br><span style="color: red">**ของแถมจะไม่ปรากฏตอนสั่งอาหาร แต่จะได้รับพร้อมกับอาหารที่สั่ง</span></p>
                                 </div>
                             </li>
                             <li class="media">
@@ -234,7 +234,7 @@ include './dbconn.php';
                                 </a>
                                 <div class="media-body">
                                     <h4 class="media-heading">ฟรีน้ำกระป๋อง!!</h4>
-                                    <p class="by-author">เมื่อมียอดสั่งซื้อกับร้านลุงเอก ผ่านเว็บไซต์ ทุก 100.- รับน้ำอัดลมฟรี 2 กระป๋อง</p>
+                                    <p class="by-author">เมื่อมียอดสั่งซื้อกับร้านลุงเอก ผ่านเว็บไซต์ ทุก 100.- รับน้ำอัดลมฟรี 2 กระป๋อง<br><span style="color: red">**ของแถมจะไม่ปรากฏตอนสั่งอาหาร แต่จะได้รับพร้อมกับอาหารที่สั่ง</span></p>
                                 </div>
                             </li>
                         </ul>
@@ -251,74 +251,8 @@ include './dbconn.php';
                     <div class="col-md-12 wow bounceIn" style="margin-bottom: 25px;">
                         <h2 class="text-uppercase">Our Pricing</h2>
                     </div>
-                    <div class="col-md-4 wow fadeIn" data-wow-delay="0.6s">
-                        <div class="panel price panel-green">
-                            <div class="panel-heading arrow_box text-center">
-                                <h3>FREE PLAN</h3>
-                            </div>
-                            <div class="panel-body text-center">
-                                <p class="lead" style="font-size:35px;margin: 0px;"><strong>฿0 / month</strong></p>
-                            </div>
-                            <ul class="list-group list-group-flush text-center">
-                                <li class="list-group-item"><i class="icon-ok text-success"></i> จำกัดเมนูอาหาร 20 เมนู</li>
-                                <li class="list-group-item"><i class="icon-ok text-success"></i> จำกัดจำนวนคนส่งอาหาร</li>
-                                <li class="list-group-item"><i class="icon-ok text-success"></i> ติดตามสถานะด้วยตนเอง</li>
-                                <li class="list-group-item"><i class="icon-ok text-success"></i> ดูแลระบบในเวลาเปิดร้าน</li>
-                                <li class="list-group-item"> -</li>
-                                <li class="list-group-item"> -</li>
-                                <li class="list-group-item"> -</li>
-                                <li class="list-group-item"> -</li>
-                            </ul>
-                            <div class="panel-body text-center">
-                                <span>ใช้งานฟรี ไม่เสียค่าใช้จ่าย!</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 wow fadeIn" data-wow-delay="0.6s">
-                        <div class="panel price panel-blue">
-                            <div class="panel-heading  text-center">
-                                <h3>BASIC PLAN</h3>
-                            </div>
-                            <div class="panel-body text-center">
-                                <p class="lead" style="font-size:35px;margin: 0px;"><strong>฿100 / month</strong></p>
-                            </div>
-                            <ul class="list-group list-group-flush text-center">
-                                <li class="list-group-item"><i class="icon-ok text-success"></i> จำกัดเมนูอาหาร 60 เมนู</li>
-                                <li class="list-group-item"><i class="icon-ok text-success"></i> ไม่จำกัดจำนวนคนส่งอาหาร</li>
-                                <li class="list-group-item"><i class="icon-ok text-success"></i> ติดตามสถานะด้วย code</li>
-                                <li class="list-group-item"><i class="icon-ok text-success"></i> ดูแลระบบในเวลาเปิดร้าน</li>
-                                <li class="list-group-item"><i class="icon-ok text-success"></i> รีวิวร้านอาหาร 1ครั้ง/เดือน</li>
-                                <li class="list-group-item"><i class="icon-ok text-success"></i> ฟรีขึ้นโฆษณาหน้าแรก 1ตัว</li>
-                                <li class="list-group-item"> -</li>
-                                <li class="list-group-item"> -</li>
-                            </ul>
-                            <div class="panel-body text-center">
-                                <span>จ่ายสบายๆ เหมาะกับผู้เริ่มต้นใช้งาน!</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 wow fadeIn" data-wow-delay="0.6s">
-                        <div class="panel price panel-red">
-                            <div class="panel-heading arrow_box text-center">
-                                <h3>PRO PLAN</h3>
-                            </div>
-                            <div class="panel-body text-center">
-                                <p class="lead" style="font-size:35px;margin: 0px;"><strong>฿250 / 3months</strong></p>
-                            </div>
-                            <ul class="list-group list-group-flush text-center">
-                                <li class="list-group-item"><i class="icon-ok text-success"></i> ไม่จำกัดเมนูอาหาร</li>
-                                <li class="list-group-item"><i class="icon-ok text-success"></i> ไม่จำกัดจำนวนคนส่งอาหาร</li>
-                                <li class="list-group-item"><i class="icon-ok text-success"></i> ติดตามสถานะด้วย code</li>
-                                <li class="list-group-item"><i class="icon-ok text-success"></i> ดูแลระบบตลอด 24/7</li>
-                                <li class="list-group-item"><i class="icon-ok text-success"></i> รีวิวร้านอาหาร 2ครั้ง/เดือน</li>
-                                <li class="list-group-item"><i class="icon-ok text-success"></i> สอนการใช้งานตามขั้นตอน</li>
-                                <li class="list-group-item"><i class="icon-ok text-success"></i> ดูแลระบบหลังบ้าน</li>
-                                <li class="list-group-item"><i class="icon-ok text-success"></i> ฟรีขึ้นโฆษณาหน้าแรก 2ตัว</li>
-                            </ul>
-                            <div class="panel-body text-center">
-                                <span>สุดคุ้ม! กับบริการเสริมพิเศษ</span>
-                            </div>
-                        </div>
+                    <div class="col-md-12 wow fadeIn" data-wow-delay="0.6s">
+                        <img src="assets/images/plan.PNG">
                     </div>
                 </div>
             </div>
