@@ -22,10 +22,10 @@ while ($data = $res->fetch_assoc()) {
                 . "VALUES (null,'$fast_id',now())");
 
         if ($con->error == "") {
-            /* $b = $sms->send('0000', $data["tel"], "เลขที่รายการ(สั่งด่วน):" . " " . $data["id"]
+             $b = $sms->send('0000', $data["tel"], "เลขที่รายการ(สั่งด่วน):" . " " . $data["id"]
               . "\nไม่มีร้านตอบรับรายการ"
               . "\nสามารถสั่งซื้ออาหารได้ที่ pixupfood.com");
-             */
+             
             $con->query("UPDATE `fast_order` SET status = '7' where id = '$fast_id'");
             echo $fast_id . "ส่งล่ะ";
         }
