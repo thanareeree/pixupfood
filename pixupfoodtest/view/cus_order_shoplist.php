@@ -408,6 +408,9 @@ include '../api/islogin.php';
                     <div class="col-md-4">
                         <div class="card" id="showcalendar">
                             <div class="card-content">
+                               <div class="page-header" style="color: #FF9900 ; font-size: 26px">
+                                   รับรายการสั่งซื้อได้สูงสุด &nbsp;<?= $resNameData["amount_box_limit"]?>&nbsp;ชุด/วัน
+                                </div>
                                 <div class="calendar" style="color: #FF9900"></div>
                             </div>  
                         </div>

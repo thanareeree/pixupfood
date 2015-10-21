@@ -43,7 +43,7 @@ if ($orderDetailRes->num_rows == 0) {
             <tr>
                 <th></th>
                 <th>รายการอาหารที่เลือก</th>
-                <th></th>
+                <th>ชุด</th>
                 <th></th>
             </tr>
         </thead>
@@ -80,7 +80,7 @@ if ($orderDetailRes->num_rows == 0) {
                     </td>
                     <td> 
                         <ul style="list-style: none; padding: 0;">
-                            <!--<span style="font-size: 12px; color: gray">(&nbsp;บาท/ชุด)</span>-->
+                            <span style="font-size: 14px; color: gray">(<?= $orderDetailData["price"] ?>&nbsp;ราคา/หน่วย)</span>
                             <?php
                             $menuid = $orderDetailData["menu_id"];
                             $menuid = "(" . $menuid . ")";
