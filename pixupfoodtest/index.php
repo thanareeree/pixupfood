@@ -27,10 +27,14 @@ include './dbconn.php';
                     <li data-target="#Carousel1" data-slide-to="1"></li>
                     <li data-target="#Carousel1" data-slide-to="2"></li>
                     <li data-target="#Carousel1" data-slide-to="3"></li>
+                    <li data-target="#Carousel1" data-slide-to="4"></li>
                 </ol>
                 <div class="carousel-inner">
                     <div class="item active">
                         <img src="assets/images/slide/nn.jpg" class="img-responsive" style="margin-top:0px;">
+                    </div>
+                    <div class="item">
+                        <img src="assets/images/slide/BN.jpg" class="img-responsive" style="margin-top:0px;">
                     </div>
                     <div class="item">
                         <img src="assets/images/slide/dd.jpg" class="img-responsive" style="margin-top:0px;">
