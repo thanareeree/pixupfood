@@ -26,6 +26,15 @@ include '../api/islogin.php';
                 color: #ffffff;
                 font-size: 12.5px;
             }
+            #addressoverlay {
+                background-color: rgba(255,255,255,0.2);
+                width: 100%;
+                height: 650px;
+                position: absolute;
+                top: 160px;
+                left: 0;
+                z-index: 10;
+            }
         </style>
 
 
@@ -234,6 +243,9 @@ include '../api/islogin.php';
                                                                 <option value="อื่นๆ">อื่นๆ</option>
                                                             </select>
                                                         </div>
+                                                        <div class="col-sm-9">
+                                                            <textarea  class="form-control" disabled="" placeholder="กรุณาลากวางมุดตรงที่อยู่ของคุณก่อนแก้ไขข้อมูลให้ถูกต้อง" rows="3" id="addressinput" name="addressinput" style="margin: 0;"></textarea>
+                                                        </div>
                                                         <div class='col-sm-12'>
                                                             <div class="address">
                                                                 <div id='showaddress' class='col-sm-6'>
@@ -351,7 +363,7 @@ include '../api/islogin.php';
                                                             . "LEFT JOIN promotion_main ON promotion_main.id = promotion.promotion_main_id "
                                                             . "where restaurant_id = '$resid' and end_time >= date(now()) and start_time <= date(now()) "
                                                             . "order by created_time DESC");
-                                                    
+
                                                     while ($data = $res->fetch_assoc()) {
                                                         ?>
                                                         <div class="alert alert-info" role="alert">
@@ -440,7 +452,7 @@ include '../api/islogin.php';
         </div>
 
         <?php include '../template/footer.php'; ?>
-        <script src="/assets/js/normal_order.js"></script>
+        <script src="/assets/js/order-shoplist.js"></script>
 
     </body>
 </html>
