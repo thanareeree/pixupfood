@@ -6,7 +6,6 @@ include './dbconn.php';
     <head>
         <?php include './template/customer-title.php'; ?>
         <title>PixupFood - The Original Food Delivery</title>
-        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css">
         <link rel="stylesheet" href="/assets/css/slide2.css">
     </head>
     <body>
@@ -247,80 +246,14 @@ include './dbconn.php';
         <!-- end feature1 -->
 
         <!-- start pricing -->
-        <section id="pricing">
+       <section id="pricing">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 wow bounceIn" style="margin-bottom: 25px;">
                         <h2 class="text-uppercase">Our Pricing</h2>
                     </div>
-                    <div class="col-md-4 wow fadeIn" data-wow-delay="0.6s">
-                        <div class="panel price panel-green">
-                            <div class="panel-heading arrow_box text-center">
-                                <h3>FREE PLAN</h3>
-                            </div>
-                            <div class="panel-body text-center">
-                                <p class="lead" style="font-size:35px;margin: 0px;"><strong>฿0 / month</strong></p>
-                            </div>
-                            <ul class="list-group list-group-flush text-center">
-                                <li class="list-group-item"><i class="icon-ok text-success"></i> จำกัดเมนูอาหาร 20 เมนู</li>
-                                <li class="list-group-item"><i class="icon-ok text-success"></i> จำกัดจำนวนคนส่งอาหาร</li>
-                                <li class="list-group-item"><i class="icon-ok text-success"></i> ติดตามสถานะด้วยตนเอง</li>
-                                <li class="list-group-item"><i class="icon-ok text-success"></i> ดูแลระบบในเวลาเปิดร้าน</li>
-                                <li class="list-group-item"> -</li>
-                                <li class="list-group-item"> -</li>
-                                <li class="list-group-item"> -</li>
-                                <li class="list-group-item"> -</li>
-                            </ul>
-                            <div class="panel-body text-center">
-                                <span>ใช้งานฟรี ไม่เสียค่าใช้จ่าย!</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 wow fadeIn" data-wow-delay="0.6s">
-                        <div class="panel price panel-blue">
-                            <div class="panel-heading  text-center">
-                                <h3>BASIC PLAN</h3>
-                            </div>
-                            <div class="panel-body text-center">
-                                <p class="lead" style="font-size:35px;margin: 0px;"><strong>฿100 / month</strong></p>
-                            </div>
-                            <ul class="list-group list-group-flush text-center">
-                                <li class="list-group-item"><i class="icon-ok text-success"></i> จำกัดเมนูอาหาร 60 เมนู</li>
-                                <li class="list-group-item"><i class="icon-ok text-success"></i> ไม่จำกัดจำนวนคนส่งอาหาร</li>
-                                <li class="list-group-item"><i class="icon-ok text-success"></i> ติดตามสถานะด้วย code</li>
-                                <li class="list-group-item"><i class="icon-ok text-success"></i> ดูแลระบบในเวลาเปิดร้าน</li>
-                                <li class="list-group-item"><i class="icon-ok text-success"></i> รีวิวร้านอาหาร 1ครั้ง/เดือน</li>
-                                <li class="list-group-item"><i class="icon-ok text-success"></i> ฟรีขึ้นโฆษณาหน้าแรก 1ตัว</li>
-                                <li class="list-group-item"> -</li>
-                                <li class="list-group-item"> -</li>
-                            </ul>
-                            <div class="panel-body text-center">
-                                <span>จ่ายสบายๆ เหมาะกับผู้เริ่มต้นใช้งาน!</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 wow fadeIn" data-wow-delay="0.6s">
-                        <div class="panel price panel-red">
-                            <div class="panel-heading arrow_box text-center">
-                                <h3>PRO PLAN</h3>
-                            </div>
-                            <div class="panel-body text-center">
-                                <p class="lead" style="font-size:35px;margin: 0px;"><strong>฿250 / 3months</strong></p>
-                            </div>
-                            <ul class="list-group list-group-flush text-center">
-                                <li class="list-group-item"><i class="icon-ok text-success"></i> ไม่จำกัดเมนูอาหาร</li>
-                                <li class="list-group-item"><i class="icon-ok text-success"></i> ไม่จำกัดจำนวนคนส่งอาหาร</li>
-                                <li class="list-group-item"><i class="icon-ok text-success"></i> ติดตามสถานะด้วย code</li>
-                                <li class="list-group-item"><i class="icon-ok text-success"></i> ดูแลระบบตลอด 24/7</li>
-                                <li class="list-group-item"><i class="icon-ok text-success"></i> รีวิวร้านอาหาร 2ครั้ง/เดือน</li>
-                                <li class="list-group-item"><i class="icon-ok text-success"></i> สอนการใช้งานตามขั้นตอน</li>
-                                <li class="list-group-item"><i class="icon-ok text-success"></i> ดูแลระบบหลังบ้าน</li>
-                                <li class="list-group-item"><i class="icon-ok text-success"></i> ฟรีขึ้นโฆษณาหน้าแรก 2ตัว</li>
-                            </ul>
-                            <div class="panel-body text-center">
-                                <span>สุดคุ้ม! กับบริการเสริมพิเศษ</span>
-                            </div>
-                        </div>
+                    <div class="col-md-12 wow fadeIn" data-wow-delay="0.6s">
+                        <img src="/assets/images/plan.PNG">
                     </div>
                 </div>
             </div>

@@ -1,3 +1,4 @@
+
 <?php
 include '../dbconn.php';
 include '../api/islogin.php';
@@ -13,7 +14,6 @@ include '../api/islogin.php';
 
         <link href='/assets/css/fullcalendar.css' rel='stylesheet' />
         <link href='/assets/css/fullcalendar.print.css' rel='stylesheet' media='print' />
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="/assets/css/normal_order.css">
 
         <style>

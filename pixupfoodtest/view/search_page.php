@@ -16,9 +16,19 @@ include '../dbconn.php';
                 table-layout: fixed;
                 padding-top: 29px;
             }
+            .fav-icon {
+                color: #FF0045 !important;
+            }
+            .unfav{
+                color: gray;
+            }
+            .faved{
+                color: red;
+            }
         </style>
     </head>
     <body>
+        <?php $cusid = $_SESSION["userdata"]["id"] ?>
         <?php include '../template/customer-navbar.php'; ?>
         <!-- start register -->
         <section id="search_page">
@@ -134,8 +144,8 @@ include '../dbconn.php';
                                                     . "order by main_menu.name ");
                                             echo $con->error;
                                             $numrow = $res->num_rows;
-                                        }else{
-                                             $res = $con->query("SELECT DISTINCT restaurant.id,restaurant.name, menu.img_path, main_menu.name as menuname,"
+                                        } else {
+                                            $res = $con->query("SELECT DISTINCT restaurant.id,restaurant.name, menu.img_path, main_menu.name as menuname,"
                                                     . " food_type.description as foodtype, restaurant.name as resname, menu.id as menuid, menu.price,"
                                                     . "main_menu.img_path as img "
                                                     . "FROM menu "
@@ -179,8 +189,31 @@ include '../dbconn.php';
                                                         </span>
                                                     </a>
                                                     <span class="pull-right">
-                                                        <button class="btn fav"  ><i class="glyphicon glyphicon-heart" style="color: red;"></i>&nbsp;<span style="color: black;"> ชื่นชอบ</span></button>
-                                                        <button class="btn btn-danger faved"  id="lovelove2" style="display: none;"><i class="glyphicon glyphicon-heart"></i>&nbsp; ชื่นชอบ</button>
+                                                        <?php
+                                                        if (isset($_SESSION["islogin"])) {
+                                                            $menuid = $data["menuid"];
+                                                            $favRes = $con->query("SELECT * FROM `favorite_menu` WHERE  customer_id = '$cusid' and menu_id ='$menuid' ");
+                                                            if ($favRes->num_rows > 0) {
+                                                                while ($favData = $favRes->fetch_assoc()) {
+                                                                    ?>
+                                                                    <button class="btn favmenu btn-default  " >
+                                                                        <i class="glyphicon glyphicon-heart faved"  data-menuid="<?= $data["menuid"] ?>" data-favid="<?= $favData["id"] ?>" data-faved="1" ></i>&nbsp;<span class="faved"> ชื่นชอบ</span>
+                                                                    </button>
+                                                                    <?php
+                                                                }
+                                                            } else {
+                                                                ?>
+                                                                <button class="btn favmenu btn-default">
+                                                                    <i class="glyphicon glyphicon-heart unfav"  data-menuid="<?= $data["menuid"] ?>" data-favid="" data-faved="0"  ></i>&nbsp;<span class="unfav"> ชื่นชอบ</span>
+                                                                </button>
+                                                                <?php
+                                                            }
+                                                        } else {
+                                                            ?>
+                                                            <button class="btn favunlogin btn-default" class="tooltip-r " data-toggle="tooltip" data-placement="top" title="log in to favorite this menu" data-menuid="<?= $data["menuid"] ?>" data-favid="" data-faved="0"  >
+                                                                <i class="glyphicon glyphicon-heart  unfav" ></i>&nbsp;<span class="unfav"> ชื่นชอบ</span>
+                                                            </button>
+                                                        <?php } ?>
                                                     </span>
                                                 </td>
                                             </tr>
@@ -216,7 +249,6 @@ include '../dbconn.php';
         } else {
             ?>
             <script>
-
                 $('a').click(function (e) {
                     e.preventDefault()
                 });
@@ -227,105 +259,6 @@ include '../dbconn.php';
             <?php
         }
         ?>
-        <script>
-            $(document).ready(function () {
-
-                var lat = "";
-                var long = "";
-
-                function startMap() {
-
-                    map = new google.maps.Map(document.getElementById("map"));
-                    if (navigator.geolocation) {
-                        navigator.geolocation.getCurrentPosition(getPosition);
-                        //navigator.geolocation.watchPosition(updatePosition);
-                    } else {
-                        lat = "";
-                        long = "";
-                    }
-                }
-                startMap();
-
-                function getPosition(pos) {
-                    globalPosition = pos;
-                    lat = pos.coords.latitude;
-                    long = pos.coords.longitude;
-                    // alert($("#latinput").val() + "\n" + $("#longinput").val());
-                    console.log(pos);
-
-                }
-
-
-                $("#searchby").on("change", function (e) {
-                    var searchby = $(this).val();
-                    if (searchby == "foodname") {
-                        $("#foodtype").val("all");
-                        $("#foodtype").removeAttr("disabled");
-                    } else {
-                        $("#foodtype").val(0);
-                        $("#foodtype").attr("disabled", "disabled");
-                    }
-                });
-
-                $("#searchtxt").on("keyup", function (e) {
-                    if (e.keyCode == 13) {
-                        $("#searchbtn").click();
-                    }
-                });
-                $("input[type=checkbox]").removeAttr("checked");
-
-                $("#searchbtn").on("click", function (e) {
-                    $("#result").html('<tr><td colspan="3" style="text-align: center;"><h2>Searching...</h2></td></tr>');
-                    var searchby = $("#searchby").val();
-                    var foodtype = $("#foodtype").val();
-                    var searchtxt = $("#searchtxt").val();
-                    $("input[type=checkbox]").removeAttr("checked");
-                    $.ajax({
-                        url: "/customer/ajax_search.php",
-                        type: 'POST',
-                        dataType: 'html',
-                        data: {"searchby": searchby, "foodtype": foodtype, "searchtxt": searchtxt, "lat": lat, "long": long},
-                        success: function (data, textStatus, jqXHR) {
-                            $("#showsearchtext").html(searchtxt);
-                            $("#result").html(data);
-                            $('[data-toggle="tooltip"]').tooltip();
-
-                        }
-                    });
-                });
-
-
-                $("input[type=checkbox]").on("click", function (e) {
-                    $("#result").html('<tr><td colspan="3" style="text-align: center;"><h2>Searching...</h2></td></tr>');
-                    var searchoption = $("input:checked").val();
-                    $.ajax({
-                        url: "/customer/ajax_search_option.php",
-                        type: 'POST',
-                        dataType: 'html',
-                        data: {"searchoption": searchoption},
-                        success: function (data, textStatus, jqXHR) {
-                            $("#result").html(data);
-                            $('[data-toggle="tooltip"]').tooltip();
-
-                        }
-                    });
-                });
-
-
-
-            });
-        </script>
-        <script>
-            $(document).ready(function () {
-                $("#lovelove").click(function () {
-                    $("#lovelove2").show();
-                    $("#lovelove").hide();
-                });
-                $("#lovelove2").click(function () {
-                    $("#lovelove").show();
-                    $("#lovelove2").hide();
-                });
-            });
-        </script>
+        <script src="/assets/js/search-page.js"></script>
     </body>
 </html>

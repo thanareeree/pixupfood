@@ -1,6 +1,7 @@
 <?php
 include '../dbconn.php';
 session_start();
+$cusid = $_SESSION["userdata"]["id"];
 $searchby = $con->real_escape_string(@$_POST["searchby"]);
 $foodtype = $con->real_escape_string(@$_POST["foodtype"]);
 $searchtxt = $con->real_escape_string(@$_POST["searchtxt"]);
@@ -62,12 +63,39 @@ if ($searchby == "foodname") {
             <td>
                 <p style="font-size: 20px"><?= $data["price"] ?>&nbsp;บาท<br></p>
             </td>
-            <td>
-                <a href="/view/cus_restaurant_view.php?menuId=<?= $data["menuid"] ?>&resId=<?= $data["id"] ?>" <?=(isset($_SESSION["islogin"])) ? "":"onclick=\"return false;\""?>>
-                    <span class="tooltip-r"<?=(isset($_SESSION["islogin"])) ? "":" data-toggle=\"tooltip\" "?>data-placement="top" title="log in to ordet this restaurant">
+            <td style="padding-left: 50px">
+                <a href="/view/cus_restaurant_view.php?menuId=<?= $data["menuid"] ?>&resId=<?= $data["id"] ?>" <?= (isset($_SESSION["islogin"])) ? "" : "onclick=\"return false;\"" ?>>
+                    <span class="tooltip-r"<?= (isset($_SESSION["islogin"])) ? "" : " data-toggle=\"tooltip\" " ?>data-placement="top" title="log in to ordet this restaurant">
                         <button class="btn btn-success menu_order" id="menu_order<?= $data["menuid"] ?>"><i class="glyphicon glyphicon-plus"></i>&nbsp; สั่งรายการอาหารนี้</button>
                     </span>
                 </a>
+                <span class="pull-right">
+                    <?php
+                    if (isset($_SESSION["islogin"])) {
+                        $menuid = $data["menuid"];
+                        $favRes = $con->query("SELECT * FROM `favorite_menu` WHERE  customer_id = '$cusid' and menu_id ='$menuid' ");
+                        if ($favRes->num_rows > 0) {
+                            while ($favData = $favRes->fetch_assoc()) {
+                                ?>
+                                <button class="btn favmenu btn-default  " >
+                                    <i class="glyphicon glyphicon-heart faved"  data-menuid="<?= $data["menuid"] ?>" data-favid="<?= $favData["id"] ?>" data-faved="1" ></i>&nbsp;<span class="faved"> ชื่นชอบ</span>
+                                </button>
+                                <?php
+                            }
+                        } else {
+                            ?>
+                            <button class="btn favmenu btn-default">
+                                <i class="glyphicon glyphicon-heart unfav"  data-menuid="<?= $data["menuid"] ?>" data-favid="" data-faved="0"  ></i>&nbsp;<span class="unfav"> ชื่นชอบ</span>
+                            </button>
+                            <?php
+                        }
+                    } else {
+                        ?>
+                        <button class="btn favunlogin btn-default" class="tooltip-r " data-toggle="tooltip" data-placement="top" title="log in to favorite this menu" data-menuid="<?= $data["menuid"] ?>" data-favid="" data-faved="0"  >
+                            <i class="glyphicon glyphicon-heart  unfav" ></i>&nbsp;<span class="unfav"> ชื่นชอบ</span>
+                        </button>
+                    <?php } ?>
+                </span>
             </td>
         </tr>
         <?php
@@ -106,14 +134,14 @@ if ($searchby == "foodname") {
 
             </td>
             <td>
-                <a href="/view/cus_restaurant_view.php?resId=<?= $data["id"] ?>" <?=(isset($_SESSION["islogin"])) ? "":"onclick=\"return false;\""?>>
-                    <span class="tooltip-r"<?=(isset($_SESSION["islogin"])) ? "":" data-toggle=\"tooltip\" "?> data-placement="top" title="log in to ordet this restaurant">
+                <a href="/view/cus_restaurant_view.php?resId=<?= $data["id"] ?>" <?= (isset($_SESSION["islogin"])) ? "" : "onclick=\"return false;\"" ?>>
+                    <span class="tooltip-r"<?= (isset($_SESSION["islogin"])) ? "" : " data-toggle=\"tooltip\" " ?> data-placement="top" title="log in to ordet this restaurant">
                         <button class="btn btn-success restaurant_order" id="restaurant_order<?= $data["id"] ?>"><i class="glyphicon glyphicon-plus"></i>&nbsp; สั่งอาหารล่วงหน้า</button>
                     </span>
                 </a>
             </td>
         </tr>
-        
+
         <?php
     }
 } else if ($searchby == "nearbyfood") {
@@ -153,14 +181,14 @@ if ($searchby == "foodname") {
                 <br><i class="glyphicon glyphicon-flag"></i>&nbsp;รัศมี&nbsp;<?= substr($data["distance"], 0, 5) ?>&nbsp;กิโลเมตร
             </td>
             <td>
-                <a href="/view/cus_restaurant_view.php?resId=<?= $data["id"] ?>" <?=(isset($_SESSION["islogin"])) ? "":"onclick=\"return false;\""?>>
-                    <span class="tooltip-r" <?=(isset($_SESSION["islogin"])) ? "":" data-toggle=\"tooltip\" "?> data-placement="top" title="log in to ordet this restaurant">
+                <a href="/view/cus_restaurant_view.php?resId=<?= $data["id"] ?>" <?= (isset($_SESSION["islogin"])) ? "" : "onclick=\"return false;\"" ?>>
+                    <span class="tooltip-r" <?= (isset($_SESSION["islogin"])) ? "" : " data-toggle=\"tooltip\" " ?> data-placement="top" title="log in to ordet this restaurant">
                         <button class="btn btn-success restaurant_order" id="restaurant_order<?= $data["id"] ?>"><i class="glyphicon glyphicon-plus" ></i>&nbsp; สั่งอาหารล่วงหน้า</button>
                     </span>
                 </a>
             </td>
         </tr>
-        
+
         <?php
     }
 }
