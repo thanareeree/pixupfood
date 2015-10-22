@@ -9,7 +9,7 @@ include '../../dbconn.php';
         <?php include '../../template/customer-title.php'; ?>
         <link rel="stylesheet" href="/assets/css/fast_order.css">
         <link rel="stylesheet" href="/assets/css/bootstrap-toggle.min.css">
-        
+
     </head>
     <body>
         <?php
@@ -343,8 +343,9 @@ include '../../dbconn.php';
                             <div class="card">
                                 <div class="card-content">
                                     <div class="page-header" style="margin-left:16px;">
-                                        ขั้นตอนที่ 6 : เลือกร้านอาหาร
+                                        ขั้นตอนที่ 6 : ร้านอาหารใกล้เคียง 3 ร้าน
                                     </div>
+                                    <small style="color: red;font-size: 16px;margin-left:16px;">**ระบบจะส่งคำขอไปยังร้านอาหารที่ถูกเลือก ต้องเลือกอย่างน้อย 1 ร้าน หากมีการเลือกมากกว่า 1 ร้าน ระบบจำส่งคำขอไปยังร้านที่เลือกพร้อมกัน</small>
                                     <div class="row" id="showrest">
                                     </div>   
                                 </div>
