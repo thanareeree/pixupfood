@@ -4,11 +4,11 @@ var address = new Array();
 var defaultlatlng = {lat: 13.6524931, lng: 100.4938914};
 $(document).ready(function () {
     initMap();
-   /*  $('#termsmodal').modal({
+    $('#termsmodal').modal({
      backdrop: 'static',
      keyboard: false
      });
-    $("#termsmodal").modal('show');*/
+    $("#termsmodal").modal('show');
 
     $("input[type=checkbox]").on("click", function (e) {
         $("#nextregisbtn").removeAttr("disabled");

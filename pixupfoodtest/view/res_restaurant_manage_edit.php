@@ -132,7 +132,7 @@ include '../dbconn.php';
                                 <li>
                                     <a href="/view/res_manage_edit_messenger.php" > พนักงานจัดส่ง</a>
                                 </li>
-                                 <li >
+                                <li >
                                     <a href="/view/res_manage_edit_promotion.php" >โปรโมชั่น</a>
                                 </li>
                             </ul>
@@ -167,11 +167,11 @@ include '../dbconn.php';
                                                             <input id="switchClose" name="someSwitchOption001" type="checkbox" <?= ($resdata["close"] == 1 ? 'checked' : '') ?>/>
                                                             <label for="switchClose" class="label-success"></label>
                                                             &nbsp;  <span style="font-size: 20px">ปิดร้าน*</span><br><br>
-                                                          
+
                                                         </div> <hr>
                                                         <p style="font-size: 20px;">เวลาเปิด-ปิด(รับรายการสั่งซื้อ):<span style="color: #FF9900"> &nbsp;<?= ($resdata["opentime"] == "" ? '-' : $resdata["opentime"]) ?></span></p>
                                                         <hr>
-                                                         <span style="color: red">*กรณีวันที่ไม่สามารถรับรายการสั่งซื้อได้ อาทิ วันหยุดพักผ่อน</span>
+                                                        <span style="color: red">*กรณีวันที่ไม่สามารถรับรายการสั่งซื้อได้ อาทิ วันหยุดพักผ่อน</span>
                                                     </div>
 
 
@@ -324,108 +324,108 @@ include '../dbconn.php';
 
 
                                                     <!-- ความน่าเชื่อถือ ------------------------------------------------------------------------------------------->
-                                                   <!-- <div class="card card-content">
-                                                        <div class="page-header" style="font-size: 30px; margin-top: 5px">
-                                                            ระดับความน่าเชื่อถือ
-                                                            <div class="pull-right">
-                                                                <p class="text-center">
-                                                                    <a data-toggle="modal" data-target='#Turst' href="#Turst">
-                                                                        <span class="glyphicon glyphicon-pencil"style="font-size: 20px; color: orange"></span> 
-                                                                        <span style="font-size: 20px; color: orange">แก้ไข</span>
-                                                                    </a>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-5">
-                                                                <?php
-                                                                /*$level = $resdata["level"];
-                                                                if ($level == "พื้นฐาน") {
-                                                                    echo '<img src="/assets/images/ResClass/Standard.png">';
-                                                                } else if ($level == "กลาง") {
-                                                                    echo '<img src="/assets/images/ResClass/middle.png">';
-                                                                } else if ($level == "สูง") {
-                                                                    echo '<img src="/assets/images/ResClass/High.png">';
-                                                                } else {
-                                                                    echo '<img src="/assets/images/ResClass/Premium.png">';
-                                                                }*/
-                                                                ?>
-                                                            </div>
-                                                        </div>
-                                                    </div>-->
+                                                    <!-- <div class="card card-content">
+                                                         <div class="page-header" style="font-size: 30px; margin-top: 5px">
+                                                             ระดับความน่าเชื่อถือ
+                                                             <div class="pull-right">
+                                                                 <p class="text-center">
+                                                                     <a data-toggle="modal" data-target='#Turst' href="#Turst">
+                                                                         <span class="glyphicon glyphicon-pencil"style="font-size: 20px; color: orange"></span> 
+                                                                         <span style="font-size: 20px; color: orange">แก้ไข</span>
+                                                                     </a>
+                                                                 </p>
+                                                             </div>
+                                                         </div>
+                                                         <div class="row">
+                                                             <div class="col-md-5">
+                                                    <?php
+                                                    /* $level = $resdata["level"];
+                                                      if ($level == "พื้นฐาน") {
+                                                      echo '<img src="/assets/images/ResClass/Standard.png">';
+                                                      } else if ($level == "กลาง") {
+                                                      echo '<img src="/assets/images/ResClass/middle.png">';
+                                                      } else if ($level == "สูง") {
+                                                      echo '<img src="/assets/images/ResClass/High.png">';
+                                                      } else {
+                                                      echo '<img src="/assets/images/ResClass/Premium.png">';
+                                                      } */
+                                                    ?>
+                                                             </div>
+                                                         </div>
+                                                     </div>-->
 
                                                     <!-- modal ความน่าเชื่อถือ-->
-                                                   <!--<div class="modal fade" id="Turst" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-                                                        <div class="modal-dialog">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                                    <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px">ระดับความน่าเชื่อถือ</div></span>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <span style="font-size: 20px; color: red;">ระดับความน่าเชื่อถือของคุณขึ้นอาจอยู่กับ หลักฐานเอกสาร/จำนวนสาขา/ปีที่เปิดร้าน/จำนวนความผิดพลาดของรายการสั่งซื้อ/อื่นๆ 
-                                                                        โปรดติดต่อผู้ดูและระบบเพื่อขอพิจารณาการเพิ่มระดับความน่าเชื่อถือ</span><hr>
-
-                                                                    <span style="font-size: 25px; ">ระดับทั้งหมดที่มี</span><br>
-                                                                    <div class="row">
-                                                                        <div class="col-md-3" style="padding-middle"><img src="/assets/images/ResClass/Standard.png"></div>
-                                                                        <div class="col-md-3" style="padding-middle"><img src="/assets/images/ResClass/middle.png"></div>
-                                                                        <div class="col-md-3" style="padding-middle"><img src="/assets/images/ResClass/High.png"></div>
-                                                                        <div class="col-md-3" style="padding-middle"><img src="/assets/images/ResClass/Premium.png"></div>
-                                                                    </div>
-                                                                    <hr>
-                                                                    <div class="row">
-                                                                        <div class="col-md-12">
-                                                                            <div class="form-group">
-
-                                                                                <textarea style="font-size: 20px;" class="form-control" rows="5" id="Report" placeholder="พิมพ์ข้อความของคุณที่นี่..."></textarea>
-                                                                            </div>
-                                                                        </div> 
-                                                                    </div>
-
-                                                                    <label class="control-label">Select File</label>
-                                                                    <div class="file-input file-input-new">
-                                                                        <div class="file-preview ">
-                                                                            <div class="close fileinput-remove">×</div>
-                                                                            <div class="file-drop-disabled">
-                                                                                <div class="file-preview-thumbnails"></div>
-                                                                                <div class="clearfix"></div>    
-                                                                                <div class="file-preview-status text-center text-success"></div>
-                                                                                <div class="kv-fileinput-error file-error-message" style="display: none;"></div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="kv-upload-progress hide">
-                                                                            <div class="progress">
-                                                                                <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%;">
-                                                                                    0%
-                                                                                </div>
-                                                                            </div>                                              
-                                                                        </div>
-                                                                        <div class="input-group ">
-                                                                            <div tabindex="500" class="form-control file-caption kv-fileinput-caption" style="height:38px;">
-                                                                                <div class="file-caption-name" title=""></div>
-                                                                            </div>
-                                                                            <div class="input-group-btn">
-                                                                                <button type="button" tabindex="500" title="Clear selected files" class="btn btn-default fileinput-remove fileinput-remove-button"><i class="glyphicon glyphicon-trash"></i> Remove</button>
-                                                                                <button type="button" tabindex="500" title="Abort ongoing upload" class="btn btn-default hide fileinput-cancel fileinput-cancel-button"><i class="glyphicon glyphicon-ban-circle"></i> Cancel</button>
-                                                                                <button type="submit" tabindex="500" title="Upload selected files" class="btn btn-default fileinput-upload fileinput-upload-button"><i class="glyphicon glyphicon-upload"></i> Upload</button>
-                                                                                <div tabindex="500" class="btn btn-primary btn-file">
-                                                                                    <i class="glyphicon glyphicon-folder-open"></i> &nbsp;Browse …
-                                                                                    <input id="input-42" type="file" multiple="true" class="file-loading">
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
-                                                                    <button type="button" class="btn btn-primary">บันทึก</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>-->
+                                                    <!--<div class="modal fade" id="Turst" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+                                                         <div class="modal-dialog">
+                                                             <div class="modal-content">
+                                                                 <div class="modal-header">
+                                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                                     <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px">ระดับความน่าเชื่อถือ</div></span>
+                                                                 </div>
+                                                                 <div class="modal-body">
+                                                                     <span style="font-size: 20px; color: red;">ระดับความน่าเชื่อถือของคุณขึ้นอาจอยู่กับ หลักฐานเอกสาร/จำนวนสาขา/ปีที่เปิดร้าน/จำนวนความผิดพลาดของรายการสั่งซื้อ/อื่นๆ 
+                                                                         โปรดติดต่อผู้ดูและระบบเพื่อขอพิจารณาการเพิ่มระดับความน่าเชื่อถือ</span><hr>
+ 
+                                                                     <span style="font-size: 25px; ">ระดับทั้งหมดที่มี</span><br>
+                                                                     <div class="row">
+                                                                         <div class="col-md-3" style="padding-middle"><img src="/assets/images/ResClass/Standard.png"></div>
+                                                                         <div class="col-md-3" style="padding-middle"><img src="/assets/images/ResClass/middle.png"></div>
+                                                                         <div class="col-md-3" style="padding-middle"><img src="/assets/images/ResClass/High.png"></div>
+                                                                         <div class="col-md-3" style="padding-middle"><img src="/assets/images/ResClass/Premium.png"></div>
+                                                                     </div>
+                                                                     <hr>
+                                                                     <div class="row">
+                                                                         <div class="col-md-12">
+                                                                             <div class="form-group">
+ 
+                                                                                 <textarea style="font-size: 20px;" class="form-control" rows="5" id="Report" placeholder="พิมพ์ข้อความของคุณที่นี่..."></textarea>
+                                                                             </div>
+                                                                         </div> 
+                                                                     </div>
+ 
+                                                                     <label class="control-label">Select File</label>
+                                                                     <div class="file-input file-input-new">
+                                                                         <div class="file-preview ">
+                                                                             <div class="close fileinput-remove">×</div>
+                                                                             <div class="file-drop-disabled">
+                                                                                 <div class="file-preview-thumbnails"></div>
+                                                                                 <div class="clearfix"></div>    
+                                                                                 <div class="file-preview-status text-center text-success"></div>
+                                                                                 <div class="kv-fileinput-error file-error-message" style="display: none;"></div>
+                                                                             </div>
+                                                                         </div>
+                                                                         <div class="kv-upload-progress hide">
+                                                                             <div class="progress">
+                                                                                 <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%;">
+                                                                                     0%
+                                                                                 </div>
+                                                                             </div>                                              
+                                                                         </div>
+                                                                         <div class="input-group ">
+                                                                             <div tabindex="500" class="form-control file-caption kv-fileinput-caption" style="height:38px;">
+                                                                                 <div class="file-caption-name" title=""></div>
+                                                                             </div>
+                                                                             <div class="input-group-btn">
+                                                                                 <button type="button" tabindex="500" title="Clear selected files" class="btn btn-default fileinput-remove fileinput-remove-button"><i class="glyphicon glyphicon-trash"></i> Remove</button>
+                                                                                 <button type="button" tabindex="500" title="Abort ongoing upload" class="btn btn-default hide fileinput-cancel fileinput-cancel-button"><i class="glyphicon glyphicon-ban-circle"></i> Cancel</button>
+                                                                                 <button type="submit" tabindex="500" title="Upload selected files" class="btn btn-default fileinput-upload fileinput-upload-button"><i class="glyphicon glyphicon-upload"></i> Upload</button>
+                                                                                 <div tabindex="500" class="btn btn-primary btn-file">
+                                                                                     <i class="glyphicon glyphicon-folder-open"></i> &nbsp;Browse …
+                                                                                     <input id="input-42" type="file" multiple="true" class="file-loading">
+                                                                                 </div>
+                                                                             </div>
+                                                                         </div>
+                                                                     </div>
+                                                                 </div>
+ 
+ 
+                                                                 <div class="modal-footer">
+                                                                     <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                                                                     <button type="button" class="btn btn-primary">บันทึก</button>
+                                                                 </div>
+                                                             </div>
+                                                         </div>
+                                                     </div>-->
                                                     <!-- จบ modal ความน่าเชื่อถือ-->
                                                     <!-- จบความน่าเชื่อถือ -->
 
@@ -455,40 +455,30 @@ include '../dbconn.php';
                                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                                                     <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px">ช่องทางการติดต่อของลูกค้า</div></span>
                                                                 </div>
-                                                                <div class="modal-body">
-                                                                    <div class="row">
-                                                                        <div class="col-md-12">
-                                                                            <div class="col-md-4">
-                                                                                <span class="form-group">
-                                                                                    <select class="form-control" id="ResContact">
-                                                                                        <option>โทรศัพท์</option>
-                                                                                        <option>อีเมล</option>
-                                                                                        <option>แฟกซ์</option>
-                                                                                        <option>โซเชียล</option>
-                                                                                        <option>เว็บไซต์</option>
-
-                                                                                    </select>
-                                                                                </span>
-                                                                            </div>
-                                                                            <div class="col-md-8"style="padding-left: 0px;">
-                                                                                <input type="text" class="form-control" placeholder="">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row">
-                                                                        <div class="col-md-12">
-                                                                            <div class="col-md-1 pull-right" style="margin-right: 8px;">   
-                                                                                <div class="round round-lg hollow orange">
-                                                                                    <span class="glyphicon glyphicon-plus btn"></span>
+                                                                <form action="/restaurant-setting/edit-tel-email.php" method="post">
+                                                                    <div class="modal-body">
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
+                                                                                <div class="form-group" style="margin-bottom: 15px;">
+                                                                                    <label class="col-sm-2 control-label" for="textinput">โทรศัพท์</label>
+                                                                                    <div class="col-sm-10" style="margin-bottom: 15px;">
+                                                                                        <input type="text" placeholder="โทรศัพท์" class="form-control" id="tel" name="tel" required="" value="<?= $resdata["tel"] ?>">
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="form-group" style="margin-bottom: 15px;">
+                                                                                    <label class="col-sm-2 control-label" for="textinput">อีเมล</label>
+                                                                                    <div class="col-sm-10" style="margin-bottom: 15px;">
+                                                                                        <input type="text" placeholder="อีเมล" class="form-control" id="email" name="email" required="" value="<?= $resdata["email"] ?>">
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
-                                                                    <button type="button" class="btn btn-primary">บันทึก</button>
-                                                                </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                                                                        <button type="submit" class="btn btn-primary">บันทึก</button>
+                                                                    </div>
+                                                                </form>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -514,7 +504,7 @@ include '../dbconn.php';
                                                         <div class="card-action">
                                                             <div class="address">
                                                                 <div id="showaddress" class='col-sm-6'>
-                                                                   ไม่สามารถหาที่อยู่ได้
+                                                                    ไม่สามารถหาที่อยู่ได้
                                                                 </div>
                                                             </div>
                                                             <p class="text-center">
@@ -550,81 +540,25 @@ include '../dbconn.php';
                                                                         <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px">รายละเอียดตำแน่งที่ตั้ง</div></span>
                                                                     </div>
                                                                     <div class="modal-body">
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-                                                                                <form class="form-horizontal" role="form">
+                                                                        <form class="form-horizontal" action="/restaurant-setting/edit-addres.php" method="post">
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
                                                                                     <fieldset>
-
-                                                                                        <!-- Form Name -->
-
-
-                                                                                        <!-- Text input-->
                                                                                         <div class="form-group">
-                                                                                            <label class="col-sm-2 control-label" for="textinput">เลขที่/เลขห้อง</label>
+                                                                                            <label class="col-sm-2 control-label" for="textinput">ที่อยู่ร้าน</label>
                                                                                             <div class="col-sm-10">
-                                                                                                <input type="text" placeholder="หมายเลขห้อง/เลขที่" class="form-control">
-                                                                                            </div>
-                                                                                        </div>
+                                                                                                <textarea required  class="form-control" placeholder="" rows="4" id="resaddress" name="resaddress" style="margin: 0;"><?= $resdata["address"] ?></textarea>
 
-                                                                                        <!-- Text input-->
-                                                                                        <div class="form-group">
-                                                                                            <label class="col-sm-2 control-label" for="textinput">อาคาร</label>
-                                                                                            <div class="col-sm-10">
-                                                                                                <input type="text" placeholder="อาคาร" class="form-control">
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <!-- Text input-->
-                                                                                        <div class="form-group">
-                                                                                            <label class="col-sm-2 control-label" for="textinput">ซอย/ถนน</label>
-                                                                                            <div class="col-sm-10">
-                                                                                                <input type="text" placeholder="ซอย/ถนน" class="form-control">
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <!-- Text input-->
-                                                                                        <div class="form-group">
-                                                                                            <label class="col-sm-2 control-label" for="textinput">เขต/อำเภอ</label>
-                                                                                            <div class="col-sm-10">
-                                                                                                <input type="text" placeholder="เขต/อำเภอ" class="form-control">
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="form-group">
-                                                                                            <label class="col-sm-2 control-label" for="textinput">แขวง/ตำบล</label>
-                                                                                            <div class="col-sm-10">
-                                                                                                <input type="text" placeholder="แขวง/ตำบล" class="form-control">
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                        <!-- Text input-->
-                                                                                        <div class="form-group">
-                                                                                            <label class="col-sm-2 control-label" for="textinput">จังหวัด</label>
-                                                                                            <div class="col-sm-4">
-                                                                                                <select class="form-control" id="provincelist">
-                                                                                                    <?php
-                                                                                                    $res = $con->query("SELECT `id`, `name` FROM `province`");
-                                                                                                    while ($data = $res->fetch_assoc()) {
-                                                                                                        ?>
-
-                                                                                                        <option value="<?= $data['name'] ?>"> <?= $data['name'] ?> </option>
-
-                                                                                                    <?php } ?>
-                                                                                                </select>
-                                                                                            </div>
-
-                                                                                            <label class="col-sm-2 control-label" for="textinput">รหัสไปรษณีย์</label>
-                                                                                            <div class="col-sm-4">
-                                                                                                <input type="text" placeholder="รหัสไปรษณีย์" class="form-control">
                                                                                             </div>
                                                                                         </div>
                                                                                     </fieldset>
-                                                                                </form>
-                                                                            </div><!-- /.col-lg-12 -->
-                                                                        </div>
-                                                                        <div class="modal-footer">
-                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
-                                                                            <button type="button" class="btn btn-primary">บันทึก</button>
-                                                                        </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                                                                                <button type="submit" class="btn btn-primary">บันทึก</button>
+                                                                            </div>
+                                                                        </form>
                                                                     </div>
                                                                 </div>
                                                             </div>

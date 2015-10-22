@@ -114,7 +114,7 @@ include '../dbconn.php';
                                 <li class="active">
                                     <a href="/view/res_manage_edit_messenger.php" > พนักงานจัดส่ง</a>
                                 </li>
-                                  <li >
+                                <li >
                                     <a href="/view/res_manage_edit_promotion.php" >โปรโมชั่น</a>
                                 </li>
                             </ul>
@@ -222,7 +222,7 @@ include '../dbconn.php';
                                                                             </td>
 
                                                                         </tr>
-                                                                    <?php
+                                                                        <?php
                                                                     }
                                                                 }
                                                                 ?>
@@ -244,7 +244,7 @@ include '../dbconn.php';
 
 
     <!-- start footer -->
-<?php include '../template/footer.php'; ?>
+    <?php include '../template/footer.php'; ?>
 
     <script>
         $(document).ready(function () {
@@ -253,8 +253,21 @@ include '../dbconn.php';
                 $(".tab").addClass("active"); // instead of this do the below 
                 $(this).removeClass("btn-default").addClass("btn-warning");
             });
-
-
+            $(".remove").click(function (e) {
+                var id = $(this).attr("data-id");
+                $.ajax({
+                    url: "/restaurant-setting/delete-messnger.php?messid=" + id,
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        if(data.result == '1'){
+                            document.location.reload();
+                        }else{
+                            alert(data.error);
+                        }
+                    }
+                });
+            });
         });
     </script>
 </body>

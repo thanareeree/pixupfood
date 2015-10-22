@@ -428,7 +428,7 @@ include '../dbconn.php';
                                                                                 <div class="col-md-4"></div>
                                                                                 <div class="col-md-3 pull-left">
                                                                                     <p class="text-center">
-                                                                                        <a class="btn icon-btn btn-danger" data-toggle="modal" data-target='#'>
+                                                                                        <a class="btn icon-btn btn-danger" data-toggle="modal" data-target='#deleteMenu<?= $data2["menuResId"] ?>'>
                                                                                             <span class="glyphicon btn-glyphicon glyphicon-trash img-circle text-warning">
                                                                                             </span> ลบทิ้ง</a>
                                                                                 </div>
@@ -490,7 +490,7 @@ include '../dbconn.php';
                                                                                 <div class="col-md-4"></div>
                                                                                 <div class="col-md-3 pull-left">
                                                                                     <p class="text-center">
-                                                                                        <a class="btn icon-btn btn-danger deletemenubtn" id="deletebtn<?= $data2["menuResId"] ?>" data-toggle="modal" data-target='#'>
+                                                                                        <a class="btn icon-btn btn-danger deletemenubtn" id="deletebtn<?= $data2["menuResId"] ?>" data-toggle="modal" data-target='#deleteMenu<?= $data2["menuResId"] ?>'>
                                                                                             <span class="glyphicon btn-glyphicon glyphicon-trash img-circle text-warning">
                                                                                             </span> ลบทิ้ง</a>
                                                                                 </div>
@@ -552,7 +552,7 @@ include '../dbconn.php';
                                                                                 <div class="col-md-4"></div>
                                                                                 <div class="col-md-3 pull-left">
                                                                                     <p class="text-center">
-                                                                                        <a class="btn icon-btn btn-danger" data-toggle="modal" data-target='#'>
+                                                                                        <a class="btn icon-btn btn-danger" data-toggle="modal" data-target='#deleteMenu<?= $data2["menuResId"] ?>'>
                                                                                             <span class="glyphicon btn-glyphicon glyphicon-trash img-circle text-warning">
                                                                                             </span> ลบทิ้ง</a>
                                                                                 </div>
@@ -571,25 +571,6 @@ include '../dbconn.php';
                                     </div>
                                     <!-- จบรายการอาหารจานด่วน-->
 
-
-
-                                    <!-- ลบ? -->
-                                    <div class="modal fade" id="DeleteCon" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-
-                                                <div class="modal-body">
-                                                    ต้องการลบข้อมูล ?
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">ยกเลิก</button>
-                                                    <button type="button" class="btn btn-danger">ยืนยัน</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- จบ ลบ? -->
 
                                     <!-- Modal แก้ไขเมนู ------------------------------------------------------------------------------>
                                     <!--EditMenu Modal-->
@@ -678,6 +659,24 @@ include '../dbconn.php';
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <!-- modal delete -->
+                                        <div class="modal fade" id="deleteMenu<?= $data2["menuResId"] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <form action="/restaurant/menu-delete.php?menuresid=<?= $data2["menuResId"] ?>" method="post" >
+                                                        <div class="modal-body">
+                                                            ต้องการลบข้อมูล ?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">ยกเลิก</button>
+                                                            <button type="submit" class="btn btn-danger">ยืนยัน</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     <?php } ?>
 
                                     <!-- ขนม-->
@@ -723,7 +722,7 @@ include '../dbconn.php';
                                                                                 <div class="col-md-4"></div>
                                                                                 <div class="col-md-3 pull-left">
                                                                                     <p class="text-center">
-                                                                                        <a class="btn icon-btn btn-danger" data-toggle="modal" data-target='#'>
+                                                                                        <a class="btn icon-btn btn-danger" data-toggle="modal" data-target='#deleteMenu<?= $data2["menuResId"] ?>'>
                                                                                             <span class="glyphicon btn-glyphicon glyphicon-trash img-circle text-warning">
                                                                                             </span> ลบทิ้ง</a>
                                                                                 </div>
@@ -786,7 +785,7 @@ include '../dbconn.php';
                                                                                 <div class="col-md-4"></div>
                                                                                 <div class="col-md-3 pull-left">
                                                                                     <p class="text-center">
-                                                                                        <a class="btn icon-btn btn-danger" data-toggle="modal" data-target='#'>
+                                                                                        <a class="btn icon-btn btn-danger" data-toggle="modal" data-target='#deleteMenu<?= $data2["menuResId"] ?>'>
                                                                                             <span class="glyphicon btn-glyphicon glyphicon-trash img-circle text-warning">
                                                                                             </span> ลบทิ้ง</a>
                                                                                 </div>

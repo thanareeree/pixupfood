@@ -69,7 +69,6 @@ $(document).ready(function () {
     });
 
     $("#restaurantformregis").on("submit", function (e) {
-
         $.ajax({
             type: "POST",
             url: "/restaurant/restaurant-save.php",
@@ -100,7 +99,7 @@ $(document).ready(function () {
                     alert("ไม่สามารถบันทึกข้อมูลได้\nError : " + data.error);
 
                 }
-                alert(data);
+               // alert(data);
             }
         });
         e.preventDefault();

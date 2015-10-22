@@ -26,13 +26,17 @@ include './dbconn.php';
                     <li data-target="#Carousel1" data-slide-to="1"></li>
                     <li data-target="#Carousel1" data-slide-to="2"></li>
                     <li data-target="#Carousel1" data-slide-to="3"></li>
+                    <li data-target="#Carousel1" data-slide-to="3"></li>
                 </ol>
                 <div class="carousel-inner">
                     <div class="item active">
-                        <img src="assets/images/slide/nn.jpg" class="img-responsive" style="margin-top:0px;">
+                        <img src="/assets/images/slide/nn.jpg" class="img-responsive" style="margin-top:0px;">
+                    </div>
+                    <div class="item ">
+                        <img src="/assets/images/slide/BN.jpg" class="img-responsive" style="margin-top:0px;">
                     </div>
                     <div class="item">
-                        <img src="assets/images/slide/dd.jpg" class="img-responsive" style="margin-top:0px;">
+                        <img src="/assets/images/slide/dd.jpg" class="img-responsive" style="margin-top:0px;">
                         <div class="container">
                             <div class="carousel-caption">
                                 <h1>ร้านโฮมเรส</h1>
@@ -44,8 +48,8 @@ include './dbconn.php';
                         <img src="assets/images/slide/ee.jpg" class="img-responsive" style="margin-top:0px">
                         <div class="container">
                             <div class="carousel-caption">
-                                <h1>ป้าหน้า มอ</h1>
-                                <p>ข้าวกล่องราคาประหยัด</p>
+                                <h1>ร้านข้าวกล่อง</h1>
+                                <p>เปิดร้านนี้วันแรก</p>
                             </div>
                         </div>
                     </div>
@@ -53,8 +57,8 @@ include './dbconn.php';
                         <img src="assets/images/slide/ff.jpg" class="img-responsive" style="margin-top:0px">
                         <div class="container">
                             <div class="carousel-caption">
-                                <h1>ร้านลมัยโภชนา</h1>
-                                <p>ข้าวกล่องรสเด็ด</p>
+                                <h1>ร้านเจ้</h1>
+                                <p>ข้าวกล่องรสเด็ด รับประกันความอร่อย</p>
                             </div>
                         </div>
                     </div>

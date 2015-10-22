@@ -2,7 +2,7 @@
 
 include "../dbconn.php";
 
-print_r($_POST);
+//print_r($_POST);
 
 if (isset($_POST["resemail"]) && $_POST["resemail"] != "") {
 

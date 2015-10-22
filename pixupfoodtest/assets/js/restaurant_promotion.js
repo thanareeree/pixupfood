@@ -19,6 +19,21 @@ $(document).ready(function () {
         });
     });
 
+     $(".remove").click(function (e) {
+                var id = $(this).attr("data-id");
+                $.ajax({
+                    url: "/restaurant-setting/delete-promotion.php?proid=" + id,
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        if(data.result == '1'){
+                            document.location.reload();
+                        }else{
+                            alert(data.error);
+                        }
+                    }
+                });
+            });
     /*$("#promotion").on('submit', function (e) {
         $.ajax({
             url: "/restaurant/add-promotion.php",
