@@ -47,11 +47,6 @@ include '../dbconn.php';
                         </div>
                         <div class="col-md-5 wow fadeInUp" data-wow-delay="0.6s" style="margin-top: 10px;">
                             <div>
-<<<<<<< HEAD
-                                <form action="/register/customer-save.php" method="post">
-                                    <div class="col-md-12 form-group" style="margin: 0;">
-                                        <input required type="email" class="form-control" placeholder="Email" id="cusemail" name="cusemail">
-=======
                                 <form action="/register/customer-save.php" method="post" id="cusregisterform">
                                     <div class="sidetip errorEmail" style="display: none">
                                             <p style="color: red"><i class="glyphicon glyphicon-remove-sign"></i>&nbsp;อีเมลนี้เคยลงทะเบียนไว้ก่อนแล้ว</p>
@@ -61,7 +56,6 @@ include '../dbconn.php';
                                         </div>
                                     <div class="col-md-12 form-group" style="margin: 0;">
                                         <input required type="email" class="form-control" placeholder="อีเมลล์" id="cusemail" name="cusemail">
->>>>>>> 6577fff52ba28d6c391243361e2fda88d906036c
                                     </div>
                                     <div class="col-md-12">
                                         <input required type="password" class="form-control" placeholder="รหัสผ่าน" id="cuspwd" name="cuspwd">
@@ -79,23 +73,15 @@ include '../dbconn.php';
                                         <input required type="text" class="form-control" placeholder="สกุล" id="cuslname" name="cuslname">
                                     </div>
                                     <div class="col-md-12">
-<<<<<<< HEAD
-                                        <input required type="tel" class="form-control" placeholder="Phone" id="cusphone" name="cusphone">
-=======
                                          <div class="sidetip errorPhoneInvalid" style="display: none" >
                                             <p style="color: red"><i class="glyphicon glyphicon-remove-sign"></i>&nbsp;โปรดป้อนหมายเลขโทรศัพท์ที่ถูกต้อง</p>
                                         </div>
                                         <input required type="tel" class="form-control" placeholder="หมายเลขโทรศัพท์" id="cusphone" name="cusphone">
->>>>>>> 6577fff52ba28d6c391243361e2fda88d906036c
                                     </div>
                                     <div class="col-md-12">
                                         <div class="row">
                                             <div class="col-sm-12">
-<<<<<<< HEAD
-                                                <textarea required class="form-control" placeholder="Address" rows="3" id="cusaddress" name="cusaddress" style="margin: 0;"></textarea>
-=======
                                                 <textarea required class="form-control" disabled="" placeholder="กรุณาลากวางมุดตรงที่อยู่ของคุณก่อนแก้ไขข้อมูลให้ถูกต้อง" rows="3" id="cusaddress" name="cusaddress" style="margin: 0;"></textarea>
->>>>>>> 6577fff52ba28d6c391243361e2fda88d906036c
                                             </div>
                                         </div>
                                         <div class="row">
@@ -179,34 +165,8 @@ include '../dbconn.php';
                     </div>
                 </div>
 
-<<<<<<< HEAD
-        <?php include '../template/footer.php'; ?>
-        <script src="/assets/js/regis_map.js"></script>
-        <script>
-            $(document).ready(function () {
-                //Handles menu drop down
-                $('.dropdown-menu').find('form').click(function (e) {
-                    e.stopPropagation();
-                });
-                $('#termsmodal').modal({
-                    backdrop: 'static',
-                    keyboard: false
-                });
-
-                $("#termsmodal").modal('show');
-
-                $("input[type=checkbox]").on("click", function (e) {
-                    $("#nextregisbtn").removeAttr("disabled");
-                });
-                $("#nextregisbtn").click(function (e) {
-                    $("#termsmodal").modal('hide');
-                });
-            });
-        </script>
-=======
             </div>
         </div>
->>>>>>> 6577fff52ba28d6c391243361e2fda88d906036c
 
         <?php include '../template/footer.php'; ?>
         <script src="/assets/js/cus-regis-map.js"></script>

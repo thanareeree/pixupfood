@@ -26,11 +26,7 @@ include './dbconn.php';
                     <li data-target="#Carousel1" data-slide-to="1"></li>
                     <li data-target="#Carousel1" data-slide-to="2"></li>
                     <li data-target="#Carousel1" data-slide-to="3"></li>
-<<<<<<< HEAD
-                    <li data-target="#Carousel1" data-slide-to="4"></li>
-=======
                     <li data-target="#Carousel1" data-slide-to="3"></li>
->>>>>>> 6577fff52ba28d6c391243361e2fda88d906036c
                 </ol>
                 <div class="carousel-inner">
                     <div class="item active">
@@ -40,14 +36,7 @@ include './dbconn.php';
                         <img src="/assets/images/slide/BN.jpg" class="img-responsive" style="margin-top:0px;">
                     </div>
                     <div class="item">
-<<<<<<< HEAD
-                        <img src="assets/images/slide/BN.jpg" class="img-responsive" style="margin-top:0px;">
-                    </div>
-                    <div class="item">
-                        <img src="assets/images/slide/dd.jpg" class="img-responsive" style="margin-top:0px;">
-=======
                         <img src="/assets/images/slide/dd.jpg" class="img-responsive" style="margin-top:0px;">
->>>>>>> 6577fff52ba28d6c391243361e2fda88d906036c
                         <div class="container">
                             <div class="carousel-caption">
                                 <h1>ร้านโฮมเรส</h1>
@@ -229,51 +218,17 @@ include './dbconn.php';
                                 <img src="<?= $promotion["img_path"] ?>" alt="" class="thumb" >
                             </a>
                             <div class="block-title">
-<<<<<<< HEAD
-                                <h2>ฟรีขนมแสนอร่อย</h2>
-                                <p class="by-author"><small>เมื่อสั่งซื้ออาหารตั้งแต่ 50 กล่องขึ้นไปฟรี เค้กกล้วยหอม 10 ชุด(ชุดละ 1 ชิ้น)<br>เมื่อสั่งอาหารกับร้าน @home <br><span style="color: red">**ของแถมจะไม่ปรากฏตอนสั่งอาหาร แต่จะได้รับพร้อมกับอาหารที่สั่ง</span></small></p>
-=======
                                 <h2><?= $promotion["restname"] ?></h2>
                                 <p class="by-author"><?= $promotion["description"] ?><br><br>
                                     เริ่มวันที่: &nbsp;<?= $promotion["start_time"] ?>&nbsp;
                                     หมดเขต: &nbsp;<?= $promotion["end_time"] ?>&nbsp;
 
                                 </p>
->>>>>>> 6577fff52ba28d6c391243361e2fda88d906036c
                             </div>
                         </div>
                     </div>
                     <div class="col-md-7 col-lg-7 wow fadeInRight" data-wow-delay="0.6s" style="padding:60px 15px 0 100px">
                         <ul class="media-list main-list" style="border-top:1px solid #e8e8e8; padding-top:1.1em">
-<<<<<<< HEAD
-                            <li class="media">
-                                <a class="pull-left" href="#">
-                                    <img class="media-object" src="assets/images/allpromo/promo02.jpg"  alt="..." width="150px" style="max-height:90px;">
-                                </a>
-                                <div class="media-body">
-                                    <h4 class="media-heading">ศศิกรุ๊ปฟู๊ดใจดี!!</h4>
-                                    <p class="by-author">ศศิกรุ๊ปฟู๊ดใจดี ฟรีค่าจัดส่งอาหารโดยไม่มียอดขั้นต่ำ<br><span style="color: red">**ภายในวันที่ 20 ตุลาคม - 5 ธันวาคมนี้</span></p>
-                                </div>
-                            </li>
-                            <li class="media">
-                                <a class="pull-left" href="#">
-                                    <img class="media-object" src="assets/images/allpromo/promo03.jpg"  alt="..." width="150px" style="max-height:90px;">
-                                </a>
-                                <div class="media-body">
-                                    <h4 class="media-heading">ไม่มีอีกแล้ว กับโปรโมชั่นสุดพิเศษ!!!</h4>
-                                    <p class="by-author">ป้าน้อยใจปล้ำ เมื่อสั่งอาหารผ่านเว็บไซต์ ซื้อ 3 กล่องฟรี 1 กล่อง*<br>*จำกัดกล่องฟรีสูงสุดไม่เกิน 20 กล่อง<br><span style="color: red">**ของแถมจะไม่ปรากฏตอนสั่งอาหาร แต่จะได้รับพร้อมกับอาหารที่สั่ง</span></p>
-                                </div>
-                            </li>
-                            <li class="media">
-                                <a class="pull-left" href="#">
-                                    <img class="media-object" src="assets/images/allpromo/promo04.jpg"  alt="..." width="150px" style="max-height:90px;">
-                                </a>
-                                <div class="media-body">
-                                    <h4 class="media-heading">ฟรีน้ำกระป๋อง!!</h4>
-                                    <p class="by-author">เมื่อมียอดสั่งซื้อกับร้านลุงเอก ผ่านเว็บไซต์ ทุก 100.- รับน้ำอัดลมฟรี 2 กระป๋อง<br><span style="color: red">**ของแถมจะไม่ปรากฏตอนสั่งอาหาร แต่จะได้รับพร้อมกับอาหารที่สั่ง</span></p>
-                                </div>
-                            </li>
-=======
                             <?php
                             $res = $con->query("select promotion.id, promotion_main.name, restaurant.name as restname, "
                                     . "promotion.start_time, promotion.end_time, promotion.description, promotion_main.img_path  "
@@ -297,7 +252,6 @@ include './dbconn.php';
                                     </div>
                                 </li>
                             <?php } ?>
->>>>>>> 6577fff52ba28d6c391243361e2fda88d906036c
                         </ul>
                     </div>
                 </div>
@@ -313,11 +267,7 @@ include './dbconn.php';
                         <h2 class="text-uppercase">Our Pricing</h2>
                     </div>
                     <div class="col-md-12 wow fadeIn" data-wow-delay="0.6s">
-<<<<<<< HEAD
-                        <img src="assets/images/plan.PNG">
-=======
                         <img src="/assets/images/plan.PNG">
->>>>>>> 6577fff52ba28d6c391243361e2fda88d906036c
                     </div>
                 </div>
             </div>

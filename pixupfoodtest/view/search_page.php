@@ -46,6 +46,7 @@ include '../dbconn.php';
                                 </div>
                                 <div class="col-md-8">
                                     <select class="form-control" id="searchby">
+                                        <option value="foodname">รายการอาหาร</option>
                                         <option value="rest">ร้านอาหาร</option>
                                         <option value="nearbyfood">ร้านอาหารบริเวณใกล้คุณ</option>
                                     </select>
@@ -174,7 +175,7 @@ include '../dbconn.php';
                                                     </a>
                                                 </td>
                                                 <td>
-                                                    <h4 class="media-heading "><?= $data["name"] ?> / <?= $data["menuname"] ?></h4><br>
+                                                    <h4 class="media-heading"><?= $data["name"] ?> / <?= $data["menuname"] ?></h4><br>
                                                     <!-- ($data["menu_name"] != "" ? '&nbsp;/&nbsp;' . $data["menu_name"] : '')  -->
 
                                                 </td>
@@ -188,10 +189,6 @@ include '../dbconn.php';
                                                         </span>
                                                     </a>
                                                     <span class="pull-right">
-<<<<<<< HEAD
-                                                        <button class="btn lovelovebtn"  id="lovelove<?= $data["menuid"] ?>"><i class="glyphicon glyphicon-heart" style="color: red;"></i>&nbsp;<span style="color: black;"> ชื่นชอบ</span></button>
-                                                        <button class="btn btn-danger unlovebtn"  id="lovelove2<?= $data["menuid"] ?>" style="display: none;"><i class="glyphicon glyphicon-heart"></i>&nbsp; ชื่นชอบ</button>
-=======
                                                         <?php
                                                         if (isset($_SESSION["islogin"])) {
                                                             $menuid = $data["menuid"];
@@ -217,7 +214,6 @@ include '../dbconn.php';
                                                                 <i class="glyphicon glyphicon-heart  unfav" ></i>&nbsp;<span class="unfav"> ชื่นชอบ</span>
                                                             </button>
                                                         <?php } ?>
->>>>>>> 6577fff52ba28d6c391243361e2fda88d906036c
                                                     </span>
                                                 </td>
                                             </tr>
@@ -263,131 +259,6 @@ include '../dbconn.php';
             <?php
         }
         ?>
-<<<<<<< HEAD
-        <script>
-            $(document).ready(function () {
-
-                var lat = "";
-                var long = "";
-
-                function startMap() {
-
-                    map = new google.maps.Map(document.getElementById("map"));
-                    if (navigator.geolocation) {
-                        navigator.geolocation.getCurrentPosition(getPosition);
-                        //navigator.geolocation.watchPosition(updatePosition);
-                    } else {
-                        lat = "";
-                        long = "";
-                    }
-                }
-                startMap();
-
-                function getPosition(pos) {
-                    globalPosition = pos;
-                    lat = pos.coords.latitude;
-                    long = pos.coords.longitude;
-                    // alert($("#latinput").val() + "\n" + $("#longinput").val());
-                    console.log(pos);
-
-                }
-
-
-                $("#searchby").on("change", function (e) {
-                    var searchby = $(this).val();
-                    if (searchby == "foodname") {
-                        $("#foodtype").val("all");
-                        $("#foodtype").removeAttr("disabled");
-                    } else {
-                        $("#foodtype").val(0);
-                        $("#foodtype").attr("disabled", "disabled");
-                    }
-                });
-
-                $("#searchtxt").on("keyup", function (e) {
-                    if (e.keyCode == 13) {
-                        $("#searchbtn").click();
-                    }
-                });
-                $("input[type=checkbox]").removeAttr("checked");
-
-                $("#searchbtn").on("click", function (e) {
-                    $("#result").html('<tr><td colspan="3" style="text-align: center;"><h2>Searching...</h2></td></tr>');
-                    var searchby = $("#searchby").val();
-                    var foodtype = $("#foodtype").val();
-                    var searchtxt = $("#searchtxt").val();
-                    $("input[type=checkbox]").removeAttr("checked");
-                    $.ajax({
-                        url: "/customer/ajax_search.php",
-                        type: 'POST',
-                        dataType: 'html',
-                        data: {"searchby": searchby, "foodtype": foodtype, "searchtxt": searchtxt, "lat": lat, "long": long},
-                        success: function (data, textStatus, jqXHR) {
-                            $("#showsearchtext").html(searchtxt);
-                            $("#result").html(data);
-                            $('[data-toggle="tooltip"]').tooltip();
-
-                        }
-                    });
-                });
-
-
-                $("input[type=checkbox]").on("click", function (e) {
-                    $("#result").html('<tr><td colspan="3" style="text-align: center;"><h2>Searching...</h2></td></tr>');
-                    var searchoption = $("input:checked").val();
-                    $.ajax({
-                        url: "/customer/ajax_search_option.php",
-                        type: 'POST',
-                        dataType: 'html',
-                        data: {"searchoption": searchoption},
-                        success: function (data, textStatus, jqXHR) {
-                            $("#result").html(data);
-                            $('[data-toggle="tooltip"]').tooltip();
-
-                        }
-                    });
-                });
-
-
-
-            });
-        </script>
-        <script>
-            $(document).ready(function () {
-                $("#lovelove").click(function () {
-                    $("#lovelove2").show();
-                    $("#lovelove").hide();
-                });
-                $("#lovelove2").click(function () {
-                    $("#lovelove").show();
-                    $("#lovelove2").hide();
-                });
-            });
-
-            $("#result").on("click", ".lovelovebtn", function (e) {
-                var loveid = $(this).attr("id");
-                var id = loveid.replace("lovelove", "");
-                
-                $.ajax({
-                        url: "/customer/cus_favmenu.php",
-                        type: "POST",
-                        data: {"id": $("#showblockedid").html()},
-                        dataType: "html",
-                        success: function (returndata) {
-                            if (returndata == "ok") {
-                                $("#blockedmodal").modal("hide");
-                                //fetchdataShowall();
-                                document.location.reload();
-                            } else {
-                                alert("error");
-                            }
-                        }
-                    });
-            });
-            
-        </script>
-=======
         <script src="/assets/js/search-page.js"></script>
->>>>>>> 6577fff52ba28d6c391243361e2fda88d906036c
     </body>
 </html>
