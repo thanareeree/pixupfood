@@ -141,13 +141,51 @@ include '../dbconn.php';
                 $(".tab").addClass("active"); // instead of this do the below 
                 $(this).removeClass("btn-default").addClass("btn-warning");
             });
-            $('#calendar').fullCalendar({
-               
-                editable: true,
-                eventLimit: true // allow "more" link when too many events
+            /*$('#calendar').fullCalendar({
+             header: {
+             left: 'prev',
+             center: 'title',
+             right: 'next today'
+             },
+             events: {
+             url: '/api/showcalendar.php',
+             type: 'POST',
+             data: {
+             resid: $("#residValue").val()
+             }, error: function () {
+             alert('there was an error while fetching events!');
+             }
+             },
+             eventColor: 'orange'
+             });*/
 
+            function  fetchCalendar() {
+                $.ajax({
+                    url: '/api/calendar-restaurant.php',
+                    type: 'POST',
+                    data: 'type=fetch',
+                    async: false,
+                    success: function (response) {
+                        json_events = response;
+                    }
+                });
+            }
+            fetchCalendar();
+
+            //var zone = "05:30";
+            $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev',
+                    center: 'title',
+                    right: 'next today'
+                },
+                events: JSON.parse(json_events),
+                lang: 'th',
+                eventColor: 'orange',
+                eventLimit: true
             });
         });
+
     </script>
 </body>
 </html>

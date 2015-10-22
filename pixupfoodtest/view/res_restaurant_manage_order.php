@@ -7,12 +7,15 @@ include '../dbconn.php';
 <html>
     <head>
         <title>Pixupfood - Restaurant Order Management</title>
-
         <?php
         include '../template/customer-title.php';
         ?>
         <!-- custom css -->
         <link rel="stylesheet" href="/assets/css/res_restaurant_manage.css">
+<<<<<<< HEAD
+=======
+        <link rel="stylesheet" href="/assets/css/normal_order.css">
+>>>>>>> 6577fff52ba28d6c391243361e2fda88d906036c
 
     </head>
     <body>
@@ -117,15 +120,15 @@ include '../dbconn.php';
                                                 รายการสั่งซื้อใหม่  
                                                 <div class="pull-right">
                                                     <p class="text-center">
-                                                        <span style="font-size: 20px; color: orange">2 รายการใหม่ <span style="font-size: 20px; color: black">|</span> <span style="font-size: 20px; color: red">1 รายการด่วน</span></p>
+                                                        <span style="font-size: 20px; color: orange"><span class="countall"></span> รายการใหม่ <span style="font-size: 20px; color: black">|</span> <span style="font-size: 20px; color: red"><span class="countfast"></span> รายการด่วน</span></p>
                                                 </div>
                                             </div>
                                             <div class="card">
                                                 <div class="card-content">
-                                                    <div class="page-header" style="font-size: 30px; margin-top: 5px">รายการใหม่<span style="color: red; font-size: 30px; "> (ด่วน)</span> 
+                                                    <div class="page-header" style="font-size: 30px; margin-top: 5px">รายการใหม่<span style="color: red; font-size: 30px; "> (สั่งด่วน)</span> 
                                                         <div class="pull-right">
                                                             <p class="text-center">
-                                                                <span style="font-size: 20px; color: red">1 รายการด่วน</span></p>
+                                                                <span style="font-size: 20px; color: red"><span class="countfast"></span> รายการด่วน</span></p>
                                                         </div>
                                                     </div>
                                                     <!-- ตารางรายการด่วน -->
@@ -142,16 +145,16 @@ include '../dbconn.php';
                                                             </form>
                                                         </div>
                                                         <div class="col-md-12">
-                                                            <table class="table table-list-search">
+                                                            <table class="table table-list-search table-hover">
                                                                 <thead>
-                                                                    <tr>
+                                                                    <tr >
                                                                         <th>ลำดับ</th>
                                                                         <th>เลขที่รายการ</th>
                                                                         <th>ชื่อลูกค้า</th>
-                                                                        <th>ชนิดอาหาร</th>
+                                                                        <th>รายการอาหาร</th>
                                                                         <th>จำนวน(ขุด)</th>
                                                                         <th>วัน/เวลาที่ลูกค้านัดรับ</th>
-                                                                        <th>เวลาที่เหลือ(นาที)</th>
+                                                                        <th>เวลาที่เหลือ</th>
                                                                         <th>รายละเอียด</th>
                                                                         <th>รับรายการ</th>
                                                                         <th>ปฏิเสธรายการ</th>
@@ -206,10 +209,15 @@ include '../dbconn.php';
                                             </div>
                                             <div class="card">
                                                 <div class="card-content">
-                                                    <div class="page-header" style="font-size: 30px; margin-top: 5px">รายการใหม่
+                                                    <div class="page-header" style="font-size: 30px; margin-top: 5px">รายการใหม่<span style="color: red; font-size: 30px; "> (ปกติ)</span>
                                                         <div class="pull-right">
                                                             <p class="text-center">
+<<<<<<< HEAD
                                                                 <span style="font-size: 20px;">1 รายการ</span></p>
+=======
+                                                                <span style="font-size: 20px;"><span class="countnormal"></span> รายการ</span>
+                                                            </p>
+>>>>>>> 6577fff52ba28d6c391243361e2fda88d906036c
                                                         </div>
                                                         <!-- ตารางรายการใหม่ -->
                                                         <div class="row">
@@ -225,16 +233,16 @@ include '../dbconn.php';
                                                                 </form>
                                                             </div>
                                                             <div class="col-md-12">
-                                                                <table class="table table-list-search2">
-                                                                    <thead>
+                                                                <table class="table table-list-search2 table-hover">
+                                                                    <thead >
                                                                         <tr>
                                                                             <th>ลำดับ</th>
                                                                             <th>เลขที่รายการ</th>
                                                                             <th>ชื่อลูกค้า</th>
-                                                                            <th>ชนิดอาหาร</th>
-                                                                            <th>จำนวน(ขุด)</th>
+                                                                            <th>รายการอาหาร</th>
+                                                                            <th>จำนวน(ชุด)</th>
                                                                             <th>วัน/เวลาที่ลูกค้านัดรับ</th>
-                                                                            <th>เวลาที่เหลือ(ชั่วโมง)</th>
+                                                                            <th>เวลาที่เหลือ</th>
                                                                             <th>รายละเอียด</th>
                                                                             <th>รับรายการ</th>
                                                                             <th>ปฏิเสธรายการ</th>
@@ -291,8 +299,40 @@ include '../dbconn.php';
 
 
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+        </div>
+    </div>
+    <!-- modal ตารางนะยูวว  -->
+    <!-- ignore normal-->
+    <div class="modal fade" id="ignoreNormalOrderModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px;">ปฏิเสธรายการหมายเลข:&nbsp;<span id="ignoreNormalId"></span></div></span>
+                </div>
+                <div class="modal-body ">
+                    <div class="alert alert-danger" role="alert">
+                        <span style="font-size: 20px;">ต้องการปฏิเสธรายการ ? </span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                    <button type="button" class="btn btn-danger" id="ignoreNormalBtn">ยืนยัน</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End ignore --> 
 
+<<<<<<< HEAD
                                         <!-- modal ตารางนะยูวว  -->
                                         <!-- ignore -->
                                         <div class="modal fade" id="ignore" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
@@ -508,9 +548,88 @@ include '../dbconn.php';
                                                                 </div>
                                                             </div>
                                                         </div>
+=======
+    <!-- ignore fasttttttttttttttttttttttt -->
+    <div class="modal fade" id="ignoreFastOrderModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px; color: red">ปฏิเสธรายการหมายเลข:&nbsp;<span id="ignoreFastId"></span></div></span>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger" role="alert">
+                        <span style="font-size: 20px;">ต้องการปฏิเสธรายการ ? </span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                    <button type="button" class="btn btn-danger" id="ignoreFastBtn">ยืนยัน</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End ignore --> 
 
-                                                    </div>
+    <!-- accept fastttttt -->
+    <div class="modal fade" id="acceptFastOrderModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px; ">รับรายการหมายเลข:&nbsp;<span id="acceptFastId" style="color: orange;"></span></div></span>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-success" role="alert">
+                        <span style="font-size: 20px;">ต้องการยอมรับรายการ ? </span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                    <button type="button" class="btn btn-success" id="acceptFastBtn">ยืนยัน</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End accept --> 
 
+    <!-- accept normallllllllll -->
+    <div class="modal fade" id="acceptNormalOrderModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px; ">รับรายการหมายเลข:&nbsp;<span id="acceptNormalId" style="color: orange;"></span></div></span>
+                </div>
+                <div class="modal-body">
+                   <div class="alert alert-success" role="alert">
+                        <span style="font-size: 20px;">ต้องการยอมรับรายการ ? </span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                    <button type="button" class="btn btn-success" id="acceptNormalBtn">ยืนยัน</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End accept --> 
+>>>>>>> 6577fff52ba28d6c391243361e2fda88d906036c
+
+    <!-- Detial fasttt   -->
+    <div class="modal fade bs-example-modal-lg" id="detailFastOrderModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <span class="modal-title" id="myModalLabel">
+                        <span style="font-size: 30px; margin-top: 5px;">รายละเอียดของรายการหมายเลข: </span>
+                        <span style="font-size: 30px; margin-top: 5px; color: orange" id="showFastOrderId"> </span>     
+                    </span>
+                </div>
+                <div id="fastOrderViewBody">
+
+<<<<<<< HEAD
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-success" id="ignoreOrderBtn" >ยอมรับรายการ</button>
                                                         <button type="button" class="btn btn-danger" id="acceptOrderBtn" >ปฏิเสธรายการ</button>
@@ -521,18 +640,45 @@ include '../dbconn.php';
                                         </div>
                                         
                                         <!-- End Detail --> 
-
-                                        <!-- จบ modal ตารางนะยูวว -->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+=======
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                   <!-- <button type="button" class="btn btn-danger" id="ignoreFastOrderBtn" >ปฏิเสธรายการ</button>
+                    <button type="button" class="btn btn-success" id="acceptFastOrderBtn" >ยอมรับรายการ</button>-->
                 </div>
             </div>
-
         </div>
     </div>
+    <!-- End Detail --> 
+
+    <!-- Detial normal -->
+    <div class="modal fade bs-example-modal-lg" id="detailNormalOrderModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <span class="modal-title" id="myModalLabel">
+                        <span style="font-size: 30px; margin-top: 5px;">รายละเอียดของรายการหมายเลข: </span>
+                        <span style="font-size: 30px; margin-top: 5px; color: orange" id="showOrderId"> </span>     
+                    </span>
+                </div>
+                <div id="normalOrderViewBody">
+>>>>>>> 6577fff52ba28d6c391243361e2fda88d906036c
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                  <!--  <button type="button" class="btn btn-danger" id="ignoreNormalOrderBtn" >ปฏิเสธรายการ</button>
+                    <button type="button" class="btn btn-success" id="acceptFastOrderBtn" >ยอมรับรายการ</button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Detail --> 
+
+    <!-- จบ modal ตารางนะยูวว -->
+
 
     <!-- start footer -->
     <?php include '../template/footer.php'; ?>
@@ -540,8 +686,12 @@ include '../dbconn.php';
 
     <!-- ตารางรายการออเดอร์ -->
     <script src="/assets/js/OrderSearch.js"></script>
+<<<<<<< HEAD
     <script src="/assets/js/ui-bootstrap-tpls-0.13.4.min.js"></script>
 
 
+=======
+    <script src="/assets/js/manage_order.js"></script>
+>>>>>>> 6577fff52ba28d6c391243361e2fda88d906036c
 </body>
 </html>

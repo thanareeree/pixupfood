@@ -13,8 +13,12 @@ include '../api/islogin.php';
 
         <link href='/assets/css/fullcalendar.css' rel='stylesheet' />
         <link href='/assets/css/fullcalendar.print.css' rel='stylesheet' media='print' />
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-        
+        <style>
+            #showcalendar a span {
+                color: #ffffff;
+                font-size: 12.5px;
+            }
+        </style>
 
     </head>
     <body>
@@ -25,11 +29,11 @@ include '../api/islogin.php';
                 . "from customer "
                 . "where id = '$cusid' ");
         $customerData = $customerRes->fetch_assoc();
-      
+
         $resid = @$_GET["resId"];
         $resNameRes = $con->query("select `name`, `email`, `tel`,`detail`, `img_path`, `star`, `address`,"
                 . " `opentime`, `amount_box_minimum`, `amount_box_limit`, `has_restaurant`, `restaurant_type`"
-                . ", deliveryfee"
+                . ", deliveryfee, close"
                 . " from restaurant "
                 . "join mapping_delivery_type on mapping_delivery_type.restaurant_id = restaurant.id  "
                 . " where id = '$resid'");
@@ -51,19 +55,20 @@ include '../api/islogin.php';
         <!-- edit body -->
         <section id="restaurant_view">
             <div class="container">
+                <?php include '../customer-view-restaurant/status-close.php'; ?>
                 <div class="row">
                     <div class="col-md-8">
                         <!-- Nav tabs -->
-                     <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation" ><a href="/view/cus_restaurant_view_news.php?resId=<?= $resid?>" >ข่าวประกาศ</a></li>
-                            <li role="presentation" ><a href="/view/cus_restaurant_view_promotion.php?resId=<?= $resid?>" >โปรโมชั่น</a></li>
-                            <li role="presentation" ><a href="/view/cus_restaurant_view.php?resId=<?= $resid?>" >สั่งอาหาร</a></li>
-                            <li role="presentation" class="active"><a href="/view/cus_restaurant_view_info.php?resId=<?= $resid?>" >ข้อมูลร้าน</a></li>
-                            <li role="presentation"><a href="/view/cus_restaurant_view_comment.php?resId=<?= $resid?>" >รีวิว / คอมเม้นท์</a></li>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" ><a href="/view/cus_restaurant_view_news.php?resId=<?= $resid ?>" >ข่าวประกาศ</a></li>
+                            <li role="presentation" ><a href="/view/cus_restaurant_view_promotion.php?resId=<?= $resid ?>" >โปรโมชั่น</a></li>
+                            <li role="presentation" ><a href="/view/cus_restaurant_view.php?resId=<?= $resid ?>" >สั่งอาหาร</a></li>
+                            <li role="presentation" class="active"><a href="/view/cus_restaurant_view_info.php?resId=<?= $resid ?>" >ข้อมูลร้าน</a></li>
+                            <li role="presentation"><a href="/view/cus_restaurant_view_comment.php?resId=<?= $resid ?>" >รีวิว / คอมเม้นท์</a></li>
                         </ul>
                         <!-- Tab panes -->
                         <div class="tab-content">
-                          
+
                             <!-- ข้อมูลร้าน -->
                             <div role="tabpanel" class="tab-pane active" id="info">
                                 <br>
@@ -124,12 +129,27 @@ include '../api/islogin.php';
                                                                 <span style="font-size: 22px;"><i class="fa fa-map-marker "></i> ที่ตั้งร้าน</span><br>
                                                                 <span class="info_res"><?= $resNameData["address"] ?></span>
                                                             </div>
-                                                        </div>
+                                                        </div><hr>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <span style="font-size: 22px;"><i class="fa fa-commenting "></i> ข้อมูลบัญชีธนาคาร</span><br>
+                                                                <span class="info_res">
+                                                                    <?php
+                                                                    $bankRes = $con->query("SELECT `id`, `accname`, `accNo`, `bank`, `restaurant_id` "
+                                                                            . "FROM `bank_account` WHERE restaurant_id = '$resid' ");
+                                                                    while ($bankData = $bankRes->fetch_assoc()) {
+                                                                        ?>
+                                                                        <span class="info_res">ชื่อบัญชี: &nbsp;<?= $bankData["accname"] ?>&nbsp;เลขที่บัญชี &nbsp;<?= $bankData["accNo"] ?>&nbsp;<?= $bankData["bank"] ?></span><br>
+
+                                                                    <?php } ?>
+                                                                </span>
+                                                            </div>
+                                                        </div><hr>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="row">
                                                             <div class="col-md-12">
-                                                                <span style="font-size: 22px;"><i class="fa fa-bell "></i> วัน/เวลาทำการ</span><br>
+                                                                <span style="font-size: 22px;"><i class="fa fa-bell "></i> วัน/เวลา เปิดรับออเดอร์</span><br>
                                                                 <span class="info_res"> จันทร์ - อาทิตย์ </span><br>
                                                                 <span class="info_res"> <?= $resNameData["opentime"] ?> </span>   
                                                             </div>
@@ -148,15 +168,16 @@ include '../api/islogin.php';
                                                         </div><hr>
                                                         <div class="row">
                                                             <div class="col-md-12">
-                                                                <span style="font-size: 22px;"><i class="fa fa-clock-o "></i> ถึงมือประมาณ</span><br>
-                                                                <span class="info_res"> 1 ชั่วโมง </span>   
-                                                            </div>
-                                                        </div><hr>
-                                                        <div class="row">
-                                                            <div class="col-md-12">
                                                                 <span style="font-size: 22px;"><i class="fa fa-money "></i> รูปแบบการชำระเงิน</span><br>
-                                                                <span class="info_res"> เงินสดเมื่อได้รับอาหาร </span><br>
-                                                                <span class="info_res"> โอนเงินผ่านบัญชีธนาคาร </span><br>
+                                                                <?php
+                                                                $resPaymentRes = $con->query("select payment_type.id, payment_type.description "
+                                                                        . "FROM mapping_payment_type "
+                                                                        . "LEFT JOIN payment_type ON mapping_payment_type.payment_type_id = payment_type.id "
+                                                                        . "where mapping_payment_type.restaurant_id = '$resid' ");
+                                                                while ($paymentData = $resPaymentRes->fetch_assoc()) {
+                                                                    ?>
+                                                                <span class="info_res"> <?= $paymentData["description"] ?> </span><br>
+                                                                <?php } ?>
                                                                 <span style="font-size: 12px; margin: 5px 0 0 30px; color: red"> *ค่ามัดจำ 20%ต่อหนึ่งรายการ </span>
                                                             </div>
                                                         </div><hr>

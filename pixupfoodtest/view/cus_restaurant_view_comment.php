@@ -13,8 +13,13 @@ include '../api/islogin.php';
 
         <link href='/assets/css/fullcalendar.css' rel='stylesheet' />
         <link href='/assets/css/fullcalendar.print.css' rel='stylesheet' media='print' />
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-        
+        <link rel="stylesheet" href="/assets/css/customer-comment.css">
+        <style>
+            form .stars {
+                margin: 0 400 -10;
+            }
+        </style>
+
     </head>
     <body>
         <?php
@@ -41,7 +46,7 @@ include '../api/islogin.php';
         $resid = @$_GET["resId"];
         $resNameRes = $con->query("select `name`, `email`, `tel`,`detail`, `img_path`, `star`, `address`,"
                 . " `opentime`, `amount_box_minimum`, `amount_box_limit`, `has_restaurant`, `restaurant_type`"
-                . ", deliveryfee"
+                . ", deliveryfee, close"
                 . " from restaurant "
                 . "join mapping_delivery_type on mapping_delivery_type.restaurant_id = restaurant.id  "
                 . " where id = '$resid'");
@@ -63,15 +68,16 @@ include '../api/islogin.php';
         <!-- edit body -->
         <section id="restaurant_view">
             <div class="container">
+                <?php include '../customer-view-restaurant/status-close.php'; ?>
                 <div class="row">
                     <div class="col-md-8">
                         <!-- Nav tabs -->
-                       <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation" ><a href="/view/cus_restaurant_view_news.php?resId=<?= $resid?>" >ข่าวประกาศ</a></li>
-                            <li role="presentation" ><a href="/view/cus_restaurant_view_promotion.php?resId=<?= $resid?>" >โปรโมชั่น</a></li>
-                            <li role="presentation" ><a href="/view/cus_restaurant_view.php?resId=<?= $resid?>" >สั่งอาหาร</a></li>
-                            <li role="presentation" ><a href="/view/cus_restaurant_view_info.php?resId=<?= $resid?>" >ข้อมูลร้าน</a></li>
-                            <li role="presentation" class="active"><a href="/view/cus_restaurant_view_comment.php?resId=<?= $resid?>" >รีวิว / คอมเม้นท์</a></li>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" ><a href="/view/cus_restaurant_view_news.php?resId=<?= $resid ?>" >ข่าวประกาศ</a></li>
+                            <li role="presentation" ><a href="/view/cus_restaurant_view_promotion.php?resId=<?= $resid ?>" >โปรโมชั่น</a></li>
+                            <li role="presentation" ><a href="/view/cus_restaurant_view.php?resId=<?= $resid ?>" >สั่งอาหาร</a></li>
+                            <li role="presentation" ><a href="/view/cus_restaurant_view_info.php?resId=<?= $resid ?>" >ข้อมูลร้าน</a></li>
+                            <li role="presentation" class="active"><a href="/view/cus_restaurant_view_comment.php?resId=<?= $resid ?>" >รีวิว / คอมเม้นท์</a></li>
                         </ul>
                         <!-- Tab panes -->
                         <div class="tab-content">
@@ -79,129 +85,71 @@ include '../api/islogin.php';
                             <div role="tabpanel" class="tab-pane active" id="review">
                                 <br><div class="row">
                                     <div class="col-md-12">
-                                        <h3 class="page-header" style="margin: 0 0 10px 0;">คอมเม้นต์จากลูกค้า</h3>
+                                        <h3 class="page-header" style="margin: 0 0 10px 0;">รีวิว / คอมเม้นท์</h3>
                                         <section class="comment-list">
-                                            <!-- Comment1 -->
-                                            <article class="row">
-                                                <div class="col-md-2 col-sm-2 hidden-xs">
-                                                    <figure class="thumbnail">
-                                                        <img class="img-responsive" src="/assets/images/default-avatar.jpg"  />
-                                                        <figcaption class="text-center">มานี</figcaption> <!-- ชื่อจริง -->
-                                                    </figure>
-                                                </div>
-                                                <div class="col-md-10 col-sm-10">
-                                                    <div class="panel panel-default arrow left">
-                                                        <div class="panel-body">
-                                                            <header class="text-left">
-                                                                <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> Dec 16, 2014</time>
-                                                            </header>
-                                                            <div class="comment-post">
-                                                                <p>
-                                                                    อร่อยมากๆ ค่ะ ><
-                                                                </p>
+                                            <?php
+                                            $res = $con->query("SELECT customer.firstName, customer.img_path, comment.updated_time,"
+                                                    . " comment.detail, comment.score "
+                                                    . "FROM `comment` "
+                                                    . "LEFT JOIN customer on customer.id = comment.customer_id "
+                                                    . "WHERE comment.restaurant_id = '$resid'");
+                                            if ($res->num_rows == 0) {
+                                                echo '<h3 class="text-center">ยังไม่มีรีวิว</h3>';
+                                            } else {
+                                                while ($data = $res->fetch_assoc()) {
+                                                    ?>
+                                                    <!-- Comment1 -->
+                                                    <article class="row">
+                                                        <div class="col-md-2 col-sm-2 hidden-xs">
+                                                            <figure class="thumbnail">
+                                                                <img class="img-responsive" src="<?= $data["img_path"] ?>"  />
+                                                                <figcaption class="text-center"><?= $data["firstName"] ?></figcaption> <!-- ชื่อจริง -->
+                                                            </figure>
+                                                        </div>
+                                                        <div class="col-md-10 col-sm-10">
+                                                            <div class="panel panel-default arrow left">
+                                                                <div class="panel-body">
+                                                                    <header class="text-left ">
+                                                                        <time class="comment-date" ><i class="fa fa-clock-o"></i>&nbsp;<?= substr($data["updated_time"], 0, 11) ?> </time>
+                                                                    </header>
+                                                                    <div class="comment-post">
+                                                                        <p><?= $data["detail"] ?></p>
+                                                                        <form id="ratingsForm">
+                                                                            <div class="stars">
+                                                                                <input type="radio" name="star[]" class="star-1" id="star-1" disabled="" <?= ($data["score"] == 1 ? 'checked' : '') ?>/>
+                                                                                <label class="star-1" for="star-1">1</label>
+                                                                                <input type="radio" name="star[]" class="star-2" id="star-2" disabled="" <?= ($data["score"] == 2 ? 'checked' : '') ?>/>
+                                                                                <label class="star-2" for="star-2">2</label>
+                                                                                <input type="radio" name="star[]" class="star-3" id="star-3" disabled="" <?= ($data["score"] == 3 ? 'checked' : '') ?>/>
+                                                                                <label class="star-3" for="star-3">3</label>
+                                                                                <input type="radio" name="star[]" class="star-4" id="star-4" disabled="" <?= ($data["score"] == 4 ? 'checked' : '') ?>/>
+                                                                                <label class="star-4" for="star-4">4</label>
+                                                                                <input type="radio" name="star[]" class="star-5" id="star-5" disabled="" <?= ($data["score"] == 5 ? 'checked' : '') ?>/>
+                                                                                <label class="star-5" for="star-5">5</label>
+                                                                                <span></span>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                            </article>
-
-                                            <!-- Comment2 -->
-                                            <article class="row">
-                                                <div class="col-md-2 col-sm-2 hidden-xs">
-                                                    <figure class="thumbnail">
-                                                        <img class="img-responsive" src="/assets/images/default-avatar.jpg" />
-                                                        <figcaption class="text-center">มานะ</figcaption>
-                                                    </figure>
-                                                </div>
-                                                <div class="col-md-10 col-sm-10">
-                                                    <div class="panel panel-default arrow left">
-                                                        <div class="panel-body">
-                                                            <header class="text-left">
-                                                                <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> Dec 16, 2014</time>
-                                                            </header>
-                                                            <div class="comment-post">
-                                                                <p>
-                                                                    เมนูข้าวผัดร้านนี้อร่อยมากครับ !!
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </article>
-
-                                            <!-- Comment3 -->
-                                            <article class="row">
-                                                <div class="col-md-2 col-sm-2 hidden-xs">
-                                                    <figure class="thumbnail">
-                                                        <img class="img-responsive"src="/assets/images/default-avatar.jpg"  />
-                                                        <figcaption class="text-center">ปิติ</figcaption>
-                                                    </figure>
-                                                </div>
-                                                <div class="col-md-10 col-sm-10">
-                                                    <div class="panel panel-default arrow left">
-                                                        <div class="panel-body">
-                                                            <header class="text-left">
-                                                                <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> Dec 16, 2014</time>
-                                                            </header>
-                                                            <div class="comment-post">
-                                                                <p>
-                                                                    คนส่งอาหารมาช้าไปหน่อยครับ
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </article>
-
-                                            <!-- Comment4 -->
-                                            <article class="row">
-                                                <div class="col-md-2 col-sm-2 hidden-xs">
-                                                    <figure class="thumbnail">
-                                                        <img class="img-responsive" src="/assets/images/default-avatar.jpg" />
-                                                        <figcaption class="text-center">ชูใจ</figcaption>
-                                                    </figure>
-                                                </div>
-                                                <div class="col-md-10 col-sm-10">
-                                                    <div class="panel panel-default arrow left">
-                                                        <div class="panel-body">
-                                                            <header class="text-left">
-                                                                <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> Dec 16, 2014</time>
-                                                            </header>
-                                                            <div class="comment-post">
-                                                                <p>
-                                                                    ผัดกระเพราเค็มไปนิดนึงค่ะ แต่บริการดี มั่นใจได้ค่ะ
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </article>
+                                                    </article>
+                                                    <?php
+                                                }
+                                            }
+                                            ?>
                                         </section>
-                                    </div>
-                                </div>
-                                <!-- คอมเม้นลูกค้าเขียน -->
-                                <hr class="hrs">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <form>
-                                            <div class="card">
-                                                <div class="card-content" style="padding: 10px 10px 0 10px">
-                                                    <textarea class="form-control input-sm " type="textarea" id="recom" placeholder="เขียนข้อความของคุณที่นี่" rows="5"></textarea><br>
-                                                </div>
-                                            </div>
-                                            <div class="pull-right" style="margin: 10px 0 0 0">
-                                                <button class="btn btn-primary" type="submit" value="ส่งข้อความ">ส่งข้อความ</button>
-                                            </div>
-                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="card" id="showcalendar">
+                       <div class="card" id="showcalendar">
                             <div class="card-content">
                                 <div id="calendar" style="color: #FF9900"></div>
+                                </div>
+                                <div class="calendar" style="color: #FF9900"></div>
                             </div>  
                         </div>
                         <br>

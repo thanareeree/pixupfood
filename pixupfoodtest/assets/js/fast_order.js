@@ -6,27 +6,9 @@ $(document).ready(function (e) {
     initCalendar();
     initRice();
     initFood();
+    priority();
 
 
-    $("#addressform").on("submit", function (e) {
-        $.ajax({
-            url: "/customer/ajax-address-shipping.php",
-            type: "POST",
-            data: $("#addressform").serializeArray(),
-            dataType: "json",
-            success: function (data) {
-                if (data.result == 1) {
-                    $("#add_address").modal('hide');
-                    $("#showdata").append('<td colspan="3">' + data.address + '</td>' +
-                            '<td><input type="radio"  name="shipAddress" value="' + data.address + '"> </td>');
-                } else {
-                    $("#showerror").html(data.error);
-                }
-            }
-        });
-        e.preventDefault();
-        return false;
-    });
 
     //Initialize tooltips
     $('.nav-tabs > li a[title]').tooltip();
@@ -87,47 +69,66 @@ function validateTab(tab) {
     if (tab == "step1") {
         var addressid = $("#oldaddress").val();
         if (addressid == null) {
-            alert("กรุณาเลือกที่อยู่ก่อนไปขั้นตอนถัดไป");
+            $("#errorStep1").html(' <div class="alert alert-danger" role="alert" style="margin-top: 30px;">' +
+                    '<p style="color: red;"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
+                    '&nbsp;กรุณาเลือกที่อยู่ก่อนไปขั้นตอนถัดไป</p></div>');
             return false;
         }
+        $("#errorStep1").html("");
     } else if (tab == "step2") {
         var date = $('#calendar').datepick('getDate');
         var time = $("#delivery_time").val();
         if (date == "") {
-            alert("กรุณาเลือกวันที่จัดส่งก่อนไปขั้นตอนถัดไป");
+            $("#errorStep2").html(' <div class="alert alert-danger" role="alert" style="margin-top: 30px;">' +
+                    '<p style="color: red;"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
+                    '&nbsp;กรุณาเลือกวันที่จัดส่งก่อนไปขั้นตอนถัดไป</p></div>');
             return false;
         }
         if (time == null) {
-            alert("กรุณาเลือกเวลาจัดส่งก่อนไปขั้นตอนถัดไป");
+            $("#errorStep2").html(' <div class="alert alert-danger" role="alert" style="margin-top: 30px;">' +
+                    '<p style="color: red;"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
+                    '&nbsp;กรุณาเลือกเวลาจัดส่งก่อนไปขั้นตอนถัดไป</p></div>');
             return false;
         }
+        $("#errorStep2").html("");
     } else if (tab == "step3") {
         var foodbox = $("input[name=foodboxtype]:checked").val();
         var boxamount = $("#boxamount").val();
         if (foodbox == undefined) {
-            alert("กรุณาเลือกชนิดกล่องก่อนไปขั้นตอนถัดไป");
+            $("#errorStep3").html(' <div class="alert alert-danger" role="alert">' +
+                    '<p style="color: red"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
+                    '&nbsp;กรุณาเลือกชนิดกล่องก่อนไปขั้นตอนถัดไป</p></div>');
             return false;
         }
         if (boxamount.length == 0) {
-            alert("กรุณากรอกจำนวนกล่อง");
+            $("#errorStep3").html(' <div class="alert alert-danger" role="alert">' +
+                    '<p style="color: red"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
+                    '&nbsp;กรุณากรอกจำนวนกล่อง</p></div>');
             return false;
         }
+        $("#errorStep3").html("");
         checkRice();
     } else if (tab == "step4") {
         var foodbox = $("input[name=foodboxtype]:checked").val();
         if (foodbox != 4) {
             var ricetype = $("input[name=ricetype]:checked").val();
             if (ricetype == undefined) {
-                alert("กรุณาเลือกชนิดข้าวก่อนไปขั้นตอนถัดไป");
+                $("#errorStep4").html(' <div class="alert alert-danger" role="alert">' +
+                        '<p style="color: red"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
+                        '&nbsp;กรุณาเลือกชนิดข้าวก่อนไปขั้นตอนถัดไป</p></div>');
                 return false;
             }
         }
+        $("#errorStep4").html("");
         checkFood();
     } else if (tab == "step5") {
         if ($(".foodlist:checked").length == 0) {
-            alert("กรุณาเลือกกับข้าวอย่างน้อย 1 รายการ");
+            $("#errorStep5").html(' <div class="alert alert-danger" role="alert">' +
+                    '<p style="color: red"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
+                    '&nbsp;กรุณาเลือกอย่างน้อย 1 รายการ</p></div>');
             return false;
         }
+        $("#errorStep5").html("");
         checkRest();
     }
     return true;
@@ -161,7 +162,7 @@ function initMap() {
     google.maps.event.addListener(marker, 'dragend', function () {
         var pos = marker.getPosition();
         console.log(pos);
-        var loca = {lat: pos.H, lng: pos.L};
+        var loca = {lat: pos.lat(), lng: pos.lng()};
         processLocation(loca);
     });
 
@@ -510,17 +511,23 @@ function checkRest() {
         data: data,
         success: function (data) {
             $("#showrest").html(data);
+            $('.restselect').bootstrapToggle();
+            //spriority();
         }
     });
 }
 
 function saveOrder() {
-    var data = {'food[]': [], 'rest[]': []};
+    var data = {'food[]': [], 'rest[]': [], 'priority[]': [], 'value[]': []};
     $(".foodlist:checked").each(function () {
         data['food[]'].push($(this).val());
     });
     $(".restselect:checked").each(function () {
-        data['rest[]'].push($(this).val());
+        var str = $(this).val();
+        //var restid = str.substring(1);
+        //var pri = str.substring(0, 1);
+        data['rest[]'].push(str);
+        //data['priority[]'].push(pri);
     });
     data['boxtype'] = $("input[name=foodboxtype]:checked").val();
     if (data['boxtype'] != 4) {
@@ -532,19 +539,43 @@ function saveOrder() {
     data['time'] = $("#delivery_time").val();
     data['moretext'] = $("#moretext").val();
     data['payment'] = $("input[name=paymentData]:checked").val();
-    
+
     $.ajax({
         url: "/order/api/saveOrder.php",
         type: "POST",
         dataType: "html",
         data: data,
         success: function (data) {
-            alert(data);
-            document.location = "/";
+         // alert(data); 
+           $("#paymentmodal").modal("hide");
+           $("#saveOrderSuccessModal").modal('show');
+
+
         }
     });
 }
 
+function priority() {
+    $(".priority2").attr("disabled", "disabled");
+    $(".priority3").attr("disabled", "disabled");
+    $('.restselect').on("change", function (e) {
+        if ($(".priority1:checked").length == 1) {
+            $(".priority1").attr("disabled", "disabled");
+            $(".priority2").removeAttr("disabled");
+           
+        }
+        if ($(".priority2:checked").length == 1) {
+            $(".priority2").attr("disabled", "disabled");
+            $(".priority3").removeAttr("disabled");
+        }
+        var restid = $(this).attr("rest-id");
+       $.each($(".restselect[rest-id="+restid+"]"), function (i,sel){
+          if(!$(sel).is(':checked')){
+              $(sel).parent("label").hide();
+          } 
+       });
+    });
+}
 
 
 

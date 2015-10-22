@@ -25,13 +25,13 @@ if (isset($_SESSION["islogin"])) {
                 </button>
                 <ul class="nav navbar-nav navbar-left">
                     <li>
-                        <a href="/index.php">
-                            <img src="/assets/images/bar/logo PXF.png">
+                        <a href="#">
+                            <img src="/assets/images/bar/logo PXF.png" style="max-width:42px;max-height: 42px ">
                         </a>
                     </li>
                 </ul>
-                <a href="/index.php" class="navbar-brand" style="padding: 20px 15px 15px 15px;" >Pixup</a>
-                <a href="/index.php" class="navbar-brand" style="color:rgba(0,0,32,1);padding: 20px 15px 15px 0;">Food</a>
+                <a href="#" class="navbar-brand" style="padding: 20px 15px 15px 15px;" >Pixup</a>
+                <a href="#" class="navbar-brand" style="color:rgba(0,0,32,1);padding: 20px 15px 15px 0;">Food</a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"> 
                 <ul class="nav navbar-nav navbar-right" id="navright-after" >

@@ -119,7 +119,7 @@ and open the template in the editor.
                 </div>
             </div>
         </div>
-
+<img src='/assets/images/loader.gif' style='height:15px; margin:0 auto;'>
     </div>
 
 

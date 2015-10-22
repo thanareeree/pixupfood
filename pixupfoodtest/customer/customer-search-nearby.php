@@ -10,7 +10,8 @@ if ($lat != "" && $long != "") {
                 . "* cos( radians( x ) ) * cos( radians( y ) - radians(" . $long . ") ) "
                 . "+ sin( radians(" . $lat . ") ) * sin( radians( x ) ) ) ) AS distance "
                 . "FROM restaurant JOIN zone ON zone.id = restaurant.zone_id "
-                . " WHERE restaurant.available = 1 and restaurant.close = 0 "
+                . "RIGHT JOIN menu ON menu.restaurant_id = restaurant.id"
+                . " WHERE restaurant.available = 1  "
                 . "AND zone.name IN (SELECT zone.name FROM zone WHERE id = restaurant.zone_id)"
                 . "HAVING distance < 25 ORDER BY distance LIMIT 0 , 8");
     while ($data = $res->fetch_assoc()) {
@@ -23,7 +24,7 @@ if ($lat != "" && $long != "") {
                 <div class = "caption">
                     <p style="text-align: left"><span class="glyphicon glyphicon-cutlery">&nbsp;</span><?= $data["name"] ?></p>
                     <p style="text-align: left"><span class="glyphicon glyphicon-map-marker">&nbsp;</span><?= $data["province"] ?></p>
-                    <a style = "color:rgba(255,127,0,1)" class = "btn btn-mini" href = "/view/cus_restaurant_view.php?resId=<?= $data["id"]?>">» ไปที่ร้านนี้</a>
+                    <a style = "color:rgba(255,127,0,1)" class = "btn btn-mini"  href = "/view/cus_restaurant_view.php?resId=<?= $data["id"]?>" class="tooltip-r" data-toggle="tooltip" data-placement="right" title="เข้าสู่ระบบเพื่อเข้าเยี่ยมชมร้านอาหาร">» ไปที่ร้านนี้</a>
                 </div>
             </div>
         </li>

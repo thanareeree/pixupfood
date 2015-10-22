@@ -47,29 +47,55 @@ include '../dbconn.php';
                         </div>
                         <div class="col-md-5 wow fadeInUp" data-wow-delay="0.6s" style="margin-top: 10px;">
                             <div>
+<<<<<<< HEAD
                                 <form action="/register/customer-save.php" method="post">
                                     <div class="col-md-12 form-group" style="margin: 0;">
                                         <input required type="email" class="form-control" placeholder="Email" id="cusemail" name="cusemail">
+=======
+                                <form action="/register/customer-save.php" method="post" id="cusregisterform">
+                                    <div class="sidetip errorEmail" style="display: none">
+                                            <p style="color: red"><i class="glyphicon glyphicon-remove-sign"></i>&nbsp;อีเมลนี้เคยลงทะเบียนไว้ก่อนแล้ว</p>
+                                        </div>
+                                        <div class="sidetip errorEmailInvalid"  style="display: none">
+                                            <p style="color: red"><i class="glyphicon glyphicon-remove-sign"></i>&nbsp;โปรดป้อนอีเมลที่ถูกต้อง</p>
+                                        </div>
+                                    <div class="col-md-12 form-group" style="margin: 0;">
+                                        <input required type="email" class="form-control" placeholder="อีเมลล์" id="cusemail" name="cusemail">
+>>>>>>> 6577fff52ba28d6c391243361e2fda88d906036c
                                     </div>
                                     <div class="col-md-12">
-                                        <input required type="password" class="form-control" placeholder="Password" id="cuspwd" name="cuspwd">
+                                        <input required type="password" class="form-control" placeholder="รหัสผ่าน" id="cuspwd" name="cuspwd">
                                     </div>
                                     <div class="col-md-12">
-                                        <input required type="password" class="form-control" placeholder="Confirm Password" id="cuspwdconfirm" name="cuspwdconfirm">
+                                          <div class="sidetip errorConfirmpwd"  style="display: none" >
+                                                <p style="color: red"><i class="glyphicon glyphicon-remove-sign"></i>&nbsp;รหัสผ่านไม่ตรงกัน</p>
+                                            </div>
+                                        <input required type="password" class="form-control" placeholder="ยืนยันรหัสผ่าน" id="cuspwdconfirm" name="cuspwdconfirm">
                                     </div>
                                     <div class="col-md-6">
-                                        <input required type="text" class="form-control" placeholder="FirstName" id="cusfname" name="cusfname">
+                                        <input required type="text" class="form-control" placeholder="ชื่อ" id="cusfname" name="cusfname">
                                     </div>
                                     <div class="col-md-6">
-                                        <input required type="text" class="form-control" placeholder="LastName" id="cuslname" name="cuslname">
+                                        <input required type="text" class="form-control" placeholder="สกุล" id="cuslname" name="cuslname">
                                     </div>
                                     <div class="col-md-12">
+<<<<<<< HEAD
                                         <input required type="tel" class="form-control" placeholder="Phone" id="cusphone" name="cusphone">
+=======
+                                         <div class="sidetip errorPhoneInvalid" style="display: none" >
+                                            <p style="color: red"><i class="glyphicon glyphicon-remove-sign"></i>&nbsp;โปรดป้อนหมายเลขโทรศัพท์ที่ถูกต้อง</p>
+                                        </div>
+                                        <input required type="tel" class="form-control" placeholder="หมายเลขโทรศัพท์" id="cusphone" name="cusphone">
+>>>>>>> 6577fff52ba28d6c391243361e2fda88d906036c
                                     </div>
                                     <div class="col-md-12">
                                         <div class="row">
                                             <div class="col-sm-12">
+<<<<<<< HEAD
                                                 <textarea required class="form-control" placeholder="Address" rows="3" id="cusaddress" name="cusaddress" style="margin: 0;"></textarea>
+=======
+                                                <textarea required class="form-control" disabled="" placeholder="กรุณาลากวางมุดตรงที่อยู่ของคุณก่อนแก้ไขข้อมูลให้ถูกต้อง" rows="3" id="cusaddress" name="cusaddress" style="margin: 0;"></textarea>
+>>>>>>> 6577fff52ba28d6c391243361e2fda88d906036c
                                             </div>
                                         </div>
                                         <div class="row">
@@ -94,7 +120,7 @@ include '../dbconn.php';
                                     </div>
                                     <br>
                                     <div class="col-md-6 pull-right">
-                                        <input type="submit" class="form-control text-uppercase" value="Registered">
+                                        <input type="submit" class="form-control text-uppercase" id="nextbtn" value="สมัครสมาชิก">
                                     </div>
                                 </form>
                             </div>
@@ -135,7 +161,25 @@ include '../dbconn.php';
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
+        
+         <div id="resgisterSuccessModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">บันทึกข้อมูลสมัครสมาชิกเรียบร้อยเเล้ว</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-success" role="alert">
+                            <p>กรุณาล็อกอินเข้าสู่ระบบ และกรอกรหัส OTP เพื่อยืนยันตัวตนเข้าใช้งานเว็บภายในเวลา 30 นาที</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="/index.php" ><button type="button" class="btn btn-success" >ตกลง</button></a>
+                    </div>
+                </div>
 
+<<<<<<< HEAD
         <?php include '../template/footer.php'; ?>
         <script src="/assets/js/regis_map.js"></script>
         <script>
@@ -159,6 +203,12 @@ include '../dbconn.php';
                 });
             });
         </script>
+=======
+            </div>
+        </div>
+>>>>>>> 6577fff52ba28d6c391243361e2fda88d906036c
 
+        <?php include '../template/footer.php'; ?>
+        <script src="/assets/js/cus-regis-map.js"></script>
     </body>
 </html>

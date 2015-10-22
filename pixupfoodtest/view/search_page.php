@@ -16,9 +16,19 @@ include '../dbconn.php';
                 table-layout: fixed;
                 padding-top: 29px;
             }
+            .fav-icon {
+                color: #FF0045 !important;
+            }
+            .unfav{
+                color: gray;
+            }
+            .faved{
+                color: red;
+            }
         </style>
     </head>
     <body>
+        <?php $cusid = $_SESSION["userdata"]["id"] ?>
         <?php include '../template/customer-navbar.php'; ?>
         <!-- start register -->
         <section id="search_page">
@@ -94,7 +104,7 @@ include '../dbconn.php';
                     </div>
                     <div class="col-md-3">
                         <div class="col-md-10" style="padding-left:0px;">
-                            <h3>Order Options</h3>
+                            <h3>Fast Order Options</h3>
                             <form>
                                 <div class="form-group">
                                     <input  type="checkbox" name="searchOption" value="orderFromMenu">&nbsp;&nbsp;<span style="font-size: 18px">สั่งอาหารจากรายการอาหาร</span><br>
@@ -129,7 +139,21 @@ include '../dbconn.php';
                                                     . "JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
                                                     . "JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
                                                     . "WHERE main_menu.name LIKE '%$search%' "
-                                                    . "AND restaurant.close = 0 AND restaurant.block = 0  "
+                                                    . " AND restaurant.block = 0  "
+                                                    . "order by main_menu.name ");
+                                            echo $con->error;
+                                            $numrow = $res->num_rows;
+                                        } else {
+                                            $res = $con->query("SELECT DISTINCT restaurant.id,restaurant.name, menu.img_path, main_menu.name as menuname,"
+                                                    . " food_type.description as foodtype, restaurant.name as resname, menu.id as menuid, menu.price,"
+                                                    . "main_menu.img_path as img "
+                                                    . "FROM menu "
+                                                    . "LEFT JOIN restaurant ON menu.restaurant_id = restaurant.id "
+                                                    . "JOIN main_menu ON main_menu.id = menu.main_menu_id "
+                                                    . "JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
+                                                    . "JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
+                                                    . "WHERE main_menu.name LIKE '%' "
+                                                    . "AND restaurant.block = 0  "
                                                     . "order by main_menu.name ");
                                             echo $con->error;
                                             $numrow = $res->num_rows;
@@ -164,8 +188,36 @@ include '../dbconn.php';
                                                         </span>
                                                     </a>
                                                     <span class="pull-right">
+<<<<<<< HEAD
                                                         <button class="btn lovelovebtn"  id="lovelove<?= $data["menuid"] ?>"><i class="glyphicon glyphicon-heart" style="color: red;"></i>&nbsp;<span style="color: black;"> ชื่นชอบ</span></button>
                                                         <button class="btn btn-danger unlovebtn"  id="lovelove2<?= $data["menuid"] ?>" style="display: none;"><i class="glyphicon glyphicon-heart"></i>&nbsp; ชื่นชอบ</button>
+=======
+                                                        <?php
+                                                        if (isset($_SESSION["islogin"])) {
+                                                            $menuid = $data["menuid"];
+                                                            $favRes = $con->query("SELECT * FROM `favorite_menu` WHERE  customer_id = '$cusid' and menu_id ='$menuid' ");
+                                                            if ($favRes->num_rows > 0) {
+                                                                while ($favData = $favRes->fetch_assoc()) {
+                                                                    ?>
+                                                                    <button class="btn favmenu btn-default  " >
+                                                                        <i class="glyphicon glyphicon-heart faved"  data-menuid="<?= $data["menuid"] ?>" data-favid="<?= $favData["id"] ?>" data-faved="1" ></i>&nbsp;<span class="faved"> ชื่นชอบ</span>
+                                                                    </button>
+                                                                    <?php
+                                                                }
+                                                            } else {
+                                                                ?>
+                                                                <button class="btn favmenu btn-default">
+                                                                    <i class="glyphicon glyphicon-heart unfav"  data-menuid="<?= $data["menuid"] ?>" data-favid="" data-faved="0"  ></i>&nbsp;<span class="unfav"> ชื่นชอบ</span>
+                                                                </button>
+                                                                <?php
+                                                            }
+                                                        } else {
+                                                            ?>
+                                                            <button class="btn favunlogin btn-default" class="tooltip-r " data-toggle="tooltip" data-placement="top" title="log in to favorite this menu" data-menuid="<?= $data["menuid"] ?>" data-favid="" data-faved="0"  >
+                                                                <i class="glyphicon glyphicon-heart  unfav" ></i>&nbsp;<span class="unfav"> ชื่นชอบ</span>
+                                                            </button>
+                                                        <?php } ?>
+>>>>>>> 6577fff52ba28d6c391243361e2fda88d906036c
                                                     </span>
                                                 </td>
                                             </tr>
@@ -201,7 +253,6 @@ include '../dbconn.php';
         } else {
             ?>
             <script>
-
                 $('a').click(function (e) {
                     e.preventDefault()
                 });
@@ -212,6 +263,7 @@ include '../dbconn.php';
             <?php
         }
         ?>
+<<<<<<< HEAD
         <script>
             $(document).ready(function () {
 
@@ -334,5 +386,8 @@ include '../dbconn.php';
             });
             
         </script>
+=======
+        <script src="/assets/js/search-page.js"></script>
+>>>>>>> 6577fff52ba28d6c391243361e2fda88d906036c
     </body>
 </html>

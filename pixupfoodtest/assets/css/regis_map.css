@@ -1,5 +1,27 @@
 @import url("../Supermarket/stylesheet.css");
+<<<<<<< HEAD
 
+=======
+#restaurantformregis div.sidetip {
+    position: absolute;
+    left: 402px;
+    width: 300px;
+    display: table;
+    min-height: 32px;
+    margin-top: 6px;
+    margin-left: 80px;
+}
+
+#cusregisterform div.sidetip {
+    position: absolute;
+    left: 402px;
+    width: 300px;
+    display: table;
+    min-height: 32px;
+    margin-top: 6px;
+    margin-left: 80px;
+}
+>>>>>>> 6577fff52ba28d6c391243361e2fda88d906036c
 #map{
     height:400px;
     margin:0 auto;

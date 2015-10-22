@@ -30,7 +30,7 @@ include '../dbconn.php';
             <input type="hidden" id="resIdvalue" value="<?= $resid ?>">
         </form>
         <!-- start head -->
-         <section id="RestaurantHeader">
+        <section id="RestaurantHeader">
             <div class="overlay">
                 <div class="container text-center">
                     <h1><i class="glyphicon glyphicon-cutlery"></i>&nbsp;<?= $resdata["name"] ?></h1>
@@ -105,7 +105,13 @@ include '../dbconn.php';
                                     <a href="/view/res_manage_edit_payment.php" >วิธีการชำระเงิน</a>
                                 </li>
                                 <li>
+                                    <a href="/view/res_manage_edit_deliveryplace.php" >พื้นที่จัดส่งสินค้า</a>
+                                </li>
+                                <li>
                                     <a href="/view/res_manage_edit_messenger.php" > พนักงานจัดส่ง</a>
+                                </li>
+                                <li >
+                                    <a href="/view/res_manage_edit_promotion.php" >โปรโมชั่น</a>
                                 </li>
                             </ul>
 
@@ -132,7 +138,7 @@ include '../dbconn.php';
 
                                                     if ($foodboxRes->num_rows == null) {
                                                         ?>
-                                                    
+
                                                         <div class="card card-content" >
                                                             <div class="page-header" style="font-size: 25px; margin-top: 5px">
                                                                 รูปแบบกล่อง
@@ -140,51 +146,51 @@ include '../dbconn.php';
                                                             </div>
                                                             <form  method="post" action="/restaurant/edit-foodbox-type.php">
                                                                 <div class="row">
-                                                                <?php
-                                                                $boxRes = $con->query("SELECT food_box.id, food_box.description, img_path FROM food_box ");
-                                                                while ($boxData = $boxRes->fetch_assoc()) {
-                                                                    ?>
-                                                                    
-                                                                    <input type="hidden"name="restiddata"value="<?= $resid ?>">
-                                                                    
-                                                                    <div class="col-md-6">
-                                                                        <div class="card">
-                                                                            <div class="card-content">
-                                                                                <img src="<?= $boxData["img_path"]?>" style="width: 100px; height: auto; margin-bottom: 10px; margin-left: 23%">
-                                                                                <div class="card-action">
-                                                                                    <input type="checkbox"  name="foodbox[]"  value=" <?= $boxData["id"] ?>"> <?= $boxData["description"] ?> 
+                                                                    <?php
+                                                                    $boxRes = $con->query("SELECT food_box.id, food_box.description, img_path FROM food_box ");
+                                                                    while ($boxData = $boxRes->fetch_assoc()) {
+                                                                        ?>
+
+                                                                        <input type="hidden"name="restiddata"value="<?= $resid ?>">
+
+                                                                        <div class="col-md-6">
+                                                                            <div class="card">
+                                                                                <div class="card-content">
+                                                                                    <img src="<?= $boxData["img_path"] ?>" style="width: 100px; height: auto; margin-bottom: 10px; margin-left: 23%">
+                                                                                    <div class="card-action">
+                                                                                        <input type="checkbox"  name="foodbox[]"  value=" <?= $boxData["id"] ?>"> <?= $boxData["description"] ?> 
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                        
-                                                                    
-                                                                    
-                                                                <?php } ?>
-                                                                    </div>
-                                                                
-                                                                    <div class="row" style="margin-top: 20px;">
-                                                                        <div class="col-md-12">
+
+
+
+                                                                    <?php } ?>
+                                                                </div>
+
+                                                                <div class="row" style="margin-top: 20px;">
+                                                                    <div class="col-md-12">
                                                                         <hr>
-                                                                <span class="input-group">
-                                                                    <button class="btn btn-success" id="savebtn" type="submit" style="margin-left: 390%">บันทึก</button>
-                                                                </span>
-                                                                        </div>
+                                                                        <span class="input-group">
+                                                                            <button class="btn btn-success" id="savebtn" type="submit" style="margin-left: 390%">บันทึก</button>
+                                                                        </span>
                                                                     </div>
+                                                                </div>
                                                             </form>
-                                                        
-                                                                 </div>   
-                                                    
+
+                                                        </div>   
+
                                                     <?php } else { ?>
                                                         <div class="card card-content" id="showdata_foodbox">
                                                             <div class="page-header" style="font-size: 25px; margin-top: 5px">
                                                                 รูปแบบกล่อง
                                                                 <div class="pull-right">
                                                                     <p class="text-center">
-                                                                        <a  class="btn icon-btn"id="editfoodboxbtn">
+                                                                        <!--<a  class="btn icon-btn"id="editfoodboxbtn">
                                                                             <span class="glyphicon glyphicon-pencil"style="font-size: 20px; color: orange"></span> 
                                                                             <span style="font-size: 20px; color: orange">แก้ไข</span>
-                                                                        </a>
+                                                                        </a>-->
                                                                     </p>
                                                                 </div>
                                                             </div>
@@ -228,7 +234,7 @@ include '../dbconn.php';
                                                                 จำนวนกล่องที่สามารถรับรายการสั่งซื้อได้สูงสุด/วัน
                                                                 <div class="pull-right">
                                                                     <p class="text-center">
-                                                                        <a  href="#" id="editbtn">
+                                                                        <a data-toggle="modal" data-target="#limitModal">
                                                                             <span class="glyphicon glyphicon-pencil"style="font-size: 20px; color: orange"></span> 
                                                                             <span style="font-size: 20px; color: orange">แก้ไข</span>
                                                                         </a>
@@ -253,7 +259,7 @@ include '../dbconn.php';
                                                         <div class="card card-content" id="showdata_minimumbox">
                                                             <div class="page-header" style="font-size: 25px; margin-top: 5px">
                                                                 จำนวนกล่องขั้นต่ำ/รายการสั่งซื้อ
-                                                                
+
                                                             </div>
                                                             <form id="dataform_edit_minimumbox" action="/restaurant/edit-minimum-box.php?resId=<?= $resid ?>" method="post">
                                                                 <div class="input-group col-md-6" style="margin: 10px 120px;"  >
@@ -275,7 +281,7 @@ include '../dbconn.php';
                                                                 จำนวนกล่องขั้นต่ำ/รายการสั่งซื้อ
                                                                 <div class="pull-right">
                                                                     <p class="text-center">
-                                                                        <a  href="#" id="editbtn">
+                                                                        <a data-toggle="modal" data-target="#minimumModal">
                                                                             <span class="glyphicon glyphicon-pencil"style="font-size: 20px; color: orange"></span> 
                                                                             <span style="font-size: 20px; color: orange">แก้ไข</span>
                                                                         </a>
@@ -314,56 +320,170 @@ include '../dbconn.php';
                                                             <div class="page-header" style="font-size: 25px; margin-top: 5px">
                                                                 กำหนดค่าจัดส่ง
                                                             </div>
-                                                            <form id="dataform_edit_deliveryfee" method="post" action="/restaurant/edit-deliveryfee.php?resId=<?=$resid?>">
-                                                                    <div class="input-group col-md-6" style="margin: 10px 120px;" id="edit-deliveryfee">
-                                                                        <input type="text" class="form-control" id="deliveryfee" name="deliveryfee" placeholder="จำนวนกล่อง">
-                                                                        <span class="input-group-btn">
-                                                                            <button class="btn btn-success" id="savebtn" type="submit">บันทึก</button>
-                                                                        </span>
-                                                                    </div>
-                                                                </form>
+                                                            <form id="dataform_edit_deliveryfee" method="post" action="/restaurant/edit-deliveryfee.php?resId=<?= $resid ?>">
+                                                                <div class="input-group col-md-6" style="margin: 10px 120px;" id="edit-deliveryfee">
+                                                                    <input type="text" class="form-control" id="deliveryfee" name="deliveryfee" placeholder="จำนวนกล่อง">
+                                                                    <span class="input-group-btn">
+                                                                        <button class="btn btn-success" id="savebtn" type="submit">บันทึก</button>
+                                                                    </span>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    <?php } else { ?>
+                                                        <div class="card card-content" id="showdata_deliveryfee">
+                                                            <div class="page-header" style="font-size: 25px; margin-top: 5px">
+                                                                ค่าจัดส่ง
+                                                                <div class="pull-right">
+                                                                    <p class="text-center">
+                                                                       <a data-toggle="modal" data-target="#deliveryfeeModal">
+                                                                            <span class="glyphicon glyphicon-pencil"style="font-size: 20px; color: orange"></span> 
+                                                                            <span style="font-size: 20px; color: orange">แก้ไข</span>
+                                                                        </a>
+                                                                    </p>
+                                                                </div>
                                                             </div>
-                                                        <?php } else { ?>
-                                                            <div class="card card-content" id="showdata_deliveryfee">
-                                                                <div class="page-header" style="font-size: 25px; margin-top: 5px">
-                                                                    ค่าจัดส่ง
-                                                                    <div class="pull-right">
-                                                                        <p class="text-center">
-                                                                            <a  href="#" id="editbtn">
-                                                                                <span class="glyphicon glyphicon-pencil"style="font-size: 20px; color: orange"></span> 
-                                                                                <span style="font-size: 20px; color: orange">แก้ไข</span>
-                                                                            </a>
-                                                                        </p>
+                                                            <form id="dataform_edit_deliveryfee">
+                                                                <div class="input-group col-md-6" style="margin: 10px 120px;"  >
+                                                                    <div id="showdata">
+
+                                                                        <span style="font-size: 20px"><?= $deliveryData["description"] ?>: </span>
+                                                                        <span style="font-size: 20px; color: orange;">&nbsp;<?= $deliveryData["deliveryfee"] ?>&nbsp;</span>
+                                                                        <span style="font-size: 20px">บาท</span><br>
+
                                                                     </div>
                                                                 </div>
-                                                                <form id="dataform_edit_deliveryfee">
-                                                                    <div class="input-group col-md-6" style="margin: 10px 120px;"  >
-                                                                        <div id="showdata">
+                                                            </form>
+                                                        </div>
+                                                    <?php } ?>
 
-                                                                            <span style="font-size: 20px"><?= $deliveryData["description"] ?>: </span>
-                                                                            <span style="font-size: 20px; color: orange;">&nbsp;<?= $deliveryData["deliveryfee"] ?>&nbsp;</span>
-                                                                            <span style="font-size: 20px">บาท</span><br>
-
-                                                                        </div>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        <?php } ?>
-
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
     </section>
+    <div class="modal fade" id="boxtypeModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px">รูปแบบกล่อง</div></span>
+                </div>
+                <form action="/restaurant-setting/edit-deliveryfee.php" method="post">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group" style="margin-bottom: 15px;">
+                                    <label class="col-sm-2 control-label" for="textinput">ค่าจัดส่ง</label>
+                                    <div class="col-sm-10" style="margin-bottom: 15px;">
+                                        <input type="text" placeholder="โทรศัพท์" class="form-control"  name="newfee" required="" value="<?= $deliveryData["deliveryfee"]?>">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                        <button type="submit" class="btn btn-primary">บันทึก</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="limitModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px">จำนวนกล่องที่สามารถรับรายการสั่งซื้อได้สูงสุด/วัน</div></span>
+                </div>
+                <form action="/restaurant-setting/edit-limitbox.php" method="post">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group" style="margin-bottom: 15px;">
+                                    <label class="col-sm-2 control-label" for="textinput">จำนวนกล่อง</label>
+                                    <div class="col-sm-10" style="margin-bottom: 15px;">
+                                        <input type="text" placeholder="โทรศัพท์" class="form-control"  name="limitbox" required="" value="<?= $resdata["amount_box_limit"] ?>">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                        <button type="submit" class="btn btn-primary">บันทึก</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
+    <div class="modal fade" id="minimumModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px">จำนวนกล่องขั้นต่ำ/รายการสั่งซื้อ</div></span>
+                </div>
+                <form action="/restaurant-setting/edit-minimumbox.php" method="post">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group" style="margin-bottom: 15px;">
+                                    <label class="col-sm-2 control-label" for="textinput">จำนวนกล่อง</label>
+                                    <div class="col-sm-10" style="margin-bottom: 15px;">
+                                        <input type="text" placeholder="โทรศัพท์" class="form-control" name="minimumbox" required="" value="<?= $resdata["amount_box_minimum"] ?>">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                        <button type="submit" class="btn btn-primary">บันทึก</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deliveryfeeModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px">ค่าจัดส่ง</div></span>
+                </div>
+                <form action="/restaurant-setting/edit-deliveryfee.php" method="post">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group" style="margin-bottom: 15px;">
+                                    <label class="col-sm-2 control-label" for="textinput">ค่าจัดส่ง</label>
+                                    <div class="col-sm-10" style="margin-bottom: 15px;">
+                                        <input type="text" placeholder="โทรศัพท์" class="form-control"  name="newfee" required="" value="<?= $deliveryData["deliveryfee"]?>">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                        <button type="submit" class="btn btn-primary">บันทึก</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <!-- start footer -->
     <?php include '../template/footer.php'; ?>
@@ -373,54 +493,7 @@ include '../dbconn.php';
     <script src="/assets/bootstrap-fileinput-master/js/plugins/canvas-to-blob.js"></script>
     <script src="/assets/bootstrap-fileinput-master/js/plugins/canvas-to-blob.min.js"></script>-->
 
-    <script>
-        $(document).ready(function () {
-            $(".btn-pref .btn").click(function () {
-                $(".btn-pref .btn").removeClass("btn-warning").addClass("btn-default");
-                $(".tab").addClass("active"); // instead of this do the below 
-                $(this).removeClass("btn-default").addClass("btn-warning");
-            });
-
-            $('#imagerest').on('change', function (e) {
-                var filename = $('#imagerest').val();
-                var fname = filename.substring(12);
-                var name = "File: " + fname;
-                $("#uploadtext").html(name);
-                $("#chooseimgbtn").hide();
-                $("#uploadimgbtn").show();
-            });
-
-            $("#switchClose").click(function (e) {
-                $.ajax({
-                    type: "POST",
-                    url: "/restaurant/edit-close-restaurant.php",
-                    data: {"resId": $("#resIdvalue").val(),
-                        "close": $("#switchClose").val()},
-                    dataType: "json",
-                    success: function (data) {
-                        $("#switchClose").removeAttr("checked");
-                        if (data.result == "1") {
-                            $("#switchClose").attr("checked");
-                            document.location.reload();
-                        } else if (data.result == "0") {
-                            $("#switchClose").removeAttr("checked");
-                            $
-                            //document.location.reload();
-                        } else {
-                            alert("ไม่สามารถบันทึกข้อมูลได้\nError : " + data.error);
-                        }
-                    }
-                });
-            });
-
-            $("#editfoodboxbtn").on("click", function (e) {
-                $("#foodboxtypeEdit").show();
-
-            });
-
-
-        });
-    </script>
+    <script src="/assets/js/res_manage_edit_order.js"></script>
 
 </body>
 </html>

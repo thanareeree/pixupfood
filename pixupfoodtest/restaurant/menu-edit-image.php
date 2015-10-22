@@ -5,7 +5,7 @@ $id = @$_GET["menuresid"];
 $newPrice = @$_POST["newPrice"];
 $closeMenu = @$_POST["closeMenu"];
 
-if($closeMenu == "0"){
+if($closeMenu == ""){
     $changeClose = "1" ;
 }  else {
     $changeClose = "0" ;

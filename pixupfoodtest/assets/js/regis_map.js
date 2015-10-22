@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 var currentTab = 1;
+=======
+
+>>>>>>> 6577fff52ba28d6c391243361e2fda88d906036c
 var map, geocoder, marker;
 var address = new Array();
 var defaultlatlng = {lat: 13.6524931, lng: 100.4938914};
@@ -6,6 +10,7 @@ var nearbymarker = [];
 
 $(document).ready(function (e) {
     initMap();
+<<<<<<< HEAD
     initFoodBox();
     //initCalendar();
     initRice();
@@ -156,6 +161,10 @@ function validateTab(tab) {
 }
 
 
+=======
+
+});
+>>>>>>> 6577fff52ba28d6c391243361e2fda88d906036c
 
 
 function initMap() {
@@ -180,7 +189,11 @@ function initMap() {
     google.maps.event.addListener(marker, 'dragend', function () {
         var pos = marker.getPosition();
         console.log(pos);
+<<<<<<< HEAD
         var loca = {lat: pos.H, lng: pos.L};
+=======
+        var loca = {lat: pos.lat(), lng: pos.lng()};
+>>>>>>> 6577fff52ba28d6c391243361e2fda88d906036c
         processLocation(loca);
     });
 
@@ -203,6 +216,7 @@ function initMap() {
                 $.each(responses[0].address_components, function (i, item) {
                     address[item.types[0]] = item.long_name;
                 });
+<<<<<<< HEAD
                 //console.log(address);
 
 
@@ -236,6 +250,9 @@ function initMap() {
                 });
 
 
+=======
+                console.log(address);
+>>>>>>> 6577fff52ba28d6c391243361e2fda88d906036c
             } else {
                 $("#showaddress").html("No Address Found !");
             }
@@ -402,6 +419,7 @@ function initMap() {
     }
 }
 
+<<<<<<< HEAD
 function initFoodBox() {
     $(".foodbox").hide().on("click", function (e) {
         e.stopPropagation();
@@ -544,4 +562,7 @@ var getUrlParameter = function getUrlParameter(sParam) {
  });
  $(".datepick").css("width", "407px");
  }*/
+=======
+
+>>>>>>> 6577fff52ba28d6c391243361e2fda88d906036c
 

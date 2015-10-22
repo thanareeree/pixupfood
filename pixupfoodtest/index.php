@@ -6,13 +6,12 @@ include './dbconn.php';
     <head>
         <?php include './template/customer-title.php'; ?>
         <title>PixupFood - The Original Food Delivery</title>
-        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css">
         <link rel="stylesheet" href="/assets/css/slide2.css">
     </head>
     <body>
         <?php include 'template/customer-navbar.php'; ?>
         <div id="slider-l" class="slider-l">
-            <a href="/view/search_page.php?search=%">
+            <a href="/view/search_page.php?search=">
                 <img src="/assets/images/search.png" class="img-responsive" width="100px">
                 <a onclick="parentNode.remove()" style="color: #0000ff;margin:0 0 0 15px ;">
                     <span>ปิดป้ายนี้</span></a> 
@@ -27,17 +26,28 @@ include './dbconn.php';
                     <li data-target="#Carousel1" data-slide-to="1"></li>
                     <li data-target="#Carousel1" data-slide-to="2"></li>
                     <li data-target="#Carousel1" data-slide-to="3"></li>
+<<<<<<< HEAD
                     <li data-target="#Carousel1" data-slide-to="4"></li>
+=======
+                    <li data-target="#Carousel1" data-slide-to="3"></li>
+>>>>>>> 6577fff52ba28d6c391243361e2fda88d906036c
                 </ol>
                 <div class="carousel-inner">
                     <div class="item active">
-                        <img src="assets/images/slide/nn.jpg" class="img-responsive" style="margin-top:0px;">
+                        <img src="/assets/images/slide/nn.jpg" class="img-responsive" style="margin-top:0px;">
+                    </div>
+                    <div class="item ">
+                        <img src="/assets/images/slide/BN.jpg" class="img-responsive" style="margin-top:0px;">
                     </div>
                     <div class="item">
+<<<<<<< HEAD
                         <img src="assets/images/slide/BN.jpg" class="img-responsive" style="margin-top:0px;">
                     </div>
                     <div class="item">
                         <img src="assets/images/slide/dd.jpg" class="img-responsive" style="margin-top:0px;">
+=======
+                        <img src="/assets/images/slide/dd.jpg" class="img-responsive" style="margin-top:0px;">
+>>>>>>> 6577fff52ba28d6c391243361e2fda88d906036c
                         <div class="container">
                             <div class="carousel-caption">
                                 <h1>ร้านโฮมเรส</h1>
@@ -49,8 +59,8 @@ include './dbconn.php';
                         <img src="assets/images/slide/ee.jpg" class="img-responsive" style="margin-top:0px">
                         <div class="container">
                             <div class="carousel-caption">
-                                <h1>ป้าหน้า มอ</h1>
-                                <p>ข้าวกล่องราคาประหยัด</p>
+                                <h1>ร้านข้าวกล่อง</h1>
+                                <p>เปิดร้านนี้วันแรก</p>
                             </div>
                         </div>
                     </div>
@@ -58,8 +68,8 @@ include './dbconn.php';
                         <img src="assets/images/slide/ff.jpg" class="img-responsive" style="margin-top:0px">
                         <div class="container">
                             <div class="carousel-caption">
-                                <h1>ร้านลมัยโภชนา</h1>
-                                <p>ข้าวกล่องรสเด็ด</p>
+                                <h1>ร้านเจ้</h1>
+                                <p>ข้าวกล่องรสเด็ด รับประกันความอร่อย</p>
                             </div>
                         </div>
                     </div>
@@ -149,44 +159,46 @@ include './dbconn.php';
                             <h2 class="text-uppercase">ข่าวสาร<<</h2>
                         </a>
                         <div class="featured-article">
+                            <?php
+                            $res = $con->query("SELECT news.id, news.img_path, news.title, news.detail, news.created_time, restaurant.name "
+                                    . "FROM `news` "
+                                    . "LEFT JOIN restaurant ON restaurant.id = news.restaurant_id "
+                                    . "ORDER BY news.created_time DESC LIMIT 1");
+                            $news = $res->fetch_assoc();
+                            $newfirstid = $news["id"];
+                            ?>
                             <a href="#">
-                                <img src="/assets/images/allnews/news01.jpg" alt="" class="thumb" >
+                                <img src="<?= $news["img_path"] ?>" alt="" class="thumb" >
                             </a>
                             <div class="block-title">
-                                <h2>เมนูใหม่ ต้องลอง!!</h2>
-                                <p class="by-author"><small>เพิ่ม 3 เมนูใหม่กับร้านลมัยโภชนา<br>ผัดพริกแกงทะเล / หมูผัดพริกเผา / ข้าวผัดปลาเค็ม</small></p>
+                                <h2><?= $news["title"] ?></h2>
+                                <p class="by-author"><?= $news["detail"] ?><br><br>
+                                    <?= $news["name"] ?>&nbsp;เมื่อวันที่: &nbsp;<?= substr($news["created_time"], 0, 11) . " " . substr($news["created_time"], 11, 5) ?>&nbsp;น.
+                                </p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-7 col-lg-7 wow fadeInRight" data-wow-delay="0.6s" style="padding:63px 15px 0 100px">
-                        <ul class="media-list main-list">
-                            <li class="media" style="border-top:1px solid #e8e8e8; padding-top:1.1em">
-                                <a class="pull-left" href="#">
-                                    <img class="media-object" src="/assets/images/allnews/news02.jpg" alt="..." width="150px" style="max-height:90px;">
-                                </a>
-                                <div class="media-body">
-                                    <h4 class="media-heading">อร่อยแน่ ขอแนะนำ!</h4>
-                                    <p class="by-author">ข้าวผัดลูกชิ้น ร้านอาหารไทย</p>
-                                </div>
-                            </li>
-                            <li class="media">
-                                <a class="pull-left" href="#">
-                                    <img class="media-object" src="/assets/images/allnews/news03.jpg" alt="..." width="150px" style="max-height:90px;">
-                                </a>
-                                <div class="media-body">
-                                    <h4 class="media-heading">สปาเก็ตตี้ขี้เมา</h4>
-                                    <p class="by-author">สปาเก็ตตี้ผัดขี้เมา รสเด็ด ปรุงสดใหม่ด้วยแม่ครัวมืออาชีพ จาก ร้านหนึ่ง</p>
-                                </div>
-                            </li>
-                            <li class="media">
-                                <a class="pull-left" href="#">
-                                    <img class="media-object" src="/assets/images/allnews/news04.jpg" alt="..." width="150px" style="max-height:90px;">
-                                </a>
-                                <div class="media-body">
-                                    <h4 class="media-heading">สาขาใหม่ ถนนประชาอุทิศ</h4>
-                                    <p class="by-author">เปิดสาขาที่ 3 กับร้านป้าน้อย ขึ้นชื่อเรื่องรสชาติ และความสดใหม่ของอาหาร พบกับเมนูอาหารมากมายหลากหลาย จะตามไปชิม หรือจะสั่งผ่านเว็บไซต์ก็สะดวก</p>
-                                </div>
-                            </li>
+                        <ul class="media-list main-list" style="border-top:1px solid #e8e8e8; padding-top:1.1em">
+                            <?php
+                            $res = $con->query("SELECT news.img_path, news.title, news.detail, news.created_time, restaurant.name "
+                                    . "FROM `news` "
+                                    . "LEFT JOIN restaurant ON restaurant.id = news.restaurant_id "
+                                    . "WHERE news.id != '$newfirstid' ORDER BY RAND() DESC LIMIT 3");
+                            while ($data = $res->fetch_assoc()) {
+                                ?>
+                                <li class="media">
+                                    <a class="pull-left" href="#">
+                                        <img class="media-object" src="<?= $data["img_path"] ?>" alt="..." width="150px" style="max-height:90px;">
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading"><?= $data["title"] ?></h4>
+                                        <p class="by-author"><?= $data["detail"] ?><br><br>
+                                            <?= $data["name"] ?>&nbsp;เมื่อวันที่: &nbsp;<?= substr($data["created_time"], 0, 11) . " " . substr($data["created_time"], 11, 5) ?>&nbsp;น.
+                                        </p>
+                                    </div>
+                                </li>
+                            <?php } ?>
                         </ul>
                     </div>
                 </div>
@@ -203,17 +215,37 @@ include './dbconn.php';
                             <h2 class="text-uppercase">โปรโมชั่น<<</h2>
                         </a>
                         <div class="featured-article">
+                            <?php
+                            $res = $con->query("select promotion.id, promotion_main.name, restaurant.name as restname, "
+                                    . "promotion.start_time, promotion.end_time, promotion.description, promotion_main.img_path  "
+                                    . "from promotion "
+                                    . "LEFT JOIN promotion_main ON promotion_main.id = promotion.promotion_main_id "
+                                    . "LEFT JOIN restaurant ON restaurant.id = promotion.restaurant_id "
+                                    . "order by promotion.created_time DESC LIMIT 1");
+                            $promotion = $res->fetch_assoc();
+                            $proid = $promotion["id"];
+                            ?>
                             <a href="#">
-                                <img src="assets/images/allpromo/promo01.jpg" alt="" class="thumb">
+                                <img src="<?= $promotion["img_path"] ?>" alt="" class="thumb" >
                             </a>
                             <div class="block-title">
+<<<<<<< HEAD
                                 <h2>ฟรีขนมแสนอร่อย</h2>
                                 <p class="by-author"><small>เมื่อสั่งซื้ออาหารตั้งแต่ 50 กล่องขึ้นไปฟรี เค้กกล้วยหอม 10 ชุด(ชุดละ 1 ชิ้น)<br>เมื่อสั่งอาหารกับร้าน @home <br><span style="color: red">**ของแถมจะไม่ปรากฏตอนสั่งอาหาร แต่จะได้รับพร้อมกับอาหารที่สั่ง</span></small></p>
+=======
+                                <h2><?= $promotion["restname"] ?></h2>
+                                <p class="by-author"><?= $promotion["description"] ?><br><br>
+                                    เริ่มวันที่: &nbsp;<?= $promotion["start_time"] ?>&nbsp;
+                                    หมดเขต: &nbsp;<?= $promotion["end_time"] ?>&nbsp;
+
+                                </p>
+>>>>>>> 6577fff52ba28d6c391243361e2fda88d906036c
                             </div>
                         </div>
                     </div>
                     <div class="col-md-7 col-lg-7 wow fadeInRight" data-wow-delay="0.6s" style="padding:60px 15px 0 100px">
                         <ul class="media-list main-list" style="border-top:1px solid #e8e8e8; padding-top:1.1em">
+<<<<<<< HEAD
                             <li class="media">
                                 <a class="pull-left" href="#">
                                     <img class="media-object" src="assets/images/allpromo/promo02.jpg"  alt="..." width="150px" style="max-height:90px;">
@@ -241,6 +273,31 @@ include './dbconn.php';
                                     <p class="by-author">เมื่อมียอดสั่งซื้อกับร้านลุงเอก ผ่านเว็บไซต์ ทุก 100.- รับน้ำอัดลมฟรี 2 กระป๋อง<br><span style="color: red">**ของแถมจะไม่ปรากฏตอนสั่งอาหาร แต่จะได้รับพร้อมกับอาหารที่สั่ง</span></p>
                                 </div>
                             </li>
+=======
+                            <?php
+                            $res = $con->query("select promotion.id, promotion_main.name, restaurant.name as restname, "
+                                    . "promotion.start_time, promotion.end_time, promotion.description, promotion_main.img_path  "
+                                    . "from promotion "
+                                    . "LEFT JOIN promotion_main ON promotion_main.id = promotion.promotion_main_id "
+                                    . "LEFT JOIN restaurant ON restaurant.id = promotion.restaurant_id "
+                                    . "WHERE promotion.id != '$proid' ORDER BY RAND() DESC LIMIT 3");
+                            while ($data = $res->fetch_assoc()) {
+                                ?>
+                                <li class="media">
+                                    <a class="pull-left" href="#">
+                                        <img class="media-object" src="<?= $data["img_path"] ?>" alt="..." width="150px" style="max-height:90px;">
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading"><?= $data["restname"] ?></h4>
+                                        <p class="by-author"><?= $data["description"] ?><br><br>
+                                            เริ่มวันที่: &nbsp;<?= $data["start_time"] ?>&nbsp;
+                                            หมดเขต: &nbsp;<?= $data["end_time"] ?>&nbsp;
+
+                                        </p>
+                                    </div>
+                                </li>
+                            <?php } ?>
+>>>>>>> 6577fff52ba28d6c391243361e2fda88d906036c
                         </ul>
                     </div>
                 </div>
@@ -256,7 +313,11 @@ include './dbconn.php';
                         <h2 class="text-uppercase">Our Pricing</h2>
                     </div>
                     <div class="col-md-12 wow fadeIn" data-wow-delay="0.6s">
+<<<<<<< HEAD
                         <img src="assets/images/plan.PNG">
+=======
+                        <img src="/assets/images/plan.PNG">
+>>>>>>> 6577fff52ba28d6c391243361e2fda88d906036c
                     </div>
                 </div>
             </div>
@@ -354,16 +415,17 @@ include './dbconn.php';
 
                 function showlist() {
                     $.ajax({
-                        url: 'customer/customer-search-nearby.php',
+                        url: '/customer/customer-search-nearby.php',
                         type: "POST",
                         data: {"lat": lat,
-                            "long": long},
+                            "long": long, "type": "nearby"},
                         dataType: "html",
                         success: function (returndata) {
                             if (returndata == "error") {
                                 alert("123459859859656");
                             } else {
                                 $("#shownearbylist").append(returndata);
+                                $('[data-toggle="tooltip"]').tooltip()
                             }
                         }
                     });
