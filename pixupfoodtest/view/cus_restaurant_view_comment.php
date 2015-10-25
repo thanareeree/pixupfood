@@ -15,7 +15,7 @@ include '../api/islogin.php';
         <link href='/assets/css/fullcalendar.print.css' rel='stylesheet' media='print' />
         <link rel="stylesheet" href="/assets/css/customer-comment.css">
         <style>
-            form .stars {
+           #restaurant_view form .stars {
                 margin: 0 400 -10;
             }
         </style>
@@ -60,7 +60,7 @@ include '../api/islogin.php';
                 <div class="container text-center">
                     <h1><i class="glyphicon glyphicon-cutlery"></i>&nbsp;<?= ($resNameData["name"] == "" ? $resNameData["name"] : $resNameData["name"]) ?></h1>
                     <div class="row lead">
-                        <div id="stars-existing" class="starrr" data-rating='4'></div>
+                        <?php include '../customer-view-restaurant/star-head.php';?>
                     </div>
                 </div>
             </div>
@@ -145,21 +145,21 @@ include '../api/islogin.php';
                         </div>
                     </div>
                     <div class="col-md-4">
-                       <div class="card" id="showcalendar">
+                        <div class="card" id="showcalendar">
                             <div class="card-content">
                                 <div id="calendar" style="color: #FF9900"></div>
-                                </div>
-                                <div class="calendar" style="color: #FF9900"></div>
-                            </div>  
-                        </div>
-                        <br>
+                            </div>
+                            <div class="calendar" style="color: #FF9900"></div>
+                        </div>  
                     </div>
+                    <br>
                 </div>
             </div>
-        </section> 
+        </div>
+    </section> 
 
 
-        <?php include '../template/footer.php'; ?>
-        <script src="/assets/js/view_reataurant_comment.js"></script>
-    </body>
+    <?php include '../template/footer.php'; ?>
+    <script src="/assets/js/view_reataurant_comment.js"></script>
+</body>
 </html>

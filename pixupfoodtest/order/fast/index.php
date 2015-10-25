@@ -14,7 +14,7 @@ include '../../dbconn.php';
     <body>
         <?php
         $customerData = $_SESSION["userdata"];
-        $orderMenu_id = @$_GET["menuId"];
+        $orderMenu_id = @$_GET["menuSetId"];
         ?>
         <?php include '../../template/customer-navbar.php'; ?>
 
@@ -224,13 +224,20 @@ include '../../dbconn.php';
                                     </div>
                                     <div class="row" style="width:650px; margin:0 auto; padding-bottom:30px;">
                                         <?php
+                                        $menuRes = $con->query("SELECT * FROM `main_menu` WHERE main_menu.id = '$orderMenu_id' AND type = 'อาหารจานเดียว'");
+                                        $box = 0;
+                                        if($menuRes->num_rows > 0){
+                                            $box++;
+                                        }
                                         $foodboxRes = $con->query("SELECT food_box.id, food_box.description, food_box.img_path FROM food_box where type = '1'");
+                                        
                                         while ($foodboxData = $foodboxRes->fetch_assoc()) {
+                                            
                                             ?>
-                                            <div class="foodboxselect">
+                                            <div class="foodboxselect <?= ($box > 0 && $foodboxData["id"] == 4)?"selected":""?>">
                                                 <img class="menu_img" src="<?= $foodboxData["img_path"] ?>">
                                                 <p><?= $foodboxData["description"] ?></p>
-                                                <input type="radio" name="foodboxtype" class="foodbox" value="<?= $foodboxData["id"] ?>">
+                                                <input type="radio" name="foodboxtype" class="foodbox" <?= ($box > 0)?"checked":""?> value="<?= $foodboxData["id"] ?>">
                                             </div>
                                         <?php } ?>
                                     </div>
