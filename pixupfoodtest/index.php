@@ -120,206 +120,207 @@ include './dbconn.php';
                     <ul class="thumbnails">
                         <div id="shownearbylist"></div>
                     </ul>
-                    
-                    <!--<div class="carousel slide" id="rescarousel">
-                        <div class="carousel-inner">
-                            <ul class="thumbnails">
-                                <div id="shownearbylist">
+                </div>
+            </div>
+        </div>
+    </section>
+    <div id="map" style="display: none"></div>
 
+    <!-- news update head -->
+    <section id="nupdateh">
+        <img src="assets/images/newsupdatehead.png">
+    </section>
+    <!-- news update head -->
 
+    <!-- start news update -->
+    <section id="feature" style="padding:5px 0 5px 0">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 col-lg-5 wow fadeInLeft" data-wow-delay="0.6s">
+                    <a href="/view/cus_allnews.php" style="color:rgba(111,0,114,1)">
+                        <h2 class="text-uppercase">ข่าวสาร<<</h2>
+                    </a>
+                    <div class="featured-article">
+                        <?php
+                        $res = $con->query("SELECT news.id, news.img_path, news.title, news.detail, news.created_time, restaurant.name "
+                                . "FROM `news` "
+                                . "LEFT JOIN restaurant ON restaurant.id = news.restaurant_id "
+                                . "ORDER BY news.created_time DESC LIMIT 1");
+                        $news = $res->fetch_assoc();
+                        $newfirstid = $news["id"];
+                        ?>
+                        <a href="#">
+                            <img src="<?= $news["img_path"] ?>" alt="" class="thumb" >
+                        </a>
+                        <div class="block-title">
+                            <h2><?= $news["title"] ?></h2>
+                            <p class="by-author"><?= $news["detail"] ?><br><br>
+                                <?= $news["name"] ?>&nbsp;เมื่อวันที่: &nbsp;<?= substr($news["created_time"], 0, 11) . " " . substr($news["created_time"], 11, 5) ?>&nbsp;น.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-7 col-lg-7 wow fadeInRight" data-wow-delay="0.6s" style="padding:63px 15px 0 100px">
+                    <ul class="media-list main-list" style="border-top:1px solid #e8e8e8; padding-top:1.1em">
+                        <?php
+                        $res = $con->query("SELECT news.img_path, news.title, news.detail, news.created_time, restaurant.name "
+                                . "FROM `news` "
+                                . "LEFT JOIN restaurant ON restaurant.id = news.restaurant_id "
+                                . "WHERE news.id != '$newfirstid' ORDER BY RAND() DESC LIMIT 3");
+                        while ($data = $res->fetch_assoc()) {
+                            ?>
+                            <li class="media">
+                                <a class="pull-left" href="#">
+                                    <img class="media-object" src="<?= $data["img_path"] ?>" alt="..." width="150px" style="max-height:90px;">
+                                </a>
+                                <div class="media-body">
+                                    <h4 class="media-heading"><?= $data["title"] ?></h4>
+                                    <p class="by-author"><?= $data["detail"] ?><br><br>
+                                        <?= $data["name"] ?>&nbsp;เมื่อวันที่: &nbsp;<?= substr($data["created_time"], 0, 11) . " " . substr($data["created_time"], 11, 5) ?>&nbsp;น.
+                                    </p>
                                 </div>
-                            </ul>
-                        </div>
-                        <!-- /#myCarousel -->
-                    </div>
+                            </li>
+                        <?php } ?>
+                    </ul>
                 </div>
             </div>
-        </section>
-        <div id="map" style="display: none"></div>
+        </div>
+    </section>
+    <!-- end news update -->
 
-        <!-- news update head -->
-        <section id="nupdateh">
-            <img src="assets/images/newsupdatehead.png">
-        </section>
-        <!-- news update head -->
-
-        <!-- start news update -->
-        <section id="feature" style="padding:5px 0 5px 0">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-5 col-lg-5 wow fadeInLeft" data-wow-delay="0.6s">
-                        <a href="/view/cus_allnews.php" style="color:rgba(111,0,114,1)">
-                            <h2 class="text-uppercase">ข่าวสาร<<</h2>
+    <!-- start feature1 -->
+    <section id="feature1" style="padding:5px 0 5px 0">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 col-lg-5 wow fadeInLeft" data-wow-delay="0.6s">
+                    <a href="view/cus_allpromotions.php" style="color:rgba(111,0,114,1)">
+                        <h2 class="text-uppercase">โปรโมชั่น<<</h2>
+                    </a>
+                    <div class="featured-article">
+                        <?php
+                        $res = $con->query("select promotion.id, promotion_main.name, restaurant.name as restname, "
+                                . "promotion.start_time, promotion.end_time, promotion.description, promotion_main.img_path  "
+                                . "from promotion "
+                                . "LEFT JOIN promotion_main ON promotion_main.id = promotion.promotion_main_id "
+                                . "LEFT JOIN restaurant ON restaurant.id = promotion.restaurant_id "
+                                . "order by promotion.created_time DESC LIMIT 1");
+                        $promotion = $res->fetch_assoc();
+                        $proid = $promotion["id"];
+                        ?>
+                        <a href="#">
+                            <img src="<?= $promotion["img_path"] ?>" alt="" class="thumb" >
                         </a>
-                        <div class="featured-article">
-                            <?php
-                            $res = $con->query("SELECT news.id, news.img_path, news.title, news.detail, news.created_time, restaurant.name "
-                                    . "FROM `news` "
-                                    . "LEFT JOIN restaurant ON restaurant.id = news.restaurant_id "
-                                    . "ORDER BY news.created_time DESC LIMIT 1");
-                            $news = $res->fetch_assoc();
-                            $newfirstid = $news["id"];
-                            ?>
-                            <a href="#">
-                                <img src="<?= $news["img_path"] ?>" alt="" class="thumb" >
-                            </a>
-                            <div class="block-title">
-                                <h2><?= $news["title"] ?></h2>
-                                <p class="by-author"><?= $news["detail"] ?><br><br>
-                                    <?= $news["name"] ?>&nbsp;เมื่อวันที่: &nbsp;<?= substr($news["created_time"], 0, 11) . " " . substr($news["created_time"], 11, 5) ?>&nbsp;น.
-                                </p>
-                            </div>
+                        <div class="block-title">
+                            <h2><?= $promotion["restname"] ?></h2>
+                            <p class="by-author"><?= $promotion["description"] ?><br><br>
+                                เริ่มวันที่: &nbsp;<?= $promotion["start_time"] ?>&nbsp;
+                                หมดเขต: &nbsp;<?= $promotion["end_time"] ?>&nbsp;
+
+                            </p>
                         </div>
                     </div>
-                    <div class="col-md-7 col-lg-7 wow fadeInRight" data-wow-delay="0.6s" style="padding:63px 15px 0 100px">
-                        <ul class="media-list main-list" style="border-top:1px solid #e8e8e8; padding-top:1.1em">
-                            <?php
-                            $res = $con->query("SELECT news.img_path, news.title, news.detail, news.created_time, restaurant.name "
-                                    . "FROM `news` "
-                                    . "LEFT JOIN restaurant ON restaurant.id = news.restaurant_id "
-                                    . "WHERE news.id != '$newfirstid' ORDER BY RAND() DESC LIMIT 3");
-                            while ($data = $res->fetch_assoc()) {
-                                ?>
-                                <li class="media">
-                                    <a class="pull-left" href="#">
-                                        <img class="media-object" src="<?= $data["img_path"] ?>" alt="..." width="150px" style="max-height:90px;">
-                                    </a>
-                                    <div class="media-body">
-                                        <h4 class="media-heading"><?= $data["title"] ?></h4>
-                                        <p class="by-author"><?= $data["detail"] ?><br><br>
-                                            <?= $data["name"] ?>&nbsp;เมื่อวันที่: &nbsp;<?= substr($data["created_time"], 0, 11) . " " . substr($data["created_time"], 11, 5) ?>&nbsp;น.
-                                        </p>
-                                    </div>
-                                </li>
-                            <?php } ?>
-                        </ul>
-                    </div>
+                </div>
+                <div class="col-md-7 col-lg-7 wow fadeInRight" data-wow-delay="0.6s" style="padding:60px 15px 0 100px">
+                    <ul class="media-list main-list" style="border-top:1px solid #e8e8e8; padding-top:1.1em">
+                        <?php
+                        $res = $con->query("select promotion.id, promotion_main.name, restaurant.name as restname, "
+                                . "promotion.start_time, promotion.end_time, promotion.description, promotion_main.img_path  "
+                                . "from promotion "
+                                . "LEFT JOIN promotion_main ON promotion_main.id = promotion.promotion_main_id "
+                                . "LEFT JOIN restaurant ON restaurant.id = promotion.restaurant_id "
+                                . "WHERE promotion.id != '$proid' ORDER BY RAND() DESC LIMIT 3");
+                        while ($data = $res->fetch_assoc()) {
+                            ?>
+                            <li class="media">
+                                <a class="pull-left" href="#">
+                                    <img class="media-object" src="<?= $data["img_path"] ?>" alt="..." width="150px" style="max-height:90px;">
+                                </a>
+                                <div class="media-body">
+                                    <h4 class="media-heading"><?= $data["restname"] ?></h4>
+                                    <p class="by-author"><?= $data["description"] ?><br><br>
+                                        เริ่มวันที่: &nbsp;<?= $data["start_time"] ?>&nbsp;
+                                        หมดเขต: &nbsp;<?= $data["end_time"] ?>&nbsp;
+
+                                    </p>
+                                </div>
+                            </li>
+                        <?php } ?>
+                    </ul>
                 </div>
             </div>
-        </section>
-        <!-- end news update -->
+        </div>
+    </section>
+    <!-- end feature1 -->
 
-        <!-- start feature1 -->
-        <section id="feature1" style="padding:5px 0 5px 0">
+    <!-- start pricing -->
+    <section id="pricing">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 wow bounceIn" style="margin-bottom: 25px;">
+                    <h2 class="text-uppercase">Our Pricing</h2>
+                </div>
+                <div class="col-md-12 wow fadeIn" data-wow-delay="0.6s">
+                    <img src="/assets/images/plan.PNG">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end pricing -->
+
+    <!-- start contact -->
+    <section id="contact">
+        <div class="overlay">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-5 col-lg-5 wow fadeInLeft" data-wow-delay="0.6s">
-                        <a href="view/cus_allpromotions.php" style="color:rgba(111,0,114,1)">
-                            <h2 class="text-uppercase">โปรโมชั่น<<</h2>
-                        </a>
-                        <div class="featured-article">
-                            <?php
-                            $res = $con->query("select promotion.id, promotion_main.name, restaurant.name as restname, "
-                                    . "promotion.start_time, promotion.end_time, promotion.description, promotion_main.img_path  "
-                                    . "from promotion "
-                                    . "LEFT JOIN promotion_main ON promotion_main.id = promotion.promotion_main_id "
-                                    . "LEFT JOIN restaurant ON restaurant.id = promotion.restaurant_id "
-                                    . "order by promotion.created_time DESC LIMIT 1");
-                            $promotion = $res->fetch_assoc();
-                            $proid = $promotion["id"];
-                            ?>
-                            <a href="#">
-                                <img src="<?= $promotion["img_path"] ?>" alt="" class="thumb" >
-                            </a>
-                            <div class="block-title">
-                                <h2><?= $promotion["restname"] ?></h2>
-                                <p class="by-author"><?= $promotion["description"] ?><br><br>
-                                    เริ่มวันที่: &nbsp;<?= $promotion["start_time"] ?>&nbsp;
-                                    หมดเขต: &nbsp;<?= $promotion["end_time"] ?>&nbsp;
-
-                                </p>
-                            </div>
-                        </div>
+                    <div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+                        <h2 class="text-uppercase">ติดต่อเรา</h2>
+                        <p>มีปัญหาในการใช้งาน สนใจ หรือต้องการสอบถามข้อมูลเพิ่มเติมสามารถติดต่อเราได้ทันที </p>
+                        <address>
+                            <p><i class="fa fa-map-marker"></i>365/1167 หมู่บ้านสวนธน ซ.พุทธบูชา47 แขวงบางมด เขตทุ่งครุ กรุงเทพมหานคร 10140</p>
+                            <p><i class="fa fa-phone"></i> 0877056769</p>
+                            <p><i class="fa fa-envelope-o"></i> support@pixupfood.com</p>
+                        </address>
                     </div>
-                    <div class="col-md-7 col-lg-7 wow fadeInRight" data-wow-delay="0.6s" style="padding:60px 15px 0 100px">
-                        <ul class="media-list main-list" style="border-top:1px solid #e8e8e8; padding-top:1.1em">
-                            <?php
-                            $res = $con->query("select promotion.id, promotion_main.name, restaurant.name as restname, "
-                                    . "promotion.start_time, promotion.end_time, promotion.description, promotion_main.img_path  "
-                                    . "from promotion "
-                                    . "LEFT JOIN promotion_main ON promotion_main.id = promotion.promotion_main_id "
-                                    . "LEFT JOIN restaurant ON restaurant.id = promotion.restaurant_id "
-                                    . "WHERE promotion.id != '$proid' ORDER BY RAND() DESC LIMIT 3");
-                            while ($data = $res->fetch_assoc()) {
-                                ?>
-                                <li class="media">
-                                    <a class="pull-left" href="#">
-                                        <img class="media-object" src="<?= $data["img_path"] ?>" alt="..." width="150px" style="max-height:90px;">
-                                    </a>
-                                    <div class="media-body">
-                                        <h4 class="media-heading"><?= $data["restname"] ?></h4>
-                                        <p class="by-author"><?= $data["description"] ?><br><br>
-                                            เริ่มวันที่: &nbsp;<?= $data["start_time"] ?>&nbsp;
-                                            หมดเขต: &nbsp;<?= $data["end_time"] ?>&nbsp;
-
-                                        </p>
-                                    </div>
-                                </li>
-                            <?php } ?>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- end feature1 -->
-
-        <!-- start pricing -->
-        <section id="pricing">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 wow bounceIn" style="margin-bottom: 25px;">
-                        <h2 class="text-uppercase">Our Pricing</h2>
-                    </div>
-                    <div class="col-md-12 wow fadeIn" data-wow-delay="0.6s">
-                        <img src="/assets/images/plan.PNG">
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- end pricing -->
-
-        <!-- start contact -->
-        <section id="contact">
-            <div class="overlay">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-                            <h2 class="text-uppercase">ติดต่อเรา</h2>
-                            <p>มีปัญหาในการใช้งาน สนใจ หรือต้องการสอบถามข้อมูลเพิ่มเติมสามารถติดต่อเราได้ทันที </p>
-                            <address>
-                                <p><i class="fa fa-map-marker"></i>365/1167 หมู่บ้านสวนธน ซ.พุทธบูชา47 แขวงบางมด เขตทุ่งครุ กรุงเทพมหานคร 10140</p>
-                                <p><i class="fa fa-phone"></i> 0877056769</p>
-                                <p><i class="fa fa-envelope-o"></i> support@pixupfood.com</p>
-                            </address>
-                        </div>
-                        <div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-                            <div class="contact-form">
-                                <form action="#" method="post">
-                                    <div class="col-md-6">
-                                        <input type="text" class="form-control" placeholder="ชื่อ - นามสกุล">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <input type="email" class="form-control" placeholder="อีเมลล์">
-                                    </div>
-                                    <div class="col-md-12">
-                                        <input type="text" class="form-control" placeholder="ชื่อเรื่อง">
-                                    </div>
-                                    <div class="col-md-12">
-                                        <textarea class="form-control" placeholder="ข้อความ" rows="4"></textarea>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <input type="submit" class="form-control text-uppercase" value="ส่ง">
-                                    </div>
-                                </form>
-                            </div>
+                    <div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+                        <div class="contact-form">
+                            <form action="#" method="post" id="contactform">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" placeholder="ชื่อ - นามสกุล" id="nameinput" required="">
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="email" class="form-control" placeholder="อีเมลล์" id="emailinput" required="">
+                                </div>
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control" placeholder="ชื่อเรื่อง" id="subjectinput" required="">
+                                </div>
+                                <div class="col-md-12">
+                                    <textarea class="form-control" placeholder="ข้อความ" rows="4" id="contentinput" required=""></textarea>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="submit" class="form-control text-uppercase" value="ส่ง">
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-        <!-- end contact -->
+        </div>
+    </section>
+    <!-- end contact -->
+    <div class="modal fade" id="sendemailSuccessModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div id="showdetail"></div>
+                </div>
+                <div class="modal-footer">
+                     <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
-        <?php include './template/footer-indexpage.php'; ?>    
-        <script src="/assets/js/index-page.js"> </script>
-    </body>
+    <?php include './template/footer-indexpage.php'; ?>    
+    <script src="/assets/js/index-page.js"></script>
+</body>
 </html>

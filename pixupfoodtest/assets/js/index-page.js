@@ -14,58 +14,7 @@ $(document).ready(function () {
     $('.dropdown-menu').find('form').click(function (e) {
         e.stopPropagation();
     });
-
-    /* var lat = 13.6415824;
-     var long = 100.4963968;
-     function startMap() {
-     
-     map = new google.maps.Map(document.getElementById("map"));
-     if (navigator.geolocation) {
-     navigator.geolocation.getCurrentPosition(getPosition, errorFunction);
-     //navigator.geolocation.watchPosition(updatePosition);
-     } else {
-     alert("ไม่สามารถใช้งาน Search by nearby ได้");
-     document.getElementById("latinput").value = "";
-     document.getElementById("longinput").value = "";
-     }
-     }
-     
-     startMap();
-     
-     function getPosition(pos) {
-     globalPosition = pos;
-     lat = pos.coords.latitude;
-     long = pos.coords.longitude;
-     // alert($("#latinput").val() + "\n" + $("#longinput").val());
-     console.log(pos);
-     
-     }
-     
-     function errorFunction() {
-     alert("ไม่สามารถใช้งาน Search by nearby ได้");
-     document.getElementById("latinput").value = "";
-     document.getElementById("longinput").value = "";
-     }
-     
-     function showlist() {
-     $.ajax({
-     url: '/customer/customer-search-nearby.php',
-     type: "POST",
-     data: {"lat": lat,
-     "long": long, "type": "nearby"},
-     dataType: "html",
-     success: function (returndata) {
-     if (returndata == "error") {
-     alert("123459859859656");
-     } else {
-     $("#shownearbylist").append(returndata);
-     $('[data-toggle="tooltip"]').tooltip()
-     }
-     }
-     });
-     }
-     showlist();*/
-
+    
     $("#searchbtn").click(function (e) {
         var searchkeyword = $("#searchinput").val();
         document.location = "view/search_page.php?search=" + searchkeyword;
@@ -76,6 +25,29 @@ $(document).ready(function () {
             var searchkeyword = $(this).val();
             document.location = "view/search_page.php?search=" + searchkeyword;
         }
+    });
+    
+    $("#contactform").on("submit", function (e) {
+        $.ajax({
+            type: "POST",
+            url: "/customer/contact-send-email.php",
+            data: {"nameinput": $("#nameinput").val(),
+                "emailinput": $("#emailinput").val(),
+                "subjectinput": $("#subjectinput").val(),
+                "contentinput": $("#contentinput").val()},
+            dataType: "json",
+            success: function (data) {
+               if (data.result == "1") {
+                   $("#contactform").trigger("reset");
+                    $("#sendemailSuccessModal").modal('show');
+                    $("#showdetail").html('<div class="alert alert-success" role="alert"><h4 class="modal-title">ส่งอีเมลล์เรียบร้อยเเล้ว</h4></div>')
+                } else {
+                      $("#showdetail").html('<div class="alert alert-danger" role="alert"><h4 class="modal-title">'+data.error+'</h4></div>')
+                } //alert(data);
+            }
+        });
+        e.preventDefault();
+        return false;
     });
 
 });
@@ -150,27 +122,6 @@ function initMap() {
             } else {
                 alert("No Address Found !");
             }
-        });
-    }
-    function resetMap() {
-        $("#showaddress").html("ลากและวางหมุดตรงที่อยู่ในการจัดส่งของคุณ");
-        $("#addresstype").val("0");
-        $("#addresstxt").val("");
-        map.setZoom(5);
-        marker.setPosition(defaultlatlng);
-        map.setCenter(defaultlatlng);
-        $("#savenewaddressbtn").attr("disabled", "disabled");
-        address = new Array();
-    }
-
-
-
-
-
-    var bindInfoWindow = function (marker, map, infowindow, html) {
-        google.maps.event.addListener(marker, 'click', function () {
-            infowindow.setContent(html);
-            infowindow.open(map, marker);
         });
     }
 }
