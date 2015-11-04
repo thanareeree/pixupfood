@@ -28,7 +28,7 @@ include '../dbconn.php';
         </style>
     </head>
     <body>
-        <?php $cusid = $_SESSION["userdata"]["id"] ?>
+        <?php $cusid = @$_SESSION["userdata"]["id"] ?>
         <?php include '../template/customer-navbar.php'; ?>
         <!-- start register -->
         <section id="search_page">

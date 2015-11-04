@@ -1,7 +1,7 @@
 <?php
 include '../dbconn.php';
 session_start();
-$cusid = $_SESSION["userdata"]["id"];
+$cusid = @$_SESSION["userdata"]["id"];
 $searchby = $con->real_escape_string(@$_POST["searchby"]);
 $foodtype = $con->real_escape_string(@$_POST["foodtype"]);
 $searchtxt = $con->real_escape_string(@$_POST["searchtxt"]);
