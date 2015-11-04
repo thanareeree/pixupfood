@@ -12,14 +12,14 @@ include '../dbconn.php';
         Boxer Template
         http://www.templatemo.com/preview/templatemo_446_boxer
         -->
-        
+
         <title>Customer OTP Form</title>
-       <?php        include '../template/customer-title.php';?>
+        <?php include '../template/customer-title.php'; ?>
 
 
         <!-- custom css -->
         <link rel="stylesheet" href="/assets/css/register.css">
-        
+
 
 
     </head>
@@ -105,7 +105,41 @@ include '../dbconn.php';
                 </div>
             </div>
         </section>
-        <!-- end register -->
+
+        <div class="modal fade" id="errorNotFoundModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">ข้อผิดพลาด</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-danger" role="alert"> <span id="errorNotFound"></span></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+                       
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+        <div class="modal fade" id="errorModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">ข้อผิดพลาด</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-danger" role="alert"> <span id="errorCantAcct"></span></div>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="/api/logout.php"><button type="button" class="btn btn-default">ปิด</button></a>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+
         <!-- start footer -->
         <footer>
             <div class="container">
@@ -121,13 +155,6 @@ include '../dbconn.php';
         <!-- script references -->
         <script src="/assets/js/jquery-2.1.4.min.js"></script>
         <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
-        <script>
-            $("#menu-toggle").click(function (e) {
-                e.preventDefault();
-                $("#wrapper").toggleClass("toggled");
-            });
-        </script>
-
         <script src="/assets/js/wow.min.js"></script>
         <script src="/assets/js/custom.js"></script>
 
@@ -146,32 +173,21 @@ include '../dbconn.php';
                         success: function (data) {
                             if (data.result == "1") {
                                 document.location = "/view/cus_customer_profile.php?id=" + data.id;
-                                //checkOTPTime(data.created_otp);
-                                // function checkOTPTime(data.created_otp) เพื่อไปเซ็คว่ามันหมดเวลาล่ะยัง
-                            } else {
-                                alert("ไม่สามารถบันทึกข้อมูลได้\nError : " + data.error);
-                                $("#loader").fadeOut(300);
+                               
+                            } else  if (data.result == "2"){
+                                $("#errorCantAcct").html(data.error);
+                                $("#errorModal").modal("show");
+                                
+                            }else{
+                                 $("#errorNotFound").html(data.error);
+                                $("#errorNotFoundModal").modal("show");
                             }
                         }
                     });
                     e.preventDefault();
                     return false;
                 });
-                function checkOTPTime(created_otp) {
-                    var date = new Date();
-                    var hours = date.getHours();
-                    var days = date.getDay();
-                    var minutes = date.getMinutes();
-                    alert(date + "-------------" + created_otp)
-
-                    /* if (){
-                     document.location = "../view/cus_customer_profile.php?id=" + data.id;
-                     }
-                     else{
-                     //เเสดงเมื่อ นะย หมดอายุ
-                     }*/
-                }
-                ;
+              
 
             });
         </script>

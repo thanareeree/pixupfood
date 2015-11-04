@@ -171,10 +171,10 @@ if (isset($_SESSION["islogin"])) {
                                                         <fieldset>
                                                             <input name="loginemail" id="loginemail" type="text" placeholder="อีเมลล์" class="form-control input-md">                                                                
                                                             <input name="password" id="password" type="password" placeholder="รหัสผ่าน" class="form-control input-md" style="margin: 10px 0 5px 0">
-                                                            <div class="spacing"><input type="checkbox" name="checkboxes" id="checkboxes-0" value="1"><small> จำฉันไว้</small></div>
-                                                            <div class="spacing spacing-height"><a href="#"><p style="font-size: 14px">ลืมรหัสผ่าน?</p></a><br/></div>
+                                                    <!--         <div class="spacing"><input type="checkbox" name="checkboxes" id="checkboxes-0" value="1"><small> จำฉันไว้</small></div>-->
+                                                           <div class="spacing spacing-height"><a href="#"><p style="font-size: 14px">ลืมรหัสผ่าน?</p></a><br/></div>
                                                             <div style="margin-top:10px; color:red; height:25px;" id="showerror"></div>
-                                                            <button type="submit" id="submitbtn"  class="btn btn-info btn-sm pull-right" style="margin-top:-35px;">ลงชื่อเข้าใช้</button>
+                                                            <button type="submit" id="submitbtn"  class="btn btn-info btn-sm pull-right" style="margin-top:-5px;">ลงชื่อเข้าใช้</button>
                                                         </fieldset>
                                                     </form>
                                                 </div>
