@@ -142,10 +142,11 @@ foreach ($restok as $key => $rest) {
                     <td>ราคา/หน่วย: </td>
                     <td>
                         <?php
+                        $price = 0;
                         foreach ($rest["food"] as $key => $food) {
-                            $price = $food["price"];
-                            echo $price;
+                            $price += $food["price"];
                         }
+                        echo $price;
                         ?>
                     </td>
                     <td>บาท</td>
