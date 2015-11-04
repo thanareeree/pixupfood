@@ -102,6 +102,7 @@ function initMap() {
                     alert("123459859859656");
                 } else {
                     $("#shownearbylist").append(returndata);
+                     $("#showtext").html("ร้านอาหาร");
                     $('[data-toggle="tooltip"]').tooltip()
                 }
 
@@ -138,6 +139,7 @@ function initMap() {
                             alert("123459859859656");
                         } else {
                             $("#shownearbylist").append(returndata);
+                            $("#showtext").html("ร้านอาหารใกล้ๆ คุณ");
                             $('[data-toggle="tooltip"]').tooltip()
                         }
 

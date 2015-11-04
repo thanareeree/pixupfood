@@ -115,9 +115,13 @@ include './dbconn.php';
         <!-- start nearby -->
         <section id="nearby" style="padding-bottom:5px">
             <div class="container wow fadeInUp">
-                <h2 style="text-align:left">ร้านอาหารใกล้ๆคุณ</h2>
+                <h2 style="text-align:left" id="showtext"></h2>
                 <div class="row">
-                    <div class="carousel slide" id="rescarousel">
+                    <ul class="thumbnails">
+                        <div id="shownearbylist"></div>
+                    </ul>
+                    
+                    <!--<div class="carousel slide" id="rescarousel">
                         <div class="carousel-inner">
                             <ul class="thumbnails">
                                 <div id="shownearbylist">
