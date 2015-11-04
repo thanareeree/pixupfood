@@ -68,23 +68,31 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="mdrecl" name="mdrecl"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="chpassform">Change password</h4>
+                <h4 class="modal-title" id="chpassform">เปลี่ยนรหัสผ่าน</h4>
             </div>
             <div class="modal-body">
-                <form action="#" id="chpassform" name="chpassform" method="post">
+                <form action="#" id="pwdform" name="chpassform" method="post">
                     <div class="row">
                         <div class="col-md-12 form-group">
-                            <input required type="password" class="form-control" placeholder="Old Password" id="crpass">
+                            <input required type="password" class="form-control" placeholder="Old Password" id="oldpwd" name="oldpwd">
+                        </div>
+                         <div class="sidetip errorPasswordNotFound"  style="display: none" >
+                             <p style="color: red"><i class="glyphicon glyphicon-remove-sign"></i>&nbsp;รหัสผ่านไม่ถูกต้อง<span id="pwdshow"></span></p>
                         </div>
                         <div class="col-md-12 form-group">
-                            <input required type="password" class="form-control" placeholder="New Password" id="ncrcpass">
+                            <input required type="password" class="form-control" placeholder="New Password" id="newpwd" name="newpwd">
                         </div>
                         <div class="col-md-12 form-group">
-                            <input required type="password" class="form-control" placeholder="Confirm New Password" id="cncrcpass">
+                            <input required type="password" class="form-control" placeholder="Confirm New Password" id="confirmnewpwd" name="confirmnewpwd">
                         </div>
-                        <div class="col-md-6 pull-right form-group">
-                            <input type="submit" class="form-control text-uppercase" value="Confirm">
+                        <div class="col-md-3 pull-right form-group">
+                            <input type="submit" class="form-control text-uppercase" id="confirmbtn" value="ยืนยัน">
+                        </div>
+                        <div class="col-md-3 pull-right form-group">
+                            <input type="button"  class="form-control btn-danger text-uppercase"  id="cancelpwd" value="ยกเลิก">
+                        </div>
+                        <div class="sidetip errorConfirmpwd"  style="display: none" >
+                            <p style="color: red"><i class="glyphicon glyphicon-remove-sign"></i>&nbsp;รหัสผ่านไม่ตรงกัน</p>
                         </div>
                     </div>
                 </form>
