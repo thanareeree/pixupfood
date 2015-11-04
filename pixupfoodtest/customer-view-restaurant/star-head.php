@@ -3,7 +3,12 @@ $scoreRes = $con->query("SELECT COUNT(score) as count, SUM(score) as score FROM 
 $scoreData = $scoreRes->fetch_assoc();
 $count = $scoreData["count"];
 $score = $scoreData["score"];
-$star = round($score / $count);
+if($count != 0){
+    $star = round($score / $count);
+}else{
+    $star = 0;
+}
+
 ?>
 <form id="ratingsForm">
     <div class="stars">

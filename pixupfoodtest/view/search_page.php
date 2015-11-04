@@ -25,6 +25,12 @@ include '../dbconn.php';
             .faved{
                 color: red;
             }
+            .page_up {
+                position: fixed;
+                right: 30px;
+                bottom: 50px;
+                z-index: 500;
+            }
         </style>
     </head>
     <body>
@@ -183,9 +189,9 @@ include '../dbconn.php';
                                                     <p style="font-size: 20px"><?= $data["price"] ?>&nbsp;บาท<br></p>
                                                 </td>
                                                 <td style="padding-left: 50px">
-                                                    <a href="/view/cus_restaurant_view.php?menuId=<?= $data["menuid"] ?>&resId=<?= $data["id"] ?>">
-                                                        <span class="tooltip-r " data-toggle="tooltip" data-placement="top" title="log in to ordet this restaurant">
-                                                            <button class="btn btn-success menu_order " id="menu_order<?= $data["menuid"] ?>"><i class="glyphicon glyphicon-plus"></i>&nbsp; สั่งรายการอาหารนี้</button>
+                                                    <a href="/view/cus_restaurant_view.php?menuId=<?= $data["menuid"] ?>&resId=<?= $data["id"] ?>" <?= (isset($_SESSION["islogin"])) ? "" : "onclick=\"return false;\"" ?>>
+                                                        <span class="tooltip-r"<?= (isset($_SESSION["islogin"])) ? "" : " data-toggle=\"tooltip\" " ?>data-placement="top" title="log in to ordet this restaurant">
+                                                            <button class="btn btn-success menu_order" id="menu_order<?= $data["menuid"] ?>"><i class="glyphicon glyphicon-plus"></i>&nbsp; สั่งรายการอาหารนี้</button>
                                                         </span>
                                                     </a>
                                                     <span class="pull-right">
@@ -231,34 +237,15 @@ include '../dbconn.php';
         </section>
 
         <div id="map" style="display: none"></div>
-        <div style="margin-bottom: 80px; margin-top: 40px;margin-left: 300px; text-align: center;">
-            <a href="#search_page" style="color: #FF9F00; display: none" id="backtop">
+        <div class="page_up" style="text-align: center;">
+            <a href="#search_page_body" style="color: #FF9F00;" id="backtop">
                 <i class="glyphicon glyphicon-arrow-up"></i>
                 <h4 >Back to top</h4>
             </a>
         </div>
+       
         <!-- end register -->
         <?php include '../template/footer.php'; ?>
-        <?php
-        if (isset($_SESSION["islogin"])) {
-            ?>
-            <script>
-                $('.tooltip-r').removeAttr("title");
-            </script>
-            <?php
-        } else {
-            ?>
-            <script>
-                $('a').click(function (e) {
-                    e.preventDefault()
-                });
-                $(function () {
-                    $('[data-toggle="tooltip"]').tooltip()
-                })
-            </script>
-            <?php
-        }
-        ?>
         <script src="/assets/js/search-page.js"></script>
     </body>
 </html>

@@ -1,7 +1,7 @@
 var lat = "";
 var long = "";
 $(document).ready(function () {
-
+     $('[data-toggle="tooltip"]').tooltip();
     startMap();
     $('.favunlogin').tooltip();
     $("#searchby").on("change", function (e) {
