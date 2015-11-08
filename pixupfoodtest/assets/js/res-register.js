@@ -163,7 +163,7 @@ function initMap() {
                     $("#resaddress").val("");
                     $("#resaddress").val(responses[0].formatted_address);
                     $("#savenewaddressbtn").removeAttr("disabled");
-                    $("#showaddress").html("");
+                    $("#showaddress").html("กรุณาวางมุดในตำแหน่งที่ถูกต้องก่อนแก้ไขข้อมูลที่อยู่");
                 }, 500);
                 address = new Array();
                 address["full"] = responses[0].formatted_address;

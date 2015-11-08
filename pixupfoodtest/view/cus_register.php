@@ -87,10 +87,10 @@ include '../dbconn.php';
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="address">
-                                                    <div id='showaddress' class='col-sm-6'>
+                                                    <div id='showaddress' class='col-sm-8' style="font-size: 14px">
                                                         ลากวางหมุดตรงที่อยู่ของคุณ
                                                     </div>
-                                                    <div class='col-sm-6' style="text-align: right;">
+                                                    <div class='col-sm-4' style="text-align: right;">
                                                         <button id="getlocationbtn" class="btn btn-warning">
                                                             <span class="glyphicon glyphicon-map-marker"></span>
                                                             ตำแหน่งปัจจุบัน
