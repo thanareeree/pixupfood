@@ -15,8 +15,8 @@ include '../api/islogin.php';
         <link href='/assets/css/fullcalendar.css' rel='stylesheet' />
         <link href='/assets/css/fullcalendar.print.css' rel='stylesheet' media='print' />
         <link rel="stylesheet" href="/assets/css/normal_order.css">
-         <link rel="stylesheet" href="/assets/css/customer-comment.css">
-
+        <link rel="stylesheet" href="/assets/css/customer-comment.css">
+        <link rel="stylesheet" href="/assets/css/check-radio.css">
         <style>
             #restaurant_view .menu_img{
                 width: 100%;
@@ -72,7 +72,7 @@ include '../api/islogin.php';
                 <div class="container text-center">
                     <h1><i class="glyphicon glyphicon-cutlery"></i>&nbsp;<?= ($resNameData["name"] == "" ? $resNameData["name"] : $resNameData["name"]) ?></h1>
                     <div class="row lead">
-                         <?php include '../customer-view-restaurant/star-head.php';?>
+                        <?php include '../customer-view-restaurant/star-head.php'; ?>
                     </div>
                 </div>
             </div>

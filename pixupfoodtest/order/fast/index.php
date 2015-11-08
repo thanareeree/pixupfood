@@ -9,7 +9,7 @@ include '../../dbconn.php';
         <?php include '../../template/customer-title.php'; ?>
         <link rel="stylesheet" href="/assets/css/fast_order.css">
         <link rel="stylesheet" href="/assets/css/bootstrap-toggle.min.css">
-        
+        <link rel="stylesheet" href="/assets/css/check-radio.css">
     </head>
     <body>
         <?php
@@ -226,18 +226,17 @@ include '../../dbconn.php';
                                         <?php
                                         $menuRes = $con->query("SELECT * FROM `main_menu` WHERE main_menu.id = '$orderMenu_id' AND type = 'อาหารจานเดียว'");
                                         $box = 0;
-                                        if($menuRes->num_rows > 0){
+                                        if ($menuRes->num_rows > 0) {
                                             $box++;
                                         }
                                         $foodboxRes = $con->query("SELECT food_box.id, food_box.description, food_box.img_path FROM food_box where type = '1'");
-                                        
+
                                         while ($foodboxData = $foodboxRes->fetch_assoc()) {
-                                            
                                             ?>
-                                            <div class="foodboxselect <?= ($box > 0 && $foodboxData["id"] == 4)?"selected":""?>">
+                                            <div class="foodboxselect <?= ($box > 0 && $foodboxData["id"] == 4) ? "selected" : "" ?>">
                                                 <img class="menu_img" src="<?= $foodboxData["img_path"] ?>">
                                                 <p><?= $foodboxData["description"] ?></p>
-                                                <input type="radio" name="foodboxtype" class="foodbox" <?= ($box > 0)?"checked":""?> value="<?= $foodboxData["id"] ?>">
+                                                <input type="radio" name="foodboxtype" class="foodbox" <?= ($box > 0) ? "checked" : "" ?> value="<?= $foodboxData["id"] ?>">
                                             </div>
                                         <?php } ?>
                                     </div>
@@ -285,7 +284,7 @@ include '../../dbconn.php';
                                     </div>
                                     <div id="norice" style="background-color:rgba(255,255,255,0.6); text-align: center; position: absolute; left:0; top:0; width:100%; height:300px;">
                                         <h1 style="font-size:100px; margin-top:50px;"><span class="glyphicon glyphicon-ok-circle"></span></h1>
-                                        <h2>คุณได้เลือกอาหารจานเดี่ยว กรุณาไปขั้นตอนถัดไป</h2>
+                                        <h2>คุณได้เลือกอาหารจานเดียว กรุณาไปขั้นตอนถัดไป</h2>
                                     </div>
                                 </div>
                                 <div id="errorStep4"></div>
@@ -366,7 +365,7 @@ include '../../dbconn.php';
                                 </li>
                                 <li>
                                     <button type="button" id="placeorderbtn" class="btn btn-lg btn-warning next-step">
-                                        Place Order
+                                        ดำเนินการต่อ
                                         <span class="glyphicon glyphicon glyphicon-chevron-right"></span>
                                     </button>
                                 </li>
@@ -391,13 +390,16 @@ include '../../dbconn.php';
                         while ($paymentData = $paymentRes->fetch_assoc()) {
                             ?>
                             <div class="input-group col-md-12" style="margin: 10px 80px;"  >
-                                <input type="radio" name="paymentData" value="<?= $paymentData["id"] ?>">&nbsp;&nbsp;<?= $paymentData["description"] ?>
+                                <label class="Form-label--tick">
+                                    <input type="radio" class=" Form-label-radio"  name="paymentData" value="<?= $paymentData["id"] ?>">
+                                    <span class="Form-label-text" style="font-size: 16px"><?= $paymentData["description"] ?></span>
+                                </label>
                             </div>
                         <?php } ?>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-warning" data-dismiss="modal">Back</button>
-                        <button type="button" class="btn btn-success" id="confirmorderbtn">Place Order</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">ย้อนกลับ</button>
+                        <button type="button" class="btn btn-danger" id="confirmorderbtn">สั่งซื้อ</button>
                     </div>
                 </div>
 

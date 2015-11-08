@@ -452,7 +452,10 @@ function checkFood() {
                 var output = '<div class="col-md-2"><div class="thumbnail"><a href="#">';
                 output += '<img class="menu_img" src="' + food.img + '" style="max-height: 101px;min-height: 101px"></a>';
                 output += '<div class="caption"><h4>' + food.name + '</h4>';
-                output += '<p style="text-align: right"><input type="checkbox" name="foodlist[]" class="foodlist" value="' + food.id + '"></p>';
+                output += '<p style="text-align: right"><label class="Form-label--tick">'+
+                        '<input type="checkbox" name="foodlist[]" class="foodlist Form-label-checkbox" value="' + food.id + '">'+
+                        '<span class="Form-label-text"></span></label>'+
+                        '</p>';
                 output += '</div></div></div>';
                 $("#showfood").append(output);
             });

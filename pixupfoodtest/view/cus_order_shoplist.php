@@ -14,7 +14,8 @@ include '../api/islogin.php';
         <link href='/assets/css/fullcalendar.css' rel='stylesheet' />
         <link href='/assets/css/fullcalendar.print.css' rel='stylesheet' media='print' />
         <link rel="stylesheet" href="/assets/css/normal_order.css">
-
+        <link rel="stylesheet" href="/assets/css/check-radio.css">
+        <link rel="stylesheet" href="/assets/css/customer-comment.css">
         <style>
             #restaurant_view .menu_img{
                 width: 100%;
@@ -79,7 +80,7 @@ include '../api/islogin.php';
                 <div class="container text-center">
                     <h1><i class="glyphicon glyphicon-cutlery"></i>&nbsp;<?= ($resNameData["name"] == "" ? $resNameData["name"] : $resNameData["name"]) ?></h1>
                     <div class="row lead">
-                        <div id="stars-existing" class="starrr" data-rating='4'></div>
+                        <?php include '../customer-view-restaurant/star-head.php'; ?>
                     </div>
                 </div>
             </div>
@@ -353,10 +354,13 @@ include '../api/islogin.php';
                                                     while ($paymentData = $paymentRes->fetch_assoc()) {
                                                         ?>
                                                         <div class="input-group col-md-12" style="margin: 10px 120px;"  >
-                                                            <input type="radio"  name="paymentData" value="<?= $paymentData["id"] ?>"><?= $paymentData["description"] ?>*
+                                                            <label class="Form-label--tick">
+                                                                <input type="radio" class=" Form-label-radio"  name="paymentData" value="<?= $paymentData["id"] ?>">
+                                                                <span class="Form-label-text" style="font-size: 16px"><?= $paymentData["description"] ?><span style="color: red">*</span></span>
+                                                            </label>
                                                         </div>
                                                     <?php } ?>
-                                                    <hr><h4>โปรโมชั่นร้านตอนนี้</h4>
+                                                    <hr><h4><i class="glyphicon glyphicon-tags"></i>&nbsp;&nbsp;โปรโมชั่นร้านตอนนี้</h4>
                                                     <?php
                                                     $res = $con->query("select * from promotion "
                                                             . "LEFT JOIN promotion_main ON promotion_main.id = promotion.promotion_main_id "
@@ -407,8 +411,8 @@ include '../api/islogin.php';
                     <div class="col-md-4">
                         <div class="card" id="showcalendar">
                             <div class="card-content">
-                               <div class="page-header" style="color: #FF9900 ; font-size: 26px">
-                                   รับรายการสั่งซื้อได้สูงสุด &nbsp;<?= $resNameData["amount_box_limit"]?>&nbsp;ชุด/วัน
+                                <div class="page-header" style="color: #FF9900 ; font-size: 26px">
+                                    รับรายการสั่งซื้อได้สูงสุด &nbsp;<?= $resNameData["amount_box_limit"] ?>&nbsp;ชุด/วัน
                                 </div>
                                 <div class="calendar" style="color: #FF9900"></div>
                             </div>  

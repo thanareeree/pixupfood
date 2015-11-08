@@ -29,9 +29,14 @@ while ($foddListData = $foodListRes->fetch_assoc()) {
         <div class="thumbnail foodlistselect">
             <img class="menu_img" src="<?= $foddListData["img_path"]==null ? $foddListData["img"] : $foddListData["img_path"]?>" style="max-height: 101px;min-height: 101px">
             <div class="caption">
-                <h4><?= $foddListData["menuname"]?></h4>
-                <h4><?= $foddListData["price"]?> &nbsp;บาท</h4>
-                <p style="text-align: right"><input type="checkbox" name="foodlist[]" class="foodlist" value="<?= $foddListData["id"]?>"></p>
+                <h4><?= $foddListData["menuname"] ?></h4>
+                <h4><?= $foddListData["price"] ?> &nbsp;บาท</h4>
+                <p style="text-align: right">
+                    <label class="Form-label--tick">
+                        <input type="checkbox" name="foodlist[]" class="foodlist Form-label-checkbox" value="<?= $foddListData["id"] ?>">
+                        <span class="Form-label-text"></span>
+                    </label>
+                </p>
             </div>
         </div>
     </div>
