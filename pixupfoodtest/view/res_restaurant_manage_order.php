@@ -73,7 +73,7 @@ include '../dbconn.php';
                 <a href="res_restaurant_manage_calendar.php">
                     <button type="button" id="calendar" class="btn btn-default" >
                         <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-                        <div class="hidden-xs">ปฏิทิน</div>
+                        <div class="hidden-xs">ตารางการจัดส่งสินค้า</div>
                     </button>
                 </a>
             </div>
@@ -109,6 +109,9 @@ include '../dbconn.php';
                                         <li>
                                             <a href="/view/res_manage_history_order.php" >รายการสั่งซื้อเสร็จสมบูรณ์ </a>
                                         </li>
+                                         <li >
+                                             <a href="/view/res_manage_ignore_order.php" >รายการที่ปฏิเสธหรือยกเลิกเเล้ว </a>
+                                        </li>
                                     </ul>
                                     <!-- Tab 1 -->
                                     <div class="tab-content">
@@ -122,7 +125,7 @@ include '../dbconn.php';
                                             </div>
                                             <div class="card">
                                                 <div class="card-content">
-                                                    <div class="page-header" style="font-size: 30px; margin-top: 5px">รายการใหม่<span style="color: red; font-size: 30px; "> (สั่งด่วน)</span> 
+                                                    <div class="page-header" style="font-size: 30px; margin-top: 5px">รายการใหม่<span style="color: red; font-size: 30px; "> (Pixup Fast)</span> 
                                                         <div class="pull-right">
                                                             <p class="text-center">
                                                                 <span style="font-size: 20px; color: red"><span class="countfast"></span> รายการด่วน</span></p>
@@ -148,13 +151,13 @@ include '../dbconn.php';
                                                                         <th>ลำดับ</th>
                                                                         <th>เลขที่รายการ</th>
                                                                         <th>ชื่อลูกค้า</th>
-                                                                        <th>รายการอาหาร</th>
-                                                                        <th>จำนวน(ขุด)</th>
-                                                                        <th>วัน/เวลาที่ลูกค้านัดรับ</th>
-                                                                        <th>เวลาที่เหลือ</th>
-                                                                        <th>รายละเอียด</th>
-                                                                        <th>รับรายการ</th>
-                                                                        <th>ปฏิเสธรายการ</th>
+                                                                        <th class="text-center">รายการอาหาร</th>
+                                                                        <th class="text-center">จำนวน(ชุด)</th>
+                                                                        <th class="text-center">วัน/เวลาที่ลูกค้านัดรับ</th>
+                                                                        <th class="text-center">เวลาที่เหลือ</th>
+                                                                        <th class="text-center">รายละเอียด</th>
+                                                                        <th class="text-center">รับรายการ</th>
+                                                                        <th class="text-center">ปฏิเสธรายการ</th>
 
                                                                     </tr>
                                                                 </thead>
@@ -199,13 +202,13 @@ include '../dbconn.php';
                                                                             <th>ลำดับ</th>
                                                                             <th>เลขที่รายการ</th>
                                                                             <th>ชื่อลูกค้า</th>
-                                                                            <th>รายการอาหาร</th>
-                                                                            <th>จำนวน(ชุด)</th>
-                                                                            <th>วัน/เวลาที่ลูกค้านัดรับ</th>
-                                                                            <th>เวลาที่เหลือ</th>
-                                                                            <th>รายละเอียด</th>
-                                                                            <th>รับรายการ</th>
-                                                                            <th>ปฏิเสธรายการ</th>
+                                                                            <th class="text-center">รายการอาหาร</th>
+                                                                            <th class="text-center">จำนวน(ชุด)</th>
+                                                                            <th class="text-center">วัน/เวลาที่ลูกค้านัดรับ</th>
+                                                                            <th class="text-center">เวลาที่เหลือ</th>
+                                                                            <th class="text-center">รายละเอียด</th>
+                                                                            <th class="text-center">รับรายการ</th>
+                                                                            <th class="text-center">ปฏิเสธรายการ</th>
 
                                                                         </tr>
                                                                     </thead>
@@ -326,7 +329,7 @@ include '../dbconn.php';
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <span class="modal-title" id="myModalLabel">
-                        <span style="font-size: 30px; margin-top: 5px;">รายละเอียดของรายการหมายเลข: </span>
+                        <span style="font-size: 30px; margin-top: 5px;">รายละเอียดของคำสั่งซื้อหมายเลข: </span>
                         <span style="font-size: 30px; margin-top: 5px; color: orange" id="showFastOrderId"> </span>     
                     </span>
                 </div>
@@ -350,7 +353,7 @@ include '../dbconn.php';
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <span class="modal-title" id="myModalLabel">
-                        <span style="font-size: 30px; margin-top: 5px;">รายละเอียดของรายการหมายเลข: </span>
+                        <span style="font-size: 30px; margin-top: 5px;">รายละเอียดของคำสั่งซื้อหมายเลข: </span>
                         <span style="font-size: 30px; margin-top: 5px; color: orange" id="showOrderId"> </span>     
                     </span>
                 </div>

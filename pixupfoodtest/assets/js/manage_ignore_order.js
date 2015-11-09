@@ -1,11 +1,9 @@
 
 $(document).ready(function () {
 
-
-
     fetchdataShowFastNowOrder();
 
-    $('#showdataNowFastOrder').on("click", ".normalOrderView", function (e) {
+    $('#showdataIgnoreOrder').on("click", ".normalOrderView", function (e) {
         var id = $(this).attr("data-id");
           var no = $(this).attr("data-no");
         $("#showOrderId").html(no);
@@ -24,7 +22,7 @@ $(document).ready(function () {
     });
 
 
-    $('#showdataNowFastOrder').on("click", ".fastOrderView", function (e) {
+    $('#showdataIgnoreOrder').on("click", ".fastOrderView", function (e) {
         var id = $(this).attr("data-id");
         var no = $(this).attr("data-no");
         $("#showFastOrderId").html(no);
@@ -47,12 +45,12 @@ $(document).ready(function () {
 
 function fetchdataShowFastNowOrder() {
     $.ajax({
-        url: "/restaurant-order/history/ajaxFetchHistoryFastOrderTable.php",
+        url: "/restaurant-order/ignore/ajaxFetchIgnoreTable.php",
         type: "POST",
         data: {"resid": $('#residValue').val()},
         dataType: "html",
         success: function (returndata) {
-            $("#showdataNowFastOrder").html(returndata);
+            $("#showdataIgnoreOrder").html(returndata);
 
         }
     });

@@ -15,7 +15,8 @@ $(document).ready(function () {
 
     $('#showdataNowFastOrder').on("click", ".normalOrderView", function (e) {
         var id = $(this).attr("data-id");
-        $("#showOrderId").html(id);
+         var no = $(this).attr("data-no");
+        $("#showOrderId").html(no);
 
         $.ajax({
             url: "/restaurant-order/now/normal-modal.php",
@@ -32,7 +33,8 @@ $(document).ready(function () {
 
     $('#showdataNowFastOrder').on("click", ".fastOrderView", function (e) {
         var id = $(this).attr("data-id");
-        $("#showFastOrderId").html(id);
+         var no = $(this).attr("data-no");
+        $("#showFastOrderId").html(no);
 
         $.ajax({
             url: "/restaurant-order/now/fast-modal.php",
@@ -148,7 +150,8 @@ $(document).ready(function () {
     
      $('#showdataNowTypeOrder').on("click", ".normalOrderView", function (e) {
         var id = $(this).attr("data-id");
-        $("#showOrderId").html(id);
+         var no = $(this).attr("data-no");
+        $("#showOrderId").html(no);
 
         $.ajax({
             url: "/restaurant-order/now/normal-modal.php",
@@ -165,7 +168,8 @@ $(document).ready(function () {
 
     $('#showdataNowTypeOrder').on("click", ".fastOrderView", function (e) {
         var id = $(this).attr("data-id");
-        $("#showFastOrderId").html(id);
+         var no = $(this).attr("data-no");
+        $("#showFastOrderId").html(no);
 
         $.ajax({
             url: "/restaurant-order/now/fast-modal.php",

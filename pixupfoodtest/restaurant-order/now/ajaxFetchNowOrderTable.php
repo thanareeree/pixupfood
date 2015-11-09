@@ -127,7 +127,7 @@ if ($orderNowAllRes->num_rows == 0) {
                         </button>
                     </td>
                     <td class="text-center">
-                        <select class="form-control faststatusselect" id="statusselect"  data-id="<?= $fastOrderData["fast_id"] ?>">
+                        <select class="form-control faststatusselect" id="statusselect"  data-id="<?= $fastOrderData["fast_id"] ?>" data-no="<?= $fastOrderData["order_no"] ?>">
                 <?php
                 $stataus_now_id = $fastOrderData["status"];
                 $statusid = $stataus_now_id + 1;
@@ -205,7 +205,7 @@ if ($orderNowAllRes->num_rows == 0) {
                     <td class="text-center"><?= $normalOrderData["delivery_date"] ?>&nbsp;<?= $normalOrderData["delivery_time"] ?> </td>
                     <td style="text-align: center"><?= $normalOrderData["description"] ?></td>
                     <td class="text-center">
-                        <button class="btn btn-info btn-xs normalOrderView" data-id="<?= $normalOrderData["order_id"] ?>" >
+                        <button class="btn btn-info btn-xs normalOrderView" data-id="<?= $normalOrderData["order_id"] ?>" data-no="<?= $normalOrderData["order_no"] ?>" >
                             <span class="glyphicon glyphicon-eye-open"></span> 
                             แสดง
                         </button>

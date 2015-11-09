@@ -65,7 +65,7 @@ include '../dbconn.php';
                 <a href="res_restaurant_manage_calendar.php">
                     <button type="button" id="calendar" class="btn btn-default" >
                         <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-                        <div class="hidden-xs">ปฏิทิน</div>
+                        <div class="hidden-xs">ตารางการจัดส่งสินค้า</div>
                     </button>
                 </a>
             </div>
@@ -100,6 +100,9 @@ include '../dbconn.php';
                                         </li>
                                         <li>
                                             <a href="/view/res_manage_history_order.php" >รายการสั่งซื้อเสร็จสมบูรณ์ </a>
+                                        </li>
+                                         <li >
+                                             <a href="/view/res_manage_ignore_order.php" >รายการที่ปฏิเสธหรือยกเลิกเเล้ว </a>
                                         </li>
                                     </ul>
                                     <!-- Tab 1 -->
@@ -197,7 +200,7 @@ include '../dbconn.php';
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <span class="modal-title" id="myModalLabel">
-                        <span style="font-size: 30px; margin-top: 5px;">รายละเอียดของรายการหมายเลข: </span>
+                        <span style="font-size: 30px; margin-top: 5px;">รายละเอียดของคำสั่งซื้อหมายเลข: </span>
                         <span style="font-size: 30px; margin-top: 5px; color: orange" id="showFastOrderId"> </span>     
                     </span>
                 </div>
@@ -219,7 +222,7 @@ include '../dbconn.php';
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <span class="modal-title" id="myModalLabel">
-                        <span style="font-size: 30px; margin-top: 5px;">รายละเอียดของรายการหมายเลข: </span>
+                        <span style="font-size: 30px; margin-top: 5px;">รายละเอียดของคำสั่งซื้อหมายเลข: </span>
                         <span style="font-size: 30px; margin-top: 5px; color: orange" id="showOrderId"> </span>     
                     </span>
                 </div>

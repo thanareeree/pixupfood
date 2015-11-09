@@ -14,18 +14,18 @@ include '../dbconn.php';
         ?>
         <!-- custom css -->
         <link rel="stylesheet" href="/assets/css/res_restaurant_manage.css">
+        <link rel="stylesheet" href="/assets/css/datatables.css">
+        </head>
+        <body>
+            <?php
+            $resid = $_SESSION["restdata"]["id"];
+            $result = $con->query("select * from restaurant where id = '$resid' ");
+            $resdata = $result->fetch_assoc();
+            ?>
+            <?php include '../template/restaurant-navbar.php'; ?>
 
-    </head>
-    <body>
-        <?php
-        $resid = $_SESSION["restdata"]["id"];
-        $result = $con->query("select * from restaurant where id = '$resid' ");
-        $resdata = $result->fetch_assoc();
-        ?>
-        <?php include '../template/restaurant-navbar.php'; ?>
-
-        <!-- start profile -->
-        <section id="RestaurantHeader">
+            <!-- start profile -->
+            <section id="RestaurantHeader">
             <div class="overlay">
                 <div class="container text-center">
                     <h1><i class="glyphicon glyphicon-cutlery"></i>&nbsp;<?= $resdata["name"] ?></h1>
@@ -95,29 +95,28 @@ include '../dbconn.php';
                                         <li >
                                             <a href="/view/res_restaurant_manage_order.php" >รายการสั่งซื้อใหม่ </a>
                                         </li>
-                                        <li>
+                                        <li >
                                             <a href="/view/res_manage_now_order.php" >รายการสั่งซื้ออยู่ระหว่างการดำเนินการ </a>
                                         </li>
-                                        <li class="active">
+                                        <li>
                                             <a href="/view/res_manage_history_order.php" >รายการสั่งซื้อเสร็จสมบูรณ์ </a>
                                         </li>
-                                         <li >
+                                         <li class="active">
                                              <a href="/view/res_manage_ignore_order.php" >รายการที่ปฏิเสธหรือยกเลิกเเล้ว </a>
                                         </li>
                                     </ul>
                                     <!-- Tab 1 -->
                                     <div class="tab-content">
 
-
-                                        <!-- Tab 3 -->
-                                        <div class="tab-pane active" id="tab_default_3_2">
+                                        <!-- Tab รายการอยู่ระหว่างดำเนินการ -->
+                                        <div class="tab-pane active" id="tab_default_2_2">
                                             <div class="page-header" style="font-size: 40px; margin-top: 5px">
-                                                รายการสั่งซื้อเสร็จสมบูรณ์
+                                                รายการที่ปฏิเสธหรือยกเลิกเเล้ว  
 
                                             </div>
                                             <div class="card">
                                                 <div class="card-content">
-                                                    <div class="page-header" style="font-size: 30px; margin-top: 5px">รายการทั้งหมด 
+                                                    <div class="page-header" style="font-size: 30px; margin-top: 5px"> รายการทั้งหมด  
                                                         <div class="pull-right">
                                                             <p class="text-center">
                                                                 <span style="font-size: 20px; color: red"></span></p>
@@ -137,23 +136,23 @@ include '../dbconn.php';
                                                             </form>
                                                         </div>
                                                         <div class="col-md-12">
-                                                            <table class="table table-list-search  table-hover">
+                                                            <table class="table table-list-search fixed  table-hover" id="nowtable">
                                                                 <thead>
                                                                     <tr>
-                                                                       
+                                                                        <!--<th>ลำดับ</th>-->
                                                                         <th>หมายเลขคำสั่งซื้อ</th>
-                                                                        <th>ชื่อลูกค้า</th>
-                                                                        <th class="text-center">รายกาารอาหาร</th>
+                                                                        <th >ชื่อลูกค้า</th>
+                                                                        <th class="text-center">รายการอาหาร</th>
                                                                         <th class="text-center">จำนวน(ชุด)</th>
-                                                                        <th class="text-center">วัน/เวลาที่ลูกค้าได้รับสินค้า</th>
-                                                                        <th class="text-center">ผู้ส่งสินค้า</th>
+                                                                        <th class="text-center">เมื่อวันที่</th>
                                                                         <th class="text-center">สถานะ</th>
                                                                         <th class="text-center">รายละเอียด</th>
                                                                        
 
+
                                                                     </tr>
                                                                 </thead>
-                                                                <tbody class="table  table-hover" id="showdataNowFastOrder">
+                                                                <tbody class="table  table-hover" id="showdataIgnoreOrder">
 
                                                                 </tbody>
                                                             </table>   
@@ -163,14 +162,7 @@ include '../dbconn.php';
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- End Tab3-->
-
-
-
-
-
-
-                                        <!-- จบ modal ตารางนะยูวว -->
+                                        <!-- End Tab 2 -->
                                     </div>
                                 </div>
                             </div>
@@ -182,7 +174,7 @@ include '../dbconn.php';
         </div>
     </div>
     <!-- Detial fasttt   -->
-    <div class="modal fade bs-example-modal-lg" id="detailFastOrderModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+    <div class="modal fade  bs-example-modal-lg" id="detailFastOrderModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
         <div class="modal-dialog  modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -224,14 +216,16 @@ include '../dbconn.php';
         </div>
     </div>
     <!-- End Detail --> 
+    
+
+
+
     <!-- start footer -->
     <?php include '../template/footer.php'; ?>
 
-
     <!-- ตารางรายการออเดอร์ -->
     <script src="/assets/js/OrderSearch.js"></script>
-    <script src="/assets/js/manage_history_order.js"></script>
-
-
+    <script src="/assets/js/manage_ignore_order.js"></script>
+    <script src="/assets/js/dataTables.js"></script>
 </body>
 </html>

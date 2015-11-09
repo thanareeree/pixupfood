@@ -66,7 +66,7 @@ include '../dbconn.php';
                 <a href="res_restaurant_manage_calendar.php">
                     <button type="button" id="calendar" class="btn btn-default" >
                         <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-                        <div class="hidden-xs">ปฏิทิน</div>
+                        <div class="hidden-xs">ตารางการจัดส่งสินค้า</div>
                     </button>
                 </a>
             </div>

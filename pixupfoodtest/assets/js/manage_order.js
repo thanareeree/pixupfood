@@ -17,7 +17,8 @@ $(document).ready(function () {
 //view
     $('#showdataFastOrder').on("click", ".fastOrderView", function (e) {
         var id = $(this).attr("data-id");
-        $("#showFastOrderId").html(id);
+        var no = $(this).attr("data-no");
+        $("#showFastOrderId").html(no);
 
         $.ajax({
             url: "/restaurant-order/request_order/modal-request-fast.php",
@@ -33,7 +34,8 @@ $(document).ready(function () {
 
     $('#showdataNormalOrder').on("click", ".normalOrderView", function (e) {
         var id = $(this).attr("data-id");
-        $("#showOrderId").html(id);
+        var no = $(this).attr("data-no");
+        $("#showOrderId").html(no);
 
         $.ajax({
             url: "/restaurant-order/request_order/modal-request.php",
@@ -51,7 +53,8 @@ $(document).ready(function () {
 //accept
     $('#showdataFastOrder').on("click", ".acceptFastOrder", function (e) {
         var id = $(this).attr("data-id");
-        $("#acceptFastId").html(id);
+         var no = $(this).attr("data-no");
+        $("#acceptFastId").html(no);
         $("#acceptFastOrderModal").modal("show");
     });
 
@@ -62,7 +65,8 @@ $(document).ready(function () {
 
     $('#showdataNormalOrder').on("click", ".acceptNormalOrder", function (e) {
         var id = $(this).attr("data-id");
-        $("#acceptNormalId").html(id);
+         var no = $(this).attr("data-no");
+        $("#acceptNormalId").html(no);
         $("#acceptNormalOrderModal").modal("show");
 
     });
@@ -75,7 +79,8 @@ $(document).ready(function () {
 //ignore
     $('#showdataNormalOrder').on("click", ".ignoreNormalData", function (e) {
         var id = $(this).attr("data-id");
-        $("#ignoreNormalId").html(id);
+         var no = $(this).attr("data-no");
+        $("#ignoreNormalId").html(no);
         $("#ignoreNormalOrderModal").modal("show");
     });
 
@@ -87,10 +92,11 @@ $(document).ready(function () {
 
     $('#showdataFastOrder').on("click", ".ignoreFastOrder", function (e) {
         var id = $(this).attr("data-id");
-        $("#ignoreFastId").html(id);
+         var no = $(this).attr("data-no");
+        $("#ignoreFastId").html(no);
         $("#ignoreFastOrderModal").modal("show");
     });
-     $("#ignoreFastBtn").on("click", function (e) {
+    $("#ignoreFastBtn").on("click", function (e) {
         var type = "ignore";
         ignoreFastOrder(type);
     });
@@ -155,7 +161,7 @@ function acceptFastOrder(type) {
             if (data.result == "1") {
                 $("#acceptFastOrderModal").modal("hide");
                 fetchdataShowFastOrder();
-                
+
             } else {
                 alert(data.error);
             }

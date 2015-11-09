@@ -7,7 +7,7 @@ $fastOrderRes = $con->query("SELECT fast_order.id as fast_id, fast_order.deliver
         . "fast_order.delivery_time, order_status.description,fast_order.shippingAddress_id, "
         . "fast_order.customer_id , quantity as qty , customer.firstName, customer.lastName , "
         . "fast_order.main_menu_id, request_fast_order.priority, fast_order.order_time,"
-        . "customer.tel, restaurant.name "
+        . "customer.tel, restaurant.name, fast_order.order_no "
         . "FROM `fast_order` "
         . "LEFT JOIN order_status ON order_status.id = fast_order.status "
         . "LEFT JOIN restaurant ON restaurant.id = fast_order.restaurant_id "
@@ -54,9 +54,9 @@ if ($fastOrderRes->num_rows == 0) {
         ?>
         <tr>
             <td style="text-align: center"><?= $i++; ?></td>
-            <td><?= $fastOrderData["fast_id"] ?></td>                         
+            <td><?= $fastOrderData["order_no"] ?></td>                         
             <td><?= $fastOrderData["firstName"] . '&nbsp;' . $fastOrderData["lastName"] ?></td>
-            <td>
+            <td  class="text-center">
                 <?php
                 $menuid = $fastOrderData["main_menu_id"];
                 $menuid = "(" . $menuid . ")";
@@ -79,19 +79,19 @@ if ($fastOrderRes->num_rows == 0) {
             <td><?= $fastOrderData["delivery_date"] ?>&nbsp;<?= $fastOrderData["delivery_time"] ?> </td>
             <td style="text-align: center"><span class="timeleft" data-second="<?= $timeleft ?>"><?= printTime($timeleft); ?></span></td>
             <td class="text-center">
-                <button class="btn btn-info btn-xs fastOrderView" data-id="<?= $fastOrderData["fast_id"] ?>" >
+                <button class="btn btn-info btn-xs fastOrderView" data-id="<?= $fastOrderData["fast_id"] ?>" data-no="<?= $fastOrderData["order_no"] ?>" >
                     <span class="glyphicon glyphicon-eye-open"></span> 
                     แสดง
                 </button>
             </td>
             <td class="text-center">
-                <button class="btn btn-success btn-xs acceptFastOrder" data-id="<?= $fastOrderData["fast_id"] ?>">
+                <button class="btn btn-success btn-xs acceptFastOrder" data-id="<?= $fastOrderData["fast_id"] ?>" data-no="<?= $fastOrderData["order_no"] ?>" >
                     <span class="glyphicon glyphicon-check"></span> 
                     รับ
                 </button>
             </td>
             <td class="text-center">
-                <button class="btn btn-danger btn-xs ignoreFastOrder" data-id="<?= $fastOrderData["fast_id"] ?>">
+                <button class="btn btn-danger btn-xs ignoreFastOrder" data-id="<?= $fastOrderData["fast_id"] ?>" data-no="<?= $fastOrderData["order_no"] ?>">
                     <span class="glyphicon glyphicon-trash"></span> 
                     ปฏิเสธ
                 </button>

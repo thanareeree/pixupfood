@@ -3,7 +3,7 @@ date_default_timezone_set("Asia/Bangkok");
 include '../dbconn.php';
 $resid = @$_POST["resid"];
 $normalOrderRes = $con->query("SELECT normal_order.id as order_id, normal_order.order_time, "
-        . "delivery_date, delivery_time, total_nofee,prepay, normal_order.status,"
+        . "delivery_date, delivery_time, total_nofee,prepay, normal_order.status, normal_order.order_no,"
         . " normal_order.shippingAddress_id, normal_order.customer_id , COUNT(order_detail.id) as foodlist, "
         . "SUM(order_detail.quantity) as qty , customer.firstName, customer.lastName, customer.tel "
         . "FROM `normal_order` "
@@ -51,28 +51,28 @@ if ($normalOrderRes->num_rows == 0) {
         ?>
         <tr >
             <td style="text-align: center"><?= $i++; ?></td>
-            <td><?= $normalOrderData["order_id"] ?></td>                         
+            <td><?= $normalOrderData["order_no"] ?></td>                         
             <td><?= $normalOrderData["firstName"] . '&nbsp;' . $normalOrderData["lastName"] ?></td>
-            <td><?= $normalOrderData["foodlist"] ?></td>
+            <td class="text-center"><?= $normalOrderData["foodlist"] ?></td>
             <td style="text-align: center"><?= $normalOrderData["qty"] ?></td>
-            <td><?= $normalOrderData["delivery_date"] ?>&nbsp;<?= $normalOrderData["delivery_time"] ?> </td>
+            <td  class="text-center"><?= $normalOrderData["delivery_date"] ?>&nbsp;<?= $normalOrderData["delivery_time"] ?> </td>
             <td style="text-align: center">
                 <span class="timeleft" data-second="<?= $timeleft ?>"><?= printTime($timeleft); ?></span>
             </td>
             <td class="text-center">
-                <button class="btn btn-info btn-xs normalOrderView" data-id="<?= $normalOrderData["order_id"] ?>" >
+                <button class="btn btn-info btn-xs normalOrderView" data-id="<?= $normalOrderData["order_id"] ?>" data-no="<?= $normalOrderData["order_no"] ?>" >
                     <span class="glyphicon glyphicon-eye-open"></span> 
                     แสดง
                 </button>
             </td>
             <td class="text-center">
-                <button class="btn btn-success btn-xs acceptNormalOrder" data-id="<?= $normalOrderData["order_id"] ?>">
+                <button class="btn btn-success btn-xs acceptNormalOrder" data-id="<?= $normalOrderData["order_id"] ?>" data-no="<?= $normalOrderData["order_no"] ?>" >
                     <span class="glyphicon glyphicon-check"></span> 
                     รับ
                 </button>
             </td>
             <td class="text-center">
-                <button class="btn btn-danger btn-xs ignoreNormalData" data-id="<?= $normalOrderData["order_id"] ?>">
+                <button class="btn btn-danger btn-xs ignoreNormalData" data-id="<?= $normalOrderData["order_id"] ?>" data-no="<?= $normalOrderData["order_no"] ?>" >
                     <span class="glyphicon glyphicon-trash"></span> 
                     ปฏิเสธ
                 </button>
