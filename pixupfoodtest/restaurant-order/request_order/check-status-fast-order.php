@@ -7,7 +7,7 @@ $sms = new thsms();
 $sms->username = 'thanaree';
 $sms->password = '58c60d';
 
-$res = $con->query("SELECT customer.tel, fast_order.id, fast_order.order_time FROM `fast_order` "
+$res = $con->query("SELECT customer.tel, fast_order.id, fast_order.order_time, fast_order.order_no FROM `fast_order` "
         . "JOIN customer on customer.id = fast_order.customer_id "
         . "WHERE  fast_order.status = 1"
         . " and fast_order.id NOT IN (SELECT fast_id as id FROM fast_sms )");
@@ -22,7 +22,7 @@ while ($data = $res->fetch_assoc()) {
                 . "VALUES (null,'$fast_id',now())");
 
         if ($con->error == "") {
-             $b = $sms->send('0000', $data["tel"], "เลขที่รายการ(สั่งด่วน):" . " " . $data["id"]
+             $b = $sms->send('0000', $data["tel"], "หมายเลขคำสั่งซื้อ:" . " " . $data["order_no"]
               . "\nไม่มีร้านตอบรับรายการ"
               . "\nสามารถสั่งซื้ออาหารได้ที่ pixupfood.com");
              
@@ -46,10 +46,10 @@ while ($data = $res->fetch_assoc()) {
                     . "VALUES (null,'$fast_id',now())");
 
             if ($con->error == "") {
-                 /*$b = $sms->send('0000', $data["tel"], "เลขที่รายการ(สั่งด่วน):" . " " . $data["id"]
+                 $b = $sms->send('0000', $data["tel"], "หมายเลขคำสั่งซื้อ:" . " " . $data["order_no"]
                   . "\nไม่มีร้านตอบรับรายการ"
                   . "\nสามารถสั่งซื้ออาหารได้ที่ pixupfood.com");
-                 */
+                 
                 $con->query("UPDATE `fast_order` SET status = '7' where id = '$fast_id'");
                 echo $fast_id . "ส่งล่ะ แบบปฏิเสธทั้งสามร้าน";
             }
