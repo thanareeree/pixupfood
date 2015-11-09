@@ -240,7 +240,7 @@ include '../dbconn.php';
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px;">ปฏิเสธรายการหมายเลข:&nbsp;<span id="ignoreNormalId"></span></div></span>
+                    <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px;">ปฏิเสธรายการหมายเลข:&nbsp;<span id="ignoreNormalId" style="display: none"></span><span id="ignoreNormalNo"></span></div></span>
                 </div>
                 <div class="modal-body ">
                     <div class="alert alert-danger" role="alert">
@@ -262,7 +262,7 @@ include '../dbconn.php';
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px; color: red">ปฏิเสธรายการหมายเลข:&nbsp;<span id="ignoreFastId"></span></div></span>
+                    <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px; color: red">ปฏิเสธรายการหมายเลข:&nbsp;<span id="ignoreFastId" style="display: none"></span><span id="ignoreFastNo"></span></div></span>
                 </div>
                 <div class="modal-body">
                     <div class="alert alert-danger" role="alert">
@@ -284,7 +284,7 @@ include '../dbconn.php';
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px; ">รับรายการหมายเลข:&nbsp;<span id="acceptFastId" style="color: orange;"></span></div></span>
+                    <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px; ">รับรายการหมายเลข:&nbsp;<span id="acceptFastId" style="color: orange; display: none"></span><span id="acceptFastNo" style="color: orange;"></span></div></span>
                 </div>
                 <div class="modal-body">
                     <div class="alert alert-success" role="alert">
@@ -306,7 +306,7 @@ include '../dbconn.php';
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px; ">รับรายการหมายเลข:&nbsp;<span id="acceptNormalId" style="color: orange;"></span></div></span>
+                    <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px; ">รับรายการหมายเลข:&nbsp;<span id="acceptNormalId" style="display: none"></span><span id="acceptNormalNo" ></span></div></span>
                 </div>
                 <div class="modal-body">
                    <div class="alert alert-success" role="alert">

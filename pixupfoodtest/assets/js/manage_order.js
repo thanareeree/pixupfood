@@ -54,7 +54,8 @@ $(document).ready(function () {
     $('#showdataFastOrder').on("click", ".acceptFastOrder", function (e) {
         var id = $(this).attr("data-id");
          var no = $(this).attr("data-no");
-        $("#acceptFastId").html(no);
+        $("#acceptFastId").html(id);
+        $("#acceptFastNo").html(no);
         $("#acceptFastOrderModal").modal("show");
     });
 
@@ -66,7 +67,8 @@ $(document).ready(function () {
     $('#showdataNormalOrder').on("click", ".acceptNormalOrder", function (e) {
         var id = $(this).attr("data-id");
          var no = $(this).attr("data-no");
-        $("#acceptNormalId").html(no);
+        $("#acceptNormalId").html(id);
+           $("#acceptNormalNo").html(no);
         $("#acceptNormalOrderModal").modal("show");
 
     });
@@ -80,7 +82,9 @@ $(document).ready(function () {
     $('#showdataNormalOrder').on("click", ".ignoreNormalData", function (e) {
         var id = $(this).attr("data-id");
          var no = $(this).attr("data-no");
-        $("#ignoreNormalId").html(no);
+        $("#ignoreNormalId").html(id);
+        $("#ignoreNormalNo").html(no);
+        
         $("#ignoreNormalOrderModal").modal("show");
     });
 
@@ -93,7 +97,8 @@ $(document).ready(function () {
     $('#showdataFastOrder').on("click", ".ignoreFastOrder", function (e) {
         var id = $(this).attr("data-id");
          var no = $(this).attr("data-no");
-        $("#ignoreFastId").html(no);
+        $("#ignoreFastId").html(id);
+         $("#ignoreFastNo").html(no);
         $("#ignoreFastOrderModal").modal("show");
     });
     $("#ignoreFastBtn").on("click", function (e) {
