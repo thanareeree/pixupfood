@@ -14,18 +14,18 @@ include '../dbconn.php';
         ?>
         <!-- custom css -->
         <link rel="stylesheet" href="/assets/css/res_restaurant_manage.css">
+        <link rel="stylesheet" href="/assets/css/datatables.css">
+        </head>
+        <body>
+            <?php
+            $resid = $_SESSION["restdata"]["id"];
+            $result = $con->query("select * from restaurant where id = '$resid' ");
+            $resdata = $result->fetch_assoc();
+            ?>
+            <?php include '../template/restaurant-navbar.php'; ?>
 
-    </head>
-    <body>
-        <?php
-        $resid = $_SESSION["restdata"]["id"];
-        $result = $con->query("select * from restaurant where id = '$resid' ");
-        $resdata = $result->fetch_assoc();
-        ?>
-        <?php include '../template/restaurant-navbar.php'; ?>
-
-        <!-- start profile -->
-        <section id="RestaurantHeader">
+            <!-- start profile -->
+            <section id="RestaurantHeader">
             <div class="overlay">
                 <div class="container text-center">
                     <h1><i class="glyphicon glyphicon-cutlery"></i>&nbsp;<?= $resdata["name"] ?></h1>
@@ -113,7 +113,24 @@ include '../dbconn.php';
                                             </div>
                                             <div class="card">
                                                 <div class="card-content">
-                                                    <div class="page-header" style="font-size: 30px; margin-top: 5px">รายการสั่งซื้อแบบสั่งด่วน 
+                                                    <div class="page-header" style="font-size: 30px; margin-top: 5px"> สถานะของรายการสั่งซื้อ  
+                                                        <div style="margin-top: 10px; margin-bottom: 20px" class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
+                                                            <div class="btn-group" role="group">
+                                                                <button type="button" id="allbtn" class="btn btn-warning" >ทั้งหมด</button>
+                                                            </div>
+                                                            <div class="btn-group" role="group">
+                                                                <button type="button" id="prepaybtn" class="btn btn-default" >รอค่ามัดจำ</button>
+                                                            </div>
+                                                            <div class="btn-group" role="group">
+                                                                <button type="button" id="inbtn" class="btn btn-default">เตรียมวัตถุดิบ</button>
+                                                            </div>
+                                                            <div class="btn-group" role="group">
+                                                                <button type="button" id="diffpaybtn" class="btn btn-default">รอโอนเงินส่วนที่เหลือ</button>
+                                                            </div>
+                                                            <div class="btn-group" role="group">
+                                                                <button type="button" id="delibtn" class="btn btn-default" >เตรียมจัดส่ง</button>
+                                                            </div>
+                                                        </div>
                                                         <div class="pull-right">
                                                             <p class="text-center">
                                                                 <span style="font-size: 20px; color: red"></span></p>
@@ -133,71 +150,26 @@ include '../dbconn.php';
                                                             </form>
                                                         </div>
                                                         <div class="col-md-12">
-                                                            <table class="table table-list-search  table-hover">
+                                                            <table class="table table-list-search fixed  table-hover" id="nowtable">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th>ลำดับ</th>
-                                                                        <th>เลขที่รายการ</th>
-                                                                        <th>ชื่อลูกค้า</th>
+                                                                        <!--<th>ลำดับ</th>-->
+                                                                        <th>หมายเลขคำสั่งซื้อ</th>
                                                                         <th class="text-center">รายการอาหาร</th>
                                                                         <th class="text-center">จำนวน(ชุด)</th>
+                                                                        <th>ที่อยู่จัดส่ง</th>
                                                                         <th class="text-center">วัน/เวลาที่ลูกค้านัดรับ</th>
                                                                         <th class="text-center">สถานะ</th>
                                                                         <th class="text-center">รายละเอียด</th>
                                                                         <th class="text-center">เปลี่ยนสถานะ</th>
-                                                                        <th class="text-center">หมายเหตุ</th>
+
 
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody class="table  table-hover" id="showdataNowFastOrder">
 
                                                                 </tbody>
-                                                            </table>   
-                                                        </div>
-                                                    </div>
-                                                    <!-- จบตารางรายการอยู่ระหว่างดำเนินการ -->
-                                                </div>
-                                            </div>
-
-                                            <div class="card">
-                                                <div class="card-content">
-                                                    <div class="page-header" style="font-size: 30px; margin-top: 5px">รายการสั่งซื้อแบบปกติ 
-                                                        <div class="pull-right">
-                                                            <p class="text-center">
-                                                                <span style="font-size: 20px; color: red"></span></p>
-                                                        </div>
-                                                    </div>
-                                                    <!-- ตารางรายการอยู่ระหว่างดำเนินการ -->
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <form action="#" method="get">
-                                                                <div class="input-group">
-                                                                    <!-- USE TWITTER TYPEAHEAD JSON WITH API TO SEARCH -->
-                                                                    <input class="form-control" id="system-search2" name="q" placeholder="ค้นหาข้อมูลในตารางนี้" required>
-                                                                    <span class="input-group-btn">
-                                                                        <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
-                                                                    </span>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <table class="table  table-hover table-list-search2">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>ลำดับ</th>
-                                                                        <th>เลขที่รายการ</th>
-                                                                        <th>ชื่อลูกค้า</th>
-                                                                        <th class="text-center">รายการอาหาร</th>
-                                                                        <th class="text-center">จำนวน(ชุด)</th>
-                                                                        <th class="text-center">วัน/เวลาที่ลูกค้านัดรับ</th>
-                                                                        <th class="text-center">สถานะ</th>
-                                                                        <th class="text-center">รายละเอียด</th>
-                                                                        <th class="text-center">เปลี่ยนสถานะ</th>
-                                                                        <th class="text-center">หมายเหตุ</th>
-
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody class="table " id="showdataNowNormalOrder">
+                                                                <tbody class="table  table-hover" id="showdataNowTypeOrder" style="display: none">
 
                                                                 </tbody>
                                                             </table>   
@@ -206,7 +178,6 @@ include '../dbconn.php';
                                                     <!-- จบตารางรายการอยู่ระหว่างดำเนินการ -->
                                                 </div>
                                             </div>
-
                                         </div>
                                         <!-- End Tab 2 -->
                                     </div>
@@ -304,7 +275,7 @@ include '../dbconn.php';
                                     while ($data = $res->fetch_assoc()) {
                                         ?>
                                         <option value="<?= $data["id"] ?>"><?= $data["username"] ?></option>
-                                    <?php
+                                        <?php
                                     }
                                 }
                                 ?>
@@ -319,8 +290,8 @@ include '../dbconn.php';
             </div>
         </div>
     </div>
-    
-     <!-- messengerFastModal -->
+
+    <!-- messengerFastModal -->
     <div class="modal fade" id="messengerFastModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -342,7 +313,7 @@ include '../dbconn.php';
                                     while ($data = $res->fetch_assoc()) {
                                         ?>
                                         <option value="<?= $data["id"] ?>"><?= $data["username"] ?></option>
-                                    <?php
+                                        <?php
                                     }
                                 }
                                 ?>
@@ -357,14 +328,15 @@ include '../dbconn.php';
             </div>
         </div>
     </div>
-    
+
 
 
     <!-- start footer -->
-<?php include '../template/footer.php'; ?>
+    <?php include '../template/footer.php'; ?>
 
     <!-- ตารางรายการออเดอร์ -->
     <script src="/assets/js/OrderSearch.js"></script>
     <script src="/assets/js/manage_now_order.js"></script>
+    <script src="/assets/js/dataTables.js"></script>
 </body>
 </html>

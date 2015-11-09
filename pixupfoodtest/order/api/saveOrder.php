@@ -60,15 +60,17 @@ $shippingCode = rand(pow(10, $digits - 1), pow(10, $digits) - 1);
 if (isset($_SESSION["islogin"])) {
 
     $con->query("INSERT INTO `fast_order`(`id`, `main_menu_id`, `quantity`, `moretext`, "
-            . "`order_time`, `shipping_password`, `coin`, `delivery_date`, `delivery_time`, "
+            . "`order_time`, `shipping_password`, `coin`, `delivery_date`, `delivery_time`, `order_no`,"
             . "`status`, `updated_status_time`, `messenger_id`, `restaurant_id`, "
             . "`customer_id`, `shippingAddress_id`, `payment_id`) "
             . "VALUES (null,'$main_menu_id','$amtbox','$moretext',now(),'$shippingCode',"
-            . "null,'$delivery_date','$delivery_time','$status',now(),null,null,"
+            . "null,'$delivery_date','$delivery_time',null,'$status',now(),null,null,"
             . "'$cusid','$shipAddress',$payid)");
 
     $fast_id = $con->insert_id;
     if ($con->error == "") {
+        $order_no = 'F'.sprintf("%07d",$fast_id);
+        $con->query("UPDATE `fast_order` SET `order_no`= '$order_no'  WHERE id = $fast_id ");
         $foodprice = 0;
         $totalfoodprice = 0;
         $prepay = 0;

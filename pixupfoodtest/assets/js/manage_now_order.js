@@ -1,15 +1,19 @@
 var busyFast = false, busyNormal = false
+var type = "all";
 $(document).ready(function () {
     $(".btn-pref .btn").click(function () {
         $(".btn-pref .btn").removeClass("btn-warning").addClass("btn-default");
         $(this).removeClass("btn-default").addClass("btn-warning");
     });
+   /* $("#nowtable").dataTable(function (e){
+        
+    });*/
 
 
-    fetchdataShowNowOrder();
+    //fetchdataShowNowOrder();
     fetchdataShowFastNowOrder();
 
-    $('#showdataNowNormalOrder').on("click", ".normalOrderView", function (e) {
+    $('#showdataNowFastOrder').on("click", ".normalOrderView", function (e) {
         var id = $(this).attr("data-id");
         $("#showOrderId").html(id);
 
@@ -43,7 +47,7 @@ $(document).ready(function () {
         });
     });
 
-    $('#showdataNowNormalOrder').on("change", ".statusselect", function (e) {
+    $('#showdataNowFastOrder').on("change", ".nowstatusselect", function (e) {
         var id = $(this).attr("data-id");
         var statusid = $(this).val();
         $.ajax({
@@ -53,44 +57,22 @@ $(document).ready(function () {
             dataType: "json",
             success: function (data) {
                 if (data.result == "1") {
-                    fetchdataShowNowOrder();
+                    fetchdataShowFastNowOrder();
 
                 } else if (data.result == "0") {
                     $("#messengerNormalModal").modal("show");
                     $("#messNormalId").html(data.orderid);
-                    fetchdataShowNowOrder();
+                    fetchdataShowFastNowOrder();
                 } else {
                     $("#errorMessage").html(data.error);
                     $("#errorModal").modal("show");
-                    fetchdataShowNowOrder();
+                    fetchdataShowFastNowOrder();
                 }
             }
         });
     });
 
-    $("#savemessengerNormal").on("click", function (e) {
-        var id = $('#messNormalId').html();
-        var messselect = $("#messengerselect").val();
-        $.ajax({
-            url: "/restaurant-order/now/save-messenger-normal.php",
-            type: "POST",
-            data: {"orderid": id, "messselect": messselect},
-            dataType: "json",
-            success: function (data) {
-                if (data.result == "1") {
-                    fetchdataShowNowOrder();
-                    $("#messengerNormalModal").modal("hide");
-                } else {
-                    $("#messengerNormalModal").modal("hide");
-                    $("#errorMessage").html(data.error);
-                    $("#errorModal").modal("show");
-                    fetchdataShowNowOrder();
-                }
-            }
-        });
-    });
-
-    $('#showdataNowFastOrder').on("change", ".statusselect", function (e) {
+    $('#showdataNowFastOrder').on("change", ".faststatusselect", function (e) {
         var id = $(this).attr("data-id");
         var statusid = $(this).val();
         $.ajax({
@@ -101,6 +83,7 @@ $(document).ready(function () {
             success: function (data) {
                 if (data.result == "1") {
                     fetchdataShowFastNowOrder();
+                    
                 } else if (data.result == "0") {
                     $("#messengerFastModal").modal("show");
                     fetchdataShowFastNowOrder();
@@ -126,43 +109,176 @@ $(document).ready(function () {
             success: function (data) {
                 if (data.result == "1") {
                     fetchdataShowFastNowOrder();
+                    fetchdataShowOrder(type);
                     $("#messengerFastModal").modal("hide");
                 } else {
                     $("#messengerFastModal").modal("hide");
                     $("#errorMessage").html(data.error);
                     $("#errorModal").modal("show");
                     fetchdataShowFastNowOrder();
+                    fetchdataShowOrder(type);
+                }
+            }
+        });
+    });
+    
+     $("#savemessengerNormal").on("click", function (e) {
+        var id = $('#messNormalId').html();
+        var messselect = $("#messengerselect").val();
+        $.ajax({
+            url: "/restaurant-order/now/save-messenger-normal.php",
+            type: "POST",
+            data: {"orderid": id, "messselect": messselect},
+            dataType: "json",
+            success: function (data) {
+                if (data.result == "1") {
+                     fetchdataShowFastNowOrder();
+                     fetchdataShowOrder(type);
+                    $("#messengerNormalModal").modal("hide");
+                } else {
+                    $("#messengerNormalModal").modal("hide");
+                    $("#errorMessage").html(data.error);
+                    $("#errorModal").modal("show");
+                     fetchdataShowFastNowOrder();
+                     fetchdataShowOrder(type);
+                }
+            }
+        });
+    });
+    
+     $('#showdataNowTypeOrder').on("click", ".normalOrderView", function (e) {
+        var id = $(this).attr("data-id");
+        $("#showOrderId").html(id);
+
+        $.ajax({
+            url: "/restaurant-order/now/normal-modal.php",
+            type: "POST",
+            data: {"id": id, "type": "normal"},
+            dataType: "html",
+            success: function (returndata) {
+                $("#normalOrderViewBody").html(returndata);
+                $("#detailNormalOrderModal").modal("show");
+
+            }
+        });
+    });
+
+    $('#showdataNowTypeOrder').on("click", ".fastOrderView", function (e) {
+        var id = $(this).attr("data-id");
+        $("#showFastOrderId").html(id);
+
+        $.ajax({
+            url: "/restaurant-order/now/fast-modal.php",
+            type: "POST",
+            data: {"id": id, "type": "normal"},
+            dataType: "html",
+            success: function (returndata) {
+                $("#fastOrderViewBody").html(returndata);
+                $("#detailFastOrderModal").modal("show");
+
+            }
+        });
+    });
+
+    $('#showdataNowTypeOrder').on("change", ".nowstatusselect", function (e) {
+        var id = $(this).attr("data-id");
+        var statusid = $(this).val();
+        $.ajax({
+            url: "/restaurant-order/now/change-status-normal.php",
+            type: "POST",
+            data: {"id": id, "statusid": statusid},
+            dataType: "json",
+            success: function (data) {
+                if (data.result == "1") {
+                   fetchdataShowOrder(type);
+
+                } else if (data.result == "0") {
+                    $("#messengerNormalModal").modal("show");
+                    $("#messNormalId").html(data.orderid);
+                    fetchdataShowOrder(type);
+                } else {
+                    $("#errorMessage").html(data.error);
+                    $("#errorModal").modal("show");
+                   fetchdataShowOrder(type);
                 }
             }
         });
     });
 
+    $('#showdataNowTypeOrder').on("change", ".faststatusselect", function (e) {
+        var id = $(this).attr("data-id");
+        var statusid = $(this).val();
+        $.ajax({
+            url: "/restaurant-order/now/change-status-fast.php",
+            type: "POST",
+            data: {"id": id, "statusid": statusid},
+            dataType: "json",
+            success: function (data) {
+                if (data.result == "1") {
+                    fetchdataShowOrder(type);
+                    
+                } else if (data.result == "0") {
+                    $("#messengerFastModal").modal("show");
+                    fetchdataShowOrder(type);
+                    $("#messFastId").html(data.orderid);
 
+                } else {
+                    $("#errorMessage").html(data.error);
+                    $("#errorModal").modal("show");
+                    fetchdataShowOrder(type);
+                }
+            }
+        });
+    });
 
+    $("#prepaybtn").click( function (e){
+         type = "prepay";
+        fetchdataShowOrder(type);
+    });
+    $("#inbtn").click( function (e){
+         type = "int";
+      fetchdataShowOrder(type);
+    });
+    $("#diffpaybtn").click( function (e){
+         type = "diffpay";
+       fetchdataShowOrder(type);
+    });
+    $("#delibtn").click( function (e){
+         type = "deli";
+      fetchdataShowOrder(type);
+    });
+    $("#allbtn").click( function (e){
+         type = "all";
+       fetchdataShowOrder(type);
+    });
+    
+    
+    
 });
 
-function fetchdataShowNowOrder() {
+function fetchdataShowOrder(t) {
     $.ajax({
-        url: "/restaurant-order/now/ajaxFetchNowNormalOrderTable.php",
+        url: "/restaurant-order/now/ajaxFetchNowOrderTable.php",
         type: "POST",
-        data: {"resid": $('#residValue').val()},
+        data: {"type": t},
         dataType: "html",
         success: function (returndata) {
-            $("#showdataNowNormalOrder").html(returndata);
+            $("#showdataNowTypeOrder").html(returndata);
+            $("#showdataNowTypeOrder").show();
+             $("#showdataNowFastOrder").hide();
         }
     });
-    setTimeout(fetchdataShowNowOrder, 10000);
+   // setTimeout(fetchdataShowOrder, 10000);
 }
 
 function fetchdataShowFastNowOrder() {
     $.ajax({
-        url: "/restaurant-order/now/ajaxFetchNowFastOrderTable.php",
+        url: "/restaurant-order/now/ajaxNowOrder.php",
         type: "POST",
         data: {"resid": $('#residValue').val()},
         dataType: "html",
         success: function (returndata) {
             $("#showdataNowFastOrder").html(returndata);
-           
         }
     });
     setTimeout(fetchdataShowFastNowOrder, 10000);

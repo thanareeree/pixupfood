@@ -41,16 +41,19 @@ $coin = round($total_nofee / 500);
 
 if (isset($_SESSION["islogin"])) {
     $con->query("INSERT INTO `normal_order`(`id`, `shipping_password`,"
-            . " `order_time`, `delivery_date`, `delivery_time`, `total_nofee`, "
+            . " `order_time`, `delivery_date`, `delivery_time`, order_no, `total_nofee`, "
             . "`coin`, `prepay`, `status`, `updated_status_time`, `messenger_id`, "
             . "`restaurant_id`, `customer_id`, `shippingAddress_id`, `payment_id`) "
-            . "VALUES (null,'$shippingCode',now(),'$date','$delivery_time','$total_nofee',"
+            . "VALUES (null,'$shippingCode',now(),'$date','$delivery_time',null,'$total_nofee',"
             . "'$coin','$prepay','$status',now(),null,'$resid','$cusid',"
             . "'$shipAddress','$payid[0]')");
 
     if ($con->error == "") {
         $orderid = $con->insert_id;
-
+        
+        $order_no = 'N'.sprintf("%07d",$orderid);
+        $con->query("UPDATE `normal_order` SET `order_no`= '$order_no'  WHERE id = $orderid ");
+        
         $con->query("UPDATE `order_detail` "
                 . "SET `status`= '1',`order_id`= '$orderid' "
                 . "WHERE customer_id = '$cusid' and restaurant_id ='$resid' and status = '0' ");
