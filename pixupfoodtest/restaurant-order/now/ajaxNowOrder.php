@@ -32,7 +32,7 @@ if ($orderNowAllRes->num_rows == 0) {
                     . "fast_order.shippingAddress_id,fast_order.customer_id ,quantity as qty , shippingAddress.full_address, "
                     . "customer.firstName, customer.lastName , fast_order.main_menu_id,"
                     . "request_fast_order.priority, fast_order.order_time,customer.tel, "
-                    . "restaurant.name, fast_order.updated_status_time, fast_order.status "
+                    . "restaurant.name, fast_order.updated_status_time, fast_order.status, fast_order.payment_id "
                     . "FROM `fast_order`LEFT JOIN order_status ON order_status.id = fast_order.status "
                     . "LEFT JOIN restaurant ON restaurant.id = fast_order.restaurant_id "
                     . "LEFT JOIN request_fast_order ON request_fast_order.fast_id = fast_order.id "
@@ -58,13 +58,25 @@ if ($orderNowAllRes->num_rows == 0) {
                             $sms->username = 'thanaree';
                             $sms->password = '58c60d';
 
-                            $b = $sms->send('0000', $fastOrderData["tel"], "เลขที่รายการ: " . $fastOrderData["fast_id"]
+                            $b = $sms->send('0000', $fastOrderData["tel"], "หมายเลขคำสั่งซื้อ: " . $fastOrderData["order_no"]
                                     . " \nถูกปฏิเสธรายการจากเนื่องจากลูกค้าไม่ได้ชำระค่ามัดจำสินค้าตามเวลาที่กำหนด"
                                     . " \nลูกค้าสามารถสั่งซื้ออาหารได้ที่ pixupfood.com");
                         }
                         continue;
                     } else {
                         $timeleft = (60 * 60 * 4) - $diff;
+                    }
+                }else if ($fastOrderData["status"] == 4 && $fastOrderData["payment_id"] == 2) {
+                    $checkRes = $con->query("SELECT * FROM `transfer` WHERE type = 'f2' and order_id = '$orderIdAll'");
+                    if ($checkRes->num_rows == 0) {
+                        $unPayRes = $con->query("SELECT * FROM fast_order WHERE fast_order.restaurant_id = '$resid' "
+                                . "AND fast_order.id = '$orderIdAll' AND fast_order.delivery_date < now()");
+                        if ($unPayRes->num_rows > 0) {
+                             $con->query("UPDATE `fast_order` SET `status`='7',`updated_status_time`= now() WHERE id = '$orderid' ");
+                            $b = $sms->send('0000', $fastOrderData["tel"], "หมายเลขคำสั่งซื้อ: " . $fastOrderData["order_no"]
+                                    . " \nถูกปฏิเสธรายการจากเนื่องจากลูกค้าไม่ได้ชำระค่าสินค้าในส่วนที่เหลือ"
+                                    . " \nลูกค้าสามารถสั่งซื้ออาหารได้ที่ pixupfood.com");
+                        }
                     }
                 }
                 ?>
@@ -114,7 +126,7 @@ if ($orderNowAllRes->num_rows == 0) {
                     . "normal_order.customer_id , COUNT(order_detail.id) as foodlist, normal_order.order_no, "
                     . "SUM(order_detail.quantity) as qty , customer.firstName, "
                     . "customer.lastName, customer.tel, shippingAddress.full_address, order_status.description,"
-                    . " normal_order.updated_status_time "
+                    . " normal_order.updated_status_time, normal_order.payment_id "
                     . "FROM `normal_order` "
                     . "LEFT JOIN order_detail ON order_detail.order_id = normal_order.id "
                     . "LEFT JOIN customer ON customer.id = normal_order.customer_id "
@@ -142,7 +154,7 @@ if ($orderNowAllRes->num_rows == 0) {
                             $sms->username = 'thanaree';
                             $sms->password = '58c60d';
 
-                            $b = $sms->send('0000', $normalOrderData["tel"], "เลขที่รายการ: " . $normalOrderData["order_id"]
+                            $b = $sms->send('0000', $normalOrderData["tel"], "หมายเลขคำสั่งซื้อ: " . $normalOrderData["order_no"]
                                     . " \nถูกปฏิเสธรายการจากเนื่องจากลูกค้าไม่ได้ชำระค่ามัดจำสินค้าตามเวลาที่กำหนด"
                                     . " \nลูกค้าสามารถสั่งซื้ออาหารได้ที่ pixupfood.com");
                         }
@@ -150,9 +162,21 @@ if ($orderNowAllRes->num_rows == 0) {
                     } else {
                         $timeleft = (60 * 60 * 4) - $diff;
                     }
+                } else if ($normalOrderData["status"] == 4 && $normalOrderData["payment_id"] == 2) {
+                    $checkRes = $con->query("SELECT * FROM `transfer` WHERE order_id = '$orderid' AND type='n2'");
+                    if ($checkRes->num_rows == 0) {
+                        $unPayRes = $con->query("SELECT * FROM normal_order WHERE normal_order.restaurant_id = '$resid' "
+                                . "AND normal_order.id = '$orderid' AND normal_order.delivery_date < now()");
+                        if ($unPayRes->num_rows > 0) {
+                              $con->query("UPDATE `normal_order` SET `status`='7',`updated_status_time`= now() WHERE id = '$orderid' ");
+                            $b = $sms->send('0000', $normalOrderData["tel"], "หมายเลขคำสั่งซื้อ: " . $normalOrderData["order_no"]
+                                    . " \nถูกปฏิเสธรายการจากเนื่องจากลูกค้าไม่ได้ชำระค่าสินค้าในส่วนที่เหลือ"
+                                    . " \nลูกค้าสามารถสั่งซื้ออาหารได้ที่ pixupfood.com");
+                        }
+                    }
                 }
                 ?>
-                <tr <?= ($normalOrderData["status"] == 7 or $normalOrderData["status"] == 6) ? "class=\"danger\"" : "" ?>>
+                <tr>
 
                     <td class="text-center"><?= $normalOrderData["order_no"] ?></td>
                     <td class="text-center"><?= $normalOrderData["foodlist"] ?></td>

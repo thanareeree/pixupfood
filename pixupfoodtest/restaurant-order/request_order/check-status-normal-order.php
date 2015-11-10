@@ -6,7 +6,8 @@ $sms = new thsms();
 $sms->username = 'thanaree';
 $sms->password = '58c60d';
 
-$res = $con->query("SELECT customer.tel, normal_order.id, normal_order.order_time FROM `normal_order` "
+$res = $con->query("SELECT customer.tel, normal_order.id, normal_order.order_time, normal_order.order_no"
+        . " FROM `normal_order` "
         . "JOIN customer on customer.id = normal_order.customer_id "
         . "WHERE  normal_order.status = 1"
         . " and normal_order.id NOT IN (SELECT normal_id as id FROM normal_sms )");
@@ -21,14 +22,14 @@ while ($data = $res->fetch_assoc()) {
                 . "VALUES (null,'$normal_id',now())");
 
         if ($con->error == "") {
-             /*$b = $sms->send('0000', $data["tel"], "เลขที่รายการ:" . " " . $normal_id
+             $b = $sms->send('0000', $data["tel"], "หมายเลขคำสั่งซื้อ:" . " " . $data["order_no"]
               . "\nไม่มีร้านตอบรับรายการ"
-              . "\nสามารถสั่งซื้ออาหารได้ที่ www.pixupfood.com"); */
-              $con->query("UPDATE `normal_order` SET status = '7' where id = '$normal_id'");  
+              . "\nสามารถสั่งซื้ออาหารได้ที่ pixupfood.com"); 
+              $con->query("UPDATE `normal_order` SET status = '7', updated_status_time = now() where id = '$normal_id'");  
             echo $normal_id."ส่งล่ะ";
         }
         echo $con->error;
     }
 }
-
+ echo $con->error;
 

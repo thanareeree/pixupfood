@@ -33,7 +33,7 @@ if (isset($_SESSION["islogin"])) {
             $sms->password = '58c60d';
 
             $b = $sms->send('0000', $data["tel"], "ร้านอาหาร:" . $data["name"] 
-                    . "\nตอบรับรายการสั่งซื้อเลขที่: " . $data["id"] 
+                    . "\nตอบรับรายการสั่งซื้อเลขที่: " .  'N'.sprintf("%07d",$data["id"] )
                     . "\nแล้ว Shipping Code:" . $data["shipping_password"] 
                     . "\nสามารถเช็คสถานะได้ที่ pixupfood.com");
 
@@ -67,9 +67,9 @@ if (isset($_SESSION["islogin"])) {
             $sms->username = 'thanaree';
             $sms->password = '58c60d';
 
-            $b = $sms->send('0000', $data["tel"], "เลขที่รายการ: " . $data["id"] 
+            $b = $sms->send('0000', $data["tel"], "หมายเลขคำสั่งซื้อ: " . 'N'.sprintf("%07d",$data["id"] )
                     . " \nถูกปฏิเสธรายการจากร้าน" . $data["name"] 
-                    . " \nสามารถสั่งซื้ออาหารได้ที่ https://pixupfood.com");
+                    . " \nสามารถสั่งซื้ออาหารได้ที่ pixupfood.com");
 
 
             $response = array(

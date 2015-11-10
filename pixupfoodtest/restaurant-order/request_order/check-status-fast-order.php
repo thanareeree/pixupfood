@@ -26,7 +26,7 @@ while ($data = $res->fetch_assoc()) {
               . "\nไม่มีร้านตอบรับรายการ"
               . "\nสามารถสั่งซื้ออาหารได้ที่ pixupfood.com");
              
-            $con->query("UPDATE `fast_order` SET status = '7' where id = '$fast_id'");
+            $con->query("UPDATE `fast_order` SET status = '7', updated_status_time = now() where id = '$fast_id'");
             echo $fast_id . "ส่งล่ะ";
         }
     } else {
@@ -50,7 +50,7 @@ while ($data = $res->fetch_assoc()) {
                   . "\nไม่มีร้านตอบรับรายการ"
                   . "\nสามารถสั่งซื้ออาหารได้ที่ pixupfood.com");
                  
-                $con->query("UPDATE `fast_order` SET status = '7' where id = '$fast_id'");
+                $con->query("UPDATE `fast_order` SET status = '7', updated_status_time = now() where id = '$fast_id'");
                 echo $fast_id . "ส่งล่ะ แบบปฏิเสธทั้งสามร้าน";
             }
         }

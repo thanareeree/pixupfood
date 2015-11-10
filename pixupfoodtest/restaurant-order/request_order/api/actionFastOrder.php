@@ -50,8 +50,8 @@ if (isset($_SESSION["islogin"])) {
             $sms->username = 'thanaree';
             $sms->password = '58c60d';
 
-            $b = $sms->send('0000', $data["tel"], "ร้านอาหาร:" . $_SESSION["restdata"]["name"]
-                    . "\nตอบรับรายการสั่งซื้อเลขที่: " . $order_id . "แล้ว" . ""
+            $b = $sms->send('0000', $data["tel"], "ร้าน:" . $_SESSION["restdata"]["name"]
+                    . "\nตอบรับรายการสั่งซื้อเลขที่: " . 'F'.sprintf("%07d",$order_id) . "แล้ว" . ""
                     . "\nค่ามัดจำ 20%:" . $prepay
                     . "\nShipping Code:" . $data["shipping_password"]
                     . "\n กรุณาชำระค่ามัดจำภายใน 4 ชั่วโมง"
