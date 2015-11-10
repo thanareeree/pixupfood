@@ -1,10 +1,11 @@
 $(document).ready(function () {
-    showHistoryOrder();
+    //showHistoryOrder();
     showFastHistoryOrder();
 
-    $('#showHistoryOrder').on("click", ".normalOrderView", function (e) {
+    $('#showFastOrder').on("click", ".normalOrderView", function (e) {
         var id = $(this).attr("data-id");
-        $("#showOrderId").html(id);
+        var no = $(this).attr("data-no");
+        $("#showOrderId").html(no);
 
         $.ajax({
             url: "/api/normal-order-show-customer.php",
@@ -22,7 +23,8 @@ $(document).ready(function () {
 
     $('#showFastOrder').on("click", ".fastOrderView", function (e) {
         var id = $(this).attr("data-id");
-        $("#showOrderId").html(id);
+        var no = $(this).attr("data-no");
+        $("#showFastOrderId").html(no);
 
         $.ajax({
             url: "/api/fast-order-show-customer-modal.php",
@@ -47,7 +49,7 @@ $(document).ready(function () {
 
     });
     
-    $('#showHistoryOrder').on("click", ".normalReview", function (e) {
+    $('#showFastOrder').on("click", ".normalReview", function (e) {
         var id = $(this).attr("data-id");
         $("#restId").html(id);
         var name = $(this).attr("data-name");

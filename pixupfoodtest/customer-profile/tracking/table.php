@@ -4,7 +4,7 @@ session_start();
 include '../../dbconn.php';
 $cusid = $_SESSION["userdata"]["id"];
 $orderRes = $con->query(" SELECT DISTINCT normal_order.id as order_id, order_status.description, order_status.id as status_id, "
-        . "restaurant.name, SUM(order_detail.quantity) as qty "
+        . "restaurant.name, SUM(order_detail.quantity) as qty, normal_order.order_no "
         . "FROM `normal_order` "
         . "LEFT JOIN order_detail ON order_detail.order_id = normal_order.id "
         . "LEFT JOIN customer ON customer.id = normal_order.customer_id"
@@ -26,13 +26,13 @@ if ($orderRes->num_rows == 0) {
     while ($orderData = $orderRes->fetch_assoc()) {
         ?>
     <tr <?= ($orderData["status_id"]=="1")? "class=\"warning\"":""?> >
-            <td><?= $i++;?></td>
-            <td><?= $orderData["order_id"]?></td>    
-            <td><?= $orderData["qty"]?></td>
-            <td><?= $orderData["name"]?></td>
-            <td><?= $orderData["description"]?></td>
+            <!--<td><?= $i++;?></td>-->
+            <td class="text-center"><?= $orderData["order_no"]?></td>    
+            <td class="text-center"><?= $orderData["qty"]?></td>
+            <td class="text-center"><?= $orderData["name"]?></td>
+            <td class="text-center"><?= $orderData["description"]?></td>
             <td class="text-center">
-                <button class="btn btn-info btn-xs normalOrderView" data-id="<?= $orderData["order_id"] ?>">
+                <button class="btn btn-info btn-xs normalOrderView" data-id="<?= $orderData["order_id"] ?>" data-no='<?= $orderData["order_no"] ?>'>
                     <span class="glyphicon glyphicon-eye-open"></span> 
                     แสดง
                 </button>

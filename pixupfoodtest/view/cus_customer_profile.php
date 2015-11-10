@@ -13,7 +13,7 @@ include '../dbconn.php';
         <?php include '../template/customer-title.php'; ?>
         <!-- custom css -->
         <link rel="stylesheet" href="/assets/css/profile.css">
-
+        <link rel="stylesheet" href="/assets/css/datatables.css">
     </head>
     <body>
         <?php
@@ -93,35 +93,86 @@ include '../dbconn.php';
                                                 <div class="card" style="margin:0;">
                                                     <div class="card-content">
                                                         <div class="page-header" style="font-size: 25px; margin-top: 5px;">
-                                                            รายการสั่งด่วน 
+                                                            รายการสั่งซื้อแบบ Pixup Fast
                                                         </div>
                                                         <!-- ตารางรายการติดตาม -->
                                                         <div class="row">
                                                             <div class="col-md-12">
-                                                                <form action="#" method="get">
-                                                                    <div class="input-group">
-                                                                        <!-- USE TWITTER TYPEAHEAD JSON WITH API TO SEARCH -->
-                                                                        <input class="form-control" id="system-search" name="q" placeholder="ค้นหาข้อมูลในตารางนี้" required style="height: 34px;">
-                                                                        <span class="input-group-btn">
-                                                                            <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
-                                                                        </span>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                            <div class="col-md-12">
-                                                                <table class="table table-list-search  table-hover">
+                                                                <table class="table table-list-search  table table-striped table-bordered" id="fastDatable">
                                                                     <thead>
                                                                         <tr>
-                                                                            <th>ลำดับ</th>
-                                                                            <th>เลขที่รายการ</th>
-                                                                            <th>รายการอาหาร</th>
-                                                                            <th>จำนวน(ขุด)</th>
-                                                                            <th>สถานะ</th>
-                                                                            <th>รายละเอียด</th>
-                                                                            <th>หลักฐานการโอนเงิน</th>
+                                                                            <!--<th>ลำดับ</th>-->
+                                                                            <th class="text-center">หมายเลขคำสั่งซื้อ</th>
+                                                                            <th class="text-center">รายการอาหาร</th>
+                                                                            <th class="text-center">จำนวน(ชุด)</th>
+                                                                            <th class="text-center">สถานะ</th>
+                                                                            <th class="text-center">รายละเอียด</th>
+                                                                            <th class="text-center">หลักฐานการโอนเงิน</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody class="table table-condensed table-hover" id="showFastOrder">
+                                                                        <?php
+                                                                        $cusid = $_SESSION["userdata"]["id"];
+                                                                        $orderRes = $con->query("SELECT fast_order.id as fast_id, order_status.description, order_status.id as status_id,"
+                                                                                . " fast_order.quantity as qty, restaurant.name, fast_order.main_menu_id, fast_order.order_no "
+                                                                                . "FROM `fast_order` "
+                                                                                . "LEFT JOIN order_status ON order_status.id = fast_order.status "
+                                                                                . "LEFT JOIN restaurant ON restaurant.id = fast_order.restaurant_id "
+                                                                                . "WHERE fast_order.customer_id = '$cusid' "
+                                                                                . "and fast_order.status != '9' "
+                                                                                . "GROUP by fast_order.id ORDER BY fast_order.status ASC, fast_order.order_time DESC");
+                                                                        if ($orderRes->num_rows == 0) {
+                                                                            ?>
+                                                                            <tr>
+                                                                            <tr><td colspan="10" class="warning" style="text-align: center;"><h4>ยังไม่มีรายการสั่งซื้อ</h4></td></tr>                  
+                                                                            </tr>
+                                                                            <?php
+                                                                        } else {
+                                                                            $i = 1;
+                                                                            while ($orderData = $orderRes->fetch_assoc()) {
+                                                                                ?>
+                                                                                <tr <?= ($orderData["status_id"] == "1") ? "class=\"warning\"" : "" ?>>
+                                                                                   <!-- <td><?= $i++; ?></td>-->
+                                                                                    <td><?= $orderData["order_no"] ?></td>                         
+                                                                                    <td>
+                                                                                        <?php
+                                                                                        $menuid = $orderData["main_menu_id"];
+                                                                                        $menuid = "(" . $menuid . ")";
+                                                                                        $name = "";
+                                                                                        $resName = $con->query("SELECT  main_menu.name FROM main_menu WHERE main_menu.id IN $menuid");
+                                                                                        $count = 0;
+                                                                                        while ($food = $resName->fetch_assoc()) {
+
+                                                                                            $name = $food["name"];
+                                                                                            // $menustr .= $name;
+                                                                                            $count++;
+                                                                                            if ($count < $resName->num_rows) {
+                                                                                                $name.="+";
+                                                                                            }
+                                                                                            echo $name;
+                                                                                        }
+                                                                                        ?>
+                                                                                    </td>
+                                                                                    <td><?= $orderData["qty"] ?></td>
+                                                                                    <td><?= $orderData["description"] ?></td>
+                                                                                    <td class="text-center">
+                                                                                        <button class="btn btn-info btn-xs fastOrderView" data-id="<?= $orderData["fast_id"] ?>" ><span class="glyphicon glyphicon-eye-open"></span> แสดง</button>
+                                                                                    </td>
+                                                                                    <td class="text-center">
+                                                                                        <button class="btn btn-warning btn-xs uploadSlip1" data-id="<?= $orderData["fast_id"] ?>" <?= ($orderData["status_id"] == "2") ? "" : "disabled" ?> <?= ($orderData["status_id"] == "4") ? "style=\"display: none\"" : "" ?>>
+                                                                                            <span class="glyphicon glyphicon-eye-open"></span> 
+                                                                                            อัพโหลด
+                                                                                        </button>
+                                                                                        <button class="btn btn-warning btn-xs uploadSlip2" data-id="<?= $orderData["fast_id"] ?>" <?= ($orderData["status_id"] == "4") ? "" : "style=\"display: none\"" ?>  >
+                                                                                            <span class="glyphicon glyphicon-eye-open"></span> 
+                                                                                            อัพโหลด
+                                                                                        </button>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <?php
+                                                                            }
+                                                                        }
+                                                                        ?>
 
 
                                                                     </tbody>
@@ -137,35 +188,73 @@ include '../dbconn.php';
                                                 <div class="card" style="margin:0;">
                                                     <div class="card-content">
                                                         <div class="page-header" style="font-size: 25px; margin-top: 5px">
-                                                            รายการสั่งปกติ 
+                                                            รายการสั่งซื้อแบบปกติ 
                                                         </div>
                                                         <!-- ตารางรายการติดตาม -->
                                                         <div class="row">
                                                             <div class="col-md-12">
-                                                                <form action="#" method="get">
-                                                                    <div class="input-group">
-                                                                        <!-- USE TWITTER TYPEAHEAD JSON WITH API TO SEARCH -->
-                                                                        <input class="form-control" id="system-search2" name="q" placeholder="ค้นหาข้อมูลในตารางนี้" required style="height: 34px;">
-                                                                        <span class="input-group-btn">
-                                                                            <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
-                                                                        </span>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                            <div class="col-md-12">
-                                                                <table class="table table-list-search2  table-hover">
+                                                                <table class="table table-list-search2   table table-striped table-bordered" id="normalDatable" >
                                                                     <thead>
                                                                         <tr>
-                                                                            <th>ลำดับ</th>
-                                                                            <th>เลขที่รายการ</th>
-                                                                            <th>จำนวน(ชุด)</th>
-                                                                            <th>ร้านอาหาร</th>
-                                                                            <th>สถานะ</th>
-                                                                            <th>รายละเอียด</th>
-                                                                            <th>หลักฐานการโอนเงิน</th>
+                                                                           <!-- <th>ลำดับ</th>-->
+                                                                            <th class="text-center">หมายเลขคำสั่งซื้อ</th>
+                                                                            <th class="text-center">จำนวน(ชุด)</th>
+                                                                            <th class="text-center">ร้านอาหาร</th>
+                                                                            <th class="text-center">สถานะ</th>
+                                                                            <th class="text-center">รายละเอียด</th>
+                                                                            <th class="text-center">หลักฐานการโอนเงิน</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody class="table table-condensed table-hover" id="showNormalOrder">
+                                                                        <?php
+                                                                        $cusid = $_SESSION["userdata"]["id"];
+                                                                        $orderRes = $con->query(" SELECT DISTINCT normal_order.id as order_id, order_status.description, order_status.id as status_id, "
+                                                                                . "restaurant.name, SUM(order_detail.quantity) as qty, normal_order.order_no "
+                                                                                . "FROM `normal_order` "
+                                                                                . "LEFT JOIN order_detail ON order_detail.order_id = normal_order.id "
+                                                                                . "LEFT JOIN customer ON customer.id = normal_order.customer_id"
+                                                                                . " LEFT JOIN order_status ON order_status.id = normal_order.status "
+                                                                                . "LEFT JOIN restaurant ON restaurant.id = normal_order.restaurant_id "
+                                                                                . "WHERE normal_order.customer_id = '$cusid' "
+                                                                                . "and normal_order.status != '9' "
+                                                                                . "GROUP BY normal_order.id ORDER BY normal_order.status ASC, normal_order.order_time DESC");
+
+                                                                        if ($orderRes->num_rows == 0) {
+                                                                            ?>
+                                                                            <tr>
+                                                                            <tr><td colspan="10" class="warning" style="text-align: center;"><h4>ยังไม่มีรายการสั่งซื้อ</h4></td></tr>                  
+                                                                            </tr>
+                                                                            <?php
+                                                                        } else {
+                                                                            $i = 1;
+                                                                            while ($orderData = $orderRes->fetch_assoc()) {
+                                                                                ?>
+                                                                                <tr <?= ($orderData["status_id"] == "1") ? "class=\"warning\"" : "" ?> >
+                                                                                   <!-- <td><?= $i++; ?></td>-->
+                                                                                    <td><?= $orderData["order_no"] ?></td>    
+                                                                                    <td><?= $orderData["qty"] ?></td>
+                                                                                    <td><?= $orderData["name"] ?></td>
+                                                                                    <td><?= $orderData["description"] ?></td>
+                                                                                    <td class="text-center">
+                                                                                        <button class="btn btn-info btn-xs normalOrderView" data-id="<?= $orderData["order_id"] ?>">
+                                                                                            <span class="glyphicon glyphicon-eye-open"></span> 
+                                                                                            แสดง
+                                                                                        </button>
+                                                                                    </td>
+                                                                                    <td class="text-center">
+                                                                                        <button class="btn btn-warning btn-xs uploadSlip1" data-id="<?= $orderData["order_id"] ?>" <?= ($orderData["status_id"] == "2") ? "" : "disabled" ?> <?= ($orderData["status_id"] == "4") ? "style=\"display: none\"" : "" ?>>
+                                                                                            <span class="glyphicon glyphicon-eye-open"></span> 
+                                                                                            อัพโหลด
+                                                                                        </button>
+                                                                                        <button class="btn btn-warning btn-xs uploadSlip2" data-id="<?= $orderData["order_id"] ?>" <?= ($orderData["status_id"] == "4") ? "" : "style=\"display: none\"" ?> >
+                                                                                            <span class="glyphicon glyphicon-eye-open"></span> 
+                                                                                            อัพโหลด
+                                                                                        </button>
+                                                                                </tr>
+                                                                                <?php
+                                                                            }
+                                                                        }
+                                                                        ?>
 
 
                                                                     </tbody>
@@ -255,6 +344,12 @@ include '../dbconn.php';
         <script src="/assets/js/OrderSearch.js"></script>
         <script src="/assets/js/customer-profile-change.js"></script>
         <script src="/assets/js/customer-profile.js"></script>
-
+        <script src="/assets/js/dataTables.js"></script>
+        <script>
+                                                     var table = $('#normalDatable').DataTable({});
+                                                 
+                                                     var table2 = $('#fastDatable').DataTable({});
+                                                    
+        </script>
     </body>
 </html>

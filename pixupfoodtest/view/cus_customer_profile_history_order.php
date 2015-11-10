@@ -10,7 +10,7 @@ include '../dbconn.php';
         <!-- custom css -->
         <link rel="stylesheet" href="/assets/css/profile.css">
         <link rel="stylesheet" href="/assets/css/customer-comment.css">
-        
+        <link rel="stylesheet" href="/assets/css/datatables.css">
     </head>
     <body>
         <?php
@@ -91,87 +91,149 @@ include '../dbconn.php';
                                                 <div class="card" style="margin:0;">
                                                     <div class="card-content">
                                                         <div class="page-header" style="font-size: 25px; margin-top: 5px;">
-                                                            รายการสั่งด่วน 
+                                                            รายการทั้งหมด 
                                                         </div>
                                                         <!-- ตารางรายการติดตาม -->
-                                                        <div class="row">
+                                                        <div class="row" id="showtable">
                                                             <div class="col-md-12">
-                                                                <form action="#" method="get">
-                                                                    <div class="input-group">
-                                                                        <!-- USE TWITTER TYPEAHEAD JSON WITH API TO SEARCH -->
-                                                                        <input class="form-control" id="system-search" name="q" placeholder="ค้นหาข้อมูลในตารางนี้" required style="height: 34px;">
-                                                                        <span class="input-group-btn">
-                                                                            <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
-                                                                        </span>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                            <div class="col-md-12">
-                                                                <table class="table table-list-search  table-hover">
+                                                                <table class="table table-list-search  table table-striped table-bordered" id="historyOrderDataTable">
                                                                     <thead>
                                                                         <tr>
-                                                                            <th>ลำดับ</th>
-                                                                            <th>เลขที่รายการ</th>
-                                                                            <th>จำนวน(ชุด)</th>
-                                                                            <th>ร้านอาหาร</th>
-                                                                            <th>วัน/เวลาที่รับสินค้า</th>
-                                                                            <th>ผู้ส่งสินค้า</th>
-                                                                            <th>รายละเอียด</th>
-                                                                            <th>รีวิว</th>
+                                                                            <!--<th>ลำดับ</th>-->
+                                                                            <th class="text-center">หมายเลขคำสั่งซื้อ</th>
+                                                                            <th class="text-center">จำนวน(ชุด)</th>
+                                                                            <th class="text-center">ร้านอาหาร</th>
+                                                                            <th class="text-center">วัน/เวลาที่รับสินค้า</th>
+                                                                          <!--  <th>ผู้ส่งสินค้า</th>-->
+                                                                            <th class="text-center">รายละเอียด</th>
+                                                                            <th class="text-center">รีวิว</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody class="table table-condensed table-hover" id="showFastOrder">
+                                                                        <?php
+                                                                        $cusid = $_SESSION["userdata"]["id"];
+
+                                                                        $orderNowAllRes = $con->query("SELECT concat('N') as orderType , id, updated_status_time, status "
+                                                                                . "FROM normal_order WHERE status = 9 AND customer_id = '$cusid' "
+                                                                                . "UNION "
+                                                                                . "select concat('F') as orderType, id, updated_status_time, status "
+                                                                                . "FROM fast_order WHERE status = 9 AND customer_id = '$cusid' "
+                                                                                . "ORDER BY updated_status_time DESC, id");
 
 
+
+
+                                                                        $orderRes = $con->query("SELECT fast_order.id as fast_id, order_status.description, order_status.id as status_id,"
+                                                                                . " fast_order.quantity as qty, restaurant.name, fast_order.main_menu_id, fast_order.messenger_id, "
+                                                                                . "fast_order.updated_status_time, fast_order.restaurant_id "
+                                                                                . "FROM `fast_order` "
+                                                                                . "LEFT JOIN order_status ON order_status.id = fast_order.status "
+                                                                                . "LEFT JOIN restaurant ON restaurant.id = fast_order.restaurant_id "
+                                                                                . "WHERE fast_order.customer_id = '$cusid' "
+                                                                                . "and fast_order.status = '9' "
+                                                                                . "GROUP by fast_order.id ORDER BY fast_order.status ASC, fast_order.order_time DESC");
+
+
+                                                                        if ($orderNowAllRes->num_rows == 0) {
+                                                                            ?>
+                                                                            <tr>
+                                                                            <tr><td colspan="10" class="warning" style="text-align: center;"><h4>ยังไม่มีรายการ</h4></td></tr>                  
+                                                                            </tr>
+                                                                            <?php
+                                                                        } else {
+                                                                            $i = 1;
+                                                                            while ($orderIdAllData = $orderNowAllRes->fetch_assoc()) {
+                                                                                $order_type = $orderIdAllData["orderType"];
+                                                                                $orderIdAll = $orderIdAllData["id"];
+
+                                                                                if ($order_type == 'F') {
+
+                                                                                    $orderRes = $con->query("SELECT fast_order.id as fast_id, order_status.description, order_status.id as status_id,"
+                                                                                            . " fast_order.quantity as qty, restaurant.name, fast_order.main_menu_id, fast_order.messenger_id, "
+                                                                                            . "fast_order.updated_status_time, fast_order.restaurant_id, fast_order.order_no "
+                                                                                            . "FROM `fast_order` "
+                                                                                            . "LEFT JOIN order_status ON order_status.id = fast_order.status "
+                                                                                            . "LEFT JOIN restaurant ON restaurant.id = fast_order.restaurant_id "
+                                                                                            . "WHERE fast_order.id = '$orderIdAll' "
+                                                                                            . "GROUP by fast_order.id ORDER BY fast_order.status ASC, fast_order.order_time DESC");
+                                                                                    while ($orderData = $orderRes->fetch_assoc()) {
+
+                                                                                        $messid = $orderData["messenger_id"];
+                                                                                        $messengerNameRes = $con->query("select * from messenger where id = '$messid'");
+                                                                                        $messData = $messengerNameRes->fetch_assoc();
+                                                                                        $mesName = $messData["username"];
+                                                                                        ?>
+                                                                                        <tr>
+                                                                                           <!-- <td><?= $i++; ?></td>-->
+                                                                                            <td class="text-center"><?= $orderData["order_no"] ?></td>    
+                                                                                            <td class="text-center"><?= $orderData["qty"] ?></td>
+                                                                                            <td><?= $orderData["name"] ?></td>
+                                                                                            <td class="text-center"><?= $orderData["updated_status_time"] ?>&nbsp;น.</td>
+                                                                                            <!--<td class="text-center"><?= $mesName ?></td>-->
+                                                                                            <td class="text-center">
+                                                                                                <button class="btn btn-info btn-xs fastOrderView" data-id="<?= $orderData["fast_id"] ?>" data-no='<?= $orderData["order_no"] ?>' >
+                                                                                                    <span class="glyphicon glyphicon-eye-open"></span> 
+                                                                                                    แสดง
+                                                                                                </button>
+                                                                                            </td>
+                                                                                            <td class="text-center">
+                                                                                                <button class="btn btn-success btn-xs fastReview" data-id="<?= $orderData["restaurant_id"] ?>" data-name="<?= $orderData["name"] ?>">
+                                                                                                    <span class="glyphicon glyphicon-edit"></span> 
+                                                                                                    รีวิว
+                                                                                                </button>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <?php
+                                                                                    }
+                                                                                } else {
+                                                                                    $orderRes = $con->query(" SELECT normal_order.id as order_id, normal_order.updated_status_time, "
+                                                                                            . "restaurant.name, SUM(order_detail.quantity) as qty , normal_order.messenger_id,"
+                                                                                            . " normal_order.restaurant_id, normal_order.order_no "
+                                                                                            . "FROM `normal_order` "
+                                                                                            . "LEFT JOIN order_detail ON order_detail.order_id = normal_order.id "
+                                                                                            . "LEFT JOIN customer ON customer.id = normal_order.customer_id"
+                                                                                            . " LEFT JOIN order_status ON order_status.id = normal_order.status "
+                                                                                            . "LEFT JOIN restaurant ON restaurant.id = normal_order.restaurant_id "
+                                                                                            . "WHERE normal_order.id = '$orderIdAll' "
+                                                                                            . "GROUP BY normal_order.id ORDER BY normal_order.status ASC, normal_order.order_time DESC");
+                                                                                    while ($orderData = $orderRes->fetch_assoc()) {
+
+                                                                                        $messid = $orderData["messenger_id"];
+                                                                                        $messengerNameRes = $con->query("select * from messenger where id = '$messid'");
+                                                                                        $messData = $messengerNameRes->fetch_assoc();
+                                                                                        $mesName = $messData["username"];
+                                                                                        ?>
+                                                                                        <tr>
+                                                                                           <!-- <td><?= $i++; ?></td>-->
+                                                                                            <td class="text-center"><?= $orderData["order_no"] ?></td>    
+                                                                                            <td class="text-center"><?= $orderData["qty"] ?></td>
+                                                                                            <td><?= $orderData["name"] ?></td>
+                                                                                            <td class="text-center"><?= $orderData["updated_status_time"] ?>&nbsp;น.</td>
+                                                                                            <!--<td><?= $mesName ?></td>-->
+                                                                                            <td class="text-center">
+                                                                                                <button class="btn btn-info btn-xs normalOrderView" data-id="<?= $orderData["order_id"] ?>" data-no='<?= $orderData["order_no"] ?>'>
+                                                                                                    <span class="glyphicon glyphicon-eye-open"></span> 
+                                                                                                    แสดง
+                                                                                                </button>
+                                                                                            </td>
+                                                                                            <td class="text-center">
+                                                                                                <button class="btn btn-success btn-xs normalReview" data-id="<?= $orderData["restaurant_id"] ?>" data-name="<?= $orderData["name"] ?>">
+                                                                                                    <span class="glyphicon glyphicon-edit"></span> 
+                                                                                                    รีวิว
+                                                                                                </button>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <?php
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        ?>
                                                                     </tbody>
                                                                 </table>   
                                                             </div>
                                                         </div>
                                                         <!-- จบตารางรายการติดตาม -->
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="panel " style="margin:10px 0 10px 0;">
-                                                <div class="card" style="margin:0;">
-                                                    <div class="card-content">
-                                                        <div class="page-header" style="font-size: 25px; margin-top: 5px">
-                                                            รายการทั้งหมด 
-                                                        </div>
-                                                        <!-- ตารางรายการประวัติ -->
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <form action="#" method="get">
-                                                                    <div class="input-group">
-                                                                        <!-- USE TWITTER TYPEAHEAD JSON WITH API TO SEARCH -->
-                                                                        <input class="form-control" id="system-search2" name="q" placeholder="ค้นหาข้อมูลในตารางนี้" required style="height: 34px;">
-                                                                        <span class="input-group-btn">
-                                                                            <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
-                                                                        </span>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                            <div class="col-md-12">
-                                                                <table class="table table-list-search2">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th>ลำดับ</th>
-                                                                            <th>เลขที่รายการ</th>
-                                                                            <th>จำนวน(ชุด)</th>
-                                                                            <th>ร้านอาหาร</th>
-                                                                            <th>วัน/เวลาที่รับสินค้า</th>
-                                                                            <th>ผู้ส่งสินค้า</th>
-                                                                            <th>รายละเอียด</th>
-                                                                            <th>รีวิว</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody class="table table-condensed table-hover" id="showHistoryOrder">
-
-                                                                    </tbody>
-                                                                </table>   
-                                                            </div>
-                                                        </div>
-                                                        <!-- จบตารางรายการประวัติ -->
 
                                                     </div>
                                                 </div>
@@ -237,7 +299,7 @@ include '../dbconn.php';
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         <span class="modal-title" id="myModalLabel">
-                            <span style="font-size: 20px; margin-top: 5px;">รีวิวและคะแนนความพึงพอใจ&nbsp; <span id="restaurantName"></span><span id="restId" style="display: none"></span> </span>     
+                            <span style="font-size: 20px; margin-top: 5px;">รีวิวและคะแนนความพึงพอใจต่อร้าน&nbsp; <span id="restaurantName"></span><span id="restId" style="display: none"></span> </span>     
                         </span>
                     </div>
                     <div class="modal-body">
@@ -271,6 +333,9 @@ include '../dbconn.php';
         <script src="/assets/js/cus_pro_search.js"></script>
         <script src="/assets/js/customer-profile-history.js"></script>
         <script src="/assets/js/customer-profile-change.js"></script>
-
+        <script src="/assets/js/dataTables.js"></script>
+        <script>
+                                                     var table = $('#historyOrderDataTable').DataTable({});
+        </script>
     </body>
 </html>

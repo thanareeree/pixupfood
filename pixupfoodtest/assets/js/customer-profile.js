@@ -1,11 +1,12 @@
 $(document).ready(function () {
-    showNormalOrder();
-    showFastOrder();
+  showNormalOrder();
+  showFastOrder();
 
 
     $('#showNormalOrder').on("click", ".normalOrderView", function (e) {
         var id = $(this).attr("data-id");
-        $("#showOrderId").html(id);
+         var no = $(this).attr("data-no");
+        $("#showOrderId").html(no);
 
         $.ajax({
             url: "/api/normal-order-show-customer.php",
@@ -88,7 +89,8 @@ $(document).ready(function () {
 
    $('#showFastOrder').on("click", ".fastOrderView", function (e) {
         var id = $(this).attr("data-id");
-        $("#showOrderId").html(id);
+        var no = $(this).attr("data-no");
+        $("#showFastOrderId").html(no);
 
         $.ajax({
             url: "/api/fast-order-show-customer-modal.php",

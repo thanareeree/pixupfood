@@ -65,16 +65,16 @@ h1,h2,h3,h4,h5,h6
 
 #profile .form-control
 {
-    border-radius: 0px;
-    box-shadow: none;
+   // border-radius: 0px;
+   // box-shadow: none;
 }
 #profile input
 {
-    height: 45px;
+  //  height: 45px;
 }
 #profile select
 {
-    height: 45px;
+   // height: 45px;
 }
 #profile input[type="submit"]
 {
