@@ -149,7 +149,7 @@ include '../dbconn.php';
                                                                 <thead>
                                                                     <tr >
                                                                         <th>ลำดับ</th>
-                                                                        <th>เลขที่รายการ</th>
+                                                                        <th>หมายเลขคำสั่งซื้อ</th>
                                                                         <th>ชื่อลูกค้า</th>
                                                                         <th class="text-center">รายการอาหาร</th>
                                                                         <th class="text-center">จำนวน(ชุด)</th>
@@ -200,7 +200,7 @@ include '../dbconn.php';
                                                                     <thead >
                                                                         <tr>
                                                                             <th>ลำดับ</th>
-                                                                            <th>เลขที่รายการ</th>
+                                                                            <th>หมายเลขคำสั่งซื้อ</th>
                                                                             <th>ชื่อลูกค้า</th>
                                                                             <th class="text-center">รายการอาหาร</th>
                                                                             <th class="text-center">จำนวน(ชุด)</th>
