@@ -1,13 +1,26 @@
+var month = "0";
 
 $(document).ready(function () {
 
+    $("#monthselect").on("change", function (e) {
+        month = $(this).val();
+        $.ajax({
+            url: "/restaurant-order/history/ajaxFetchSelectMonthTable.php",
+            type: "POST",
+            data: {"month": month},
+            dataType: "html",
+            success: function (returndata) {
+                $("#showdataNowFastOrder").html(returndata);
+                $('#historyDataTable').DataTable();
+            }
+        });
+    });
 
-
-    fetchdataShowFastNowOrder();
+ fetchdataShowFastNowOrder();
 
     $('#showdataNowFastOrder').on("click", ".normalOrderView", function (e) {
         var id = $(this).attr("data-id");
-          var no = $(this).attr("data-no");
+        var no = $(this).attr("data-no");
         $("#showOrderId").html(no);
 
         $.ajax({
@@ -53,7 +66,7 @@ function fetchdataShowFastNowOrder() {
         dataType: "html",
         success: function (returndata) {
             $("#showdataNowFastOrder").html(returndata);
-
+        
         }
     });
     // setTimeout(fetchdataShowFastNowOrder, 5000);

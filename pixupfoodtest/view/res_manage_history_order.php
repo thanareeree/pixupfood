@@ -1,5 +1,4 @@
 <?php
-session_start();
 include '../api/islogin.php';
 include '../view/navbar.php';
 include '../dbconn.php';
@@ -15,7 +14,7 @@ include '../dbconn.php';
         ?>
         <!-- custom css -->
         <link rel="stylesheet" href="/assets/css/res_restaurant_manage.css">
-  <link rel="stylesheet" href="/assets/css/datatables.css">
+        <link rel="stylesheet" href="/assets/css/datatables.css">
     </head>
     <body>
         <?php
@@ -119,25 +118,44 @@ include '../dbconn.php';
                                             <div class="card">
                                                 <div class="card-content">
                                                     <div class="page-header" style="font-size: 30px; margin-top: 5px">รายการทั้งหมด 
-                                                        <div class="pull-right">
-                                                            <p class="text-center">
-                                                                <span style="font-size: 20px; color: red"></span></p>
-                                                        </div>
+                                                       <!-- <div class="pull-right" style="width: 350px">
+                                                            <div class="form-group" style="margin-bottom: 15px;">
+                                                                <label class="col-sm-3 control-label" style="font-size: 18px; font-weight: bold" for="textinput">เเสดงผล:</label>
+                                                                <div class="col-sm-9" style="margin-bottom: 15px;">
+                                                                    <select class="form-control"id="monthselect" >
+                                                                        <option value="0">ทุกเดือน</option>
+                                                                        <option value="1">มกราคม</option>
+                                                                        <option value="2">กุมภาพันธ์</option>
+                                                                        <option value="3">มีนาคม</option>
+                                                                        <option value="4">เมษายน</option>
+                                                                        <option value="5">พฤษภาคม</option>
+                                                                        <option value="6">มิถุนายน </option>
+                                                                        <option value="7">กรกฎาคม </option>
+                                                                        <option value="8">สิงหาคม </option>
+                                                                        <option value="9">กันยายน </option>
+                                                                        <option value="10">ตุลาคม </option>
+                                                                        <option value="11">พฤศจิกายน </option>
+                                                                        <option value="12">ธันวาคม </option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>-->
                                                     </div>
                                                     <!-- ตารางรายการอยู่ระหว่างดำเนินการ -->
                                                     <div class="row">
-                                                       <!-- <div class="col-md-12">
-                                                            <form action="#" method="get">
-                                                                <div class="input-group">
-                                                                    <input class="form-control" id="system-search" name="q" placeholder="ค้นหาข้อมูลในตารางนี้" required>
-                                                                    <span class="input-group-btn">
-                                                                        <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
-                                                                    </span>
-                                                                </div>
-                                                            </form>
-                                                        </div>-->
+                                                        <!-- <div class="col-md-12">
+                                                             <form action="#" method="get">
+                                                                 <div class="input-group">
+                                                                     <input class="form-control" id="system-search" name="q" placeholder="ค้นหาข้อมูลในตารางนี้" required>
+                                                                     <span class="input-group-btn">
+                                                                         <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+                                                                     </span>
+                                                                 </div>
+                                                             </form>
+                                                         </div>-->
+
                                                         <div class="col-md-12">
-                                                            <table class="table table-list-search  table-hover" id="historyDataTable">
+                                                            <table class="table table-list-search  table table-striped table-bordered" id="historyDataTable">
                                                                 <thead>
                                                                     <tr>
 
@@ -156,7 +174,7 @@ include '../dbconn.php';
                                                                 <tbody class="table  table-hover" id="showdataNowFastOrder">
                                                                     <?php
                                                                     date_default_timezone_set("Asia/Bangkok");
-                                                                  
+
                                                                     $resid = $_SESSION["restdata"]["id"];
 
 
@@ -192,8 +210,7 @@ include '../dbconn.php';
                                                                                     . "LEFT JOIN restaurant ON restaurant.id = fast_order.restaurant_id "
                                                                                     . "LEFT JOIN request_fast_order ON request_fast_order.fast_id = fast_order.id "
                                                                                     . "LEFT JOIN customer ON customer.id = fast_order.customer_id "
-                                                                                    . "WHERE fast_order.restaurant_id = '$resid'"
-                                                                                    . "and fast_order.status = 9 "
+                                                                                    . "WHERE fast_order.id = '$orderIdAll'"
                                                                                     . "GROUP by fast_order.id "
                                                                                     . "ORDER BY fast_order.order_time DESC");
                                                                             while ($fastOrderData = $fastOrderRes->fetch_assoc()) {
@@ -225,7 +242,7 @@ include '../dbconn.php';
                                                                                 <?php
                                                                             }
                                                                         } else {
-                                                                            $normalOrderRes = $con->query("SELECT normal_order.id as order_id, normal_order.order_time,delivery_date, "
+                                                                            $normalOrderRes = $con->query("SELECT  normal_order.id as order_id, normal_order.order_time,delivery_date, "
                                                                                     . "delivery_time, total_nofee,prepay, normal_order.status, normal_order.shippingAddress_id,"
                                                                                     . " normal_order.customer_id , COUNT(order_detail.id) as foodlist, SUM(order_detail.quantity) as qty , "
                                                                                     . "customer.firstName, customer.lastName, customer.tel, order_status.description, normal_order.updated_status_time,"
@@ -234,7 +251,7 @@ include '../dbconn.php';
                                                                                     . "LEFT JOIN order_detail ON order_detail.order_id = normal_order.id "
                                                                                     . "LEFT JOIN customer ON customer.id = normal_order.customer_id "
                                                                                     . "LEFT JOIN order_status ON order_status.id = normal_order.status"
-                                                                                    . " WHERE normal_order.restaurant_id = '$resid' and normal_order.status = 9 "
+                                                                                    . " WHERE normal_order.id = '$orderIdAll'  "
                                                                                     . "GROUP BY normal_order.id "
                                                                                     . "ORDER BY normal_order.order_time DESC");
                                                                             while ($normalOrderData = $normalOrderRes->fetch_assoc()) {
@@ -346,7 +363,7 @@ include '../dbconn.php';
     <!-- ตารางรายการออเดอร์ -->
     <script src="/assets/js/OrderSearch.js"></script>
     <script src="/assets/js/manage_history_order.js"></script>
-       <script src="/assets/js/dataTables.js"></script>
+    <script src="/assets/js/dataTables.js"></script>
     <script>
         var table = $('#historyDataTable').DataTable({
         });

@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 include '../api/islogin.php';
 include '../view/navbar.php';
 include '../dbconn.php';
@@ -136,7 +136,7 @@ include '../dbconn.php';
                                                             </form>
                                                         </div>-->
                                                         <div class="col-md-12">
-                                                            <table class="table table-list-search fixed  table-hover" id="ignoreDataTable">
+                                                            <table class="table table-list-search fixed  table table-striped table-bordered" id="ignoreDataTable">
                                                                 <thead>
                                                                     <tr>
                                                                         <!--<th>ลำดับ</th>-->

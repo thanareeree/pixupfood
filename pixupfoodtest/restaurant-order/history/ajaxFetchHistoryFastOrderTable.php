@@ -37,14 +37,13 @@ if ($orderNowAllRes->num_rows == 0) {
                     . "LEFT JOIN restaurant ON restaurant.id = fast_order.restaurant_id "
                     . "LEFT JOIN request_fast_order ON request_fast_order.fast_id = fast_order.id "
                     . "LEFT JOIN customer ON customer.id = fast_order.customer_id "
-                    . "WHERE fast_order.restaurant_id = '$resid'"
-                    . "and fast_order.status = 9 "
+                    . "WHERE fast_order.id = '$orderIdAll'"
                     . "GROUP by fast_order.id "
                     . "ORDER BY fast_order.order_time DESC");
             while ($fastOrderData = $fastOrderRes->fetch_assoc()) {
                 ?>
                 <tr>
-                    
+
                     <td><?= $fastOrderData["order_no"] ?></td>                         
                     <td><?= $fastOrderData["firstName"] . '&nbsp;' . $fastOrderData["lastName"] ?></td>
                     <td class="text-center">1</td>
@@ -70,7 +69,7 @@ if ($orderNowAllRes->num_rows == 0) {
                 <?php
             }
         } else {
-            $normalOrderRes = $con->query("SELECT normal_order.id as order_id, normal_order.order_time,delivery_date, "
+            $normalOrderRes = $con->query("SELECT  normal_order.id as order_id, normal_order.order_time,delivery_date, "
                     . "delivery_time, total_nofee,prepay, normal_order.status, normal_order.shippingAddress_id,"
                     . " normal_order.customer_id , COUNT(order_detail.id) as foodlist, SUM(order_detail.quantity) as qty , "
                     . "customer.firstName, customer.lastName, customer.tel, order_status.description, normal_order.updated_status_time,"
@@ -79,13 +78,13 @@ if ($orderNowAllRes->num_rows == 0) {
                     . "LEFT JOIN order_detail ON order_detail.order_id = normal_order.id "
                     . "LEFT JOIN customer ON customer.id = normal_order.customer_id "
                     . "LEFT JOIN order_status ON order_status.id = normal_order.status"
-                    . " WHERE normal_order.restaurant_id = '$resid' and normal_order.status = 9 "
+                    . " WHERE normal_order.id = '$orderIdAll'  "
                     . "GROUP BY normal_order.id "
                     . "ORDER BY normal_order.order_time DESC");
             while ($normalOrderData = $normalOrderRes->fetch_assoc()) {
                 ?>
                 <tr >
-                  
+
                     <td><?= $normalOrderData["order_no"] ?></td>                         
                     <td><?= $normalOrderData["firstName"] . '&nbsp;' . $normalOrderData["lastName"] ?></td>
                     <td class="text-center"><?= $normalOrderData["foodlist"] ?></td>
@@ -114,3 +113,4 @@ if ($orderNowAllRes->num_rows == 0) {
         }
     }
 }
+?>
