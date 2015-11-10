@@ -15,17 +15,17 @@ include '../dbconn.php';
         <!-- custom css -->
         <link rel="stylesheet" href="/assets/css/res_restaurant_manage.css">
         <link rel="stylesheet" href="/assets/css/datatables.css">
-        </head>
-        <body>
-            <?php
-            $resid = $_SESSION["restdata"]["id"];
-            $result = $con->query("select * from restaurant where id = '$resid' ");
-            $resdata = $result->fetch_assoc();
-            ?>
-            <?php include '../template/restaurant-navbar.php'; ?>
+    </head>
+    <body>
+        <?php
+        $resid = $_SESSION["restdata"]["id"];
+        $result = $con->query("select * from restaurant where id = '$resid' ");
+        $resdata = $result->fetch_assoc();
+        ?>
+        <?php include '../template/restaurant-navbar.php'; ?>
 
-            <!-- start profile -->
-            <section id="RestaurantHeader">
+        <!-- start profile -->
+        <section id="RestaurantHeader">
             <div class="overlay">
                 <div class="container text-center">
                     <h1><i class="glyphicon glyphicon-cutlery"></i>&nbsp;<?= $resdata["name"] ?></h1>
@@ -101,8 +101,8 @@ include '../dbconn.php';
                                         <li>
                                             <a href="/view/res_manage_history_order.php" >รายการสั่งซื้อเสร็จสมบูรณ์ </a>
                                         </li>
-                                         <li >
-                                             <a href="/view/res_manage_ignore_order.php" >รายการที่ปฏิเสธหรือยกเลิกเเล้ว </a>
+                                        <li >
+                                            <a href="/view/res_manage_ignore_order.php" >รายการที่ปฏิเสธหรือยกเลิกเเล้ว </a>
                                         </li>
                                     </ul>
                                     <!-- Tab 1 -->
@@ -111,8 +111,7 @@ include '../dbconn.php';
                                         <!-- Tab รายการอยู่ระหว่างดำเนินการ -->
                                         <div class="tab-pane active" id="tab_default_2_2">
                                             <div class="page-header" style="font-size: 40px; margin-top: 5px">
-                                                รายการสั่งซื้ออยู่ระหว่างดำเนินการ  
-
+                                                รายการสั่งซื้ออยู่ระหว่างดำเนินการ   
                                             </div>
                                             <div class="card">
                                                 <div class="card-content">
@@ -128,7 +127,7 @@ include '../dbconn.php';
                                                                 <button type="button" id="inbtn" class="btn btn-default">เตรียมวัตถุดิบ</button>
                                                             </div>
                                                             <div class="btn-group" role="group">
-                                                                <button type="button" id="diffpaybtn" class="btn btn-default">รอโอนเงินส่วนที่เหลือ</button>
+                                                                <button type="button" id="diffpaybtn" class="btn btn-default">บรรจุสินค้า</button>
                                                             </div>
                                                             <div class="btn-group" role="group">
                                                                 <button type="button" id="delibtn" class="btn btn-default" >เตรียมจัดส่ง</button>
@@ -257,36 +256,49 @@ include '../dbconn.php';
     </div>
 
     <!-- messengerNormalModal -->
-    <div class="modal fade" id="messengerNormalModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+    <div class="modal fade" id="messengerNormalModal" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px;">กรุณาเลือกพนักงานจัดส่ง&nbsp;<span id="messNormalId"></span></div></span>
+                    <span class="modal-title" id="myModalLabel"><div style="font-size: 20px;font-weight: bold; margin-top: 5px;">กรุณาเลือกพนักงานจัดส่ง&nbsp;<span id="messNormalId"></span></div></span>
                 </div>
                 <div class="modal-body ">
-                    <div class="form-group" >
-                        <label class="col-sm-2 control-label" for="textinput">พนักงานจัดส่ง</label>
-                        <div class="col-sm-10" style="margin-bottom: 15px;">
-                            <select class="form-control"id="messengerselect" required="">
-                                <?php
-                                $res = $con->query("select * from messenger where restaurant_id = '$resid'");
-                                if ($res->num_rows == 0) {
-                                    ?>
-                                    <option value="0">ไม่มีข้อมูล</option>
-                                    <?php
-                                } else {
-                                    while ($data = $res->fetch_assoc()) {
-                                        ?>
-                                        <option value="<?= $data["id"] ?>"><?= $data["username"] ?></option>
-                                        <?php
-                                    }
-                                }
+                    <div>
+                        <select class="form-control messengerselect"id="messengerselect" required="">
+                            <?php
+                            $res = $con->query("select * from messenger where restaurant_id = '$resid'");
+                            if ($res->num_rows == 0) {
                                 ?>
-                            </select>
+                                <option value="0">ไม่มีข้อมูล</option>
+                                <?php
+                            } else {
+                                while ($data = $res->fetch_assoc()) {
+                                    ?>
+                                    <option value="<?= $data["id"] ?>"><?= $data["username"] ?></option>
+                                    <?php
+                                }
+                            }
+                            ?>
+                        </select>
+                        <div style="margin-top: 20px" >
+                            <table class="table table-list-search fixed  table-hover" id="nowtable">
+                                <thead>
+                                    <tr>
+                                        <!--<th>ลำดับ</th>-->
+                                        <th>หมายเลขคำสั่งซื้อ</th>
+                                        <th>ที่อยู่จัดส่ง</th>
+                                        <th class="text-center">วัน/เวลาที่ลูกค้านัดรับ</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table  table-hover messenData" id="messenData">
 
+
+                                </tbody>
+                            </table>   
                         </div>
                     </div>
                 </div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success" id="savemessengerNormal" >บันทึก</button>
                 </div>
@@ -295,33 +307,44 @@ include '../dbconn.php';
     </div>
 
     <!-- messengerFastModal -->
-    <div class="modal fade" id="messengerFastModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+    <div class="modal fade" id="messengerFastModal" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <span class="modal-title" id="myModalLabel"><div style="font-size: 30px; margin-top: 5px;">กรุณาเลือกพนักงานจัดส่ง&nbsp;<span id="messFastId"></span></div></span>
                 </div>
                 <div class="modal-body ">
-                    <div class="form-group" >
-                        <label class="col-sm-2 control-label" for="textinput">พนักงานจัดส่ง</label>
-                        <div class="col-sm-10" style="margin-bottom: 15px;">
-                            <select class="form-control"id="messengerselect" required="">
-                                <?php
-                                $res = $con->query("select * from messenger where restaurant_id = '$resid'");
-                                if ($res->num_rows == 0) {
-                                    ?>
-                                    <option value="0">ไม่มีข้อมูล</option>
-                                    <?php
-                                } else {
-                                    while ($data = $res->fetch_assoc()) {
-                                        ?>
-                                        <option value="<?= $data["id"] ?>"><?= $data["username"] ?></option>
-                                        <?php
-                                    }
-                                }
+                    <div>
+                        <select class="form-control messengerselect"id="messengerselect" required="">
+                            <?php
+                            $res = $con->query("select * from messenger where restaurant_id = '$resid'");
+                            if ($res->num_rows == 0) {
                                 ?>
-                            </select>
+                                <option value="0">ไม่มีข้อมูล</option>
+                                <?php
+                            } else {
+                                while ($data = $res->fetch_assoc()) {
+                                    ?>
+                                    <option value="<?= $data["id"] ?>"><?= $data["username"] ?></option>
+                                    <?php
+                                }
+                            }
+                            ?>
+                        </select>
+                        <div style="margin-top: 20px" >
+                            <table class="table table-list-search fixed  table-hover" id="nowtable">
+                                <thead>
+                                    <tr>
+                                        <!--<th>ลำดับ</th>-->
+                                        <th>หมายเลขคำสั่งซื้อ</th>
+                                        <th>ที่อยู่จัดส่ง</th>
+                                        <th class="text-center">วัน/เวลาที่ลูกค้านัดรับ</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table  table-hover messenData" id="messenFastData">
 
+                                </tbody>
+                            </table>   
                         </div>
                     </div>
                 </div>
