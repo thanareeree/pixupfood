@@ -66,13 +66,17 @@ if ($orderNowAllRes->num_rows == 0) {
                     } else {
                         $timeleft = (60 * 60 * 4) - $diff;
                     }
-                }else if ($fastOrderData["status"] == 4 && $fastOrderData["payment_id"] == 2) {
+                } else if ($fastOrderData["status"] == 4 && $fastOrderData["payment_id"] == 2) {
                     $checkRes = $con->query("SELECT * FROM `transfer` WHERE type = 'f2' and order_id = '$orderIdAll'");
                     if ($checkRes->num_rows == 0) {
                         $unPayRes = $con->query("SELECT * FROM fast_order WHERE fast_order.restaurant_id = '$resid' "
                                 . "AND fast_order.id = '$orderIdAll' AND fast_order.delivery_date < now()");
                         if ($unPayRes->num_rows > 0) {
-                             $con->query("UPDATE `fast_order` SET `status`='7',`updated_status_time`= now() WHERE id = '$orderid' ");
+                            include '../../register/thsms.php';
+                            $sms = new thsms();
+                            $sms->username = 'thanaree';
+                            $sms->password = '58c60d';
+                            $con->query("UPDATE `fast_order` SET `status`='7',`updated_status_time`= now() WHERE id = '$orderid' ");
                             $b = $sms->send('0000', $fastOrderData["tel"], "หมายเลขคำสั่งซื้อ: " . $fastOrderData["order_no"]
                                     . " \nถูกปฏิเสธรายการจากเนื่องจากลูกค้าไม่ได้ชำระค่าสินค้าในส่วนที่เหลือ"
                                     . " \nลูกค้าสามารถสั่งซื้ออาหารได้ที่ pixupfood.com");
@@ -168,7 +172,11 @@ if ($orderNowAllRes->num_rows == 0) {
                         $unPayRes = $con->query("SELECT * FROM normal_order WHERE normal_order.restaurant_id = '$resid' "
                                 . "AND normal_order.id = '$orderid' AND normal_order.delivery_date < now()");
                         if ($unPayRes->num_rows > 0) {
-                              $con->query("UPDATE `normal_order` SET `status`='7',`updated_status_time`= now() WHERE id = '$orderid' ");
+                            include '../../register/thsms.php';
+                            $sms = new thsms();
+                            $sms->username = 'thanaree';
+                            $sms->password = '58c60d';
+                            $con->query("UPDATE `normal_order` SET `status`='7',`updated_status_time`= now() WHERE id = '$orderid' ");
                             $b = $sms->send('0000', $normalOrderData["tel"], "หมายเลขคำสั่งซื้อ: " . $normalOrderData["order_no"]
                                     . " \nถูกปฏิเสธรายการจากเนื่องจากลูกค้าไม่ได้ชำระค่าสินค้าในส่วนที่เหลือ"
                                     . " \nลูกค้าสามารถสั่งซื้ออาหารได้ที่ pixupfood.com");
