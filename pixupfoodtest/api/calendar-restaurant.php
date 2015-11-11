@@ -31,10 +31,11 @@ while ($orderIdAllData = $orderNowAllRes->fetch_assoc()) {
         $dataOrder = $con->query("SELECT fast_order.id as fast_id, fast_order.delivery_date,"
                 . "fast_order.delivery_time, order_status.description, order_status.id, fast_order.order_no, "
                 . "fast_order.shippingAddress_id,fast_order.customer_id ,quantity as qty , shippingAddress.full_address, "
-                . "customer.firstName, customer.lastName , fast_order.main_menu_id,"
+                . "customer.firstName, customer.lastName , fast_order.main_menu_id,  order_status.description,"
                 . "request_fast_order.priority, fast_order.order_time,customer.tel, messenger.name as mesname, "
                 . "restaurant.name, fast_order.updated_status_time, fast_order.status, fast_order.payment_id "
-                . "FROM `fast_order`LEFT JOIN order_status ON order_status.id = fast_order.status "
+                . "FROM `fast_order`"
+                . "LEFT JOIN order_status ON order_status.id = fast_order.status "
                 . "LEFT JOIN restaurant ON restaurant.id = fast_order.restaurant_id "
                 . "LEFT JOIN request_fast_order ON request_fast_order.fast_id = fast_order.id "
                 . "LEFT JOIN customer ON customer.id = fast_order.customer_id "
@@ -44,14 +45,15 @@ while ($orderIdAllData = $orderNowAllRes->fetch_assoc()) {
 
         if ($type == 'fetch') {
             while ($data = $dataOrder->fetch_assoc()) {
-                
+
                 $e = array();
                 $e['title'] = $data['qty'] . " ชุด ส่ง" . $data['delivery_time'];
                 $e['start'] = $data['delivery_date'];
                 $e['id'] = $data["order_no"];
                 $e['full_address'] = $data["full_address"];
                 $e['name'] = $data["mesname"];
-               $e['time'] =  date("d-m-Y", strtotime($data['delivery_date']))." ".$data['delivery_time'];
+                $e['time'] = date("d-m-Y", strtotime($data['delivery_date'])) . " " . $data['delivery_time'];
+                $e['description'] = $data["description"];
                 array_push($events, $e);
             }
         }
@@ -81,7 +83,8 @@ while ($orderIdAllData = $orderNowAllRes->fetch_assoc()) {
                 $e['id'] = $data["order_no"];
                 $e['full_address'] = $data["full_address"];
                 $e['name'] = $data["name"];
-                $e['time'] =  date("d-m-Y", strtotime($data['delivery_date']))." ".$data['delivery_time'];
+                $e['time'] = date("d-m-Y", strtotime($data['delivery_date'])) . " " . $data['delivery_time'];
+                $e['description'] = $data["description"];
                 array_push($events, $e);
             }
         }

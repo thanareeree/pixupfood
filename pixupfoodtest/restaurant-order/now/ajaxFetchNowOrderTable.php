@@ -33,8 +33,8 @@ if ($type == 'prepay') {
             . "FROM fast_order "
             . "WHERE status = 3 AND restaurant_id = '$resid' "
             . "ORDER BY delivery_date , id");
-} else if ($type == "diffpay") {
-    $orderNowAllRes = $con->query("SELECT concat('N') as orderType , id, delivery_date, status "
+}else if($type == "diffpay"){
+     $orderNowAllRes = $con->query("SELECT concat('N') as orderType , id, delivery_date, status "
             . "FROM normal_order "
             . "WHERE status = 4 AND restaurant_id = '$resid' "
             . "UNION "
@@ -42,7 +42,7 @@ if ($type == 'prepay') {
             . "FROM fast_order "
             . "WHERE status = 4 AND restaurant_id = '$resid' "
             . "ORDER BY delivery_date , id");
-} else if ($type == "deli") {
+}else if($type == "deli"){
     $orderNowAllRes = $con->query("SELECT concat('N') as orderType , id, delivery_date, status "
             . "FROM normal_order "
             . "WHERE status = 5 AND restaurant_id = '$resid' "
@@ -124,7 +124,7 @@ if ($orderNowAllRes->num_rows == 0) {
                             $b = $sms->send('0000', $fastOrderData["tel"], "หมายเลขคำสั่งซื้อ: " . $fastOrderData["order_no"]
                                     . " \nถูกยกเลิกรายการจากเนื่องจากลูกค้าไม่ได้ชำระค่าสินค้าในส่วนที่เหลือ"
                                     . " \nลูกค้าสามารถสั่งซื้ออาหารได้ที่ pixupfood.com");
-                        }
+                }
                     }
                 } else if ($fastOrderData["status"] == 5) {
                     $unPayRes = $con->query("SELECT * FROM fast_order WHERE fast_order.restaurant_id = '$resid' "
@@ -150,17 +150,17 @@ if ($orderNowAllRes->num_rows == 0) {
                     </td>
                     <td class="text-center">
                         <select class="form-control faststatusselect" id="statusselect"  data-id="<?= $fastOrderData["fast_id"] ?>" data-no="<?= $fastOrderData["order_no"] ?>">
-                            <?php
-                            $stataus_now_id = $fastOrderData["status"];
-                            $statusid = $stataus_now_id + 1;
-                            if ($stataus_now_id == 7 || $stataus_now_id == 6 || $stataus_now_id == 5) {
-                                $res = $con->query("SELECT * FROM `order_status` WHERE id = '$stataus_now_id' ");
-                            } else {
-                                $res = $con->query("SELECT * FROM `order_status` WHERE id >= '$stataus_now_id' and id <= '$statusid'");
-                            }
-                            if ($stataus_now_id <= $statusid) {
-                                while ($data = $res->fetch_assoc()) {
-                                    ?>
+                <?php
+                $stataus_now_id = $fastOrderData["status"];
+                $statusid = $stataus_now_id + 1;
+                if ($stataus_now_id == 7 || $stataus_now_id == 6 || $stataus_now_id == 5) {
+                    $res = $con->query("SELECT * FROM `order_status` WHERE id = '$stataus_now_id' ");
+                } else {
+                    $res = $con->query("SELECT * FROM `order_status` WHERE id >= '$stataus_now_id' and id <= '$statusid'");
+                }
+                if ($stataus_now_id <= $statusid) {
+                    while ($data = $res->fetch_assoc()) {
+                        ?>
                                     <option value=<?= $data["id"] ?> ><?= $data["description"] ?></option>;
                                     <?php
                                 }
@@ -178,9 +178,9 @@ if ($orderNowAllRes->num_rows == 0) {
             $normalOrderRes = $con->query("SELECT normal_order.id as order_id, normal_order.order_time,delivery_date,"
                     . " delivery_time, total_nofee,prepay, normal_order.status, normal_order.shippingAddress_id, "
                     . "normal_order.customer_id , COUNT(order_detail.id) as foodlist, normal_order.order_no, "
-                    . "SUM(order_detail.quantity) as qty , customer.firstName, "
+                    . "SUM(order_detail.quantity) as qty , customer.firstName, normal_order.payment_id,"
                     . "customer.lastName, customer.tel, shippingAddress.full_address, order_status.description,"
-                    . " normal_order.updated_status_time,  normal_order.payment_id"
+                    . " normal_order.updated_status_time "
                     . "FROM `normal_order` "
                     . "LEFT JOIN order_detail ON order_detail.order_id = normal_order.id "
                     . "LEFT JOIN customer ON customer.id = normal_order.customer_id "
@@ -230,7 +230,7 @@ if ($orderNowAllRes->num_rows == 0) {
                             $b = $sms->send('0000', $normalOrderData["tel"], "หมายเลขคำสั่งซื้อ: " . $normalOrderData["order_no"]
                                     . " \nถูกยกเลิกรายการจากเนื่องจากลูกค้าไม่ได้ชำระค่าสินค้าในส่วนที่เหลือ"
                                     . " \nลูกค้าสามารถสั่งซื้ออาหารได้ที่ pixupfood.com");
-                        }
+                }
                     }
                 } else if ($normalOrderData["status"] == 5) {
                     $unPayRes = $con->query("SELECT * FROM normal_order WHERE normal_order.restaurant_id = '$resid' "
@@ -256,18 +256,18 @@ if ($orderNowAllRes->num_rows == 0) {
                     </td>
                     <td class="text-center">  
                         <select class="form-control nowstatusselect" id="statusselect"  data-id="<?= $normalOrderData["order_id"] ?>">
-                            <?php
-                            $stataus_now_id = $normalOrderData["status"];
-                            $statusid = $stataus_now_id + 1;
-                            if ($stataus_now_id == 7 || $stataus_now_id == 6 || $stataus_now_id == 5) {
-                                $res = $con->query("SELECT * FROM `order_status` WHERE id = '$stataus_now_id' ");
-                            } else {
-                                $res = $con->query("SELECT * FROM `order_status` WHERE id >= '$stataus_now_id' and id <= '$statusid'");
-                            }
+                <?php
+                $stataus_now_id = $normalOrderData["status"];
+                $statusid = $stataus_now_id + 1;
+                if ($stataus_now_id == 7 || $stataus_now_id == 6 || $stataus_now_id == 5) {
+                    $res = $con->query("SELECT * FROM `order_status` WHERE id = '$stataus_now_id' ");
+                } else {
+                    $res = $con->query("SELECT * FROM `order_status` WHERE id >= '$stataus_now_id' and id <= '$statusid'");
+                }
 
-                            if ($stataus_now_id <= $statusid) {
-                                while ($data = $res->fetch_assoc()) {
-                                    ?>
+                if ($stataus_now_id <= $statusid) {
+                    while ($data = $res->fetch_assoc()) {
+                        ?>
                                     <option value=<?= $data["id"] ?> ><?= $data["description"] ?></option>;
                                     <?php
                                 }

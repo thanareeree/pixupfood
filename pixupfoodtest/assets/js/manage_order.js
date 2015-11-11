@@ -165,8 +165,10 @@ function acceptFastOrder(type) {
         success: function (data) {
             if (data.result == "1") {
                 $("#acceptFastOrderModal").modal("hide");
+                $("#acceptFastBtn > img").remove();
+                $("#acceptFastBtn").html("ยืนยัน");
                 fetchdataShowFastOrder();
-
+                
             } else {
                 alert(data.error);
             }
@@ -185,6 +187,8 @@ function ignoreFastOrder(type) {
         success: function (data) {
             if (data.result == "1") {
                 $("#ignoreFastOrderModal").modal("hide");
+                $("#ignoreFastBtn > img").remove();
+                $("#ignoreFastBtn").html("ยืนยัน");
                 fetchdataShowFastOrder();
             } else {
                 alert(data.error);
@@ -203,6 +207,8 @@ function acceptNormalOrder(type) {
         success: function (data) {
             if (data.result == "1") {
                 $("#acceptNormalOrderModal").modal("hide");
+                $("#acceptNormalBtn > img").remove();
+                $("#acceptNormalBtn").html("ยืนยัน");
                 fetchdataShowNormalOrder();
             } else {
                 alert(data.error);
@@ -213,7 +219,7 @@ function acceptNormalOrder(type) {
 
 
 function ignoreNormalOrder(type) {
-    $("#ignoreNormalBtn").html("<img src='/assets/images/loader.gif' style='height:5px; margin:0 auto;'>");
+    $("#ignoreNormalBtn").html("<img src='/assets/images/loader.gif' style='height:20px; width:20px; margin:0 auto;'>");
     $.ajax({
         url: "/restaurant-order/request_order/api/actionNormalOrder.php",
         type: "POST",
@@ -222,6 +228,8 @@ function ignoreNormalOrder(type) {
         success: function (data) {
             if (data.result == "1") {
                 $("#ignoreNormalOrderModal").modal("hide");
+                $("#ignoreNormalBtn > img").remove();
+                $("#ignoreNormalBtn").html("ยืนยัน");
                 fetchdataShowNormalOrder();
             } else {
                 alert(data.error);

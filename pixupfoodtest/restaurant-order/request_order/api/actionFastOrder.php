@@ -37,21 +37,36 @@ if (isset($_SESSION["islogin"])) {
 
         if ($con->error == "") {
             if ($promoRes->num_rows > 0) {
-                  $con->query("INSERT INTO `promotion_use`(`id`, `order_id`, `promotion_id`, `used_timed`, `order_type`)"
-                      . " VALUES (null,'$order_id','1',now(),'f')");
+                $con->query("INSERT INTO `promotion_use`(`id`, `order_id`, `promotion_id`, `used_timed`, `order_type`)"
+                        . " VALUES (null,'$order_id','1',now(),'f')");
             }
-            
+
             $res = $con->query("SELECT * FROM `fast_order` "
                     . "LEFT JOIN customer ON customer.id = fast_order.customer_id "
                     . "WHERE fast_order.id ='$order_id'");
             $data = $res->fetch_assoc();
+            $delidate = $data["delivery_date"];
+            $qty = $data["quantity"];
+            $checkDailyDateRes = $con->query("SELECT * FROM `limit_box_daily` WHERE daily_date = '$delidate' and restaurant_id = '$resid' ");
+            if ($checkDailyDateRes->num_rows == 0) {
+                $con->query("INSERT INTO `limit_box_daily`(`id`, `qty`, `daily_date`, `restaurant_id`) "
+                        . "VALUES (null,'$qty','$delidate','$resid')");
+            } else {
+                $dailyData = $checkDailyDateRes->fetch_assoc();
+                $qtyDaily = $dailyData["qty"];
+                $addQty = $qtyDaily + $qty;
+                $con->query("UPDATE `limit_box_daily` SET `qty`= '$addQty' WHERE restaurant_id = '$resid' AND daily_date = '$delidate'");
+            }
+
+
+
             include '../../../register/thsms.php';
             $sms = new thsms();
             $sms->username = 'thanaree';
             $sms->password = '58c60d';
 
             $b = $sms->send('0000', $data["tel"], "ร้าน:" . $_SESSION["restdata"]["name"]
-                    . "\nตอบรับรายการสั่งซื้อเลขที่: " . 'F'.sprintf("%07d",$order_id) . "แล้ว" . ""
+                    . "\nตอบรับรายการสั่งซื้อเลขที่: " . 'F' . sprintf("%07d", $order_id) . "แล้ว" . ""
                     . "\nค่ามัดจำ 20%:" . $prepay
                     . "\nShipping Code:" . $data["shipping_password"]
                     . "\n กรุณาชำระค่ามัดจำภายใน 4 ชั่วโมง"

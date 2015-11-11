@@ -144,7 +144,9 @@ include '../dbconn.php';
                             <div class="col-md-9"><span id="addressData" style="font-size: 16px"></span></div>
                              <div class="col-md-3" style="font-weight: bold;font-size: 16px">วัน/ช่วงเวลาที่นัดรับ</div>
                             <div class="col-md-9"><span id="timeData" style="font-size: 16px"></span></div>
-                             <div class="col-md-3" style="font-weight: bold;font-size: 16px">พนักงานจัดส่ง</div>
+                             <div class="col-md-3" style="font-weight: bold;font-size: 16px">สถานะรายการ</div>
+                             <div class="col-md-9" style="font-size: 16px"><span id="status"></span></div>
+                              <div class="col-md-3" style="font-weight: bold;font-size: 16px">พนักงานจัดส่ง</div>
                              <div class="col-md-9" style="font-size: 16px"><span id="messData"></span></div>
                             
                         </div>
@@ -198,6 +200,7 @@ include '../dbconn.php';
                     $("#addressData").html(event.full_address);
                     $("#timeData").html(event.time);
                     $("#messData").html(event.name);
+                    $("#status").html(event.description);
                     //alert("Event ID: " + event.id + event.full_address + event.name);
                 }
             });
