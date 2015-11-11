@@ -239,24 +239,34 @@ include '../api/islogin.php';
                                                                 . "FROM `menu` LEFT JOIN main_menu on main_menu.id = menu.main_menu_id "
                                                                 . "LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
                                                                 . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
-                                                                . "WHERE main_menu.type = 'ชนิดข้าว' "
+                                                                . "WHERE main_menu.type = 'ชนิดข้าว' and menu.status = 0 "
                                                                 . "and menu.restaurant_id = '$resid'");
 
-                                                        while ($riceData = $riceListRes->fetch_assoc()) {
+                                                        if ($riceListRes->num_rows == 0) {
                                                             ?>
-                                                            <div class="col-md-3" id="ricedatalist">
-                                                                <div class="thumbnail riceselect">
-                                                                    <div class="caption ">
-                                                                        <img class="menu_img" src="<?= ($riceData["img_path"] == "") ? $riceData["img"] : $riceData["img_path"] ?>">
-                                                                        <h4><?= $riceData["name"] ?></h4>
-                                                                        <p><?= $riceData["price"] ?>&nbsp;บาท</p>
-                                                                        <p style="text-align: right">
-                                                                            <input type="radio" name="ricetype" class="rice" value="<?= $riceData["id"] ?>">
-                                                                        </p>
-                                                                    </div>
+                                                            <div class="col-md-12" >
+                                                                <div class="alert alert-warning " role="alert">
+                                                                    <h4 class="text-center">ยังไม่มีรายการ</h4>
                                                                 </div>
                                                             </div>
-                                                        <?php } ?>
+                                                            <?php
+                                                        } else {
+                                                            while ($riceData = $riceListRes->fetch_assoc()) {
+                                                                ?>
+                                                                <div class="col-md-3" id="ricedatalist">
+                                                                    <div class="thumbnail riceselect">
+                                                                        <div class="caption ">
+                                                                            <img class="menu_img" src="<?= ($riceData["img_path"] == "") ? $riceData["img"] : $riceData["img_path"] ?>">
+                                                                            <h4><?= $riceData["name"] ?></h4>
+                                                                            <p><?= $riceData["price"] ?>&nbsp;บาท</p>
+                                                                            <p style="text-align: right">
+                                                                                <input type="radio" name="ricetype" class="rice" value="<?= $riceData["id"] ?>">
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            <?php }
+                                                        } ?>
                                                         <div id="norice" style="background-color:rgba(255,255,255,0.6); text-align: center; position: absolute; left:0; top:0; width:100%; height:300px;">
                                                             <h1 style="font-size:100px; margin-top:50px;"><span class="glyphicon glyphicon-ok-circle"></span></h1>
                                                             <h2>กรุณาไปขั้นตอนถัดไป</h2>
@@ -463,7 +473,7 @@ include '../api/islogin.php';
                                                         <div class="input-group col-md-12" style="margin: 10px 120px;"  >
                                                             <input type="radio"  name="paymentData" value="<?= $paymentData["id"] ?>"><?= $paymentData["description"] ?>
                                                         </div>
-                                                    <?php } ?>
+<?php } ?>
                                                     <hr>
                                                     <div >
                                                         *สามารถโอนเงินผ่านบัญชีธนาคาร&nbsp;&nbsp;<br>
@@ -472,7 +482,7 @@ include '../api/islogin.php';
                                                             ?>
                                                             <p>ชื่อบัญชี: &nbsp;<?= $bankData["accname"] ?>&nbsp;เลขที่บัญชี &nbsp;<?= $bankData["accNo"] ?>&nbsp;<?= $bankData["bank"] ?></p>
 
-                                                        <?php } ?>
+<?php } ?>
 
                                                     </div>
                                                     <div id="errorStep6"></div>
@@ -541,7 +551,7 @@ include '../api/islogin.php';
             </div>
         </div>
 
-        <?php include '../template/footer.php'; ?>
+<?php include '../template/footer.php'; ?>
         <script src="/assets/js/normal_order.js"></script>
 
     </body>

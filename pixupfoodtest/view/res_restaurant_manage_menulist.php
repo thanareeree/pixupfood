@@ -301,27 +301,23 @@ include '../dbconn.php';
                                                                             <span style="font-size: 18px;"> ชื่อ </span> 
                                                                             &nbsp;<input type="text" style="font-size: 18px;" id="foodname" name="foodname"  required="" placeholder="ระบุชื่ออาหาร">
                                                                         </div>
+                                                                         <h3> เลือกรูปภาพอาหาร </h3>
+                                                                        <hr>
+                                                                        <div id="updateImg" style="" >
+                                                                            <input type="file" id="imagerest" name="imagerest"  accept="image/jpeg,image/pjpeg,image/png" required="" />
+                                                                           
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="card">
                                                                     <div class="card-content">
-                                                                        <h3> เลือกรูปภาพอาหาร </h3>
+                                                                        <h3> ระบุราคาของเมนูนี้ </h3>
                                                                         <hr>
-                                                                        <div >
-                                                                            <img src="/assets/images/default-img360.png" style="max-width: 250px;max-height: 260px; margin-left: 100px">
-                                                                        </div>
                                                                         <br>
-                                                                    </div>
-                                                                    <div class="card-action">
-                                                                        <div class="row">
-                                                                            <div id="updateImg" style="" >
-                                                                                <input type="file" id="imagerest" name="imagerest"  accept="image/jpeg,image/pjpeg,image/png" required="" />
-                                                                                <!--</form>--> 
-
-                                                                            </div>
-
+                                                                        <div style="width: 300px;margin-left: 80px">
+                                                                            <input type="text" class="form-control" placeholder="ระบุราคาของเมนูนี้" id="priceMainMenu" name="priceMainMenu" required="">
                                                                         </div>
                                                                     </div>
                                                                 </div>
