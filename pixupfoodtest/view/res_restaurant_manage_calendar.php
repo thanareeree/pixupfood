@@ -127,7 +127,33 @@ include '../dbconn.php';
             </div>
         </div>
     </div>
-
+    <div class="modal fade" id="calendarModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="modal-title" id="myModalLabel">
+                        <div style="font-size: 20px;font-weight: bold; margin-top: 5px;">ข้อมูลการจัดส่งของหมายเลขคำสั่งซื้อหมายเลข:&nbsp;
+                            <span style="color: orange"id="ShowOrderno"></span>
+                        </div>
+                    </span>
+                </div>
+                <div class="modal-body ">
+                    <div>
+                        <div >
+                            <div class="col-md-3" style="font-weight: bold;font-size: 16px">ที่อยู่จัดส่ง</div>
+                            <div class="col-md-9"><span id="addressData" style="font-size: 16px"></span></div>
+                             <div class="col-md-3" style="font-weight: bold;font-size: 16px">วัน/ช่วงเวลาที่นัดรับ</div>
+                            <div class="col-md-9"><span id="timeData" style="font-size: 16px"></span></div>
+                             <div class="col-md-3" style="font-weight: bold;font-size: 16px">พนักงานจัดส่ง</div>
+                             <div class="col-md-9" style="font-size: 16px"><span id="messData"></span></div>
+                            
+                        </div>
+                    </div> 
+                    <button type="button"  class="btn btn-default" data-dismiss="modal"style="margin-left: 500px;margin-top: 30px" >ปิด</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- start footer -->
     <?php
     include '../template/footer.php';
@@ -141,23 +167,6 @@ include '../dbconn.php';
                 $(".tab").addClass("active"); // instead of this do the below 
                 $(this).removeClass("btn-default").addClass("btn-warning");
             });
-            /*$('#calendar').fullCalendar({
-             header: {
-             left: 'prev',
-             center: 'title',
-             right: 'next today'
-             },
-             events: {
-             url: '/api/showcalendar.php',
-             type: 'POST',
-             data: {
-             resid: $("#residValue").val()
-             }, error: function () {
-             alert('there was an error while fetching events!');
-             }
-             },
-             eventColor: 'orange'
-             });*/
 
             function  fetchCalendar() {
                 $.ajax({
@@ -182,7 +191,15 @@ include '../dbconn.php';
                 events: JSON.parse(json_events),
                 lang: 'th',
                 eventColor: 'orange',
-                eventLimit: true
+                eventLimit: true,
+                eventClick: function (event) {
+                    $("#calendarModal").modal('show');
+                    $("#ShowOrderno").html(event.id);
+                    $("#addressData").html(event.full_address);
+                    $("#timeData").html(event.time);
+                    $("#messData").html(event.name);
+                    //alert("Event ID: " + event.id + event.full_address + event.name);
+                }
             });
         });
 
