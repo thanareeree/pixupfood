@@ -87,7 +87,7 @@ if ($orderNowAllRes->num_rows == 0) {
                 <tr <?= ($fastOrderData["status"] == 7 or $fastOrderData["status"] == 6) ? "class=\"danger\"" : "" ?>>
 
                     <td class="text-center"><?= $fastOrderData["order_no"] ?></td>                
-                    <td class="text-center">1</td>
+                   <!-- <td class="text-center">1</td>-->
                     <td style="text-align: center"><?= $fastOrderData["qty"] ?></td>
                     <td><div style="width: 300px"><?= $fastOrderData["full_address"] ?></div></td>
                     <td class="text-center"><?= $fastOrderData["delivery_date"] ?>&nbsp;<?= $fastOrderData["delivery_time"] ?> </td>
@@ -187,7 +187,7 @@ if ($orderNowAllRes->num_rows == 0) {
                 <tr>
 
                     <td class="text-center"><?= $normalOrderData["order_no"] ?></td>
-                    <td class="text-center"><?= $normalOrderData["foodlist"] ?></td>
+                    <!--<td class="text-center"><?= $normalOrderData["foodlist"] ?></td>-->
                     <td style="text-align: center"><?= $normalOrderData["qty"] ?></td>
                     <td><div style="width: 300px"><?= $normalOrderData["full_address"] ?></div></td>
                     <td class="text-center"><?= $normalOrderData["delivery_date"] ?>&nbsp;<?= $normalOrderData["delivery_time"] ?> </td>

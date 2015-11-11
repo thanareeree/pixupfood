@@ -174,24 +174,7 @@ include '../../dbconn.php';
                                         <div id="calendar"></div>
                                     </div>
                                     <div class="col-sm-7">
-                                        <h3>เวลาจัดส่ง :</h3>
-                                        <select name="delivery_time" id="delivery_time" class="form-control" >
-                                            <option value="0" disabled selected>--เวลาจัดส่ง--</option>
-                                            <option value="06:30:00">06:30 น.</option>
-                                            <option value="07:30:00">07:30 น.</option>
-                                            <option value="08:30:00">08:30 น.</option>
-                                            <option value="09:30:00">09:30 น.</option>
-                                            <option value="10:30:00">10:30 น.</option>
-                                            <option value="11:30:00">11:30 น.</option>
-                                            <option value="12:30:00">12:30 น.</option>
-                                            <option value="13:30:00">13:30 น.</option>
-                                            <option value="14:30:00">14:30 น.</option>
-                                            <option value="15:30:00">15:30 น.</option>
-                                            <option value="16:30:00">16:30 น.</option>
-                                            <option value="17:30:00">17:30 น.</option>
-                                            <option value="18:30:00">18:30 น.</option>
-                                        </select>
-                                        </h4>
+                                        <?php include '../../api/delivery-time-range.php'; ?>
                                     </div>
                                     <br>
                                 </div>

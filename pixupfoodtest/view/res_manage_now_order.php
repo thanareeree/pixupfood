@@ -157,7 +157,7 @@ include '../dbconn.php';
                                                                     <tr>
                                                                         <!--<th>ลำดับ</th>-->
                                                                         <th>หมายเลขคำสั่งซื้อ</th>
-                                                                        <th class="text-center">รายการอาหาร</th>
+                                                                       <!-- <th class="text-center">รายการอาหาร</th>-->
                                                                         <th class="text-center">จำนวน(ชุด)</th>
                                                                         <th>ที่อยู่จัดส่ง</th>
                                                                         <th class="text-center">วัน/เวลาที่ลูกค้านัดรับ</th>

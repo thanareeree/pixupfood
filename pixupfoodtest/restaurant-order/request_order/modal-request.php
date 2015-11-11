@@ -127,7 +127,7 @@ if ($promoRes->num_rows > 0) {
                         <span style="font-size: 20px">วันที่ลูกค้านัดรับสินค้า: </span>
                         <span style="font-size: 20px; color: orange;"> <?= $orderData["delivery_date"] ?></span><br>
                         <span style="font-size: 20px">เวลาที่ลูกค้านัดรับสินค้า: </span>
-                        <span style="font-size: 20px; color: orange;"> <?= substr($orderData["delivery_time"], 0, 5) ?>&nbsp;น.  </span><br>
+                        <span style="font-size: 20px; color: orange;"> <?= $orderData["delivery_time"]?></span><br>
 
                     </div>
                 </div>

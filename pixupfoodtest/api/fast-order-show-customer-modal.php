@@ -69,18 +69,16 @@ $messData = $messengerNameRes->fetch_assoc();
                             <span style="font-size: 20px">ปฏิเสธรายการโดย: </span>
                             <span style="font-size: 20px; color: orange;"> 
                                 <?php
-                                $res = $con->query("SELECT name FROM restaurant WHERE id IN (SELECT restaurant_id FROM request_fast_order WHERE fast_id = '$order_id' and accepted = 9)");
+                                $res = $con->query("SELECT name FROM restaurant WHERE id IN(SELECT fast_order.restaurant_id FROM fast_order WHERE fast_order.id = '$order_id' AND fast_order.status = 7)");
                                 $count = 0;
                                 $name = "";
-                                while ($data = $res->fetch_assoc()) {
-
-                                    $name = $data["name"];
-                                    // $menustr .= $name;
-                                    $count++;
-                                    if ($count < $res->num_rows) {
-                                        $name.="," . " ";
+                                if($res->num_rows == 0) {
+                                    echo 'ทุกร้านที่ส่งคำขอรายการสั่งซื้อไป';
+                                } else {
+                                    while ($data = $res->fetch_assoc()) {
+                                        $name = $data["name"];
+                                        echo $name;
                                     }
-                                    echo $name;
                                 }
                                 ?>
 
@@ -179,10 +177,10 @@ $messData = $messengerNameRes->fetch_assoc();
                 <div class="card">
                     <div class="card-content">
 
-                        <span style="font-size: 20px">วันที่ลูกค้านัดรับสินค้า: </span>
+                        <span style="font-size: 20px">วันที่นัดรับสินค้า: </span>
                         <span style="font-size: 20px; color: orange;"> <?= $orderData["delivery_date"] ?></span><br>
-                        <span style="font-size: 20px">เวลาที่ลูกค้านัดรับสินค้า: </span>
-                        <span style="font-size: 20px; color: orange;"> <?= substr($orderData["delivery_time"], 0, 5) ?>&nbsp;น.  </span><br>
+                        <span style="font-size: 20px">เวลาที่นัดรับสินค้า: </span>
+                        <span style="font-size: 20px; color: orange;"> <?= $orderData["delivery_time"] ?> </span><br>
 
                     </div>
                 </div>
