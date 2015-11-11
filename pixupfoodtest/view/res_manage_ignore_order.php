@@ -169,12 +169,6 @@ include '../dbconn.php';
                                                                             . "ORDER BY updated_status_time DESC, id");
 
                                                                     $i = 1;
-                                                                    if ($orderNowAllRes->num_rows == 0) {
-                                                                        ?>
-                                                                    <input type="hidden" id="fastordercount" value="0">
-                                                                    <tr><td colspan="10" class="warning" style="text-align: center;"><h4>ยังไม่มีรายการ</h4></td></tr>
-                                                                    <?php
-                                                                } else {
                                                                     while ($orderIdAllData = $orderNowAllRes->fetch_assoc()) {
                                                                         $order_type = $orderIdAllData["orderType"];
                                                                         $orderIdAll = $orderIdAllData["id"];
@@ -252,7 +246,7 @@ include '../dbconn.php';
                                                                             }
                                                                         }
                                                                     }
-                                                                }
+                                                                
                                                                 ?>
                                                                 </tbody>
                                                             </table>   

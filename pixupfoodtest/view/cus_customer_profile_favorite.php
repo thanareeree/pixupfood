@@ -94,7 +94,13 @@ include '../dbconn.php';
                                                 $countRes = $con->query("SELECT * FROM `favorite_menu` WHERE customer_id = '$cusid'");
 
                                                 if ($countRes->num_rows == 0) {
-                                                    echo ' <li class="media">' . 'ยังไม่มีรายการ';
+                                                    ?>
+                                                <div class="col-md-12">
+                                                        <div class="alert alert-warning " role="alert">
+                                                            <h4 class="text-center">ยังไม่มีรายการ</h4>
+                                                        </div>
+                                                    </div>
+                                                    <?php
                                                 } else {
                                                     while ($favData = $countRes->fetch_assoc()) {
                                                         $menuid = $favData["menu_id"];
@@ -110,18 +116,19 @@ include '../dbconn.php';
                                                                 <ul class="media-list main-list">
 
                                                                     <li class="media">
-                                                                        <a class="pull-left" href="/view/cus_restaurant_view.php?menuId=<?= $menuData["id"]?>&resId=<?= $menuData["resid"] ?>">
-                                                                            <img class="media-object" src="<?= ($menuData["img_path"]=="")? $menuData["main_img"]:$menuData["img_path"]?>" style="max-width: 160px;max-height: 100px">
+                                                                        <a class="pull-left" href="/view/cus_restaurant_view.php?menuId=<?= $menuData["id"] ?>&resId=<?= $menuData["resid"] ?>">
+                                                                            <img class="media-object" src="<?= ($menuData["img_path"] == "") ? $menuData["main_img"] : $menuData["img_path"] ?>" style="max-width: 160px;max-height: 100px">
                                                                         </a>
                                                                         <div class="media-body">
                                                                             <h3 class="media-heading"><?= $menuData["menuname"] ?></h3>
                                                                             <p class="by-author"><?= $menuData["name"] ?></p>
-                                                                            <p><button type="button" class="btn btn-danger btn-xs unfav" data-id="<?=$favData["id"] ?>"><span class="glyphicon glyphicon-trash"></span> ลบออกจากรายการโปรด</button></p>
+                                                                            <p><button type="button" class="btn btn-danger btn-xs unfav" data-id="<?= $favData["id"] ?>"><span class="glyphicon glyphicon-trash"></span> ลบออกจากรายการโปรด</button></p>
                                                                         </div>
                                                                     </li><hr>
                                                                 </ul>
                                                             </div>
-                                                        <?php }
+                                                        <?php
+                                                        }
                                                     }
                                                 }
                                                 ?>

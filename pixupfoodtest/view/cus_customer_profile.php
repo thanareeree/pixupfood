@@ -121,13 +121,7 @@ include '../dbconn.php';
                                                                                 . "WHERE fast_order.customer_id = '$cusid' "
                                                                                 . "and fast_order.status != '9' "
                                                                                 . "GROUP by fast_order.id ORDER BY fast_order.status ASC, fast_order.order_time DESC");
-                                                                        if ($orderRes->num_rows == 0) {
-                                                                            ?>
-                                                                            <tr>
-                                                                            <tr><td colspan="10" class="warning" style="text-align: center;"><h4>ยังไม่มีรายการสั่งซื้อ</h4></td></tr>                  
-                                                                            </tr>
-                                                                            <?php
-                                                                        } else {
+                                                                       
                                                                             $i = 1;
                                                                             while ($orderData = $orderRes->fetch_assoc()) {
                                                                                 ?>
@@ -171,7 +165,7 @@ include '../dbconn.php';
                                                                                 </tr>
                                                                                 <?php
                                                                             }
-                                                                        }
+                                                                        
                                                                         ?>
 
 
@@ -219,13 +213,6 @@ include '../dbconn.php';
                                                                                 . "and normal_order.status != '9' "
                                                                                 . "GROUP BY normal_order.id ORDER BY normal_order.status ASC, normal_order.order_time DESC");
 
-                                                                        if ($orderRes->num_rows == 0) {
-                                                                            ?>
-                                                                            <tr>
-                                                                            <tr><td colspan="10" class="warning" style="text-align: center;"><h4>ยังไม่มีรายการสั่งซื้อ</h4></td></tr>                  
-                                                                            </tr>
-                                                                            <?php
-                                                                        } else {
                                                                             $i = 1;
                                                                             while ($orderData = $orderRes->fetch_assoc()) {
                                                                                 ?>
@@ -253,7 +240,7 @@ include '../dbconn.php';
                                                                                 </tr>
                                                                                 <?php
                                                                             }
-                                                                        }
+                                                                        
                                                                         ?>
 
 

@@ -115,7 +115,8 @@ foreach ($restok as $key => $rest) {
     $sumprice = ($totalfoodprice - $prepay) + $deliveryprice;
     ?>
     <div class="col-md-4">
-        <h2><?= $rest["name"] ?></h2>
+        <div class = "thumbnail">
+            <h2 class="text-center"><?= $rest["name"] ?></h2>
         <hr class="hrs">
         <table class="table table-hover" id="task-table">
             <thead>
@@ -173,6 +174,7 @@ foreach ($restok as $key => $rest) {
                 </tr>
             </tbody>
         </table>
+        </div>
     </div>
     <?php
 }

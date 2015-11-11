@@ -134,13 +134,6 @@ include '../dbconn.php';
                                                                                 . "GROUP by fast_order.id ORDER BY fast_order.status ASC, fast_order.order_time DESC");
 
 
-                                                                        if ($orderNowAllRes->num_rows == 0) {
-                                                                            ?>
-                                                                            <tr>
-                                                                            <tr><td colspan="10" class="warning" style="text-align: center;"><h4>ยังไม่มีรายการ</h4></td></tr>                  
-                                                                            </tr>
-                                                                            <?php
-                                                                        } else {
                                                                             $i = 1;
                                                                             while ($orderIdAllData = $orderNowAllRes->fetch_assoc()) {
                                                                                 $order_type = $orderIdAllData["orderType"];
@@ -227,7 +220,7 @@ include '../dbconn.php';
                                                                                     }
                                                                                 }
                                                                             }
-                                                                        }
+                                                                        
                                                                         ?>
                                                                     </tbody>
                                                                 </table>   
@@ -336,6 +329,7 @@ include '../dbconn.php';
         <script src="/assets/js/dataTables.js"></script>
         <script>
                                                      var table = $('#historyOrderDataTable').DataTable({});
+                                                     //table.column( 0 ).visible( false );
         </script>
     </body>
 </html>
