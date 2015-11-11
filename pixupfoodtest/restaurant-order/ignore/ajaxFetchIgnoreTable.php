@@ -7,10 +7,10 @@ $resid = $_SESSION["restdata"]["id"];
 
 $orderNowAllRes = $con->query("SELECT concat('N') as orderType , id, updated_status_time, status "
         . "FROM normal_order "
-        . "WHERE (status = 7 or status = 6)  AND restaurant_id = '$resid' "
+        . "WHERE (status = 7 or status = 6 or status = 8)  AND restaurant_id = '$resid' "
         . "UNION "
         . "select concat('F') as orderType, id, updated_status_time, status "
-        . "FROM fast_order WHERE (status = 7 or status = 6) AND restaurant_id = '$resid' "
+        . "FROM fast_order WHERE (status = 7 or status = 6 or status = 8) AND restaurant_id = '$resid' "
         . "ORDER BY updated_status_time DESC, id");
 
 $i = 1;

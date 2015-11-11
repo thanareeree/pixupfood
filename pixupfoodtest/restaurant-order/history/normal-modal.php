@@ -334,7 +334,7 @@ if ($promoRes->num_rows > 0) {
         </div>
         <div class="col-md-12">
             <div class="col-md-12">
-                <?php if ($orderDetailData["payment_id"] == 2 && $statusid == 5) { ?>
+                <?php if ($orderDetailData["payment_id"] == 2 && $statusid == 4) { ?>
                     <div class="card">
                         <div class="card-content">
                             <span style="font-size: 20px">ชำระเงินด้วยการโอนเงินผ่านธนาคาร: &nbsp;</span>

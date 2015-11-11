@@ -103,7 +103,7 @@ if ($promoRes->num_rows > 0) {
 
 
                 </div>
-                 <div class="card">
+                <div class="card">
                     <div class="card-content">
                         <span style="font-size: 20px">หมายเลขสมาชิกลูกค้า: </span>
                         <span style="font-size: 20px; color: orange;"> <?= $orderData["id"] ?> </span><br>
@@ -123,9 +123,9 @@ if ($promoRes->num_rows > 0) {
                         ?>
                         <div class="card-content">
                             <span style="font-size: 20px">จัดส่งสินค้าโดย: </span>
-                            <span style="font-size: 20px; color: orange;"><?= $messData["name"]?></span><br>
+                            <span style="font-size: 20px; color: orange;"><?= $messData["name"] ?></span><br>
                             <span style="font-size: 20px">โทรศัพท์: </span>
-                            <span style="font-size: 20px; color: orange;"><?= $messData["tel"]?></span><br>
+                            <span style="font-size: 20px; color: orange;"><?= $messData["tel"] ?></span><br>
 
                             <span style="font-size: 20px">ส่งสินค้าถึงวันที่: </span>
                             <span style="font-size: 20px; color: orange;"><?= substr($orderData["updated_status_time"], 0, 11) ?></span><br>
@@ -141,9 +141,9 @@ if ($promoRes->num_rows > 0) {
                         ?>
                         <div class="card-content">
                             <span style="font-size: 20px">จัดส่งสินค้าโดย: </span>
-                            <span style="font-size: 20px; color: orange;"><?= $messData["name"]?></span><br>
+                            <span style="font-size: 20px; color: orange;"><?= $messData["name"] ?></span><br>
                             <span style="font-size: 20px">โทรศัพท์: </span>
-                            <span style="font-size: 20px; color: orange;"><?= $messData["tel"]?></span><br>
+                            <span style="font-size: 20px; color: orange;"><?= $messData["tel"] ?></span><br>
 
                         </div>
                         <?php
@@ -157,7 +157,7 @@ if ($promoRes->num_rows > 0) {
                         <span style="font-size: 20px">วันที่ลูกค้านัดรับสินค้า: </span>
                         <span style="font-size: 20px; color: orange;"> <?= $orderData["delivery_date"] ?></span><br>
                         <span style="font-size: 20px">เวลาที่ลูกค้านัดรับสินค้า: </span>
-                        <span style="font-size: 20px; color: orange;"> <?= $orderData["delivery_time"]?> </span><br>
+                        <span style="font-size: 20px; color: orange;"> <?= $orderData["delivery_time"] ?> </span><br>
 
                     </div>
                 </div>
@@ -199,39 +199,38 @@ if ($promoRes->num_rows > 0) {
                                         </tr>
                                     </thead>
                                     <tbody class="table table-condensed table-hover">
-                                            <tr>    
-                                                <td>
-                                                    <?php
-                                                    $menuid = $orderData["main_menu_id"];
-                                                    $menuid = "(" . $menuid . ")";
-                                                    $name = "";
-                                                    $resName = $con->query("SELECT main_menu.name FROM  main_menu  WHERE main_menu.id IN $menuid");
-                                                    $count = 0;
-                                                
-                                                    while ($food = $resName->fetch_assoc()) {
-                                                       
-                                                        $name = $food["name"];
-                                                        // $menustr .= $name;
-                                                        $count++;
-                                                        if ($count < $resName->num_rows) {
-                                                            $name.="+";
-                                                        }
-                                                        echo $name;
+                                        <tr>    
+                                            <td>
+                                                <?php
+                                                $menuid = $orderData["main_menu_id"];
+                                                $menuid = "(" . $menuid . ")";
+                                                $name = "";
+                                                $resName = $con->query("SELECT main_menu.name FROM  main_menu  WHERE main_menu.id IN $menuid");
+                                                $count = 0;
+
+                                                while ($food = $resName->fetch_assoc()) {
+
+                                                    $name = $food["name"];
+                                                    // $menustr .= $name;
+                                                    $count++;
+                                                    if ($count < $resName->num_rows) {
+                                                        $name.="+";
                                                     }
-                                                    ?>
-                                                </td>
-                                                <td style="text-align: center"><?= $orderDetailData["price"] ?></td>
-                                                <td style="text-align: center"><?= $orderData["quantity"] ?></td>
-                                                <td style="text-align: right"><?= $orderDetailData["price"] * $orderData["quantity"] ?></td>
-                                            </tr>
+                                                    echo $name;
+                                                }
+                                                ?>
+                                            </td>
+                                            <td style="text-align: center"><?= $orderDetailData["price"] ?></td>
+                                            <td style="text-align: center"><?= $orderData["quantity"] ?></td>
+                                            <td style="text-align: right"><?= $orderDetailData["price"] * $orderData["quantity"] ?></td>
+                                        </tr>
                                         <tr>
                                             <td>
                                                 <span style="font-size: 20px">เพิ่มเติม: </span>
                                                 <span style="font-size: 15px; color: red;">
                                                     <?php
-                                                        $moretext = $orderData["moretext"];
-                                                        echo "<p>" . $moretext . "</p><br>";
-                                                    
+                                                    $moretext = $orderData["moretext"];
+                                                    echo "<p>" . $moretext . "</p><br>";
                                                     ?>
                                                 </span>
                                             </td>
@@ -264,7 +263,7 @@ if ($promoRes->num_rows > 0) {
                                             <td style="text-align: center"></td>
                                             <td style="text-align: right"><?= $orderDetailData["prepay"] ?></td>
                                         </tr>
-                                       <tr>    
+                                        <tr>    
                                             <td>ค่าจัดส่ง</td>
                                             <td style="text-align: center"></td>
                                             <td style="text-align: center"></td>
@@ -282,7 +281,7 @@ if ($promoRes->num_rows > 0) {
                                             <td>ราคาในส่วนที่เหลือ (รวมค่าจัดส่ง)</td>
                                             <td style="text-align: center"></td>
                                             <td style="text-align: center"></td>
-                                            <td style="text-align: right"><?= ($orderDetailData["total"]  - $orderDetailData["prepay"]) + $delivery ?></td>
+                                            <td style="text-align: right"><?= ($orderDetailData["total"] - $orderDetailData["prepay"]) + $delivery ?></td>
                                         </tr>
                                     </tbody>
                                 </table>   
@@ -329,12 +328,12 @@ if ($promoRes->num_rows > 0) {
                 </div>
             </div>
         </div>
-        <div class="col-md-12">
+        <?php if ($orderData["payment_id"] == 2 && $statusid == 4) { ?>
             <div class="col-md-12">
-                <?php if ($orderData["payment_id"] == 2 && $statusid == 5) { ?>
+                <div class="col-md-12">
                     <div class="card">
                         <div class="card-content">
-                            <span style="font-size: 20px">ชำระเงินด้วยการโอนเงินผ่านธนาคาร: &nbsp;</span>
+                            <span style="font-size: 20px">ชำระเงินค่าสินค้าในส่วนที่เหลือด้วยการโอนเงินผ่านธนาคาร: &nbsp;</span>
                             <hr style="margin-top: 5px;margin-bottom: 10px;">
                             <span style="font-size: 18px"> โอนเงินผ่านธนาคาร: <span style="font-size: 18px; color: orange;"><?= ($slip2Data["detail"]) != null ? $slip1Data["detail"] : "ยังไม่มีการแจ้งข้อมูล" ?> </span> </span>
                             <br><br>
@@ -355,9 +354,9 @@ if ($promoRes->num_rows > 0) {
                             </span>
                         </div>
                     </div>
-                <?php } ?>
-            </div>
-        </div>
+                </div>
+            </div> 
+        <?php } ?>
     </div>
 </div>
 
