@@ -73,7 +73,7 @@ while ($near = $findDistanct->fetch_assoc()) {
                 }
             }
             $menustr.=")";
-            $res = $con->query("SELECT * FROM menu WHERE restaurant_id = '$rest_id' AND main_menu_id IN $menustr");
+            $res = $con->query("SELECT * FROM menu WHERE restaurant_id = '$rest_id'and menu.status = 0 AND main_menu_id IN $menustr");
             if ($res->num_rows == sizeof($foodarr)) {
                 $foods = array();
                 while ($food = $res->fetch_assoc()) {
