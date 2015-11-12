@@ -9,7 +9,13 @@ include '../dbconn.php';
         <?php include '../template/customer-title.php'; ?>
         <!-- custom css -->
         <link rel="stylesheet" href="/assets/css/profile.css">
-
+        <link rel="stylesheet" href="/assets/css/regis_map.css">  
+        <style>
+            #map {
+                width: 500px;
+                height: 300px;
+            }
+        </style>
     </head>
     <body>
         <?php
@@ -198,6 +204,9 @@ include '../dbconn.php';
                 </div>
             </div>
         </section> 
+         <div class="col-sm-12" style="padding: 0 0 20px 0;">
+             <div id="map" style="display: none"></div>
+    </div>
 
 
         <?php include '../template/footer.php'; ?>
