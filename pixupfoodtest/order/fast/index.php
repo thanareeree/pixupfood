@@ -21,8 +21,10 @@ include '../../dbconn.php';
         <section id="fast_head">
             <div class="overlay">
                 <div class="container text-center">
-                    <h1>Fast Order</h1>
-                    <h4>สั่งอาหารด่วน</h4>
+                   <!-- <h1><b style="color: #FF5F00">Pixup<span style="color: black">Fast</span></b> </h1>-->
+                    <h1 ><b style="color: #FF5F00">Pixup</b>Fast</h1>
+                    <h4>ก้าวให้เร็วขึ้นกับ PixupFast</h4>
+
                 </div>
             </div>
         </section>
@@ -50,7 +52,7 @@ include '../../dbconn.php';
                             <li role="presentation" class="disabled">
                                 <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="Step 3">
                                     <span class="round-tab">
-                                        <i class="glyphicon glyphicon-folder-open"></i>
+                                        <i class="glyphicon glyphicon-th-list"></i>
                                     </span>
                                 </a>
                             </li>

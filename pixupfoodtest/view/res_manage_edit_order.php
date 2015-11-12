@@ -320,7 +320,7 @@ include '../dbconn.php';
                                                             </div>
                                                             <form id="dataform_edit_deliveryfee" method="post" action="/restaurant/edit-deliveryfee.php?resId=<?= $resid ?>">
                                                                 <div class="input-group col-md-6" style="margin: 10px 120px;" id="edit-deliveryfee">
-                                                                    <input type="text" class="form-control" id="deliveryfee" name="deliveryfee" placeholder="จำนวนกล่อง">
+                                                                    <input type="text" class="form-control" id="deliveryfee" name="deliveryfee" placeholder="ค่าจัดส่ง">
                                                                     <span class="input-group-btn">
                                                                         <button class="btn btn-success" id="savebtn" type="submit">บันทึก</button>
                                                                     </span>

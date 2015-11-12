@@ -139,8 +139,26 @@ and open the template in the editor.
     background: #107DB6;
 }
 /* end search_page_body */
+        
+#search_page_body .card{
+    font-family: 'supermarketregular';
+    margin-top: 10px;
+    position: relative;
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 4 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
 
-
+#search_page_body .card .card-content {
+    padding: 10px;
+}
+#search_page_body .card .card-content .page-header {
+    font-size: 30px;
+    margin-top: 10px;
+}
+#search_page_body .thumbnail{
+   // border-bottom-color: #FF5F00;
+}
 #searchcri{
     margin-top:25px;
 }
@@ -156,3 +174,34 @@ and open the template in the editor.
     font-size:20px;
     line-height: 35px;
 }
+
+ .searchTitle__content {
+                width: 100%;
+                background-color: #fff;
+                border-bottom: solid 1px #f2f2f2;
+                display: table;
+                table-layout: fixed;
+                padding-top: 29px;
+            }
+            .fav-icon {
+                color: #FF0045 !important;
+            }
+            .unfav{
+                color: gray;
+            }
+            .faved{
+                color: red;
+            }
+            .page_up {
+                position: fixed;
+                right: 30px;
+                bottom: 50px;
+                z-index: 500;
+            }
+            .hrs {
+                border-top-width: 2px;
+                border-color: #FF5F00;
+                margin-top: 0px;
+                margin-bottom: 20px;
+            }
+    

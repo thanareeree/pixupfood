@@ -15,7 +15,7 @@ include '../api/islogin.php';
         <link href='/assets/css/fullcalendar.print.css' rel='stylesheet' media='print' />
         <link rel="stylesheet" href="/assets/css/customer-comment.css">
         <style>
-           #restaurant_view form .stars {
+            #restaurant_view form .stars {
                 margin: 0 400 -10;
             }
         </style>
@@ -60,7 +60,7 @@ include '../api/islogin.php';
                 <div class="container text-center">
                     <h1><i class="glyphicon glyphicon-cutlery"></i>&nbsp;<?= ($resNameData["name"] == "" ? $resNameData["name"] : $resNameData["name"]) ?></h1>
                     <div class="row lead">
-                        <?php include '../customer-view-restaurant/star-head.php';?>
+                        <?php include '../customer-view-restaurant/star-head.php'; ?>
                     </div>
                 </div>
             </div>
@@ -94,7 +94,41 @@ include '../api/islogin.php';
                                                     . "LEFT JOIN customer on customer.id = comment.customer_id "
                                                     . "WHERE comment.restaurant_id = '$resid'");
                                             if ($res->num_rows == 0) {
-                                                echo '<h3 class="text-center">ยังไม่มีรีวิว</h3>';
+                                                ?>
+                                                <article class="row">
+                                                    <div class="col-md-2 col-sm-2 hidden-xs">
+                                                        <figure class="thumbnail">
+                                                            <img class="img-responsive" src="/assets/images/default-avatar.jpg"  />
+                                                            <figcaption class="text-center"></figcaption>
+                                                        </figure>
+                                                    </div>
+                                                    <div class="col-md-10 col-sm-10">
+                                                        <div class="panel panel-default arrow left">
+                                                            <div class="panel-body">
+                                                                <header class="text-left ">
+                                                                    <time class="comment-date" ><i class="fa fa-clock-o" style="color: gray"></i></time>
+                                                                </header>
+                                                                <div class="comment-post">
+                                                                    <form id="ratingsForm">
+                                                                        <div class="stars">
+                                                                            <input type="radio" name="star[]" class="star-1" id="star-1" disabled=""/>
+                                                                            <label class="star-1" for="star-1">1</label>
+                                                                            <input type="radio" name="star[]" class="star-2" id="star-2" disabled="" />
+                                                                            <label class="star-2" for="star-2">2</label>
+                                                                            <input type="radio" name="star[]" class="star-3" id="star-3" disabled="" />
+                                                                            <label class="star-3" for="star-3">3</label>
+                                                                            <input type="radio" name="star[]" class="star-4" id="star-4" disabled="" />
+                                                                            <label class="star-4" for="star-4">4</label>
+                                                                            <input type="radio" name="star[]" class="star-5" id="star-5" disabled="" />
+                                                                            <label class="star-5" for="star-5">5</label>
+                                                                            <span></span>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                </article>
+                                                <?php
                                             } else {
                                                 while ($data = $res->fetch_assoc()) {
                                                     ?>

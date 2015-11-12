@@ -116,14 +116,14 @@ foreach ($restok as $key => $rest) {
     ?>
     <div class="col-md-4">
         <div class = "thumbnail">
-            <h2 class="text-center"><?= $rest["name"] ?></h2>
-        <hr class="hrs">
+          <h2 class="text-center" >  <i class="fa fa-cutlery" style="color: #FF5F00"></i>&nbsp;<?= $rest["name"] ?></h2>
+          <hr class="hrs">
         <table class="table table-hover" id="task-table">
             <thead>
                 <tr>
                     <th>ส่งรีเควสออเดอร์</th>
                     <th></th>
-                    <th><input type="checkbox"  name="rest[]" class="restselect" value="<?= $rest["id"] ?>" checked data-toggle="toggle" data-on="ส่ง" data-off="ไม่ส่ง" data-onstyle="success" data-offstyle="danger"></th>
+                    <th class="text-right"><input type="checkbox"  name="rest[]" class="restselect" value="<?= $rest["id"] ?>" checked data-toggle="toggle" data-on="ส่ง" data-off="ไม่ส่ง" data-onstyle="success" data-offstyle="danger"></th>
                   <!--<th>ลำดับการส่งรีเควส</th>
                   <th>
                       <label><input type="checkbox" name="rest[]" class="restselect priority1 " rest-id="<?= $rest["id"] ?>" value="1<?= $rest["id"] ?>">&nbsp;1 &nbsp;</label>
@@ -136,12 +136,17 @@ foreach ($restok as $key => $rest) {
             <tbody>
                 <tr>
                     <td>เมนูที่เลือก: </td>
-                    <td><?= $menustr ?></td>
-                    <td><?= $amtbox ?> กล่อง</td>
+                    <td colspan="2"><?= $menustr ?></td>
+                    
+                </tr>
+                <tr>
+                    <td>จำนวน:</td>
+                    <td class="text-center"><?= $amtbox ?></td>
+                    <td class="text-right">ชุด</td>
                 </tr>
                 <tr>
                     <td>ราคา/หน่วย: </td>
-                    <td>
+                    <td class="text-center">
                         <?php
                         $price = 0;
                         foreach ($rest["food"] as $key => $food) {
@@ -150,27 +155,27 @@ foreach ($restok as $key => $rest) {
                         echo $price;
                         ?>
                     </td>
-                    <td>บาท</td>
+                    <td class="text-right">บาท</td>
                 </tr>
                 <tr>
                     <td>ราคา: </td>
-                    <td><?= $totalfoodprice ?></td>
-                    <td>บาท</td>
+                    <td class="text-center"><?= $totalfoodprice ?></td>
+                    <td class="text-right">บาท</td>
                 </tr>
                 <tr>
                     <td>ค่ามัดจำ 20%: </td>
-                    <td><?= $prepay ?></td>
-                    <td>บาท</td>
+                    <td class="text-center"><?= $prepay ?></td>
+                    <td class="text-right">บาท</td>
                 </tr>
                 <tr>
                     <td>ค่าจัดส่ง: </td>
-                    <td><?= $deliveryprice ?></td>
-                    <td>บาท</td>
+                    <td class="text-center"><?= $deliveryprice ?></td>
+                    <td class="text-right">บาท</td>
                 </tr>
                 <tr class="danger">
-                    <td>ราคาในส่วนที่เหลือ: </td>
-                    <td><?= $sumprice ?></td>
-                    <td>บาท</td>
+                    <td ><div style="width: 100px">ราคาส่วนที่เหลือ: </div></td>
+                    <td class="text-center"><?= $sumprice ?></td>
+                    <td class="text-right">บาท</td>
                 </tr>
             </tbody>
         </table>

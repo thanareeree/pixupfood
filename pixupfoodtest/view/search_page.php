@@ -7,31 +7,7 @@ include '../dbconn.php';
         <title>PixupFood - The Original Food Delivery</title>
         <?php include '../template/customer-title.php'; ?>
         <link rel="stylesheet" href="/assets/css/search_page.css">
-        <style>
-            .searchTitle__content {
-                width: 100%;
-                background-color: #fff;
-                border-bottom: solid 1px #f2f2f2;
-                display: table;
-                table-layout: fixed;
-                padding-top: 29px;
-            }
-            .fav-icon {
-                color: #FF0045 !important;
-            }
-            .unfav{
-                color: gray;
-            }
-            .faved{
-                color: red;
-            }
-            .page_up {
-                position: fixed;
-                right: 30px;
-                bottom: 50px;
-                z-index: 500;
-            }
-        </style>
+        <link rel="stylesheet" href="/assets/css/check-radio.css">
     </head>
     <body>
         <?php $cusid = @$_SESSION["userdata"]["id"] ?>
@@ -110,14 +86,31 @@ include '../dbconn.php';
                         </div>-->
                     </div>
                     <div class="col-md-3">
-                        <div class="col-md-10" style="padding-left:0px;">
-                            <h3>Fast Order Options</h3>
-                            <form>
-                                <div class="form-group">
-                                    <input  type="checkbox" name="searchOption" value="orderFromMenu">&nbsp;&nbsp;<span style="font-size: 18px">สั่งอาหารจากรายการอาหาร</span><br>
-
+                        <div class = "card" style="margin-top: 30px">
+                            <div class="card-content">
+                                <div class="page-header" style="color: #FF9900">
+                                    <i class="fa fa-filter"></i>&nbsp;ตัวเลือกเพิ่มเติม
                                 </div>
-                            </form>
+                                <label class="Form-label--tick">
+                                    <input type="checkbox" name="searchOption" value="orderFromMenu" class=" Form-label-checkbox">
+                                    <span class="Form-label-text" style="font-size: 22px">&nbsp;<b style="color: #FF5F00">Pixup<span style="color: black">Fast</span></b> </span>
+                                </label>
+                            </div>
+                        </div>
+                        <div >
+                            <div class = "card" style="margin-top: 30px">
+                                <div class="card-content">
+                                    <h4><i class="fa fa-question-circle" ></i>&nbsp;ฟังก์ชัน <b style="color: #FF5F00">Pixup<span style="color: black">Fast</span></b>  คืออะไร?</h4>
+                                    <hr>
+                                    <span style="font-size: 16px">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;<b style="color: #FF5F00">Pixup<span style="color: black">Fast</span></b> คือ ตัวช่วยของคุณที่จะทำให้การสั่งอาหารง่ายขึ้น 
+                                        มีอาหารต่างๆ ให้เลือกมากมาย คุณไม่จำเป็นต้องรู้จักร้านค้า เพราะระบบจะเลือกให้คุณ!  &nbsp;&nbsp;พร้อมแสดงข้อมูลและราคา ให้คุณตัดสินใจได้ง่ายขึ้น <br>
+                                          &nbsp;&nbsp;&nbsp;&nbsp;ยิ่งไปกว่านั้น คุณสามารถส่งคำสั่งซื้อได้  พร้อมกันมากถึง 3 ร้านค้า ภายในเวลา 15 นาที
+                                          ร้านค้าใดที่ตอบรับรายการเร็วที่สุดจะเป็นผู้ประกอบอาหารสุดพิเศษให้คุณ
+                                         <i class="fa fa-smile-o"></i>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-9" style="padding-left:0px; ">
@@ -239,11 +232,12 @@ include '../dbconn.php';
         <div id="map" style="display: none"></div>
         <div class="page_up" style="text-align: center;">
             <a href="#search_page_body" style="color: #FF9F00;" id="backtop">
-                <i class="glyphicon glyphicon-arrow-up"></i>
-                <h4 >Back to top</h4>
+                <img src="/assets/images/top.png">
+               <!-- <i class="glyphicon glyphicon-arrow-up"></i>
+                <h4 >Back to top</h4>-->
             </a>
         </div>
-       
+
         <!-- end register -->
         <?php include '../template/footer.php'; ?>
         <script src="/assets/js/search-page.js"></script>

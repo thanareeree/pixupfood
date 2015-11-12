@@ -33,18 +33,6 @@ include '../api/islogin.php';
     </head>
     <body>
         <?php
-        $orderMenu_id = @$_GET["menuId"];
-        $menusetRes = $con->query("SELECT menu.id,  main_menu.name as menusetname, menu.price,main_menu.type,"
-                . " restaurant.id as resid, restaurant.name as resname, restaurant.img_path "
-                . "FROM menu "
-                . "JOIN restaurant ON menu.restaurant_id = restaurant.id "
-                . "JOIN main_menu ON main_menu.id = menu.main_menu_id "
-                . "JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
-                . "JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
-                . "WHERE menu.id = '$orderMenu_id'");
-        $menusetData = $menusetRes->fetch_assoc();
-        // print_r($menusetData);
-
         $cusid = $_SESSION["userdata"]["id"];
         $customerRes = $con->query("select customer.id, customer.firstName, customer.lastName,"
                 . " customer.email, customer.tel, customer.address   "
@@ -58,7 +46,7 @@ include '../api/islogin.php';
                 . " `opentime`, `amount_box_minimum`, `amount_box_limit`, `has_restaurant`, `restaurant_type`"
                 . ", deliveryfee, close"
                 . " from restaurant "
-                . "join mapping_delivery_type on mapping_delivery_type.restaurant_id = restaurant.id  "
+                . "left join mapping_delivery_type on mapping_delivery_type.restaurant_id = restaurant.id  "
                 . " where id = '$resid'");
         $resNameData = $resNameRes->fetch_assoc();
         ?>
@@ -101,13 +89,17 @@ include '../api/islogin.php';
                                     . "WHERE delivery_place.restaurant_id = '$resid'");
                             $place = "";
                             $i = 0;
-                            while ($placeData = $placeRes->fetch_assoc()) {
-                                $place = $placeData["district_name"];
-                                $i++;
-                                if ($i < $placeRes->num_rows) {
-                                    $place .= "," . " ";
+                            if ($placeRes->num_rows == 0) {
+                                echo 'ทุกพื้นที่';
+                            } else {
+                                while ($placeData = $placeRes->fetch_assoc()) {
+                                    $place = $placeData["district_name"];
+                                    $i++;
+                                    if ($i < $placeRes->num_rows) {
+                                        $place .= "," . " ";
+                                    }
+                                    echo $place;
                                 }
-                                echo $place;
                             }
                             ?>
                         </p>
@@ -139,7 +131,7 @@ include '../api/islogin.php';
                                             <li role="presentation" class="active">
                                                 <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="Step 1">
                                                     <span class="round-tab">
-                                                        <i class="glyphicon glyphicon-folder-open"></i>
+                                                        <i class="glyphicon glyphicon-th-list"></i>
                                                     </span>
                                                 </a>
                                             </li>
@@ -147,14 +139,14 @@ include '../api/islogin.php';
                                             <li role="presentation" class="disabled">
                                                 <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="Step 2">
                                                     <span class="round-tab">
-                                                        <i class="glyphicon glyphicon-pencil"></i>
+                                                        <i class="glyphicon glyphicon-ok"></i>
                                                     </span>
                                                 </a>
                                             </li>
                                             <li role="presentation" class="disabled">
                                                 <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="Step 3">
                                                     <span class="round-tab">
-                                                        <i class="glyphicon glyphicon-list-alt"></i>
+                                                        <i class="glyphicon glyphicon-ok"></i>
                                                     </span>
                                                 </a>
                                             </li>
@@ -175,7 +167,7 @@ include '../api/islogin.php';
                                             <li role="presentation" class="disabled">
                                                 <a href="#step6" data-toggle="tab" aria-controls="step6" role="tab" title="Step 6">
                                                     <span class="round-tab">
-                                                        <i class="glyphicon glyphicon-picture"></i>
+                                                        <i class="glyphicon glyphicon-credit-card"></i>
                                                     </span>
                                                 </a>
                                             </li>

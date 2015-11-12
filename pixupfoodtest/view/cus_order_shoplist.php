@@ -144,11 +144,11 @@ include '../api/islogin.php';
                                 <div class="wizard">
                                     <div class="wizard-inner">
                                         <div class="connecting-line"></div>
-                                        <ul class="nav nav-tabs" role="tablist">
+                                          <ul class="nav nav-tabs" role="tablist">
                                             <li role="presentation" class="disabled">
                                                 <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="Step 1">
                                                     <span class="round-tab">
-                                                        <i class="glyphicon glyphicon-folder-open"></i>
+                                                        <i class="glyphicon glyphicon-th-list"></i>
                                                     </span>
                                                 </a>
                                             </li>
@@ -156,14 +156,14 @@ include '../api/islogin.php';
                                             <li role="presentation" class="disabled">
                                                 <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="Step 2">
                                                     <span class="round-tab">
-                                                        <i class="glyphicon glyphicon-pencil"></i>
+                                                        <i class="glyphicon glyphicon-ok"></i>
                                                     </span>
                                                 </a>
                                             </li>
                                             <li role="presentation" class="disabled">
                                                 <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="Step 3">
                                                     <span class="round-tab">
-                                                        <i class="glyphicon glyphicon-list-alt"></i>
+                                                        <i class="glyphicon glyphicon-ok"></i>
                                                     </span>
                                                 </a>
                                             </li>
@@ -184,7 +184,7 @@ include '../api/islogin.php';
                                             <li role="presentation" class="disabled">
                                                 <a href="#step6" data-toggle="tab" aria-controls="step6" role="tab" title="Step 6">
                                                     <span class="round-tab">
-                                                        <i class="glyphicon glyphicon-picture"></i>
+                                                        <i class="glyphicon glyphicon-credit-card"></i>
                                                     </span>
                                                 </a>
                                             </li>
