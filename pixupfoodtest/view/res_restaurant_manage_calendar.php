@@ -113,6 +113,12 @@ include '../dbconn.php';
                                     </ul>
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="tab_default_1_2">
+                                            <div class="alert alert-warning" role="alert" style="margin-right: 110px;margin-left: 110px;">
+                                                <span style="font-size: 20px; font-weight: bold">
+                                                    <i class="glyphicon glyphicon-hand-up"></i>
+                                                    สามารถคลิกดูรายละเอียดข้อมูลการจัดส่งของหมายเลขคำสั่งซื้อนั้นๆ ได้ด้วย
+                                                </span>
+                                            </div>
                                             <div id="calendar">
 
                                             </div>

@@ -334,7 +334,7 @@ include '../api/islogin.php';
                                                             . "LEFT JOIN payment_type ON mapping_payment_type.payment_type_id = payment_type.id "
                                                             . "where mapping_payment_type.restaurant_id = '$resid' ");
                                                     $paymentRes = $con->query("SELECT payment_type.id, payment_type.description FROM payment_type ");
-                                                    while ($paymentData = $paymentRes->fetch_assoc()) {
+                                                    while ($paymentData = $resPaymentRes->fetch_assoc()) {
                                                         ?>
                                                         <div class="input-group col-md-12" style="margin: 10px 120px;"  >
                                                             <label class="Form-label--tick">
