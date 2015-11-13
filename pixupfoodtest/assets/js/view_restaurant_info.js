@@ -11,7 +11,14 @@ $(document).ready(function (e) {
         events: JSON.parse(json_events),
         lang: 'th',
         eventColor: 'orange',
-        eventLimit: true
+        eventLimit: true,
+         eventAfterRender: function (event, element, view) {
+            if (event.status ==0) {
+                //event.color = "#FFB347"; //Em andamento
+                element.css('background-color', 'red'); 
+                element.css('border-color', 'red');
+            }
+        }
     });
 
 });

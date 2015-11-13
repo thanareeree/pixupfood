@@ -2,6 +2,12 @@
 include '../../dbconn.php';
 $cusid = $_POST["cusid"];
 $resid = $_POST["resid"];
+
+$orderRes = $con->query("SELECT SUM(order_detail.quantity) as allqty "
+        . "FROM `order_detail` WHERE customer_id = '$cusid' and restaurant_id ='$resid' and status = '0'");
+$orderData = $orderRes->fetch_assoc();
+$orderAllQty = $orderData["allqty"];
+
 $orderDetailRes = $con->query("SELECT `id`, `quantity`, `price`, `set_type`, "
         . "`menu_id`, `created_time`, `status`,  `customer_id`,"
         . " `restaurant_id`"
@@ -17,6 +23,8 @@ $promoRes = $con->query("select * from promotion "
         . "LEFT JOIN promotion_main ON promotion_main.id = promotion.promotion_main_id "
         . "where restaurant_id = '$resid' "
         . "and end_time >= date(now()) and start_time <= date(now()) and promotion_main.id = 1");
+
+
 if ($promoRes->num_rows > 0) {
     $delivery = 0;
 } else {
@@ -119,6 +127,11 @@ if ($orderDetailRes->num_rows == 0) {
         </thead>
         <tbody id="priceOfOrder">
             <tr>
+                <td>จำนวน: </td>
+                <td style="color: #FF9900" ><?= $orderAllQty ?> </td>
+                <td>ชุด</td>
+            </tr>
+            <tr>
                 <td>ราคา: </td>
                 <td style="color: #FF9900" ><?= $totalprice ?>
                     <input type="hidden" id="totalprice" value="<?= $totalprice ?>">
@@ -139,7 +152,7 @@ if ($orderDetailRes->num_rows == 0) {
                     if ($promoRes->num_rows > 0) {
                         echo 'ฟรี';
                     } else {
-                        echo  $delivery;
+                        echo $delivery;
                     }
                     ?>
                     <input type="hidden" id="deliveryfee" value="<?= $delivery ?>">

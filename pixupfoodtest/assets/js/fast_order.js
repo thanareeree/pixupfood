@@ -452,9 +452,9 @@ function checkFood() {
                 var output = '<div class="col-md-2"><div class="thumbnail"><a href="#">';
                 output += '<img class="menu_img" src="' + food.img + '" style="max-height: 101px;min-height: 101px"></a>';
                 output += '<div class="caption"><h4>' + food.name + '</h4>';
-                output += '<p style="text-align: right"><label class="Form-label--tick">'+
-                        '<input type="checkbox" name="foodlist[]" class="foodlist Form-label-checkbox" value="' + food.id + '">'+
-                        '<span class="Form-label-text"></span></label>'+
+                output += '<p style="text-align: right"><label class="Form-label--tick">' +
+                        '<input type="checkbox" name="foodlist[]" class="foodlist Form-label-checkbox" value="' + food.id + '">' +
+                        '<span class="Form-label-text"></span></label>' +
                         '</p>';
                 output += '</div></div></div>';
                 $("#showfood").append(output);
@@ -502,6 +502,7 @@ function checkRest() {
         data['food[]'].push($(this).val());
     });
     data['boxtype'] = $("input[name=foodboxtype]:checked").val();
+    data['date'] = $('#calendar').datepick('getDate')[0];
     if (data['boxtype'] != 4) {
         data['ricetype'] = $("input[name=ricetype]:checked").val();
     }
@@ -549,9 +550,9 @@ function saveOrder() {
         dataType: "html",
         data: data,
         success: function (data) {
-         // alert(data); 
-           $("#paymentmodal").modal("hide");
-           $("#saveOrderSuccessModal").modal('show');
+            // alert(data); 
+            $("#paymentmodal").modal("hide");
+            $("#saveOrderSuccessModal").modal('show');
 
 
         }
@@ -565,18 +566,18 @@ function priority() {
         if ($(".priority1:checked").length == 1) {
             $(".priority1").attr("disabled", "disabled");
             $(".priority2").removeAttr("disabled");
-           
+
         }
         if ($(".priority2:checked").length == 1) {
             $(".priority2").attr("disabled", "disabled");
             $(".priority3").removeAttr("disabled");
         }
         var restid = $(this).attr("rest-id");
-       $.each($(".restselect[rest-id="+restid+"]"), function (i,sel){
-          if(!$(sel).is(':checked')){
-              $(sel).parent("label").hide();
-          } 
-       });
+        $.each($(".restselect[rest-id=" + restid + "]"), function (i, sel) {
+            if (!$(sel).is(':checked')) {
+                $(sel).parent("label").hide();
+            }
+        });
     });
 }
 

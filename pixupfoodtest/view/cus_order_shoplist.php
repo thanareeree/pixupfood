@@ -379,8 +379,7 @@ include '../api/islogin.php';
 
                                             <ul class="list-inline pull-right" style="margin-top: 20px">
                                                 <li><button type="button" class="btn btn-default prev-step" id="prevstep4" > <span class="glyphicon glyphicon glyphicon-chevron-left"></span>ย้อนกลับ</button></li>
-
-                                                <li><button type="button" class="btn btn-warning " id="cancel_orderbtn"  >ยกเลิก</button></li>
+                                                <li><a href="/view/cus_restaurant_view.php?resId=<?= $resid?>"><button type="button" class="btn btn-warning " id="cancel_orderbtn"  >ยกเลิก</button></a></li>
                                                 <li><button type="button" class="btn btn-danger " id="confirm_orderbtn" >ยืนยันการสั่ง</button></li>
                                             </ul>
                                         </div>

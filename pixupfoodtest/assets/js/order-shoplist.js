@@ -6,13 +6,13 @@ var nearbymarker = [];
 
 $(document).ready(function (e) {
     initMap();
-   
+
     initCalendar();
-  
+
     showOrderDatail();
     fetchCalendar();
-    
-       $('[data-toggle="tooltip"]').tooltip();
+
+    $('[data-toggle="tooltip"]').tooltip();
     $('.calendar').fullCalendar({
         header: {
             left: 'prev',
@@ -22,7 +22,14 @@ $(document).ready(function (e) {
         events: JSON.parse(json_events),
         lang: 'th',
         eventColor: 'orange',
-        eventLimit: true
+        eventLimit: true,
+        eventAfterRender: function (event, element, view) {
+            if (event.status == 0) {
+                //event.color = "#FFB347"; //Em andamento
+                element.css('background-color', 'red');
+                element.css('border-color', 'red');
+            }
+        }
     });
 
 
@@ -31,7 +38,7 @@ $(document).ready(function (e) {
         $('#showcalendar').hide();
     });
 
-   
+
 
     $("#addNewOrder").click(function (e) {
         document.location.reload();
@@ -92,7 +99,7 @@ function prevTab(elem) {
 }
 
 function validateTab(tab) {
-  if (tab == "step4") {
+    if (tab == "step4") {
         var addressid = $("#oldaddress").val();
         if (addressid == null) {
             $("#errorStep4").html(' <div class="alert alert-danger" role="alert" style="margin-top: 30px;">' +
@@ -178,7 +185,7 @@ function initMap() {
                     $("#addressinput").html("");
                     $("#addressinput").val("");
                     $("#addressinput").val(responses[0].formatted_address);
-                     $("#showaddress").html("");
+                    $("#showaddress").html("");
                     //$("#showaddress").html(responses[0].formatted_address);
                     $("#savenewaddressbtn").removeAttr("disabled");
                 }, 500);
@@ -328,7 +335,7 @@ function initMap() {
                     if (selectLastItem) {
                         $("#oldaddress").val(lastobj.id);
                     }
-                     $("#addressinput").attr("disabled", "disabled");
+                    $("#addressinput").attr("disabled", "disabled");
                 } else {
                     alert("Error at get Address");
                 }
@@ -355,8 +362,8 @@ function initMap() {
                     var loc = {lat: parseFloat(data.data.latitude), lng: parseFloat(data.data.longitude)};
                     $("#addresstype").val(data.data.type);
                     $("#addresstxt").val(data.data.address_naming);
-                     $("#addressinput").attr("disabled", "disabled");
-                     //$("#addressinput").removeAttr("disabled");
+                    $("#addressinput").attr("disabled", "disabled");
+                    //$("#addressinput").removeAttr("disabled");
                     $("#addressinput").html("");
                     $("#addressinput").val("");
                     $("#addressinput").val(data.data.full_address);
@@ -389,7 +396,7 @@ function initMap() {
                     var loc = {lat: parseFloat(data.data.latitude), lng: parseFloat(data.data.longitude)};
                     $("#addresstype").val(data.data.type);
                     $("#addresstxt").val(data.data.address_naming);
-                     $("#addressinput").attr("disabled", "disabled");
+                    $("#addressinput").attr("disabled", "disabled");
                     // $("#addressinput").removeAttr("disabled");
                     $("#addressinput").html("");
                     $("#addressinput").val("");
@@ -493,7 +500,11 @@ function changeQuantity() {
             $("#errorChangeQty").html(' <div class="alert alert-danger" role="alert">' +
                     '<p style="color: red"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
                     '&nbsp;จำนวนชุดน้อยกว่าจำนวนขั้นต่ำที่ร้านกำหนดไว้</p></div>');
+               $("#confirm_orderbtn").attr("disabled", "disabled");
             return false;
+        }else{
+             $('#errorChangeQty').html("");
+              $("#confirm_orderbtn").removeAttr("disabled");
         }
 
         $.ajax({
@@ -536,8 +547,30 @@ function initCalendar() {
 }
 
 function checkCalendarOrder() {
-    //  var date = $('#calendar').datepick('getDate');
-
+    var date = $('#calendar').datepick('getDate')[0];
+    console.log(date);
+    $.ajax({
+        url: "/order/normal/checkCalendarOrder.php",
+        type: "POST",
+        dataType: "json",
+        data: {"resid": $(".getResId").val(), "date": date},
+        success: function (data) {
+         if (data.result == "3") {
+                $("#errorStep5").html("");
+                 $("#errorStep5").html(' <div class="alert alert-danger" role="alert" style="margin-top: 30px;">' +
+                 '<p style="color: red;"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
+                 '&nbsp;'+data.error+'<br></p></div>');
+              //  alert(data.error);
+                $("#nextstep5").attr("disabled", "disabled");
+            } else {
+                 //alert(data.error);
+                  $("#errorStep5").html("");
+              $("#nextstep5").removeAttr("disabled");
+            }
+          
+        }
+    });
+   
 }
 
 function saveOrderDetail() {

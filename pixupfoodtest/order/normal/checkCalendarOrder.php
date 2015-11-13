@@ -1,44 +1,51 @@
 <?php
 
+session_start();
 include '../../dbconn.php';
+$cusid = $_SESSION["userdata"]["id"];
 $resid = @$_POST["resid"];
+$delivery_date = @$_POST["date"];
+$date = date("Y-m-d", strtotime(str_replace(" GMT+0700 (SE Asia Standard Time)", "", $delivery_date)));
 
-$orderNowAllRes = $con->query("SELECT concat('N') as orderType, normal_order.id,delivery_date,"
-        . " SUM(order_detail.quantity) as qty FROM `normal_order` "
-        . "JOIN order_detail ON order_detail.order_id = normal_order.id "
-        . "WHERE normal_order.restaurant_id = '16' AND normal_order.status > 1 AND normal_order.status < 6 "
-        . "GROUP BY normal_order.delivery_date ");
+$limitRes = $con->query("SELECT amount_box_limit, amount_box_minimum  FROM `restaurant` WHERE id ='$resid'");
+$limitData = $limitRes->fetch_assoc();
+$limit = $limitData["amount_box_limit"];
+$minimum = $limitData["amount_box_minimum"];
+
+$orderDetailRes = $con->query("SELECT SUM(order_detail.quantity) as allqty "
+        . "FROM `order_detail` WHERE customer_id = '$cusid' and restaurant_id ='$resid' and status = '0'");
+$orderDetailData = $orderDetailRes->fetch_assoc();
+$orderAllQty = $orderDetailData["allqty"];
+
+$limitQty = ($limit - $minimum);
+$limiRes = $con->query("SELECT * FROM `limit_box_daily` WHERE restaurant_id = '$resid' and daily_date = '$date'");
 
 
-$qtyAll = 0;
-while ($orderIdAllData = $orderNowAllRes->fetch_assoc()) {
-    $order_type = $orderIdAllData["orderType"];
-    $qtyNormal = $orderIdAllData["qty"];
-    $dateNormal = $orderIdAllData["delivery_date"];
-    
 
-    $res = $con->query("select concat('F') as orderType, id, delivery_date, SUM(quantity) as qty "
-            . "FROM fast_order WHERE status < 6 AND status > 1 AND restaurant_id = '16' "
-            . "GROUP BY delivery_date ORDER BY delivery_date , id");
-    
-    while ($fastData = $res->fetch_assoc()){
-        $delidate = $fastData["delivery_date"];
-        $qtyFast = $fastData["qty"];
-        $order_type = $fastData["orderType"];
-        
-        if($delidate == $dateNormal){
-            $qtyAll = $qtyNormal + $qtyFast;
-            echo $dateNormal." ".$qtyAll."--------------";
-          // break;
-        }else if($order_type == 'N'){
-            echo $dateNormal." ".$qtyNormal."///////////";
-            //break;
-        }else if($order_type == 'F'){
-             echo $delidate." ".$qtyFast."************";
-           // break;
-        }
-        
-        
+if ($limiRes->num_rows > 0) {
+    $limitData = $limiRes->fetch_assoc();
+    $qtyDaily = $limitData["qty"];
+    if ($qtyDaily >= $limitQty) {
+        echo json_encode(array(
+            "result" => 3,
+            "error" => "วันที่" . date("d-m-Y", strtotime($date)) . " " . "ทางร้านไม่สามารถรับรายการสั่งซื้อได้แล้ว"
+        ));
+    } else {
+        echo json_encode(array(
+            "result" => 3,
+            "error" => "วันที่" . date("d-m-Y", strtotime($date)) . " " . "ร้านสามารถรับรายการได้อีกไม่เกิน" . " " . ($limit - $qtyDaily) . " " . "ชุดเท่านั้น"
+        ));
     }
- 
+} else {
+    if ($orderAllQty > $limit) {
+        echo json_encode(array(
+            "result" => 3,
+            "error" => "จำนวนชุดอาหารของท่านมากเกินที่ร้านสามารถรับรายการได้"
+        ));
+    } else {
+
+        echo json_encode(array(
+            "result" => 1
+        ));
+    }
 }

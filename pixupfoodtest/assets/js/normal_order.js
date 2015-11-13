@@ -12,8 +12,8 @@ $(document).ready(function (e) {
     initFood();
     showOrderDatail();
     fetchCalendar();
-    
-       $('[data-toggle="tooltip"]').tooltip();
+
+    $('[data-toggle="tooltip"]').tooltip();
     $('.calendar').fullCalendar({
         header: {
             left: 'prev',
@@ -23,7 +23,14 @@ $(document).ready(function (e) {
         events: JSON.parse(json_events),
         lang: 'th',
         eventColor: 'orange',
-        eventLimit: true
+        eventLimit: true,
+        eventAfterRender: function (event, element, view) {
+            if (event.status == 0) {
+                //event.color = "#FFB347"; //Em andamento
+                element.css('background-color', 'red');
+                element.css('border-color', 'red');
+            }
+        }
     });
 
 
@@ -183,7 +190,7 @@ function validateTab(tab) {
         checkFood();
         checkOrder();
     } else if (tab == "step3") {
-       
+
 
     } else if (tab == "step4") {
         var addressid = $("#oldaddress").val();
