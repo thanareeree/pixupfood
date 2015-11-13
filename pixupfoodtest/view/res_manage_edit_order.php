@@ -13,7 +13,7 @@ include '../dbconn.php';
 
         <!-- custom css -->
         <link rel="stylesheet" href="/assets/css/res_restaurant_manage.css">
-
+        <link rel="stylesheet" href="/assets/css/check-radio.css">
 
 
 
@@ -158,7 +158,13 @@ include '../dbconn.php';
                                                                                 <div class="card-content">
                                                                                     <img src="<?= $boxData["img_path"] ?>" style="width: 100px; height: auto; margin-bottom: 10px; margin-left: 23%">
                                                                                     <div class="card-action">
-                                                                                        <input type="checkbox"  name="foodbox[]"  value=" <?= $boxData["id"] ?>"> <?= $boxData["description"] ?> 
+                                                                                        <div class="text-center">
+                                                                                            <span style="font-size: 16px; font-weight: bold"><?= $boxData["description"] ?> </span>
+                                                                                        </div>
+                                                                                        <label class="Form-label--tick" style="margin-bottom: -10px;margin-left: 60px; margin-top: 20px">
+                                                                                              <input type="checkbox" class=" Form-label-checkbox"  name="foodbox[]"  value=" <?= $boxData["id"] ?>"> 
+                                                                                            <span class="Form-label-text" ></span>
+                                                                                        </label>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -229,7 +235,13 @@ include '../dbconn.php';
                                                                                     <div class="card-content">
                                                                                         <img src="<?= $boxDataType["img_path"] ?>" style="width: 100px; height: auto; margin-bottom: 10px; margin-left: 23%">
                                                                                         <div class="card-action">
-                                                                                            <input type="checkbox"  name="foodbox[]" checked=""  value=" <?= $boxid ?>"> <?= $boxDataType["description"] ?> 
+                                                                                            <div class="text-center">
+                                                                                                <span style="font-size: 16px; font-weight: bold"><?= $boxDataType["description"] ?> </span>
+                                                                                            </div>
+                                                                                            <label class="Form-label--tick" style="margin-bottom: -10px;margin-left: 60px; margin-top: 20px">
+                                                                                                <input type="checkbox" class=" Form-label-checkbox"   name="foodbox[]" checked=""  value=" <?= $boxid ?>">
+                                                                                                <span class="Form-label-text" ></span>
+                                                                                            </label>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -242,7 +254,13 @@ include '../dbconn.php';
                                                                                     <div class="card-content">
                                                                                         <img src="<?= $boxDataType["img_path"] ?>" style="width: 100px; height: auto; margin-bottom: 10px; margin-left: 23%">
                                                                                         <div class="card-action">
-                                                                                            <input type="checkbox"  name="foodbox[]"  value=" <?= $boxid ?>"> <?= $boxDataType["description"] ?> 
+                                                                                            <div class="text-center">
+                                                                                                <span style="font-size: 16px; font-weight: bold"><?= $boxDataType["description"] ?> </span>
+                                                                                            </div>
+                                                                                            <label class="Form-label--tick" style="margin-bottom: -10px;margin-left: 60px; margin-top: 20px">
+                                                                                                <input type="checkbox" class=" Form-label-checkbox"   name="foodbox[]"  value=" <?= $boxid ?>">
+                                                                                                <span class="Form-label-text" ></span>
+                                                                                            </label>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -251,7 +269,7 @@ include '../dbconn.php';
                                                                         }
                                                                     }
                                                                     ?>
-                                                                    <button type="submit" class="btn btn-success" style="margin-left: 390px;margin-top: 30px" >บันทึก</button>
+                                                                    <button type="submit" class="btn btn-success" style="margin-left: 220px;margin-top: 30px" >บันทึก</button>
                                                                 </form> 
                                                             </div>
                                                         </div>

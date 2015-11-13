@@ -13,8 +13,7 @@ include '../dbconn.php';
 
         <!-- custom css -->
         <link rel="stylesheet" href="/assets/css/res_restaurant_manage.css">
-
-
+        <link rel="stylesheet" href="/assets/css/check-radio.css">
     </head>
     <body>
         <?php
@@ -141,8 +140,11 @@ include '../dbconn.php';
                                                                 $paymentRes = $con->query("SELECT payment_type.id, payment_type.description FROM payment_type ");
                                                                 while ($paymentData = $paymentRes->fetch_assoc()) {
                                                                     ?>
-                                                                    <div class="input-group col-md-6" style="margin: 10px 120px;"  >
-                                                                        <input type="checkbox" name="paymentData[]" value="<?= $paymentData["id"] ?>"><?= $paymentData["description"] ?>
+                                                                    <div class="input-group col-md-8" style="margin: 10px 120px;"  >
+                                                                        <label class="Form-label--tick">
+                                                                            <input type="checkbox"  class=" Form-label-checkbox" name="paymentData[]" value="<?= $paymentData["id"] ?>">
+                                                                            <span class="Form-label-text" style="font-size: 18px" >&nbsp;<?= $paymentData["description"] ?></span>
+                                                                        </label>
                                                                     </div>
                                                                 <?php } ?>
                                                                 <span class="input-group" style="margin-left: 250px;">
@@ -154,7 +156,7 @@ include '../dbconn.php';
 
 
                                                     <?php } else { ?>
-                                                    <div class="card card-content" id="paymentType">
+                                                        <div class="card card-content" id="paymentType">
                                                             <div class="page-header" style="font-size: 25px; margin-top: 5px">
                                                                 รูปแบบการชำระเงิน
                                                                 <div class="pull-right">
@@ -181,7 +183,7 @@ include '../dbconn.php';
                                                             <hr>
                                                             *ค่ามัดจำ 20% ต่อรายยการสั่งซื้อนั้น จำเป็นต้องมีเพื่อรักษาผลประโยชน์ของท่านเอง
                                                         </div>
-                                                    <div class="card card-content" id="editPaymentType" style="display: none">
+                                                        <div class="card card-content" id="editPaymentType" style="display: none">
                                                             <div class="page-header" style="font-size: 25px; margin-top: 5px">
                                                                 แก้ไขรูปแบบการชำระเงิน
                                                             </div>
@@ -198,22 +200,27 @@ include '../dbconn.php';
                                                                         $resTypePayid = $resPaymentData2["id"];
                                                                         while ($payData = $payRes->fetch_assoc()) {
                                                                             $type = $payData["id"];
-                                                                            if($resPaymentRes2->num_rows == 2){
+                                                                            if ($resPaymentRes2->num_rows == 2) {
                                                                                 ?>
-                                                                                <div class="input-group col-md-6" style="margin: 10px 120px;"  >
-                                                                                    <input type="checkbox" name="paymentData[]" value="<?= $payData["id"] ?>" checked="">&nbsp;<?= $payData["description"] ?>
+                                                                                <div class="input-group col-md-8" style="margin: 10px 120px;"  >
+                                                                                    <label class="Form-label--tick">
+                                                                                        <input type="checkbox" class=" Form-label-checkbox" name="paymentData[]" value="<?= $payData["id"] ?>" checked="">
+                                                                                        <span class="Form-label-text" style="font-size: 18px" >&nbsp;<?= $payData["description"] ?></span>
+                                                                                    </label>
                                                                                 </div>
                                                                                 <?php
-                                                                            }else{
+                                                                            } else {
                                                                                 ?>
-                                                                                <div class="input-group col-md-6" style="margin: 10px 120px;"  >
-                                                                                    <input type="checkbox" name="paymentData[]" value="<?= $payData["id"] ?>" <?= ($type == $resTypePayid)? "checked": ""?>>&nbsp;<?= $payData["description"] ?>
+                                                                                <div class="input-group col-md-8" style="margin: 10px 120px;"  >
+                                                                                    <label class="Form-label--tick">
+                                                                                        <input type="checkbox" class=" Form-label-checkbox" name="paymentData[]" value="<?= $payData["id"] ?>" <?= ($type == $resTypePayid) ? "checked" : "" ?>>
+                                                                                        <span class="Form-label-text"style="font-size: 18px">&nbsp;<?= $payData["description"] ?></span>
+                                                                                    </label>
                                                                                 </div>
                                                                                 <?php
                                                                             }
                                                                         }
                                                                     }
-                                                                    
                                                                     ?>
                                                                     <button type="submit" class="btn btn-success" style="margin-left: 250px;" >บันทึก</button>
                                                                 </form> 
@@ -349,10 +356,10 @@ include '../dbconn.php';
                 $(this).removeClass("btn-default").addClass("btn-warning");
             });
 
-            $("#editbtn").click(function (e){
+            $("#editbtn").click(function (e) {
                 $("#editPaymentType").show();
-                 $("#paymentType").hide();
-                 e.preventDefault();
+                $("#paymentType").hide();
+                e.preventDefault();
                 return false;
             });
 
