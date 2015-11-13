@@ -134,36 +134,41 @@ include '../dbconn.php';
                                                             เพิ่มข้อมูลของพนักงานจัดส่ง
 
                                                         </div>
-                                                        <form action="/restaurant/add-messenger.php" method="post">
+                                                        <form action="/restaurant/add-messenger.php" method="post" id="addMessenger">
                                                             <div class="form-group" style="margin-bottom: 15px;">
                                                                 <label class="col-sm-2 control-label" for="textinput">ชื่อผู้ใช้ *,**</label>
                                                                 <div class="col-sm-10" style="margin-bottom: 15px;">
-                                                                    <input type="text" placeholder="ชื่อผู้ใช้" class="form-control" name="username">
+                                                                    <input required="" type="text" placeholder="ชื่อผู้ใช้" class="form-control" name="username">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 15px;">
                                                                 <label class="col-sm-2 control-label" for="textinput">รหัสผ่าน *</label>
                                                                 <div class="col-sm-10" style="margin-bottom: 15px;">
-                                                                    <input type="password" placeholder="กรุณาใส่ตัวเลข 6-8 หลัก" class="form-control" name="password">
+                                                                    <input required type="password" placeholder="กรุณาใส่ตัวเลข 6-8 หลัก" class="form-control" name="password">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 15px;">
                                                                 <label class="col-sm-2 control-label" for="textinput">ชื่อ-นามสกุล *</label>
                                                                 <div class="col-sm-10" style="margin-bottom: 15px;">
-                                                                    <input type="text" placeholder="กรุณาระบุชื่อ-นามสกุล ตัวอย่าง สมชาย ขายอาหาร" class="form-control" name="name">
+                                                                    <input required type="text" placeholder="กรุณาระบุชื่อ-นามสกุล ตัวอย่าง สมชาย ขายอาหาร" class="form-control" name="name">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 15px;">
                                                                 <label class="col-sm-2 control-label" for="textinput">หมายเลขโทรศัพท์ *</label>
                                                                 <div class="col-sm-10" style="margin-bottom: 15px;">
-                                                                    <input type="text" placeholder="กรุณาระบุหมายเลขโทรศัพท์" class="form-control" name="tel">
+                                                                    <input required type="text" placeholder="กรุณาระบุหมายเลขโทรศัพท์" class="form-control" name="tel">
                                                                 </div>
                                                             </div>
+
                                                             <div class="form-group" >
                                                                 <span class="input-group" style="margin-left: 250px;">
                                                                     <button class="btn btn-success" id="savebtn" type="submit" style="    margin-left: 260px;">บันทึก</button>
                                                                 </span>
-                                                            </div><hr>
+                                                            </div>
+                                                            <div class="alert alert-danger" role="alert" id="divError" style="display: none">
+                                                                <p style="color:  red;font-size: 16px" id="showerror"></p>
+                                                            </div>
+                                                            <hr>
                                                             <p style="color: red">* จำเป็นต้องระบุข้อมูลในช่องนั้นๆ </p><br>
                                                             <p>** ชื่อผู้ใช้จะถูกกำหนดด้วยหมายเลขร้านค้านำหน้าชื่อผู้ใช้ที่ตั้งเสมอ เช่น ตั้งชื่อผู้ใช้ว่า "somchai" และหมายเลขร้านค้าคือ 999</p><br>
                                                             <p>&nbsp;&nbsp;&nbsp;&nbsp;จะได้ชื่อผู้ใช้คือ "999somchai" </p>
@@ -177,7 +182,7 @@ include '../dbconn.php';
 
                                                         </div>
 
-                                                        <table class="table" id="task-table">
+                                                        <table class="table table-striped table-bordered" id="task-table">
                                                             <thead>
                                                                 <tr>
                                                                     <th>ชื่อผู้ใช้</th>
@@ -267,6 +272,26 @@ include '../dbconn.php';
                         }
                     }
                 });
+            });
+            
+            
+            $("#addMessenger").on('submit', function (e) {
+                $.ajax({
+                    url: "/restaurant/add-messenger.php",
+                    type: "POST",
+                    data: $("#addMessenger").serializeArray(),
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.result == 1) {
+                            document.location.reload();
+                        } else {
+                            $("#divError").show();
+                            $("#showerror").html('<i style="color:  red;font-size: 16px" class="glyphicon glyphicon-exclamation-sign"></i>&nbsp;'+data.error);
+                        }
+                    }
+                });
+                e.preventDefault();
+                return false;
             });
         });
     </script>

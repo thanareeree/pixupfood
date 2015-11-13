@@ -3,9 +3,6 @@ include '../api/islogin.php';
 include '../dbconn.php';
 ?>
 
-
-
-
 <html>
     <head>
         <title>Pixupfood - Restaurant Setting Management</title>
@@ -105,7 +102,7 @@ include '../dbconn.php';
                                 <li>
                                     <a href="/view/res_manage_edit_messenger.php" > พนักงานจัดส่ง</a>
                                 </li>
-                                 <li >
+                                <li >
                                     <a href="/view/res_manage_edit_promotion.php" >โปรโมชั่น</a>
                                 </li>
                             </ul>
@@ -133,7 +130,7 @@ include '../dbconn.php';
                                                                 <label class="col-sm-2 control-label" for="textinput">จังหวัด</label>
                                                                 <div class="col-sm-10" style="margin-bottom: 15px;">
                                                                     <select class="form-control"id="provincelist" name="provincelist" required="">
-                                                                         <option value="0">-- เลือกจังหวัด --</option>
+                                                                        <option value="0">-- เลือกจังหวัด --</option>
                                                                         <?php
                                                                         $res = $con->query("SELECT PROVINCE_ID, PROVINCE_NAME FROM `data_province` ");
                                                                         while ($data = $res->fetch_assoc()) {
@@ -150,7 +147,7 @@ include '../dbconn.php';
                                                                 <label class="col-sm-2 control-label" for="textinput">เขต/อำเภอ</label>
                                                                 <div class="col-sm-10" style="margin-bottom: 15px;">
                                                                     <select class="form-control"id="districtlist" name="districtlist" required="">
-                                                                         <option value="0">-- เลือกเขต/อำเภอ --</option>
+                                                                        <option value="0">-- เลือกเขต/อำเภอ --</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -171,39 +168,40 @@ include '../dbconn.php';
                                                 </div>
 
                                                 <div class="col-md-6">
-                                                    <div class="card card-content" id="showdat_bankaccount">
+                                                    <div class="card card-content" id="showEditDelivery" >
                                                         <div class="page-header" style="font-size: 25px; margin-top: 5px">
                                                             ข้อมูลพื้นที่จัดส่งสินค้า
-                                                            <div class="pull-right">
-                                                                <p class="text-center">
-                                                                   <!-- <a  href="#" id="editbtn">
-                                                                        <span class="glyphicon glyphicon-pencil"style="font-size: 20px; color: orange"></span> 
-                                                                        <span style="font-size: 20px; color: orange">แก้ไข</span>
-                                                                    </a>-->
-                                                                </p>
-                                                            </div>
                                                         </div>
-                                                        <form id="showdata">
-                                                            <?php
-                                                            $placeRes = $con->query("SELECT data_district.district_name "
-                                                                    . "FROM data_district "
-                                                                    . "RIGHT JOIN delivery_place ON delivery_place.district_id = data_district.district_id "
-                                                                    . "WHERE delivery_place.restaurant_id = '$resid'");
-                                                            if ($placeRes->num_rows == 0) {
-                                                                ?>
-                                                                <h4 style="    text-align: center;" id="nodata">ยังไม่ได้บัญทึกข้อมูล</h4>
+                                                        <table class="table table-striped table-bordered" id="task-table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="text-center">เขตพื้นที่จัดส่งสินค้า</th>
+                                                                    <th class="text-center">ลบ</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="showPlace">
                                                                 <?php
-                                                            } else {
-                                                                while ($placeData = $placeRes->fetch_assoc()) {
+                                                                $placeRes2 = $con->query("SELECT data_district.district_name, delivery_place.id "
+                                                                        . "FROM data_district "
+                                                                        . "RIGHT JOIN delivery_place ON delivery_place.district_id = data_district.district_id "
+                                                                        . "WHERE delivery_place.restaurant_id = '$resid'");
+                                                                while ($placeData2 = $placeRes2->fetch_assoc()) {
                                                                     ?>
-                                                                <p style="font-size: 16px;font-weight: normal; color: orange;"><?= $placeData["district_name"]?></p>
-                                                                
+                                                                    <tr>
+                                                                        <td><?= $placeData2["district_name"] ?></td>
+                                                                        <td class="text-center">
+                                                                            <p class="remove"  data-id="<?= $placeData2["id"] ?>" style="color: red" data-toggle="tooltip" data-placement="top" title="ลบรายการนี้?">
+                                                                                <i class="glyphicon glyphicon-trash"></i>
+                                                                            </p>
+                                                                        </td>
+
+                                                                    </tr>
                                                                     <?php
                                                                 }
-                                                            }
-                                                            ?>
-                                                        </form>
-                                                         <hr>
+                                                                ?>
+                                                            </tbody>
+                                                        </table>
+                                                          <hr>
                                                     <div>**หากไม่ได้บันทึกข้อมูล ระบบจะถือว่า ท่านจัดส่งสินค้าทุกพื้นที่ที่ลูกค้ากำหนดในทุกรายการสั่งซื้อ</div>
                                                     </div>
                                                 </div>
@@ -230,9 +228,9 @@ include '../dbconn.php';
                 $(".tab").addClass("active"); // instead of this do the below 
                 $(this).removeClass("btn-default").addClass("btn-warning");
             });
-            
+            $('[data-toggle="tooltip"]').tooltip();
             $("#provincelist").change(function () {
-                 $.ajax({
+                $.ajax({
                     url: "/restaurant-setting/districtList.php",
                     type: "POST",
                     data: {"province_id": $("#provincelist").val()},
@@ -242,28 +240,83 @@ include '../dbconn.php';
                     }
                 });
             });
+            $("#editbtn").click(function (e) {
+                $("#showDelivery").hide();
+                $("#showEditDelivery").show();
+                e.preventDefault();
+                return false;
+            });
 
-
-             $("#savebtn").on("click", function (e){
-                 $.ajax({
+            $("#savebtn").on("click", function (e) {
+                $.ajax({
                     url: "/restaurant-setting/add-delivery-place.php",
                     type: "POST",
                     data: {"province_id": $("#provincelist").val(), "district_id": $("#districtlist").val()},
                     dataType: "json",
                     success: function (data) {
                         if (data.result == 1) {
+                            $("#noDelivery").hide();
+                            $("#showEditDelivery").show();
                             $("#deliveryplace").trigger("reset");
                             $("#districtlist").html('<option value="0">-- เลือกเขต/อำเภอ --</option>');
                             $("#nodata").hide();
-                            $("#showdata").append(' <p style="font-size: 16px;font-weight: normal; color: orange;"">'+data.name+'</p>');
+                            fetchData();
+                            //$("#showdata").append(' <p style="font-size: 16px;font-weight: normal; color: orange;"">' + data.name + '</p>');
                         } else {
-                           alert(data.error)
+                            alert(data.error)
                         }
                     }
                 });
-                  e.preventDefault();
+                e.preventDefault();
                 return false;
-             });
+            });
+
+            $(".remove").click(function (e) {
+                var id = $(this).attr("data-id");
+                $.ajax({
+                    url: "/restaurant-setting/delete-deliveryplace.php?delid=" + id,
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.result == '1') {
+                            fetchData();
+                            // document.location.reload();
+                        } else {
+                            alert(data.error);
+                        }
+                    }
+                });
+            });
+
+            function fetchData() {
+                $.ajax({
+                    url: "/restaurant-setting/fetch-deliveryplace.php",
+                    dataType: "html",
+                    success: function (data) {
+                        $("#showPlace").html("");
+                        $("#showPlace").html(data);
+                        $('[data-toggle="tooltip"]').tooltip();
+                        $(".remove").click(function (e) {
+                            var id = $(this).attr("data-id");
+                            $.ajax({
+                                url: "/restaurant-setting/delete-deliveryplace.php?delid=" + id,
+                                type: "GET",
+                                dataType: "json",
+                                success: function (data) {
+                                    if (data.result == '1') {
+                                        fetchData();
+                                        // document.location.reload();
+                                    } else {
+                                        alert(data.error);
+                                    }
+                                }
+                            });
+                        });
+
+                    }
+                });
+            }fetchData();
+
         });
     </script>
 

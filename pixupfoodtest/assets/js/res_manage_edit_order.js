@@ -4,14 +4,11 @@ $(document).ready(function () {
         $(".tab").addClass("active"); // instead of this do the below 
         $(this).removeClass("btn-default").addClass("btn-warning");
     });
-
-    $('#imagerest').on('change', function (e) {
-        var filename = $('#imagerest').val();
-        var fname = filename.substring(12);
-        var name = "File: " + fname;
-        $("#uploadtext").html(name);
-        $("#chooseimgbtn").hide();
-        $("#uploadimgbtn").show();
+    $("#editfoodboxbtn").click(function (e) {
+        $("#editFoodbox").show();
+        $("#showdata_foodbox").hide();
+        e.preventDefault();
+        return false;
     });
 
     $("#switchClose").click(function (e) {

@@ -15,9 +15,6 @@ include '../dbconn.php';
         <link rel="stylesheet" href="/assets/css/res_restaurant_manage.css">
 
 
-
-
-
     </head>
     <body>
         <?php
@@ -104,13 +101,13 @@ include '../dbconn.php';
                                 <li class="active">
                                     <a href="/view/res_manage_edit_payment.php" >วิธีการชำระเงิน</a>
                                 </li>
-                                 <li>
+                                <li>
                                     <a href="/view/res_manage_edit_deliveryplace.php" >พื้นที่จัดส่งสินค้า</a>
                                 </li>
                                 <li>
                                     <a href="/view/res_manage_edit_messenger.php" > พนักงานจัดส่ง</a>
                                 </li>
-                                 <li >
+                                <li >
                                     <a href="/view/res_manage_edit_promotion.php" >โปรโมชั่น</a>
                                 </li>
                             </ul>
@@ -138,7 +135,6 @@ include '../dbconn.php';
                                                         <div class="card card-content" >
                                                             <div class="page-header" style="font-size: 25px; margin-top: 5px">
                                                                 รูปแบบการชำระเงิน
-
                                                             </div>
                                                             <form id="dataform_edit_payment" action="/restaurant/add-payment-type.php?resId=<?= $resid ?>" method="post">
                                                                 <?php
@@ -158,11 +154,16 @@ include '../dbconn.php';
 
 
                                                     <?php } else { ?>
-                                                        <div class="card card-content">
+                                                    <div class="card card-content" id="paymentType">
                                                             <div class="page-header" style="font-size: 25px; margin-top: 5px">
                                                                 รูปแบบการชำระเงิน
                                                                 <div class="pull-right">
-
+                                                                    <p class="text-center">
+                                                                        <a  href="#" id="editbtn">
+                                                                            <span class="glyphicon glyphicon-pencil"style="font-size: 20px; color: orange"></span> 
+                                                                            <span style="font-size: 20px; color: orange">แก้ไข</span>
+                                                                        </a>
+                                                                    </p>
                                                                 </div>
                                                             </div>
                                                             <div id="dataform_foodbox">
@@ -176,6 +177,46 @@ include '../dbconn.php';
                                                                     </div>
                                                                 <?php } ?>
 
+                                                            </div>
+                                                            <hr>
+                                                            *ค่ามัดจำ 20% ต่อรายยการสั่งซื้อนั้น จำเป็นต้องมีเพื่อรักษาผลประโยชน์ของท่านเอง
+                                                        </div>
+                                                    <div class="card card-content" id="editPaymentType" style="display: none">
+                                                            <div class="page-header" style="font-size: 25px; margin-top: 5px">
+                                                                แก้ไขรูปแบบการชำระเงิน
+                                                            </div>
+                                                            <div id="dataform_foodbox">
+                                                                <form method="post" action="/restaurant-setting/edit-paymenttype.php">
+                                                                    <?php
+                                                                    $resPaymentRes2 = $con->query("select payment_type.id, payment_type.description "
+                                                                            . "FROM mapping_payment_type "
+                                                                            . "LEFT JOIN payment_type ON mapping_payment_type.payment_type_id = payment_type.id "
+                                                                            . "where mapping_payment_type.restaurant_id = '$resid' order by  payment_type_id");
+
+                                                                    $payRes = $con->query("SELECT payment_type.id, payment_type.description FROM payment_type order by  id");
+                                                                    while ($resPaymentData2 = $resPaymentRes2->fetch_assoc()) {
+                                                                        $resTypePayid = $resPaymentData2["id"];
+                                                                        while ($payData = $payRes->fetch_assoc()) {
+                                                                            $type = $payData["id"];
+                                                                            if($resPaymentRes2->num_rows == 2){
+                                                                                ?>
+                                                                                <div class="input-group col-md-6" style="margin: 10px 120px;"  >
+                                                                                    <input type="checkbox" name="paymentData[]" value="<?= $payData["id"] ?>" checked="">&nbsp;<?= $payData["description"] ?>
+                                                                                </div>
+                                                                                <?php
+                                                                            }else{
+                                                                                ?>
+                                                                                <div class="input-group col-md-6" style="margin: 10px 120px;"  >
+                                                                                    <input type="checkbox" name="paymentData[]" value="<?= $payData["id"] ?>" <?= ($type == $resTypePayid)? "checked": ""?>>&nbsp;<?= $payData["description"] ?>
+                                                                                </div>
+                                                                                <?php
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                    
+                                                                    ?>
+                                                                    <button type="submit" class="btn btn-success" style="margin-left: 250px;" >บันทึก</button>
+                                                                </form> 
                                                             </div>
                                                             <hr>
                                                             *ค่ามัดจำ 20% ต่อรายยการสั่งซื้อนั้น จำเป็นต้องมีเพื่อรักษาผลประโยชน์ของท่านเอง
@@ -246,38 +287,40 @@ include '../dbconn.php';
                                                     <div class="card card-content" id="showdat_bankaccount">
                                                         <div class="page-header" style="font-size: 25px; margin-top: 5px">
                                                             ข้อมูลบัญชีธนาคาร
-                                                            <div class="pull-right">
-                                                                <p class="text-center">
-                                                                    <!--<a  href="#" id="editbtn">
-                                                                        <span class="glyphicon glyphicon-pencil"style="font-size: 20px; color: orange"></span> 
-                                                                        <span style="font-size: 20px; color: orange">แก้ไข</span>
-                                                                    </a>-->
-                                                                </p>
-                                                            </div>
+
                                                         </div>
-                                                        <form id="showdata">
-                                                            <?php
-                                                            $bankRes = $con->query("select * from bank_account where restaurant_id = '$resid'");
-                                                            if ($bankRes->num_rows == 0) {
-                                                                ?>
-                                                                <h4 style="    text-align: center;" id="nodata">ยังไม่ได้บัญทึกข้อมูล</h4>
+                                                        <table class="table table-striped table-bordered" id="task-table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="text-center">รายละเอียด</th>
+                                                                    <th class="text-center">ลบ</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="showPlace">
                                                                 <?php
-                                                            } else {
+                                                                $bankRes = $con->query("select * from bank_account where restaurant_id = '$resid'");
                                                                 while ($bankData = $bankRes->fetch_assoc()) {
                                                                     ?>
-                                                                    &nbsp;   <span style="font-size: 20px">ชื่อบัญชี: </span>
-                                                                    <span style="font-size: 20px; color: orange;"> <?= $bankData["accname"] ?></span><br>
-                                                                    &nbsp;   <span style="font-size: 20px">เลขที่บัญชี:</span>
-                                                                    <span style="font-size: 20px; color: orange;"><?= $bankData["accNo"] ?> </span><br>
-                                                                    &nbsp;   <span style="font-size: 20px">ธนาคาร: </span>
-                                                                    <span style="font-size: 20px; color: orange;"><?= $bankData["bank"] ?></span><br>
-                                                                    <hr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            &nbsp;   <span style="font-size: 16px">ชื่อบัญชี: </span>
+                                                                            <span style="font-size: 16px; color: orange;"> <?= $bankData["accname"] ?></span><br>
+                                                                            &nbsp;   <span style="font-size: 16px">เลขที่บัญชี:</span>
+                                                                            <span style="font-size: 16px; color: orange;"><?= $bankData["accNo"] ?> </span><br>
+                                                                            &nbsp;   <span style="font-size: 16px">ธนาคาร: </span>
+                                                                            <span style="font-size: 16px; color: orange;"><?= $bankData["bank"] ?></span><br>
+                                                                        </td>
+                                                                        <td class = "text-center">
+                                                                            <p class = "remove" data-id = "<?= $bankData["id"] ?>" style = "color: red" data-toggle = "tooltip" data-placement = "top" title = "ลบรายการนี้?">
+                                                                                <i class = "glyphicon glyphicon-trash"></i>
+                                                                            </p>
+                                                                        </td>
+                                                                    </tr>
                                                                     <?php
                                                                 }
-                                                            }
-                                                            ?>
-                                                        </form>
-                                                        
+                                                                ?>
+                                                            </tbody>
+                                                        </table><hr>
                                                         <span id="showinfo">*เพื่อเป็นประโยชน์สำหรับการชำระค่าสินค้า</span>
                                                     </div>
                                                 </div>
@@ -306,13 +349,11 @@ include '../dbconn.php';
                 $(this).removeClass("btn-default").addClass("btn-warning");
             });
 
-            $('#imagerest').on('change', function (e) {
-                var filename = $('#imagerest').val();
-                var fname = filename.substring(12);
-                var name = "File: " + fname;
-                $("#uploadtext").html(name);
-                $("#chooseimgbtn").hide();
-                $("#uploadimgbtn").show();
+            $("#editbtn").click(function (e){
+                $("#editPaymentType").show();
+                 $("#paymentType").hide();
+                 e.preventDefault();
+                return false;
             });
 
             $("#dataform_add_bankaccount").on('submit', function (e) {
@@ -325,12 +366,8 @@ include '../dbconn.php';
                         if (data.result == 1) {
                             $("#dataform_add_bankaccount").trigger("reset");
                             $("#nodata").hide();
-                            $("#showdata").append('&nbsp;   <span style="font-size: 20px">ชื่อบัญชี: </span>' +
-                                    '<span style="font-size: 20px; color: orange;"> ' + data.accname + '</span><br>' +
-                                    ' &nbsp;   <span style="font-size: 20px">เลขที่บัญชี:</span> ' +
-                                    '<span style="font-size: 20px; color: orange;">' + data.accid + ' </span><br>' +
-                                    '&nbsp;   <span style="font-size: 20px">ธนาคาร: </span>' +
-                                    ' <span style="font-size: 20px; color: orange;">' + data.bankname + '</span><br><hr>');
+                            fetchData();
+
                         } else {
                             $("#showerror").html(data.error);
                         }
@@ -338,6 +375,54 @@ include '../dbconn.php';
                 });
                 e.preventDefault();
                 return false;
+            });
+
+            function fetchData() {
+                $.ajax({
+                    url: "/restaurant-setting/fetch-bankaccount.php",
+                    dataType: "html",
+                    success: function (data) {
+                        $("#showPlace").html("");
+                        $("#showPlace").html(data);
+                        $('[data-toggle="tooltip"]').tooltip();
+                        $(".remove").click(function (e) {
+                            var id = $(this).attr("data-id");
+                            $.ajax({
+                                url: "/restaurant-setting/delete-bankaccount.php?delid=" + id,
+                                type: "GET",
+                                dataType: "json",
+                                success: function (data) {
+                                    if (data.result == '1') {
+                                        fetchData();
+                                        // document.location.reload();
+                                    } else {
+                                        alert(data.error);
+                                    }
+                                }
+                            });
+                        });
+
+                    }
+                });
+            }
+            fetchData();
+
+
+            $(".remove").click(function (e) {
+                var id = $(this).attr("data-id");
+                $.ajax({
+                    url: "/restaurant-setting/delete-bankaccount.php?delid=" + id,
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.result == '1') {
+                            fetchData();
+                            // document.location.reload();
+                        } else {
+                            alert(data.error);
+                        }
+                    }
+                });
             });
         });
     </script>

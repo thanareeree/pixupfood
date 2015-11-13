@@ -176,7 +176,7 @@ include '../dbconn.php';
                                                         <div class="page-header" style="font-size: 25px; margin-top: 5px">
                                                             ข้อมูลโปรโมชั่นร้านทั้งหมด
                                                         </div>
-                                                        <table class="table" id="task-table">
+                                                        <table class="table table-striped table-bordered" id="task-table">
                                                             <thead>
                                                                 <tr>
                                                                     <th>ชื่อโปรโมชั่น</th>

@@ -187,10 +187,10 @@ include '../dbconn.php';
                                                                 รูปแบบกล่อง
                                                                 <div class="pull-right">
                                                                     <p class="text-center">
-                                                                        <!--<a  class="btn icon-btn"id="editfoodboxbtn">
+                                                                        <a id="editfoodboxbtn">
                                                                             <span class="glyphicon glyphicon-pencil"style="font-size: 20px; color: orange"></span> 
                                                                             <span style="font-size: 20px; color: orange">แก้ไข</span>
-                                                                        </a>-->
+                                                                        </a>
                                                                     </p>
                                                                 </div>
                                                             </div>
@@ -204,6 +204,55 @@ include '../dbconn.php';
                                                                         </ul>
                                                                     </div>
                                                                 <?php } ?>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card card-content" id="editFoodbox" style="display: none">
+                                                            <div class="page-header" style="font-size: 25px; margin-top: 5px">
+                                                                แก้ไขรูปแบบกล่อง
+                                                            </div>
+                                                            <div id="dataform_foodbox">
+                                                                <form method="post" action="/restaurant-setting/edit-foodbox.php">
+                                                                    <?php
+                                                                    $box = $con->query("SELECT food_box.id, food_box.description, img_path FROM food_box ");
+
+                                                                    while ($boxDataType = $box->fetch_assoc()) {
+                                                                        $boxid = $boxDataType["id"];
+                                                                        $resfoodboxRes = $con->query("SELECT food_box.id, food_box.description "
+                                                                                . "FROM mapping_food_box "
+                                                                                . "LEFT JOIN food_box ON food_box.id = mapping_food_box.food_box_id "
+                                                                                . "WHERE mapping_food_box.restaurant_id = '$resid' and mapping_food_box.food_box_id = '$boxid' "
+                                                                                . "order by mapping_food_box.food_box_id ");
+                                                                        if ($resfoodboxRes->num_rows > 0) {
+                                                                            ?>
+                                                                            <div class="col-md-6">
+                                                                                <div class="card">
+                                                                                    <div class="card-content">
+                                                                                        <img src="<?= $boxDataType["img_path"] ?>" style="width: 100px; height: auto; margin-bottom: 10px; margin-left: 23%">
+                                                                                        <div class="card-action">
+                                                                                            <input type="checkbox"  name="foodbox[]" checked=""  value=" <?= $boxid ?>"> <?= $boxDataType["description"] ?> 
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <?php
+                                                                        } else {
+                                                                            ?>
+                                                                            <div class="col-md-6">
+                                                                                <div class="card">
+                                                                                    <div class="card-content">
+                                                                                        <img src="<?= $boxDataType["img_path"] ?>" style="width: 100px; height: auto; margin-bottom: 10px; margin-left: 23%">
+                                                                                        <div class="card-action">
+                                                                                            <input type="checkbox"  name="foodbox[]"  value=" <?= $boxid ?>"> <?= $boxDataType["description"] ?> 
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <?php
+                                                                        }
+                                                                    }
+                                                                    ?>
+                                                                    <button type="submit" class="btn btn-success" style="margin-left: 390px;margin-top: 30px" >บันทึก</button>
+                                                                </form> 
                                                             </div>
                                                         </div>
                                                     <?php } ?>
@@ -333,7 +382,7 @@ include '../dbconn.php';
                                                                 ค่าจัดส่ง
                                                                 <div class="pull-right">
                                                                     <p class="text-center">
-                                                                       <a data-toggle="modal" data-target="#deliveryfeeModal">
+                                                                        <a data-toggle="modal" data-target="#deliveryfeeModal">
                                                                             <span class="glyphicon glyphicon-pencil"style="font-size: 20px; color: orange"></span> 
                                                                             <span style="font-size: 20px; color: orange">แก้ไข</span>
                                                                         </a>
@@ -381,7 +430,7 @@ include '../dbconn.php';
                                 <div class="form-group" style="margin-bottom: 15px;">
                                     <label class="col-sm-2 control-label" for="textinput">ค่าจัดส่ง</label>
                                     <div class="col-sm-10" style="margin-bottom: 15px;">
-                                        <input type="text" placeholder="โทรศัพท์" class="form-control"  name="newfee" required="" value="<?= $deliveryData["deliveryfee"]?>">
+                                        <input type="text" placeholder="โทรศัพท์" class="form-control"  name="newfee" required="" value="<?= $deliveryData["deliveryfee"] ?>">
                                     </div>
                                 </div>
                             </div>
@@ -395,7 +444,7 @@ include '../dbconn.php';
             </div>
         </div>
     </div>
-    
+
     <div class="modal fade" id="limitModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -468,7 +517,7 @@ include '../dbconn.php';
                                 <div class="form-group" style="margin-bottom: 15px;">
                                     <label class="col-sm-2 control-label" for="textinput">ค่าจัดส่ง</label>
                                     <div class="col-sm-10" style="margin-bottom: 15px;">
-                                        <input type="text" placeholder="โทรศัพท์" class="form-control"  name="newfee" required="" value="<?= $deliveryData["deliveryfee"]?>">
+                                        <input type="text" placeholder="โทรศัพท์" class="form-control"  name="newfee" required="" value="<?= $deliveryData["deliveryfee"] ?>">
                                     </div>
                                 </div>
                             </div>

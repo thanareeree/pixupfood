@@ -503,7 +503,7 @@ include '../dbconn.php';
                                                         <span style="font-size: 18px;">*จำเป็นต้องอยู่ในบริเวณที่ตั้งร้านของท่าน เพื่อเป็นประโยชน์ในการค้นหาของลูกค้า</span>
                                                         <div class="card-action">
                                                             <div class="address">
-                                                                <div id="showaddress" class='col-sm-6'>
+                                                                <div id="showaddress" class='col-sm-12'>
                                                                     ไม่สามารถหาที่อยู่ได้
                                                                 </div>
                                                             </div>
