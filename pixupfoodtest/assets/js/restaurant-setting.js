@@ -1,5 +1,9 @@
 $(document).ready(function () {
     initMap();
+    
+    $("#msgModal").modal('show');
+    
+    
     $(".btn-pref .btn").click(function () {
         $(".btn-pref .btn").removeClass("btn-warning").addClass("btn-default");
         $(".tab").addClass("active"); // instead of this do the below 

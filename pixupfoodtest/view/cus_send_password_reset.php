@@ -108,7 +108,7 @@ $email = @$_GET["account_identifier"];
                     </div>
                     <div class="modal-body">
                         <div class="alert alert-success" role="alert">
-                            ใช้รหัสผ่านใหม่ที่คุณได้รับ เข้าสู่ระบบเพ่อเข้าใช้งานเว็บ และคุณสามารถเปลี่ยนรหัสผ่านใหม่ได้
+                            ใช้รหัสผ่านใหม่ที่คุณได้รับ เข้าสู่ระบบเพื่อเข้าใช้งานเว็บ และควรเปลี่ยนรหัสผ่านใหม่อีกครั้ง
                         </div>
                     </div>
                     <div class="modal-footer">

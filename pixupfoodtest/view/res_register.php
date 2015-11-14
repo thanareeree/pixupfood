@@ -113,7 +113,7 @@ include '../dbconn.php';
                                         <div class="col-md-12">
                                             <div class="row">
                                                 <div class="col-sm-12">
-                                                    <textarea required disabled="" class="form-control" placeholder="กรุณาลากวางมุดไปที่ตำแหน่งร้านของคุณก่อนจะแก้ไขที่อยู่ให้ถูกต้อง" rows="3" id="resaddress" name="resaddress" style="margin: 0;"></textarea>
+                                                    <textarea required disabled="" class="form-control" placeholder="กรุณาลากวางหมุดไปที่ตำแหน่งร้านของคุณก่อนจะแก้ไขที่อยู่ให้ถูกต้อง" rows="3" id="resaddress" name="resaddress" style="margin: 0;"></textarea>
                                                 </div>
                                             </div>
                                             <div class="row">

@@ -9,6 +9,8 @@ $code = $address["postal_code"];
 $amtbox = (int) $_POST["amtbox"];
 $foodarr = $_POST["food"];
 $boxtype = $_POST["boxtype"];
+$delivery_date = @$_POST["date"];
+$date = date("Y-m-d", strtotime(str_replace(" GMT+0700 (SE Asia Standard Time)", "", $delivery_date)));
 if ($boxtype != "4") {
     $ricetype = $_POST["ricetype"];
     array_push($foodarr, $ricetype);
@@ -22,14 +24,33 @@ $findDistanct = $con->query("SELECT *,
                   WHERE available = 1 AND close = 0 AND block = 0 
                   AND amount_box_minimum <= '$amtbox'
                   ORDER BY distance");
+
+
 while ($near = $findDistanct->fetch_assoc()) {
     $rest_id = $near["id"];
     $name = $near["name"];
+    $limit = $near["amount_box_limit"];
+    $minimum = $near["amount_box_minimum"];
+    $limitQty = ($limit - $minimum);
+
+
+    $limitStatus = 0;
+    $limiRes = $con->query("SELECT * FROM `limit_box_daily` WHERE restaurant_id = '$rest_id' and daily_date = '$date'");
+    $limitData = $limiRes->fetch_assoc();
+    $qtyDaily = $limitData["qty"];
+
+    if ($qtyDaily >= $limitQty) {
+        $limitStatus = 0;
+    } else if (($qtyDaily + $amtbox) > $limit) {
+        $limitStatus = 0;
+    } else {
+        $limitStatus = 1;
+    }
 
 
     //check delivery place
     $restDeli = $con->query("SELECT * FROM delivery_place WHERE delivery_place.restaurant_id = '$rest_id'");
-    if ($restDeli->num_rows == 0) {
+    if ($restDeli->num_rows == 0 && $limitStatus == 1) {
         //check if rest have selected food
 
         $menustr = "(";
@@ -52,7 +73,7 @@ while ($near = $findDistanct->fetch_assoc()) {
         if (sizeof($restok) == 3) {
             break;
         }
-    } else {
+    } else if( $limitStatus == 1){
         $postcodeRes = $con->query("SELECT data_postcode.postcode , data_district.district_name "
                 . "FROM delivery_place "
                 . "LEFT JOIN data_postcode ON data_postcode.district_ID = delivery_place.district_id "
@@ -116,69 +137,69 @@ foreach ($restok as $key => $rest) {
     ?>
     <div class="col-md-4">
         <div class = "thumbnail">
-          <h2 class="text-center" >  <i class="fa fa-cutlery" style="color: #FF5F00"></i>&nbsp;<?= $rest["name"] ?></h2>
-          <hr class="hrs">
-        <table class="table table-hover" id="task-table">
-            <thead>
-                <tr>
-                    <th>ส่งรีเควสออเดอร์</th>
-                    <th></th>
-                    <th class="text-right"><input type="checkbox"  name="rest[]" class="restselect" value="<?= $rest["id"] ?>" checked data-toggle="toggle" data-on="ส่ง" data-off="ไม่ส่ง" data-onstyle="success" data-offstyle="danger"></th>
-                  <!--<th>ลำดับการส่งรีเควส</th>
-                  <th>
-                      <label><input type="checkbox" name="rest[]" class="restselect priority1 " rest-id="<?= $rest["id"] ?>" value="1<?= $rest["id"] ?>">&nbsp;1 &nbsp;</label>
-                      <label><input type="checkbox" name="rest[]" class="restselect priority2  " rest-id="<?= $rest["id"] ?>" value="2<?= $rest["id"] ?>">&nbsp;2 &nbsp;</label>
-                      <label><input type="checkbox" name="rest[]" class="restselect priority3 " rest-id="<?= $rest["id"] ?>" value="3<?= $rest["id"] ?>">&nbsp;3</label>
-                  </th>
-                  <th></th>-->
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>เมนูที่เลือก: </td>
-                    <td colspan="2"><?= $menustr ?></td>
-                    
-                </tr>
-                <tr>
-                    <td>จำนวน:</td>
-                    <td class="text-center"><?= $amtbox ?></td>
-                    <td class="text-right">ชุด</td>
-                </tr>
-                <tr>
-                    <td>ราคา/หน่วย: </td>
-                    <td class="text-center">
-                        <?php
-                        $price = 0;
-                        foreach ($rest["food"] as $key => $food) {
-                            $price += $food["price"];
-                        }
-                        echo $price;
-                        ?>
-                    </td>
-                    <td class="text-right">บาท</td>
-                </tr>
-                <tr>
-                    <td>ราคา: </td>
-                    <td class="text-center"><?= $totalfoodprice ?></td>
-                    <td class="text-right">บาท</td>
-                </tr>
-                <tr>
-                    <td>ค่ามัดจำ 20%: </td>
-                    <td class="text-center"><?= $prepay ?></td>
-                    <td class="text-right">บาท</td>
-                </tr>
-                <tr>
-                    <td>ค่าจัดส่ง: </td>
-                    <td class="text-center"><?= $deliveryprice ?></td>
-                    <td class="text-right">บาท</td>
-                </tr>
-                <tr class="danger">
-                    <td ><div style="width: 100px">ราคาส่วนที่เหลือ: </div></td>
-                    <td class="text-center"><?= $sumprice ?></td>
-                    <td class="text-right">บาท</td>
-                </tr>
-            </tbody>
-        </table>
+            <h2 class="text-center" >  <i class="fa fa-cutlery" style="color: #FF5F00"></i>&nbsp;<?= $rest["name"] ?></h2>
+            <hr class="hrs">
+            <table class="table table-hover" id="task-table">
+                <thead>
+                    <tr>
+                        <th>ส่งรีเควสออเดอร์</th>
+                        <th></th>
+                        <th class="text-right"><input type="checkbox"  name="rest[]" class="restselect" value="<?= $rest["id"] ?>" checked data-toggle="toggle" data-on="ส่ง" data-off="ไม่ส่ง" data-onstyle="success" data-offstyle="danger"></th>
+                      <!--<th>ลำดับการส่งรีเควส</th>
+                      <th>
+                          <label><input type="checkbox" name="rest[]" class="restselect priority1 " rest-id="<?= $rest["id"] ?>" value="1<?= $rest["id"] ?>">&nbsp;1 &nbsp;</label>
+                          <label><input type="checkbox" name="rest[]" class="restselect priority2  " rest-id="<?= $rest["id"] ?>" value="2<?= $rest["id"] ?>">&nbsp;2 &nbsp;</label>
+                          <label><input type="checkbox" name="rest[]" class="restselect priority3 " rest-id="<?= $rest["id"] ?>" value="3<?= $rest["id"] ?>">&nbsp;3</label>
+                      </th>
+                      <th></th>-->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>เมนูที่เลือก: </td>
+                        <td colspan="2"><?= $menustr ?></td>
+
+                    </tr>
+                    <tr>
+                        <td>จำนวน:</td>
+                        <td class="text-center"><?= $amtbox ?></td>
+                        <td class="text-right">ชุด</td>
+                    </tr>
+                    <tr>
+                        <td>ราคา/หน่วย: </td>
+                        <td class="text-center">
+                            <?php
+                            $price = 0;
+                            foreach ($rest["food"] as $key => $food) {
+                                $price += $food["price"];
+                            }
+                            echo $price;
+                            ?>
+                        </td>
+                        <td class="text-right">บาท</td>
+                    </tr>
+                    <tr>
+                        <td>ราคา: </td>
+                        <td class="text-center"><?= $totalfoodprice ?></td>
+                        <td class="text-right">บาท</td>
+                    </tr>
+                    <tr>
+                        <td>ค่ามัดจำ 20%: </td>
+                        <td class="text-center"><?= $prepay ?></td>
+                        <td class="text-right">บาท</td>
+                    </tr>
+                    <tr>
+                        <td>ค่าจัดส่ง: </td>
+                        <td class="text-center"><?= $deliveryprice ?></td>
+                        <td class="text-right">บาท</td>
+                    </tr>
+                    <tr class="danger">
+                        <td ><div style="width: 100px">ราคาส่วนที่เหลือ: </div></td>
+                        <td class="text-center"><?= $sumprice ?></td>
+                        <td class="text-right">บาท</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
     <?php

@@ -16,7 +16,7 @@ $(document).ready(function () {
         });
     });
 
- fetchdataShowFastNowOrder();
+ //fetchdataShowFastNowOrder();
 
     $('#showdataNowFastOrder').on("click", ".normalOrderView", function (e) {
         var id = $(this).attr("data-id");

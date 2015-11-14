@@ -78,35 +78,7 @@ include './dbconn.php';
         <section id="step">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-12 wow fadeInUp templatemo-box" data-wow-delay="0.3s" style="text-align:left">
-                        <h2>สั่งง่ายๆเพียง 5 ขั้นตอน</h2>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-1">
-                    </div>
-                    <div class="col-md-2 wow fadeInUp templatemo-box" data-wow-delay="0.3s">
-                        <img src="assets/images/sixStep/step2.png" width="80" height="80">
-                        <h3>ค้นหาร้านอาหาร</h3>
-                    </div>
-                    <div class="col-md-2 wow fadeInUp templatemo-box" data-wow-delay="0.3s">
-                        <img src="assets/images/sixStep/step3.png" width="80" height="80">
-                        <h3>เลือกรายการอาหาร</h3>
-                    </div>
-                    <div class="col-md-2 wow fadeInUp templatemo-box" data-wow-delay="0.3s">
-                        <img src="assets/images/sixStep/step4.png" width="80" height="80">
-                        <h3>สั่งตามขั้นตอน</h3>
-                    </div>
-                    <div class="col-md-2 wow fadeInUp templatemo-box" data-wow-delay="0.3s">
-                        <img src="assets/images/sixStep/step5.png" width="80" height="80">
-                        <h3>จัดส่งสินค้า</h3>
-                    </div>
-                    <div class="col-md-2 wow fadeInUp templatemo-box" data-wow-delay="0.3s">
-                        <img src="assets/images/sixStep/step6.png" width="80" height="80">
-                        <h3>รับของและชำระเงิน</h3>
-                    </div>
-                    <div class="col-md-1">
-                    </div>
+                    <img src="/assets/images/order.png">
                 </div>
             </div>
         </section>

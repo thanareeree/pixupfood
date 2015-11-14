@@ -586,6 +586,23 @@ include '../dbconn.php';
     </section>
 
 
+    <div class="modal fade" id="msgModal"  >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-success" role="alert">
+                       กรุณาบันทึกข้อมูลหรือแก้ไขข้อมูลในส่วนของการตั้งค่าร้านให้ครบถ้วน เพื่อความถูกต้องของข้อมูล 
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button  type="button" class="btn btn-default" data-dismiss="modal">ตกลง</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
     <!-- start footer -->
     <?php include '../template/footer.php'; ?>
     <!--<script src="/assets/bootstrap-fileinput-master/js/fileinput.js"></script>

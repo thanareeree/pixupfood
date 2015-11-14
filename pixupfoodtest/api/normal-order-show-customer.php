@@ -359,6 +359,9 @@ if ($promoRes->num_rows > 0) {
             </div>
         </div>
     </div>
+    <hr style="margin-top: 50">
+    <button <?= ($statusid > 5) ? "style=\"margin-left: 810\"" : "style=\"margin-left: 680\"" ?>  type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+    <button <?= ($statusid > 5) ? "style=\"display: none\"" : "style=\"margin-left: 20;display: none\"" ?> type="button" class="btn btn-danger cancelNormalOrderBtn" id="cancelNormalOrderBtn">ขอยกเลิกรายการ</button>
 </div>
 
-</div>
+

@@ -72,7 +72,7 @@ $messData = $messengerNameRes->fetch_assoc();
                                 $res = $con->query("SELECT name FROM restaurant WHERE id IN(SELECT fast_order.restaurant_id FROM fast_order WHERE fast_order.id = '$order_id' AND fast_order.status = 7)");
                                 $count = 0;
                                 $name = "";
-                                if($res->num_rows == 0) {
+                                if ($res->num_rows == 0) {
                                     echo 'ทุกร้านที่ส่งคำขอรายการสั่งซื้อไป';
                                 } else {
                                     while ($data = $res->fetch_assoc()) {
@@ -436,6 +436,9 @@ $messData = $messengerNameRes->fetch_assoc();
             </div>
         </div>
     </div>
+    <hr style="margin-top: 50">
+    <button <?= ($statusid > 5)? "style=\"margin-left: 810\"":"style=\"margin-left: 680\""?>  type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+    <button <?= ($statusid > 5)? "style=\"display: none\"":"style=\"margin-left: 20;display: none\""?> type="button" class="btn btn-danger cancelFastOrderBtn" id="cancelOrderBtn">ขอยกเลิกรายการ</button>
 </div>
 
-</div>
+

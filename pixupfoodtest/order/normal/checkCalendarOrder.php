@@ -30,10 +30,15 @@ if ($limiRes->num_rows > 0) {
             "result" => 3,
             "error" => "วันที่" . date("d-m-Y", strtotime($date)) . " " . "ทางร้านไม่สามารถรับรายการสั่งซื้อได้แล้ว"
         ));
-    } else {
+    } else if (($qtyDaily + $orderAllQty) > $limit) {
         echo json_encode(array(
             "result" => 3,
             "error" => "วันที่" . date("d-m-Y", strtotime($date)) . " " . "ร้านสามารถรับรายการได้อีกไม่เกิน" . " " . ($limit - $qtyDaily) . " " . "ชุดเท่านั้น"
+        ));
+    } else{
+
+        echo json_encode(array(
+            "result" => 1
         ));
     }
 } else {

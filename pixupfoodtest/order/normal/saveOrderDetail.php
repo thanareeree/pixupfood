@@ -29,16 +29,17 @@ foreach ($foodarr as $i => $value) {
     }
 }
 $menustr.=")";
+$foodid = "";
 $res = $con->query("SELECT menu.price, main_menu.name, menu.id FROM menu "
         . "LEFT JOIN main_menu ON main_menu.id = menu.main_menu_id "
         . "WHERE restaurant_id = '$resid' AND menu.id IN $menustr");
 if ($res->num_rows == sizeof($foodarr)) {
     $foodprice = 0;
-    $foodid = "";
+
     $i = 0;
     while ($food = $res->fetch_assoc()) {
         $foodprice += $food["price"];
-        
+
         $foodid .= "''";
         $foodid .= $food["id"] . "''";
         $i++;
@@ -48,13 +49,14 @@ if ($res->num_rows == sizeof($foodarr)) {
     }
 }
 
-if (isset($_SESSION["islogin"])) {
-    $con->query("INSERT INTO `order_detail`(`id`, `quantity`, `price`, `set_type`,"
-            . " `menu_id`, `moretext`, `created_time`, `status`, `order_id`, "
-            . "`customer_id`, `restaurant_id`)"
-            . " VALUES (null,'$amtbox','$foodprice','$set_type','$foodid',"
-            . "'$moretext',now(),'0',null,'$cusid','$resid')");
-
+$checkMenuIdRes = $con->query("SELECT * FROM  order_detail "
+        . "where menu_id = '$foodid' and customer_id = '$cusid' and restaurant_id = '$resid'");
+$menuidData = $checkMenuIdRes->fetch_assoc();
+$quantity = $menuidData["quantity"];
+$order_detail_id = $menuidData["id"];
+if ($checkMenuIdRes->num_rows > 0) {
+    $amtbox = $amtbox + $quantity;
+    $con->query("update order_detail set quantity = '$amtbox' where id = '$order_detail_id'");
     if ($con->error == "") {
         echo json_encode(array(
             "result" => 1,
@@ -62,8 +64,27 @@ if (isset($_SESSION["islogin"])) {
     } else {
         echo json_encode(array(
             "result" => 2,
-            "error" => $con->error 
+            "error" => $con->error
         ));
+    }
+} else {
+    if (isset($_SESSION["islogin"])) {
+        $con->query("INSERT INTO `order_detail`(`id`, `quantity`, `price`, `set_type`,"
+                . " `menu_id`, `moretext`, `created_time`, `status`, `order_id`, "
+                . "`customer_id`, `restaurant_id`)"
+                . " VALUES (null,'$amtbox','$foodprice','$set_type','$foodid',"
+                . "'$moretext',now(),'0',null,'$cusid','$resid')");
+
+        if ($con->error == "") {
+            echo json_encode(array(
+                "result" => 1,
+            ));
+        } else {
+            echo json_encode(array(
+                "result" => 2,
+                "error" => $con->error
+            ));
+        }
     }
 }
 ?>

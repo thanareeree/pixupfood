@@ -121,51 +121,50 @@ include '../dbconn.php';
                                                                                 . "WHERE fast_order.customer_id = '$cusid' "
                                                                                 . "and fast_order.status != '9' "
                                                                                 . "GROUP by fast_order.id ORDER BY fast_order.status ASC, fast_order.order_time DESC");
-                                                                       
-                                                                            $i = 1;
-                                                                            while ($orderData = $orderRes->fetch_assoc()) {
-                                                                                ?>
-                                                                                <tr <?= ($orderData["status_id"] == "1") ? "class=\"warning\"" : "" ?>>
-                                                                                   <!-- <td><?= $i++; ?></td>-->
-                                                                                    <td><?= $orderData["order_no"] ?></td>                         
-                                                                                    <td>
-                                                                                        <?php
-                                                                                        $menuid = $orderData["main_menu_id"];
-                                                                                        $menuid = "(" . $menuid . ")";
-                                                                                        $name = "";
-                                                                                        $resName = $con->query("SELECT  main_menu.name FROM main_menu WHERE main_menu.id IN $menuid");
-                                                                                        $count = 0;
-                                                                                        while ($food = $resName->fetch_assoc()) {
 
-                                                                                            $name = $food["name"];
-                                                                                            // $menustr .= $name;
-                                                                                            $count++;
-                                                                                            if ($count < $resName->num_rows) {
-                                                                                                $name.="+";
-                                                                                            }
-                                                                                            echo $name;
+                                                                        $i = 1;
+                                                                        while ($orderData = $orderRes->fetch_assoc()) {
+                                                                            ?>
+                                                                            <tr <?= ($orderData["status_id"] == "1") ? "class=\"warning\"" : "" ?>>
+                                                                               <!-- <td><?= $i++; ?></td>-->
+                                                                                <td><?= $orderData["order_no"] ?></td>                         
+                                                                                <td>
+                                                                                    <?php
+                                                                                    $menuid = $orderData["main_menu_id"];
+                                                                                    $menuid = "(" . $menuid . ")";
+                                                                                    $name = "";
+                                                                                    $resName = $con->query("SELECT  main_menu.name FROM main_menu WHERE main_menu.id IN $menuid");
+                                                                                    $count = 0;
+                                                                                    while ($food = $resName->fetch_assoc()) {
+
+                                                                                        $name = $food["name"];
+                                                                                        // $menustr .= $name;
+                                                                                        $count++;
+                                                                                        if ($count < $resName->num_rows) {
+                                                                                            $name.="+";
                                                                                         }
-                                                                                        ?>
-                                                                                    </td>
-                                                                                    <td><?= $orderData["qty"] ?></td>
-                                                                                    <td><?= $orderData["description"] ?></td>
-                                                                                    <td class="text-center">
-                                                                                        <button class="btn btn-info btn-xs fastOrderView" data-id="<?= $orderData["fast_id"] ?>" ><span class="glyphicon glyphicon-eye-open"></span> แสดง</button>
-                                                                                    </td>
-                                                                                    <td class="text-center">
-                                                                                        <button class="btn btn-warning btn-xs uploadSlip1" data-id="<?= $orderData["fast_id"] ?>" <?= ($orderData["status_id"] == "2") ? "" : "disabled" ?> <?= ($orderData["status_id"] == "4") ? "style=\"display: none\"" : "" ?>>
-                                                                                            <span class="glyphicon glyphicon-eye-open"></span> 
-                                                                                            อัพโหลด
-                                                                                        </button>
-                                                                                        <button class="btn btn-warning btn-xs uploadSlip2" data-id="<?= $orderData["fast_id"] ?>" <?= ($orderData["status_id"] == "4") ? "" : "style=\"display: none\"" ?>  >
-                                                                                            <span class="glyphicon glyphicon-eye-open"></span> 
-                                                                                            อัพโหลด
-                                                                                        </button>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <?php
-                                                                            }
-                                                                        
+                                                                                        echo $name;
+                                                                                    }
+                                                                                    ?>
+                                                                                </td>
+                                                                                <td><?= $orderData["qty"] ?></td>
+                                                                                <td><?= $orderData["description"] ?></td>
+                                                                                <td class="text-center">
+                                                                                    <button class="btn btn-info btn-xs fastOrderView" data-id="<?= $orderData["fast_id"] ?>" data-no="<?= $orderData["order_no"] ?>" ><span class="glyphicon glyphicon-eye-open"></span> แสดง</button>
+                                                                                </td>
+                                                                                <td class="text-center">
+                                                                                    <button class="btn btn-warning btn-xs uploadSlip1" data-id="<?= $orderData["fast_id"] ?>" <?= ($orderData["status_id"] == "2") ? "" : "disabled" ?> <?= ($orderData["status_id"] == "4") ? "style=\"display: none\"" : "" ?>>
+                                                                                        <span class="glyphicon glyphicon-eye-open"></span> 
+                                                                                        อัพโหลด
+                                                                                    </button>
+                                                                                    <button class="btn btn-warning btn-xs uploadSlip2" data-id="<?= $orderData["fast_id"] ?>" <?= ($orderData["status_id"] == "4") ? "" : "style=\"display: none\"" ?>  >
+                                                                                        <span class="glyphicon glyphicon-eye-open"></span> 
+                                                                                        อัพโหลด
+                                                                                    </button>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <?php
+                                                                        }
                                                                         ?>
 
 
@@ -213,34 +212,33 @@ include '../dbconn.php';
                                                                                 . "and normal_order.status != '9' "
                                                                                 . "GROUP BY normal_order.id ORDER BY normal_order.status ASC, normal_order.order_time DESC");
 
-                                                                            $i = 1;
-                                                                            while ($orderData = $orderRes->fetch_assoc()) {
-                                                                                ?>
-                                                                                <tr <?= ($orderData["status_id"] == "1") ? "class=\"warning\"" : "" ?> >
-                                                                                   <!-- <td><?= $i++; ?></td>-->
-                                                                                    <td><?= $orderData["order_no"] ?></td>    
-                                                                                    <td><?= $orderData["qty"] ?></td>
-                                                                                    <td><?= $orderData["name"] ?></td>
-                                                                                    <td><?= $orderData["description"] ?></td>
-                                                                                    <td class="text-center">
-                                                                                        <button class="btn btn-info btn-xs normalOrderView" data-id="<?= $orderData["order_id"] ?>">
-                                                                                            <span class="glyphicon glyphicon-eye-open"></span> 
-                                                                                            แสดง
-                                                                                        </button>
-                                                                                    </td>
-                                                                                    <td class="text-center">
-                                                                                        <button class="btn btn-warning btn-xs uploadSlip1" data-id="<?= $orderData["order_id"] ?>" <?= ($orderData["status_id"] == "2") ? "" : "disabled" ?> <?= ($orderData["status_id"] == "4") ? "style=\"display: none\"" : "" ?>>
-                                                                                            <span class="glyphicon glyphicon-eye-open"></span> 
-                                                                                            อัพโหลด
-                                                                                        </button>
-                                                                                        <button class="btn btn-warning btn-xs uploadSlip2" data-id="<?= $orderData["order_id"] ?>" <?= ($orderData["status_id"] == "4") ? "" : "style=\"display: none\"" ?> >
-                                                                                            <span class="glyphicon glyphicon-eye-open"></span> 
-                                                                                            อัพโหลด
-                                                                                        </button>
-                                                                                </tr>
-                                                                                <?php
-                                                                            }
-                                                                        
+                                                                        $i = 1;
+                                                                        while ($orderData = $orderRes->fetch_assoc()) {
+                                                                            ?>
+                                                                            <tr <?= ($orderData["status_id"] == "1") ? "class=\"warning\"" : "" ?> >
+                                                                               <!-- <td><?= $i++; ?></td>-->
+                                                                                <td><?= $orderData["order_no"] ?></td>    
+                                                                                <td><?= $orderData["qty"] ?></td>
+                                                                                <td><?= $orderData["name"] ?></td>
+                                                                                <td><?= $orderData["description"] ?></td>
+                                                                                <td class="text-center">
+                                                                                    <button class="btn btn-info btn-xs normalOrderView" data-id="<?= $orderData["order_id"] ?>"  data-no="<?= $orderData["order_no"] ?>" >
+                                                                                        <span class="glyphicon glyphicon-eye-open"></span> 
+                                                                                        แสดง
+                                                                                    </button>
+                                                                                </td>
+                                                                                <td class="text-center">
+                                                                                    <button class="btn btn-warning btn-xs uploadSlip1" data-id="<?= $orderData["order_id"] ?>" <?= ($orderData["status_id"] == "2") ? "" : "disabled" ?> <?= ($orderData["status_id"] == "4") ? "style=\"display: none\"" : "" ?>>
+                                                                                        <span class="glyphicon glyphicon-eye-open"></span> 
+                                                                                        อัพโหลด
+                                                                                    </button>
+                                                                                    <button class="btn btn-warning btn-xs uploadSlip2" data-id="<?= $orderData["order_id"] ?>" <?= ($orderData["status_id"] == "4") ? "" : "style=\"display: none\"" ?> >
+                                                                                        <span class="glyphicon glyphicon-eye-open"></span> 
+                                                                                        อัพโหลด
+                                                                                    </button>
+                                                                            </tr>
+                                                                            <?php
+                                                                        }
                                                                         ?>
 
 
@@ -293,9 +291,6 @@ include '../dbconn.php';
                             <div id="normalOrderViewBody">
 
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -315,13 +310,27 @@ include '../dbconn.php';
                             <div id="fastOrderViewBody">
 
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
-                            </div>
                         </div>
                     </div>
                 </div>
                 <!-- End Detail --> 
+                <div class="modal fade" id="msgModal"  >
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">ยกเลิกรายการสั่งซื้อเรียบร้อยแล้ว</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="alert alert-info" role="alert">
+                                 ค่ามัดจำ 20% ถือว่าเป็นของผู้ประกอบการ
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="/view/cus_customer_profile.php"><button type="button" class="btn btn-success">ตกลง</button></a>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
             </div>
         </section> 
 
@@ -334,9 +343,9 @@ include '../dbconn.php';
         <script src="/assets/js/dataTables.js"></script>
         <script>
                                                      var table = $('#normalDatable').DataTable({});
-                                                 
+
                                                      var table2 = $('#fastDatable').DataTable({});
-                                                    
+
         </script>
     </body>
 </html>

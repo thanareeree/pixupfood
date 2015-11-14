@@ -10,7 +10,7 @@ include '../dbconn.php';
 
         <?php include '../template/customer-title.php'; ?>
         <!-- custom css -->
-        <link rel="stylesheet" href="../assets/css/res_restaurant_manage.css">
+        <link rel="stylesheet" href="/assets/css/res_restaurant_manage.css">
 
     </head>
     <body>
@@ -160,7 +160,9 @@ include '../dbconn.php';
                                                     <?php
                                                     while ($data = $res->fetch_assoc()) {
                                                         ?>
-                                                        <article class="white-panel"><img src="<?= $data["img_path"]?>" alt="">
+                                                        <article class="white-panel">
+                                                            <button type="button" class="close deleteNewsBtn"  data-id="<?= $data["id"]?>" data-toggle="tooltip" data-placement="top" title="ลบข่าวนี้?"  aria-label="Close"><span aria-hidden="true" style="color: red">&times;</span></button>
+                                                            <img src="<?= $data["img_path"]?>" alt="">
                                                             <h4>เมื่อวันที่: &nbsp;<?= substr($data["created_time"], 0, 11).""."เวลา"." ".substr($data["created_time"], 11, 5)?>&nbsp;น.</h4>
                                                             <p style="font-size: 16px;">
                                                                 <b><?= $data["title"]?>:</b>&nbsp;<?= $data["detail"]?>
@@ -203,7 +205,22 @@ include '../dbconn.php';
                 margin_bottom: 50,
                 single_column_breakpoint: 700
             });
-
+            $('[data-toggle="tooltip"]').tooltip();
+            $(".deleteNewsBtn").click(function (e){
+                var id = $(this).attr("data-id");
+                  $.ajax({
+                    url: "/restaurant-setting/delete-news.php?newid=" + id,
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        if(data.result == '1'){
+                            document.location.reload();
+                        }else{
+                            alert(data.error);
+                        }
+                    }
+                });
+            });
             /* $('#characterLeft').text('140 characters left');
              $('#message').keydown(function () {
              var max = 140;

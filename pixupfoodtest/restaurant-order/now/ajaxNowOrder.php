@@ -47,12 +47,21 @@ if ($orderNowAllRes->num_rows == 0) {
                 $orderid = $fastOrderData["fast_id"];
                 $timeleft;
 
+                $qtyOrder = $fastOrderData["qty"];
+                $date = $fastOrderData["delivery_date"];
+
+                $limiRes = $con->query("SELECT * FROM `limit_box_daily` WHERE restaurant_id = '$resid' and daily_date = '$date' ");
+                $limitData = $limiRes->fetch_assoc();
+                $qtyDaily = $limitData["qty"];
+
+                $diffQty = $qtyDaily - $qtyOrder;
+
                 if ($fastOrderData["status"] == 2) {
                     if ($diff > (60 * 60 * 4)) {
 
                         $con->query("UPDATE `fast_order` SET `status`='8',`updated_status_time`= now() WHERE id = '$orderid' ");
                         if ($con->error == "") {
-
+                            $con->query("UPDATE `limit_box_daily` SET qty = '$diffQty'  where restaurant_id = '$resid' and daily_date = '$date'");
                             include '../../register/thsms.php';
                             $sms = new thsms();
                             $sms->username = 'thanaree';
@@ -72,21 +81,24 @@ if ($orderNowAllRes->num_rows == 0) {
                         $unPayRes = $con->query("SELECT * FROM fast_order WHERE fast_order.restaurant_id = '$resid' "
                                 . "AND fast_order.id = '$orderIdAll' AND fast_order.delivery_date < DATE(NOW())");
                         if ($unPayRes->num_rows > 0) {
-                            include '../../register/thsms.php';
-                            $sms = new thsms();
-                            $sms->username = 'thanaree';
-                            $sms->password = '58c60d';
                             $con->query("UPDATE `fast_order` SET `status`='8',`updated_status_time`= now() WHERE id = '$orderid' ");
-                            $b = $sms->send('0000', $fastOrderData["tel"], "หมายเลขคำสั่งซื้อ: " . $fastOrderData["order_no"]
-                                    . " \nถูกยกเลิกรายการจากเนื่องจากลูกค้าไม่ได้ชำระค่าสินค้าในส่วนที่เหลือ"
-                                    . " \nลูกค้าสามารถสั่งซื้ออาหารได้ที่ pixupfood.com");
+                            $con->query("UPDATE `limit_box_daily` SET qty = '$diffQty'  where restaurant_id = '$resid' and daily_date = '$date'");
+                            /*   include '../../register/thsms.php';
+                              $sms = new thsms();
+                              $sms->username = 'thanaree';
+                              $sms->password = '58c60d';
+
+                              $b = $sms->send('0000', $fastOrderData["tel"], "หมายเลขคำสั่งซื้อ: " . $fastOrderData["order_no"]
+                              . " \nถูกยกเลิกรายการจากเนื่องจากลูกค้าไม่ได้ชำระค่าสินค้าในส่วนที่เหลือ"
+                              . " \nลูกค้าสามารถสั่งซื้ออาหารได้ที่ pixupfood.com"); */
                         }
                     }
-                }else if ($fastOrderData["status"] == 5) {
+                } else if ($fastOrderData["status"] == 5) {
                     $unPayRes = $con->query("SELECT * FROM fast_order WHERE fast_order.restaurant_id = '$resid' "
                             . "AND fast_order.id = '$orderid' AND fast_order.delivery_date < DATE(NOW())");
                     if ($unPayRes->num_rows > 0) {
                         $con->query("UPDATE `fast_order` SET `status`='8',`updated_status_time`= now() WHERE id = '$orderid' ");
+                        $con->query("UPDATE `limit_box_daily` SET qty = '$diffQty'  where restaurant_id = '$resid' and daily_date = '$date'");
                     }
                 }
                 ?>
@@ -153,9 +165,19 @@ if ($orderNowAllRes->num_rows == 0) {
                 $orderid = $normalOrderData["order_id"];
                 $timeleft;
 
+                $qtyOrder = $normalOrderData["qty"];
+                $date = $normalOrderData["delivery_date"];
+
+                $limiRes = $con->query("SELECT * FROM `limit_box_daily` WHERE restaurant_id = '$resid' and daily_date = '$date' ");
+                $limitData = $limiRes->fetch_assoc();
+                $qtyDaily = $limitData["qty"];
+                $diffQty = $qtyDaily - $qtyOrder;
+
+                //echo $diff.">".(60 * 60 * 4);
+
                 if ($normalOrderData["status"] == 2) {
                     if ($diff > (60 * 60 * 4)) {
-
+                        $con->query("UPDATE `limit_box_daily` SET qty = '$diffQty'  where restaurant_id = '$resid' and daily_date = '$date'");
                         $con->query("UPDATE `normal_order` SET `status`='8',`updated_status_time`= now() WHERE id = '$orderid' ");
                         if ($con->error == "") {
 
@@ -171,6 +193,7 @@ if ($orderNowAllRes->num_rows == 0) {
                         // continue;
                     } else {
                         $timeleft = (60 * 60 * 4) - $diff;
+                        //echo $con->error."1242455";
                     }
                 } else if ($normalOrderData["status"] == 4 && $normalOrderData["payment_id"] == 2) {
                     $checkRes = $con->query("SELECT * FROM `transfer` WHERE order_id = '$orderid' AND type='n2'");
@@ -178,14 +201,15 @@ if ($orderNowAllRes->num_rows == 0) {
                         $unPayRes = $con->query("SELECT * FROM normal_order WHERE normal_order.restaurant_id = '$resid' "
                                 . "AND normal_order.id = '$orderid' AND normal_order.delivery_date < DATE(NOW())");
                         if ($unPayRes->num_rows > 0) {
-                            include '../../register/thsms.php';
-                            $sms = new thsms();
-                            $sms->username = 'thanaree';
-                            $sms->password = '58c60d';
                             $con->query("UPDATE `normal_order` SET `status`='8',`updated_status_time`= now() WHERE id = '$orderid' ");
-                            $b = $sms->send('0000', $normalOrderData["tel"], "หมายเลขคำสั่งซื้อ: " . $normalOrderData["order_no"]
-                                    . " \nถูกยกเลิกรายการจากเนื่องจากลูกค้าไม่ได้ชำระค่าสินค้าในส่วนที่เหลือ"
-                                    . " \nลูกค้าสามารถสั่งซื้ออาหารได้ที่ pixupfood.com");
+                            $con->query("UPDATE `limit_box_daily` SET qty = '$diffQty'  where restaurant_id = '$resid' and daily_date = '$date'");
+                            /* include '../../register/thsms.php';
+                              $sms = new thsms();
+                              $sms->username = 'thanaree';
+                              $sms->password = '58c60d';
+                              $b = $sms->send('0000', $normalOrderData["tel"], "หมายเลขคำสั่งซื้อ: " . $normalOrderData["order_no"]
+                              . " \nถูกยกเลิกรายการจากเนื่องจากลูกค้าไม่ได้ชำระค่าสินค้าในส่วนที่เหลือ"
+                              . " \nลูกค้าสามารถสั่งซื้ออาหารได้ที่ pixupfood.com"); */
                         }
                     }
                 } else if ($normalOrderData["status"] == 5) {
@@ -193,6 +217,7 @@ if ($orderNowAllRes->num_rows == 0) {
                             . "AND normal_order.id = '$orderid' AND normal_order.delivery_date < DATE(NOW())");
                     if ($unPayRes->num_rows > 0) {
                         $con->query("UPDATE `normal_order` SET `status`='8',`updated_status_time`= now() WHERE id = '$orderid' ");
+                        $con->query("UPDATE `limit_box_daily` SET qty = '$diffQty'  where restaurant_id = '$resid' and daily_date = '$date'");
                     }
                 }
                 ?>

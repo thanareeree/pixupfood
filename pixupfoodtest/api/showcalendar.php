@@ -21,20 +21,6 @@ $events = array();
 $type = $_POST["type"];
 
 if ($type == 'fetch') {
-    /* while ($data = $dataOrder->fetch_assoc()) {
-      $allQty = $data["qty"];
-      if ($allQty >= ($limit - $minimum)) {
-      $e = array();
-      $e['title'] = "เต็ม";
-      $e['start'] = $data['delivery_date'];
-      array_push($events, $e);
-      } else {
-      $e = array();
-      $e['title'] = $data['qty'] . " " . "ชุด";
-      $e['start'] = $data['delivery_date'];
-      array_push($events, $e);
-      }
-      } */
     while ($limitData = $limiRes->fetch_assoc()) {
         $allQty = $limitData["qty"];
         if ($allQty >= ($limit - $minimum)) {
@@ -43,7 +29,7 @@ if ($type == 'fetch') {
             $e['start'] = $limitData['daily_date'];
             $e['status'] = 0;
             array_push($events, $e);
-        } else {
+        } else if($allQty != 0 & $allQty != ""){
             $e = array();
             $e['title'] = $limitData['qty'] . " " . "ชุด";
             $e['start'] = $limitData['daily_date'];

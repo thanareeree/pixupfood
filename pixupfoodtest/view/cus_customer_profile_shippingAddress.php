@@ -127,9 +127,11 @@ include '../dbconn.php';
                                                                                 <td><?= $i++; ?></td>
                                                                                 <td><?= $data4['full_address'] ?></td>
                                                                                 <td>
-                                                                                    <button class="btn btn-primary btn-xs editadd" id="editadd<?= $data4["id"] ?>"  >
-                                                                                        <span class="glyphicon glyphicon-check"></span> แก้ไข
-                                                                                    </button>              
+                                                                                    <a href="/view/cus_profile_edit_shippingAddress.php?shipid=<?= $data4["id"] ?>">
+                                                                                        <button class="btn btn-primary btn-xs "   >
+                                                                                            <span class="glyphicon glyphicon-check"></span> แก้ไข
+                                                                                        </button>  
+                                                                                    </a>
                                                                                 </td>
                                                                                 <td>
                                                                                     <button class="btn btn-danger btn-xs deleteadd" id="deleteadd<?= $data4["id"] ?>" data-title="Delete"  >
@@ -204,9 +206,9 @@ include '../dbconn.php';
                 </div>
             </div>
         </section> 
-         <div class="col-sm-12" style="padding: 0 0 20px 0;">
-             <div id="map" style="display: none"></div>
-    </div>
+        <div class="col-sm-12" style="padding: 0 0 20px 0;">
+            <div id="map" style="display: none"></div>
+        </div>
 
 
         <?php include '../template/footer.php'; ?>

@@ -1,6 +1,6 @@
 $(document).ready(function () {
-  showNormalOrder();
-  showFastOrder();
+  //showNormalOrder();
+  //showFastOrder();
 
 
     $('#showNormalOrder').on("click", ".normalOrderView", function (e) {
@@ -104,6 +104,51 @@ $(document).ready(function () {
             }
         });
     });
+    
+    $(".cancelFastOrderBtn").on("click", function (e){
+        var fasid = $("#showFastOrderId").html();
+         $.ajax({
+            url: "/customer-profile/tracking/cancel-order-fast.php",
+            type: "POST",
+            data: {"fastno": fasid},
+            dataType: "json",
+            success: function (returndata) {
+              if(returndata.result == 1){
+                   $("#detailFastOrderModal").modal("hide");
+                   $("#msgModal").modal("show");
+                   //document.location.reload();
+               }else{
+                     alert(returndata.error);
+               }
+
+            }
+        });
+        //alert(fasid);
+    });
+    
+    
+    $(".cancelNormalOrderBtn").on("click", function (e){
+        var normalid = $("#showOrderId").html();
+         $.ajax({
+            url: "/customer-profile/tracking/cancel-order-normal.php",
+            type: "POST",
+            data: {"normalno": normalid},
+            dataType: "json",
+            success: function (returndata) {
+              if(returndata.result == 1){
+                   $("#detailNormalOrderModal").modal("hide");
+                   $("#msgModal").modal("show");
+                   //document.location.reload();
+               }else{
+                     alert(returndata.error);
+               }
+
+            }
+        });
+      
+    });
+    
+    
 });
 
 

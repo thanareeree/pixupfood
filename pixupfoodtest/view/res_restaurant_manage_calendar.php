@@ -15,7 +15,7 @@ include '../dbconn.php';
         include '../template/customer-title.php';
         ?>
         <!-- custom css -->
-        <link rel="stylesheet" href="../assets/css/res_restaurant_manage.css">
+        <link rel="stylesheet" href="/assets/css/res_restaurant_manage.css">
         <link href='/assets/css/fullcalendar.css' rel='stylesheet' />
         <link href='/assets/css/fullcalendar.print.css' rel='stylesheet' media='print' />
         <style>

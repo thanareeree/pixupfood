@@ -117,12 +117,14 @@ function validateTab(tab) {
             $("#errorStep5").html(' <div class="alert alert-danger" role="alert" style="margin-top: 30px;">' +
                     '<p style="color: red;"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
                     '&nbsp;กรุณาเลือกวันที่จัดส่งก่อนไปขั้นตอนถัดไป</p></div>');
+            $("#errorStep5").show();
             return false;
         }
         if (time == null) {
             $("#errorStep5").html(' <div class="alert alert-danger" role="alert" style="margin-top: 30px;">' +
                     '<p style="color: red;"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
                     '&nbsp;กรุณาเลือกเวลาจัดส่งก่อนไปขั้นตอนถัดไป</p></div>');
+            $("#errorStep5").show();
             return false;
         }
         $("#errorStep5").html("");
@@ -500,11 +502,11 @@ function changeQuantity() {
             $("#errorChangeQty").html(' <div class="alert alert-danger" role="alert">' +
                     '<p style="color: red"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
                     '&nbsp;จำนวนชุดน้อยกว่าจำนวนขั้นต่ำที่ร้านกำหนดไว้</p></div>');
-               $("#confirm_orderbtn").attr("disabled", "disabled");
+            $("#confirm_orderbtn").attr("disabled", "disabled");
             return false;
-        }else{
-             $('#errorChangeQty').html("");
-              $("#confirm_orderbtn").removeAttr("disabled");
+        } else {
+            $('#errorChangeQty').html("");
+            $("#confirm_orderbtn").removeAttr("disabled");
         }
 
         $.ajax({
@@ -515,6 +517,7 @@ function changeQuantity() {
             success: function (data) {
                 if (data.result == "1") {
                     showOrderDatail();
+                    checkCalendarOrder();
                     $('#errorChangeQty').html("");
                 } else {
                     alert(data.error);
@@ -548,29 +551,32 @@ function initCalendar() {
 
 function checkCalendarOrder() {
     var date = $('#calendar').datepick('getDate')[0];
-    console.log(date);
+    //console.log(date);
     $.ajax({
         url: "/order/normal/checkCalendarOrder.php",
         type: "POST",
         dataType: "json",
         data: {"resid": $(".getResId").val(), "date": date},
         success: function (data) {
-         if (data.result == "3") {
-                $("#errorStep5").html("");
-                 $("#errorStep5").html(' <div class="alert alert-danger" role="alert" style="margin-top: 30px;">' +
-                 '<p style="color: red;"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
-                 '&nbsp;'+data.error+'<br></p></div>');
-              //  alert(data.error);
+            if (data.result == "3") {
+               // alert(data.error);
+              //  $("#errorStep5").html("");
+                  $("#errorStep5").children().remove();
+                $("#errorStep5").show();
+                $("#errorStep5").html(' <div class="alert alert-danger" role="alert" style="margin-top: 30px;">' +
+                        '<p style="color: red;"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
+                        '&nbsp;' + data.error + '<br></p></div>');
+                //  alert(data.error);
                 $("#nextstep5").attr("disabled", "disabled");
-            } else {
-                 //alert(data.error);
-                  $("#errorStep5").html("");
-              $("#nextstep5").removeAttr("disabled");
-            }
-          
+            } else if (data.result == "1") {
+                $("#errorStep5").children().remove();
+                $("#errorStep5").hide();
+                $("#nextstep5").removeAttr("disabled");
+            } 
+
         }
     });
-   
+
 }
 
 function saveOrderDetail() {
