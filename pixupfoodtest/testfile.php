@@ -1,8 +1,7 @@
 <?php
+include './dbconn.php';
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
+$res = $con->query("select delivery_date from normal_order where id = 66");
+$data  = $res->fetch_assoc();
+echo date('m',strtotime($data["delivery_date"]));

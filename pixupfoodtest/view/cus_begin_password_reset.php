@@ -11,15 +11,9 @@ include '../dbconn.php';
         <title>Reset Password</title>
         <?php include '../template/customer-title.php'; ?>
         <!-- custom css -->
-        <link rel="stylesheet" href="/assets/css/register.css">
-
-
-
+       <link rel="stylesheet" href="/assets/css/cus_reset.css">
     </head>
     <body>
-        <div class="preloader">
-            <div class="loader"></div>
-        </div>
         <!-- start navigation -->
         <nav class="navbar navbar-default navbar-fixed-top templatemo-nav" role="navigation">
             <div class="container" style="margin-left:100px;margin-right:40px;height:70px;width:auto;">
@@ -46,7 +40,7 @@ include '../dbconn.php';
         </nav>
         <!-- end navigation -->
         <!-- start register -->
-        <section id="cus_register">
+        <section id="cus_reset">
             <div class="overlay">
                 <div class="container">
                     <div class="row">
@@ -58,7 +52,7 @@ include '../dbconn.php';
                             <hr>
                         </div>
                     </div>
-                    <div class="row" style="margin-top: 60px">
+                    <div class="row" style="margin-top: 60px;margin-bottom: 80px">
 
                         <div class="col-md-2"></div>
                         <div class="col-md-3 wow fadeInUp" data-wow-delay="0.6s">
