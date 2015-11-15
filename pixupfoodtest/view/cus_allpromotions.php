@@ -6,7 +6,7 @@ include '../dbconn.php';
 <html >
     <head>
         <title>PixupFood - Promotion</title>
-          <?php include '../template/customer-title.php'; ?>
+        <?php include '../template/customer-title.php'; ?>
         <link rel="stylesheet" href="../assets/css/all_promotions.css">
     </head>
     <body>
@@ -28,51 +28,34 @@ include '../dbconn.php';
                         <img src="../assets/images/ads.png" width="100%" style="margin-top: 60px;margin-bottom: 60px">
                     </div>
                     <div class="col-md-10">
-                        <div class="row">
-                            <div class="col-md-6" style="padding:60px 15px 30px 50px">
-                                <ul class="media-list main-list">
-                                    <li class="media">
-                                        <a class="pull-left" href="#">
-                                            <img class="media-object" src="../assets/images/allpromo/promo01.jpg"  alt="..." width="150px" style="max-height:90px;">
-                                        </a>
-                                        <div class="media-body">
-                                            <h4 class="media-heading">ลดสนั่นเมือง</h4>
-                                            <p class="by-author">ลดสูงสุดถึง 50% วันนี้ - 31 ธันวาคม 2558 ที่ร้านลุงอนันต์<br>เมื่อสั่งอาหารผ่านเว็บไซต์</p>
-                                        </div>
-                                    </li>
-                                    <li class="media">
-                                        <a class="pull-left" href="#">
-                                            <img class="media-object" src="../assets/images/allpromo/promo03.jpg"  alt="..." width="150px" style="max-height:90px;">
-                                        </a>
-                                        <div class="media-body">
-                                            <h4 class="media-heading">ไม่มีอีกแล้ว กับโปรโมชั่นสุดพิเศษ!!!</h4>
-                                            <p class="by-author">ป้าน้อยใจปล้ำ เมื่อสั่งอาหารผ่านเว็บไซต์ ซื้อ 3 กล่องฟรี 1 กล่อง*<br>*จำกัดกล่องฟรีสูงสุดไม่เกิน 20 กล่อง</p>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-md-6" style="padding:60px 20px 0 10px">
-                                <ul class="media-list main-list">
-                                    <li class="media">
-                                        <a class="pull-left" href="#">
-                                            <img class="media-object" src="../assets/images/allpromo/promo02.jpg"  alt="..." width="150px" style="max-height:90px;">
-                                        </a>
-                                        <div class="media-body">
-                                            <h4 class="media-heading">ป้าลมัยใจดี!!</h4>
-                                            <p class="by-author">ป้าลมัยใจดี ลด 10% ทุกยอดการสั่งซื้อผ่านเว็บไซต์เท่านั้น!!!</p>
-                                        </div>
-                                    </li>
-                                    <li class="media">
-                                        <a class="pull-left" href="#">
-                                            <img class="media-object" src="../assets/images/allpromo/promo04.jpg"  alt="..." width="150px" style="max-height:90px;">
-                                        </a>
-                                        <div class="media-body">
-                                            <h4 class="media-heading">ฟรีน้ำกระป๋อง!!</h4>
-                                            <p class="by-author">เมื่อมียอดสั่งซื้อกับร้านลุงเอก ผ่านเว็บไซต์ ทุก 100.- รับน้ำอัดลมฟรี 2 กระป๋อง</p>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
+                        <div class="row" style="padding:60px 15px 30px 50px;border-top:1px solid #e8e8e8; ">
+                            <?php
+                            $res = $con->query("select promotion.id, promotion_main.name, restaurant.name as restname, "
+                                    . "promotion.start_time, promotion.end_time, promotion.description, promotion_main.img_path  "
+                                    . "from promotion "
+                                    . "LEFT JOIN promotion_main ON promotion_main.id = promotion.promotion_main_id "
+                                    . "LEFT JOIN restaurant ON restaurant.id = promotion.restaurant_id "
+                                    . "ORDER BY RAND() DESC ");
+                            while ($data = $res->fetch_assoc()) {
+                                ?>
+                                <div class="col-md-6" >
+                                    <ul class="media-list main-list"  style="border-bottom:1px solid #e8e8e8; ">
+                                        <li class="media">
+                                            <a class="pull-left" href="#">
+                                                <img class="media-object" src="<?= $data["img_path"] ?>" alt="..." width="150px" style="max-height:110;">
+                                            </a>
+                                            <div class="media-body">
+                                                <h4 class="media-heading"><?= $data["restname"] ?></h4>
+                                                <p class="by-author"><?= $data["description"] ?><br><br>
+                                                    เริ่มวันที่: &nbsp;<?= $data["start_time"] ?>&nbsp;
+                                                    หมดเขต: &nbsp;<?= $data["end_time"] ?>&nbsp;
+
+                                                </p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
@@ -80,8 +63,8 @@ include '../dbconn.php';
         </section>
         <!-- end register -->
 
-       <?php include '../template/footer.php'; ?>
-        
+        <?php include '../template/footer.php'; ?>
+
         <script type="text/javascript">
             var $table = $('#fresh-table'),
                     full_screen = false;
@@ -121,6 +104,6 @@ include '../dbconn.php';
 
             });
         </script>
- 
+
     </body>
 </html>
