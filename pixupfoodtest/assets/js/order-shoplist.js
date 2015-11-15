@@ -483,6 +483,7 @@ function blindDelete() {
             success: function (data) {
                 if (data.result == "1") {
                     showOrderDatail();
+                     checkCalendarOrder();
                 } else {
                     alert(data.error);
                 }

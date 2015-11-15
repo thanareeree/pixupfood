@@ -94,26 +94,26 @@ $(document).ready(function () {
                 if (data.result == 1) { //สำเร็จ
                     $("#duplicateMenu").html("");
                     $("#addMenuRes").trigger("reset");
-                     $("#duplicateMenu").html(' <div class="alert alert-success" role="alert" style="margin-top:25px;margin-right: 165px;">' +
+                    $("#duplicateMenu").html(' <div class="alert alert-success" role="alert" style="margin-top:25px;margin-right: 165px;">' +
                             '<p ><i class="glyphicon glyphicon-exclamation-sign"></i>' +
                             '&nbsp;บันทึกเมนูเรียบร้อยเเล้ว</p></div>').fadeIn(500);
-                    
+
                 } else if (data.result == 2) {
                     $("#duplicateMenu").html(' <div class="alert alert-danger" role="alert" style="margin-top:25px;margin-right: 165px;">' +
                             '<p style="color: red"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
                             '&nbsp;ร้านของท่านมีเมนูอาหารนี้เเล้ว กรุณาเลือกรายการใหม่อีกครั้ง</p></div>');
                     $("#addMenuRes").trigger("reset");
-                }else if (data.result == 3) {
-                     $("#duplicateMenu").html("");
+                } else if (data.result == 3) {
+                    $("#duplicateMenu").html("");
                     $("#addMenuRes").trigger("reset");
                     $("#duplicateMenu").html(' <div class="alert alert-danger" role="alert" style="margin-top:25px;margin-right: 165px;">' +
                             '<p style="color: red"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
-                            '&nbsp;'+data.reason+'</p></div>');
+                            '&nbsp;' + data.reason + '</p></div>');
                     $("#addMenuRes").trigger("reset");
-                }else{
+                } else {
                     $("#duplicateMenu").html(' <div class="alert alert-danger" role="alert" style="margin-top:25px;margin-right: 165px;">' +
                             '<p style="color: red"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
-                            '&nbsp;'+data.reason+'</p></div>');
+                            '&nbsp;' + data.reason + '</p></div>');
                     $("#addMenuRes").trigger("reset");
                 }
             }
@@ -121,6 +121,43 @@ $(document).ready(function () {
         e.preventDefault();
 
         return false;
+    });
+
+    $("#foodname").keyup(function (e) {
+        var name = $(this).val();
+        $.ajax({
+            url: "/restaurant/check-mainmenuname.php",
+            type: "POST",
+            dataType: "json",
+            data: {"foodname": name},
+            success: function (data) {
+                if (data.result == 1) {
+                    $("#addNewMenubtn").attr("disabled", "disabled");
+                    $(".errorMainmenuDuplicate").show();
+                } else {
+                    $("#addNewMenubtn").removeAttr("disabled");
+                    $(".errorMainmenuDuplicate").hide();
+                }
+            }
+        });
+    });
+    $("#foodname").blur(function (e) {
+        var name = $(this).val();
+        $.ajax({
+            url: "/restaurant/check-mainmenuname.php",
+            type: "POST",
+            dataType: "json",
+            data: {"foodname": name},
+            success: function (data) {
+                if (data.result == 1) {
+                    $("#addNewMenubtn").attr("disabled", "disabled");
+                    $(".errorMainmenuDuplicate").show();
+                } else {
+                    $("#addNewMenubtn").removeAttr("disabled");
+                    $(".errorMainmenuDuplicate").hide();
+                }
+            }
+        });
     });
 
     $("#searchtext").on("keyup", function (e) {

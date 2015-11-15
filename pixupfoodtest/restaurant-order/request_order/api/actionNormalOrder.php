@@ -40,7 +40,7 @@ if (isset($_SESSION["islogin"])) {
                 $addQty = $qtyDaily + $qty;
                 $con->query("UPDATE `limit_box_daily` SET `qty`= '$addQty' WHERE restaurant_id = '$resid' AND daily_date = '$delidate'");
             }
-           /* include '../../../register/thsms.php';
+           include '../../../register/thsms.php';
             $sms = new thsms();
             $sms->username = 'thanaree';
             $sms->password = '58c60d';
@@ -50,7 +50,6 @@ if (isset($_SESSION["islogin"])) {
                     . "\nแล้ว Shipping Code:" . $data["shipping_password"]
                     . "\nสามารถเช็คสถานะได้ที่ pixupfood.com");
 
-*/
             $response = array(
                 "result" => 1
             );

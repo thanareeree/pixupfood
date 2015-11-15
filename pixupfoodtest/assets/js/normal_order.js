@@ -135,6 +135,9 @@ $(document).ready(function (e) {
         checkCalendarOrder();
     });
 
+    $("#prevstep2").click(function (e) {
+        $("#errorStep2").hide();
+    });
 
 });
 
@@ -180,10 +183,11 @@ function validateTab(tab) {
                 $("#errorStep2").html(' <div class="alert alert-danger" role="alert">' +
                         '<p style="color: red"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
                         '&nbsp;กรุณาเลือกชนิดข้าวก่อนไปขั้นตอนถัดไป</p></div>');
-
+                $("#errorStep2").show();
                 return false;
             }
             $("#errorStep2").html("");
+            $("#errorStep2").hide();
         }
         $('#addNewOrder').hide();
         $("#addMenuSuccess").hide();

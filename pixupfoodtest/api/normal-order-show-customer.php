@@ -57,13 +57,36 @@ if ($promoRes->num_rows > 0) {
             <?php if ($statusid == 2) {
                 ?>
                 <div class="col-md-12">
-                    <div class="alert alert-danger" style="font-size: 18px" role="alert">กรุณาโอนเงินค่ามัดจำสินค้าภายในเวลา 4 ชั่วโมง หลังจากร้านตอบรับรายการแล้ว</div>
+                    <div class="alert alert-danger" style="font-size: 18px" role="alert"> 
+                        กรุณาโอนเงินค่ามัดจำสินค้าภายในเวลา 4 ชั่วโมง หลังจากร้านตอบรับรายการแล้ว <br>
+                        และกรุณาแจ้งหลักฐานการโอนเงินไปยังร้านค้าตรวจสอบข้อมูล<br>
+                        สามารถโอนไปที่บัญชี >><br>
+                        <?php
+                        $bankRes = $con->query("SELECT `id`, `accname`, `accNo`, `bank`, `restaurant_id` "
+                                . "FROM `bank_account` WHERE restaurant_id = '$resid' ");
+                        while ($bankData = $bankRes->fetch_assoc()) {
+                            ?>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="info_res">ชื่อบัญชี: &nbsp;<?= $bankData["accname"] ?>&nbsp;เลขที่บัญชี &nbsp;<?= $bankData["accNo"] ?>&nbsp;<?= $bankData["bank"] ?></span><br>
+
+                        <?php } ?>
+                    </div>
                 </div>
             <?php } ?>
-            <?php if ($statusid == 5 && $orderData["payment_id"] == 2) {
+            <?php if ($statusid == 4 && $orderData["payment_id"] == 2) {
                 ?>
                 <div class="col-md-12">
-                    <div class="alert alert-danger" style="font-size: 18px"  role="alert">กรุณาโอนเงินในส่วนที่เหลือจำนวนก่อนวันจัดส่งสินค้า 1 วัน</div>
+                    <div class="alert alert-danger" style="font-size: 18px"  role="alert">
+                        กรุณาโอนเงินในส่วนที่เหลือและแจ้งหลักฐานการโอนเงินไปยังร้านค้าตรวจสอบข้อมูล<br>
+                        สามารถโอนไปที่บัญชี >><br>
+                        <?php
+                        $bankRes = $con->query("SELECT `id`, `accname`, `accNo`, `bank`, `restaurant_id` "
+                                . "FROM `bank_account` WHERE restaurant_id = '$resid' ");
+                        while ($bankData = $bankRes->fetch_assoc()) {
+                            ?>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="info_res">ชื่อบัญชี: &nbsp;<?= $bankData["accname"] ?>&nbsp;เลขที่บัญชี &nbsp;<?= $bankData["accNo"] ?>&nbsp;<?= $bankData["bank"] ?></span><br>
+
+                        <?php } ?>
+                    </div>
                 </div>
             <?php } ?>
 

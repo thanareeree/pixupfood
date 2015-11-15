@@ -17,7 +17,7 @@ while ($data = $res->fetch_assoc()) {
     $fast_id = $data["id"];
     $ordertime = $data["order_time"];
     $diff = time() - strtotime($ordertime);
-    if ($diff > (60 * 15)) {
+    if ($diff > (30)) {
         $con->query("INSERT INTO `fast_sms`(`id`, `fast_id`, `sent_time`) "
                 . "VALUES (null,'$fast_id',now())");
 

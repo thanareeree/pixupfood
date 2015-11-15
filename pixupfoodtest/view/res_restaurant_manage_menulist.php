@@ -23,6 +23,14 @@ include '../dbconn.php';
                 max-width: 100%;
                 height: 156px;
             }
+            div.sidetip {
+                position: absolute;
+                left: 300;
+                width: 300px;
+                display: table;
+                min-height: 32px;
+                margin-top: -30;
+            }
 
 
         </style>
@@ -300,12 +308,15 @@ include '../dbconn.php';
 
                                                                             <span style="font-size: 18px;"> ชื่อ </span> 
                                                                             &nbsp;<input type="text" style="font-size: 18px;" id="foodname" name="foodname"  required="" placeholder="ระบุชื่ออาหาร">
+                                                                            <div class="sidetip errorMainmenuDuplicate" style="display: none" >
+                                                                                <p style="color: red"><i class="glyphicon glyphicon-remove-sign"></i>&nbsp;ชื่ออาหารซ้ำ</p>
+                                                                            </div>
                                                                         </div>
-                                                                         <h3> เลือกรูปภาพอาหาร </h3>
+                                                                        <h3> เลือกรูปภาพอาหาร </h3>
                                                                         <hr>
                                                                         <div id="updateImg" style="" >
                                                                             <input type="file" id="imagerest" name="imagerest"  accept="image/jpeg,image/pjpeg,image/png" required="" />
-                                                                           
+
                                                                         </div>
                                                                     </div>
                                                                 </div>

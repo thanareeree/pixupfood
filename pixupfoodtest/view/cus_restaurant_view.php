@@ -1,4 +1,3 @@
-
 <?php
 include '../dbconn.php';
 include '../api/islogin.php';
@@ -237,7 +236,7 @@ include '../api/islogin.php';
                                                         if ($riceListRes->num_rows == 0) {
                                                             ?>
                                                             <div class="col-md-12" >
-                                                                <div class="alert alert-warning " role="alert">
+                                                                <div class="alert alert-warning " style="margin-bottom: 150px" role="alert">
                                                                     <h4 class="text-center">ยังไม่มีรายการ</h4>
                                                                 </div>
                                                             </div>
@@ -268,7 +267,7 @@ include '../api/islogin.php';
                                                 </div>
                                             </div>
                                             <ul class="list-inline pull-right"  style="margin-top: 20px">
-                                                <li><button type="button" class="btn btn-default prev-step"> <span class="glyphicon glyphicon glyphicon-chevron-left"></span>ย้อนกลับ</button></li>
+                                                <li><button type="button" class="btn btn-default prev-step" id="prevstep2"> <span class="glyphicon glyphicon glyphicon-chevron-left"></span>ย้อนกลับ</button></li>
                                                 <li><button type="button" class="btn btn-warning next-step " >ดำเนินการต่อ <span class="glyphicon glyphicon glyphicon-chevron-right"></span></button></li>
                                             </ul>
                                         </div>

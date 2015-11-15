@@ -50,7 +50,7 @@ if ($res->num_rows == sizeof($foodarr)) {
 }
 
 $checkMenuIdRes = $con->query("SELECT * FROM  order_detail "
-        . "where menu_id = '$foodid' and customer_id = '$cusid' and restaurant_id = '$resid'");
+        . "where menu_id = '$foodid' and customer_id = '$cusid' and restaurant_id = '$resid' and status = '0'");
 $menuidData = $checkMenuIdRes->fetch_assoc();
 $quantity = $menuidData["quantity"];
 $order_detail_id = $menuidData["id"];

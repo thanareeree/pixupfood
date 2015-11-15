@@ -36,7 +36,7 @@ if ($fastOrderRes->num_rows == 0) {
         $timeleft;
         $fast_id = $fastOrderData["fast_id"];
         $pri = $fastOrderData["priority"];
-        $timeleft = (60 * 15) - $diff;
+        $timeleft = (30) - $diff;
         if($timeleft<0){
             continue;
         }
