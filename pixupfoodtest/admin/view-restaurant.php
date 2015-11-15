@@ -3,24 +3,24 @@ include '../dbconn.php';
 $id = $_POST["id"];
 $res = $con->query("SELECT * FROM restaurant where id = $id");
 $data = $res->fetch_assoc();
+
 $serid = $data["serviceplan_id"];
 $res2 = $con->query("SELECT name FROM serviceplan where id = $serid");
 $data2 = $res2->fetch_assoc();
 $zoneid = $data["zone_id"];
-$res3 = $con->query("SELECT * FROM zone where id = $zoneid");
-$data3 = $res3->fetch_assoc();
+
 ?>
 
 <div class="modal-body">
-        <table>
-            <tr>
+    <table>
+        <tr>
             <td class="col-sm-4 col-md-4" style="text-align: right;font-weight: bold;font-size: 20px">
                 Restaurant:
             </td>
             <td class="col-sm-6 col-md-6" style="font-size: 20px">
                 <?= $data["name"] ?>
             </td>   
-            </tr>
+        </tr>
         <tr>
             <td class="col-sm-4 col-md-4" style="text-align: right;font-weight: bold;font-size: 20px">
                 Owner's name:
@@ -50,7 +50,7 @@ $data3 = $res3->fetch_assoc();
                 Province:
             </td>
             <td class="col-sm-6 col-md-6" style="font-size: 20px">
-                <?= ($data["province"]=="กรุงเทพมหานคร")?'เขต'. $data3["name"].'&nbsp;':'' ?> <?= $data["province"] ?> 
+                <?= $data["sublocality_level_1"]?> <?= $data["province"] ?> 
             </td>  
         </tr>
         <tr>
@@ -63,12 +63,12 @@ $data3 = $res3->fetch_assoc();
         </tr>    
         <tr>
             <td class="col-sm-4 col-md-4" style="text-align: right;font-weight: bold;font-size: 20px">
-               Service Plan Name:
+                Service Plan Name:
             </td>
             <td class="col-sm-6 col-md-6" style="font-size: 20px">
                 <?= $data2["name"] ?>
             </td>  
         </tr>
-        </table>
+    </table>
 </div>
 

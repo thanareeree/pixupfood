@@ -8,7 +8,7 @@ include '../dbconn.php';
 <html>
     <head>
         <meta charset="UTF-8">
-
+        <link rel="stylesheet" href="/assets/css/datatables.css">
         <?php addlink("Admin Management"); ?>
         <style>
             .imgpreview {
@@ -36,8 +36,8 @@ include '../dbconn.php';
             <div class="row">
                 <div class="col-md-12" style="margin: 20px">
 
-                    <div class="fresh-table" id="showdata">
-                        <table id="fresh-table" class="table">
+                    <div class="fresh-table">
+                        <table class="table table-striped table-bordered" id="newRestDataTable">
                             <thead style="background-color: #FF9F00">
                             <th data-field="id" data-sortable="true">ID</th>
                             <th data-field="resname"  data-sortable="true">Restaurant Name</th>
@@ -53,8 +53,8 @@ include '../dbconn.php';
                                     <tr>
                                         <td><?= $data1["id"] ?></td>
                                         <td><?= $data1["name"] ?></td>
-                                        <td><?= $data1["serviceplan_id"] ?></td>
-                                        <td>
+                                        <td class="text-center"><?= $data1["serviceplan_id"] ?></td>
+                                        <td  class="text-center">
                                             <button class="btn openconfirmbtn" id="openconfirm<?= $data1["name"] ?>" style="<?= ($data1["available"] == 0) ? '' : 'display: none' ?>">
                                                 <span class="glyphicon glyphicon-eye-open"></span>
                                             </button>
@@ -65,12 +65,7 @@ include '../dbconn.php';
                                                 <span class="glyphicon glyphicon-exclamation-sign"></span>
                                             </button>
                                         </td> 
-                                        <td>
-                                            <a href="#">
-                                                <button class="btn btn-primary managebtn" id="manage<?= $data1["id"] ?>">
-                                                    <span class="glyphicon glyphicon-edit"></span>
-                                                </button>
-                                            </a>
+                                        <td class="text-center">
                                             <button class="btn btn-success viewbtn" id="view<?= $data1["id"] ?>">
                                                 <span class="glyphicon glyphicon-eye-open"></span>
                                             </button>
@@ -185,31 +180,7 @@ include '../dbconn.php';
         <script src="/assets/js/bootstrap-table.js"></script>
         <script type="text/javascript">
             $(document).ready(function () {
-                $('#fresh-table').bootstrapTable({
-                    toolbar: ".toolbar",
-                    showRefresh: false,
-                    search: true,
-                    showToggle: true,
-                    showColumns: false,
-                    pagination: true,
-                    striped: true,
-                    pageSize: 10,
-                    pageList: [12, 25, 50, 100],
-                    formatShowingRows: function (pageFrom, pageTo, totalRows) {
-                        //do nothing here, we don't want to show the text "showing x of y from..." 
-                    },
-                    formatRecordsPerPage: function (pageNumber) {
-                        return pageNumber + " rows visible";
-                    },
-                    icons: {
-                        refresh: 'fa fa-refresh',
-                        toggle: 'fa fa-th-list',
-                        columns: 'fa fa-columns',
-                        detailOpen: 'fa fa-plus-circle',
-                        detailClose: 'fa fa-minus-circle'
-                    }
-                });
-
+              
                 /*unction fetchdata() {
                  $.ajax({
                  url: "../admin/allnewrestaurant.php",
@@ -321,7 +292,7 @@ include '../dbconn.php';
                                 $("#openconfirmmodal").modal("hide");
                                 document.location.reload();
                                 //fetchdataShowall();
-                                 
+
                             } else {
                                 alert(returndata);
                             }
@@ -362,7 +333,11 @@ include '../dbconn.php';
 
             });
         </script>
-
+        <script src="/assets/js/dataTables.js"></script>
+        <script>
+            var table = $('#newRestDataTable').DataTable({
+            });
+        </script>
 
     </body>
 </html>

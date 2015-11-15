@@ -9,6 +9,7 @@ include '../dbconn.php';
     <head>
         <meta charset="UTF-8">
         <?php addlink("Customer Management"); ?>
+         <link rel="stylesheet" href="/assets/css/datatables.css">
     </head>
     <body>
         <?php navAdminAfterLogin(); ?>
@@ -21,7 +22,7 @@ include '../dbconn.php';
                 <div class="col-md-12" style="margin: 20px">
 
                     <div class="fresh-table">
-                        <table id="fresh-table" class="table">
+                        <table id="restDataTable" class="table table-striped table-bordered">
                             <thead style="background-color: #FF9F00">
                             <th data-field="id" data-sortable="true">ID</th>
                             <th data-field="name"  data-sortable="true">Customer Name</th>
@@ -37,7 +38,7 @@ include '../dbconn.php';
                                     <tr>
                                         <td><?= $data1["id"] ?></td>
                                         <td><?= $data1["firstName"] ?> &nbsp; <?= $data1["lastName"] ?></td>
-                                        <td>
+                                        <td class="text-center">
                                             <button class="btn verifybtn"  style="<?= ($data1["available"] == 0) ? '' : 'display: none' ?>">
                                                 <span class="glyphicon glyphicon-ok"></span>
                                             </button>
@@ -45,7 +46,7 @@ include '../dbconn.php';
                                                 <span class="glyphicon glyphicon-ok"></span>
                                             </button>
                                         </td>                                       
-                                        <td>
+                                        <td class="text-center"> 
                                             <button class="btn blockbtn" id="block<?= $data1["id"] ?>" style="<?= ($data1["block"] == 0) ? '' : 'display: none' ?>" >
                                                 <span class="glyphicon glyphicon-ok"></span>
                                             </button>
@@ -53,7 +54,7 @@ include '../dbconn.php';
                                                 <span class="glyphicon glyphicon-ok"></span>
                                             </button>
                                         </td> 
-                                        <td>
+                                        <td class="text-center">
                                             <button class="btn btn-success viewbtn" id="view<?= $data1["id"] ?>">
                                                 <span class="glyphicon glyphicon-eye-open"></span>
                                             </button>
@@ -156,32 +157,14 @@ include '../dbconn.php';
         <script src="/assets/js/jquery-2.1.4.min.js"></script>
         <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
         <script src="/assets/js/bootstrap-table.js"></script>
+        <script src="/assets/js/dataTables.js"></script>
+        <script>
+            var table = $('#restDataTable').DataTable({
+            });
+        </script>
         <script type="text/javascript">
             $(document).ready(function () {
-                $('#fresh-table').bootstrapTable({
-                    toolbar: ".toolbar",
-                    showRefresh: false,
-                    search: true,
-                    showToggle: false,
-                    showColumns: false,
-                    pagination: true,
-                    striped: true,
-                    pageSize: 10,
-                    pageList: [10, 25, 50, 100],
-                    formatShowingRows: function (pageFrom, pageTo, totalRows) {
-                        //do nothing here, we don't want to show the text "showing x of y from..." 
-                    },
-                    formatRecordsPerPage: function (pageNumber) {
-                        return pageNumber + " rows visible";
-                    },
-                    icons: {
-                        refresh: 'fa fa-refresh',
-                        toggle: 'fa fa-th-list',
-                        columns: 'fa fa-columns',
-                        detailOpen: 'fa fa-plus-circle',
-                        detailClose: 'fa fa-minus-circle'
-                    }
-                });
+              
 
                 /*function fetchdataShowall() {
                     $.ajax({

@@ -9,6 +9,7 @@ include '../dbconn.php';
     <head>
         <meta charset="UTF-8">
         <?php addlink("Restaurant Management"); ?>
+          <link rel="stylesheet" href="/assets/css/datatables.css">
     </head>
     <body>
         <?php navAdminAfterLogin(); ?>
@@ -21,28 +22,31 @@ include '../dbconn.php';
                 <div class="col-md-12" style="margin: 20px">
 
                     <div class="fresh-table">
-                        <table id="fresh-table" class="table">
+                       <table id="restDataTable" class="table table-striped table-bordered">
                             <thead style="background-color: #FF9F00">
                             <th data-field="id" data-sortable="true">ID</th>
                             <th data-field="resname"  data-sortable="true">Restaurant Name</th>
                             <th data-field="plantype" data-sortable="true" data-toggle="tooltip" data-placement="top" title="1 = ทดลองใช้ 1 ปี">Service Plan Type</th>
+                             <th data-field="actions" >Time</th>
                             <th data-field="actions" >Actions</th>
                             </thead>
                             <tbody id="showdata">
                                 <?php
-                                $res1 = $con->query("SELECT * FROM `restaurant` where serviceplan_id = 3 or serviceplan_id = 2 ");
+                                $res1 = $con->query("SELECT * FROM `restaurant` where available = 1 ");
                                 while ($data1 = $res1->fetch_assoc()) {
                                     ?>
                                     <tr>
                                         <td><?= $data1["id"] ?></td>
                                         <td><?= $data1["name"] ?></td>
-                                        <td><?= $data1["serviceplan_id"] ?></td>
-                                        <td>
-                                            <a href="#">
+                                    
+                                        <td class="text-center"><?= $data1["serviceplan_id"] ?></td>
+                                           <td class="text-center"><?= $data1["opentime"] ?></td>
+                                        <td class="text-center">
+                                           <!-- <a href="/view/res_restaurant_manage_edit.php?resid=<?= $data1["id"] ?>">
                                                 <button class="btn btn-primary managebtn" id="manage<?= $data1["id"] ?>">
                                                     <span class="glyphicon glyphicon-edit"></span>
                                                 </button>
-                                            </a>
+                                            </a>-->
                                             <button class="btn btn-success viewbtn" id="view<?= $data1["id"] ?>">
                                                 <span class="glyphicon glyphicon-eye-open"></span>
                                             </button>
@@ -81,32 +85,14 @@ include '../dbconn.php';
         <script src="/assets/js/jquery-2.1.4.min.js"></script>
         <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
         <script src="/assets/js/bootstrap-table.js"></script>
+         <script src="/assets/js/dataTables.js"></script>
+        <script>
+            var table = $('#restDataTable').DataTable({
+            });
+        </script>
         <script type="text/javascript">
             $(document).ready(function () {
-                $('#fresh-table').bootstrapTable({
-                    toolbar: ".toolbar",
-                    showRefresh: false,
-                    search: true,
-                    showToggle: true,
-                    showColumns: false,
-                    pagination: true,
-                    striped: true,
-                    pageSize: 10,
-                    pageList: [12, 25, 50, 100],
-                    formatShowingRows: function (pageFrom, pageTo, totalRows) {
-                        //do nothing here, we don't want to show the text "showing x of y from..." 
-                    },
-                    formatRecordsPerPage: function (pageNumber) {
-                        return pageNumber + " rows visible";
-                    },
-                    icons: {
-                        refresh: 'fa fa-refresh',
-                        toggle: 'fa fa-th-list',
-                        columns: 'fa fa-columns',
-                        detailOpen: 'fa fa-plus-circle',
-                        detailClose: 'fa fa-minus-circle'
-                    }
-                });
+              
 
                 function fetchdataShowall() {
                     $.ajax({
