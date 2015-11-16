@@ -76,7 +76,7 @@ include '../dbconn.php';
                                          <div class="sidetip errorPhoneInvalid" style="display: none" >
                                             <p style="color: red"><i class="glyphicon glyphicon-remove-sign"></i>&nbsp;โปรดป้อนหมายเลขโทรศัพท์ที่ถูกต้อง</p>
                                         </div>
-                                        <input required type="tel" class="form-control" placeholder="หมายเลขโทรศัพท์" id="cusphone" name="cusphone">
+                                        <input required type="tel" maxlength="12" class="form-control" placeholder="หมายเลขโทรศัพท์" id="cusphone" name="cusphone">
                                     </div>
                                     <div class="col-md-12">
                                         <div class="row">

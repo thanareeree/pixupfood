@@ -178,7 +178,7 @@ if ($promoRes->num_rows > 0) {
         </div>
     </div>
 
-    <div class="row" style="margin-top: 5px;">
+   <div class="row" style="margin-top: 5px;">
         <div class="col-md-12">
             <div class="col-md-12">
                 <div class="card">
@@ -219,9 +219,37 @@ if ($promoRes->num_rows > 0) {
                                                     }
                                                     ?>
                                                 </td>
-                                                <td style="text-align: center"><?= $price ?></td>
+                                                <td style="text-align: center">
+                                                    <?php
+                                                    $menuid = $orderDetailData["menu_id"];
+                                                    $menuid = "(" . $menuid . ")";
+                                                    $name = "";
+                                                    $resName = $con->query("SELECT main_menu.name FROM menu LEFT JOIN main_menu ON menu.main_menu_id = main_menu.id WHERE menu.id IN $menuid");
+                                                    $count = 0;
+                                                    $price = 0;
+                                                    while ($food = $resName->fetch_assoc()) {
+                                                        $price = $orderDetailData["price"];
+                                                        echo $price;
+                                                        break;
+                                                    }
+                                                    ?>
+                                                </td>
                                                 <td style="text-align: center"><?= $orderDetailData["quantity"] ?></td>
-                                                <td style="text-align: right"><?= $price * $orderDetailData["quantity"] ?></td>
+                                                <td style="text-align: right">
+                                                    <?php
+                                                    $menuid = $orderDetailData["menu_id"];
+                                                    $menuid = "(" . $menuid . ")";
+                                                    $name = "";
+                                                    $resName = $con->query("SELECT main_menu.name FROM menu LEFT JOIN main_menu ON menu.main_menu_id = main_menu.id WHERE menu.id IN $menuid");
+                                                    $count = 0;
+                                                    $price = 0;
+                                                    while ($food = $resName->fetch_assoc()) {
+                                                        $price = $orderDetailData["price"];
+                                                        echo $price * $orderDetailData["quantity"];                                                     
+                                                        break;
+                                                    }
+                                                    ?>
+                                                </td>
                                             </tr>
                                         <?php } ?>
                                         <tr>
