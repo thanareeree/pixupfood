@@ -22,7 +22,7 @@ $limiRes = $con->query("SELECT * FROM `limit_box_daily` WHERE restaurant_id = '$
 
 
 
-if ($limiRes->num_rows > 0) {
+if ($limiRes->num_rows > 0 & $limit !== null) {
     $limitData = $limiRes->fetch_assoc();
     $qtyDaily = $limitData["qty"];
     if ($qtyDaily >= $limitQty) {
@@ -35,13 +35,13 @@ if ($limiRes->num_rows > 0) {
             "result" => 3,
             "error" => "วันที่" . date("d-m-Y", strtotime($date)) . " " . "ร้านสามารถรับรายการได้อีกไม่เกิน" . " " . ($limit - $qtyDaily) . " " . "ชุดเท่านั้น"
         ));
-    } else{
+    } else {
 
         echo json_encode(array(
             "result" => 1
         ));
     }
-} else {
+} else if ($limit !== null) {
     if ($orderAllQty > $limit) {
         echo json_encode(array(
             "result" => 3,
@@ -53,4 +53,8 @@ if ($limiRes->num_rows > 0) {
             "result" => 1
         ));
     }
+} else {
+    echo json_encode(array(
+        "result" => 1
+    ));
 }

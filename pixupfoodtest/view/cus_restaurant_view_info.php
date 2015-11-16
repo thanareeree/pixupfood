@@ -36,7 +36,7 @@ include '../api/islogin.php';
                 . " `opentime`, `amount_box_minimum`, `amount_box_limit`, `has_restaurant`, `restaurant_type`"
                 . ", deliveryfee, close"
                 . " from restaurant "
-                . "join mapping_delivery_type on mapping_delivery_type.restaurant_id = restaurant.id  "
+                . "left join mapping_delivery_type on mapping_delivery_type.restaurant_id = restaurant.id  "
                 . " where id = '$resid'");
         $resNameData = $resNameRes->fetch_assoc();
         ?>

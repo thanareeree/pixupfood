@@ -68,14 +68,14 @@ $messData = $messengerNameRes->fetch_assoc();
                 ?>
                 <div class="col-md-12">
                     <div class="alert alert-danger" style="font-size: 18px"  role="alert">
-                       กรุณาโอนเงินในส่วนที่เหลือและแจ้งหลักฐานการโอนเงินไปยังร้านค้าตรวจสอบข้อมูล<br>
-                         สามารถโอนไปที่บัญชี >><br>
+                        กรุณาโอนเงินในส่วนที่เหลือและแจ้งหลักฐานการโอนเงินไปยังร้านค้าตรวจสอบข้อมูล<br>
+                        สามารถโอนไปที่บัญชี >><br>
                         <?php
                         $bankRes = $con->query("SELECT `id`, `accname`, `accNo`, `bank`, `restaurant_id` "
                                 . "FROM `bank_account` WHERE restaurant_id = '$resid' ");
                         while ($bankData = $bankRes->fetch_assoc()) {
                             ?>
-                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="info_res">ชื่อบัญชี: &nbsp;<?= $bankData["accname"] ?>&nbsp;เลขที่บัญชี &nbsp;<?= $bankData["accNo"] ?>&nbsp;<?= $bankData["bank"] ?></span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="info_res">ชื่อบัญชี: &nbsp;<?= $bankData["accname"] ?>&nbsp;เลขที่บัญชี &nbsp;<?= $bankData["accNo"] ?>&nbsp;<?= $bankData["bank"] ?></span><br>
 
                         <?php } ?>
                     </div>
@@ -429,9 +429,9 @@ $messData = $messengerNameRes->fetch_assoc();
                 </div>
             </div>
         </div>
-        <div class="col-md-12">
+            <?php if ($orderData["payment_id"] == 2) { ?>
             <div class="col-md-12">
-                <?php if ($orderData["payment_id"] == 2 && $statusid == 5) { ?>
+                <div class="col-md-12">
                     <div class="card">
                         <div class="card-content">
                             <span style="font-size: 20px">ชำระเงินด้วยการโอนเงินผ่านธนาคาร: &nbsp;</span>
@@ -455,13 +455,13 @@ $messData = $messengerNameRes->fetch_assoc();
                             </span>
                         </div>
                     </div>
-                <?php } ?>
+                </div>
             </div>
-        </div>
+        <?php } ?>
     </div>
     <hr style="margin-top: 50">
     <button <?= ($statusid > 5) ? "style=\"margin-left: 810\"" : "style=\"margin-left: 680\"" ?>  type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
-    <button <?= ($statusid > 5) ? "style=\"display: none\"" : "style=\"margin-left: 20;display: none\"" ?> type="button" class="btn btn-danger cancelFastOrderBtn" id="cancelOrderBtn">ขอยกเลิกรายการ</button>
+    <button <?= ($statusid > 5) ? "style=\"display: none\"" : "style=\"margin-left: 20;" ?> type="button" class="btn btn-danger cancelFastOrderBtn" id="cancelOrderBtn">ขอยกเลิกรายการ</button>
 </div>
 
 

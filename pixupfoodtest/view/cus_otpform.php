@@ -77,7 +77,7 @@ include '../dbconn.php';
                             <hr>
                         </div>
                     </div>
-                    <div class="row" style="margin-top: 80px">
+                    <div class="row" style="margin-top: 80px; margin-bottom:100px ">
                         <div class="col-md-2"></div>
                         <div class="col-md-3 wow fadeInUp" data-wow-delay="0.6s">
                             <h3 class="text-uppercase">Your OTP Password :</h3>

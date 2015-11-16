@@ -323,7 +323,7 @@ if ($promoRes->num_rows > 0) {
                     <div class="card-content">
                         <span style="font-size: 20px">ชำระเงินด้วย:  &nbsp;
                             <?php
-                            if ($orderDetailData["payment_id"] == 2) {
+                            if ($orderData["payment_id"] == 2) {
                                 echo 'โอนเงินผ่านธนาคาร';
                             } else {
                                 echo 'เงินสดเมื่อได้รับสินค้า';
@@ -351,10 +351,10 @@ if ($promoRes->num_rows > 0) {
                     </div>
                 </div>
             </div>
-        </div>
+        </div> <?php if ($orderData["payment_id"] == 2 ) { ?>
         <div class="col-md-12">
             <div class="col-md-12">
-                <?php if ($orderDetailData["payment_id"] == 2 && $statusid == 5) { ?>
+               
                     <div class="card">
                         <div class="card-content">
                             <span style="font-size: 20px">ชำระเงินด้วยการโอนเงินผ่านธนาคาร: &nbsp;</span>
@@ -378,13 +378,14 @@ if ($promoRes->num_rows > 0) {
                             </span>
                         </div>
                     </div>
-                <?php } ?>
+                
             </div>
         </div>
+            <?php } ?>
     </div>
     <hr style="margin-top: 50">
     <button <?= ($statusid > 5) ? "style=\"margin-left: 810\"" : "style=\"margin-left: 680\"" ?>  type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
-    <button <?= ($statusid > 5) ? "style=\"display: none\"" : "style=\"margin-left: 20;display: none\"" ?> type="button" class="btn btn-danger cancelNormalOrderBtn" id="cancelNormalOrderBtn">ขอยกเลิกรายการ</button>
+    <button <?= ($statusid > 5) ? "style=\"display: none\"" : "style=\"margin-left: 20;" ?> type="button" class="btn btn-danger cancelNormalOrderBtn" id="cancelNormalOrderBtn">ขอยกเลิกรายการ</button>
 </div>
 
 

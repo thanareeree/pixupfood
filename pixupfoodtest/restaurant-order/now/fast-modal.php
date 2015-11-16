@@ -328,7 +328,7 @@ if ($promoRes->num_rows > 0) {
                 </div>
             </div>
         </div>
-        <?php if ($orderData["payment_id"] == 2 && $statusid == 4) { ?>
+        <?php if ($orderData["payment_id"] == 2 ) { ?>
             <div class="col-md-12">
                 <div class="col-md-12">
                     <div class="card">

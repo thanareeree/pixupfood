@@ -23,7 +23,7 @@ $type = $_POST["type"];
 if ($type == 'fetch') {
     while ($limitData = $limiRes->fetch_assoc()) {
         $allQty = $limitData["qty"];
-        if ($allQty >= ($limit - $minimum)) {
+        if ($allQty >= ($limit - $minimum) && $limit !== null) {
             $e = array();
             $e['title'] = "เต็ม";
             $e['start'] = $limitData['daily_date'];

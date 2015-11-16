@@ -103,7 +103,7 @@ if ($promoRes->num_rows > 0) {
 
 
                 </div>
-                 <div class="card">
+                <div class="card">
                     <div class="card-content">
                         <span style="font-size: 20px">หมายเลขสมาชิกลูกค้า: </span>
                         <span style="font-size: 20px; color: orange;"> <?= $orderData["id"] ?> </span><br>
@@ -117,15 +117,15 @@ if ($promoRes->num_rows > 0) {
                 </div>
             </div>
             <div class="col-md-5">
-                 <div class="card">
+                <div class="card">
                     <?php
                     if ($statusid == 9) {
                         ?>
                         <div class="card-content">
                             <span style="font-size: 20px">จัดส่งสินค้าโดย: </span>
-                            <span style="font-size: 20px; color: orange;"><?= $messData["name"]?></span><br>
+                            <span style="font-size: 20px; color: orange;"><?= $messData["name"] ?></span><br>
                             <span style="font-size: 20px">โทรศัพท์: </span>
-                            <span style="font-size: 20px; color: orange;"><?= $messData["tel"]?></span><br>
+                            <span style="font-size: 20px; color: orange;"><?= $messData["tel"] ?></span><br>
 
                             <span style="font-size: 20px">ส่งสินค้าถึงวันที่: </span>
                             <span style="font-size: 20px; color: orange;"><?= substr($orderData["updated_status_time"], 0, 11) ?></span><br>
@@ -141,9 +141,9 @@ if ($promoRes->num_rows > 0) {
                         ?>
                         <div class="card-content">
                             <span style="font-size: 20px">จัดส่งสินค้าโดย: </span>
-                            <span style="font-size: 20px; color: orange;"><?= $messData["name"]?></span><br>
+                            <span style="font-size: 20px; color: orange;"><?= $messData["name"] ?></span><br>
                             <span style="font-size: 20px">โทรศัพท์: </span>
-                            <span style="font-size: 20px; color: orange;"><?= $messData["tel"]?></span><br>
+                            <span style="font-size: 20px; color: orange;"><?= $messData["tel"] ?></span><br>
 
                         </div>
                         <?php
@@ -157,7 +157,7 @@ if ($promoRes->num_rows > 0) {
                         <span style="font-size: 20px">วันที่ลูกค้านัดรับสินค้า: </span>
                         <span style="font-size: 20px; color: orange;"> <?= $orderData["delivery_date"] ?></span><br>
                         <span style="font-size: 20px">เวลาที่ลูกค้านัดรับสินค้า: </span>
-                        <span style="font-size: 20px; color: orange;"><?= $orderData["delivery_time"]?> </span><br>
+                        <span style="font-size: 20px; color: orange;"><?= $orderData["delivery_time"] ?> </span><br>
 
                     </div>
                 </div>
@@ -267,7 +267,7 @@ if ($promoRes->num_rows > 0) {
                                             <td style="text-align: center"></td>
                                             <td style="text-align: right"><?= $orderData["prepay"] ?></td>
                                         </tr>
-                                       <tr>    
+                                        <tr>    
                                             <td>ค่าจัดส่ง</td>
                                             <td style="text-align: center"></td>
                                             <td style="text-align: center"></td>
@@ -303,7 +303,7 @@ if ($promoRes->num_rows > 0) {
                     <div class="card-content">
                         <span style="font-size: 20px">ชำระเงินด้วย:  &nbsp;
                             <?php
-                            if ($orderDetailData["payment_id"] == 2) {
+                            if ($orderData["payment_id"] == 2) {
                                 echo 'โอนเงินผ่านธนาคาร';
                             } else {
                                 echo 'เงินสดเมื่อได้รับสินค้า';
@@ -331,10 +331,10 @@ if ($promoRes->num_rows > 0) {
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-12">
+        </div>  
+        <?php if ($orderData["payment_id"] == 2) { ?>
             <div class="col-md-12">
-                <?php if ($orderDetailData["payment_id"] == 2 && $statusid == 4) { ?>
+                <div class="col-md-12">
                     <div class="card">
                         <div class="card-content">
                             <span style="font-size: 20px">ชำระเงินด้วยการโอนเงินผ่านธนาคาร: &nbsp;</span>
@@ -358,9 +358,9 @@ if ($promoRes->num_rows > 0) {
                             </span>
                         </div>
                     </div>
-                <?php } ?>
-            </div>
-        </div>
+                </div>
+            </div> 
+        <?php } ?>
     </div>
 </div>
 

@@ -144,7 +144,7 @@ include '../dbconn.php';
                                                             <div class="form-group" style="margin-bottom: 15px;">
                                                                 <label class="col-sm-2 control-label" for="textinput">รหัสผ่าน *</label>
                                                                 <div class="col-sm-10" style="margin-bottom: 15px;">
-                                                                    <input required type="password" placeholder="กรุณาใส่ตัวเลข 6-8 หลัก" class="form-control" name="password">
+                                                                    <input required type="password" placeholder="กรุณาใส่ตัวเลข 6-8 หลัก" class="form-control" name="password" maxlength="8" >
                                                                 </div>
                                                             </div>
                                                             <div class="form-group" style="margin-bottom: 15px;">
