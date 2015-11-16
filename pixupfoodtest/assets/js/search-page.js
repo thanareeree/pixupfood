@@ -25,6 +25,13 @@ $(document).ready(function () {
         var searchby = $("#searchby").val();
         var foodtype = $("#foodtype").val();
         var searchtxt = $("#searchtxt").val();
+        if(searchby == "nearbyfood"){
+            $("#searchtxt").val("");
+             $("#showsearchtext").hide();
+        }else{
+             $("#showsearchtext").show();
+        }
+        $("#showsearchtext")
         $("input[type=checkbox]").removeAttr("checked");
         $.ajax({
             url: "/customer/ajax_search.php",

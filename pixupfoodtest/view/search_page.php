@@ -98,7 +98,7 @@ include '../dbconn.php';
                             </div>
                         </div>
                         <div >
-                            <div class = "card" style="margin-top: 30px">
+                            <div class = "card" style="margin-top: 30px;margin-bottom: 70px">
                                 <div class="card-content">
                                     <h4><i class="fa fa-question-circle" ></i>&nbsp;ฟังก์ชัน <b style="color: #FF5F00">Pixup<span style="color: black">Fast</span></b>  คืออะไร?</h4>
                                     <hr>
@@ -114,7 +114,7 @@ include '../dbconn.php';
                         </div>
                     </div>
                     <div class="col-md-9" style="padding-left:0px; ">
-                        <h2>ผลการค้นหาคำว่า: &nbsp;<span id="showsearchtext"  style="color: #FF9F00"><?= @$_GET["search"] ?></span></h2>
+                        <h2>ผลการค้นหาคำว่า: &nbsp;<span id="showsearchtext"  style="color: #FF9F00"><?= (@$_GET["search"]==""? "รายการอาหารทั้งหมด": @$_GET["search"]) ?></span></h2>
                         <div class="content2" style="padding-bottom:15px">
                             <div class="fresh-table" style="font-family: 'supermarketregular';">
                                 <table id="fresh-table" class="table">
@@ -154,7 +154,7 @@ include '../dbconn.php';
                                                     . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
                                                     . "WHERE main_menu.name LIKE '%' "
                                                     . "AND restaurant.block = 0 AND menu.status = 0  "
-                                                    . "order by main_menu.name ");
+                                                    . "order by RAND()  ");
                                             echo $con->error;
                                             $numrow = $res->num_rows;
                                         }

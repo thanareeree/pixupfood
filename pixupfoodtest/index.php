@@ -121,9 +121,8 @@ include './dbconn.php';
                         $news = $res->fetch_assoc();
                         $newfirstid = $news["id"];
                         ?>
-                        <a href="#">
                             <img src="<?= $news["img_path"] ?>" alt="" class="thumb" >
-                        </a>
+                      
                         <div class="block-title">
                             <h2><?= $news["title"] ?></h2>
                             <p class="by-author"><?= $news["detail"] ?><br><br>
@@ -142,9 +141,9 @@ include './dbconn.php';
                         while ($data = $res->fetch_assoc()) {
                             ?>
                             <li class="media">
-                                <a class="pull-left" href="#">
+                                <div class="pull-left" >
                                     <img class="media-object" src="<?= $data["img_path"] ?>" alt="..." width="150px" style="max-height:90px;">
-                                </a>
+                                </div>
                                 <div class="media-body">
                                     <h4 class="media-heading"><?= $data["title"] ?></h4>
                                     <p class="by-author"><?= $data["detail"] ?><br><br>
@@ -179,9 +178,9 @@ include './dbconn.php';
                         $promotion = $res->fetch_assoc();
                         $proid = $promotion["id"];
                         ?>
-                        <a href="#">
+                       
                             <img src="<?= $promotion["img_path"] ?>" alt="" class="thumb" >
-                        </a>
+                       
                         <div class="block-title">
                             <h2><?= $promotion["restname"] ?></h2>
                             <p class="by-author"><?= $promotion["description"] ?><br><br>
@@ -204,9 +203,9 @@ include './dbconn.php';
                         while ($data = $res->fetch_assoc()) {
                             ?>
                             <li class="media">
-                                <a class="pull-left" href="#">
+                                <div class="pull-left">
                                     <img class="media-object" src="<?= $data["img_path"] ?>" alt="..." width="150px" style="max-height:90px;">
-                                </a>
+                                </div>
                                 <div class="media-body">
                                     <h4 class="media-heading"><?= $data["restname"] ?></h4>
                                     <p class="by-author"><?= $data["description"] ?><br><br>
