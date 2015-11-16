@@ -1,11 +1,11 @@
 $(document).ready(function () {
-  //showNormalOrder();
-  //showFastOrder();
+    //showNormalOrder();
+    //showFastOrder();
 
 
     $('#showNormalOrder').on("click", ".normalOrderView", function (e) {
         var id = $(this).attr("data-id");
-         var no = $(this).attr("data-no");
+        var no = $(this).attr("data-no");
         $("#showOrderId").html(no);
 
         $.ajax({
@@ -36,8 +36,8 @@ $(document).ready(function () {
             }
         });
     });
-        //slip normal 2   
-     $('#showNormalOrder').on("click", ".uploadSlip2", function (e) {
+    //slip normal 2   
+    $('#showNormalOrder').on("click", ".uploadSlip2", function (e) {
         var id = $(this).attr("data-id");
         $("#uploadOrderId").html(id);
         $.ajax({
@@ -52,8 +52,8 @@ $(document).ready(function () {
             }
         });
     });
-    
-     //slip fast 1
+
+    //slip fast 1
     $('#showFastOrder').on("click", ".uploadSlip1", function (e) {
         var id = $(this).attr("data-id");
         $("#uploadOrderId").html(id);
@@ -69,8 +69,8 @@ $(document).ready(function () {
             }
         });
     });
-        //slip fast 2   
-     $('#showFastOrder').on("click", ".uploadSlip2", function (e) {
+    //slip fast 2   
+    $('#showFastOrder').on("click", ".uploadSlip2", function (e) {
         var id = $(this).attr("data-id");
         $("#uploadOrderId").html(id);
         $.ajax({
@@ -87,7 +87,7 @@ $(document).ready(function () {
     });
 
 
-   $('#showFastOrder').on("click", ".fastOrderView", function (e) {
+    $('#showFastOrder').on("click", ".fastOrderView", function (e) {
         var id = $(this).attr("data-id");
         var no = $(this).attr("data-no");
         $("#showFastOrderId").html(no);
@@ -100,57 +100,64 @@ $(document).ready(function () {
             success: function (returndata) {
                 $("#fastOrderViewBody").html(returndata);
                 $("#detailFastOrderModal").modal("show");
-
+                cancelFastOrder();
             }
         });
     });
-    
-    $(".cancelFastOrderBtn").on("click", function (e){
+
+
+
+
+});
+
+function cancelFastOrder() {
+    $(".cancelFastOrderBtn").on("click", function (e) {
         var fasid = $("#showFastOrderId").html();
-         $.ajax({
+        $.ajax({
             url: "/customer-profile/tracking/cancel-order-fast.php",
             type: "POST",
             data: {"fastno": fasid},
             dataType: "json",
             success: function (returndata) {
-              if(returndata.result == 1){
-                   $("#detailFastOrderModal").modal("hide");
-                   $("#msgModal").modal("show");
-                   //document.location.reload();
-               }else{
-                     alert(returndata.error);
-               }
+                if (returndata.result == 1) {
+                    $("#detailFastOrderModal").modal("hide");
+                    $("#msgModal").modal("show");
+                    //document.location.reload();
+                } else {
+                    alert(returndata.error);
+                }
 
             }
         });
-        //alert(fasid);
+        // alert(fasid);
     });
-    
-    
-    $(".cancelNormalOrderBtn").on("click", function (e){
+}
+
+function cancelNormalOrder() {
+
+
+    $(".cancelNormalOrderBtn").on("click", function (e) {
         var normalid = $("#showOrderId").html();
-         $.ajax({
+        $.ajax({
             url: "/customer-profile/tracking/cancel-order-normal.php",
             type: "POST",
             data: {"normalno": normalid},
             dataType: "json",
             success: function (returndata) {
-              if(returndata.result == 1){
-                   $("#detailNormalOrderModal").modal("hide");
-                   $("#msgModal").modal("show");
-                   //document.location.reload();
-               }else{
-                     alert(returndata.error);
-               }
+                if (returndata.result == 1) {
+                    $("#detailNormalOrderModal").modal("hide");
+                    $("#msgModal").modal("show");
+                    //document.location.reload();
+                } else {
+                    alert(returndata.error);
+                }
 
             }
         });
-      
-    });
-    
-    
-});
 
+    });
+
+}
 
 function showNormalOrder() {
     $.ajax({

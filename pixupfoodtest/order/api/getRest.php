@@ -11,7 +11,7 @@ $foodarr = $_POST["food"];
 $boxtype = $_POST["boxtype"];
 $delivery_date = @$_POST["date"];
 $date = date("Y-m-d", strtotime(str_replace(" GMT+0700 (SE Asia Standard Time)", "", $delivery_date)));
-if ($boxtype != "4") {
+if ($boxtype < "4") {
     $ricetype = $_POST["ricetype"];
     array_push($foodarr, $ricetype);
 }

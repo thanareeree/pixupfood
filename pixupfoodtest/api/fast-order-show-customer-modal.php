@@ -359,12 +359,6 @@ $messData = $messengerNameRes->fetch_assoc();
                                                 <td style="text-align: center"></td>
                                                 <td style="text-align: right"><?= $orderDetailData["total"] ?></td>
                                             </tr>
-                                            <tr>
-                                                <td>ส่วนลด10% </td>
-                                                <td style="text-align: center"></td>
-                                                <td style="text-align: center"></td>
-                                                <td style="text-align: right">-160.00</td>
-                                            </tr>
                                             <tr class="warning">
                                                 <td>ค่ามัดจำ 20%</td>
                                                 <td style="text-align: center"></td>

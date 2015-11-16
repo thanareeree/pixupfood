@@ -110,7 +110,7 @@ function validateTab(tab) {
         checkRice();
     } else if (tab == "step4") {
         var foodbox = $("input[name=foodboxtype]:checked").val();
-        if (foodbox != 4) {
+        if (foodbox < 4) {
             var ricetype = $("input[name=ricetype]:checked").val();
             if (ricetype == undefined) {
                 $("#errorStep4").html(' <div class="alert alert-danger" role="alert">' +
@@ -428,7 +428,7 @@ function initRice() {
 
 function checkRice() {
     var foodboxtype = $("input[name=foodboxtype]:checked").val();
-    if (foodboxtype == 4) {
+    if (foodboxtype >= 4) {
         $("#norice").show();
     } else {
         $("#norice").hide();
@@ -450,7 +450,7 @@ function checkFood() {
             $("#showfood").html("");
             $.each(data, function (i, food) {
                 var output = '<div class="col-md-2"><div class="thumbnail"><a href="#">';
-                output += '<img class="menu_img" src="' + food.img + '" style="max-height: 101px;min-height: 101px"></a>';
+                output += '<img class="menu_img" src="' + food.img + '" style="max-width:100%;max-height: 101px;min-height: 101px"></a>';
                 output += '<div class="caption"><h4>' + food.name + '</h4>';
                 output += '<p style="text-align: right"><label class="Form-label--tick">' +
                         '<input type="checkbox" name="foodlist[]" class="foodlist Form-label-checkbox" value="' + food.id + '">' +
@@ -464,7 +464,7 @@ function checkFood() {
 
             $(".foodlist").on("change", function (e) {
                 var foodboxtype = $("input[name=foodboxtype]:checked").val();
-                if (foodboxtype == 4) {
+                if (foodboxtype >= 4) {
                     foodboxtype = 1;
                 }
                 if ($(".foodlist:checked").length > foodboxtype) {
@@ -483,7 +483,7 @@ function checkFood() {
     });
 
     var foodboxtype = $("input[name=foodboxtype]:checked").val();
-    if (foodboxtype == 4) {
+    if (foodboxtype >= 4) {
         $("#showcount").html("1");
     } else {
         $("#showcount").html(foodboxtype);

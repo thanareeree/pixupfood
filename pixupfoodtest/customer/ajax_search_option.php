@@ -8,11 +8,12 @@ if($searchoption == 'orderFromMenu'){
     
         $res = $con->query("SELECT DISTINCT main_menu.id, menu.img_path,  main_menu.name as menuname, "
                 . "food_type.description as foodtype, main_menu.type, main_menu.img_path as img "
-                . "FROM menu JOIN restaurant ON menu.restaurant_id = restaurant.id "
-                . "JOIN main_menu ON main_menu.id = menu.main_menu_id "
-                . "JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
-                . "JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
-                . "WHERE main_menu.type != 'เมนูเซต'"
+                . "FROM menu "
+                . "left JOIN restaurant ON menu.restaurant_id = restaurant.id "
+                . "left JOIN main_menu ON main_menu.id = menu.main_menu_id "
+                . "left JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
+                . "left JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
+                . "WHERE main_menu.type != 'เมนูเซต' and main_menu.type != 'ชนิดข้าว'"
                 . " GROUP BY main_menu.name");
         $numrow = $res->num_rows;
      if ($numrow == 0) {
@@ -21,6 +22,13 @@ if($searchoption == 'orderFromMenu'){
         <?php
     }
     while ($data = $res->fetch_assoc()) {
+        $foodtype = $data["foodtype"];
+        $typetext = "";
+        if($foodtype != ""){
+            $typetext = "#" . $data["foodtype"];
+        }else{
+             $typetext = "#" . $data["type"];
+        }
         ?>
         <tr>
             <td style="text-align: center;">
@@ -33,7 +41,7 @@ if($searchoption == 'orderFromMenu'){
                 
             </td>
             <td>
-                <h4 style="color: #ffaa3e"><?= ($data["foodtype"] != '' ? "#" . $data["foodtype"] : '' ) ?></h4>
+                <h4 style="color: #ffaa3e"><?= $typetext ?></h4>
             </td>
             <td>
                 <a href="/order/fast/?menuSetId=<?= $data["id"]?>" <?=(isset($_SESSION["islogin"])) ? "":"onclick=\"return false;\""?> >

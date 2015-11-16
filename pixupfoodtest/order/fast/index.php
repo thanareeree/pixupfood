@@ -207,25 +207,35 @@ include '../../dbconn.php';
                                     <div class="page-header" style="margin-left:16px;">
                                         ขั้นตอนที่ 3 : เลือกชนิดกล่อง และจำนวน
                                     </div>
-                                    <div class="row" style="width:650px; margin:0 auto; padding-bottom:30px;">
+                                    <div class="row" style="width:500px; margin:0 auto; padding-bottom:35px;">
                                         <?php
-                                        $menuRes = $con->query("SELECT * FROM `main_menu` WHERE main_menu.id = '$orderMenu_id' AND type = 'อาหารจานเดียว'");
+                                        $menuRes = $con->query("SELECT * FROM `main_menu` WHERE main_menu.id = '$orderMenu_id' ");
                                         $box = 0;
                                         if ($menuRes->num_rows > 0) {
-                                            $box++;
+                                            while ($menuResData = $menuRes->fetch_assoc()){
+                                                $fbox = $menuResData["type"];
+                                                if($fbox == "อาหารจานเดียว"){
+                                                    $box = 4 ;
+                                                }else if($fbox == "ขนม"){
+                                                     $box = 5 ;
+                                                }else if($fbox == "เครื่องดื่ม"){
+                                                     $box = 6 ;
+                                                }  
+                                                
+                                            }
                                         }
-                                        $foodboxRes = $con->query("SELECT food_box.id, food_box.description, food_box.img_path FROM food_box where type = '1'");
+                                        $foodboxRes = $con->query("SELECT food_box.id, food_box.description, food_box.img_path FROM food_box ");
 
                                         while ($foodboxData = $foodboxRes->fetch_assoc()) {
                                             ?>
-                                            <div class="foodboxselect <?= ($box > 0 && $foodboxData["id"] == 4) ? "selected" : "" ?>">
+                                            <div class="foodboxselect <?= ($box > 0 && $foodboxData["id"] == $box) ? "selected" : "" ?>">
                                                 <img class="menu_img" src="<?= $foodboxData["img_path"] ?>">
                                                 <p><?= $foodboxData["description"] ?></p>
-                                                <input type="radio" name="foodboxtype" class="foodbox" <?= ($box > 0) ? "checked" : "" ?> value="<?= $foodboxData["id"] ?>">
+                                                <input type="radio" name="foodboxtype" class="foodbox" <?= ($box > 0 && $foodboxData["id"] == $box) ? "checked" : "" ?> value="<?= $foodboxData["id"] ?>">
                                             </div>
                                         <?php } ?>
                                     </div>
-                                    <div class="row" style="text-align: center;">
+                                    <div class="row" style="text-align: center; margin-right: 40px;font-size: 20px;font-weight: bold">
                                         จำนวน : <input type="number" class="form-inline" id="boxamount" style="width:100px"> ชุด
                                         <br><br>
                                     </div>
@@ -269,7 +279,7 @@ include '../../dbconn.php';
                                     </div>
                                     <div id="norice" style="background-color:rgba(255,255,255,0.6); text-align: center; position: absolute; left:0; top:0; width:100%; height:300px;">
                                         <h1 style="font-size:100px; margin-top:50px;"><span class="glyphicon glyphicon-ok-circle"></span></h1>
-                                        <h2>คุณได้เลือกอาหารจานเดียว กรุณาไปขั้นตอนถัดไป</h2>
+                                        <h2>กรุณาไปขั้นตอนถัดไป</h2>
                                     </div>
                                 </div>
                                 <div id="errorStep4"></div>

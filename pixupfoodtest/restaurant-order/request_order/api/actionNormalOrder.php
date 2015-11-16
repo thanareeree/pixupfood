@@ -27,7 +27,7 @@ if (isset($_SESSION["islogin"])) {
                     . "WHERE normal_order.id = '$order_id' "
                     . "GROUP BY order_detail.order_id");
             $data = $res->fetch_assoc();
-            
+
             $delidate = $data["delivery_date"];
             $qty = $data["qty"];
             $checkDailyDateRes = $con->query("SELECT * FROM `limit_box_daily` WHERE daily_date = '$delidate' and restaurant_id = '$resid' ");
@@ -40,14 +40,16 @@ if (isset($_SESSION["islogin"])) {
                 $addQty = $qtyDaily + $qty;
                 $con->query("UPDATE `limit_box_daily` SET `qty`= '$addQty' WHERE restaurant_id = '$resid' AND daily_date = '$delidate'");
             }
-           include '../../../register/thsms.php';
+            include '../../../register/thsms.php';
             $sms = new thsms();
             $sms->username = 'thanaree';
             $sms->password = '58c60d';
 
             $b = $sms->send('0000', $data["tel"], "ร้านอาหาร:" . $data["name"]
                     . "\nตอบรับรายการสั่งซื้อเลขที่: " . 'N' . sprintf("%07d", $data["id"])
-                    . "\nแล้ว Shipping Code:" . $data["shipping_password"]
+                    . "\nค่ามัดจำ 20%:" . $data["prepay"]
+                    . "\n Shipping Code:" . $data["shipping_password"]
+                    . "\n กรุณาชำระค่ามัดจำภายใน 4 ชั่วโมง"
                     . "\nสามารถเช็คสถานะได้ที่ pixupfood.com");
 
             $response = array(
