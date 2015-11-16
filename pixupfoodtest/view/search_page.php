@@ -135,11 +135,11 @@ include '../dbconn.php';
                                                     . "main_menu.img_path as img "
                                                     . "FROM menu "
                                                     . "LEFT JOIN restaurant ON menu.restaurant_id = restaurant.id "
-                                                    . "JOIN main_menu ON main_menu.id = menu.main_menu_id "
-                                                    . "JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
-                                                    . "JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
+                                                    . "LEFT JOIN main_menu ON main_menu.id = menu.main_menu_id "
+                                                    . "LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
+                                                    . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
                                                     . "WHERE main_menu.name LIKE '%$search%' "
-                                                    . " AND restaurant.block = 0  "
+                                                    . " AND restaurant.block = 0 AND menu.status = 0  "
                                                     . "order by main_menu.name ");
                                             echo $con->error;
                                             $numrow = $res->num_rows;
@@ -149,11 +149,11 @@ include '../dbconn.php';
                                                     . "main_menu.img_path as img "
                                                     . "FROM menu "
                                                     . "LEFT JOIN restaurant ON menu.restaurant_id = restaurant.id "
-                                                    . "JOIN main_menu ON main_menu.id = menu.main_menu_id "
-                                                    . "JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
-                                                    . "JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
+                                                    . "LEFT JOIN main_menu ON main_menu.id = menu.main_menu_id "
+                                                    . "LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
+                                                    . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
                                                     . "WHERE main_menu.name LIKE '%' "
-                                                    . "AND restaurant.block = 0  "
+                                                    . "AND restaurant.block = 0 AND menu.status = 0  "
                                                     . "order by main_menu.name ");
                                             echo $con->error;
                                             $numrow = $res->num_rows;

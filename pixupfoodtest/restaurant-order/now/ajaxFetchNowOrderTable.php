@@ -80,7 +80,8 @@ if ($orderNowAllRes->num_rows == 0) {
                     . "LEFT JOIN request_fast_order ON request_fast_order.fast_id = fast_order.id "
                     . "LEFT JOIN customer ON customer.id = fast_order.customer_id "
                     . "LEFT JOIN shippingAddress ON shippingAddress.id = fast_order.shippingAddress_id "
-                    . "WHERE fast_order.id = '$orderIdAll' ");
+                    . "WHERE fast_order.id = '$orderIdAll' AND request_fast_order.restaurant_id = '$resid' "
+                    . "AND request_fast_order.accepted = 1");
             while ($fastOrderData = $fastOrderRes->fetch_assoc()) {
                 $noo = sprintf("%07d", $fastOrderData["fast_id"]);
                 $now = time();
@@ -213,7 +214,7 @@ if ($orderNowAllRes->num_rows == 0) {
                 $limiRes = $con->query("SELECT * FROM `limit_box_daily` WHERE restaurant_id = '$resid' and daily_date = '$date' ");
                 $limitData = $limiRes->fetch_assoc();
                 $qtyDaily = $limitData["qty"];
-                 $diffQty = $qtyDaily - $qtyOrder;
+                $diffQty = $qtyDaily - $qtyOrder;
 
                 if ($normalOrderData["status"] == 2) {
                     if ($diff > (60 * 60 * 4)) {

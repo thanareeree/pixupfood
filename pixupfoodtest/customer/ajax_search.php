@@ -23,11 +23,11 @@ if ($searchby == "foodname") {
                 . " as resname, menu.id as menuid, main_menu.img_path as img "
                 . "FROM menu "
                 . "LEFT JOIN restaurant ON menu.restaurant_id = restaurant.id "
-                . "JOIN main_menu ON main_menu.id = menu.main_menu_id "
-                . "JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
-                . "JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
+                . "LEFT JOIN main_menu ON main_menu.id = menu.main_menu_id "
+                . "LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
+                . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
                 . "WHERE main_menu.name LIKE '%$searchtxt%' AND main_menu.type NOT LIKE '%ชนิดข้าว%'"
-                . "AND (restaurant.close = 0 AND restaurant.block = 0)  $foodtypeq ");
+                . "AND (restaurant.close = 0 AND restaurant.block = 0 AND menu.status = 0)  $foodtypeq ");
         $numrow = $res->num_rows;
     } /* else if ($searchtxt == "") {
       $res = $con->query("SELECT DISTINCT restaurant.id,menu.img_path, main_menu.name as menuname,"
@@ -110,7 +110,7 @@ if ($searchby == "foodname") {
                 . "JOIN zone ON zone.id = restaurant.zone_id "
                 . "RIGHT JOIN menu ON menu.restaurant_id = restaurant.id "
                 . "WHERE restaurant.name LIKE '%$searchtxt%' "
-                . "AND restaurant.block = 0");
+                . "AND restaurant.block = 0 and restaurant.close = 0");
         $numrow = $res->num_rows;
     }
     if ($numrow == 0) {
@@ -149,13 +149,12 @@ if ($searchby == "foodname") {
     if ($lat != "" && $long != "") {
         $res = $con->query("SELECT DISTINCT restaurant.id, restaurant.name ,restaurant.address, "
                 . "restaurant.detail,  restaurant.tel,restaurant.img_path, restaurant.zone_id,"
-                . " zone.name as zone_name, restaurant.province, ( 3959 * acos( cos( radians(" . $lat . ") ) "
+                . " sublocality_level_1 as zone_name, restaurant.province, ( 3959 * acos( cos( radians(" . $lat . ") ) "
                 . "* cos( radians( x ) ) * cos( radians( y ) - radians(" . $long . ") ) "
                 . "+ sin( radians(" . $lat . ") ) * sin( radians( x ) ) ) ) AS distance "
-                . "FROM restaurant JOIN zone ON zone.id = restaurant.zone_id "
+                . "FROM restaurant  "
                 . "RIGHT JOIN menu ON menu.restaurant_id = restaurant.id"
-                . " WHERE restaurant.available = 1  "
-                . "AND zone.name IN (SELECT zone.name FROM zone WHERE id = restaurant.zone_id)"
+                . " WHERE (restaurant.available = 1  AND restaurant.block = 0 and restaurant.close = 0)"
                 . "HAVING distance < 25 ORDER BY distance LIMIT 0 , 20");
         $numrow = $res->num_rows;
     }
@@ -177,7 +176,7 @@ if ($searchby == "foodname") {
                 <h4 class="media-heading"><?= $data["name"] ?></h4>
             </td>
             <td>
-                <i class="glyphicon glyphicon-map-marker"></i>&nbsp;<?= ($data["province"] == "กรุงเทพมหานคร") ? 'เขต' . $data["zone_name"] . '&nbsp;' : '' ?> <?= $data["province"] ?> 
+                <i class="glyphicon glyphicon-map-marker"></i>&nbsp;<?=  $data["zone_name"]  ?> <?= $data["province"] ?> 
                 <br><i class="glyphicon glyphicon-flag"></i>&nbsp;รัศมี&nbsp;<?= substr($data["distance"], 0, 5) ?>&nbsp;กิโลเมตร
             </td>
             <td>
