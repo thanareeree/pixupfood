@@ -1,5 +1,4 @@
 <?php
-
 include '../api/islogin.php';
 include '../view/navbar.php';
 include '../dbconn.php';
@@ -125,16 +124,16 @@ include '../dbconn.php';
                                                     </div>
                                                     <!-- ตารางรายการอยู่ระหว่างดำเนินการ -->
                                                     <div class="row">
-                                                      <!--  <div class="col-md-12">
-                                                            <form action="#" method="get">
-                                                                <div class="input-group">
-                                                                    <input class="form-control" id="system-search" name="q" placeholder="ค้นหาข้อมูลในตารางนี้" required>
-                                                                    <span class="input-group-btn">
-                                                                        <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
-                                                                    </span>
-                                                                </div>
-                                                            </form>
-                                                        </div>-->
+                                                        <!--  <div class="col-md-12">
+                                                              <form action="#" method="get">
+                                                                  <div class="input-group">
+                                                                      <input class="form-control" id="system-search" name="q" placeholder="ค้นหาข้อมูลในตารางนี้" required>
+                                                                      <span class="input-group-btn">
+                                                                          <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+                                                                      </span>
+                                                                  </div>
+                                                              </form>
+                                                          </div>-->
                                                         <div class="col-md-12">
                                                             <table class="table table-list-search fixed  table table-striped table-bordered" id="ignoreDataTable">
                                                                 <thead>
@@ -246,8 +245,7 @@ include '../dbconn.php';
                                                                             }
                                                                         }
                                                                     }
-                                                                
-                                                                ?>
+                                                                    ?>
                                                                 </tbody>
                                                             </table>   
                                                         </div>
@@ -315,7 +313,7 @@ include '../dbconn.php';
 
 
     <!-- start footer -->
-    <?php include '../template/footer.php'; ?>
+<?php include '../template/footer.php'; ?>
 
     <!-- ตารางรายการออเดอร์ -->
     <script src="/assets/js/OrderSearch.js"></script>
@@ -323,6 +321,14 @@ include '../dbconn.php';
     <script src="/assets/js/dataTables.js"></script>
     <script>
         var table = $('#ignoreDataTable').DataTable({
+            "oLanguage": {
+                "sLengthMenu": "แสดง _MENU_ แถว ",
+                "sZeroRecords": "ไม่พบข้อมูล",
+                "sInfo": "แสดง _START_ ถึง _END_ ของ _TOTAL_ แถวทั้งหมด",
+                "sInfoEmpty": "แสดง 0 ถึง 0 ของ 0 แถวทั้งหมด",
+                "sInfoFiltered": "(จากแถวทั้งหมด _MAX_ แถว)",
+                "sSearch": "ค้นหา :"},
+            "aaSorting": [[0, 'desc']]
         });
     </script>
 </body>

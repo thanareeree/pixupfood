@@ -342,9 +342,27 @@ include '../dbconn.php';
         <script src="/assets/js/customer-profile.js"></script>
         <script src="/assets/js/dataTables.js"></script>
         <script>
-                                                     var table = $('#normalDatable').DataTable({});
+                                                     var table = $('#normalDatable').DataTable({
+                                                         "oLanguage": {
+                                                             "sLengthMenu": "แสดง _MENU_ แถว ",
+                                                             "sZeroRecords": "ไม่พบข้อมูล",
+                                                             "sInfo": "แสดง _START_ ถึง _END_ ของ _TOTAL_ แถวทั้งหมด",
+                                                             "sInfoEmpty": "แสดง 0 ถึง 0 ของ 0 แถวทั้งหมด",
+                                                             "sInfoFiltered": "(จากแถวทั้งหมด _MAX_ แถว)",
+                                                             "sSearch": "ค้นหา :"},
+                                                           "aaSorting": [[0,'desc']] 
+                                                     });
 
-                                                     var table2 = $('#fastDatable').DataTable({});
+                                                     var table2 = $('#fastDatable').DataTable({
+                                                         "oLanguage": {
+                                                             "sLengthMenu": "แสดง _MENU_ แถว ",
+                                                             "sZeroRecords": "ไม่พบข้อมูล",
+                                                             "sInfo": "แสดง _START_ ถึง _END_ ของ _TOTAL_ แถวทั้งหมด",
+                                                             "sInfoEmpty": "แสดง 0 ถึง 0 ของ 0 แถวทั้งหมด",
+                                                             "sInfoFiltered": "(จากแถวทั้งหมด _MAX_ แถว)",
+                                                             "sSearch": "ค้นหา :"},
+                                                          "aaSorting": [[0,'desc']] 
+                                                     });
 
         </script>
     </body>

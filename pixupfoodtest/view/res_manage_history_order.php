@@ -118,28 +118,28 @@ include '../dbconn.php';
                                             <div class="card">
                                                 <div class="card-content">
                                                     <div class="page-header" style="font-size: 30px; margin-top: 5px">รายการทั้งหมด 
-                                                       <!-- <div class="pull-right" style="width: 350px">
-                                                            <div class="form-group" style="margin-bottom: 15px;">
-                                                                <label class="col-sm-3 control-label" style="font-size: 18px; font-weight: bold" for="textinput">เเสดงผล:</label>
-                                                                <div class="col-sm-9" style="margin-bottom: 15px;">
-                                                                    <select class="form-control"id="monthselect" >
-                                                                        <option value="0">ทุกเดือน</option>
-                                                                        <option value="1">มกราคม</option>
-                                                                        <option value="2">กุมภาพันธ์</option>
-                                                                        <option value="3">มีนาคม</option>
-                                                                        <option value="4">เมษายน</option>
-                                                                        <option value="5">พฤษภาคม</option>
-                                                                        <option value="6">มิถุนายน </option>
-                                                                        <option value="7">กรกฎาคม </option>
-                                                                        <option value="8">สิงหาคม </option>
-                                                                        <option value="9">กันยายน </option>
-                                                                        <option value="10">ตุลาคม </option>
-                                                                        <option value="11">พฤศจิกายน </option>
-                                                                        <option value="12">ธันวาคม </option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                        </div>-->
+                                                        <!-- <div class="pull-right" style="width: 350px">
+                                                             <div class="form-group" style="margin-bottom: 15px;">
+                                                                 <label class="col-sm-3 control-label" style="font-size: 18px; font-weight: bold" for="textinput">เเสดงผล:</label>
+                                                                 <div class="col-sm-9" style="margin-bottom: 15px;">
+                                                                     <select class="form-control"id="monthselect" >
+                                                                         <option value="0">ทุกเดือน</option>
+                                                                         <option value="1">มกราคม</option>
+                                                                         <option value="2">กุมภาพันธ์</option>
+                                                                         <option value="3">มีนาคม</option>
+                                                                         <option value="4">เมษายน</option>
+                                                                         <option value="5">พฤษภาคม</option>
+                                                                         <option value="6">มิถุนายน </option>
+                                                                         <option value="7">กรกฎาคม </option>
+                                                                         <option value="8">สิงหาคม </option>
+                                                                         <option value="9">กันยายน </option>
+                                                                         <option value="10">ตุลาคม </option>
+                                                                         <option value="11">พฤศจิกายน </option>
+                                                                         <option value="12">ธันวาคม </option>
+                                                                     </select>
+                                                                 </div>
+                                                             </div>
+                                                         </div>-->
                                                     </div>
                                                     <!-- ตารางรายการอยู่ระหว่างดำเนินการ -->
                                                     <div class="row">
@@ -187,7 +187,7 @@ include '../dbconn.php';
                                                                             . "ORDER BY updated_status_time DESC, id");
 
                                                                     $i = 1;
-                                                                
+
                                                                     while ($orderIdAllData = $orderNowAllRes->fetch_assoc()) {
                                                                         $order_type = $orderIdAllData["orderType"];
                                                                         $orderIdAll = $orderIdAllData["id"];
@@ -280,8 +280,7 @@ include '../dbconn.php';
                                                                             }
                                                                         }
                                                                     }
-                                                                
-                                                                ?>
+                                                                    ?>
                                                                 </tbody>
                                                             </table>   
                                                         </div>
@@ -361,6 +360,14 @@ include '../dbconn.php';
     <script src="/assets/js/dataTables.js"></script>
     <script>
         var table = $('#historyDataTable').DataTable({
+            "oLanguage": {
+                "sLengthMenu": "แสดง _MENU_ แถว ",
+                "sZeroRecords": "ไม่พบข้อมูล",
+                "sInfo": "แสดง _START_ ถึง _END_ ของ _TOTAL_ แถวทั้งหมด",
+                "sInfoEmpty": "แสดง 0 ถึง 0 ของ 0 แถวทั้งหมด",
+                "sInfoFiltered": "(จากแถวทั้งหมด _MAX_ แถว)",
+                "sSearch": "ค้นหา :"},
+            "aaSorting": [[0, 'desc']]
         });
     </script>
 
