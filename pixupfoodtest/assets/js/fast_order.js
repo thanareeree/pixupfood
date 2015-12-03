@@ -106,6 +106,12 @@ function validateTab(tab) {
                     '&nbsp;กรุณากรอกจำนวนกล่อง</p></div>');
             return false;
         }
+        if (parseInt(boxamount) < 0) {
+            $("#errorStep3").html(' <div class="alert alert-danger" role="alert">' +
+                    '<p style="color: red"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
+                    '&nbsp;กรุณากรอกจำนวนกล่องให้ถูกต้อง</p></div>');
+            return false;
+        }
         $("#errorStep3").html("");
         checkRice();
     } else if (tab == "step4") {

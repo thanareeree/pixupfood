@@ -236,7 +236,7 @@ include '../../dbconn.php';
                                         <?php } ?>
                                     </div>
                                     <div class="row" style="text-align: center; margin-right: 40px;font-size: 20px;font-weight: bold">
-                                        จำนวน : <input type="number" class="form-inline" id="boxamount" style="width:100px"> ชุด
+                                        จำนวน : <input type="number" class="form-inline" id="boxamount" min="1" style="width:100px"> ชุด
                                         <br><br>
                                     </div>
                                 </div>

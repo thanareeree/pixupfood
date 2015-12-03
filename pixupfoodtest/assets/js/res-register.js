@@ -4,10 +4,10 @@ var address = new Array();
 var defaultlatlng = {lat: 13.6524931, lng: 100.4938914};
 $(document).ready(function () {
     //initMap();
-     $('#termsmodal').modal({
-     backdrop: 'static',
-     keyboard: false
-     });
+    $('#termsmodal').modal({
+        backdrop: 'static',
+        keyboard: false
+    });
     $("#termsmodal").modal('show');
 
     $("input[type=checkbox]").on("click", function (e) {
@@ -26,7 +26,7 @@ $(document).ready(function () {
             success: function (data) {
                 if (data.result == "1") {
                     $(".errorEmail").show();
-                     $(".errorEmailInvalid").hide();
+                    $(".errorEmailInvalid").hide();
                     $("#nextbtn").attr("disabled", "disabled");
                 } else if (data.result == "0") {
                     $(".errorEmail").hide();
@@ -40,8 +40,10 @@ $(document).ready(function () {
     $("#resphone").on("keyup", function (e) {
         checkPhone();
     });
-
     $("#resconfirmpwd").on("keyup", function (e) {
+        checkPasswordMatching();
+    });
+    $("#respassword").on("keyup", function (e) {
         checkPasswordMatching();
     });
 
@@ -49,14 +51,17 @@ $(document).ready(function () {
         checkPhone();
         checkPasswordMatching();
         checkValidEmail();
+        var count = $('div.sidetip:hidden').length;
         if ($("#resemail").val() == "" || $("#respassword").val() == "" ||
                 $("#resconfirmpwd").val() == "" || $("#resphone").val() == "" ||
                 $("#resfname").val() == "" || $("#reslname").val() == "") {
             alert("กรอกข้อมูลไม่ครบ");
-            $("#nextbtn").add("disabled");
-
-
-        } else {
+            // $("#nextbtn").add("disabled");
+            $("#nextbtn").attr("disabled", "disabled");
+            checkPhone();
+            checkPasswordMatching();
+            checkValidEmail();
+        } else if(count == 4){
             initMap();
             $(".firststep").hide();
             $(".secondstep").fadeIn(500);
@@ -99,7 +104,7 @@ $(document).ready(function () {
                     alert("ไม่สามารถบันทึกข้อมูลได้\nError : " + data.error);
 
                 }
-               // alert(data);
+                // alert(data);
             }
         });
         e.preventDefault();
@@ -277,9 +282,11 @@ function checkValidEmail() {
     if (!emailReg.test(emil)) {
         $(".errorEmailInvalid").show();
         $("#nextbtn").attr("disabled", "disabled");
+        $(".secondstep").hide();
     } else {
         $(".errorEmailInvalid").hide();
         $("#nextbtn").removeAttr("disabled");
+        checkPasswordMatching();
     }
 }
 
@@ -290,9 +297,12 @@ function checkPhone() {
     if (!emailReg.test(emil)) {
         $(".errorPhoneInvalid").show();
         $("#nextbtn").attr("disabled", "disabled");
+        $(".secondstep").hide();
     } else {
         $(".errorPhoneInvalid").hide();
         $("#nextbtn").removeAttr("disabled");
+        checkPasswordMatching();
+        checkValidEmail();
     }
 
 }
@@ -303,8 +313,10 @@ function checkPasswordMatching() {
     if (pwd != confirmpwd) {
         $(".errorConfirmpwd").show();
         $("#nextbtn").attr("disabled", "disabled");
+        $(".secondstep").hide();
     } else {
         $(".errorConfirmpwd").hide();
         $("#nextbtn").removeAttr("disabled");
+
     }
 }

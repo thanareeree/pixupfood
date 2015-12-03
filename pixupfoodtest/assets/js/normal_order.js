@@ -167,10 +167,19 @@ function validateTab(tab) {
         }
         var minimum = $('.getBoxMinimum').val();
         var boxamt = $('#boxamount').val();
+        var limit = $('#getAmount_box_limit').val();
         if (parseInt(boxamt) < parseInt(minimum)) {
             $("#errorStep1").html(' <div class="alert alert-danger" role="alert">' +
                     '<p style="color: red"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
                     '&nbsp;ขั้นต่ำ ' + minimum + ' ชุด/รายการอาหาร</p></div>');
+            return false;
+        }
+        if (parseInt(boxamt) != "" && parseInt(boxamt) > parseInt(limit)) {
+            
+            $("#errorStep1").html(' <div class="alert alert-danger" role="alert">' +
+                    '<p style="color: red"><i class="glyphicon glyphicon-exclamation-sign"></i>' +
+                    '&nbsp;ร้านสามารถรับรายการสั่งซื้อได้สูงสุด  ' + limit + ' ชุด/วันเท่านั้น </p></div>');
+            $("#errorStep1").show();
             return false;
         }
         $("#errorStep1").html("");

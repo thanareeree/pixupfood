@@ -41,7 +41,7 @@ while ($orderIdAllData = $orderNowAllRes->fetch_assoc()) {
                 . "LEFT JOIN customer ON customer.id = fast_order.customer_id "
                 . "LEFT JOIN shippingAddress ON shippingAddress.id = fast_order.shippingAddress_id "
                 . "LEFT JOIN messenger ON messenger.id = fast_order.messenger_id "
-                . "WHERE fast_order.id = '$orderIdAll' ");
+                . "WHERE fast_order.id = '$orderIdAll' and request_fast_order.accepted = 1 ");
 
         if ($type == 'fetch') {
             while ($data = $dataOrder->fetch_assoc()) {

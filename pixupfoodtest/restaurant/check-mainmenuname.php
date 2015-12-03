@@ -1,8 +1,6 @@
 <?php
 
-session_start();
 include '../dbconn.php';
-$resid = $_SESSION["restdata"]["id"];
 $foodname = $_POST["foodname"];
 
 

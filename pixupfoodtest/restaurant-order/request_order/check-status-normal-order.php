@@ -22,9 +22,9 @@ while ($data = $res->fetch_assoc()) {
                 . "VALUES (null,'$normal_id',now())");
 
         if ($con->error == "") {
-             $b = $sms->send('0000', $data["tel"], "หมายเลขคำสั่งซื้อ:" . " " . $data["order_no"]
+            /* $b = $sms->send('0000', $data["tel"], "หมายเลขคำสั่งซื้อ:" . " " . $data["order_no"]
               . "\nไม่มีร้านตอบรับรายการ"
-              . "\nสามารถสั่งซื้ออาหารได้ที่ pixupfood.com"); 
+              . "\nสามารถสั่งซื้ออาหารได้ที่ pixupfood.com"); */
               $con->query("UPDATE `normal_order` SET status = '7', updated_status_time = now() where id = '$normal_id'");  
             echo $normal_id."ส่งล่ะ";
         }

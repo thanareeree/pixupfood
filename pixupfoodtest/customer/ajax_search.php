@@ -103,14 +103,15 @@ if ($searchby == "foodname") {
 } else if ($searchby == "rest") {
     $numrow = 0;
     if ($searchtxt != "") {
-        $res = $con->query("SELECT DISTINCT restaurant.id, restaurant.name ,restaurant.address, "
-                . "restaurant.detail,  restaurant.tel,restaurant.img_path, restaurant.zone_id,"
-                . " zone.name as zone_name, restaurant.province "
-                . "FROM restaurant "
-                . "JOIN zone ON zone.id = restaurant.zone_id "
-                . "RIGHT JOIN menu ON menu.restaurant_id = restaurant.id "
+        $res = $con->query("SELECT DISTINCT restaurant.id, restaurant.name ,restaurant.address,restaurant.detail,"
+                . " restaurant.tel,restaurant.img_path, restaurant.province, sublocality_level_1 as zone_name "
+                . "FROM menu"
+                . " LEFT JOIN restaurant ON menu.restaurant_id = restaurant.id "
+                . "LEFT JOIN main_menu ON main_menu.id = menu.main_menu_id"
+                . " LEFT JOIN mapping_food_type ON mapping_food_type.menu_id = main_menu.id "
+                . "LEFT JOIN food_type ON food_type.id = mapping_food_type.food_type_id "
                 . "WHERE restaurant.name LIKE '%$searchtxt%' "
-                . "AND restaurant.block = 0 and restaurant.close = 0");
+                . "AND restaurant.block = 0 AND menu.status = 0");
         $numrow = $res->num_rows;
     }
     if ($numrow == 0) {
@@ -130,7 +131,7 @@ if ($searchby == "foodname") {
                 <h4 class="media-heading"><?= $data["name"] ?></h4>
             </td>
             <td>
-                <i class="glyphicon glyphicon-map-marker"></i>&nbsp;<?= ($data["province"] == "กรุงเทพมหานคร") ? 'เขต' . $data["zone_name"] . '&nbsp;' : '' ?> <?= $data["province"] ?> 
+                <i class="glyphicon glyphicon-map-marker"></i>&nbsp;<?=  $data["zone_name"] ?> <?= $data["province"] ?> 
 
             </td>
             <td>
@@ -148,7 +149,7 @@ if ($searchby == "foodname") {
     $numrow = 0;
     if ($lat != "" && $long != "") {
         $res = $con->query("SELECT DISTINCT restaurant.id, restaurant.name ,restaurant.address, "
-                . "restaurant.detail,  restaurant.tel,restaurant.img_path, restaurant.zone_id,"
+                . "restaurant.detail,  restaurant.tel,restaurant.img_path,"
                 . " sublocality_level_1 as zone_name, restaurant.province, ( 3959 * acos( cos( radians(" . $lat . ") ) "
                 . "* cos( radians( x ) ) * cos( radians( y ) - radians(" . $long . ") ) "
                 . "+ sin( radians(" . $lat . ") ) * sin( radians( x ) ) ) ) AS distance "

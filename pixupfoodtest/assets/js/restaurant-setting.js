@@ -1,9 +1,8 @@
 $(document).ready(function () {
     initMap();
-    
-    $("#msgModal").modal('show');
-    
-    
+
+    checkInfo();
+
     $(".btn-pref .btn").click(function () {
         $(".btn-pref .btn").removeClass("btn-warning").addClass("btn-default");
         $(".tab").addClass("active"); // instead of this do the below 
@@ -46,6 +45,24 @@ $(document).ready(function () {
         });
     });
 });
+
+function checkInfo() {
+    $.ajax({
+        url: "/restaurant-setting/check-info.php",
+        type: "POST",
+        dataType: "json",
+          data: {"resid": $("#resIdvalue").val()},
+        success: function (data) {
+           if (data.result == 1) {
+                $("#msgModal").modal('show');
+            } else {
+                 $("#msgModal").modal('hide');
+            }
+           
+        }
+    }); 
+}
+
 
 var mapwrapper = document.createElement('div');
 mapwrapper.className = 'mapwrapper';
@@ -164,7 +181,7 @@ function initMap() {
                 "sublocality_level_1": address.sublocality_level_1, "sublocality_level_2": address.sublocality_level_2,
                 "full": address.full, "country": address.country,
                 "locality": address.locality, "postal_code": address.postal_code, "route": address.route,
-                 "latitude": address.position.lat, "longitude": address.position.lng},
+                "latitude": address.position.lat, "longitude": address.position.lng},
             success: function (data) {
                 if (data.result == "1") {
                     document.location.reload();

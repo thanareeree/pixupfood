@@ -23,6 +23,13 @@ include '../dbconn.php';
                 max-width: 900px;
                 margin: 0 auto;
             }
+            a.fc-more {
+                margin: 1px 3px;
+                font-size: .85em;
+                cursor: pointer;
+                color: black;
+                text-decoration: none;
+            }
         </style>
     </head>
     <body>
@@ -148,13 +155,13 @@ include '../dbconn.php';
                         <div >
                             <div class="col-md-3" style="font-weight: bold;font-size: 16px">ที่อยู่จัดส่ง</div>
                             <div class="col-md-9"><span id="addressData" style="font-size: 16px"></span></div>
-                             <div class="col-md-3" style="font-weight: bold;font-size: 16px">วัน/ช่วงเวลาที่นัดรับ</div>
+                            <div class="col-md-3" style="font-weight: bold;font-size: 16px">วัน/ช่วงเวลาที่นัดรับ</div>
                             <div class="col-md-9"><span id="timeData" style="font-size: 16px"></span></div>
-                             <div class="col-md-3" style="font-weight: bold;font-size: 16px">สถานะรายการ</div>
-                             <div class="col-md-9" style="font-size: 16px"><span id="status"></span></div>
-                              <div class="col-md-3" style="font-weight: bold;font-size: 16px">พนักงานจัดส่ง</div>
-                             <div class="col-md-9" style="font-size: 16px"><span id="messData"></span></div>
-                            
+                            <div class="col-md-3" style="font-weight: bold;font-size: 16px">สถานะรายการ</div>
+                            <div class="col-md-9" style="font-size: 16px"><span id="status"></span></div>
+                            <div class="col-md-3" style="font-weight: bold;font-size: 16px">พนักงานจัดส่ง</div>
+                            <div class="col-md-9" style="font-size: 16px"><span id="messData"></span></div>
+
                         </div>
                     </div> 
                     <button type="button"  class="btn btn-default" data-dismiss="modal"style="margin-left: 500px;margin-top: 30px" >ปิด</button>
@@ -200,7 +207,7 @@ include '../dbconn.php';
                 lang: 'th',
                 eventColor: 'orange',
                 eventLimit: true,
-                eventClick: function (event) {
+                eventClick: function (event, jsEvent, view) {
                     $("#calendarModal").modal('show');
                     $("#ShowOrderno").html(event.id);
                     $("#addressData").html(event.full_address);
@@ -208,6 +215,16 @@ include '../dbconn.php';
                     $("#messData").html(event.name);
                     $("#status").html(event.description);
                     //alert("Event ID: " + event.id + event.full_address + event.name);
+                },
+                eventRender: function (event, element) {
+                    element.attr('href', 'javascript:void(0);');
+                    element.click(function () {
+                        $("#startTime").html(moment(event.start).format('MMM Do h:mm A'));
+                        $("#endTime").html(moment(event.end).format('MMM Do h:mm A'));
+                        $("#eventInfo").html(event.description);
+                        $("#eventLink").attr('href', event.url);
+                        $("#eventContent").dialog({modal: true, title: event.title, width: 350});
+                    });
                 }
             });
         });

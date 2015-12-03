@@ -50,8 +50,9 @@ include '../api/islogin.php';
         $resNameData = $resNameRes->fetch_assoc();
         ?>
         <?php include '../template/customer-navbar.php'; ?>
-        <input type="hidden" value="<?= $resid ?>" class="getResId" >
+        <input type="hidden" value="<?= $resNameData["amount_box_limit"] ?>" id="getAmount_box_limit" >
         <input type="hidden" value="<?= $cusid ?>" class="getCusId" >
+          <input type="hidden" value="<?= $resid ?>" class="getResId" >
         <input type="hidden" value="<?= $resNameData["amount_box_minimum"] ?>" class="getBoxMinimum" >
         <!-- edit head -->
         <section id="restaurant_view_head">
@@ -205,7 +206,7 @@ include '../api/islogin.php';
                                                         <?php } ?>
                                                     </div><br><br>
                                                     <div class="row" style="text-align: center;font-size: 20px">
-                                                        จำนวน : <input type="number" class="form-inline" id="boxamount" style="width:100px"> ชุด 
+                                                        จำนวน : <input type="number" class="form-inline" min="1"  max="<?= $resNameData["amount_box_limit"] ?>" id="boxamount" style="width:100px"> ชุด 
                                                         <br><br>
                                                     </div>
                                                     <div id="errorStep1"></div>
