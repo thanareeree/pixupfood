@@ -1,13 +1,14 @@
 <?php
-$servername = "db.pixupfood.com";
-$db_username = "pixupfood";
-$db_password = "administrator";
+$servername = "localhost";
+$db_username = "root";
+$db_password = "";
 $dbname = "pixupfood";
-
+/*
 $servername = "db.chakree.me";
 $db_username = "pixupfood";
 $db_password = "pixupfood";
 $dbname = "pixupfood";
+*/
 
 
 
